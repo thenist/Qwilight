@@ -1,0 +1,75 @@
+﻿<Canvas
+    x:Class="Qwilight.View.EventNoteWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    DataContext="{Binding EventNoteValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding NewEventNote, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding EventNoteName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding EventNoteNameAssist, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
+                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" VerticalAlignment="Stretch" Command="{Binding SetEventNoteCommand}" Content="{Binding NewEventNote, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding EventNoteName, Converter={StaticResource BoolModifier}}" />
+                </Grid>
+                <ListView Grid.Row="2" Style="{StaticResource PointableNoteFilesView}" x:Name="NoteFileInput" ItemsSource="{Binding NoteFileCollection}" SelectedItem="{Binding NoteFile}" PreviewKeyDown="OnNoteFileView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Border Style="{StaticResource StandardPanelSquareMargin0}" BorderBrush="{Binding LevelPaint}" BorderThickness="0 0 1 0">
+                                    <Image Source="{Binding NoteDrawing}" Width="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                </Border>
+                                <Image Grid.Column="1" Source="{Binding HandledWallDrawing}" Width="{Binding HandledWallLength, Source={StaticResource BaseUI}}" Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                <TextBlock Grid.Column="2" Style="{StaticResource VNarrowTextView}" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" HorizontalAlignment="Left" />
+                                <Grid Grid.Column="3">
+                                    <StackPanel VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" FontSize="{Binding WantLevelIDFontLevel, Source={StaticResource BaseUI}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding FittedText}" Foreground="{StaticResource FittedTextPaint}" FontSize="{Binding FittedTextFontLevel, Source={StaticResource BaseUI}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding GenreText}" Foreground="{StaticResource GenrePaint}" FontSize="{Binding GenreFontLevel, Source={StaticResource BaseUI}}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <Image Source="{Binding BannerDrawing}" Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Visibility="{Binding BannerDrawing, Converter={StaticResource VisibilityModifier}}" HorizontalAlignment="Right">
+                                        <Image.OpacityMask>
+                                            <LinearGradientBrush StartPoint="0.0,0.0" EndPoint="1.0,0.0">
+                                                <LinearGradientBrush.GradientStops>
+                                                    <GradientStop Offset="0" Color="Transparent" />
+                                                    <GradientStop Offset="1" Color="Black" />
+                                                </LinearGradientBrush.GradientStops>
+                                            </LinearGradientBrush>
+                                        </Image.OpacityMask>
+                                    </Image>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <TextBlock Grid.Row="3" Style="{StaticResource StandardTextView}" Text="{Binding ModifyPositionAssist, Source={StaticResource LanguageSystem}}" />
+            </Grid>
+        </Border>
+    </Grid>
+</Canvas>

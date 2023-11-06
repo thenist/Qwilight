@@ -1,0 +1,142 @@
+﻿<TabItem
+    x:Class="Qwilight.View.DetailedConfigureWindow"
+    xmlns:view="clr-namespace:Qwilight.View"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Style="{StaticResource StandardPageItem}"
+    Header="{Binding DetailedConfigureText, Source={StaticResource LanguageSystem}}"
+    DataContext="{Binding ConfigureValue, Source={StaticResource ViewModels}}">
+    <ScrollViewer>
+        <StackPanel>
+            <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ComponentConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DetailedSet, Converter={StaticResource UnitModifier}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding MainSetContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <view:BinInput Lowest="1" Highest="{Binding CPUCount}" Value="{Binding CompilingBin, Source={StaticResource Configure}}" Format="{Binding CountContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding CompilingBinText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <view:BinInput Lowest="1" Highest="{Binding CPUCount}" Value="{Binding LoadingBin, Source={StaticResource Configure}}" Format="{Binding CountContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding LoadingBinText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <view:BinInput Lowest="1" Highest="{Binding CPUCount}" Value="{Binding UIBin, Source={StaticResource Configure}}" Format="{Binding CountContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding UIBinText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <ContentControl IsEnabled="{Binding MainValue.IsNoteFileMode, Source={StaticResource ViewModels}}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <RadioButton Style="{StaticResource StandardOInput}" IsChecked="{Binding LoopUnit1000}">1,000 Hz</RadioButton>
+                        <RadioButton Style="{StaticResource StandardOInput}" IsChecked="{Binding LoopUnit2000}">2,000 Hz</RadioButton>
+                        <RadioButton Style="{StaticResource StandardOInput}" IsChecked="{Binding LoopUnit4000}">4,000 Hz</RadioButton>
+                        <RadioButton Style="{StaticResource StandardOInput}" IsChecked="{Binding LoopUnit8000}">8,000 Hz</RadioButton>
+                    </StackPanel>
+                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding LoopUnitText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                </Grid>
+            </ContentControl>
+            <Separator Style="{StaticResource StandardHr}" />
+            <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding AudioComponentConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DetailedAudioItemCount}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AudioItemCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DetailedAudioHandlerItemCount}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AudioHandlerItemCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DetailedHandlingAudioCount}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding HandlingAudioCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DetailedAudioUnitStatus, Converter={StaticResource FormatModifier}, ConverterParameter='0.##％'}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AudioUnitUsageText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AudioDate, Source={StaticResource AudioSystem}}" HorizontalAlignment="Right" />
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AudioDateText, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding AudioDateHTMLText, Source={StaticResource LanguageSystem}}" Command="{Binding OpenAsCommand}" CommandParameter="{Binding AudioDateHTML, Source={StaticResource AudioSystem}}" />
+                </StackPanel>
+            </Grid>
+            <Separator Style="{StaticResource StandardHr}" />
+            <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding DrawingComponentConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DetailedNoteDrawingCount}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding NoteDrawingCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DetailedDrawingItemCount}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding DrawingItemCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Separator Style="{StaticResource StandardHr}" />
+            <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding MediaComponentConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DetailedMediaItemCount}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding MediaItemCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DetailedMediaHandlerItemCount}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding MediaHandlerItemCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</TabItem>

@@ -1,0 +1,138 @@
+﻿<Canvas
+    x:Class="Qwilight.View.TwilightConfigureWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:quic="clr-namespace:Qwilight.UIComponent"
+    DataContext="{Binding TwilightConfigure, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <ScrollViewer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding TwilightConfigure, Source={StaticResource LanguageSystem}}" />
+                        <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding AutoEnterNotifySite, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+                                <ComboBox.Items>
+                                    <quic:AutoEnterSite Data="{StaticResource AutoEnter}" />
+                                    <quic:AutoEnterSite Data="{StaticResource AutoEnterSignedIn}" />
+                                    <quic:AutoEnterSite Data="{StaticResource WaitSite}" />
+                                </ComboBox.Items>
+                            </ComboBox>
+                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AutoEnterNotifySiteContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding AutoEnterDefaultSite, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+                                <ComboBox.Items>
+                                    <quic:AutoEnterSite Data="{StaticResource AutoEnter}" />
+                                    <quic:AutoEnterSite Data="{StaticResource AutoEnterSignedIn}" />
+                                    <quic:AutoEnterSite Data="{StaticResource WaitSite}" />
+                                </ComboBox.Items>
+                            </ComboBox>
+                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AutoEnterDefaultSiteContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding AutoEnterPlatformSite, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+                                <ComboBox.Items>
+                                    <quic:AutoEnterSite Data="{StaticResource AutoEnter}" />
+                                    <quic:AutoEnterSite Data="{StaticResource AutoEnterSignedIn}" />
+                                    <quic:AutoEnterSite Data="{StaticResource WaitSite}" />
+                                </ComboBox.Items>
+                            </ComboBox>
+                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AutoEnterPlatformSiteContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                        </Grid>
+                        <StackPanel Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
+                            <Separator Style="{StaticResource StandardHr}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding SilentSiteCompetence, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+                                    <ComboBox.Items>
+                                        <quic:SilentSiteCompetence Data="{StaticResource SilentSiteCallable}" />
+                                        <quic:SilentSiteCompetence Data="{StaticResource SilentSiteAvatar}" />
+                                        <quic:SilentSiteCompetence Data="{StaticResource SilentSiteUbuntu}" />
+                                        <quic:SilentSiteCompetence Data="{StaticResource SilentSiteVoid}" />
+                                    </ComboBox.Items>
+                                </ComboBox>
+                                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding SilentSiteCompetenceContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding NotifyUbuntuCompetence, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+                                    <ComboBox.Items>
+                                        <quic:NotifyUbuntuCompetence Data="{StaticResource NotifyUbuntu}" />
+                                        <quic:NotifyUbuntuCompetence Data="{StaticResource NotNotifyUbuntu}" />
+                                    </ComboBox.Items>
+                                </ComboBox>
+                                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding NotifyUbuntuCompetenceContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding DefaultBundleCompetence, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+                                    <quic:BundleCompetence Data="{StaticResource BundleCallable}" />
+                                    <quic:BundleCompetence Data="{StaticResource BundleAvatar}" />
+                                    <quic:BundleCompetence Data="{StaticResource BundleUbuntu}" />
+                                    <quic:BundleCompetence Data="{StaticResource BundleVoid}" />
+                                </ComboBox>
+                                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding DefaultBundleCompetenceContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding IOCompetence, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+                                    <quic:IOCompetence Data="{StaticResource IOCallable}" />
+                                    <quic:IOCompetence Data="{StaticResource IOAvatar}" />
+                                    <quic:IOCompetence Data="{StaticResource IOUbuntu}" />
+                                    <quic:IOCompetence Data="{StaticResource IOVoid}" />
+                                </ComboBox>
+                                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding IOCompetenceContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding NotifySaveBundleCompetence, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+                                    <quic:NotifySaveBundleCompetence Data="{StaticResource NotifySaveBundleCallable}" />
+                                    <quic:NotifySaveBundleCompetence Data="{StaticResource NotifySaveBundleAvatar}" />
+                                    <quic:NotifySaveBundleCompetence Data="{StaticResource NotifySaveBundleUbuntu}" />
+                                    <quic:NotifySaveBundleCompetence Data="{StaticResource NotifySaveBundleVoid}" />
+                                </ComboBox>
+                                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding NotifySaveBundleCompetenceContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Canvas>

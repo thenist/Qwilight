@@ -1,0 +1,490 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <FontFamily x:Key="DefaultFontFamily">Century Gothic</FontFamily>
+
+    <CornerRadius x:Key="StandardEllipse">4.0</CornerRadius>
+    <CornerRadius x:Key="WindowEllipse">8.0</CornerRadius>
+
+    <Thickness x:Key="StandardEdge">1.0</Thickness>
+    <Thickness x:Key="StandardMargin">5.0</Thickness>
+    <Thickness x:Key="StandardHMargin">5.0 0.0</Thickness>
+    <Thickness x:Key="StandardVMargin">0.0 5.0</Thickness>
+
+    <system:Double x:Key="FontLevel0">12.0</system:Double>
+    <system:Double x:Key="FontLevel1">20.0</system:Double>
+
+    <Color x:Key="NotPointedColor">DeepPink</Color>
+    <Color x:Key="PointedColor">DeepSkyBlue</Color>
+
+    <SolidColorBrush x:Key="NotPointedPaint" Color="{StaticResource NotPointedColor}" />
+    <SolidColorBrush x:Key="PointedPaint" Color="{StaticResource PointedColor}" />
+    
+    <SolidColorBrush x:Key="SiteDatePaint" Color="{Binding SiteDateColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="SiteEnterPaint" Color="{Binding SiteEnterColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="SiteQuitPaint" Color="{Binding SiteQuitColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="SiteHrefPaint" Color="{Binding SiteHrefColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="SiteTitlePaint" Color="{Binding SiteTitleColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="SiteArtistPaint" Color="{Binding SiteArtistColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="SiteGenrePaint" Color="{Binding SiteGenreColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="SiteStandPaint" Color="{Binding SiteStandColor, Source={StaticResource BaseUI}}" />
+    
+    <SolidColorBrush x:Key="EventNoteNamePaint" Color="{Binding EventNoteNameColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="TitlePaint" Color="{Binding TitleColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="ArtistPaint" Color="{Binding ArtistColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="GenrePaint" Color="{Binding GenreColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="WantLevelIDPaint" Color="{Binding WantLevelIDColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="FittedTextPaint" Color="{Binding FittedTextColor, Source={StaticResource BaseUI}}" />
+
+    <SolidColorBrush x:Key="FilePaint" Color="{Binding FileColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="JudgmentStagePaint" Color="{Binding JudgmentStageColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="TotalNotesPaint" Color="{Binding TotalNotesColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="HighestInputCountPaint" Color="{Binding HighestInputCountColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="LengthPaint" Color="{Binding LengthColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="BPMPaint" Color="{Binding BPMColor, Source={StaticResource BaseUI}}" />
+    
+    <SolidColorBrush x:Key="CommentDatePaint" Color="{Binding CommentDateColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="CommentPointPaint" Color="{Binding CommentPointColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="CommentStandPaint" Color="{Binding CommentStandColor, Source={StaticResource BaseUI}}" />
+    <SolidColorBrush x:Key="CommentNamePaint" Color="{Binding CommentNameColor, Source={StaticResource BaseUI}}" />
+
+    <SolidColorBrush x:Key="PanelPaint" Color="Black" Opacity="0.875" />
+
+    <!-- ScrollViewer -->
+    <Style TargetType="ScrollViewer" BasedOn="{StaticResource MaterialDesignScrollViewer}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- ScrollBar -->
+    <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- ToolTip -->
+    <Style TargetType="ToolTip" BasedOn="{StaticResource MaterialDesignToolTip}">
+        <Setter Property="FontFamily" Value="{Binding FontFamilyValue, Source={StaticResource Configure}}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- Canvas -->
+    <Style TargetType="Canvas">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+    <Style x:Key="StandardModalWindow" TargetType="Canvas">
+        <Setter Property="Background" Value="{Binding ModalPaint}" />
+        <Setter Property="Canvas.ZIndex" Value="{Binding Zvalue}" />
+        <Setter Property="Visibility" Value="{Binding IsOpened, Mode=OneWay, Converter={StaticResource VisibilityModifier}}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- Grid -->
+    <Style TargetType="Grid">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+    <Style x:Key="StandardWindow" TargetType="Grid">
+        <Setter Property="Width" Value="{Binding Length}" />
+        <Setter Property="Height" Value="{Binding Height}" />
+        <Setter Property="Canvas.Left" Value="{Binding Position0}" />
+        <Setter Property="Canvas.Top" Value="{Binding Position1}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- Border -->
+    <Style x:Key="StandardPanel" TargetType="Border">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="White" />
+        <Setter Property="BorderThickness" Value="{StaticResource StandardEdge}" />
+        <Setter Property="CornerRadius" Value="{StaticResource StandardEllipse}" />
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+    <Style x:Key="StandardPanelSquare" TargetType="Border" BasedOn="{StaticResource StandardPanel}">
+        <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style x:Key="StandardPanelMargin0" TargetType="Border" BasedOn="{StaticResource StandardPanel}">
+        <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style x:Key="StandardPanelSquareMargin0" TargetType="Border" BasedOn="{StaticResource StandardPanel}">
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style x:Key="WindowStandardPanel" TargetType="Border" BasedOn="{StaticResource StandardPanelMargin0}">
+        <Setter Property="Background" Value="{StaticResource PanelPaint}" />
+        <Setter Property="CornerRadius" Value="{Binding WindowEllipse, Source={StaticResource Configure}}" />
+    </Style>
+
+    <!-- GroupBox -->
+    <Style x:Key="StandardGroupView" TargetType="GroupBox" BasedOn="{StaticResource MaterialDesignGroupBox}">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- TextBlock -->
+    <Style x:Key="StandardTextView" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Visibility" Value="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource VisibilityModifier}}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+    <Style x:Key="VNarrowTextView" TargetType="TextBlock" BasedOn="{StaticResource StandardTextView}">
+        <Setter Property="Margin" Value="{StaticResource StandardHMargin}" />
+    </Style>
+    <Style x:Key="HNarrowTextView" TargetType="TextBlock" BasedOn="{StaticResource StandardTextView}">
+        <Setter Property="Margin" Value="{StaticResource StandardVMargin}" />
+    </Style>
+    <Style x:Key="StandardTextViewMargin0" TargetType="TextBlock" BasedOn="{StaticResource StandardTextView}">
+        <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style x:Key="LFTextView" TargetType="TextBlock" BasedOn="{StaticResource StandardTextView}">
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style x:Key="BaseUITextView" TargetType="TextBlock">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="1" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- ProgressBar -->
+    <Style x:Key="StandardStatusView" TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+    <Style x:Key="WaitingStatusView" TargetType="ProgressBar" BasedOn="{StaticResource StandardStatusView}">
+        <Setter Property="IsIndeterminate" Value="True" />
+    </Style>
+
+    <!-- Slider -->
+    <Style x:Key="StandardSlider" TargetType="Slider" BasedOn="{StaticResource MaterialDesignSlider}">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+        <Setter Property="IsSnapToTickEnabled" Value="True" />
+        <Setter Property="IsMoveToPointEnabled" Value="True" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- TabControl -->
+    <Style x:Key="StandardPageView" TargetType="TabControl" BasedOn="{StaticResource MaterialDesignNavigationRailTabControl}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TabStripPlacement" Value="Top" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- TabItem -->
+    <Style x:Key="StandardPageItem" TargetType="TabItem" BasedOn="{StaticResource MaterialDesignNavigationRailTabItem}">
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Padding" Value="10" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- MenuItem -->
+    <Style x:Key="StandardItem" TargetType="MenuItem" BasedOn="{StaticResource MaterialDesignMenuItem}">
+        <Setter Property="FontFamily" Value="{Binding FontFamilyValue, Source={StaticResource Configure}}" />
+        <Setter Property="FontSize" Value="{StaticResource FontLevel0}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- TextBox -->
+    <Style x:Key="StandardTextInput" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+        <Setter Property="Padding" Value="{StaticResource StandardMargin}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+
+        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="{StaticResource StandardEllipse}" />
+    </Style>
+
+    <!-- PasswordBox -->
+    <Style x:Key="StandardPwInput" TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+        <Setter Property="Padding" Value="{StaticResource StandardMargin}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+
+        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="{StaticResource StandardEllipse}" />
+    </Style>
+
+    <!-- Separator -->
+    <Style x:Key="StandardHr" TargetType="Separator" BasedOn="{StaticResource MaterialDesignSeparator}">
+        <Setter Property="Margin" Value="25" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- GridSplitter -->
+    <Style x:Key="StandardSplitter" TargetType="GridSplitter" BasedOn="{StaticResource MaterialDesignGridSplitter}">
+        <Setter Property="ResizeBehavior" Value="PreviousAndNext" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- CheckBox -->
+    <Style x:Key="StandardVInput" TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
+        <Setter Property="FontFamily" Value="{Binding FontFamilyValue, Source={StaticResource Configure}}" />
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- ComboBox -->
+    <Style x:Key="StandardItemsInput" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+        <Setter Property="Padding" Value="{StaticResource StandardMargin}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+
+        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="{StaticResource StandardEllipse}" />
+    </Style>
+
+    <!-- RadioButton -->
+    <Style x:Key="StandardOInput" TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignRadioButton}">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- ToggleButton -->
+    <Style x:Key="StandardIOInput" TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignSwitchToggleButton}">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- Button -->
+    <Style x:Key="StandardInput" TargetType="Button" BasedOn="{StaticResource MaterialDesignOutlinedButton}">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="{StaticResource StandardEllipse}" />
+    </Style>
+    <Style x:Key="StandardInputPadding0" TargetType="Button" BasedOn="{StaticResource StandardInput}">
+        <Setter Property="Padding" Value="0" />
+    </Style>
+    <Style x:Key="BaseUIInput" TargetType="Button">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ContentControl x:Name="Contents" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.125" To="1.0" Storyboard.TargetProperty="RenderTransform.ScaleX" />
+                                        <DoubleAnimation Duration="0:0:0.125" To="1.0" Storyboard.TargetProperty="RenderTransform.ScaleY" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetProperty="Opacity" To="0.5" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.125" To="1.25" Storyboard.TargetProperty="RenderTransform.ScaleX" />
+                                        <DoubleAnimation Duration="0:0:0.125" To="1.25" Storyboard.TargetProperty="RenderTransform.ScaleY" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentControl.RenderTransform>
+                            <ScaleTransform>
+                                <ScaleTransform.CenterX>
+                                    <Binding ElementName="Contents" Path="Width" Converter="{StaticResource MultiplyModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Double>0.5</system:Double>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </ScaleTransform.CenterX>
+                                <ScaleTransform.CenterY>
+                                    <Binding ElementName="Contents" Path="Height" Converter="{StaticResource MultiplyModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Double>0.5</system:Double>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </ScaleTransform.CenterY>
+                            </ScaleTransform>
+                        </ContentControl.RenderTransform>
+                    </ContentControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+
+    <!-- Image -->
+    <Style x:Key="StandardView" TargetType="Image">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+        <Setter Property="Visibility" Value="{Binding Source, RelativeSource={RelativeSource Self}, Converter={StaticResource VisibilityModifier}}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+    <Style x:Key="StandardViewMargin0" TargetType="Image" BasedOn="{StaticResource StandardView}">
+        <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style x:Key="NarrowView" TargetType="Image" BasedOn="{StaticResource StandardView}">
+        <Setter Property="Margin" Value="5 0" />
+    </Style>
+
+    <!-- ListViewItem -->
+    <Style x:Key="StandardPointableItemsViewItem" TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+        <Setter Property="BorderBrush" Value="{Binding PointedPaint}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="0" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderThickness" Value="{StaticResource StandardEdge}" />
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ThicknessAnimation Duration="0:0:0.125" To="{StaticResource StandardMargin}" Storyboard.TargetProperty="Margin" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ThicknessAnimation Duration="0:0:0.125" Storyboard.TargetProperty="Margin" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="PointableNoteFilesViewItem" TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+        <Setter Property="Background" Value="{StaticResource PanelPaint}" />
+        <Setter Property="BorderBrush" Value="{Binding LevelPaint}" />
+        <Setter Property="BorderThickness" Value="{StaticResource StandardEdge}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Margin" Value="{Binding NoteFileMargin, Source={StaticResource BaseUI}}" />
+        <Setter Property="Padding" Value="0" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ThicknessAnimation Duration="0:0:0.125" To="1 1 0 1" Storyboard.TargetProperty="Margin" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ThicknessAnimation Duration="0:0:0.125" Storyboard.TargetProperty="Margin" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ListView -->
+    <Style x:Key="StandardPointableItemsView" TargetType="ListView" BasedOn="{StaticResource MaterialDesignListView}">
+        <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel" />
+        <Setter Property="SelectionMode" Value="Single" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource StandardPointableItemsViewItem}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+    <Style x:Key="PointableNoteFilesView" TargetType="ListView" BasedOn="{StaticResource StandardPointableItemsView}">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource PointableNoteFilesViewItem}" />
+    </Style>
+</ResourceDictionary>

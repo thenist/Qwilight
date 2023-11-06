@@ -1,0 +1,218 @@
+﻿<Canvas
+    x:Class="Qwilight.View.NoteFileWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    DataContext="{Binding NoteFileValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding Drawing}" />
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding Title}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" x:Name="EntryView" ItemsSource="{Binding NoteFileCollection}" SelectedItem="{Binding NoteFile}" MouseDoubleClick="OnPointLower">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}">
+                                <Grid Visibility="{Binding IsAltDrawing, Converter={StaticResource VisibilityNotModifier}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Style="{StaticResource StandardPanelSquareMargin0}" BorderBrush="{Binding LevelPaint}" BorderThickness="0 0 1 0">
+                                        <Image Source="{Binding NoteDrawing}" Width="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                    </Border>
+                                    <Image Grid.Column="1" Source="{Binding HandledWallDrawing}" Width="{Binding HandledWallLength, Source={StaticResource BaseUI}}" Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                    <TextBlock Grid.Column="2" Style="{StaticResource VNarrowTextView}" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" HorizontalAlignment="Left" />
+                                    <Grid Grid.Column="3">
+                                        <StackPanel VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" FontSize="{Binding WantLevelIDFontLevel, Source={StaticResource BaseUI}}" />
+                                                <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding FittedText}" Foreground="{StaticResource FittedTextPaint}" FontSize="{Binding FittedTextFontLevel, Source={StaticResource BaseUI}}" />
+                                                <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
+                                                <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding GenreText}" Foreground="{StaticResource GenrePaint}" FontSize="{Binding GenreFontLevel, Source={StaticResource BaseUI}}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Image Source="{Binding BannerDrawing}" Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Visibility="{Binding BannerDrawing, Converter={StaticResource VisibilityModifier}}" HorizontalAlignment="Right">
+                                            <Image.OpacityMask>
+                                                <LinearGradientBrush StartPoint="0.0,0.0" EndPoint="1.0,0.0">
+                                                    <LinearGradientBrush.GradientStops>
+                                                        <GradientStop Offset="0" Color="Transparent" />
+                                                        <GradientStop Offset="1" Color="Black" />
+                                                    </LinearGradientBrush.GradientStops>
+                                                </LinearGradientBrush>
+                                            </Image.OpacityMask>
+                                        </Image>
+                                    </Grid>
+                                </Grid>
+                                <Image Style="{StaticResource StandardView}" Source="{Binding LogicalDrawing}" />
+                                <Grid Visibility="{Binding EssentialDrawing, Converter={StaticResource VisibilityModifier}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Style="{StaticResource StandardView}" Source="{Binding EssentialDrawing}" />
+                                    <Grid Grid.Column="1">
+                                        <StackPanel VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" FontSize="{Binding WantLevelIDFontLevel, Source={StaticResource BaseUI}}" />
+                                                <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
+                                            </StackPanel>
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding EditorContents, Source={StaticResource LanguageSystem}}" Command="{Binding EditNoteCommand}" Visibility="{Binding MainValue.IsNoteFileNotLogical,  Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" />
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding ModifyFavoriteEntry, Source={StaticResource LanguageSystem}}" PreviewMouseDown="OnViewItems" Visibility="{Binding MainValue.IsNoteFileNotLogical, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}">
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Style="{StaticResource StandardItem}" Command="{Binding ModifyFavoriteEntryCommand}" Header="{Binding SetNoteFile, Source={StaticResource LanguageSystem}}">
+                                    <MenuItem.CommandParameter>
+                                        <system:Int32>0</system:Int32>
+                                    </MenuItem.CommandParameter>
+                                </MenuItem>
+                                <MenuItem Style="{StaticResource StandardItem}" Command="{Binding ModifyFavoriteEntryCommand}" Header="{Binding SetEntryItem, Source={StaticResource LanguageSystem}}">
+                                    <MenuItem.CommandParameter>
+                                        <system:Int32>1</system:Int32>
+                                    </MenuItem.CommandParameter>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding WipeHandled, Source={StaticResource LanguageSystem}}" PreviewMouseDown="OnViewItems" Visibility="{Binding MainValue.IsNoteFileNotLogical, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}">
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Style="{StaticResource StandardItem}" Command="{Binding WipeHandledCommand}" Header="{Binding SetNoteFile, Source={StaticResource LanguageSystem}}">
+                                    <MenuItem.CommandParameter>
+                                        <system:Int32>0</system:Int32>
+                                    </MenuItem.CommandParameter>
+                                </MenuItem>
+                                <MenuItem Style="{StaticResource StandardItem}" Command="{Binding WipeHandledCommand}" Header="{Binding SetEntryItem, Source={StaticResource LanguageSystem}}">
+                                    <MenuItem.CommandParameter>
+                                        <system:Int32>1</system:Int32>
+                                    </MenuItem.CommandParameter>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding NewEventNote, Source={StaticResource LanguageSystem}}" Command="{Binding NewEventNoteCommand}" Visibility="{Binding MainValue.IsNoteFileNotLogical,Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" />
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding ModifyEventNoteName, Source={StaticResource LanguageSystem}}" Command="{Binding ModifyEventNoteNameCommand}" Visibility="{Binding MainValue.IsEntryItemEventNote, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}" />
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding SaveAsBundle, Source={StaticResource LanguageSystem}}" Command="{Binding SaveAsBundleCommand}" Visibility="{Binding MainValue.CanSaveAsBundle, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}" />
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding NoteFormat, Source={StaticResource LanguageSystem}}" PreviewMouseDown="OnViewItems" Visibility="{Binding MainValue.IsNoteFileNotLogical, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}">
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding SetNoteFile, Source={StaticResource LanguageSystem}}">
+                                    <CheckBox Style="{StaticResource StandardVInput}" Command="{Binding NoteFileFormatIDCommand}" Content="{Binding AutoText, Source={StaticResource LanguageSystem}}">
+                                        <CheckBox.IsChecked>
+                                            <Binding Path="NoteFormatID" Source="{StaticResource Configure}" Converter="{StaticResource BoolModifier}" Mode="OneWay">
+                                                <Binding.ConverterParameter>
+                                                    <system:Int32>-1</system:Int32>
+                                                </Binding.ConverterParameter>
+                                            </Binding>
+                                        </CheckBox.IsChecked>
+                                        <CheckBox.CommandParameter>
+                                            <system:Int32>-1</system:Int32>
+                                        </CheckBox.CommandParameter>
+                                    </CheckBox>
+                                    <CheckBox Style="{StaticResource StandardVInput}" Command="{Binding NoteFileFormatIDCommand}" Content="{Binding NoteFormatIDText932, Source={StaticResource LanguageSystem}}">
+                                        <CheckBox.IsChecked>
+                                            <Binding Path="NoteFormatID" Source="{StaticResource Configure}" Converter="{StaticResource BoolModifier}" Mode="OneWay">
+                                                <Binding.ConverterParameter>
+                                                    <system:Int32>932</system:Int32>
+                                                </Binding.ConverterParameter>
+                                            </Binding>
+                                        </CheckBox.IsChecked>
+                                        <CheckBox.CommandParameter>
+                                            <system:Int32>932</system:Int32>
+                                        </CheckBox.CommandParameter>
+                                    </CheckBox>
+                                    <CheckBox Style="{StaticResource StandardVInput}" Command="{Binding NoteFileFormatIDCommand}" Content="{Binding NoteFormatIDText936, Source={StaticResource LanguageSystem}}">
+                                        <CheckBox.IsChecked>
+                                            <Binding Path="NoteFormatID" Source="{StaticResource Configure}" Converter="{StaticResource BoolModifier}" Mode="OneWay">
+                                                <Binding.ConverterParameter>
+                                                    <system:Int32>936</system:Int32>
+                                                </Binding.ConverterParameter>
+                                            </Binding>
+                                        </CheckBox.IsChecked>
+                                        <CheckBox.CommandParameter>
+                                            <system:Int32>936</system:Int32>
+                                        </CheckBox.CommandParameter>
+                                    </CheckBox>
+                                    <CheckBox Style="{StaticResource StandardVInput}" Command="{Binding NoteFileFormatIDCommand}" Content="{Binding NoteFormatIDText949, Source={StaticResource LanguageSystem}}">
+                                        <CheckBox.IsChecked>
+                                            <Binding Path="NoteFormatID" Source="{StaticResource Configure}" Converter="{StaticResource BoolModifier}" Mode="OneWay">
+                                                <Binding.ConverterParameter>
+                                                    <system:Int32>949</system:Int32>
+                                                </Binding.ConverterParameter>
+                                            </Binding>
+                                        </CheckBox.IsChecked>
+                                        <CheckBox.CommandParameter>
+                                            <system:Int32>949</system:Int32>
+                                        </CheckBox.CommandParameter>
+                                    </CheckBox>
+                                    <CheckBox Style="{StaticResource StandardVInput}" Command="{Binding NoteFileFormatIDCommand}" Content="{Binding NoteFormatIDText65001, Source={StaticResource LanguageSystem}}">
+                                        <CheckBox.IsChecked>
+                                            <Binding Path="NoteFormatID" Source="{StaticResource Configure}" Converter="{StaticResource BoolModifier}" Mode="OneWay">
+                                                <Binding.ConverterParameter>
+                                                    <system:Int32>65001</system:Int32>
+                                                </Binding.ConverterParameter>
+                                            </Binding>
+                                        </CheckBox.IsChecked>
+                                        <CheckBox.CommandParameter>
+                                            <system:Int32>65001</system:Int32>
+                                        </CheckBox.CommandParameter>
+                                    </CheckBox>
+                                </MenuItem>
+                                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding SetEntryItem, Source={StaticResource LanguageSystem}}">
+                                    <MenuItem Style="{StaticResource StandardItem}" Command="{Binding EntryItemFormatIDCommand}" Header="{Binding AutoText, Source={StaticResource LanguageSystem}}">
+                                        <MenuItem.CommandParameter>
+                                            <system:Int32>-1</system:Int32>
+                                        </MenuItem.CommandParameter>
+                                    </MenuItem>
+                                    <MenuItem Style="{StaticResource StandardItem}" Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText932, Source={StaticResource LanguageSystem}}">
+                                        <MenuItem.CommandParameter>
+                                            <system:Int32>932</system:Int32>
+                                        </MenuItem.CommandParameter>
+                                    </MenuItem>
+                                    <MenuItem Style="{StaticResource StandardItem}" Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText936, Source={StaticResource LanguageSystem}}">
+                                        <MenuItem.CommandParameter>
+                                            <system:Int32>936</system:Int32>
+                                        </MenuItem.CommandParameter>
+                                    </MenuItem>
+                                    <MenuItem Style="{StaticResource StandardItem}" Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText949, Source={StaticResource LanguageSystem}}">
+                                        <MenuItem.CommandParameter>
+                                            <system:Int32>949</system:Int32>
+                                        </MenuItem.CommandParameter>
+                                    </MenuItem>
+                                    <MenuItem Style="{StaticResource StandardItem}" Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText65001, Source={StaticResource LanguageSystem}}">
+                                        <MenuItem.CommandParameter>
+                                            <system:Int32>65001</system:Int32>
+                                        </MenuItem.CommandParameter>
+                                    </MenuItem>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Canvas>

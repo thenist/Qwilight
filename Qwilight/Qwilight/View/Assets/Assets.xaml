@@ -1,0 +1,141 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Qwilight"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:vm="clr-namespace:Qwilight.ViewModel">
+    <local:LanguageSystem x:Key="LanguageSystem" />
+    <local:BaseUI x:Key="BaseUI" />
+    <local:UI x:Key="UI" />
+    <local:DB x:Key="DB" />
+    <local:Configure x:Key="Configure" />
+    <local:TVSystem x:Key="TVSystem" />
+    <local:TwilightSystem x:Key="TwilightSystem" />
+    <local:LevelSystem x:Key="LevelSystem" />
+    <local:MIDISystem x:Key="MIDISystem" />
+    <local:DefaultControllerSystem x:Key="DefaultControllerSystem" />
+    <local:MediaInputSystem x:Key="MediaInputSystem" />
+    <local:AudioInputSystem x:Key="AudioInputSystem" />
+    <local:DrawingSystem x:Key="DrawingSystem" />
+    <local:ControllerSystem x:Key="ControllerSystem" />
+    <local:AudioSystem x:Key="AudioSystem" />
+    <vm:ViewModels x:Key="ViewModels" />
+
+    <system:Int32 x:Key="NotEstablished">0</system:Int32>
+    <system:Int32 x:Key="Established">1</system:Int32>
+    <system:Int32 x:Key="SignedIn">2</system:Int32>
+
+    <system:Int32 x:Key="BPMVarietyBPM">0</system:Int32>
+    <system:Int32 x:Key="BPMVarietyAudioMultiplier">1</system:Int32>
+    <system:Int32 x:Key="BPMVarietyMultiplier">2</system:Int32>
+
+    <system:Int32 x:Key="HunterVariety1st">0</system:Int32>
+    <system:Int32 x:Key="HunterVarietyHigher">1</system:Int32>
+    <system:Int32 x:Key="HunterVarietyLower">2</system:Int32>
+    <system:Int32 x:Key="HunterVarietyFavor">3</system:Int32>
+    <system:Int32 x:Key="HunterVarietyMe">4</system:Int32>
+
+    <system:Int32 x:Key="AlwaysView">0</system:Int32>
+    <system:Int32 x:Key="NotAutoComputeView">1</system:Int32>
+    <system:Int32 x:Key="NotView">2</system:Int32>
+
+    <system:Int32 x:Key="SilentSiteCallable">0</system:Int32>
+    <system:Int32 x:Key="SilentSiteAvatar">3</system:Int32>
+    <system:Int32 x:Key="SilentSiteUbuntu">1</system:Int32>
+    <system:Int32 x:Key="SilentSiteVoid">2</system:Int32>
+
+    <system:Int32 x:Key="NotifySaveBundleCallable">0</system:Int32>
+    <system:Int32 x:Key="NotifySaveBundleAvatar">1</system:Int32>
+    <system:Int32 x:Key="NotifySaveBundleUbuntu">2</system:Int32>
+    <system:Int32 x:Key="NotifySaveBundleVoid">3</system:Int32>
+    
+    <system:Int32 x:Key="NotifyUbuntu">0</system:Int32>
+    <system:Int32 x:Key="NotNotifyUbuntu">1</system:Int32>
+
+    <system:Int32 x:Key="AutoEnter">0</system:Int32>
+    <system:Int32 x:Key="AutoEnterSignedIn">1</system:Int32>
+    <system:Int32 x:Key="WaitSite">2</system:Int32>
+
+    <system:Int32 x:Key="BundleCallable">0</system:Int32>
+    <system:Int32 x:Key="BundleUbuntu">1</system:Int32>
+    <system:Int32 x:Key="BundleVoid">2</system:Int32>
+    <system:Int32 x:Key="BundleAvatar">3</system:Int32>
+
+    <system:Int32 x:Key="IOCallable">0</system:Int32>
+    <system:Int32 x:Key="IOUbuntu">1</system:Int32>
+    <system:Int32 x:Key="IOVoid">2</system:Int32>
+    <system:Int32 x:Key="IOAvatar">3</system:Int32>
+    
+    <system:Int32 x:Key="EnterNotify">0</system:Int32>
+    <system:Int32 x:Key="SilentEnter">1</system:Int32>
+
+    <system:Int32 x:Key="NoteVarietyTotal">0</system:Int32>
+    <system:Int32 x:Key="NoteVarietyBMS">1</system:Int32>
+    <system:Int32 x:Key="NoteVarietyBMSON">3</system:Int32>
+    <system:Int32 x:Key="NoteVarietyEventNote">5</system:Int32>
+
+    <system:Int32 x:Key="FitModeBPM">0</system:Int32>
+    <system:Int32 x:Key="FitModeArtist">1</system:Int32>
+    <system:Int32 x:Key="FitModeModifiedDate">2</system:Int32>
+    <system:Int32 x:Key="FitModeLength">3</system:Int32>
+    <system:Int32 x:Key="FitModeTitle">4</system:Int32>
+    <system:Int32 x:Key="FitModeTotalNotes">5</system:Int32>
+    <system:Int32 x:Key="FitModeLevelTextValue">6</system:Int32>
+    <system:Int32 x:Key="FitModeHighestInputCount">7</system:Int32>
+    <system:Int32 x:Key="FitModeLatestDate">8</system:Int32>
+    <system:Int32 x:Key="FitModeHandledCount">9</system:Int32>
+    <system:Int32 x:Key="FitModeAverageInputCount">10</system:Int32>
+
+    <system:Int32 x:Key="HandledNot">0</system:Int32>
+    <system:Int32 x:Key="HandledClear">1</system:Int32>
+    <system:Int32 x:Key="HandledBand1">2</system:Int32>
+    <system:Int32 x:Key="HandledTotal">3</system:Int32>
+    <system:Int32 x:Key="HandledF">4</system:Int32>
+    <system:Int32 x:Key="HandledHigherClear">5</system:Int32>
+    <system:Int32 x:Key="HandledHighestClear">6</system:Int32>
+
+    <system:Int32 x:Key="InputMode4">4</system:Int32>
+    <system:Int32 x:Key="InputMode5">5</system:Int32>
+    <system:Int32 x:Key="InputMode6">6</system:Int32>
+    <system:Int32 x:Key="InputMode7">7</system:Int32>
+    <system:Int32 x:Key="InputMode8">8</system:Int32>
+    <system:Int32 x:Key="InputMode9">9</system:Int32>
+    <system:Int32 x:Key="InputMode10">14</system:Int32>
+    <system:Int32 x:Key="InputMode51">10</system:Int32>
+    <system:Int32 x:Key="InputMode71">11</system:Int32>
+    <system:Int32 x:Key="InputMode102">12</system:Int32>
+    <system:Int32 x:Key="InputMode142">13</system:Int32>
+    <system:Int32 x:Key="InputMode242">15</system:Int32>
+    <system:Int32 x:Key="InputMode484">16</system:Int32>
+
+    <system:Int32 x:Key="AutoModeVariety">0</system:Int32>
+    <system:Int32 x:Key="NoteSaltModeVariety">1</system:Int32>
+    <system:Int32 x:Key="FaintNoteModeVariety">2</system:Int32>
+    <system:Int32 x:Key="JudgmentModeVariety">3</system:Int32>
+    <system:Int32 x:Key="HitPointsModeVariety">4</system:Int32>
+    <system:Int32 x:Key="NoteMobilityModeVariety">5</system:Int32>
+    <system:Int32 x:Key="LongNoteModeVariety">6</system:Int32>
+    <system:Int32 x:Key="InputFavorModeVariety">7</system:Int32>
+    <system:Int32 x:Key="NoteModifyModeVariety">8</system:Int32>
+    <system:Int32 x:Key="BPMModeVariety">9</system:Int32>
+    <system:Int32 x:Key="WaveModeVariety">10</system:Int32>
+    <system:Int32 x:Key="SetNoteModeVariety">11</system:Int32>
+    <system:Int32 x:Key="LowestJudgmentConditionModeVariety">12</system:Int32>
+    
+    <system:Int32 x:Key="NoteItemMode">0</system:Int32>
+    <system:Int32 x:Key="EntryItemMode">1</system:Int32>
+
+    <system:Int32 x:Key="Level0">0</system:Int32>
+    <system:Int32 x:Key="Level1">1</system:Int32>
+    <system:Int32 x:Key="Level2">2</system:Int32>
+    <system:Int32 x:Key="Level3">3</system:Int32>
+    <system:Int32 x:Key="Level4">4</system:Int32>
+    <system:Int32 x:Key="Level5">5</system:Int32>
+
+    <system:Int32 x:Key="HighestJudgment">0</system:Int32>
+    <system:Int32 x:Key="HigherJudgment">1</system:Int32>
+    <system:Int32 x:Key="HighJudgment">2</system:Int32>
+    <system:Int32 x:Key="LowJudgment">3</system:Int32>
+    <system:Int32 x:Key="LowerJudgment">4</system:Int32>
+    <system:Int32 x:Key="LowestJudgment">5</system:Int32>
+</ResourceDictionary>

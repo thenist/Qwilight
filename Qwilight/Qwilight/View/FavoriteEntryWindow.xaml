@@ -1,0 +1,30 @@
+﻿<Canvas
+    x:Class="Qwilight.View.FavoriteEntryWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    DataContext="{Binding FavoriteEntryValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding FavoriteEntryText, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <ScrollViewer Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding FavoriteEntryCollection}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Style="{StaticResource StandardVInput}" IsThreeState="{Binding FavoriteEntryValue.Mode, Source={StaticResource ViewModels}, Converter={StaticResource BoolModifier}, ConverterParameter={StaticResource EntryItemMode}}" IsChecked="{Binding FavoriteEntryStatus, UpdateSourceTrigger=PropertyChanged}" Content="{Binding}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</Canvas>

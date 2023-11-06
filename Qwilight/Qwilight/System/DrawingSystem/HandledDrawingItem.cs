@@ -1,0 +1,23 @@
+﻿using System.Windows.Media;
+
+namespace Qwilight
+{
+    public struct HandledDrawingItem : IHandledItem, IDisposable
+    {
+        public double Length => double.PositiveInfinity;
+
+        public DrawingItem? Drawing { get; init; }
+
+        public ImageSource DefaultDrawing { get; init; }
+
+        public IHandlerItem Handle(IMediaHandler mediaHandler, TimeSpan levyingWait, MediaNote.Mode mode, bool isLooping) => new DrawingHandlerItem
+        {
+            DrawingComputingValue = this
+        };
+
+        public void Dispose()
+        {
+            Drawing?.Dispose();
+        }
+    }
+}

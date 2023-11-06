@@ -1,0 +1,59 @@
+﻿<ContentControl
+    x:Class="Qwilight.View.WPFView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:view="clr-namespace:Qwilight.View"
+    DataContext="{Binding MainValue, Source={StaticResource ViewModels}}"
+    IsEnabled="{Binding MainValue.IsAvailable, Source={StaticResource ViewModels}}"
+    Width="{Binding DefaultLength}"
+    Height="{Binding DefaultHeight}"
+    Visibility="{Binding IsWPFViewVisible, Converter={StaticResource VisibilityModifier}}">
+    <Grid>
+        <view:Layer0View />
+        <view:NoteFileModeWindow />
+        <view:Layer1View />
+        <Grid x:Name="WindowViews">
+            <view:SignInWindow />
+            <view:SignUpWindow />
+            <view:ConfigureWindow />
+            <view:CommentWindow />
+            <view:BundleWindow />
+            <view:UbuntuWindow />
+            <view:SiteWindow />
+            <view:InputWindow />
+            <view:TwilightConfigureWindow />
+            <view:AssistWindow />
+            <view:AssistFileWindow />
+            <view:NoteFileWindow />
+            <view:InputStandardControllerWindow />
+            <view:InputStandardWindow />
+            <view:NotifyWindow />
+            <view:NetSIteCommentWindow />
+            <view:FavoriteEntryWindow />
+            <view:EqualizerWindow />
+            <view:FavorJudgmentWindow />
+            <view:LongNoteModifyWindow />
+            <view:EventNoteWindow />
+            <view:ModifyModifyDefaultEntryWindow />
+            <view:ModifyFrontEntryWindow />
+            <view:ModifyModeComponentWindow />
+            <view:FontFamilyWindow />
+            <view:LevelWindow />
+            <view:PutNoteSetWindow />
+            <view:SiteContainer />
+            <view:InputTextWindow />
+            <view:InputPwWindow />
+            <view:VoteWindow />
+            <view:FavorHitPointsWindow />
+            <view:ColorWindow />
+            <view:WwwLevelWindow />
+            <view:AvatarWindow />
+            <view:AvatarTitleWindow />
+            <view:AvatarEdgeWindow />
+            <view:WantWindow />
+            <view:LevelVoteWindow />
+        </Grid>
+        <view:NotifyXaml />
+        <view:LoadingView />
+    </Grid>
+</ContentControl>

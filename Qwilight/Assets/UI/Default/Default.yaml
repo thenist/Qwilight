@@ -1,0 +1,445 @@
+# https://taehui.ddns.net/qwilight/assistYAML
+
+format:
+    zip: Default
+    lua: Default
+    title: Qwilight Basic Skin
+    title-1042: Qwilight 기본 스킨
+    comment: |
+        It's a basic skin made by a developer.
+        It supports regular and circular notes.
+        If you select O4U in the skin detail setting, you can play with a circular note.
+        If Floating is selected in the Skin Details setting, the turn table is modified to a side track note.
+    comment-1042: |
+        개발자가 만든 기본 스킨입니다.
+        일반 노트와 원형 노트를 지원합니다.
+        스킨 세부 설정에서 O4U를 선택하면 원형 노트로 플레이 가능합니다.
+        스킨 세부 설정에서 Floating을 선택하면 턴 테이블이 사이드 트랙 노트로 수정됩니다.
+
+frame:
+    note-frame: 1
+    note-framerate: 60
+
+    main-frame: 1
+    main-framerate: 60
+
+    judgment-main-frame: 10
+    judgment-main-framerate: 60
+
+    note-hit-frame: NoteHitFrame(1.0)
+    note-hit-framerate: 60
+
+    long-note-hit-frame: NoteHitFrame(1.0)
+    long-note-hit-framerate: 60
+    long-note-hit-loop-frame: NoteHitFrame(0.75)
+    last-enlarged-band-loop-frame: NoteHitFrame(0.75)
+
+    judgment-frame: 25
+    band!-frame: 50
+    last-frame: 50
+
+    judgment-framerate: 60
+    band!-framerate: 60
+    last-framerate: 60
+
+    input-frame: 1
+    input-framerate: 60
+
+    band-frame: 8
+    band-framerate: 60
+
+    main-judgment-meter-frame: 50
+    main-judgment-meter-framerate: 60
+
+func:
+    maintainLongNoteFrontEdge: false
+    setJudgmentMainPosition: true
+    setMainPosition: true
+    setNoteLength: true
+    setNoteHeight: true
+    setBandPosition: true
+
+    configure-comment-0: Select the shape of the note.
+    configure-0: Default (Bar Note), O4U (Round note)
+    configure-comment-0-1042: 노트 모양을 선택합니다.
+    configure-0-1042: Default (바 노트), O4U (원형 노트)
+
+    configure-comment-1: Choose a style.
+    configure-1: Default (New), Classic (Old)
+    configure-comment-1-1042: 스타일을 선택합니다.
+    configure-1-1042: Default (신형), Classic (구형)
+
+    configure-comment-2: Select a turn table.
+    configure-2: Default (General), Floating (Side Track)
+    configure-comment-2-1042: 턴 테이블을 선택합니다.
+    configure-2-1042: Default (일반), Floating (사이드 트랙)
+
+    configure-comment-3: Select a center note color.
+    configure-3: Default (Yellow), Classic (Blue)
+    configure-comment-3-1042: 중앙 노트 색상을 선택합니다.
+    configure-3-1042: Classic (파란색), Default (노란색)
+
+    pipeline: Pipeline()
+
+    drawingInputModeSystem: 2
+    drawingInputMode4: 2, 3, 3, 2
+    drawingInputMode5: DrawingInputMode(5)
+    drawingInputMode6: 2, 3, 2, 2, 3, 2
+    drawingInputMode7: DrawingInputMode(7)
+    drawingInputMode8: 2, 3, 2, 3, 3, 2, 3, 2
+    drawingInputMode9: DrawingInputMode(9)
+    drawingInputMode10: DrawingInputMode(10)
+    drawingInputMode11: DrawingInputMode(11)
+    drawingInputMode12: DrawingInputMode(12)
+    drawingInputMode13: DrawingInputMode(13)
+    drawingInputMode14: 2, 3, 2, 3, 2, 2, 3, 2, 3, 2
+    drawingInputMode15: 6, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 11
+    drawingInputMode16: 6, 6, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 11, 11
+    
+    drawing1: 1, 6, 10, 11
+    drawing2: 2, 7, 9
+    drawing3: 3, 8
+    drawing4: 4, 5
+    drawing5:
+    drawing6:
+    drawing7:
+    drawing8:
+    drawing9:
+    drawing10:
+
+    drawingPipeline: 0, 1, 10, 2, 3, 4, 5, 11, 6, 7, 9, 8
+
+    alt-hit-points: 2
+    alt-status: 2
+    alt-status-slider: 2
+    alt-band: 2
+    alt-bpm: AltClassic()
+    alt-multiplier: AltClassic()
+    alt-stand: 2
+    alt-point: 2
+    alt-net: 0
+    alt-pause: 0
+    alt-hms: 2
+    alt-judgment-meter: 2
+    alt-judgment-points: 2
+    alt-last: 2
+    alt-band!: 2
+    alt-wall-0: 2
+    alt-wall-1: 2
+    alt-audio-multiplier: AltClassic()
+    alt-input-visualizer: AltClassic()
+    alt-judgment-visualizer: 2
+    alt-hunter: 2
+    alt-judgment-input-visualizer: 2
+
+point:
+    noteLength: NoteLength(2.0), NoteLength(1.0), ~, ~, ~, NoteLength(2.0), NoteLength(1.0), ~, ~, NoteLength(2.0)
+    noteHeight: NoteHeight1(1.0), NoteHeight2(1.0), ~, ~, ~, NoteHeight1(1.0), NoteHeight2(1.0), ~, ~, NoteHeight1(1.0)
+    noteHeightJudgment: NoteHeight1(0.5), NoteHeight2(0.5), ~, ~, ~, NoteHeight1(0.5), NoteHeight2(0.5), ~, ~, NoteHeight1(0.5)
+
+    floatingNotePosition0: 0, ~, ~, ~, ~, ~, ~, ~, ~, FloatingNotePosition0(), FloatingNoteLength6()
+    floatingNoteLength: FloatingNoteLength1(), 0, ~, ~, ~, FloatingNoteLength6(), 0, ~, ~, FloatingNoteLength1(), FloatingNoteLength6()
+
+    slashNotePosition0: 0, ~, ~, ~, ~, ~, NoteLength(-0.5), ~, 0
+
+    judgmentMainPosition: JudgmentMainPosition(0)
+    judgmentMainPosition1: JudgmentMainPosition(-49)
+    judgmentMainHeight: JudgmentMainHeight(), 99, ~, ~, ~, JudgmentMainHeight(), 99, ~, ~, JudgmentMainHeight()
+
+    mainPosition1: 0
+    mainHeight: JudgmentMainPosition(0)
+
+    inputPosition1: JudgmentMainPosition(0)
+    inputHeight: 120
+
+    autoInputPosition1: 5
+    autoInputHeight: AutoHeight1(), 19, ~, ~, ~, AutoHeight1(), 19, ~, ~, AutoHeight1(), ~
+
+    longNoteTailEdgePosition: LongNoteEdgePosition1(), LongNoteEdgePosition2(), ~, ~, ~, LongNoteEdgePosition1(), LongNoteEdgePosition2(), ~, ~, LongNoteEdgePosition1()
+    longNoteTailEdgeHeight: LongNoteEdgeHeight1(), LongNoteEdgeHeight2(), ~, ~, ~, LongNoteEdgeHeight1(), LongNoteEdgeHeight2(), ~, ~, LongNoteEdgeHeight1()
+    longNoteTailContentsHeight: 0
+
+    longNoteFrontEdgePosition: LongNoteEdgePosition1(), LongNoteEdgePosition2(), ~, ~, ~, LongNoteEdgePosition1(), LongNoteEdgePosition2(), ~, ~, LongNoteEdgePosition1()
+    longNoteFrontEdgeHeight: LongNoteEdgeHeight1(), LongNoteEdgeHeight2(), ~, ~, ~, LongNoteEdgeHeight1(), LongNoteEdgeHeight2(), ~, ~, LongNoteEdgeHeight1()
+    longNoteFrontContentsHeight: 0
+
+    mainPosition: MainPosition(0)
+    p2Position: 299.2
+
+    mainWall0Position1: 0
+    mainWall0Length: 20
+    mainWall0Height: 720
+
+    mainWall1Position1: 0
+    mainWall1Length: 20
+    mainWall1Height: 720
+
+    binLength: 30.8
+    binHeight: 40
+    stopPointDrawingLength: 16.8
+
+    standSystem: StandSystem()
+    standPosition0: StandPosition0()
+    standPosition1: StandPosition1()
+    binStandLength: 19
+    binStandHeight: 36
+    standCommaDrawingLength: 11
+
+    pointSystem: PointSystem()
+    pointPosition0: PointPosition0()
+    pointPosition1: PointPosition1()
+    binPointLength: 19.6
+    binPointHeight: 19
+    pointStopPointDrawingLength: 7.79
+    pointUnitDrawingLength: 15.58
+
+    bandSystem: 1
+    bandPosition0: Contents(0.5)
+    bandPosition1: BandPosition1()
+    binBandLength: 38.5
+    binBandHeight: 50
+    enlargeBand: 12
+
+    judgmentSystem: 1
+    judgmentPosition0: Contents(0.5)
+    judgmentPosition1: JudgmentMainPosition(-154)
+    judgmentLength: 300
+    judgmentHeight: 100
+
+    hitNotePaintPosition0: HitNotePaintPosition01(2.0), HitNotePaintPosition02(1.0), ~, ~, ~, HitNotePaintPosition01(2.0), HitNotePaintPosition02(1.0), ~, ~, HitNotePaintPosition01(2.0)
+    hitNotePaintPosition1: HitNotePaintPosition11(2.0), HitNotePaintPosition12(1.0), ~, ~, ~, HitNotePaintPosition11(2.0), HitNotePaintPosition12(1.0), ~, ~, HitNotePaintPosition11(2.0)
+    hitNotePaintLength: HitNotePaintPosition01(-4.0), HitNotePaintPosition02(-2.0), ~, ~, ~, HitNotePaintPosition01(-4.0), HitNotePaintPosition02(-2.0), ~, ~, HitNotePaintPosition01(-4.0)
+    hitNotePaintHeight: HitNotePaintPosition11(-4.0), HitNotePaintPosition12(-2.0), ~, ~, ~, HitNotePaintPosition11(-4.0), HitNotePaintPosition12(-2.0), ~, ~, HitNotePaintPosition11(-4.0)
+
+    hitLongNotePaintPosition0: HitNotePaintPosition01(2.0), HitNotePaintPosition02(1.0), ~, ~, ~, HitNotePaintPosition01(2.0), HitNotePaintPosition02(1.0), ~, ~, HitNotePaintPosition01(2.0)
+    hitLongNotePaintPosition1: HitNotePaintPosition11(2.0), HitNotePaintPosition12(1.0), ~, ~, ~, HitNotePaintPosition11(2.0), HitNotePaintPosition12(1.0), ~, ~, HitNotePaintPosition11(2.0)
+    hitLongNotePaintLength: HitNotePaintPosition01(-4.0), HitNotePaintPosition02(-2.0), ~, ~, ~, HitNotePaintPosition01(-4.0), HitNotePaintPosition02(-2.0), ~, ~, HitNotePaintPosition01(-4.0)
+    hitLongNotePaintHeight: HitNotePaintPosition11(-4.0), HitNotePaintPosition12(-2.0), ~, ~, ~, HitNotePaintPosition11(-4.0), HitNotePaintPosition12(-2.0), ~, ~, HitNotePaintPosition11(-4.0)
+
+    bpmSystem: BPMSystem()
+    bpmPosition0: BPMPosition0()
+    bpmPosition1: BPMPosition1()
+    bpmUnitDrawingLength: 42.4
+    binBPMLength: 15.4
+    binBPMHeight: 20
+
+    judgmentMeterSystem: 0
+    judgmentMeterPosition0: Contents(0.5)
+    judgmentMeterPosition1: JudgmentMeterPosition1()
+    binJudgmentMeterLength: 14.63
+    binJudgmentMeterHeight: 19
+    judgmentMeterFrontDrawingLength: 14.63
+    judgmentMeterUnitDrawingLength: 27.17
+
+    hitPointsSystem: 3
+    hitPointsPosition0: MainPosition(0)
+    hitPointsPosition1: HitPointsPosition1()
+    hitPointsLength: P1BuiltLength(1.0)
+    hitPointsHeight: 10
+
+    hitPointsVisualizerSystem: 2
+    hitPointsVisualizerPosition0: MainPosition(0)
+    hitPointsVisualizerPosition1: 613
+    hitPointsVisualizerLength: P1BuiltLength(1.0)
+    hitPointsVisualizerHeight: 10
+
+    # 박자에 맞추어 반짝거리는 왼쪽 막대기
+    paintProperty0: MainPosition(-40), 0, 60, 720, 2, 10, 60, 1
+
+    # 박자에 맞추어 반짝거리는 오른쪽 막대기
+    paintProperty1: Wall(-20), 0, 60, 720, 2, 10, 60, 1
+
+    # 박자에 맞추어 반짝거리는 아래 사각형 영역
+    paintProperty2: MainPosition(0), 644, P1BuiltLength(1), 76, 2, PaintProperty2Frame(), 60, 1
+
+    # 라이프 게이지를 감싸는 막대기
+    paintProperty3: MainPosition(0), PaintProperty3Position1(), P1BuiltLength(1), 20, 2, 1, 60, 0
+    
+    # 판정 비주얼라이저 기준점
+    paintProperty4: PaintProperty4Position0(), PaintProperty4Position1(), 7, 4, 2, 1, 60, 0, 43
+
+    multiplierSystem: 2
+    multiplierPosition0: MultiplierPosition0()
+    multiplierPosition1: MultiplierPosition1()
+    binMultiplierLength: 15.4
+    binMultiplierHeight: 20
+    multiplierStopPointDrawingLength: 8.4
+    multiplierUnitDrawingLength: 20
+
+    netPosition0: Wall(25)
+    netPosition1: NetPosition1()
+
+    pauseSystem: 0
+    pausePosition0: 5
+    pausePosition1: 629
+    pauseLength: 66
+    pauseHeight: 86
+
+    mediaPosition0: MediaPosition0()
+    mediaPosition1: 0
+    mediaLength: MediaLength()
+    mediaHeight: 720
+
+    statusSystem: 0
+    statusPosition0: Wall(5)
+    statusPosition1: 0
+    statusLength: 10
+    statusHeight: 720
+
+    statusSliderSystem: 0
+    statusSliderPosition0: Wall(0)
+    statusSliderPosition1: 0
+    statusSliderContentsLength: 20
+    statusSliderContentsHeight: 10
+    statusSliderLength: 10
+    statusSliderHeight: 720
+
+    hmsSystem: HmsSystem()
+    hmsPosition0: HmsPosition0()
+    hmsPosition1: HmsPosition1()
+    binHmsLength: 15.4
+    binHmsHeight: 20
+    hmsColonDrawingLength: 8.4
+    hmsSlashDrawingLength: 12.1
+
+    lastSystem: 1
+    lastPosition0: Contents(0.5)
+    lastPosition1: 250
+    lastLength: 119
+    lastHeight: 18.25
+
+    band!System: 1
+    band!Position0: Contents(0.5)
+    band!Position1: 250
+    band!Length: 230
+    band!Height: 18.75
+
+    judgmentPointsSystem: 0
+    judgmentPointsPosition0: MainPosition(-15)
+    judgmentPointsPosition1: 0
+    judgmentPointsLength: 10
+    judgmentPointsHeight: 720
+
+    audioMultiplierSystem: 2
+    audioMultiplierPosition0: AudioMultiplierPosition0()
+    audioMultiplierPosition1: AudioMultiplierPosition1()
+    binAudioMultiplierLength: 15.4
+    binAudioMultiplierHeight: 20
+    audioMultiplierStopPointDrawingLength: 8.4
+    audioMultiplierUnitDrawingLength: 20
+
+    highestJudgmentValueSystem: 0
+    highestJudgmentValuePosition0: Wall(25)
+    highestJudgmentValuePosition1: 570
+    binHighestJudgmentValueLength: 15.4
+    binHighestJudgmentValueHeight: 20
+
+    higherJudgmentValueSystem: 0
+    higherJudgmentValuePosition0: Wall(25)
+    higherJudgmentValuePosition1: 595
+    binHigherJudgmentValueLength: 15.4
+    binHigherJudgmentValueHeight: 20
+
+    highJudgmentValueSystem: 0
+    highJudgmentValuePosition0: Wall(25)
+    highJudgmentValuePosition1: 620
+    binHighJudgmentValueLength: 15.4
+    binHighJudgmentValueHeight: 20
+
+    lowJudgmentValueSystem: 0
+    lowJudgmentValuePosition0: Wall(25)
+    lowJudgmentValuePosition1: 645
+    binLowJudgmentValueLength: 15.4
+    binLowJudgmentValueHeight: 20
+
+    lowerJudgmentValueSystem: 0
+    lowerJudgmentValuePosition0: Wall(25)
+    lowerJudgmentValuePosition1: 670
+    binLowerJudgmentValueLength: 15.4
+    binLowerJudgmentValueHeight: 20
+
+    lowestJudgmentValueSystem: 0
+    lowestJudgmentValuePosition0: Wall(25)
+    lowestJudgmentValuePosition1: 695
+    binLowestJudgmentValueLength: 15.4
+    binLowestJudgmentValueHeight: 20
+
+    limiterPosition: 0
+    limiterLength: 1
+    limiterHeight: JudgmentMainPosition(-5)
+
+    inputVisualizerSystem: InputVisualizerSystem()
+    inputVisualizerPosition0: InputVisualizerPosition0()
+    inputVisualizerPosition1: InputVisualizerPosition1()
+    binInputVisualizerLength: 8.47
+    binInputVisualizerHeight: 11
+
+    judgmentVisualizerSystem: 3
+    judgmentVisualizerPosition0: MainPosition(0)
+    judgmentVisualizerPosition1: JudgmentVisualizerPosition1()
+    judgmentVisualizerLength: P1BuiltLength(1.0)
+    judgmentVisualizerHeight: 10
+    judgmentVisualizerContentsLength: 1
+    judgmentVisualizerContentsHeight: 10
+
+    hunterSystem: 1
+    hunterPosition0: Contents(0.5)
+    hunterPosition1: HunterPosition1()
+    binHunterLength: 14.63
+    binHunterHeight: 19
+    
+    titleSystem0: 0
+    titleSystem1: 1
+    titlePosition0: 5
+    titlePosition1: 674
+    titleLength: 1270
+    titleHeight: 20
+    
+    artistSystem0: 0
+    artistSystem1: 1
+    artistPosition0: 5
+    artistPosition1: 699
+    artistLength: 1270
+    artistHeight: 16
+
+    mediaInputPosition0: MediaPosition0()
+    mediaInputPosition1: 0
+    mediaInputLength: MediaLength()
+    mediaInputHeight: 720
+
+    audioVisualizerPosition0: 0
+    audioVisualizerPosition1: 0
+    audioVisualizerLength: 1280
+    audioVisualizerHeight: 720
+
+    mainJudgmentMeterPosition1: JudgmentMainPosition(-99)
+    mainJudgmentMeterHeight: MainJudgmentMeterHeight(), 199, ~, ~, ~, MainJudgmentMeterHeight(), 199, ~, ~, MainJudgmentMeterHeight()
+
+    judgmentInputVisualizerPosition0: MainPosition(0)
+    judgmentInputVisualizerPosition1: 644
+    judgmentInputVisualizerLength: P1BuiltLength(1)
+    judgmentInputVisualizerHeight: 76
+
+    pausedUnpausePosition0: 539
+    pausedUnpausePosition1: 239
+    pausedUnpauseLength: 202
+    pausedUnpauseHeight: 53
+
+    pausedConfigurePosition0: 539
+    pausedConfigurePosition1: 302
+    pausedConfigureLength: 202
+    pausedConfigureHeight: 53
+
+    pausedUndoPosition0: 539
+    pausedUndoPosition1: 365
+    pausedUndoLength: 202
+    pausedUndoHeight: 53
+
+    pausedStopPosition0: 539
+    pausedStopPosition1: 428
+    pausedStopLength: 202
+    pausedStopHeight: 53
+
+font:
+    titleLevel: 20.0
+    artistLevel: 16.0

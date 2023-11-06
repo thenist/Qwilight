@@ -1,0 +1,3566 @@
+{
+  "_4DModeContents": {
+    "ko-KR": "모든 노트가 고유의 스크롤 속도를 가집니다.",
+    "en-US": "Different scroll speed for every note"
+  },
+  "AbilityStandContents": {
+    "ko-KR": "{0} 점 (+ {1} Point)",
+    "en-US": "{0} Points (+ {1} Points)"
+  },
+  "AegisPostedItemText": {
+    "ko-KR": "{0}의 {1}를 방어함",
+    "en-US": "Defends {1} of {0}"
+  },
+  "AllowEssentialInputs": {
+    "ko-KR": "◀, ▶ 키 등을 키 설정에 허용",
+    "en-US": "Allow key settings such as ◀, ▶ keys, etc"
+  },
+  "AllowTotalLevyingText": {
+    "ko-KR": "모두 준비",
+    "en-US": "All ready"
+  },
+  "AllowTwilightCommentAssist": {
+    "ko-KR": "온라인 랭킹 등록을 허용합니다.",
+    "en-US": "Allow online ranking registration."
+  },
+  "AlreadyAvatarID": {
+    "ko-KR": "이미 가입된 아이디입니다.",
+    "en-US": "This ID is already registered."
+  },
+  "AlreadyLatestDate": {
+    "ko-KR": "새 버전이 존재하지 않습니다. 강제로 업데이트 할까요?",
+    "en-US": "Already up to date. Do you want to force an update?"
+  },
+  "AlreadyLoadingBundle": {
+    "ko-KR": "이미 꾸러미 전송이 진행중입니다.",
+    "en-US": "Package transfer is already in progress."
+  },
+  "AlwaysNotP2PositionContents": {
+    "ko-KR": "DP 에서 1P와 2P를 붙힙니다.",
+    "en-US": "Attach 1P and 2P on the DP."
+  },
+  "AlwaysNotP2PositionText": {
+    "ko-KR": "1P와 2P 붙이기",
+    "en-US": "Attach 1P to 2P"
+  },
+  "AlwaysP2PositionContents": {
+    "ko-KR": "DP 에서 1P와 2P를 분리합니다.",
+    "en-US": "Separate 1P and 2P from DP."
+  },
+  "AlwaysP2PositionText": {
+    "ko-KR": "1P와 2P 분리하기",
+    "en-US": "Separate 1P and 2P"
+  },
+  "AlwaysText": {
+    "ko-KR": "항상",
+    "en-US": "Always"
+  },
+  "AlwaysViewContents": {
+    "ko-KR": "항상 출력",
+    "en-US": "Always output"
+  },
+  "Assist0": {
+    "ko-KR": "SPACE: 게임 설정",
+    "en-US": "SPACE: Game Settings"
+  },
+  "Assist1": {
+    "ko-KR": "◀, ▶: 난이도 선택",
+    "en-US": "◀, ▶: Select Difficulty Level"
+  },
+  "Assist2": {
+    "ko-KR": "F1: 도움말",
+    "en-US": "F1: Help"
+  },
+  "Assist3": {
+    "ko-KR": "F5, F6: 새로고침",
+    "en-US": "F5, F6: Refresh"
+  },
+  "Assist4": {
+    "ko-KR": "F7: 다운로더",
+    "en-US": "F7: Downloader"
+  },
+  "Assist5": {
+    "ko-KR": "F8: 멀티 플레이",
+    "en-US": "F8: Multiplay"
+  },
+  "Assist6": {
+    "ko-KR": "F9: 컬렉션",
+    "en-US": "F9: Collection"
+  },
+  "Assist7": {
+    "ko-KR": "F10: 도전 과제",
+    "en-US": "F10: Challenges"
+  },
+  "Assist8": {
+    "ko-KR": "F11: 알림",
+    "en-US": "F11: Notifications"
+  },
+  "Assister": {
+    "ko-KR": "만든이들",
+    "en-US": "Makers"
+  },
+  "AssistText": {
+    "ko-KR": "도움말",
+    "en-US": "Help"
+  },
+  "AudioAssister": {
+    "ko-KR": "사운드 제공",
+    "en-US": "Sound provided"
+  },
+  "AudioComponentConfigure": {
+    "ko-KR": "오디오 모듈 정보",
+    "en-US": "Audio Module Information"
+  },
+  "AudioConfigureText": {
+    "ko-KR": "사운드 설정",
+    "en-US": "Sound settings"
+  },
+  "AudioDataContents": {
+    "ko-KR": "오디오 버퍼 크기를 설정합니다.",
+    "en-US": "Set the audio buffer size"
+  },
+  "AudioDateHTMLText": {
+    "ko-KR": "업데이트 내역 보기",
+    "en-US": "View update history"
+  },
+  "AudioDateText": {
+    "ko-KR": "오디오 모듈 버전입니다.",
+    "en-US": "Audio module version"
+  },
+  "AudioHandlerItemCountText": {
+    "ko-KR": "메모리에 올라온 오디오 인스턴스의 개수입니다.",
+    "en-US": "Number of audio instances loaded to memory"
+  },
+  "AudioInputConfigure": {
+    "ko-KR": "음성 대화 설정",
+    "en-US": "Voice chat settings"
+  },
+  "AudioInputValueContents": {
+    "ko-KR": "음성 대화 감도를 설정합니다.",
+    "en-US": "Set the sensitivity of voice chat."
+  },
+  "AudioItemCountText": {
+    "ko-KR": "메모리에 올라온 오디오 파일의 개수입니다.",
+    "en-US": "Number of audio files loaded to memory"
+  },
+  "AudioModeContents": {
+    "ko-KR": "오디오 출력 모드를 설정합니다.",
+    "en-US": "Set the audio output mode"
+  },
+  "AudioMultiplierAtoneText": {
+    "ko-KR": "피치 보정",
+    "en-US": "Pitch calibration"
+  },
+  "AudioMultiplierContents": {
+    "ko-KR": "음악 속도",
+    "en-US": "Music speed"
+  },
+  "AudioMultiplierWarning": {
+    "ko-KR": "음악 속도가 {0} 입니다. 의도한게 맞나요?",
+    "en-US": "The music speed is {0}. Is that what you meant?"
+  },
+  "AudioUnitUsageText": {
+    "ko-KR": "오디오 모듈에 걸린 부하입니다.",
+    "en-US": "Audio module load"
+  },
+  "AudioValueContents": {
+    "ko-KR": "오디오 출력 장비를 설정합니다.",
+    "en-US": "Set the audio output device"
+  },
+  "AudioVarietyASIOAssist": {
+    "ko-KR": "낮은 레이턴시를 가지는 Steinberg사의 API 입니다.",
+    "en-US": "Steinberg's API for low latency audio"
+  },
+  "AudioVarietyText": {
+    "ko-KR": "오디오 출력 API를 설정합니다.",
+    "en-US": "Set up the audio output API."
+  },
+  "AudioVarietyWASAPIAssist": {
+    "ko-KR": "윈도우 비스타부터 도입된 기본 사운드 API 입니다.",
+    "en-US": "Default sound API introduced by Windows Vista"
+  },
+  "AudioVisualizerConfigure": {
+    "ko-KR": "오디오 비주얼라이저 설정",
+    "en-US": "Audio visualizer settings"
+  },
+  "AudioVisualizerCountText": {
+    "ko-KR": "오디오 비주얼라이저의 막대기 개수입니다.",
+    "en-US": "Number of bars in the audio visualizer."
+  },
+  "AudioVisualizerFaintContents": {
+    "ko-KR": "오디오 비주얼라이저 불투명도",
+    "en-US": "Audio visualizer opacity"
+  },
+  "AudioVisualizerInputColor": {
+    "ko-KR": "\uD83C\uDFA8 키음 비주얼라이저",
+    "en-US": "\uD83C\uDFA8 Keysound audio visualizer"
+  },
+  "AudioVisualizerMainColor": {
+    "ko-KR": "\uD83C\uDFA8 BGM 비주얼라이저",
+    "en-US": "\uD83C\uDFA8 BGM Visualizer"
+  },
+  "AudioVisualizerMode0Contents": {
+    "ko-KR": "위에서 아래로",
+    "en-US": "From top to bottom"
+  },
+  "AudioVisualizerMode1Contents": {
+    "ko-KR": "중앙",
+    "en-US": "Center"
+  },
+  "AudioVisualizerMode2Contents": {
+    "ko-KR": "아래에서 위로",
+    "en-US": "From bottom to top"
+  },
+  "AudioVisualizerModeText": {
+    "ko-KR": "오디오 비주얼라이저를 어떤 방향으로 그릴지 설정합니다.",
+    "en-US": "Sets the direction in which the audio visualizer is drawn."
+  },
+  "AudioWaitContents": {
+    "ko-KR": "오디오 레이턴시를 설정합니다.",
+    "en-US": "Audio latency"
+  },
+  "AuraContents": {
+    "ko-KR": "ASUS® Aura™를 사용합니다.",
+    "en-US": "Use ASUS® Aura™"
+  },
+  "AuraText": {
+    "ko-KR": "ASUS® Aura™ 활성화",
+    "en-US": "Enable ASUS® Aura™"
+  },
+  "AutoableInputNoteCountViewColor": {
+    "ko-KR": "\uD83C\uDFA8 턴 테이블 NPS 비주얼라이저",
+    "en-US": "\uD83C\uDFA8 Turntable NPS graph"
+  },
+  "AutoableLimiterVariety": {
+    "ko-KR": "턴 테이블",
+    "en-US": "Turntable"
+  },
+  "AutoableModeContents": {
+    "ko-KR": "턴 테이블만 자동으로 처리합니다.",
+    "en-US": "Auto turntable mode"
+  },
+  "AutoComputeContents": {
+    "ko-KR": "미리듣기를 사용합니다.",
+    "en-US": "Enable preview."
+  },
+  "AutoComputeText": {
+    "ko-KR": "미리듣기 활성화",
+    "en-US": "Enable preview"
+  },
+  "AutoComputingSituationContents": {
+    "ko-KR": "노트 파일 감상 중… ({0})",
+    "en-US": "Listening to charts… ({0})"
+  },
+  "AutoEdgeText": {
+    "ko-KR": "가능한 경우 다운로드만 받으면 Qwilight가 알아서 불러옵니다.",
+    "en-US": "If available, just download it and Qwilight will load it for you."
+  },
+  "AutoEnterContents": {
+    "ko-KR": "자동으로 대화방에 입장합니다.",
+    "en-US": "Enter the chat room automatically."
+  },
+  "AutoEnterDefaultSiteContents": {
+    "ko-KR": "일반 대화방에 자동으로 입장할지 설정합니다.",
+    "en-US": "Set automatic entry to General chat room"
+  },
+  "AutoEnterNotifySiteContents": {
+    "ko-KR": "알림방에 자동으로 입장할지 설정합니다.",
+    "en-US": "Set automatic entry to Notification room"
+  },
+  "AutoEnterPlatformSiteContents": {
+    "ko-KR": "디스코드 대화방에 자동으로 입장할지 설정합니다.",
+    "en-US": "Set automatic entry to Discord chat room"
+  },
+  "AutoEnterSignedInContents": {
+    "ko-KR": "로그인 후 자동으로 대화방에 입장합니다.",
+    "en-US": "After logging in, you automatically enter the chat room."
+  },
+  "AutoHighlightContents": {
+    "ko-KR": "미리듣기를 하이라이트부터 시작합니다.",
+    "en-US": "Start with the highlight of the preview."
+  },
+  "AutoHighlightText": {
+    "ko-KR": "하이라이트부터 시작",
+    "en-US": "Start with highlights"
+  },
+  "AutoLevyingContents": {
+    "ko-KR": "미리듣기를 처음부터 시작합니다.",
+    "en-US": "Start the preview from the beginning."
+  },
+  "AutoLevyingText": {
+    "ko-KR": "처음부터 시작",
+    "en-US": "Start from beginning"
+  },
+  "AutoLongNoteMode": {
+    "ko-KR": "롱 노트를 계속 눌러도 됩니다.",
+    "en-US": "Free long note release judgment mode"
+  },
+  "AutoModeAssist": {
+    "ko-KR": "플레이 방식을 설정합니다.",
+    "en-US": "Set playstyle"
+  },
+  "AutoModeContents": {
+    "ko-KR": "자동으로 플레이합니다.",
+    "en-US": "Play automatically."
+  },
+  "AutoNetLevyingText": {
+    "ko-KR": "자동 준비",
+    "en-US": "Auto ready"
+  },
+  "AutoSaltAssist": {
+    "ko-KR": "미리듣기 순서를 임의로 설정합니다.",
+    "en-US": "Random preview order"
+  },
+  "AutoSignIn": {
+    "ko-KR": "자동 로그인",
+    "en-US": "Autologin"
+  },
+  "AutoSiteHandText": {
+    "ko-KR": "호스트 돌아가면서 하기",
+    "en-US": "Take turns with the host"
+  },
+  "AutoText": {
+    "ko-KR": "자동",
+    "en-US": "Automatic"
+  },
+  "AvatarCipher": {
+    "ko-KR": "비밀번호",
+    "en-US": "Password"
+  },
+  "AvatarCipherTest": {
+    "ko-KR": "비밀번호 확인",
+    "en-US": "Confirm password"
+  },
+  "AvatarCountContents": {
+    "ko-KR": "#,##0 명",
+    "en-US": "#,##0 people"
+  },
+  "AvatarEdgeText": {
+    "ko-KR": "프레임 선택",
+    "en-US": "Select Frame"
+  },
+  "AvatarID": {
+    "ko-KR": "아이디",
+    "en-US": "ID"
+  },
+  "AvatarName": {
+    "ko-KR": "닉네임",
+    "en-US": "Nickname"
+  },
+  "AvatarText": {
+    "ko-KR": "프로필",
+    "en-US": "Profile"
+  },
+  "AvatarTitleText": {
+    "ko-KR": "호칭 선택",
+    "en-US": "Select a title"
+  },
+  "AvatarViewAbilityContents": {
+    "ko-KR": "성과 TOP 50",
+    "en-US": "Rating Top 50"
+  },
+  "AvatarViewDateContents": {
+    "ko-KR": "활동 추세",
+    "en-US": "Activity Trends"
+  },
+  "AvatarViewDateText": {
+    "ko-KR": "마지막 접속일: {0}",
+    "en-US": "Last access date: {0}"
+  },
+  "AvatarViewFavoritesContents": {
+    "ko-KR": "가장 많이 플레이 TOP 10",
+    "en-US": "Top 10 most played"
+  },
+  "AvatarViewHighestCountText": {
+    "ko-KR": "기록 개수: {0} 회",
+    "en-US": "Record count: {0}"
+  },
+  "AvatarViewIntro": {
+    "ko-KR": "자기소개",
+    "en-US": "Introduce yourself"
+  },
+  "AvatarViewLastsContents": {
+    "ko-KR": "마지막 플레이 TOP 10",
+    "en-US": "Recently played 10"
+  },
+  "AvatarViewQuitContents": {
+    "ko-KR": "랭크",
+    "en-US": "Rank"
+  },
+  "AvatarViewText": {
+    "ko-KR": "닉네임: {0} ({1})",
+    "en-US": "Nickname: {0} ({1})"
+  },
+  "AvatarViewTotalCountText": {
+    "ko-KR": "플레이 횟수: {0} 회",
+    "en-US": "Number of plays: {0}"
+  },
+  "AvatarViewTotalLengthText": {
+    "ko-KR": "플레이 시간: {0} 시간 {1} 분 {2} 초",
+    "en-US": "Playtime: {0} hours {1} minutes {2} seconds"
+  },
+  "AvatarViewWwwLevelContents": {
+    "ko-KR": "달성한 도전 과제 ({0} 개)",
+    "en-US": "Achieved challenges ({0})"
+  },
+  "AveragerContents": {
+    "ko-KR": "모든 곡의 음량을 적절히 설정합니다.",
+    "en-US": "Set the volume for all songs appropriately."
+  },
+  "AveragerText": {
+    "ko-KR": "노멀라이즈 활성화",
+    "en-US": "Normalize enabled"
+  },
+  "BanalAudioContents": {
+    "ko-KR": "모든 노트에 범용 키음을 추가로 할당합니다.",
+    "en-US": "Assign an additional universal key tone to all notes."
+  },
+  "BanalAudioText": {
+    "ko-KR": "범용 키음 활성화",
+    "en-US": "Enable universal keysound"
+  },
+  "BanalFailedMediaContents": {
+    "ko-KR": "범용 미스 레이어를 사용합니다.",
+    "en-US": "Universal miss layer setting"
+  },
+  "BanalFailedMediaText": {
+    "ko-KR": "범용 미스 레이어 활성화",
+    "en-US": "Enable universal miss layer"
+  },
+  "BanalMediaContents": {
+    "ko-KR": "범용 BGA를 사용합니다.",
+    "en-US": "Use the universal BGA."
+  },
+  "BanalMediaText": {
+    "ko-KR": "범용 BGA 활성화",
+    "en-US": "Enable Universal BGA"
+  },
+  "Band": {
+    "ko-KR": "콤보",
+    "en-US": "Combo"
+  },
+  "BandContents": {
+    "ko-KR": "0 콤보",
+    "en-US": "0 combo."
+  },
+  "BandLegend": {
+    "ko-KR": "■ 콤보",
+    "en-US": "■ Combo"
+  },
+  "BandPositionContents": {
+    "ko-KR": "콤보 높이",
+    "en-US": "Combo Height"
+  },
+  "BandValidHunterModeText": {
+    "ko-KR": "콤보 우선",
+    "en-US": "Combo first"
+  },
+  "BannedNoteFileContents": {
+    "ko-KR": "이 노트 파일은 온라인 랭킹에 등록되지 않습니다.",
+    "en-US": "This chart is not registered in the online ranking."
+  },
+  "BeforeEventNoteContents": {
+    "ko-KR": "같은 설정을 가진 코스가 이미 존재합니다.",
+    "en-US": "A course with the same settings already exists."
+  },
+  "BPMModeAssist": {
+    "ko-KR": "BPM을 설정합니다.",
+    "en-US": "Sets the BPM."
+  },
+  "BPMVarietyAudioMultiplierText": {
+    "ko-KR": "BPM×음악 속도",
+    "en-US": "BPM x Music speed"
+  },
+  "BPMVarietyContents": {
+    "ko-KR": "게임 플레이 중 나오는 BPM을 설정합니다.",
+    "en-US": "Set the BPM that comes out during game play."
+  },
+  "BPMVarietyMultiplierText": {
+    "ko-KR": "BPM×음악 속도×스크롤 속도",
+    "en-US": "BPM x Music speed x Scroll speed"
+  },
+  "BundleAvatarContents": {
+    "ko-KR": "회원만 공개",
+    "en-US": "Only the members will be revealed."
+  },
+  "BundleCallableContents": {
+    "ko-KR": "모두에게 공개",
+    "en-US": "Reveal it to everyone."
+  },
+  "BundleEntryContents": {
+    "ko-KR": "꾸러미",
+    "en-US": "Packages"
+  },
+  "BundleText": {
+    "ko-KR": "꾸러미 목록",
+    "en-US": "Package List"
+  },
+  "BundleUbuntuContents": {
+    "ko-KR": "친구만 공개",
+    "en-US": "Reveal only friends"
+  },
+  "BundleVoidContents": {
+    "ko-KR": "비공개",
+    "en-US": "Private"
+  },
+  "BWContents": {
+    "ko-KR": "RAZER® Chroma™를 사용합니다.",
+    "en-US": "Use RAZER® Chroma™"
+  },
+  "BWText": {
+    "ko-KR": "RAZER® Chroma™ 활성화",
+    "en-US": "Enable RAZER® Chroma™"
+  },
+  "CallingIOContents": {
+    "ko-KR": "호스트를 기다리는 중…",
+    "en-US": "Waiting for host…"
+  },
+  "CallIO": {
+    "ko-KR": "관전 요청",
+    "en-US": "Spectator request"
+  },
+  "CallSiteAssist": {
+    "ko-KR": "방 목록 열기",
+    "en-US": "Open room list"
+  },
+  "CanBeTwilightCommentContents": {
+    "ko-KR": "온라인 랭킹에 등록됩니다.",
+    "en-US": "You will be registered in the online ranking."
+  },
+  "CannotBeTwilightCommentContents": {
+    "ko-KR": "온라인 랭킹에 등록되지 않습니다.",
+    "en-US": "You will not be registered in the online ranking."
+  },
+  "CannotIOContents": {
+    "ko-KR": "해당 플레이어는 관전이 불가능합니다.",
+    "en-US": "The player is not allowed to watch."
+  },
+  "CenterLimiterVariety": {
+    "ko-KR": "중앙",
+    "en-US": "Center"
+  },
+  "ColorText": {
+    "ko-KR": "색상 선택",
+    "en-US": "Select Color"
+  },
+  "CommentAssist": {
+    "ko-KR": "랭킹 열기",
+    "en-US": "Open Ranking"
+  },
+  "CommentComputingSituationContents": {
+    "ko-KR": "리플레이 보는 중… ({0})",
+    "en-US": "Watching Replay… ({0})"
+  },
+  "CommentSiteName": {
+    "ko-KR": "성과 알림방",
+    "en-US": "Performance notification room"
+  },
+  "CommentText": {
+    "ko-KR": "랭킹",
+    "en-US": "Ranking"
+  },
+  "CompileFaultText": {
+    "ko-KR": "올바르지 않은 노트 파일입니다. ({0})",
+    "en-US": "Invalid chart. ({0})"
+  },
+  "CompilingBinText": {
+    "ko-KR": "노트 파일을 읽을 때 사용할 스레드 개수입니다.",
+    "en-US": "Number of threads to use when reading charts."
+  },
+  "ComponentConfigure": {
+    "ko-KR": "성능 설정",
+    "en-US": "Performance Settings"
+  },
+  "ComputingConfigureText": {
+    "ko-KR": "플레이 설정",
+    "en-US": "Play Settings"
+  },
+  "ComputingGUIConfigure": {
+    "ko-KR": "비주얼 설정",
+    "en-US": "Visual Settings"
+  },
+  "ComputingModeComponentConfigure": {
+    "ko-KR": "게임 모드",
+    "en-US": "Game mode"
+  },
+  "ComputingUIConfigure": {
+    "ko-KR": "스킨 설정",
+    "en-US": "Skin Settings"
+  },
+  "ConfigureAssist": {
+    "ko-KR": "게임 설정 열기",
+    "en-US": "Open game settings"
+  },
+  "ConfigureBaseUIContents": {
+    "ko-KR": "테마 스킨",
+    "en-US": "Theme Skin"
+  },
+  "ConfigureEtcUIContents": {
+    "ko-KR": "스킨 세부 설정",
+    "en-US": "Detailed skin settings"
+  },
+  "ConfigureFontFamilyContents": {
+    "ko-KR": "순서대로 글꼴 모양을 설정합니다.",
+    "en-US": "Sets the font appearance in order."
+  },
+  "ConfigureLevelContents": {
+    "ko-KR": "사용할 난이도 테이블을 설정합니다.",
+    "en-US": "Set the difficulty table to use"
+  },
+  "ConfigurePutNoteSetContents": {
+    "ko-KR": "대상 비율",
+    "en-US": "Target Ratio"
+  },
+  "ConfigurePutNoteSetMillisContents": {
+    "ko-KR": "대상 간격",
+    "en-US": "Target Interval"
+  },
+  "ConfigureText": {
+    "ko-KR": "게임 설정",
+    "en-US": "Game Settings"
+  },
+  "ConfigureUIContents": {
+    "ko-KR": "인게임 스킨",
+    "en-US": "In-game skin"
+  },
+  "ControllerConfigure": {
+    "ko-KR": "컨트롤러 설정",
+    "en-US": "Controller Settings"
+  },
+  "ControllerCountContents": {
+    "ko-KR": "{0} 개의 컨트롤러가 인식됨",
+    "en-US": "{0} controllers recognized"
+  },
+  "ControllerViewerContents": {
+    "ko-KR": "실시간으로 받은 컨트롤러 입력 신호입니다.",
+    "en-US": "Controller input signal received in real time"
+  },
+  "CopyPutCopyNotesText": {
+    "ko-KR": "노트 복사하기",
+    "en-US": "Copying notes"
+  },
+  "CountContents": {
+    "ko-KR": "#,##0 개",
+    "en-US": "#,##0"
+  },
+  "CounterWaveModeContents": {
+    "ko-KR": "거꾸로 플레이합니다.",
+    "en-US": "Play backwards"
+  },
+  "DataCount3Contents": {
+    "ko-KR": "삼중 버퍼링을 사용합니다.",
+    "en-US": "Set triple buffering"
+  },
+  "DataCount3Text": {
+    "ko-KR": "삼중 버퍼링 활성화",
+    "en-US": "Enable triple buffering"
+  },
+  "DateAssistText": {
+    "ko-KR": "업데이트 내역",
+    "en-US": "Update History"
+  },
+  "DBConfigure": {
+    "ko-KR": "데이터베이스 설정",
+    "en-US": "Database Settings"
+  },
+  "DefaultAudioVarietyContents": {
+    "ko-KR": "노트 파일 목록에서 들리는 BGM 입니다.",
+    "en-US": "This is the BGM heard in the note file list."
+  },
+  "DefaultBPMModeContents": {
+    "ko-KR": "BPM을 그대로 둡니다.",
+    "en-US": "Don't change BPM"
+  },
+  "DefaultBundleCompetenceContents": {
+    "ko-KR": "꾸러미로 업로드 기본 권한을 설정합니다.",
+    "en-US": "Set the default permissions for uploading as a package."
+  },
+  "DefaultComment": {
+    "ko-KR": "오프라인",
+    "en-US": "Offline"
+  },
+  "DefaultComputeInNetSiteFault": {
+    "ko-KR": "일반 플레이를 하시려면 먼저 멀티방에서 나가주세요",
+    "en-US": "If you want to play normally, please leave the multi-room first"
+  },
+  "DefaultComputingSituationContents": {
+    "ko-KR": "게임 플레이 중… ({0})",
+    "en-US": "Playing games… ({0})"
+  },
+  "DefaultConfigureText": {
+    "ko-KR": "일반 설정",
+    "en-US": "General settings"
+  },
+  "DefaultControllerDefaultInputContents": {
+    "ko-KR": "성능이 좋습니다.",
+    "en-US": "Good performance."
+  },
+  "DefaultControllerDefaultInputText": {
+    "ko-KR": "RawInput™ 모드",
+    "en-US": "RawInput™ Mode"
+  },
+  "DefaultControllerDInputContents": {
+    "ko-KR": "호환성이 좋습니다.",
+    "en-US": "Good compatibility."
+  },
+  "DefaultControllerDInputText": {
+    "ko-KR": "DirectInput™ 모드",
+    "en-US": "DirectInput™ Mode"
+  },
+  "DefaultControllerViewerContents": {
+    "ko-KR": "실시간으로 받은 키보드 입력 신호입니다.",
+    "en-US": "Keyboard input signal received in real time"
+  },
+  "DefaultDrawingContents": {
+    "ko-KR": "범용 이미지입니다.",
+    "en-US": "This is a universal image."
+  },
+  "DefaultFaintNoteModeContents": {
+    "ko-KR": "노트 밝기를 그대로 둡니다.",
+    "en-US": "Leave the note brightness unchanged"
+  },
+  "DefaultGPUMode": {
+    "ko-KR": "기본 그래픽",
+    "en-US": "Basic graphics"
+  },
+  "DefaultHitPointsModeContents": {
+    "ko-KR": "기본 라이프 게이지 입니다.",
+    "en-US": "Normal gauge mode"
+  },
+  "DefaultInputAudioVariety": {
+    "ko-KR": "DJMAX 방식",
+    "en-US": "DJMAX method"
+  },
+  "DefaultInputAudioVarietyAssist": {
+    "ko-KR": "다음 노트의 키음을 출력합니다.",
+    "en-US": "Output the next key sound"
+  },
+  "DefaultJudgmentModeContents": {
+    "ko-KR": "기본 판정 난이도입니다.",
+    "en-US": "Default judgment"
+  },
+  "DefaultLongNoteMode": {
+    "ko-KR": "롱 노트의 떼는 판정을 노트 파일에 따라 결정합니다.",
+    "en-US": "Default long note release judgment"
+  },
+  "DefaultLowestJudgmentConditionModeContents": {
+    "ko-KR": "간접 미스를 추가하지 않습니다.",
+    "en-US": "Disable indirect miss"
+  },
+  "DefaultMobilityMode": {
+    "ko-KR": "노트가 정상적으로 내려옵니다.",
+    "en-US": "Normal note scrolling"
+  },
+  "DefaultModeContents": {
+    "ko-KR": "턴 테이블을 수동으로 처리합니다.",
+    "en-US": "Handles the turntable."
+  },
+  "DefaultNoteAssister": {
+    "ko-KR": "기본곡 제공",
+    "en-US": "Basic song provided"
+  },
+  "DefaultNoteModifyContents": {
+    "ko-KR": "롱 노트 모드를 적용하지 않습니다.",
+    "en-US": "Does not apply long note mode."
+  },
+  "DefaultPutCopyNotesText": {
+    "ko-KR": "노트 복사하지 않기",
+    "en-US": "Don't copy notes"
+  },
+  "DefaultSaltModeContents": {
+    "ko-KR": "노트에 미러나 랜덤을 적용하지 않습니다.",
+    "en-US": "Do not apply mirrors or random to notes."
+  },
+  "DefaultSetNoteModeContents": {
+    "ko-KR": "추가 노트를 배치하지 않습니다.",
+    "en-US": "Do not place additional notes."
+  },
+  "DefaultSiteName": {
+    "ko-KR": "일반 대화방",
+    "en-US": "General chat room"
+  },
+  "DefaultUIAssister": {
+    "ko-KR": "추가 스킨 제공",
+    "en-US": "Additional skin provided"
+  },
+  "DefaultWaveModeContents": {
+    "ko-KR": "앞으로 플레이합니다.",
+    "en-US": "Play forwards"
+  },
+  "DetailedConfigure": {
+    "ko-KR": "고급 설정 모드",
+    "en-US": "Advanced settings mode"
+  },
+  "DetailedConfigureText": {
+    "ko-KR": "고급 설정",
+    "en-US": "Advanced settings"
+  },
+  "DInputContents": {
+    "ko-KR": "대부분의 비트콘이 사용하는 DirectInput™을 사용합니다.",
+    "en-US": "Use DirectInput™, which most Beatcons use."
+  },
+  "DInputControllerVarietyText": {
+    "ko-KR": "DirectInput™ 컨트롤러 종류를 설정합니다.",
+    "en-US": "Set the DirectInput™ controller type."
+  },
+  "DInputIIDXSensitivityText": {
+    "ko-KR": "IIDX 컨트롤러 턴 테이블 정지 속도를 설정합니다.",
+    "en-US": "Sets the IIDX controller turntable stop rate."
+  },
+  "DInputText": {
+    "ko-KR": "DirectInput™ 모드",
+    "en-US": "DirectInput™ mode"
+  },
+  "DInputXyzSensitivityText": {
+    "ko-KR": "컨트롤러 턴 테이블 민감도를 설정합니다.",
+    "en-US": "Sets the controller turntable sensitivity."
+  },
+  "DrawingComponentConfigure": {
+    "ko-KR": "이미지 모듈 정보",
+    "en-US": "Image Module Information"
+  },
+  "DrawingItemCountText": {
+    "ko-KR": "메모리에 올라온 이미지 파일의 개수입니다.",
+    "en-US": "Number of image files loaded to memory"
+  },
+  "Easy4DModeContents": {
+    "ko-KR": "모든 라인이 고유의 스크롤 속도를 가집니다.",
+    "en-US": "Different scroll speed for every line"
+  },
+  "EasyZipModeContents": {
+    "ko-KR": "노트가 압축되다가 다시 튀어오릅니다.",
+    "en-US": "The note bounces"
+  },
+  "EditedNoteFileFault": {
+    "ko-KR": "노트 파일 수정이 감지되어 플레이를 중단합니다. F5 키로 노트 파일을 다시 불러오세요",
+    "en-US": "A chart modification was detected and play is stopped. Reload the chart with F5"
+  },
+  "EditorConfigureFault": {
+    "ko-KR": "먼저 에디터를 수동으로 실행하여 에디터 설정 파일을 만드세요",
+    "en-US": "First, run the editor manually to create the editor settings file"
+  },
+  "EditorContents": {
+    "ko-KR": "에디터 실행",
+    "en-US": "Run Editor"
+  },
+  "EditorSoftwareFault": {
+    "ko-KR": "에디터 실행이 불가능합니다. ({0})",
+    "en-US": "Editor cannot run ({0})"
+  },
+  "EnterAutoComputeConfigure": {
+    "ko-KR": "라이브 컨트롤",
+    "en-US": "Live control"
+  },
+  "EnterAutoComputeMediaInputConfigure": {
+    "ko-KR": "웹캠을 렌더링할 사각 영역을 드래그하세요",
+    "en-US": "Drag the square area to render the webcam"
+  },
+  "EnterAutoComputeUIConfigure": {
+    "ko-KR": "슬라이더를 사용하여 실시간으로 설정하세요",
+    "en-US": "Use the slider to set it in real time"
+  },
+  "EnterSiteCipherContents": {
+    "ko-KR": "이 방에 입장하기 위하여 비밀번호를 입력하세요",
+    "en-US": "Please enter your password to enter this room."
+  },
+  "EnterSiteInputContents": {
+    "ko-KR": "참가하기",
+    "en-US": "To participate"
+  },
+  "EqualizerContents": {
+    "ko-KR": "5 밴드 이퀄라이저를 설정합니다.",
+    "en-US": "Set the 5-band equalizer."
+  },
+  "EqualizerText": {
+    "ko-KR": "이퀄라이저 설정",
+    "en-US": "Equalizer Settings"
+  },
+  "EventNote": {
+    "ko-KR": "코스",
+    "en-US": "Course"
+  },
+  "EventNoteBundleText": {
+    "ko-KR": "BMS 코스",
+    "en-US": "BMS course"
+  },
+  "EventNoteEntryContents": {
+    "ko-KR": "코스",
+    "en-US": "Course"
+  },
+  "EventNoteNameAssist": {
+    "ko-KR": "코스 이름을 입력하세요",
+    "en-US": "Enter the course name"
+  },
+  "ExileAvatar": {
+    "ko-KR": "추방",
+    "en-US": "Kick"
+  },
+  "F5Notify0": {
+    "ko-KR": "{0} 폴더의 노트 파일들을 다시 불러올까요?",
+    "en-US": "Reload charts in folder {0}?"
+  },
+  "F5Notify1": {
+    "ko-KR": "{0} 폴더의 노트 파일들을 다시 불러올까요? 아니면 {1} 폴더만 불러옵니다.",
+    "en-US": "Reload charts in folder {0}? Otherwise, only the {1} folder is loaded."
+  },
+  "FadingNoteModeContents": {
+    "ko-KR": "노트가 깜빡입니다.",
+    "en-US": "The notes blink"
+  },
+  "FailedDrawingMillisText": {
+    "ko-KR": "미스 레이어가 얼마나 지속될지 설정합니다.",
+    "en-US": "Set how long the miss layer will last."
+  },
+  "FailedHitPointsModeContents": {
+    "ko-KR": "틀리면 바로 게임 오버됩니다.",
+    "en-US": "If you miss, it's game over."
+  },
+  "FailedValidation": {
+    "ko-KR": "입력이 올바르지 않습니다.",
+    "en-US": "The input is not valid."
+  },
+  "FailedVibrationModeText": {
+    "ko-KR": "노트를 놓칠 때",
+    "en-US": "When you miss a note"
+  },
+  "FaintNoteAssist": {
+    "ko-KR": "노트의 밝기를 설정합니다.",
+    "en-US": "Set note brightness"
+  },
+  "FaintNoteModeContents": {
+    "ko-KR": "노트가 점점 어두워집니다.",
+    "en-US": "The notes fade in"
+  },
+  "FastInputMillisContents": {
+    "ko-KR": "채터링 방지를 위하여 빠른 키 입력을 무시합니다.",
+    "en-US": "Ignore quick keystrokes to prevent chattering."
+  },
+  "FaultCommentContents": {
+    "ko-KR": "손상된 리플레이 파일입니다. ({0})",
+    "en-US": "Corrupt replay file. ({0})"
+  },
+  "FaultStillDrawing": {
+    "ko-KR": "화면 캡처가 불가능합니다. ({0})",
+    "en-US": "Screen capture not possible. ({0})"
+  },
+  "FavorAudioMultiplierText": {
+    "ko-KR": "사용자 지정 음악 속도",
+    "en-US": "Custom Music Rate"
+  },
+  "FavorDefaultAudioVarietyText": {
+    "ko-KR": "커스텀 BGM 활성화",
+    "en-US": "Enabling Custom BGM"
+  },
+  "FavorHitPoints0Unit": {
+    "ko-KR": "토탈 비례 수치",
+    "en-US": "Total proportional figure"
+  },
+  "FavorHitPoints1Unit": {
+    "ko-KR": "절대 수치",
+    "en-US": "Absolute number"
+  },
+  "FavorHitPointsModeContents": {
+    "ko-KR": "사용자 지정 라이프 게이지를 사용합니다.",
+    "en-US": "Custom life gauge mode"
+  },
+  "FavorHitPointsNameAssist": {
+    "ko-KR": "프리셋 이름을 입력하세요",
+    "en-US": "Please enter a preset name"
+  },
+  "FavoriteEntryText": {
+    "ko-KR": "컬렉션 목록",
+    "en-US": "Collection List"
+  },
+  "FavorJudgmentModeContents": {
+    "ko-KR": "사용자 지정 판정 난이도를 사용합니다.",
+    "en-US": "Use custom judgment mode"
+  },
+  "FavorJudgmentNameAssist": {
+    "ko-KR": "프리셋 이름을 입력하세요",
+    "en-US": "Please enter a preset name"
+  },
+  "FavorMediaInputContents": {
+    "ko-KR": "사용자 지정 영역에 웹캠을 렌더링합니다.",
+    "en-US": "Renders the webcam to a custom area."
+  },
+  "FavorModeComponentText": {
+    "ko-KR": "사용자 지정 게임 모드",
+    "en-US": "Custom game mode"
+  },
+  "FavorMultiplierText": {
+    "ko-KR": "사용자 지정 스크롤 속도",
+    "en-US": "Custom scroll speed"
+  },
+  "FavorNoteFileText": {
+    "ko-KR": "사용자 지정 난이도",
+    "en-US": "Custom difficulty level"
+  },
+  "Fax": {
+    "ko-KR": "이메일",
+    "en-US": "E-mail"
+  },
+  "FitAssist": {
+    "ko-KR": "정렬 방식을 설정합니다.",
+    "en-US": "Sets the sorting method."
+  },
+  "FitDefaultEntry": {
+    "ko-KR": "이름순 정렬",
+    "en-US": "Sort by Name"
+  },
+  "FlangeContents": {
+    "ko-KR": "플랜지 이펙트를 사용합니다.",
+    "en-US": "Use flanger effect"
+  },
+  "FlangeText": {
+    "ko-KR": "플랜지 활성화",
+    "en-US": "Enable Flanger"
+  },
+  "FlowNetItemContents": {
+    "ko-KR": "실시간 랭킹이 부드럽게 이동합니다.",
+    "en-US": "Real-time ranking moves smoothly."
+  },
+  "FlowNetItemText": {
+    "ko-KR": "실시간 랭킹 애니메이션 활성화",
+    "en-US": "Enable real-time ranking animation"
+  },
+  "FontFamilyAssist": {
+    "ko-KR": "텍스트를 입력하여 글꼴 미리보기",
+    "en-US": "Type text to preview fonts"
+  },
+  "FontFamilyText": {
+    "ko-KR": "글꼴 목록",
+    "en-US": "Font List"
+  },
+  "FrontEntryText": {
+    "ko-KR": "의존 폴더 목록",
+    "en-US": "List of dependent folders"
+  },
+  "GASWarning": {
+    "ko-KR": "라이프가 0이 되면 죽지 않고 다음 게이지로 자동으로 내려가므로 그냥 매우 빡빡한 게이지로 플레이하는 걸 권장합니다.",
+    "en-US": "When life goes to zero, it doesn't die and automatically goes down to the next gauge, so I recommend just playing with a very hard gauge."
+  },
+  "GetMediaInputContents": {
+    "ko-KR": "웹캠 장비를 설정합니다.",
+    "en-US": "Set up the webcam."
+  },
+  "GetMediaInputText": {
+    "ko-KR": "웹캠 장비 업데이트",
+    "en-US": "Update webcam"
+  },
+  "GetMIDIText": {
+    "ko-KR": "MIDI 장비 업데이트",
+    "en-US": "Update MIDI Equipment"
+  },
+  "GetQwilightFault": {
+    "ko-KR": "업데이트가 불가능합니다. ({0})",
+    "en-US": "Update is not possible. ({0})"
+  },
+  "GetQwilightText": {
+    "ko-KR": "업데이트",
+    "en-US": "Update"
+  },
+  "GetWaveInValuesText": {
+    "ko-KR": "입력 장비 업데이트",
+    "en-US": "Update input device"
+  },
+  "GetWaveValuesText": {
+    "ko-KR": "출력 장비 업데이트",
+    "en-US": "Update output device"
+  },
+  "GetWwwLevel": {
+    "ko-KR": "코스 다운로드",
+    "en-US": "Download course"
+  },
+  "GPUModeModified": {
+    "ko-KR": "게임을 다시 시작한 후 그래픽 출력 API가 적용됩니다.",
+    "en-US": "After restarting the game, the graphics output API will be applied."
+  },
+  "GPUModeText": {
+    "ko-KR": "그래픽 출력 API를 설정합니다.",
+    "en-US": "Set up the graphics output API."
+  },
+  "GUIConfigureText": {
+    "ko-KR": "그래픽 설정",
+    "en-US": "Graphic Settings"
+  },
+  "HalfInputSaltModeContents": {
+    "ko-KR": "노트 라인을 반으로 나눠서 임의 배치합니다. (하프 라인 랜덤)",
+    "en-US": "Half Line Random mode"
+  },
+  "HandledBand1": {
+    "ko-KR": "풀콤보",
+    "en-US": "Full combo."
+  },
+  "HandledClear": {
+    "ko-KR": "NM 클리어",
+    "en-US": "NM Clear"
+  },
+  "HandledContents": {
+    "ko-KR": "#,##0 회",
+    "en-US": "#,##0 times"
+  },
+  "HandledF": {
+    "ko-KR": "F 랭크",
+    "en-US": "F rank"
+  },
+  "HandledHigherClear": {
+    "ko-KR": "HD 클리어",
+    "en-US": "HD Clear"
+  },
+  "HandledHighestClear": {
+    "ko-KR": "VHD 클리어",
+    "en-US": "VHD Clear"
+  },
+  "HandledNot": {
+    "ko-KR": "아직 안 함",
+    "en-US": "Not yet."
+  },
+  "HandleFailedAudioCountText": {
+    "ko-KR": "노트를 놓칠 때 반응할 콤보를 설정합니다.",
+    "en-US": "Set a combo to respond to when you miss your note."
+  },
+  "HandleFailedAudioText": {
+    "ko-KR": "노트를 놓칠 때 사운드를 출력할지 설정합니다.",
+    "en-US": "Set whether to output sound when you miss a note."
+  },
+  "HandleInputAudioContents": {
+    "ko-KR": "키음을 사용합니다.",
+    "en-US": "Use the key sound."
+  },
+  "HandleInputAudioText": {
+    "ko-KR": "키음 활성화",
+    "en-US": "Enable Keysounds"
+  },
+  "HandleMeterContents": {
+    "ko-KR": "박자에 따라 스킨을 반응시킵니다.",
+    "en-US": "React the skin according to the beat."
+  },
+  "HandleMeterText": {
+    "ko-KR": "박자 반응 활성화",
+    "en-US": "Enable beat response"
+  },
+  "HandleUndoContents": {
+    "ko-KR": "다시 시도 ({0})",
+    "en-US": "Retry ({0})"
+  },
+  "HandlingAudioCountText": {
+    "ko-KR": "출력중인 오디오 개수입니다.",
+    "en-US": "Number of audio being output"
+  },
+  "HandlingCountContents": {
+    "ko-KR": "#,##0 개 출력",
+    "en-US": "#,##0 output"
+  },
+  "HasNotEventNoteNoteFile": {
+    "ko-KR": "노트 파일을 먼저 불러오세요",
+    "en-US": "Load the chart file first."
+  },
+  "HasNotIONoteFile": {
+    "ko-KR": "해당 플레이어의 노트 파일을 가지지 않아서 관전이 불가능합니다.",
+    "en-US": "You can't watch because you don't have the same chart as that player."
+  },
+  "HasNotNetNoteFile": {
+    "ko-KR": "해당 멀티방의 노트 파일을 가지지 않아서 시작이 불가능합니다.",
+    "en-US": "It is impossible to start because it does not have the note file of the multi-room."
+  },
+  "HellBPMContents": {
+    "ko-KR": "기믹 노트 파일만 보여줄지 설정합니다.",
+    "en-US": "Set whether to show only the gimmick note file."
+  },
+  "HellBPMText": {
+    "ko-KR": "기믹 노트 파일만 보여줍니다.",
+    "en-US": "Show only the gimmick chart"
+  },
+  "HigherAudioMultiplierContents": {
+    "ko-KR": "음악 속도 증가 ({0})",
+    "en-US": "Increase music speed ({0})"
+  },
+  "HigherEntryContents": {
+    "ko-KR": "다음 폴더 ({0})",
+    "en-US": "Next folder ({0})"
+  },
+  "HigherHitPointsModeContents": {
+    "ko-KR": "라이프 게이지가 빡빡해집니다. (GAS 적용)",
+    "en-US": "Hard gauge mode (with GAS)"
+  },
+  "HigherJudgmentModeContents": {
+    "ko-KR": "판정 난이도가 어려워집니다.",
+    "en-US": "The judgment becomes strict"
+  },
+  "HigherLongNoteMode": {
+    "ko-KR": "롱 노트가 끝날 때 손가락을 떼야합니다.",
+    "en-US": "Strict long note release judgment mode"
+  },
+  "HigherMultiplierContents": {
+    "ko-KR": "스크롤 속도 증가 ({0})",
+    "en-US": "Increase scroll speed ({0})"
+  },
+  "HigherNoteFileContents": {
+    "ko-KR": "다음 노트 파일 ({0})",
+    "en-US": "Next chart ({0})"
+  },
+  "HighestHitPointsModeContents": {
+    "ko-KR": "라이프 게이지가 매우 빡빡해집니다. (GAS 적용)",
+    "en-US": "Very Hard gauge mode (with GAS)"
+  },
+  "HighestJudgmentModeContents": {
+    "ko-KR": "판정 난이도가 매우 어려워집니다.",
+    "en-US": "Very hard judgment mode"
+  },
+  "HighestLongNoteModify": {
+    "ko-KR": "가장 긴 노트 간격",
+    "en-US": "Longest note spacing"
+  },
+  "HighestWantBPMContents": {
+    "ko-KR": "0 BPM 까지",
+    "en-US": "Up to 0 BPM"
+  },
+  "HighestWantInputCountContents": {
+    "ko-KR": "0/s 까지",
+    "en-US": "Up to 0/s"
+  },
+  "HighestWantLevelTextValue": {
+    "ko-KR": "0 난이도 까지",
+    "en-US": "Up to level 0"
+  },
+  "HitPoints": {
+    "ko-KR": "라이프",
+    "en-US": "Life"
+  },
+  "HitPointsLegend": {
+    "ko-KR": "■ 라이프 게이지",
+    "en-US": "■ Life Gauge"
+  },
+  "HitPointsModeAssist": {
+    "ko-KR": "라이프 게이지를 설정합니다.",
+    "en-US": "Set the life gauge"
+  },
+  "HunterVariety1stText": {
+    "ko-KR": "1등 기록",
+    "en-US": "First place record"
+  },
+  "HunterVarietyContents": {
+    "ko-KR": "점수 격차의 기준을 설정합니다.",
+    "en-US": "Set the criteria for the score gap"
+  },
+  "HunterVarietyFavorText": {
+    "ko-KR": "사용자 지정 점수",
+    "en-US": "Custom score"
+  },
+  "HunterVarietyHigherText": {
+    "ko-KR": "선두 기록",
+    "en-US": "Lead record"
+  },
+  "HunterVarietyLowerText": {
+    "ko-KR": "후미 기록",
+    "en-US": "Rear record"
+  },
+  "HunterVarietyMeText": {
+    "ko-KR": "내 기록",
+    "en-US": "My record"
+  },
+  "HwModeContents": {
+    "ko-KR": "디스플레이 해상도를 설정합니다.",
+    "en-US": "Sets the display resolution."
+  },
+  "IIDXInputAudioVariety": {
+    "ko-KR": "IIDX 방식",
+    "en-US": "IIDX method"
+  },
+  "IIDXInputAudioVarietyAssist": {
+    "ko-KR": "마지막으로 출력한 키음을 출력합니다.",
+    "en-US": "Output the previous key sound"
+  },
+  "InitCommentContents": {
+    "ko-KR": "모든 오프라인 플레이 기록을 삭제합니다.",
+    "en-US": "Delete all offline play history."
+  },
+  "InitCommentNotify": {
+    "ko-KR": "모든 오프라인 플레이 기록을 삭제할까요?",
+    "en-US": "Do you want to delete all play records?\nThe replay files will also be deleted."
+  },
+  "InitCommentOK": {
+    "ko-KR": "모든 오프라인 플레이 기록이 성공적으로 삭제됨",
+    "en-US": "All play histories deleted successfully"
+  },
+  "InitCommentText": {
+    "ko-KR": "모든 오프라인 플레이 기록 삭제",
+    "en-US": "Delete all offline play history"
+  },
+  "InitCompiledContents": {
+    "ko-KR": "폴더를 빠르게 불러오는데 사용되는 모든 캐시를 삭제합니다.",
+    "en-US": "Deletes all cache used to quickly load folders."
+  },
+  "InitCompiledNotify": {
+    "ko-KR": "모든 캐시를 삭제할까요?",
+    "en-US": "Delete all cache?"
+  },
+  "InitCompiledOK": {
+    "ko-KR": "모든 캐시가 성공적으로 삭제됨",
+    "en-US": "All caches deleted successfully"
+  },
+  "InitCompiledText": {
+    "ko-KR": "모든 캐시 삭제",
+    "en-US": "Delete All Caches"
+  },
+  "InitFavoriteEntryContents": {
+    "ko-KR": "모든 컬렉션을 삭제합니다.",
+    "en-US": "Delete all collections."
+  },
+  "InitFavoriteEntryNotify": {
+    "ko-KR": "모든 컬렉션을 삭제할까요?",
+    "en-US": "Delete all collections?"
+  },
+  "InitFavoriteEntryOK": {
+    "ko-KR": "모든 컬렉션이 성공적으로 삭제됨",
+    "en-US": "All collections deleted successfully"
+  },
+  "InitFavoriteEntryText": {
+    "ko-KR": "모든 컬렉션 삭제",
+    "en-US": "Delete all collections"
+  },
+  "InitMediaContents": {
+    "ko-KR": "모든 노트 파일의 BGA 설정을 복원합니다.",
+    "en-US": "Restore the BGA settings for all note files."
+  },
+  "InitMediaNotify": {
+    "ko-KR": "모든 노트 파일의 BGA 설정을 복원할까요?",
+    "en-US": "Restore BGA settings for all note files?"
+  },
+  "InitMediaOK": {
+    "ko-KR": "모든 노트 파일의 BGA 설정이 성공적으로 복원됨",
+    "en-US": "BGA settings for all note files restored successfully"
+  },
+  "InitMediaText": {
+    "ko-KR": "모든 BGA 설정 복원",
+    "en-US": "Restore all BGA settings"
+  },
+  "InitModeComponent": {
+    "ko-KR": "게임 모드 복원",
+    "en-US": "Reset game mode"
+  },
+  "InitTotalContents": {
+    "ko-KR": "게임 설정을 기본으로 복원합니다.",
+    "en-US": "Reset the game settings to their default settings."
+  },
+  "InitTotalNotify": {
+    "ko-KR": "게임 설정을 기본으로 복원할까요?",
+    "en-US": "Do you want to restore the game settings to their default settings?"
+  },
+  "InitTotalOK": {
+    "ko-KR": "게임 설정이 성공적으로 복원됨",
+    "en-US": "Game settings reset successfully"
+  },
+  "InitTotalText": {
+    "ko-KR": "게임 설정 복원",
+    "en-US": "Reset game settings"
+  },
+  "InitWaitContents": {
+    "ko-KR": "모든 노트 파일의 레이턴시를 0 ms로 복원합니다.",
+    "en-US": "Reset latency settings of all charts to 0 ms"
+  },
+  "InitWaitNotify": {
+    "ko-KR": "모든 노트 파일의 레이턴시를 0 ms로 복원할까요?",
+    "en-US": "Reset the latency of all charts to 0 ms?"
+  },
+  "InitWaitOK": {
+    "ko-KR": "모든 노트 파일의 레이턴시가 성공적으로 복원됨",
+    "en-US": "Latency of all charts reset successfully"
+  },
+  "InitWaitText": {
+    "ko-KR": "모든 레이턴시 복원",
+    "en-US": "Reset all latency settings"
+  },
+  "InputAudioVarietyText": {
+    "ko-KR": "키음 출력 방식을 설정합니다.",
+    "en-US": "Sets the key tone output method."
+  },
+  "InputAudioVolume": {
+    "ko-KR": "키음",
+    "en-US": "Key sound"
+  },
+  "InputConfigure": {
+    "ko-KR": "키보드 설정",
+    "en-US": "Keyboard Settings"
+  },
+  "InputConfigureText": {
+    "ko-KR": "입력 설정",
+    "en-US": "Input Settings"
+  },
+  "InputDefaultMode": {
+    "ko-KR": "노트 라인 개수를 수정하지 않습니다.",
+    "en-US": "Do not modify the number of note lines."
+  },
+  "InputFavorMode10": {
+    "ko-KR": "10 키로 만듭니다.",
+    "en-US": "Force 10 keys"
+  },
+  "InputFavorMode102": {
+    "ko-KR": "10 + 2 키로 만듭니다.",
+    "en-US": "Force 10 + 2 keys"
+  },
+  "InputFavorMode142": {
+    "ko-KR": "14 + 2 키로 만듭니다.",
+    "en-US": "Force 14 + 2 keys"
+  },
+  "InputFavorMode242": {
+    "ko-KR": "24 + 2 키로 만듭니다.",
+    "en-US": "Force 24 + 2 keys"
+  },
+  "InputFavorMode4": {
+    "ko-KR": "4 키로 만듭니다.",
+    "en-US": "Force 4 keys."
+  },
+  "InputFavorMode484": {
+    "ko-KR": "48 + 4 키로 만듭니다.",
+    "en-US": "Force 48 + 4 keys"
+  },
+  "InputFavorMode5": {
+    "ko-KR": "5 키로 만듭니다.",
+    "en-US": "Force 5 keys"
+  },
+  "InputFavorMode51": {
+    "ko-KR": "5 + 1 키로 만듭니다.",
+    "en-US": "Force 5 + 1 keys"
+  },
+  "InputFavorMode6": {
+    "ko-KR": "6 키로 만듭니다.",
+    "en-US": "Force 6 keys"
+  },
+  "InputFavorMode7": {
+    "ko-KR": "7 키로 만듭니다.",
+    "en-US": "Force 7 keys"
+  },
+  "InputFavorMode71": {
+    "ko-KR": "7 + 1 키로 만듭니다.",
+    "en-US": "Force 7 + 1 keys"
+  },
+  "InputFavorMode8": {
+    "ko-KR": "8 키로 만듭니다.",
+    "en-US": "Force 8 keys"
+  },
+  "InputFavorMode9": {
+    "ko-KR": "9 키로 만듭니다.",
+    "en-US": "Force 9 keys"
+  },
+  "InputFavorModeAssist": {
+    "ko-KR": "노트 라인 개수를 설정합니다.",
+    "en-US": "Sets the number of note lines."
+  },
+  "InputMapText": {
+    "ko-KR": "1P와 2P의 턴 테이블 방향을 설정합니다.",
+    "en-US": "Set the turntable directions of 1P and 2P."
+  },
+  "InputNoteCountViewColor": {
+    "ko-KR": "\uD83C\uDFA8 NPS 비주얼라이저",
+    "en-US": "\uD83C\uDFA8 NPS graph"
+  },
+  "InputNoteSetContents": {
+    "ko-KR": "롱 노트를 단일 노트로 만듭니다.",
+    "en-US": "Turn long notes into single notes"
+  },
+  "InputSaltCommentWarning": {
+    "ko-KR": "v1.14.26 이하 랜덤 게임 모드를 적용한 플레이는 리플레이가 호환되지 않습니다.",
+    "en-US": "Replay is not compatible for plays with random game modes below v1.14.26."
+  },
+  "InputSaltModeContents": {
+    "ko-KR": "노트 라인을 임의 배치합니다. (라인 랜덤)",
+    "en-US": "Line Random mode"
+  },
+  "InputVibrationModeText": {
+    "ko-KR": "버튼을 누를 때",
+    "en-US": "When you press the button"
+  },
+  "InputWindowAssist0": {
+    "ko-KR": "◀: 이전 키",
+    "en-US": "◀: Previous Key"
+  },
+  "InputWindowAssist1": {
+    "ko-KR": "▶: 다음 키",
+    "en-US": "▶: Next key."
+  },
+  "InputWindowAssist2": {
+    "ko-KR": "←: 키 하나 지우기",
+    "en-US": "←: Clear one key"
+  },
+  "InputWindowAssist3": {
+    "ko-KR": "DEL: 모든 키 지우기",
+    "en-US": "DEL: Clear all keys"
+  },
+  "IOAvatarContents": {
+    "ko-KR": "회원의 관전 요청만 받음",
+    "en-US": "Only receive spectation requests from members"
+  },
+  "IOCallableContents": {
+    "ko-KR": "모든 관전 요청 받음",
+    "en-US": "Receive all spectation requests"
+  },
+  "IOCompetenceContents": {
+    "ko-KR": "관전 요청을 설정합니다.",
+    "en-US": "Set the spectation request"
+  },
+  "IOComputingSituationContents": {
+    "ko-KR": "관전 중… ({0})",
+    "en-US": "Watching…({0})"
+  },
+  "IOHigherContents": {
+    "ko-KR": "#,##0 명 관전 중…",
+    "en-US": "#,##0 people are spectating..."
+  },
+  "IOLowerContents": {
+    "ko-KR": "{0} 관전 중…",
+    "en-US": "Spectating {0}…"
+  },
+  "IOUbuntuContents": {
+    "ko-KR": "친구의 관전 요청만 받음",
+    "en-US": "Receive friends' spectation requests"
+  },
+  "IOVoidContents": {
+    "ko-KR": "모든 관전 요청을 거절함",
+    "en-US": "Rejected all observation requests"
+  },
+  "IsAudioInputContents": {
+    "ko-KR": "이 방의 음성 대화 참가",
+    "en-US": "Join voice chat in this room"
+  },
+  "IsFailModeContents": {
+    "ko-KR": "라이프 게이지가 0이 되면 게임 오버됩니다.",
+    "en-US": "If the life gauge reaches zero, the game is over."
+  },
+  "IsFailModeText": {
+    "ko-KR": "일반 모드",
+    "en-US": "Normal Mode"
+  },
+  "IsGetNotifyContents": {
+    "ko-KR": "이 방의 알림 받기",
+    "en-US": "Get notifications for this room"
+  },
+  "IsXwindowContents": {
+    "ko-KR": "실수를 방지하기 위하여 윈도우 키를 사용하지 않습니다.",
+    "en-US": "Disable the Windows key to prevent accidental presses"
+  },
+  "JudgmentMainPosition1Contents": {
+    "ko-KR": "판정선 높이",
+    "en-US": "Judgment Line Height"
+  },
+  "JudgmentMeterMillisText": {
+    "ko-KR": "판정 오차가 얼마 이상이면 보여줄지 설정합니다.",
+    "en-US": "Sets how much or more of a decision error is displayed."
+  },
+  "JudgmentModeAssist": {
+    "ko-KR": "판정 난이도를 설정합니다.",
+    "en-US": "Set the judgment difficulty"
+  },
+  "JudgmentStage": {
+    "ko-KR": "판정 난이도",
+    "en-US": "Judgment level"
+  },
+  "JudgmentVisualizerMillisText": {
+    "ko-KR": "판정 비주얼라이저의 막대기가 얼마나 지속될지 설정합니다.",
+    "en-US": "Set how long the bar of the judgment visualizer will be visible."
+  },
+  "K70Contents": {
+    "ko-KR": "CORSAIR® CUE™를 사용합니다.",
+    "en-US": "Use CORSAIR® CUE™"
+  },
+  "K70Text": {
+    "ko-KR": "CORSAIR® CUE™ 활성화",
+    "en-US": "Enable CORSAIR® CUE™"
+  },
+  "Level0Contents": {
+    "ko-KR": "미정",
+    "en-US": "Undetermined"
+  },
+  "Level1Contents": {
+    "ko-KR": "초보자",
+    "en-US": "Beginner"
+  },
+  "Level2Contents": {
+    "ko-KR": "일반",
+    "en-US": "Normal"
+  },
+  "Level3Contents": {
+    "ko-KR": "어려움",
+    "en-US": "Hyper"
+  },
+  "Level4Contents": {
+    "ko-KR": "더 어려움",
+    "en-US": "Another"
+  },
+  "Level5Contents": {
+    "ko-KR": "아주 어려움",
+    "en-US": "Insane"
+  },
+  "LevelInputContents": {
+    "ko-KR": "난이도 테이블의 주소를 입력하세요",
+    "en-US": "Please enter the address of the difficulty table."
+  },
+  "LevelItem": {
+    "ko-KR": "난이도 테이블",
+    "en-US": "Difficulty table"
+  },
+  "LevelSystemText": {
+    "ko-KR": "난이도 테이블 설정",
+    "en-US": "Setting the difficulty table"
+  },
+  "LevelUpContents": {
+    "ko-KR": "레벨 업! 축하합니다.",
+    "en-US": "Level up! Congratulations!"
+  },
+  "LevyNoteFileContents": {
+    "ko-KR": "게임 시작 ({0})",
+    "en-US": "Game Start ({0})"
+  },
+  "LevyWwwLevel": {
+    "ko-KR": "도전 과제 플레이",
+    "en-US": "Challenge Play"
+  },
+  "Library": {
+    "ko-KR": "오픈 소스 라이브러리",
+    "en-US": "Open Source Library"
+  },
+  "Limiter57Variety": {
+    "ko-KR": "5／7 (24K2S, 48K4S 전용)",
+    "en-US": "5／7 (24K2S, 48K4S only)"
+  },
+  "LimiterColor": {
+    "ko-KR": "\uD83C\uDFA8 라인 구분선",
+    "en-US": "\uD83C\uDFA8 Line divider"
+  },
+  "LimiterVarietyContents": {
+    "ko-KR": "라인 구분선을 어느 라인에 놓을지 설정합니다.",
+    "en-US": "Set which lane to put the lane divider on."
+  },
+  "LoadBanalAudio": {
+    "ko-KR": "범용 키음을 불러옵니다.",
+    "en-US": "Set universal keysound"
+  },
+  "LoadBanalFailedMedia": {
+    "ko-KR": "범용 미스 레이어를 불러옵니다.",
+    "en-US": "Set universal miss layer"
+  },
+  "LoadBanalMedia": {
+    "ko-KR": "범용 BGA를 불러옵니다.",
+    "en-US": "Set universal BGA"
+  },
+  "LoadDefaultAudio": {
+    "ko-KR": "BGM을 불러옵니다.",
+    "en-US": "Load BGM."
+  },
+  "LoadedModeComponent": {
+    "ko-KR": "【F{0}】{1} 불러옴",
+    "en-US": "【F{0}】{1} loaded"
+  },
+  "LoadedMultiplier": {
+    "ko-KR": "【F{0}】{1} 불러옴 (속도만)",
+    "en-US": "【F{0}】{1} Loaded (speed only)"
+  },
+  "LoadingBinText": {
+    "ko-KR": "노트 파일 목록을 불러올 때 사용할 스레드 개수입니다.",
+    "en-US": "Number of threads to use when recalling a list of charts."
+  },
+  "LoadLevelFault": {
+    "ko-KR": "난이도 테이블이 올바르지 않습니다. ({0})",
+    "en-US": "The difficulty table is not correct. ({0})"
+  },
+  "LongNoteModeAssist": {
+    "ko-KR": "롱 노트의 떼는 판정을 설정합니다.",
+    "en-US": "Set the decision to remove the long note"
+  },
+  "LongNoteModifyContents": {
+    "ko-KR": "단일 노트를 롱 노트로 만듭니다.",
+    "en-US": "Turn single notes into long notes"
+  },
+  "LongNoteModifyFaultText": {
+    "ko-KR": "노트 간격이 올바르지 않습니다.",
+    "en-US": "Note spacing is not valid."
+  },
+  "LoopUnitText": {
+    "ko-KR": "폴링 레이트를 설정합니다.",
+    "en-US": "Sets the polling rate."
+  },
+  "LoopWaveInContents": {
+    "ko-KR": "입력 장비의 음성을 출력 장비로 루프백합니다.",
+    "en-US": "Loop back the voice from the input equipment to the output equipment."
+  },
+  "LoopWaveInText": {
+    "ko-KR": "입력 장비 시험 활성화",
+    "en-US": "Enable input device test"
+  },
+  "LostPointAudioContents": {
+    "ko-KR": "창이 비활성화 되어도 게임 사운드를 출력합니다.",
+    "en-US": "Output audio even if the window is unfocused."
+  },
+  "LostPointAudioText": {
+    "ko-KR": "백그라운드 오디오 활성화",
+    "en-US": "Enable background audio"
+  },
+  "LowerAudioMultiplierContents": {
+    "ko-KR": "음악 속도 감소 ({0})",
+    "en-US": "Reduce music speed ({0})"
+  },
+  "LowerEntryContents": {
+    "ko-KR": "이전 폴더 ({0})",
+    "en-US": "Previous folder ({0})"
+  },
+  "LowerHitPointsModeContents": {
+    "ko-KR": "라이프 게이지가 관대해집니다.",
+    "en-US": "Easy gauge mode"
+  },
+  "LowerJudgmentModeContents": {
+    "ko-KR": "판정 난이도가 관대해집니다.",
+    "en-US": "Easy judgment mode"
+  },
+  "LowerMultiplierContents": {
+    "ko-KR": "스크롤 속도 감소 ({0})",
+    "en-US": "Reduce scroll speed ({0})"
+  },
+  "LowerNoteFileContents": {
+    "ko-KR": "이전 노트 파일 ({0})",
+    "en-US": "Previous chart ({0})"
+  },
+  "LowestHitPointsModeContents": {
+    "ko-KR": "라이프 게이지가 매우 관대해집니다.",
+    "en-US": "Very easy gauge mode"
+  },
+  "LowestJudgmentConditionModeAssist": {
+    "ko-KR": "간접 미스를 설정합니다.",
+    "en-US": "Sets the indirect miss."
+  },
+  "LowestJudgmentModeContents": {
+    "ko-KR": "판정 난이도가 매우 관대해집니다.",
+    "en-US": "Very easy judgment mode"
+  },
+  "LowestLongNoteModify": {
+    "ko-KR": "가장 짧은 노트 간격",
+    "en-US": "Shortest note spacing"
+  },
+  "LowestWantBPMContents": {
+    "ko-KR": "0 BPM 부터",
+    "en-US": "From 0 BPM"
+  },
+  "LowestWantInputCountContents": {
+    "ko-KR": "0/s 부터",
+    "en-US": "From 0/s"
+  },
+  "LowestWantLevelTextValue": {
+    "ko-KR": "0 난이도 부터",
+    "en-US": "From level 0"
+  },
+  "LowHitPointsFaintUIContents": {
+    "ko-KR": "게임 오버가 되기 전에 화면이 붉게 물들여집니다.",
+    "en-US": "The screen turns red before game over."
+  },
+  "LowHitPointsFaintUIText": {
+    "ko-KR": "블리딩 이펙트 활성화",
+    "en-US": "Enable bleeding effect"
+  },
+  "LSCompileFault": {
+    "ko-KR": "루아 스크립트의 문법이 올바르지 않습니다. ({0})",
+    "en-US": "The Lua script has incorrect grammar. ({0})"
+  },
+  "LSContents": {
+    "ko-KR": "Logitech® LIGHTSYNC™를 사용합니다.",
+    "en-US": "Use Logitech® LIGHTSYNC™"
+  },
+  "LSText": {
+    "ko-KR": "Logitech® LIGHTSYNC™ 활성화",
+    "en-US": "Enable Logitech® LIGHTSYNC™"
+  },
+  "MainAreaFaintContents": {
+    "ko-KR": "기어 영역 불투명도",
+    "en-US": "Gear area opacity"
+  },
+  "MainControllerPowerText": {
+    "ko-KR": "컨트롤러에 내장된 배터리 정보입니다.",
+    "en-US": "Battery information embedded in the controller."
+  },
+  "MainFaintContents": {
+    "ko-KR": "키빔 불투명도",
+    "en-US": "Key beam opacity"
+  },
+  "MainPositionContents": {
+    "ko-KR": "기어 위치",
+    "en-US": "Gear Position"
+  },
+  "MainSetContents": {
+    "ko-KR": "주 메모리 사용량입니다.",
+    "en-US": "Primary memory usage"
+  },
+  "MediaComponentConfigure": {
+    "ko-KR": "동영상 모듈 정보",
+    "en-US": "Video Module Information"
+  },
+  "MediaConfigure": {
+    "ko-KR": "BGA 설정",
+    "en-US": "BGA Settings"
+  },
+  "MediaContents": {
+    "ko-KR": "선택한 노트 파일의 BGA를 보여줍니다.",
+    "en-US": "Show the BGA of the selected chart."
+  },
+  "MediaFaintContents": {
+    "ko-KR": "BGA 불투명도",
+    "en-US": "BGA opacity"
+  },
+  "MediaFillContents": {
+    "ko-KR": "BGA를 강제로 늘려서 출력합니다.",
+    "en-US": "Force the BGA to output."
+  },
+  "MediaFillText": {
+    "ko-KR": "스트레치 BGA",
+    "en-US": "Stretch BGA"
+  },
+  "MediaHandlerItemCountText": {
+    "ko-KR": "메모리에 올라온 동영상 인스턴스의 개수입니다.",
+    "en-US": "Number of movie instances loaded to memory"
+  },
+  "MediaInputConfigure": {
+    "ko-KR": "웹캠 설정",
+    "en-US": "Webcam settings"
+  },
+  "MediaInputFaintContents": {
+    "ko-KR": "웹캠 불투명도",
+    "en-US": "Webcam opacity"
+  },
+  "MediaInputQualityContents": {
+    "ko-KR": "웹캠 해상도를 설정합니다.",
+    "en-US": "Set the webcam resolution"
+  },
+  "MediaItemCountText": {
+    "ko-KR": "메모리에 올라온 동영상 파일의 개수입니다.",
+    "en-US": "Number of video files loaded to memory"
+  },
+  "MediaModifierContents": {
+    "ko-KR": "BGA를 인코딩하는 중입니다.",
+    "en-US": "Encoding BGA."
+  },
+  "MediaText": {
+    "ko-KR": "BGA 활성화",
+    "en-US": "Enable BGA"
+  },
+  "MediaWaitContents": {
+    "ko-KR": "BGA 레이턴시를 설정합니다.",
+    "en-US": "Sets the BGA latency."
+  },
+  "MeterNoteColor": {
+    "ko-KR": "\uD83C\uDFA8 마디선",
+    "en-US": "\uD83C\uDFA8 Bar line"
+  },
+  "MeterSaltModeContents": {
+    "ko-KR": "노트 라인을 마디마다 임의 배치합니다. (마디 랜덤)",
+    "en-US": "Measure Random mode"
+  },
+  "MIDIConfigure": {
+    "ko-KR": "MIDI 설정",
+    "en-US": "MIDI Settings"
+  },
+  "MIDICountContents": {
+    "ko-KR": "{0} 개의 MIDI 장비가 인식됨",
+    "en-US": "{0} MIDI equipment detected"
+  },
+  "MIDIPBCSensitivityText": {
+    "ko-KR": "MIDI 피치 설정 민감도를 설정합니다.",
+    "en-US": "Sets the MIDI pitch setting sensitivity."
+  },
+  "MIDIViewerContents": {
+    "ko-KR": "실시간으로 받은 MIDI 입력 신호입니다.",
+    "en-US": "MIDI input signal received in real time"
+  },
+  "MITMFaultText": {
+    "ko-KR": "TLS 인증서가 올바르지 않습니다. ({0})",
+    "en-US": "TLS certificate is invalid. ({0})"
+  },
+  "ModifyAutoModeContents": {
+    "ko-KR": "연습 모드 ({0})",
+    "en-US": "AutoPlay ({0})"
+  },
+  "ModifyDefaultEntryAssist0": {
+    "ko-KR": "간단히 폴더를 드래그 앤 드롭하면 추가됩니다.",
+    "en-US": "Simply drag and drop the folder to add it."
+  },
+  "ModifyDefaultEntryText": {
+    "ko-KR": "폴더 설정",
+    "en-US": "Folder Settings"
+  },
+  "ModifyEditorContents": {
+    "ko-KR": "다음에 에디터를 바꾸려면 Alt 키를 누르고 에디터 실행 버튼을 클릭하세요",
+    "en-US": "Next time you want to change the editor, press the Alt key and click the Run Editor button."
+  },
+  "ModifyEventNoteName": {
+    "ko-KR": "코스 이름 수정",
+    "en-US": "Change the course name."
+  },
+  "ModifyEventNoteNameContents": {
+    "ko-KR": "수정할 코스 이름을 입력하세요",
+    "en-US": "Enter the course name you want to modify."
+  },
+  "ModifyFavoriteEntry": {
+    "ko-KR": "컬렉션 수정",
+    "en-US": "Modify Collection"
+  },
+  "ModifyFavoriteEntryName": {
+    "ko-KR": "컬렉션 이름 수정",
+    "en-US": "Modify collection name"
+  },
+  "ModifyFavoriteEntryNameContents": {
+    "ko-KR": "새 컬렉션 이름을 입력하세요",
+    "en-US": "Please enter a name for the new collection"
+  },
+  "ModifyFrontEntry": {
+    "ko-KR": "의존 폴더 관리",
+    "en-US": "Managing dependent folders"
+  },
+  "ModifyModeComponentText": {
+    "ko-KR": "게임 모드 설정",
+    "en-US": "Game Mode Settings"
+  },
+  "ModifyPositionAssist": {
+    "ko-KR": "▲, ▼ 키와 DEL 키로 순서를 설정하거나 삭제하세요",
+    "en-US": "▲, Set or delete the order with the ▼ and DEL keys"
+  },
+  "MultiplierContents": {
+    "ko-KR": "스크롤 속도",
+    "en-US": "Scroll Speed"
+  },
+  "NegativePostedItemText": {
+    "ko-KR": "{0}이 {1}로 공격함",
+    "en-US": "{1} attacked with {1}"
+  },
+  "NegativeStopFault": {
+    "ko-KR": "음수 정지 노트는 지원하지 않습니다.",
+    "en-US": "Negative stop notes are not supported."
+  },
+  "NetCommentFollowContents": {
+    "ko-KR": "게임 중 실시간 랭킹을 업데이트합니다.",
+    "en-US": "Updates real-time ranking during the game."
+  },
+  "NetCommentFollowText": {
+    "ko-KR": "실시간 랭킹 업데이트",
+    "en-US": "Update Real-time rankings"
+  },
+  "NetCommentNotFollowContents": {
+    "ko-KR": "게임 중 실시간 랭킹을 결과 기록으로 고정시킵니다.",
+    "en-US": "Pin the real-time ranking in the game to the result record."
+  },
+  "NetCommentNotFollowText": {
+    "ko-KR": "실시간 랭킹 고정",
+    "en-US": "Fixed Real-time Rankings"
+  },
+  "NetComputingSituationContents": {
+    "ko-KR": "멀티 플레이 중… ({0})",
+    "en-US": "Multiplaying… ({0})"
+  },
+  "NetItemCountText": {
+    "ko-KR": "실시간 랭킹에 넣을 기록 개수를 설정합니다.",
+    "en-US": "Number of records to display on Real-time ranking"
+  },
+  "NetItemFaintContents": {
+    "ko-KR": "실시간 랭킹 불투명도",
+    "en-US": "Real-time ranking opacity"
+  },
+  "NetSiteCommentsText": {
+    "ko-KR": "게임 결과",
+    "en-US": "Game Results"
+  },
+  "NetText": {
+    "ko-KR": "멀티 플레이",
+    "en-US": "Multiplay"
+  },
+  "NetUIContents": {
+    "ko-KR": "스킨 다운로드",
+    "en-US": "Download Skin"
+  },
+  "NewDefaultEntry": {
+    "ko-KR": "폴더 추가",
+    "en-US": "Add folder"
+  },
+  "NewEventNote": {
+    "ko-KR": "코스 만들기",
+    "en-US": "Create Course"
+  },
+  "NewFavorHitPoints": {
+    "ko-KR": "프리셋 만들기",
+    "en-US": "Create Presets"
+  },
+  "NewFavoriteEntry": {
+    "ko-KR": "컬렉션 추가",
+    "en-US": "Add Collection"
+  },
+  "NewFavoriteEntryContents": {
+    "ko-KR": "새 컬렉션의 이름을 입력하세요",
+    "en-US": "Please enter a name for the new collection"
+  },
+  "NewFavorJudgment": {
+    "ko-KR": "프리셋 만들기",
+    "en-US": "Create Presets"
+  },
+  "NewFrontEntry": {
+    "ko-KR": "의존 폴더 추가",
+    "en-US": "Add dependent folder"
+  },
+  "NewNetSiteContents": {
+    "ko-KR": "멀티방 이름과 비밀번호를 입력하세요",
+    "en-US": "Enter the name and password of the multi-room"
+  },
+  "NewNetSiteText": {
+    "ko-KR": "멀티방 만들기",
+    "en-US": "Creating a multi-room"
+  },
+  "NewSilentSite": {
+    "ko-KR": "1대1 대화",
+    "en-US": "Direct message"
+  },
+  "NewSiteContents": {
+    "ko-KR": "대화방 이름과 비밀번호를 입력하세요",
+    "en-US": "Please enter your chat room name and password."
+  },
+  "NewSiteText": {
+    "ko-KR": "대화방 만들기",
+    "en-US": "Create Chat Room"
+  },
+  "NewTitleContents": {
+    "ko-KR": "호칭 {0} 얻음",
+    "en-US": "You got the title {0}."
+  },
+  "NewUbuntu": {
+    "ko-KR": "친구 추가",
+    "en-US": "Add as a friend."
+  },
+  "NotAllowPauseText": {
+    "ko-KR": "일시 정지 불가능",
+    "en-US": "Unable to pause"
+  },
+  "NotAuraText": {
+    "ko-KR": "ASUS® Aura™ 비활성화",
+    "en-US": "Disable ASUS® Aura™"
+  },
+  "NotAutoComputeConfigureFault": {
+    "ko-KR": "이 기능을 사용하려면 미리듣기를 사용하세요",
+    "en-US": "Use preview to use this feature"
+  },
+  "NotAutoComputeContents": {
+    "ko-KR": "미리듣기를 사용하지 않습니다.",
+    "en-US": "Disable preview."
+  },
+  "NotAutoComputeFault": {
+    "ko-KR": "먼저 노트 파일을 선택하여 미리듣기를 실행하세요",
+    "en-US": "First, select the note file and run the preview"
+  },
+  "NotAutoComputeText": {
+    "ko-KR": "미리듣기 비활성화",
+    "en-US": "Disable preview"
+  },
+  "NotAutoComputeViewContents": {
+    "ko-KR": "오토 플레이를 제외하고 출력",
+    "en-US": "Output excluding auto-play"
+  },
+  "NotAvailableEventNoteFileFault": {
+    "ko-KR": "먼저 이 코스의 모든 노트 파일을 불러오세요",
+    "en-US": "First, load all the charts for this course."
+  },
+  "NotAvailableLevelWww": {
+    "ko-KR": "난이도 테이블에 다운로드 주소가 존재하지 않습니다.",
+    "en-US": "The download address does not exist in the difficulty table."
+  },
+  "NotAvatarBundleFault": {
+    "ko-KR": "비회원의 꾸러미는 제공되지 않습니다.",
+    "en-US": "Packs of non-members are not provided."
+  },
+  "NotAvatarGroup": {
+    "ko-KR": "개인전",
+    "en-US": "Solo"
+  },
+  "NotAvatarTitle": {
+    "ko-KR": "(호칭 사용 안함)",
+    "en-US": "(Don't use title)"
+  },
+  "NotAvatarUbuntuFault": {
+    "ko-KR": "회원만 친구로 추가 가능합니다.",
+    "en-US": "Only members can be added as friends."
+  },
+  "NotAvatarViewFault": {
+    "ko-KR": "비회원의 프로필은 제공되지 않습니다.",
+    "en-US": "Can't view profile of non-members."
+  },
+  "NotAveragerText": {
+    "ko-KR": "노멀라이즈 비활성화",
+    "en-US": "Disable Normalization"
+  },
+  "NotBanalAudioText": {
+    "ko-KR": "범용 키음 비활성화",
+    "en-US": "Disable universal keysound"
+  },
+  "NotBanalFailedMediaText": {
+    "ko-KR": "범용 미스 레이어 비활성화",
+    "en-US": "Disable universal miss layer"
+  },
+  "NotBanalMediaText": {
+    "ko-KR": "범용 BGA 비활성화",
+    "en-US": "Disable Universal BGA"
+  },
+  "NotBPMModeContents": {
+    "ko-KR": "BPM을 고정합니다.",
+    "en-US": "Fixed BPM"
+  },
+  "NotBWText": {
+    "ko-KR": "RAZER® Chroma™ 비활성화",
+    "en-US": "Disable RAZER® Chroma™"
+  },
+  "NotDataCount3Text": {
+    "ko-KR": "삼중 버퍼링 비활성화",
+    "en-US": "Disable triple buffering"
+  },
+  "NotDefaultAudioVarietyText": {
+    "ko-KR": "BGM 비활성화",
+    "en-US": "Disable BGM"
+  },
+  "NoteDrawingCountText": {
+    "ko-KR": "메모리에 올라온 썸네일 이미지의 개수입니다.",
+    "en-US": "Number of thumbnails loaded in memory"
+  },
+  "NoteFileBundleText": {
+    "ko-KR": "BMS 차분",
+    "en-US": "BMS sabun"
+  },
+  "NoteFileLevelText": {
+    "ko-KR": "차분 사이트",
+    "en-US": "Sabun Site"
+  },
+  "NoteFileModeSituationContents": {
+    "ko-KR": "노트 파일 목록 탐색 중… ({0})",
+    "en-US": "Navigating chart list… ({0})"
+  },
+  "NoteFilesLevelText": {
+    "ko-KR": "동봉 사이트",
+    "en-US": "Enclosed Site"
+  },
+  "NoteFormat": {
+    "ko-KR": "텍스트 인코딩",
+    "en-US": "Text encoding"
+  },
+  "NoteFormatIDText65001": {
+    "ko-KR": "유니코드",
+    "en-US": "Unicode"
+  },
+  "NoteFormatIDText932": {
+    "ko-KR": "일본어",
+    "en-US": "Japanese"
+  },
+  "NoteFormatIDText936": {
+    "ko-KR": "대만어",
+    "en-US": "Taiwanese"
+  },
+  "NoteFormatIDText949": {
+    "ko-KR": "한국어",
+    "en-US": "Korean"
+  },
+  "NoteHeightContents": {
+    "ko-KR": "노트 두께",
+    "en-US": "Note Thickness"
+  },
+  "NoteLengthContents": {
+    "ko-KR": "노트 너비",
+    "en-US": "Note Width"
+  },
+  "NoteMobilityAssist": {
+    "ko-KR": "노트의 무질서도를 설정합니다.",
+    "en-US": "Sets the disorder plot for the note"
+  },
+  "NoteModifyModeAssist": {
+    "ko-KR": "노트에 규칙을 설정합니다.",
+    "en-US": "Set note rules"
+  },
+  "NoteSaltModeAssist": {
+    "ko-KR": "노트의 배치 방식을 설정합니다.",
+    "en-US": "Set note placement"
+  },
+  "NoteWaitContents": {
+    "ko-KR": "노트 레이턴시",
+    "en-US": "Note Latency"
+  },
+  "NotFavoritesF10": {
+    "ko-KR": "컬렉션이 존재하지 않습니다.",
+    "en-US": "Collection does not exist."
+  },
+  "NotFlangeText": {
+    "ko-KR": "플랜지 비활성화",
+    "en-US": "Disable Flanger"
+  },
+  "NotFlowNetItemText": {
+    "ko-KR": "실시간 랭킹 애니메이션 비활성화",
+    "en-US": "Disable real-time ranking animation"
+  },
+  "NotHandleInputAudioText": {
+    "ko-KR": "키음 비활성화",
+    "en-US": "Disable Keysounds"
+  },
+  "NotHandleMeterText": {
+    "ko-KR": "박자 반응 비활성화",
+    "en-US": "Disable beat response"
+  },
+  "NotHaveLevelTarget": {
+    "ko-KR": "저장된 주소가 존재하지 않습니다. 난이도 테이블을 수동으로 다시 불러오세요",
+    "en-US": "The saved address does not exist. Bring back the difficulty table manually"
+  },
+  "NotHaveNoteFileEntryText": {
+    "ko-KR": "차분에 대응되는 폴더가 존재하지 않습니다.",
+    "en-US": "The folder corresponding to the sabun does not exist."
+  },
+  "NotHellBPMText": {
+    "ko-KR": "모든 노트 파일을 보여줍니다.",
+    "en-US": "Shows all charts"
+  },
+  "NotifyInSite": {
+    "ko-KR": "개발자",
+    "en-US": "Developer"
+  },
+  "NotifySaveBundleAvatarContents": {
+    "ko-KR": "회원의 꾸러미 다운로드 알림만 받음",
+    "en-US": "Only get notifications for downloading members' packages"
+  },
+  "NotifySaveBundleCallableContents": {
+    "ko-KR": "모든 꾸러미 다운로드 알림을 받음",
+    "en-US": "Get notifications for all package downloads"
+  },
+  "NotifySaveBundleCompetenceContents": {
+    "ko-KR": "누군가 꾸러미를 받을 때 알림을 받을지 설정합니다.",
+    "en-US": "Set whether to be notified when someone receives a package."
+  },
+  "NotifySaveBundleUbuntuContents": {
+    "ko-KR": "친구의 꾸러미 다운로드 알림만 받음",
+    "en-US": "Only get notifications for downloading friends' packages"
+  },
+  "NotifySaveBundleVoidContents": {
+    "ko-KR": "모든 꾸러미 다운로드 알림을 받지 받음",
+    "en-US": "Receive notifications for downloading all packages"
+  },
+  "NotifySiteYellInvite": {
+    "ko-KR": "{0} 에서 멀티 플레이가 시작됩니다.",
+    "en-US": "Multiplay starts at {0}."
+  },
+  "NotifySiteYellTV": {
+    "ko-KR": "Qwilight 방송 {0}이 시작됩니다.",
+    "en-US": "Qwilight broadcast {0} will start."
+  },
+  "NotifyText": {
+    "ko-KR": "알림 메시지 목록",
+    "en-US": "Notification message list"
+  },
+  "NotifyUbuntuCompetenceContents": {
+    "ko-KR": "친구 접속시 알림을 받을지 설정합니다.",
+    "en-US": "Set whether you want to receive notifications when a friend contacts you."
+  },
+  "NotifyUbuntuContents": {
+    "ko-KR": "친구 접속시 알림을 받음",
+    "en-US": "Receive a notification when a friend connects"
+  },
+  "NotIsFailModeContents": {
+    "ko-KR": "라이프 게이지가 0이 되어도 게임 오버되지 않습니다.",
+    "en-US": "If the life gauge reaches 0, the game does not go over."
+  },
+  "NotIsFailModeText": {
+    "ko-KR": "무한 모드",
+    "en-US": "Infinite Mode"
+  },
+  "NotK70Text": {
+    "ko-KR": "CORSAIR® CUE™ 비활성화",
+    "en-US": "Disable CORSAIR® CUE™"
+  },
+  "NotLoopWaveInContents": {
+    "ko-KR": "입력 장비의 음성을 출력 장비로 루프백합니다.",
+    "en-US": "Loop back the voice from the input equipment to the output equipment."
+  },
+  "NotLoopWaveInText": {
+    "ko-KR": "입력 장비 시험 비활성화",
+    "en-US": "Disable input device test"
+  },
+  "NotLostPointAudioText": {
+    "ko-KR": "백그라운드 오디오 비활성화",
+    "en-US": "Disable background audio"
+  },
+  "NotLowHitPointsFaintUIText": {
+    "ko-KR": "블리딩 이펙트 비활성화",
+    "en-US": "Disable Bleeding Effect"
+  },
+  "NotLSText": {
+    "ko-KR": "Logitech® LIGHTSYNC™ 비활성화",
+    "en-US": "Disable Logitech® LIGHTSYNC™"
+  },
+  "NotMediaFillContents": {
+    "ko-KR": "BGA의 비율에 맞춰서 출력합니다.",
+    "en-US": "Outputs according to the ratio of BGA."
+  },
+  "NotMediaFillText": {
+    "ko-KR": "레터박스 BGA",
+    "en-US": "Letterbox BGA"
+  },
+  "NotMediaText": {
+    "ko-KR": "BGA 비활성화",
+    "en-US": "Disable BGA"
+  },
+  "NotNotifyUbuntuContents": {
+    "ko-KR": "친구 접속시 알림을 받지 않음",
+    "en-US": "Don't get notified when friends log in"
+  },
+  "NotQwilightFillContents": {
+    "ko-KR": "창의 비율에 맞춰서 출력합니다.",
+    "en-US": "Output to a percentage of the window"
+  },
+  "NotQwilightFillText": {
+    "ko-KR": "레터박스 화면",
+    "en-US": "Letterbox screen"
+  },
+  "NotSFXText": {
+    "ko-KR": "리버브 비활성화",
+    "en-US": "Disable Reverb"
+  },
+  "NotSignedInContents": {
+    "ko-KR": "{0}님 감사합니다.",
+    "en-US": "Thank you, {0}."
+  },
+  "NotSignedInSituationContents": {
+    "ko-KR": "{0}에 마지막으로 접속함",
+    "en-US": "{0} last accessed"
+  },
+  "NotSignInNotify": {
+    "ko-KR": "로그아웃 할까요?",
+    "en-US": "Do you want log out?"
+  },
+  "NotSignInText": {
+    "ko-KR": "로그아웃",
+    "en-US": "Sign out"
+  },
+  "NotStillDrawing": {
+    "ko-KR": "화면 캡처를 지원하지 않습니다.",
+    "en-US": "Screen capture is not supported."
+  },
+  "NotStopLastEqualAudioText": {
+    "ko-KR": "중복 키음 방지 비활성화",
+    "en-US": "Disable duplicate key tone protection"
+  },
+  "NotSupportedFileContents": {
+    "ko-KR": "지원하지 않는 파일입니다.",
+    "en-US": "This file is not supported."
+  },
+  "NotTubeText": {
+    "ko-KR": "컴프레서 비활성화",
+    "en-US": "Disable compressor"
+  },
+  "NotUbuntuSituationContents": {
+    "ko-KR": "아직 서로 친구가 아님",
+    "en-US": "We're not friends yet."
+  },
+  "NotValidNetLevelContents": {
+    "ko-KR": "올바르지 않은 주소입니다. ({0})",
+    "en-US": "Invalid address. ({0})"
+  },
+  "NotValidNoteFile": {
+    "ko-KR": "노트 파일을 먼저 선택하세요",
+    "en-US": "Please select a chart first"
+  },
+  "NotVESAText": {
+    "ko-KR": "수직 동기화 비활성화",
+    "en-US": "Disable V-Sync"
+  },
+  "NotVibrationModeText": {
+    "ko-KR": "진동 비활성화",
+    "en-US": "Disable vibration"
+  },
+  "NotViewContents": {
+    "ko-KR": "출력하지 않음",
+    "en-US": "Do not output"
+  },
+  "NotWantHandledContents": {
+    "ko-KR": "클리어 램프를 하나 이상 선택하세요",
+    "en-US": "Select at least one clear lamp"
+  },
+  "NotWantLevelContents": {
+    "ko-KR": "난이도 색상을 하나 이상 선택하세요",
+    "en-US": "Please select at least one difficulty color"
+  },
+  "NotWantLevelItemContents": {
+    "ko-KR": "난이도를 하나 이상 선택하세요",
+    "en-US": "Please select at least one difficulty level"
+  },
+  "NotWantModeContents": {
+    "ko-KR": "라인을 하나 이상 선택하세요",
+    "en-US": "Please select at least one line"
+  },
+  "NotWantNoteVarietyContents": {
+    "ko-KR": "노트 파일 형식을 하나 이상 선택하세요",
+    "en-US": "Select at least one note file format"
+  },
+  "NotWindowedModeContents": {
+    "ko-KR": "전체 화면으로 게임을 플레이합니다.",
+    "en-US": "Play the game in fullscreen."
+  },
+  "NotWindowedModeText": {
+    "ko-KR": "전체 화면 모드",
+    "en-US": "Fullscreen mode"
+  },
+  "NotXwindowText": {
+    "ko-KR": "윈도우 키 활성화",
+    "en-US": "Enable windows key"
+  },
+  "NVLLFramerateContents": {
+    "ko-KR": "프레임 제한을 설정합니다. 0은 제한하지 않습니다.",
+    "en-US": "Set the frame limit. 0 does not limit."
+  },
+  "NVLLModeContents": {
+    "ko-KR": "저지연 기술을 사용합니다.",
+    "en-US": "Use low latency technology."
+  },
+  "NVLLModeNotText": {
+    "ko-KR": "NVIDIA® Reflex™ 비활성화",
+    "en-US": "Disable NVIDIA® Reflex™"
+  },
+  "NVLLModeOKText": {
+    "ko-KR": "NVIDIA® Reflex™ 활성화",
+    "en-US": "Enable NVIDIA® Reflex™"
+  },
+  "NVLLModeUnlimitedText": {
+    "ko-KR": "NVIDIA® Reflex Boost™ 활성화",
+    "en-US": "Enable NVIDIA® Reflex Boost™"
+  },
+  "OBSText0": {
+    "ko-KR": "❕ 방송 프로그램의 게임 캡처를 사용하면 Qwiight의 일부 화면이 캡처되지 않습니다.",
+    "en-US": "❕ Some screens on Qwiight are not captured when using game capture for broadcast programs."
+  },
+  "OBSText1": {
+    "ko-KR": "✔️ 게임 캡처 대신 윈도우 10 (1903 이상)으로 설정된 윈도우 캡처를 사용하세요",
+    "en-US": "✔️ Use Windows Capture set to Windows 10 (1903 or higher) instead of Game Capture."
+  },
+  "OpenedCountContents": {
+    "ko-KR": "#,##0 개 로드됨",
+    "en-US": "#,##0 loaded"
+  },
+  "OpenedEventNotes": {
+    "ko-KR": "코스를 성공적으로 불러옴",
+    "en-US": "Successfully loaded course"
+  },
+  "OpenedUIFileContents": {
+    "ko-KR": "스킨 파일 불러오기 성공",
+    "en-US": "Skin file import successful"
+  },
+  "OpeningUIFileContents": {
+    "ko-KR": "스킨 파일을 불러옵니다.",
+    "en-US": "Loading a skin file."
+  },
+  "P1SymmetricCopyNotesText": {
+    "ko-KR": "노트 복사 후 1P 미러",
+    "en-US": "1P Mirror After Copying Note"
+  },
+  "P2SymmetricCopyNotesText": {
+    "ko-KR": "노트 복사 후 2P 미러",
+    "en-US": "2P Mirror After Copying Note"
+  },
+  "PassContents": {
+    "ko-KR": "건너뛰기",
+    "en-US": "Skip it"
+  },
+  "PauseAssist": {
+    "ko-KR": "미리듣기를 일시 정지합니다.",
+    "en-US": "Pause the preview"
+  },
+  "PlatformAutoComputing": {
+    "ko-KR": "오토 플레이 중…",
+    "en-US": "AutoPlaying…"
+  },
+  "PlatformCommentComputing": {
+    "ko-KR": "리플레이 보는 중…",
+    "en-US": "Watching replay…"
+  },
+  "PlatformDefaultComputing": {
+    "ko-KR": "플레이 중…",
+    "en-US": "Playing…"
+  },
+  "PlatformNoteFileMode": {
+    "ko-KR": "음악 듣는 중…",
+    "en-US": "Listening to music…"
+  },
+  "PlatformQuitMode": {
+    "ko-KR": "결과 보는 중…",
+    "en-US": "Viewing results..."
+  },
+  "PlatformSiteName": {
+    "ko-KR": "디스코드 대화방",
+    "en-US": "Discord Chat Room"
+  },
+  "PlatformText0": {
+    "ko-KR": "❕ 디스코드의 기본 캡처 설정을 사용하면 Qwilight과 충돌이 발생합니다.",
+    "en-US": "❕ Using Discord's default capture settings will cause a conflict with Qwilight."
+  },
+  "PlatformText1": {
+    "ko-KR": "✔️ 디스코드 앱 설정에서 고급 기술을 사용하여 화면 캡처 설정 을 제거하세요",
+    "en-US": "✔️ Remove the screen capture setting using advanced techniques in the Discord app settings"
+  },
+  "Point": {
+    "ko-KR": "정확도",
+    "en-US": "Accuracy"
+  },
+  "PointLegend": {
+    "ko-KR": "■ 정확도",
+    "en-US": "■ Accuracy"
+  },
+  "PointLevelContents": {
+    "ko-KR": "0 픽셀",
+    "en-US": "0 pixel"
+  },
+  "PointValidHunterModeText": {
+    "ko-KR": "정확도 우선",
+    "en-US": "Accuracy First"
+  },
+  "PositivePostedItemText": {
+    "ko-KR": "{0}이 {1}를 제공함",
+    "en-US": "(0) supplied {1}"
+  },
+  "PostableItemModeViewCommentFault": {
+    "ko-KR": "아이템 모드는 리플레이를 지원하지 않습니다.",
+    "en-US": "Item mode does not support replay."
+  },
+  "PostableItemModeWarning": {
+    "ko-KR": "플레이어가 혼자이므로 모든 아이템이 본인에게도 적용됩니다.",
+    "en-US": "The player is alone, so all items apply to you."
+  },
+  "PostableItemText": {
+    "ko-KR": "아이템 (Beta 0.9.4)",
+    "en-US": "Items (Beta 0.9.4)"
+  },
+  "PostItem0Contents": {
+    "ko-KR": "첫번째 아이템 사용 ({0})",
+    "en-US": "Use first item ({0})"
+  },
+  "PostItem1Contents": {
+    "ko-KR": "두번째 아이템 사용 ({0})",
+    "en-US": "Use second item ({0})"
+  },
+  "PostItemContents": {
+    "ko-KR": "아이템 사용",
+    "en-US": "Use item"
+  },
+  "Power00": {
+    "ko-KR": "알칼라인 ({0}％)",
+    "en-US": "Alkaline ({0}％)"
+  },
+  "Power01": {
+    "ko-KR": "단선 ({0}％)",
+    "en-US": "Open circuit ({0}％)"
+  },
+  "Power02": {
+    "ko-KR": "니켈 수소 ({0}％)",
+    "en-US": "Nickel Hydrogen ({0}％)"
+  },
+  "Power03": {
+    "ko-KR": "인식 불가능 ({0}％)",
+    "en-US": "Unrecognized ({0}％)"
+  },
+  "Power04": {
+    "ko-KR": "유선 ({0}％)",
+    "en-US": "Wired ({0}％)"
+  },
+  "Power10": {
+    "ko-KR": "충전 중 ({0}％)",
+    "en-US": "Charging ({0}％)"
+  },
+  "Power11": {
+    "ko-KR": "방전 중 ({0}％)",
+    "en-US": "During discharge ({0}％)"
+  },
+  "Power12": {
+    "ko-KR": "유휴 ({0}％)",
+    "en-US": "Idle ({0}％)"
+  },
+  "Power13": {
+    "ko-KR": "존재하지 않음 ({0}％)",
+    "en-US": "Does not exist ({0}％)"
+  },
+  "PutCopyNotesContents": {
+    "ko-KR": "1P를 2P로 복사합니다. (5K1S, 7K1S만 적용)",
+    "en-US": "Copy 1P to 2P. (5K1S, 7K1S only)"
+  },
+  "PutSetNoteModeContents": {
+    "ko-KR": "BGM을 추가 노트로 만듭니다.",
+    "en-US": "Make the BGM an additional note."
+  },
+  "QuitComputingSituationContents": {
+    "ko-KR": "게임 결과 보는 중… ({0})",
+    "en-US": "Viewing game results… ({0})"
+  },
+  "QuitContents": {
+    "ko-KR": "게임을 닫을까요?",
+    "en-US": "Do you want to close the game?"
+  },
+  "QuitSiteAssist": {
+    "ko-KR": "방 나가기",
+    "en-US": "Leave the room"
+  },
+  "QuitText": {
+    "ko-KR": "게임 닫기",
+    "en-US": "Close Game"
+  },
+  "QwilightBundleText": {
+    "ko-KR": "Qwilight 백업",
+    "en-US": "Qwilight Backup"
+  },
+  "QwilightFillContents": {
+    "ko-KR": "화면을 강제로 늘려서 출력합니다.",
+    "en-US": "Stretch screen"
+  },
+  "QwilightFillText": {
+    "ko-KR": "스트레치 화면",
+    "en-US": "Stretch screen"
+  },
+  "SaltContents": {
+    "ko-KR": "BMS 랜덤이나 게임 모드 등에 사용되는 시드입니다.",
+    "en-US": "Seed used for BMS random or game mode."
+  },
+  "SaltModeContents": {
+    "ko-KR": "노트를 임의 배치합니다. (슈퍼 랜덤)",
+    "en-US": "Super Random mod"
+  },
+  "SaveAsBundle": {
+    "ko-KR": "꾸러미로 업로드",
+    "en-US": "Upload as a package"
+  },
+  "SaveAsBundleContents": {
+    "ko-KR": "꾸러미 압축 중…",
+    "en-US": "Compressing Packages…"
+  },
+  "SaveAsBundleFault": {
+    "ko-KR": "꾸러미로 업로드가 불가능합니다. ({0})",
+    "en-US": "Unable to upload to package. ({0})"
+  },
+  "SaveAsNetBundle": {
+    "ko-KR": "공유하기",
+    "en-US": "Share"
+  },
+  "SaveBundle": {
+    "ko-KR": "꾸러미 다운로드",
+    "en-US": "Download Packages"
+  },
+  "SaveBundleContents": {
+    "ko-KR": "꾸러미 다운로드 중…",
+    "en-US": "Downloading Packages…"
+  },
+  "SaveBundleFault": {
+    "ko-KR": "꾸러미 다운로드가 불가능합니다. ({0})",
+    "en-US": "Package download is not possible. ({0})"
+  },
+  "SaveCommentFailed": {
+    "ko-KR": "리플레이 파일 저장이 불가능합니다. ({0})",
+    "en-US": "Saving replay files is not possible. ({0})"
+  },
+  "SavedAsBundleContents": {
+    "ko-KR": "꾸러미로 업로드 완료",
+    "en-US": "Upload to Packages Completed"
+  },
+  "SavedBundleContents": {
+    "ko-KR": "꾸러미 다운로드 완료",
+    "en-US": "Package download complete"
+  },
+  "SaveDefaultNoteContents": {
+    "ko-KR": "기본곡을 서버로부터 받습니다.",
+    "en-US": "Download default songs from the server."
+  },
+  "SaveDefaultNoteNotify": {
+    "ko-KR": "{0}에 업데이트된 기본곡을 온라인으로 받을까요?",
+    "en-US": "Do you want to download the base songs, updated on {0}?"
+  },
+  "SaveDefaultNoteText": {
+    "ko-KR": "기본곡 받기",
+    "en-US": "Download default songs"
+  },
+  "SaveDefaultUIContents": {
+    "ko-KR": "추가 스킨을 서버로부터 받습니다.",
+    "en-US": "Downloading additional skins from the server."
+  },
+  "SaveDefaultUINotify": {
+    "ko-KR": "{0}에 업데이트된 추가 스킨을 온라인으로 받을까요?",
+    "en-US": "Do you want to download additional skin updates, updated on {0}?"
+  },
+  "SaveDefaultUIText": {
+    "ko-KR": "추가 스킨 받기",
+    "en-US": "Download additional skins"
+  },
+  "SavedFileContents": {
+    "ko-KR": "파일 압축 풀기 완료",
+    "en-US": "File unzipping complete"
+  },
+  "SavedLevelContents": {
+    "ko-KR": "난이도 테이블 다운로드 완료",
+    "en-US": "Difficulty table download complete"
+  },
+  "SavedQwilightBundleContents": {
+    "ko-KR": "게임을 다시 시작한 후 복원이 진행됩니다.",
+    "en-US": "Restoration proceeds after restarting the game."
+  },
+  "SavedQwilightContents": {
+    "ko-KR": "게임을 다시 시작한 후 업데이트가 진행됩니다.",
+    "en-US": "The update will proceed after restarting the game."
+  },
+  "SavedStillDrawing": {
+    "ko-KR": "화면 캡처가 {0}에 저장됨",
+    "en-US": "Screen capture saved to {0}"
+  },
+  "SavedUIContents": {
+    "ko-KR": "스킨 등록 완료",
+    "en-US": "Skin registration completed"
+  },
+  "SaveFileFault": {
+    "ko-KR": "파일 압축 풀기가 불가능합니다. ({0})",
+    "en-US": "It is not possible to unzip the file. ({0})"
+  },
+  "SaveModeComponent": {
+    "ko-KR": "여기에 저장",
+    "en-US": "Save here"
+  },
+  "SaveModeComponentContents": {
+    "ko-KR": "프리셋 이름을 입력하세요",
+    "en-US": "Enter preset name"
+  },
+  "SaveNetBundle": {
+    "ko-KR": "공유 받기",
+    "en-US": "Get a Share"
+  },
+  "SaveUIFault": {
+    "ko-KR": "스킨 등록이 불가능합니다. ({0})",
+    "en-US": "Skin registration is not possible. ({0})"
+  },
+  "SavingAsBundleContents": {
+    "ko-KR": "꾸러미로 업로드 중…",
+    "en-US": "Uploading as a package…"
+  },
+  "SavingBundleContents": {
+    "ko-KR": "꾸러미 압축 푸는 중…",
+    "en-US": "Uncompressing Packages…"
+  },
+  "SavingDefaultNoteContents": {
+    "ko-KR": "기본곡을 백그라운드에서 받습니다.",
+    "en-US": "Downloading default songs in the background."
+  },
+  "SavingDefaultUIContents": {
+    "ko-KR": "추가 스킨을 백그라운드에서 받습니다.",
+    "en-US": "Downloading additional skins in the background."
+  },
+  "SavingFileContents": {
+    "ko-KR": "파일 압축 푸는 중…",
+    "en-US": "Unzipping files..."
+  },
+  "SavingLevelContents": {
+    "ko-KR": "난이도 테이블 다운로드 중…",
+    "en-US": "Downloading difficulty table…"
+  },
+  "SavingQwilightContents": {
+    "ko-KR": "새 버전 다운로드 중…",
+    "en-US": "Downloading new version…"
+  },
+  "SavingUIContents": {
+    "ko-KR": "스킨 등록 중…",
+    "en-US": "Registering skin…"
+  },
+  "SetAutoNoteWait": {
+    "ko-KR": "노트 레이턴시가 {0} 픽셀로 설정됨",
+    "en-US": "Note latency set to (0) pixels"
+  },
+  "SetEntryItem": {
+    "ko-KR": "일괄 적용",
+    "en-US": "Apply in batches"
+  },
+  "SetFavoritesF10": {
+    "ko-KR": "컬렉션 {0}에 등록됨",
+    "en-US": "Registered in collection {0}"
+  },
+  "SetNoteFile": {
+    "ko-KR": "하나만 적용",
+    "en-US": "Apply only one"
+  },
+  "SetNoteModeAssist": {
+    "ko-KR": "추가 노트를 설정합니다.",
+    "en-US": "Set up additional charts."
+  },
+  "SetNotTotalText": {
+    "ko-KR": "모두 선택 해제",
+    "en-US": "Deselect All"
+  },
+  "SetSaltText": {
+    "ko-KR": "시드 고정",
+    "en-US": "Fixed seed"
+  },
+  "SetSiteHand": {
+    "ko-KR": "호스트 위임",
+    "en-US": "Delegate Hosts"
+  },
+  "SetSiteName": {
+    "ko-KR": "방 이름 수정",
+    "en-US": "Modify room name"
+  },
+  "SetSiteNameContents": {
+    "ko-KR": "수정할 이름을 입력하세요",
+    "en-US": "Please enter a name to modify"
+  },
+  "SetTotalText": {
+    "ko-KR": "모두 선택",
+    "en-US": "Select All"
+  },
+  "SFXContents": {
+    "ko-KR": "리버브 이펙트를 사용합니다.",
+    "en-US": "Enable reverb effect"
+  },
+  "SFXText": {
+    "ko-KR": "리버브 활성화",
+    "en-US": "Enable Reverb"
+  },
+  "SignIn": {
+    "ko-KR": "로그인",
+    "en-US": "Login"
+  },
+  "SignUp": {
+    "ko-KR": "회원 가입",
+    "en-US": "Join membership"
+  },
+  "SilentSiteAvatarContents": {
+    "ko-KR": "회원의 1대1 대화만 받음",
+    "en-US": "Only receive direct messages from members"
+  },
+  "SilentSiteCallableContents": {
+    "ko-KR": "모든 1대1 대화 받음",
+    "en-US": "Receive all direct messages"
+  },
+  "SilentSiteCompetenceContents": {
+    "ko-KR": "1대1 대화 요청을 설정합니다.",
+    "en-US": "Set up a one-on-one chat request."
+  },
+  "SilentSiteUbuntuContents": {
+    "ko-KR": "친구의 1대1 대화만 받음",
+    "en-US": "Only receive direct messages from friends"
+  },
+  "SilentSiteVoidContents": {
+    "ko-KR": "모든 1대1 대화를 거절함",
+    "en-US": "Decline all direct message conversations"
+  },
+  "SiteCipher": {
+    "ko-KR": "방 비밀번호",
+    "en-US": "Room Password"
+  },
+  "SiteHandLevyingText": {
+    "ko-KR": "시작",
+    "en-US": "Start"
+  },
+  "SiteInputAssist": {
+    "ko-KR": "메시지를 입력하세요",
+    "en-US": "Please enter a message"
+  },
+  "SiteLevyingText": {
+    "ko-KR": "준비",
+    "en-US": "Ready"
+  },
+  "SiteText": {
+    "ko-KR": "방 목록",
+    "en-US": "Room List"
+  },
+  "SiteYellEnter": {
+    "ko-KR": "입장함",
+    "en-US": "Entered"
+  },
+  "SiteYellInvite": {
+    "ko-KR": "저랑 같이 {0} 에서 멀티 플레이 하려면 클릭하세요",
+    "en-US": "Click to play multiplay with me on {0}"
+  },
+  "SiteYellNewNetSite": {
+    "ko-KR": "새 멀티방을 만듦",
+    "en-US": "Create a new multi-room"
+  },
+  "SiteYellNewSite": {
+    "ko-KR": "새 대화방을 만듦",
+    "en-US": "Create a new chat room"
+  },
+  "SiteYellQuit": {
+    "ko-KR": "퇴장함",
+    "en-US": "Exited"
+  },
+  "SiteYellTaehui": {
+    "ko-KR": "개발자",
+    "en-US": "Developer"
+  },
+  "SiteYellTV": {
+    "ko-KR": "Qwilight 방송 {0}을 보려면 클릭하세요",
+    "en-US": "Click to watch Qwilight stream {0}"
+  },
+  "SlowLoopingContents": {
+    "ko-KR": "게임이 느립니다. 게임 설정에서 폴링 레이트를 내려주세요",
+    "en-US": "The game is slow. Please lower the polling rate in the game settings"
+  },
+  "SoftwareAssister": {
+    "ko-KR": "개발자",
+    "en-US": "Developer"
+  },
+  "Stand": {
+    "ko-KR": "점수",
+    "en-US": "Score"
+  },
+  "StandardControllerModeContents": {
+    "ko-KR": "게임을 컨트롤러로 플레이할 때 공통 키를 설정합니다.",
+    "en-US": "Set common keys for playing with a controller."
+  },
+  "StandardControllerModeText": {
+    "ko-KR": "공통 컨트롤러 설정",
+    "en-US": "Common Controller Settings"
+  },
+  "StandardDefaultControllerModeContents": {
+    "ko-KR": "게임 플레이중 사용할 공통 키를 설정합니다.",
+    "en-US": "Set common keys to use during gameplay."
+  },
+  "StandardDefaultControllerModeText": {
+    "ko-KR": "공통 키 설정",
+    "en-US": "Common Key Settings"
+  },
+  "StandardMIDIModeContents": {
+    "ko-KR": "게임을 MIDI로 플레이할 때 공통 키를 설정합니다.",
+    "en-US": "Set common keys for playing with a MIDI device."
+  },
+  "StandardMIDIModeText": {
+    "ko-KR": "공통 MIDI 설정",
+    "en-US": "Common MIDI Settings"
+  },
+  "StandardWaitUnitContents": {
+    "ko-KR": "#,##0.## ms 모든 노트 파일",
+    "en-US": "#,##0.## ms All charts."
+  },
+  "StandContents": {
+    "ko-KR": "#,##0 점",
+    "en-US": "#,##0 points"
+  },
+  "StandLegend": {
+    "ko-KR": "■ 점수",
+    "en-US": "■ Score"
+  },
+  "StandValidHunterModeText": {
+    "ko-KR": "점수 우선",
+    "en-US": "Score First"
+  },
+  "StopLastEqualAudioContents": {
+    "ko-KR": "딜레이 차분을 위하여 중복 키음을 하나만 플레이합니다.",
+    "en-US": "Play only one duplicate key note for delay sabun."
+  },
+  "StopLastEqualAudioText": {
+    "ko-KR": "중복 키음 방지 활성화",
+    "en-US": "Enable duplicate key tone protection"
+  },
+  "StopSavingAsBundleContents": {
+    "ko-KR": "꾸러미로 업로드 중단됨",
+    "en-US": "Uploaded to Packages Aborted"
+  },
+  "StopSavingBundleContents": {
+    "ko-KR": "꾸러미 다운로드 중단됨",
+    "en-US": "Package download aborted"
+  },
+  "StopSiteNetText": {
+    "ko-KR": "강제 중단",
+    "en-US": "Forced stop"
+  },
+  "SuccessfullySignedInContents": {
+    "ko-KR": "{0}님 환영합니다.",
+    "en-US": "Welcome, {0}!"
+  },
+  "SymmetricModeContents": {
+    "ko-KR": "노트를 반전시킵니다. (미러)",
+    "en-US": "Mirror mode"
+  },
+  "TestHitPointsModeContents": {
+    "ko-KR": "단위인정용 라이프 게이지를 사용합니다.",
+    "en-US": "Use a life gauge for dan."
+  },
+  "TestHitPointsModeWarning": {
+    "ko-KR": "단위인정용 라이프 게이지를 사용하면 온라인 랭킹에 등록되지 않습니다.",
+    "en-US": "Life Gauge for unit recognition does not register in the online ranking."
+  },
+  "TotalAudioVolume": {
+    "ko-KR": "모든음",
+    "en-US": "All sounds"
+  },
+  "TotalFadingNoteModeContents": {
+    "ko-KR": "모든게 깜빡입니다.",
+    "en-US": "Everything blinks"
+  },
+  "TotalLimiterVariety": {
+    "ko-KR": "모든 라인",
+    "en-US": "All Lanes"
+  },
+  "TotalVarietyContents": {
+    "ko-KR": "모두",
+    "en-US": "All"
+  },
+  "TubeContents": {
+    "ko-KR": "컴프레서 이펙트를 사용합니다.",
+    "en-US": "Use compressor effects."
+  },
+  "TubeText": {
+    "ko-KR": "컴프레서 활성화",
+    "en-US": "Enable compressor"
+  },
+  "Tutorial0": {
+    "ko-KR": "Qwilight에 오신것을 환영합니다.",
+    "en-US": "Welcome to Qwilight."
+  },
+  "Tutorial1": {
+    "ko-KR": "Qwilight은 자유로운 건반 리듬게임 형식인 BMS 구동기입니다.",
+    "en-US": "Qwilight is a BMS player, a free keyboard rhythm game format."
+  },
+  "Tutorial20": {
+    "ko-KR": "➕ BMS 추가하기",
+    "en-US": "➕ Add BMS"
+  },
+  "Tutorial200": {
+    "ko-KR": "BMS가 처음이신가요?",
+    "en-US": "Are you new to BMS?"
+  },
+  "Tutorial201": {
+    "ko-KR": "이미 BMS를 가지고 계신가요?",
+    "en-US": "Do you already have a BMS?"
+  },
+  "Tutorial21": {
+    "ko-KR": "\uD83C\uDFA8 스킨 설정하기",
+    "en-US": "\uD83C\uDFA8 Setting up skin"
+  },
+  "Tutorial22": {
+    "ko-KR": "⌨️ 키 설정하기",
+    "en-US": "⌨️ To set the key"
+  },
+  "Tutorial220": {
+    "ko-KR": "BMS 키 설정을 하려면 5K, 7K 대신 5K1S, 7K1S를 클릭하세요",
+    "en-US": "To set the BMS key, click 5K1S, 7K1S instead of 5K, 7K"
+  },
+  "TutorialAssistText": {
+    "ko-KR": "매뉴얼",
+    "en-US": "Manual"
+  },
+  "TutorialID0": {
+    "ko-KR": "◀, ▶ 키로 다른 사용자의 결과를 보세요",
+    "en-US": "View other users' results with ◀, ▶ keys"
+  },
+  "TutorialID1": {
+    "ko-KR": "다음에 도움말을 다시 보려면 F1 키를 누르세요",
+    "en-US": "Press F1 for help again next time."
+  },
+  "TutorialID2": {
+    "ko-KR": "연습하려면 F1 키를 누르세요",
+    "en-US": "Press F1 to practice"
+  },
+  "TVAssistConfigure": {
+    "ko-KR": "방송 시작시 도움말 보여주기",
+    "en-US": "Show help when you start broadcasting"
+  },
+  "TwilightCloseContents": {
+    "ko-KR": "서버가 닫힘",
+    "en-US": "Server closed"
+  },
+  "TwilightComment": {
+    "ko-KR": "온라인",
+    "en-US": "Online"
+  },
+  "TwilightCommentaryAssist": {
+    "ko-KR": "코멘트를 입력하세요",
+    "en-US": "Write a comment..."
+  },
+  "TwilightCommentIOContents": {
+    "ko-KR": "다른 사용자의 실시간 멀티 플레이 화면을 클릭하면 바로 관전 가능합니다.",
+    "en-US": "You can watch it right away by clicking on someone else's real-time multiplay screen."
+  },
+  "TwilightCommentWarning": {
+    "ko-KR": "온라인 랭킹에 등록하려면 온라인 랭킹 등록을 허용하세요",
+    "en-US": "Use online ranking registration to register for online ranking"
+  },
+  "TwilightConfigure": {
+    "ko-KR": "계정 설정",
+    "en-US": "Account Settings"
+  },
+  "TwilightConfigureAssist": {
+    "ko-KR": "계정 설정 열기",
+    "en-US": "Open Account Settings"
+  },
+  "UbuntuAssist": {
+    "ko-KR": "친구 목록 열기",
+    "en-US": "Open Friend List"
+  },
+  "UbuntuNetItemTargetAssist": {
+    "ko-KR": "온라인 랭킹에 친구만 보여줍니다.",
+    "en-US": "Show only friends in the online rankings."
+  },
+  "UbuntuText": {
+    "ko-KR": "친구 목록",
+    "en-US": "List of friends"
+  },
+  "UIBinText": {
+    "ko-KR": "스킨 파일을 불러올 때 사용할 스레드 개수입니다.",
+    "en-US": "Number of threads to use when loading skin files."
+  },
+  "UIBundleText": {
+    "ko-KR": "Qwilight 스킨",
+    "en-US": "Qwilight Skin"
+  },
+  "UICommentNote": {
+    "ko-KR": "리플레이 노트",
+    "en-US": "Replay Note"
+  },
+  "UIDefaultAudioVarietyText": {
+    "ko-KR": "스킨 BGM 활성화",
+    "en-US": "Enable skin BGM"
+  },
+  "UIFaultText": {
+    "ko-KR": "올바르지 않은 스킨 파일입니다. ({0})",
+    "en-US": "Invalid skin file. ({0})"
+  },
+  "UIHitNotePaint": {
+    "ko-KR": "노트 폭발 이펙트",
+    "en-US": "Bomb effect"
+  },
+  "UIHunter": {
+    "ko-KR": "점수 격차",
+    "en-US": "Score Gap"
+  },
+  "UIJudgmentCount": {
+    "ko-KR": "판정 개수",
+    "en-US": "Number of judgments"
+  },
+  "UIJudgmentInputVisualizer": {
+    "ko-KR": "실시간 NPS 그래프",
+    "en-US": "Real-time NPS Graphs"
+  },
+  "UIJudgmentMain": {
+    "ko-KR": "판정선",
+    "en-US": "Judgment line"
+  },
+  "UIJudgmentMeter": {
+    "ko-KR": "판정 오차",
+    "en-US": "Judgment checker"
+  },
+  "UIJudgmentPaint": {
+    "ko-KR": "판정 이펙트",
+    "en-US": "Judgment effect"
+  },
+  "UIJudgmentVisualizer": {
+    "ko-KR": "판정 비주얼라이저",
+    "en-US": "Judgment visualizer"
+  },
+  "UILimiter": {
+    "ko-KR": "라인 구분선",
+    "en-US": "Line divider"
+  },
+  "UIMainDrawingPaint": {
+    "ko-KR": "키빔",
+    "en-US": "Key beam"
+  },
+  "UIMainJudgmentMeter": {
+    "ko-KR": "라인 판정 비주얼라이저",
+    "en-US": "Line judgment visualizer"
+  },
+  "UINet": {
+    "ko-KR": "실시간 랭킹",
+    "en-US": "Real-time Ranking"
+  },
+  "UndoColorContents": {
+    "ko-KR": "색상 설정을 기본으로 복원합니다.",
+    "en-US": "Reset color settings to their default values."
+  },
+  "UndoColorNotify": {
+    "ko-KR": "색상 설정을 기본으로 복원할까요?",
+    "en-US": "Do you want to reset the color settings?"
+  },
+  "UndoColorOK": {
+    "ko-KR": "색상 설정이 성공적으로 복원됨",
+    "en-US": "Color settings restored successfully"
+  },
+  "UndoColorText": {
+    "ko-KR": "색상 설정 복원",
+    "en-US": "Reset color settings"
+  },
+  "UndoContents": {
+    "ko-KR": "다시 시도",
+    "en-US": "Retry"
+  },
+  "UndoEqualizerContents": {
+    "ko-KR": "이퀄라이저 복원",
+    "en-US": "Reset equalizer"
+  },
+  "ValidNetMode0Text": {
+    "ko-KR": "아이템 비활성화",
+    "en-US": "Disable Item"
+  },
+  "ValidNetMode1Text": {
+    "ko-KR": "아이템 활성화 (희귀함)",
+    "en-US": "Enable item (Rare)"
+  },
+  "ValidNetMode2Text": {
+    "ko-KR": "아이템 활성화 (보통)",
+    "en-US": "Enable item (Normal)"
+  },
+  "ValidNetMode3Text": {
+    "ko-KR": "아이템 활성화 (풍족함)",
+    "en-US": "Enable item (Enriched)"
+  },
+  "ValidNetMode4Text": {
+    "ko-KR": "지금부터 서로 죽여라",
+    "en-US": "Kill each other from now on"
+  },
+  "VeilDrawingHeightContents": {
+    "ko-KR": "레인 커버 높이",
+    "en-US": "Lane Cover Height"
+  },
+  "VESAContents": {
+    "ko-KR": "수직 동기화를 사용합니다.",
+    "en-US": "V-Sync setting"
+  },
+  "VESAText": {
+    "ko-KR": "수직 동기화 활성화",
+    "en-US": "Enable V-Sync"
+  },
+  "Vibration0": {
+    "ko-KR": "왼쪽 모터",
+    "en-US": "Left motor"
+  },
+  "Vibration1": {
+    "ko-KR": "오른쪽 모터",
+    "en-US": "Right motor"
+  },
+  "Vibration2": {
+    "ko-KR": "왼쪽 트리거",
+    "en-US": "Left Trigger"
+  },
+  "Vibration3": {
+    "ko-KR": "오른쪽 트리거",
+    "en-US": "Right Trigger"
+  },
+  "VibrationModeContents": {
+    "ko-KR": "진동 모드를 설정합니다.",
+    "en-US": "Vibration setting"
+  },
+  "ViewAvatarView": {
+    "ko-KR": "프로필 보기",
+    "en-US": "View Profiles"
+  },
+  "ViewBundle": {
+    "ko-KR": "꾸러미 보기",
+    "en-US": "View Packages"
+  },
+  "ViewFailedDrawingText": {
+    "ko-KR": "노트를 놓칠 때 미스 레이어를 출력할지 설정합니다.",
+    "en-US": "Set whether to show the miss layer when you miss a note."
+  },
+  "ViewLowestJudgmentText": {
+    "ko-KR": "노트를 놓칠 때 판정 애니메이션을 출력할지 설정합니다.",
+    "en-US": "Set whether to show the judgment animation when you miss a note."
+  },
+  "ViewQwilightEntry": {
+    "ko-KR": "사용자 폴더 열기",
+    "en-US": "Open a user folder"
+  },
+  "ViewUIEntry": {
+    "ko-KR": "스킨 폴더 열기",
+    "en-US": "Open skin folder"
+  },
+  "VisibleWindowValuesContents": {
+    "ko-KR": "창 크기를 설정합니다.",
+    "en-US": "Set the window size."
+  },
+  "VoidPutSetNoteModeContents": {
+    "ko-KR": "빈 라인에 BGM을 추가 노트로 만듭니다.",
+    "en-US": "Make the BGM an additional note to the blank line."
+  },
+  "VoteText": {
+    "ko-KR": "BMS 다운로드",
+    "en-US": "Download BMS"
+  },
+  "WaitContents": {
+    "ko-KR": "뒤로 가기 ({0})",
+    "en-US": "Go Back ({0})"
+  },
+  "WaitingIOContents": {
+    "ko-KR": "관전 동기화 중…",
+    "en-US": "Synchronizing observations…"
+  },
+  "WaitingNetContents": {
+    "ko-KR": "다른 플레이어를 기다리는 중…",
+    "en-US": "Waiting for another player…"
+  },
+  "WaitingNotifyContents": {
+    "ko-KR": "F11 키로 도착한 {0}개의 알림을 확인하세요",
+    "en-US": "Check {0} alerts that arrived with F11 keys."
+  },
+  "WaitSiteContents": {
+    "ko-KR": "대화방에 자동으로 입장하지 않습니다.",
+    "en-US": "Don't enter the chat room automatically."
+  },
+  "WaitUnitContents": {
+    "ko-KR": "#,##0.## ms 선택한 노트 파일",
+    "en-US": "#,##0.## ms. Selected chart."
+  },
+  "WantAverageInputCountContents": {
+    "ko-KR": "NPS 범위를 설정합니다.",
+    "en-US": "Sets the NPS range."
+  },
+  "WantBannedContents": {
+    "ko-KR": "온라인 랭킹에 등록 가능한 노트 파일만 보여줄지 설정합니다.",
+    "en-US": "Set whether to show only the note files that can be registered in the online ranking."
+  },
+  "WantBPMContents": {
+    "ko-KR": "BPM 범위를 설정합니다.",
+    "en-US": "Set BPM range"
+  },
+  "WantHighestInputCountContents": {
+    "ko-KR": "피크 NPS 범위를 설정합니다.",
+    "en-US": "Sets the peak NPS range."
+  },
+  "WantInputAssist": {
+    "ko-KR": "검색할 단어를 입력하세요",
+    "en-US": "Please enter a word to search for"
+  },
+  "WantLevelItemContents": {
+    "ko-KR": "지정된 난이도 테이블의 난이도를 설정합니다.",
+    "en-US": "Sets the difficulty level of the specified difficulty table."
+  },
+  "WantLevelTextValueContents": {
+    "ko-KR": "난이도 범위를 설정합니다.",
+    "en-US": "Set difficulty range"
+  },
+  "WantNotBannedText": {
+    "ko-KR": "온라인 랭킹에 등록 가능한 노트 파일만 보여줍니다.",
+    "en-US": "Show only charts eligible for online ranking"
+  },
+  "WantText": {
+    "ko-KR": "분류 설정",
+    "en-US": "File filter setting"
+  },
+  "WantTotalBannedText": {
+    "ko-KR": "모든 노트 파일을 보여줍니다.",
+    "en-US": "Shows all charts"
+  },
+  "WaveContents": {
+    "ko-KR": "음성 대화 출력 장비를 설정합니다.",
+    "en-US": "Set the voice chat output device"
+  },
+  "WaveFadeVolumeContents": {
+    "ko-KR": "음성 대화가 들릴 때 게임 사운드 음량을 설정합니다.",
+    "en-US": "Set the game sound volume when you hear voice chat."
+  },
+  "WaveFault": {
+    "ko-KR": "음성 대화 출력 장비의 사용이 불가능합니다. ({0})",
+    "en-US": "Voice chat output device is not available. ({0})"
+  },
+  "WaveInContents": {
+    "ko-KR": "음성 대화 입력 장비를 설정합니다.",
+    "en-US": "Set the voice chat input device"
+  },
+  "WaveInFault": {
+    "ko-KR": "음성 대화 입력 장비의 사용이 불가능합니다. ({0})",
+    "en-US": "Voice chat input device is not available. ({0})"
+  },
+  "WaveModeAssist": {
+    "ko-KR": "음악 진로를 설정합니다.",
+    "en-US": "Set the music path."
+  },
+  "WGIContents": {
+    "ko-KR": "엑스박스 원 호환 Windows.Gaming.Input™을 사용합니다.",
+    "en-US": "Use Xbox One compatible Windows.Gaming.Input™."
+  },
+  "WGIText": {
+    "ko-KR": "Windows.Gaming.Input™ 모드",
+    "en-US": "Windows.Gaming.Input™ mode"
+  },
+  "WindowedModeContents": {
+    "ko-KR": "창 모드로 게임을 플레이합니다.",
+    "en-US": "Play the game in windowed mode."
+  },
+  "WindowedModeText": {
+    "ko-KR": "창 모드",
+    "en-US": "Window mode"
+  },
+  "WipeBundleNotify": {
+    "ko-KR": "이 꾸러미를 삭제할까요?",
+    "en-US": "Do you want to delete this package?"
+  },
+  "WipeBundleText": {
+    "ko-KR": "꾸러미 삭제",
+    "en-US": "Delete Package"
+  },
+  "WipeCommentNotify": {
+    "ko-KR": "이 기록을 삭제할까요?",
+    "en-US": "Do you want to delete this record?"
+  },
+  "WipeDefaultEntryNotify": {
+    "ko-KR": "이 폴더를 목록에서 삭제할까요?",
+    "en-US": "Do you want to delete this folder from the list?"
+  },
+  "WipedSiteYell": {
+    "ko-KR": "삭제된 메시지입니다.",
+    "en-US": "Deleted message."
+  },
+  "WipeEntryItemNotify": {
+    "ko-KR": "이 폴더를 삭제할까요?",
+    "en-US": "Do you want to delete this folder?"
+  },
+  "WipeEntryOK": {
+    "ko-KR": "폴더가 성공적으로 삭제됨",
+    "en-US": "Folder deleted successfully"
+  },
+  "WipeEventNoteContents": {
+    "ko-KR": "이 코스를 삭제할까요?",
+    "en-US": "Delete this course?"
+  },
+  "WipeFavoriteEntryNotify": {
+    "ko-KR": "이 컬렉션을 삭제할까요?",
+    "en-US": "Would you like to delete this collection?"
+  },
+  "WipeFavoritesF10": {
+    "ko-KR": "컬렉션 {0} 에서 삭제됨",
+    "en-US": "Deleted from collection {0}"
+  },
+  "WipeHandled": {
+    "ko-KR": "클리어 램프 삭제",
+    "en-US": "Delete Clear Lamp"
+  },
+  "WipeLevelNotify": {
+    "ko-KR": "이 난이도 테이블을 삭제할까요?",
+    "en-US": "Do you want to delete this difficulty table?"
+  },
+  "WipeNoteFileNotify": {
+    "ko-KR": "이 노트 파일을 삭제할까요?",
+    "en-US": "Do you want to delete this note file?"
+  },
+  "WipeNoteFileOK": {
+    "ko-KR": "노트 파일이 성공적으로 삭제됨",
+    "en-US": "Chart deleted successfully"
+  },
+  "WipeTotalNotify": {
+    "ko-KR": "모든 알림 삭제",
+    "en-US": "Delete all alerts"
+  },
+  "WipeUbuntuNotify": {
+    "ko-KR": "이 친구를 삭제할까요?",
+    "en-US": "Do you want to delete this friend?"
+  },
+  "WowAbilityContents": {
+    "ko-KR": "레이팅",
+    "en-US": "Rating"
+  },
+  "WowCommentAtContents": {
+    "ko-KR": "이번 달",
+    "en-US": "Month"
+  },
+  "WowCommentContents": {
+    "ko-KR": "전체",
+    "en-US": "All"
+  },
+  "WowCommentText": {
+    "ko-KR": "명예의 전당",
+    "en-US": "Hall of Fame"
+  },
+  "WowLevelContents": {
+    "ko-KR": "레벨",
+    "en-US": "Level"
+  },
+  "WrongLowestJudgmentConditionModeContents": {
+    "ko-KR": "간접 미스를 추가합니다.",
+    "en-US": "Enable indirect miss"
+  },
+  "WwwCommentBand": {
+    "ko-KR": "콤보",
+    "en-US": "Combo"
+  },
+  "WwwCommentHighest": {
+    "ko-KR": "기록",
+    "en-US": "Record"
+  },
+  "WwwCommentStand": {
+    "ko-KR": "점수",
+    "en-US": "Score"
+  },
+  "WwwCommentTotal": {
+    "ko-KR": "플레이",
+    "en-US": "Play"
+  },
+  "WwwLevelAudioMultiplierContents0": {
+    "ko-KR": "음악 속도 {0}배 이상",
+    "en-US": "{0}x Music speed or more"
+  },
+  "WwwLevelAudioMultiplierContents1": {
+    "ko-KR": "음악 속도 {0}배 이하",
+    "en-US": "{0}x Music speed or less"
+  },
+  "WwwLevelBandContents0": {
+    "ko-KR": "{0} 콤보 이상",
+    "en-US": "{0} Combo or more"
+  },
+  "WwwLevelBandContents1": {
+    "ko-KR": "{0} 콤보 이하",
+    "en-US": "{0} Combo or less"
+  },
+  "WwwLevelClearContents": {
+    "ko-KR": "도전 과제 {0} 클리어! 축하합니다.",
+    "en-US": "Challenge clear! Congratulations!"
+  },
+  "WwwLevelClearItem": {
+    "ko-KR": "클리어 보상",
+    "en-US": "Clear Compensation"
+  },
+  "WwwLevelClearItemEdge": {
+    "ko-KR": "프레임",
+    "en-US": "Frame"
+  },
+  "WwwLevelClearItemTitle": {
+    "ko-KR": "호칭",
+    "en-US": "Title"
+  },
+  "WwwLevelJudgmentContents0": {
+    "ko-KR": "{0} 개 이상",
+    "en-US": "{0} or more"
+  },
+  "WwwLevelJudgmentContents1": {
+    "ko-KR": "{0} 개 이하",
+    "en-US": "{0} or less"
+  },
+  "WwwLevelPointContents0": {
+    "ko-KR": "정확도 {0}％ 이상",
+    "en-US": "{0}％ Accuracy or more"
+  },
+  "WwwLevelPointContents1": {
+    "ko-KR": "정확도 {0}％ 이하",
+    "en-US": "{0}％ Accuracy or less"
+  },
+  "WwwLevelStandContents0": {
+    "ko-KR": "{0} 점 이상",
+    "en-US": "{0} Points or more"
+  },
+  "WwwLevelStandContents1": {
+    "ko-KR": "{0} 점 이하",
+    "en-US": "{0} Points or less"
+  },
+  "WwwLevelTest": {
+    "ko-KR": "단위인정",
+    "en-US": "Dan"
+  },
+  "WwwLevelText": {
+    "ko-KR": "도전 과제",
+    "en-US": "Challenge"
+  },
+  "XInputContents": {
+    "ko-KR": "엑스박스 360 호환 XInput™을 사용합니다.",
+    "en-US": "Use Xbox 360-compliant XInput™."
+  },
+  "XInputText": {
+    "ko-KR": "XInput™ 모드",
+    "en-US": "XInput™ mode"
+  },
+  "XwindowText": {
+    "ko-KR": "윈도우 키 비활성화",
+    "en-US": "Disable windows key"
+  },
+  "YAMLCompileFault": {
+    "ko-KR": "YAML 파일의 문법이 올바르지 않습니다. ({0})",
+    "en-US": "Invalid grammar in YAML file. ({0})"
+  },
+  "ZipModeContents": {
+    "ko-KR": "노트가 압축되다가 다시 튀어오릅니다. (고난이도)",
+    "en-US": "The note bounces (Hard difficulty)"
+  }
+}

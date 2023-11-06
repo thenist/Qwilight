@@ -1,0 +1,77 @@
+﻿<Canvas
+    x:Class="Qwilight.View.FavorJudgmentWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:view="clr-namespace:Qwilight.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    DataContext="{Binding FavorJudgmentValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentDrawings[3][5].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                        <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ModifyModeComponentText, Source={StaticResource LanguageSystem}}" />
+                        <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                    </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding FavorJudgmentName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding FavorJudgmentNameAssist, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
+                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding SetFavorJudgmentCommand}" Content="{Binding NewFavorJudgment, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding FavorJudgmentName, Converter={StaticResource BoolModifier}}" VerticalAlignment="Stretch" />
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding FavorJudgmentCollection}" SelectedItem="{Binding FavorJudgmentValue}" />
+                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding QuitFavorJudgmentCommand}" IsEnabled="{Binding CanWipe}" Foreground="Red">❌</Button>
+                </Grid>
+                <Border Grid.Row="3" Style="{StaticResource StandardPanel}" VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Style="{StaticResource StandardView}" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[0].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                        <view:BinInput Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.HighestJudgment0, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <view:BinInput Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.HighestJudgment1, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <Image Style="{StaticResource StandardView}" Grid.Row="1" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[1].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                        <view:BinInput Grid.Row="1" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.HigherJudgment0, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <view:BinInput Grid.Row="1" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.HigherJudgment1, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <Image Style="{StaticResource StandardView}" Grid.Row="2" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[2].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                        <view:BinInput Grid.Row="2" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.HighJudgment0, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <view:BinInput Grid.Row="2" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.HighJudgment1, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <Image Style="{StaticResource StandardView}" Grid.Row="3" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[3].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                        <view:BinInput Grid.Row="3" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.LowJudgment0, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <view:BinInput Grid.Row="3" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.LowJudgment1, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <Image Style="{StaticResource StandardView}" Grid.Row="4" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[4].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                        <view:BinInput Grid.Row="4" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.LowerJudgment0, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <view:BinInput Grid.Row="4" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.LowerJudgment1, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <Image Style="{StaticResource StandardView}" Grid.Row="5" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[5].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                        <view:BinInput Grid.Row="5" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.LowestJudgment0, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                        <view:BinInput Grid.Row="5" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.LowestJudgment1, Source={StaticResource ViewModels}}" Format="#,##0.## ms" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Canvas>

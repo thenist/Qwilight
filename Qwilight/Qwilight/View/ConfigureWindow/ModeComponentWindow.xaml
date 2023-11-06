@@ -1,0 +1,398 @@
+﻿<TabItem
+    x:Class="Qwilight.View.ModeComponentWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:view="clr-namespace:Qwilight.View"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    Style="{StaticResource StandardPageItem}"
+    Header="{Binding ComputingModeComponentConfigure, Source={StaticResource LanguageSystem}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding MultiplierContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                    <Slider Grid.Column="2" Style="{StaticResource StandardSlider}" Value="{Binding MainValue.ModeComponentValue.MultiplierValue, Source={StaticResource ViewModels}}" Maximum="4096" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyMultiplier, Source={StaticResource ViewModels}}" />
+                    <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.Multiplier, Source={StaticResource ViewModels}, Converter={StaticResource FormatModifier}, ConverterParameter='×0.0'}" />
+                    <view:BinInput Grid.Column="4" Value="{Binding MainValue.ModeComponentValue.MultiplierValue, Source={StaticResource ViewModels}}" Lowest="0" Format="0 BPM" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyMultiplier, Source={StaticResource ViewModels}}" />
+                    <TextBlock Grid.Column="5" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.IIDXMultiplierMillisText, Source={StaticResource ViewModels}}" Foreground="Green" />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AudioMultiplierContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                    <Slider Grid.Column="2" Style="{StaticResource StandardSlider}" Value="{Binding MainValue.ModeComponentValue.AudioMultiplier, Source={StaticResource ViewModels}}" Minimum="0.5" Maximum="2.0" TickFrequency="0.01" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}" />
+                    <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.AudioMultiplier,  Source={StaticResource ViewModels}, Converter={StaticResource FormatModifier}, ConverterParameter='×0.00'}" HorizontalAlignment="Left" />
+                    <Button Grid.Column="4" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×0.5" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
+                        <Button.CommandParameter>
+                            <system:Double>0.5</system:Double>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Column="5" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×0.75" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
+                        <Button.CommandParameter>
+                            <system:Double>0.75</system:Double>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Column="6" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×1.0" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
+                        <Button.CommandParameter>
+                            <system:Double>1.0</system:Double>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Column="7" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×1.5" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
+                        <Button.CommandParameter>
+                            <system:Double>1.5</system:Double>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Column="8" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×2.0" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
+                        <Button.CommandParameter>
+                            <system:Double>2.0</system:Double>
+                        </Button.CommandParameter>
+                    </Button>
+                    <CheckBox Grid.Column="9" Style="{StaticResource StandardVInput}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding AudioMultiplierAtone, Source={StaticResource Configure}}" Content="{Binding AudioMultiplierAtoneText, Source={StaticResource LanguageSystem}}" />
+                </Grid>
+                <Grid Grid.Row="2" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <view:BinInput Value="{Binding MainValue.ModeComponentValue.Salt, Source={StaticResource ViewModels}}" IsEnabled="{Binding MainValue.CanModifyModeComponent, Source={StaticResource ViewModels}}" />
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding CopySaltCommand}">📋</Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding SaltContents, Source={StaticResource LanguageSystem}}" />
+                        <CheckBox Style="{StaticResource StandardVInput}" Content="{Binding SetSaltText, Source={StaticResource LanguageSystem}}" IsChecked="{Binding SetSalt, Source={StaticResource Configure}}" />
+                    </StackPanel>
+                </Grid>
+                <ContentControl Grid.Row="3" IsEnabled="{Binding MainValue.CanModifyModeComponent, Source={StaticResource ViewModels}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource AutoModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.AutoModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource AutoModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.AutoModeContents, Source={StaticResource ViewModels}}" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.AutoModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource AutoModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.AutoModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource AutoModeVariety}}" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource NoteSaltModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.NoteSaltModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteSaltModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.NoteSaltModeContents, Source={StaticResource ViewModels}}" />
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource FaintNoteModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.FaintNoteModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource FaintNoteModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.FaintNoteModeContents, Source={StaticResource ViewModels}}" />
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource JudgmentModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.JudgmentModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource JudgmentModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.JudgmentModeContents, Source={StaticResource ViewModels}}" />
+                            <Button Style="{StaticResource StandardInput}" Grid.Column="2" Command="{Binding MainValue.ModeComponentValue.JudgmentModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentInputModifier}, ConverterParameter={StaticResource JudgmentModeVariety}}" Visibility="{Binding MainValue.ModeComponentValue.JudgmentModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentInputVisibilityModifier}, ConverterParameter={StaticResource JudgmentModeVariety}}">…</Button>
+                            <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.JudgmentModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource JudgmentModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.JudgmentModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource JudgmentModeVariety}}" />
+                        </Grid>
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource HitPointsModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.HitPointsModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource HitPointsModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.HitPointsModeContents, Source={StaticResource ViewModels}}" />
+                            <Button Style="{StaticResource StandardInput}" Grid.Column="2" Command="{Binding MainValue.ModeComponentValue.HitPointsModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentInputModifier}, ConverterParameter={StaticResource HitPointsModeVariety}}" Visibility="{Binding MainValue.ModeComponentValue.HitPointsModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentInputVisibilityModifier}, ConverterParameter={StaticResource HitPointsModeVariety}}">…</Button>
+                            <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.HitPointsModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource HitPointsModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.HitPointsModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource HitPointsModeVariety}}" />
+                        </Grid>
+                        <Grid Grid.Row="5" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource NoteMobilityModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.NoteMobilityModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteMobilityModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.NoteMobilityModeContents, Source={StaticResource ViewModels}}" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.NoteMobilityModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource NoteMobilityModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.NoteMobilityModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource NoteMobilityModeVariety}}" />
+                        </Grid>
+                        <Grid Grid.Row="6" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource LongNoteModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.LongNoteModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LongNoteModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.LongNoteModeContents, Source={StaticResource ViewModels}}" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.LongNoteModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource LongNoteModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.LongNoteModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource LongNoteModeVariety}}" />
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource InputFavorModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.InputFavorModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.InputFavorModeContents, Source={StaticResource ViewModels}}" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.InputFavorModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.InputFavorModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}" />
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="1" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource NoteModifyModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.NoteModifyModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteModifyModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.NoteModifyModeContents, Source={StaticResource ViewModels}}" />
+                            <Button Style="{StaticResource StandardInput}" Grid.Column="2" Command="{Binding MainValue.ModeComponentValue.NoteModifyModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentInputModifier}, ConverterParameter={StaticResource NoteModifyModeVariety}}" Visibility="{Binding MainValue.ModeComponentValue.NoteModifyModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentInputVisibilityModifier}, ConverterParameter={StaticResource NoteModifyModeVariety}}">…</Button>
+                            <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.NoteModifyModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource NoteModifyModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.NoteModifyModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource NoteModifyModeVariety}}" />
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="1" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource BPMModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.BPMModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource BPMModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.BPMModeContents, Source={StaticResource ViewModels}}" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.BPMModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource BPMModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.BPMModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource BPMModeVariety}}" />
+                        </Grid>
+                        <Grid Grid.Row="3" Grid.Column="1" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource WaveModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.WaveModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource WaveModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.WaveModeContents, Source={StaticResource ViewModels}}" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.WaveModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource WaveModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.WaveModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource WaveModeVariety}}" />
+                        </Grid>
+                        <Grid Grid.Row="4" Grid.Column="1" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource SetNoteModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.SetNoteModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource SetNoteModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.SetNoteModeContents, Source={StaticResource ViewModels}}" />
+                            <Button Style="{StaticResource StandardInput}" Grid.Column="2" Command="{Binding MainValue.ModeComponentValue.SetNoteModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentInputModifier}, ConverterParameter={StaticResource SetNoteModeVariety}}" Visibility="{Binding MainValue.ModeComponentValue.SetNoteModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentInputVisibilityModifier}, ConverterParameter={StaticResource SetNoteModeVariety}}">…</Button>
+                            <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.SetNoteModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource SetNoteModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.SetNoteModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource SetNoteModeVariety}}" />
+                        </Grid>
+                        <Grid Grid.Row="5" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource LowestJudgmentConditionModeVariety}">
+                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.LowestJudgmentConditionModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LowestJudgmentConditionModeVariety}}" />
+                            </Button>
+                            <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.LowestJudgmentConditionModeContents, Source={StaticResource ViewModels}}" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.LowestJudgmentConditionModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource LowestJudgmentConditionModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.LowestJudgmentConditionModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource LowestJudgmentConditionModeVariety}}" />
+                        </Grid>
+                    </Grid>
+                </ContentControl>
+                <ContentControl Grid.Row="4" IsEnabled="{Binding MainValue.CanModifyModeComponent, Source={StaticResource ViewModels}}">
+                    <StackPanel>
+                        <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding PutCopyNotesCommand}" Content="{Binding MainValue.ModeComponentValue.PutCopyNotesText, Source={StaticResource ViewModels}}" HorizontalAlignment="Right" />
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding PutCopyNotesContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="❕" Foreground="Red" Visibility="{Binding MainValue.ModeComponentValue.PutCopyNotesAvailable, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" />
+                            </Grid>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding IsFailModeCommand}" Content="{Binding IsFailModeText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding IsFailModeContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
+                        </Grid>
+                    </StackPanel>
+                </ContentControl>
+            </Grid>
+        </ScrollViewer>
+        <ContentControl Grid.Row="1" VerticalAlignment="Bottom">
+            <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="F1" FontSize="{StaticResource FontLevel1}" />
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[0].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <Button Grid.Row="1" Style="{StaticResource StandardInput}" Content="{Binding SaveModeComponent, Source={StaticResource LanguageSystem}}" Command="{Binding SaveModeComponentCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>0</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="F2" FontSize="{StaticResource FontLevel1}" />
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[1].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardInput}" Content="{Binding SaveModeComponent, Source={StaticResource LanguageSystem}}" Command="{Binding SaveModeComponentCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>1</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="F3" FontSize="{StaticResource FontLevel1}" />
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[2].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource StandardInput}" Content="{Binding SaveModeComponent, Source={StaticResource LanguageSystem}}" Command="{Binding SaveModeComponentCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>2</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="F4" FontSize="{StaticResource FontLevel1}" />
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[3].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource StandardInput}" Content="{Binding SaveModeComponent, Source={StaticResource LanguageSystem}}" Command="{Binding SaveModeComponentCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>3</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="F5" FontSize="{StaticResource FontLevel1}" />
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[4].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <Button Grid.Row="3" Style="{StaticResource StandardInput}" Content="{Binding SaveModeComponent, Source={StaticResource LanguageSystem}}" Command="{Binding SaveModeComponentCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>4</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="F6" FontSize="{StaticResource FontLevel1}" />
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[5].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource StandardInput}" Content="{Binding SaveModeComponent, Source={StaticResource LanguageSystem}}" Command="{Binding SaveModeComponentCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>5</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="F7" FontSize="{StaticResource FontLevel1}" />
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[6].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource StandardInput}" Content="{Binding SaveModeComponent, Source={StaticResource LanguageSystem}}" Command="{Binding SaveModeComponentCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>6</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <StackPanel Grid.Row="2" Grid.Column="3"  Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="F8" FontSize="{StaticResource FontLevel1}" />
+                        <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[7].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource StandardInput}" Content="{Binding SaveModeComponent, Source={StaticResource LanguageSystem}}" Command="{Binding SaveModeComponentCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>7</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.CanBeTwilightCommentContents, Source={StaticResource ViewModels}}" />
+                    <Button Style="{StaticResource StandardInput}" IsEnabled="{Binding MainValue.CanModifyModeComponent, Source={StaticResource ViewModels}}" Command="{Binding InitModeComponentCommand}" Content="{Binding InitModeComponent, Source={StaticResource LanguageSystem}}" />
+                </StackPanel>
+            </StackPanel>
+        </ContentControl>
+    </Grid>
+</TabItem>

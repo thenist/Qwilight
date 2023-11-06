@@ -1,0 +1,13 @@
+﻿<Canvas
+    x:Class="Qwilight.View.AvatarDrawingView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Name="Contents"
+    Margin="{Binding MarginValue, ElementName=Contents}"
+    VerticalAlignment="Top"
+    Loaded="OnLoaded">
+    <Canvas.Background>
+        <ImageBrush ImageSource="{Binding AvatarWwwValue.AvatarDrawing, ElementName=Contents}" />
+    </Canvas.Background>
+    <Image Canvas.Left="{Binding EdgeX, ElementName=Contents}" Canvas.Top="{Binding EdgeY, ElementName=Contents}" Style="{StaticResource StandardViewMargin0}" Source="{Binding AvatarWwwValue.AvatarEdge, ElementName=Contents}" Width="{Binding EdgeLength, ElementName=Contents}" Height="{Binding EdgeHeight, ElementName=Contents}" />
+</Canvas>

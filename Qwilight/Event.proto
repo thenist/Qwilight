@@ -1,0 +1,329 @@
+syntax = "proto3";
+
+option csharp_namespace = "Qwilight";
+option java_package = "net.taehui";
+option java_outer_classname = "EventClass";
+
+message Event {
+	int64 millis = 1;
+	string avatarID = 2;
+	EventID eventID = 3;
+	string text = 4;
+	repeated bytes data = 5;
+	oneof fastText {
+		QwilightCallNet qwilightCallNet = 6;
+		TwilightCallNet twilightCallNet = 7;
+		QwilightIOInput qwilightIOInput = 8;
+		TwilightIOInput twilightIOInput = 9;
+		QwilightIOJudge qwilightIOJudge = 10;
+		TwilightIOJudge twilightIOJudge = 11;
+		QwilightIOJudgmentMeter qwilightIOJudgmentMeter = 12;
+		TwilightIOJudgmentMeter twilightIOJudgmentMeter = 13;
+		QwilightIONoteVisibility qwilightIONoteVisibility = 14;
+		TwilightIONoteVisibility twilightIONoteVisibility = 15;
+		QwilightIOMultiplier qwilightIOMultiplier = 16;
+		TwilightIOMultiplier twilightIOMultiplier = 17;
+		QwilightIOAudioMultiplier qwilightIOAudioMultiplier = 18;
+		TwilightIOAudioMultiplier twilightIOAudioMultiplier = 19;
+		TwilightAudioInput twilightAudioInput = 20;
+		QwilightPostItem qwilightPostItem = 21;
+		TwilightPostItem twilightPostItem = 22;
+	}
+
+	message TwilightCallNet {
+		string handlerID = 1;
+		repeated CallNetItem data = 2;
+
+		message CallNetItem {
+			AvatarNetStatus avatarNetStatus = 1;
+			string avatarID = 2;
+			string avatarName = 3;
+			int32 stand = 4;
+			int32 band = 5;
+			double point = 6;
+			double hitPoints = 7;
+			bool isFailed = 8;
+			int32 lastJudged = 9;
+			int32 hitPointsMode = 10;
+			int32 targetPosition = 11;
+			repeated NetDrawing drawings = 12;
+			DrawingComponent drawingComponent = 13;
+		}
+	}
+
+	message QwilightCallNet {
+        string siteID = 1;
+        string handlerID = 2;
+        AvatarNetStatus avatarNetStatus = 3;
+        int32 stand = 4;
+		int32 highestBand = 5;
+        double point = 6;
+        double hitPoints = 7;
+        bool isFailed = 8;
+        int32 lastJudged = 9;
+        repeated NetDrawing drawings = 10;
+        DrawingComponent drawingComponent = 11;
+        string title = 12;
+        string artist = 13;
+        string genre = 14;
+        int32 level = 15;
+        string levelText = 16;
+        string wantLevelID = 17;
+        int32 autoMode = 18;
+        int32 noteSaltMode = 19;
+        double audioMultiplier = 20;
+        int32 faintNoteMode = 21;
+        int32 judgmentMode = 22;
+        int32 hitPointsMode = 23;
+        int32 noteMobilityMode = 24;
+        int32 longNoteMode = 25;
+        int32 inputFavorMode = 26;
+        int32 noteModifyMode = 27;
+        int32 bpmMode = 28;
+        int32 waveMode = 29;
+        int32 setNoteMode = 30;
+        int32 lowestJudgmentConditionMode = 31;
+        int32 totalNotes = 32;
+        double judgmentStage = 33;
+        double hitPointsValue = 34;
+        int32 highestInputCount = 35;
+        double length = 36;
+        double bpm = 37;
+        double multiplier = 38;
+        int32 inputMode = 39;
+		double highestJudgment0 = 40;
+		double higherJudgment0 = 41;
+		double highJudgment0 = 42;
+		double lowJudgment0 = 43;
+		double lowerJudgment0 = 44;
+		double lowestJudgment0 = 45;
+		double highestJudgment1 = 46;
+		double higherJudgment1 = 47;
+		double highJudgment1 = 48;
+		double lowJudgment1 = 49;
+		double lowerJudgment1 = 50;
+		double lowestJudgment1 = 51;
+		int32 highestJudgment = 52;
+		int32 higherJudgment = 53;
+		int32 highJudgment = 54;
+		int32 lowJudgment = 55;
+		int32 lowerJudgment = 56;
+		int32 lowestJudgment = 57;
+	}
+
+	enum AvatarNetStatus {
+		Default = 0;
+		Clear = 1;
+		Failed = 2;
+	}
+
+	message NetDrawing {
+		Variety drawingVariety = 1;
+		uint32 param = 2;
+		double position0 = 3;
+		double position1 = 4;
+		double length = 5;
+		double height = 6;
+
+		enum Variety {
+			Note = 0;
+			Main = 1;
+			Meter = 2;
+		}
+	}
+
+	message DrawingComponent {
+		float p2BuiltLength = 1;
+		float judgmentMainPosition = 2;
+	}
+
+	message QwilightIOInput {
+		repeated string avatarIDs = 1;
+		string handlerID = 2;
+		int32 input = 3;
+		int32 power = 4;
+	}
+
+	message TwilightIOInput {
+		string handlerID = 1;
+		int32 input = 2;
+		int32 power = 3;
+	}
+
+	message QwilightIOJudge {
+		repeated string avatarIDs = 1;
+		string handlerID = 2;
+		int32 noteID = 3;
+		int32 judged = 4;
+	}
+
+	message TwilightIOJudge {
+		string handlerID = 1;
+		int32 noteID = 2;
+		int32 judged = 3;
+	}
+
+	message QwilightIOJudgmentMeter {
+		repeated string avatarIDs = 1;
+		string handlerID = 2;
+		int32 input = 3;
+		double judgmentMeter = 4;
+		int32 assist = 5;
+	}
+
+	message TwilightIOJudgmentMeter {
+		string handlerID = 1;
+		int32 input = 2;
+		double judgmentMeter = 3;
+		int32 assist = 4;
+	}
+
+	message QwilightIONoteVisibility {
+		repeated string avatarIDs = 1;
+		string handlerID = 2;
+		int32 noteID = 3;
+		bool setValidJudgedNotes = 4;
+		bool setNoteFailed = 5;
+	}
+
+	message TwilightIONoteVisibility {
+		string handlerID = 1;
+		int32 noteID = 2;
+		bool setValidJudgedNotes = 3;
+		bool setNoteFailed = 4;
+	}
+
+	message QwilightIOMultiplier {
+		repeated string avatarIDs = 1;
+		string handlerID = 2;
+		double multiplier = 3;
+	}
+
+	message TwilightIOMultiplier {
+		string handlerID = 1;
+		double multiplier = 2;
+	}
+
+	message QwilightIOAudioMultiplier {
+		repeated string avatarIDs = 1;
+		string handlerID = 2;
+		double audioMultiplier = 3;
+	}
+
+	message TwilightIOAudioMultiplier {
+		string handlerID = 1;
+		double audioMultiplier = 2;
+	}
+	
+	message TwilightAudioInput {
+		string siteID = 1;
+		string avatarID = 2;
+	}
+
+	message QwilightPostItem {
+		string siteID = 1;
+        string handlerID = 2;
+		int32 postedItem = 3;
+		int32 isPositive = 4;
+		double lowestWait = 5;
+		double highestWait = 6;
+	}
+	
+	message TwilightPostItem {
+        string handlerID = 1;
+		int32 postedItem = 2;
+		string avatarName = 3;
+		double wait = 4;
+	}
+
+	enum EventID {
+		SIGN_IN = 0;
+		NOT_SIGN_IN = 1;
+		WARNING = 2;
+		SITE_YELL = 3;
+		CALL_BUNDLE = 4;
+		SAVE_AS_BUNDLE = 5;
+		SAVING_BUNDLE = 6;
+		WIPE_BUNDLE = 7;
+		SET_BUNDLE = 8;
+		CALL_UBUNTU = 9;
+		CALL_SITE_AVATAR = 10;
+		COMMENT = 11;
+		SET_SITUATION = 12;
+		NEW_TITLE = 13;
+		STOP_SAVING_BUNDLE = 14;
+		SAVED_BUNDLE = 15;
+		SAVE_BUNDLE = 16;
+		ENTER_SITE = 17;
+		QUIT_SITE = 18;
+		WIPE_UBUNTU = 19;
+		NEW_SITE = 20;
+		NEW_UBUNTU = 21;
+		EXILE_AVATAR = 22;
+		NEW_SILENT_SITE = 23;
+		ESTABLISH = 24;
+		CALL_CONFIGURE = 25;
+		SET_CONFIGURE = 26;
+		NOTIFY_INFO = 27;
+		LEVY_NET = 28;
+		COMPILED = 29;
+		CALL_NET = 30;
+		SET_MODE_COMPONENT = 31;
+		SET_FAVOR_MODE_COMPONENT = 32;
+		SET_VALID_HUNTER_MODE = 33;
+		CALL_NET_SITE_COMMENTS = 34;
+		SET_NOTE_FILE = 35;
+		SET_SITE_NAME = 36;
+		SET_SITE_HAND = 37;
+		QUIT_NET = 38;
+		SAVING_AS_BUNDLE = 39;
+		SAVED_AS_BUNDLE = 40;
+		STOP_SAVING_AS_BUNDLE = 41;
+		SAVE_DEFAULT_NOTE = 42;
+		POST_FILE = 43;
+		SAVE_DEFAULT_UI = 44;
+		SET_FAVOR_AUDIO_MULTIPLIER = 45;
+		CALL_SITE_NET = 46;
+		NOTIFY_YES = 47;
+		CALL_IO = 48;
+		CALL_IO_COMPONENT = 49;
+		COMPILED_IO = 50;
+		LEVY_IO = 51;
+		IO_INPUT = 52;
+		IO_JUDGE = 53;
+		IO_NOTE_VISIBILITY = 54;
+		IO_JUDGMENT_METER = 56;
+		IO_MULTIPLIER = 57;
+		IO_AUDIO_MULTIPLIER = 58;
+		IO_PAUSE = 59;
+		IO_QUIT = 60;
+		IO_NOT = 61;
+		AUDIO_INPUT = 62;
+		CALL_SITE_MODE_COMPONENT = 63;
+		COMMENTARY = 65;
+		WWW_LEVEL = 66;
+		AVATAR_TITLE = 67;
+		INVALIDATE_AVATAR_DRAWING = 68;
+		INVALIDATE_AVATAR_TITLE = 69;
+		LEVEL_UP = 70;
+		SET_FAVOR_NOTE_FILE = 71;
+		GET_SITE_YELLS = 72;
+		SET_LANGUAGE = 73;
+		VALVE_COMMENT = 74;
+		ABILITY_UP = 75;
+		CLOSE = 76;
+		UNAVAILABLE_DATE = 77;
+		AVATAR_EDGE = 78;
+		INVALIDATE_AVATAR_EDGE = 79;
+		FAILED_VALIDATE_TOTEM = 80;
+		MODIFY_SITE_YELL = 81;
+		WIPE_SITE_YELL = 82;
+		ALREADY_LOADING_BUNDLE = 83;
+		SET_FAVOR = 84;
+		SET_AUTO_SITE_HAND = 85;
+		SET_AVATAR_GROUP = 86;
+		POST_ITEM = 87;
+		SET_VALID_NET_MODE = 88;
+		SET_ALLOWED_POSTABLE_ITEMS = 89;
+	}
+}

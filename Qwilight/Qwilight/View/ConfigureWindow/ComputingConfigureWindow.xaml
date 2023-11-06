@@ -1,0 +1,14 @@
+﻿<TabItem
+    x:Class="Qwilight.View.ComputingConfigureWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:view="clr-namespace:Qwilight.View"
+    Style="{StaticResource StandardPageItem}"
+    Header="{Binding ComputingConfigureText, Source={StaticResource LanguageSystem}}"
+    DataContext="{Binding ConfigureValue, Source={StaticResource ViewModels}}">
+    <TabControl Style="{StaticResource StandardPageView}" SelectedIndex="{Binding TabPositionComputing}">
+        <view:ModeComponentWindow />
+        <view:ComputingUIConfigureWindow />
+        <view:ComputingGUIConfigureWindow />
+    </TabControl>
+</TabItem>

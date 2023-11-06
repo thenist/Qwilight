@@ -1,0 +1,23 @@
+﻿<Window
+    x:Class="Igniter.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    DataContext="{Binding MainValue, Source={StaticResource ViewModels}}"
+    FontFamily="{StaticResource FontFamilyValue}"
+    FontSize="{StaticResource FontLevel0}"
+    Loaded="OnLoaded"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    SizeToContent="Height"
+    Topmost="True"
+    Visibility="{Binding IsVisible, Converter={StaticResource VisibilityModifier}}"
+    Width="1280"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    FocusVisualStyle="{x:Null}"
+    RenderOptions.BitmapScalingMode="Fant">
+    <Grid>
+        <ProgressBar Value="{Binding Value}" />
+        <TextBlock Text="{Binding Text}" />
+    </Grid>
+</Window>

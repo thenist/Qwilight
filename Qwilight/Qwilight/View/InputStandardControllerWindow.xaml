@@ -1,0 +1,94 @@
+﻿<Canvas
+    x:Class="Qwilight.View.InputStandardControllerWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    DataContext="{Binding InputStandardControllerValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding StandardControllerModeText, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <Grid Grid.Row="1" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource StandardInput}" Padding="{StaticResource StandardMargin}" BorderBrush="{Binding InputPaints[1]}" Content="{Binding Inputs[1]}" Command="{Binding InputPositionCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>0</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Padding="{StaticResource StandardMargin}" BorderBrush="{Binding InputPaints[2]}" Content="{Binding Inputs[2]}" Command="{Binding InputPositionCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>1</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Column="2" Style="{StaticResource StandardInput}" Padding="{StaticResource StandardMargin}" BorderBrush="{Binding InputPaints[3]}" Content="{Binding Inputs[3]}" Command="{Binding InputPositionCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>2</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Column="3" Style="{StaticResource StandardInput}" Padding="{StaticResource StandardMargin}" BorderBrush="{Binding InputPaints[4]}" Content="{Binding Inputs[4]}" Command="{Binding InputPositionCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>3</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Column="4" Style="{StaticResource StandardInput}" Padding="{StaticResource StandardMargin}" BorderBrush="{Binding InputPaints[5]}" Content="{Binding Inputs[5]}" Command="{Binding InputPositionCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>4</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Row="1" Style="{StaticResource StandardInput}" Padding="{StaticResource StandardMargin}" BorderBrush="{Binding InputPaints[6]}" Content="{Binding Inputs[6]}" Command="{Binding InputPositionCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>5</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardInput}" Padding="{StaticResource StandardMargin}" BorderBrush="{Binding InputPaints[7]}" Content="{Binding Inputs[7]}" Command="{Binding InputPositionCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>6</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource StandardInput}" Padding="{StaticResource StandardMargin}" BorderBrush="{Binding InputPaints[8]}" Content="{Binding Inputs[8]}" Command="{Binding InputPositionCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>7</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource StandardInput}" Padding="{StaticResource StandardMargin}" BorderBrush="{Binding InputPaints[9]}" Content="{Binding Inputs[9]}" Command="{Binding InputPositionCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>8</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="4" Style="{StaticResource StandardInput}" Padding="{StaticResource StandardMargin}" BorderBrush="{Binding InputPaints[10]}" Content="{Binding Inputs[10]}" Command="{Binding InputPositionCommand}" HorizontalAlignment="Stretch">
+                        <Button.CommandParameter>
+                            <system:Int32>9</system:Int32>
+                        </Button.CommandParameter>
+                    </Button>
+                </Grid>
+                <Border Grid.Row="2" Style="{StaticResource StandardPanel}" HorizontalAlignment="Right">
+                    <StackPanel  Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding InputWindowAssist0, Source={StaticResource LanguageSystem}}" />
+                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding InputWindowAssist1, Source={StaticResource LanguageSystem}}" />
+                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding InputWindowAssist2, Source={StaticResource LanguageSystem}}" />
+                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding InputWindowAssist3, Source={StaticResource LanguageSystem}}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Canvas>

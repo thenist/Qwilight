@@ -1,0 +1,56 @@
+﻿<Canvas
+    x:Class="Qwilight.View.ConfigureWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:view="clr-namespace:Qwilight.View"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    DataContext="{Binding ConfigureValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}"
+    Opacity="{Binding Faint}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ConfigureText, Source={StaticResource LanguageSystem}}" />
+                    <ToggleButton Style="{StaticResource StandardIOInput}" IsChecked="{Binding DetailedConfigure, Source={StaticResource Configure}}" />
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DetailedConfigure, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <TabControl Style="{StaticResource StandardPageView}" Grid.Row="1" SelectedIndex="{Binding TabPosition}" TabStripPlacement="Left">
+                    <view:ComputingConfigureWindow />
+                    <view:InputConfigureWindow />
+                    <view:GUIConfigureWindow />
+                    <view:AudioConfigureWindow />
+                    <view:DefaultConfigureWindow />
+                    <view:DetailedConfigureWindow Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}" />
+                </TabControl>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding Language, Source={StaticResource Configure}}">
+                            <ComboBox.Items>
+                                <system:String>en-US</system:String>
+                                <system:String>ko-KR</system:String>
+                            </ComboBox.Items>
+                        </ComboBox>
+                        <Button Style="{StaticResource StandardInput}" Content="{Binding ViewQwilightEntry, Source={StaticResource LanguageSystem}}" Command="{Binding ViewQwilightEntryCommand}" />
+                        <Button Style="{StaticResource StandardInput}" Content="🔧" Command="{Binding TelnetCommand}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DateText}" />
+                        <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoGetQwilight, Source={StaticResource Configure}}" Content="{Binding AutoText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsValve, Converter={StaticResource VisibilityNotModifier}}" />
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding GetQwilightCommand}" Content="{Binding GetQwilightText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" Visibility="{Binding IsValve, Converter={StaticResource VisibilityNotModifier}}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Canvas>

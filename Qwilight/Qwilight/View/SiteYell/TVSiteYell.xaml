@@ -1,0 +1,22 @@
+﻿<Grid
+    x:Class="Qwilight.View.SiteYell.TVSiteYell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Image Style="{StaticResource StandardView}" Source="{StaticResource TVDrawing}" Width="48" Height="48" />
+    <Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarName}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Date}" Foreground="{StaticResource SiteDatePaint}" />
+        </StackPanel>
+        <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding SiteYellTV}" MouseDown="OnPointLower" />
+    </Grid>
+</Grid>

@@ -1,0 +1,7 @@
+﻿<Canvas
+    x:Class="Qwilight.View.Layer1View"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    DataContext="{Binding MainValue, Source={StaticResource ViewModels}}"
+    IsHitTestVisible="False"
+    RenderOptions.EdgeMode="Aliased" />

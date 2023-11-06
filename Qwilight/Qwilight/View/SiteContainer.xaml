@@ -1,0 +1,19 @@
+﻿<Canvas
+    x:Class="Qwilight.View.SiteContainer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    DataContext="{Binding SiteContainerValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}"
+    MouseDown="OnPointLower">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <GridSplitter Grid.Row="1" Width="{Binding MainValue.DefaultLength, Source={StaticResource ViewModels}}" Height="5" Style="{StaticResource StandardSplitter}" ResizeDirection="Rows" />
+        <Border Grid.Row="2" Style="{StaticResource WindowStandardPanel}">
+            <TabControl Style="{StaticResource StandardPageView}" SelectedItem="{Binding SiteView}" ItemsSource="{Binding SiteCollection}" SelectionChanged="OnSiteView" />
+        </Border>
+    </Grid>
+</Canvas>

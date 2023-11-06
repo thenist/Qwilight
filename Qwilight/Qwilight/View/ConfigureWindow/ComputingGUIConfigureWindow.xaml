@@ -1,0 +1,203 @@
+﻿<TabItem
+    x:Class="Qwilight.View.ComputingGUIConfigureWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:view="clr-namespace:Qwilight.View"
+    xmlns:quic="clr-namespace:Qwilight.UIComponent"
+    DataContext="{Binding ConfigureValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardPageItem}"
+    Header="{Binding ComputingGUIConfigure, Source={StaticResource LanguageSystem}}">
+    <ScrollViewer>
+        <StackPanel>
+            <StackPanel Visibility="{Binding MainValue.IsNoteFileMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}">
+                <Button Style="{StaticResource StandardInput}" Content="{Binding EnterAutoComputeConfigure, Source={StaticResource LanguageSystem}}" Command="{Binding EnterAutoComputeUIConfigureCommand}" HorizontalAlignment="Stretch" />
+                <Separator Style="{StaticResource StandardHr}" />
+            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding MainAreaFaintContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding MainAreaFaint, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainAreaFaint, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" HorizontalAlignment="Left" />
+
+                <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding MainFaintContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <Slider Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.MainFaintV2, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.MainFaintV2,  Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" HorizontalAlignment="Left" />
+
+                <TextBlock Grid.Row="2" Style="{StaticResource StandardTextView}" Text="{Binding MediaFaintContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <Slider Grid.Row="2" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.MediaFaintV2, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.MediaFaintV2, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" HorizontalAlignment="Left" Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" />
+                <Slider Grid.Row="2" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding BaseUIConfigureValue.DefaultMediaFaint, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityNotModifier}}" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding BaseUIConfigureValue.DefaultMediaFaint, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" HorizontalAlignment="Left" Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityNotModifier}}" />
+                
+                <TextBlock Grid.Row="3" Style="{StaticResource StandardTextView}" Text="{Binding NetItemFaintContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <Slider Grid.Row="3" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.NetItemFaintV2, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.NetItemFaintV2, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" HorizontalAlignment="Left" />
+
+                <TextBlock Grid.Row="4" Style="{StaticResource StandardTextView}" Text="{Binding AudioVisualizerFaintContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <Slider Grid.Row="4" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.AudioVisualizerFaintV2, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.AudioVisualizerFaintV2, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" HorizontalAlignment="Left" Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" />
+                <Slider Grid.Row="4" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding BaseUIConfigureValue.DefaultAudioVisualizerFaint, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityNotModifier}}" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding BaseUIConfigureValue.DefaultAudioVisualizerFaint, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" HorizontalAlignment="Left" Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityNotModifier}}" />
+            </Grid>
+            <Separator Style="{StaticResource StandardHr}" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentMainPosition1Contents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" Visibility="{Binding SetJudgmentMainPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+                <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.JudgmentMainPosition1V2, Source={StaticResource Configure}}" Minimum="-512" Maximum="512" Visibility="{Binding SetJudgmentMainPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Thumb.DragStarted="OnComputingPointed" ValueChanged="OnComputingModified" Thumb.DragCompleted="OnComputingNotPointed" />
+                <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.JudgmentMainPosition1Contents, Source={StaticResource Configure}}" HorizontalAlignment="Left" Visibility="{Binding SetJudgmentMainPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+
+                <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding NoteWaitContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <Slider Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.NoteWait, Source={StaticResource Configure}}" Minimum="-512" Maximum="512" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.NoteWaitContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
+                    <CheckBox Style="{StaticResource StandardVInput}" Content="{Binding AutoText, Source={StaticResource LanguageSystem}}" IsChecked="{Binding AutoNoteWait, Source={StaticResource Configure}}" />
+                </StackPanel>
+            </Grid>
+            <GroupBox Style="{StaticResource StandardGroupView}" Grid.Row="2">
+                <GroupBox.Header>
+                    <Image Height="24" Source="{Binding UIConfigureValue.InputMode, Source={StaticResource Configure}, Converter={StaticResource InputModeDrawingModifier}}" />
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding MainPositionContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" Visibility="{Binding SetMainPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+                    <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.MainPosition, Source={StaticResource Configure}}" Minimum="-1024" Maximum="1024" Visibility="{Binding SetMainPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Thumb.DragStarted="OnComputingPointed" ValueChanged="OnComputingModified" Thumb.DragCompleted="OnComputingNotPointed" />
+                    <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.MainPositionContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" Visibility="{Binding SetMainPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+
+                    <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding NoteLengthContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" Visibility="{Binding SetNoteLength, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+                    <Slider Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.NoteLength, Source={StaticResource Configure}}" Minimum="-256" Maximum="256" Visibility="{Binding SetNoteLength, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Thumb.DragStarted="OnComputingPointed" ValueChanged="OnComputingModified" Thumb.DragCompleted="OnComputingNotPointed" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.NoteLengthContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" Visibility="{Binding SetNoteLength, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+
+                    <TextBlock Grid.Row="2" Style="{StaticResource StandardTextView}" Text="{Binding NoteHeightContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" Visibility="{Binding SetNoteHeight, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+                    <Slider Grid.Row="2" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.NoteHeight, Source={StaticResource Configure}}" Minimum="-256" Maximum="256" Visibility="{Binding SetNoteHeight, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Thumb.DragStarted="OnComputingPointed" ValueChanged="OnComputingModified" Thumb.DragCompleted="OnComputingNotPointed" />
+                    <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.NoteHeightContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" Visibility="{Binding SetNoteHeight, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+                </Grid>
+            </GroupBox>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding BandPositionContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" Visibility="{Binding SetBandPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+                <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.BandPositionV2, Source={StaticResource Configure}}" Minimum="-512" Maximum="512" Visibility="{Binding SetBandPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Thumb.DragStarted="OnComputingPointed" ValueChanged="OnComputingModified" Thumb.DragCompleted="OnComputingNotPointed" />
+                <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.BandPositionContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" Visibility="{Binding SetBandPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+
+                <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding VeilDrawingHeightContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <Slider Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding VeilDrawingHeight, Source={StaticResource Configure}}" Minimum="0" Maximum="1024" VerticalAlignment="Top" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" Visibility="{Binding SetNoteHeight, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}">
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding VeilDrawingHeightContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <Border Style="{StaticResource StandardPanelSquare}" Height="72" MouseDown="OnVeilDrawing" Cursor="Hand">
+                        <Image Style="{StaticResource StandardViewMargin0}" Source="{Binding VeilDrawing.DefaultDrawing, Source={StaticResource DrawingSystem}}" />
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <Separator Style="{StaticResource StandardHr}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ComboBox Style="{StaticResource StandardItemsInput}" HorizontalAlignment="Right" SelectedItem="{Binding ViewLowestJudgment, Source={StaticResource Configure}}">
+                    <ComboBox.Items>
+                        <quic:ViewItem Data="{StaticResource AlwaysView}" />
+                        <quic:ViewItem Data="{StaticResource NotAutoComputeView}" />
+                        <quic:ViewItem Data="{StaticResource NotView}" />
+                    </ComboBox.Items>
+                </ComboBox>
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding ViewLowestJudgmentText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ComboBox Style="{StaticResource StandardItemsInput}" HorizontalAlignment="Right" SelectedItem="{Binding HandleFailedAudio, Source={StaticResource Configure}}">
+                    <ComboBox.Items>
+                        <quic:ViewItem Data="{StaticResource AlwaysView}" />
+                        <quic:ViewItem Data="{StaticResource NotAutoComputeView}" />
+                        <quic:ViewItem Data="{StaticResource NotView}" />
+                    </ComboBox.Items>
+                </ComboBox>
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding HandleFailedAudioText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ComboBox Style="{StaticResource StandardItemsInput}" HorizontalAlignment="Right" SelectedItem="{Binding ViewFailedDrawing, Source={StaticResource Configure}}">
+                    <ComboBox.Items>
+                        <quic:ViewItem Data="{StaticResource AlwaysView}" />
+                        <quic:ViewItem Data="{StaticResource NotAutoComputeView}" />
+                        <quic:ViewItem Data="{StaticResource NotView}" />
+                    </ComboBox.Items>
+                </ComboBox>
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding ViewFailedDrawingText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <view:BinInput Lowest="0" Value="{Binding FailedDrawingMillis, Source={StaticResource Configure}}" Format="#,##0.## ms" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding FailedDrawingMillisText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <view:BinInput Lowest="0" Value="{Binding HandleFailedAudioCount, Source={StaticResource Configure}}" Format="{Binding CountContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding HandleFailedAudioCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Separator Style="{StaticResource StandardHr}" />
+            <WrapPanel HorizontalAlignment="Center">
+                <view:ColorInput ColorValue="{Binding MeterNoteColor, Source={StaticResource Configure}, Mode=TwoWay}" PaintValue="{Binding MeterNotePaint, Source={StaticResource Configure}}" Content="{Binding MeterNoteColor, Source={StaticResource LanguageSystem}}" />
+                <view:ColorInput ColorValue="{Binding LimiterColor, Source={StaticResource Configure}, Mode=TwoWay}" PaintValue="{Binding LimiterPaint, Source={StaticResource Configure}}" Content="{Binding LimiterColor, Source={StaticResource LanguageSystem}}" />
+            </WrapPanel>
+            <Separator Style="{StaticResource StandardHr}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding LowHitPointsFaintUIPaint, Source={StaticResource Configure}}" Command="{Binding LowHitPointsFaintUICommand}" Content="{Binding LowHitPointsFaintUIText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding LowHitPointsFaintUIContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</TabItem>

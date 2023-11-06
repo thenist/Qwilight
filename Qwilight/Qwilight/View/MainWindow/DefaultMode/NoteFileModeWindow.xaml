@@ -1,0 +1,275 @@
+﻿<Canvas
+    x:Class="Qwilight.View.NoteFileModeWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:view="clr-namespace:Qwilight.View"
+    DataContext="{Binding MainValue, Source={StaticResource ViewModels}}"
+    Visibility="{Binding IsNoteFileMode, Converter={StaticResource VisibilityModifier}}">
+    <Button Style="{StaticResource BaseUIInput}" Command="{Binding SignInCommand}" Canvas.Left="{Binding SignInPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding SignInPoint[1], Source={StaticResource BaseUI}}" Width="{Binding SignInPoint[2], Source={StaticResource BaseUI}}" Height="{Binding SignInPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding SignInPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding SignInPoint[5], Source={StaticResource BaseUI}}" IsEnabled="{Binding IsEstablished, Source={StaticResource TwilightSystem}}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityNotModifier}}">
+        <Image Stretch="{Binding SignInPoint[6], Source={StaticResource BaseUI}}" Source="{Binding SignInDrawings[0], Source={StaticResource BaseUI}}" />
+    </Button>
+    <Button PreviewMouseDown="OnViewItems" Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding SignInPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding SignInPoint[1], Source={StaticResource BaseUI}}" Width="{Binding SignInPoint[2], Source={StaticResource BaseUI}}" Height="{Binding SignInPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding SignInPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding SignInPoint[5], Source={StaticResource BaseUI}}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
+        <Button.ContextMenu>
+            <ContextMenu>
+                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding ViewMyAvatarCommand}" />
+                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding ViewMyBundleCommand}" />
+                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding NotSignInText, Source={StaticResource LanguageSystem}}" Command="{Binding NotSignInCommand}" />
+            </ContextMenu>
+        </Button.ContextMenu>
+        <Border Style="{StaticResource StandardPanelMargin0}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
+            <Border.Background>
+                <ImageBrush Stretch="{Binding SignInPoint[6], Source={StaticResource BaseUI}}" ImageSource="{Binding AvatarDrawing, Source={StaticResource TwilightSystem}}" />
+            </Border.Background>
+        </Border>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding SaltAutoPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding SaltAutoPoint[1], Source={StaticResource BaseUI}}" Width="{Binding SaltAutoPoint[2], Source={StaticResource BaseUI}}" Height="{Binding SaltAutoPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding SaltAutoPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding SaltAutoPoint[5], Source={StaticResource BaseUI}}" Command="{Binding AutoSaltCommand}" ToolTipService.ToolTip="{Binding AutoSaltAssist, Source={StaticResource LanguageSystem}}">
+        <Image Stretch="{Binding SaltAutoPoint[6], Source={StaticResource BaseUI}}" Source="{Binding SaltAuto, Source={StaticResource Configure}, Converter={StaticResource SaltAutoDrawingModifier}}" />
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding StopAutoPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding StopAutoPoint[1], Source={StaticResource BaseUI}}" Width="{Binding StopAutoPoint[2], Source={StaticResource BaseUI}}" Height="{Binding StopAutoPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding StopAutoPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding StopAutoPoint[5], Source={StaticResource BaseUI}}" Command="{Binding PauseCommand}" ToolTipService.ToolTip="{Binding PauseAssist, Source={StaticResource LanguageSystem}}">
+        <Image Stretch="{Binding StopAutoPoint[6], Source={StaticResource BaseUI}}" Source="{Binding IsPausing, Converter={StaticResource StopAutoDrawingModifier}}" />
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding ConfigurePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding ConfigurePoint[1], Source={StaticResource BaseUI}}" Width="{Binding ConfigurePoint[2], Source={StaticResource BaseUI}}" Height="{Binding ConfigurePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding ConfigurePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding ConfigurePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ConfigureCommand}" ToolTipService.ToolTip="{Binding ConfigureAssist, Source={StaticResource LanguageSystem}}" >
+        <Image Stretch="{Binding ConfigurePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ConfigureDrawing, Source={StaticResource BaseUI}}" />
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding CommentPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding CommentPoint[1], Source={StaticResource BaseUI}}" Width="{Binding CommentPoint[2], Source={StaticResource BaseUI}}" Height="{Binding CommentPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding CommentPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding CommentPoint[5], Source={StaticResource BaseUI}}" Command="{Binding CommentCommand}" ToolTipService.ToolTip="{Binding CommentAssist, Source={StaticResource LanguageSystem}}" >
+        <Image Stretch="{Binding CommentPoint[6], Source={StaticResource BaseUI}}" Source="{Binding CommentDrawing, Source={StaticResource BaseUI}}" />
+    </Button>
+    <view:CommentView Canvas.Left="{Binding CommentViewPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding CommentViewPoint[1], Source={StaticResource BaseUI}}" Width="{Binding CommentViewPoint[2], Source={StaticResource BaseUI}}" Height="{Binding CommentViewPoint[3], Source={StaticResource BaseUI}}" Visibility="{Binding HasCommentPoint, Source={StaticResource BaseUI}, Converter={StaticResource VisibilityNotModifier}}" />
+    <view:EntryView Canvas.Left="{Binding EntryViewPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding EntryViewPoint[1], Source={StaticResource BaseUI}}" Width="{Binding EntryViewPoint[2], Source={StaticResource BaseUI}}" Height="{Binding EntryViewPoint[3], Source={StaticResource BaseUI}}" />
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding AutoModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding AutoModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding AutoModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding AutoModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding AutoModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding AutoModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource AutoModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding AutoModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.AutoModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource AutoModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.AutoModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding NoteSaltModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding NoteSaltModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding NoteSaltModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding NoteSaltModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding NoteSaltModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding NoteSaltModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource NoteSaltModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding NoteSaltModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.NoteSaltModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteSaltModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.NoteSaltModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding FaintNoteModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding FaintNoteModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding FaintNoteModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding FaintNoteModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding FaintNoteModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding FaintNoteModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource FaintNoteModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding FaintNoteModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.FaintNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource FaintNoteModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.FaintNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding JudgmentModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding JudgmentModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding JudgmentModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding JudgmentModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding JudgmentModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding JudgmentModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource JudgmentModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding JudgmentModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.JudgmentModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource JudgmentModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.JudgmentModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>1</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding HitPointsModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding HitPointsModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding HitPointsModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding HitPointsModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding HitPointsModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding HitPointsModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource HitPointsModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding HitPointsModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.HitPointsModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource HitPointsModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.HitPointsModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>1</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding NoteMobilityModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding NoteMobilityModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding NoteMobilityModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding NoteMobilityModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding NoteMobilityModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding NoteMobilityModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource NoteMobilityModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding NoteMobilityModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.NoteMobilityModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteMobilityModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.NoteMobilityModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding InputFavorModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding InputFavorModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding InputFavorModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding InputFavorModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding InputFavorModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding InputFavorModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource InputFavorModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding InputFavorModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.InputFavorModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.InputFavorModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding LongNoteModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding LongNoteModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding LongNoteModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding LongNoteModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding LongNoteModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding LongNoteModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource LongNoteModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding LongNoteModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.LongNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LongNoteModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.LongNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding NoteModifyModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding NoteModifyModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding NoteModifyModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding NoteModifyModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding NoteModifyModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding NoteModifyModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource NoteModifyModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding NoteModifyModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.NoteModifyModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteModifyModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.NoteModifyModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding BPMModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding BPMModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding BPMModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding BPMModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding BPMModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding BPMModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource BPMModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding BPMModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.BPMModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource BPMModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.BPMModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding WaveModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding WaveModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding WaveModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding WaveModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding WaveModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding WaveModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource WaveModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding WaveModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.WaveModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource WaveModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.WaveModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding SetNoteModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding SetNoteModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding SetNoteModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding SetNoteModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding SetNoteModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding SetNoteModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource SetNoteModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding SetNoteModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.SetNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource SetNoteModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.SetNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding LowestJudgmentConditionModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding LowestJudgmentConditionModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding LowestJudgmentConditionModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding LowestJudgmentConditionModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding LowestJudgmentConditionModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding LowestJudgmentConditionModePoint[5], Source={StaticResource BaseUI}}" Command="{Binding ModeComponentCommand}" CommandParameter="{StaticResource LowestJudgmentConditionModeVariety}" IsEnabled="{Binding IsCommentMode, Converter={StaticResource NotModifier}}">
+        <Image Stretch="{Binding LowestJudgmentConditionModePoint[6], Source={StaticResource BaseUI}}" Source="{Binding ModeComponentValue.LowestJudgmentConditionModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LowestJudgmentConditionModeVariety}}">
+            <Image.Opacity>
+                <Binding Path="ModeComponentValue.LowestJudgmentConditionModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                    <Binding.ConverterParameter>
+                        <system:Int32>0</system:Int32>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </Image.Opacity>
+        </Image>
+    </Button>
+    <Image Source="{Binding FileDrawing, Source={StaticResource BaseUI}}" Canvas.Left="{Binding FilePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding FilePoint[1], Source={StaticResource BaseUI}}" Width="{Binding FilePoint[2], Source={StaticResource BaseUI}}" Height="{Binding FilePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding FilePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding FilePoint[5], Source={StaticResource BaseUI}}" Stretch="{Binding FilePoint[6], Source={StaticResource BaseUI}}" />
+    <Button Style="{StaticResource BaseUIInput}" Command="{Binding ViewFileCommand}" Canvas.Left="{Binding FileViewerPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding FileViewerPoint[1], Source={StaticResource BaseUI}}" Width="{Binding FileViewerPoint[2], Source={StaticResource BaseUI}}" Height="{Binding FileViewerPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding FileViewerPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding FileViewerPoint[5], Source={StaticResource BaseUI}}">
+        <Image Stretch="{Binding FileViewerPoint[6], Source={StaticResource BaseUI}}" Source="{Binding FileViewerDrawing, Source={StaticResource BaseUI}}" />
+    </Button>
+    <Button Style="{StaticResource BaseUIInput}" IsEnabled="{Binding HasAssistFile}" Command="{Binding ViewAssistFileCommand}" Canvas.Left="{Binding AssistFileViewerPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding AssistFileViewerPoint[1], Source={StaticResource BaseUI}}" Width="{Binding AssistFileViewerPoint[2], Source={StaticResource BaseUI}}" Height="{Binding AssistFileViewerPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding AssistFileViewerPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding AssistFileViewerPoint[5], Source={StaticResource BaseUI}}">
+        <Image Stretch="{Binding AssistFileViewerPoint[6], Source={StaticResource BaseUI}}" Source="{Binding AssistFileViewerDrawing, Source={StaticResource BaseUI}}" />
+    </Button>
+    <Grid Canvas.Left="{Binding FileContentsPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding FileContentsPoint[1], Source={StaticResource BaseUI}}" Width="{Binding FileContentsPoint[2], Source={StaticResource BaseUI}}" Height="{Binding FileContentsPoint[3], Source={StaticResource BaseUI}}">
+        <TextBlock Style="{StaticResource BaseUITextView}" HorizontalAlignment="{Binding FileContentsPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding FileContentsPoint[5], Source={StaticResource BaseUI}}" FontSize="{Binding FileContentsPoint[6], Source={StaticResource BaseUI}}" Text="{Binding EntryItemValue.NoteFile.FileName}" Foreground="{StaticResource FilePaint}" />
+    </Grid>
+    <Image Source="{Binding JudgmentStageDrawing.DefaultDrawing, Source={StaticResource BaseUI}}" Canvas.Left="{Binding JudgmentStagePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding JudgmentStagePoint[1], Source={StaticResource BaseUI}}" Width="{Binding JudgmentStagePoint[2], Source={StaticResource BaseUI}}" Height="{Binding FilePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding FilePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding FilePoint[5], Source={StaticResource BaseUI}}" Stretch="{Binding FilePoint[6], Source={StaticResource BaseUI}}">
+        <ToolTipService.ToolTip>
+            <ToolTip Background="Transparent">
+                <Border Style="{StaticResource WindowStandardPanel}">
+                    <Grid HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Style="{StaticResource StandardView}" HorizontalAlignment="Left" Source="{Binding JudgmentDrawings[0].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                        <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Grid.Column="1" Text="{Binding EntryItemValue.NoteFile.HighestJudgmentMillisText}" Foreground="{Binding JudgmentPaints[0], Source={StaticResource BaseUI}}" />
+                        <Image Style="{StaticResource StandardView}" HorizontalAlignment="Left" Grid.Row="1" Source="{Binding JudgmentDrawings[1].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                        <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Text="{Binding EntryItemValue.NoteFile.HigherJudgmentMillisText}" Foreground="{Binding JudgmentPaints[1], Source={StaticResource BaseUI}}" />
+                        <Image Style="{StaticResource StandardView}" HorizontalAlignment="Left" Grid.Row="2" Source="{Binding JudgmentDrawings[2].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                        <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" Text="{Binding EntryItemValue.NoteFile.HighJudgmentMillisText}" Foreground="{Binding JudgmentPaints[2], Source={StaticResource BaseUI}}" />
+                        <Image Style="{StaticResource StandardView}" HorizontalAlignment="Left" Grid.Row="3" Source="{Binding JudgmentDrawings[3].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                        <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1" Text="{Binding EntryItemValue.NoteFile.LowJudgmentMillisText}" Foreground="{Binding JudgmentPaints[3], Source={StaticResource BaseUI}}" />
+                        <Image Style="{StaticResource StandardView}" HorizontalAlignment="Left" Grid.Row="4" Source="{Binding JudgmentDrawings[4].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                        <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1" Text="{Binding EntryItemValue.NoteFile.LowerJudgmentMillisText}" Foreground="{Binding JudgmentPaints[4], Source={StaticResource BaseUI}}" />
+                        <Image Style="{StaticResource StandardView}" HorizontalAlignment="Left" Grid.Row="5" Source="{Binding JudgmentDrawings[5].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                        <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="1" Text="{Binding EntryItemValue.NoteFile.LowestJudgmentMillisText}" Foreground="{Binding JudgmentPaints[5], Source={StaticResource BaseUI}}" />
+                    </Grid>
+                </Border>
+            </ToolTip>
+        </ToolTipService.ToolTip>
+    </Image>
+    <Grid Canvas.Left="{Binding JudgmentStageContentsPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding JudgmentStageContentsPoint[1], Source={StaticResource BaseUI}}" Width="{Binding JudgmentStageContentsPoint[2], Source={StaticResource BaseUI}}" Height="{Binding JudgmentStageContentsPoint[3], Source={StaticResource BaseUI}}">
+        <TextBlock Style="{StaticResource BaseUITextView}" HorizontalAlignment="{Binding JudgmentStageContentsPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding JudgmentStageContentsPoint[5], Source={StaticResource BaseUI}}" FontSize="{Binding JudgmentStageContentsPoint[6], Source={StaticResource BaseUI}}" Text="{Binding EntryItemValue.NoteFile.JudgmentStageContents}" Foreground="{StaticResource JudgmentStagePaint}" />
+    </Grid>
+    <Image Source="{Binding TotalNotesDrawing, Source={StaticResource BaseUI}}" Canvas.Left="{Binding TotalNotesPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding TotalNotesPoint[1], Source={StaticResource BaseUI}}" Width="{Binding TotalNotesPoint[2], Source={StaticResource BaseUI}}" Height="{Binding TotalNotesPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding TotalNotesPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding TotalNotesPoint[5], Source={StaticResource BaseUI}}" Stretch="{Binding TotalNotesPoint[6], Source={StaticResource BaseUI}}" />
+    <Grid Canvas.Left="{Binding TotalNotesContentsPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding TotalNotesContentsPoint[1], Source={StaticResource BaseUI}}" Width="{Binding TotalNotesContentsPoint[2], Source={StaticResource BaseUI}}" Height="{Binding TotalNotesContentsPoint[3], Source={StaticResource BaseUI}}">
+        <TextBlock Style="{StaticResource BaseUITextView}" HorizontalAlignment="{Binding TotalNotesContentsPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding TotalNotesContentsPoint[5], Source={StaticResource BaseUI}}" Text="{Binding EntryItemValue.NoteFile.TotalNotesContents}" FontSize="{Binding TotalNotesContentsPoint[6], Source={StaticResource BaseUI}}" Foreground="{StaticResource TotalNotesPaint}" />
+    </Grid>
+    <Image Source="{Binding HighestInputCountDrawing.DefaultDrawing, Source={StaticResource BaseUI}}" Canvas.Left="{Binding HighestInputCountPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding HighestInputCountPoint[1], Source={StaticResource BaseUI}}" Width="{Binding HighestInputCountPoint[2], Source={StaticResource BaseUI}}" Height="{Binding HighestInputCountPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding HighestInputCountPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding HighestInputCountPoint[5], Source={StaticResource BaseUI}}" Stretch="{Binding HighestInputCountPoint[6], Source={StaticResource BaseUI}}" />
+    <Grid Canvas.Left="{Binding HighestInputCountContentsPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding HighestInputCountContentsPoint[1], Source={StaticResource BaseUI}}" Width="{Binding HighestInputCountContentsPoint[2], Source={StaticResource BaseUI}}" Height="{Binding HighestInputCountContentsPoint[3], Source={StaticResource BaseUI}}">
+        <TextBlock Style="{StaticResource BaseUITextView}" HorizontalAlignment="{Binding HighestInputCountContentsPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding HighestInputCountContentsPoint[5], Source={StaticResource BaseUI}}" FontSize="{Binding HighestInputCountContentsPoint[6], Source={StaticResource BaseUI}}" Text="{Binding HighestInputCountText}" Foreground="{StaticResource HighestInputCountPaint}" />
+    </Grid>
+    <Image Source="{Binding LengthDrawing.DefaultDrawing, Source={StaticResource BaseUI}}" Canvas.Left="{Binding LengthPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding LengthPoint[1], Source={StaticResource BaseUI}}" Width="{Binding LengthPoint[2], Source={StaticResource BaseUI}}" Height="{Binding LengthPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding LengthPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding LengthPoint[5], Source={StaticResource BaseUI}}" Stretch="{Binding LengthPoint[6], Source={StaticResource BaseUI}}" />
+    <Grid Canvas.Left="{Binding LengthContentsPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding LengthContentsPoint[1], Source={StaticResource BaseUI}}" Width="{Binding LengthContentsPoint[2], Source={StaticResource BaseUI}}" Height="{Binding LengthContentsPoint[3], Source={StaticResource BaseUI}}">
+        <TextBlock Style="{StaticResource BaseUITextView}" HorizontalAlignment="{Binding LengthContentsPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding LengthContentsPoint[5], Source={StaticResource BaseUI}}" FontSize="{Binding LengthContentsPoint[6], Source={StaticResource BaseUI}}" Foreground="{StaticResource LengthPaint}" Text="{Binding LengthText}" />
+    </Grid>
+    <Grid Canvas.Left="{Binding BPMPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding BPMPoint[1], Source={StaticResource BaseUI}}" Width="{Binding BPMPoint[2], Source={StaticResource BaseUI}}" Height="{Binding BPMPoint[3], Source={StaticResource BaseUI}}">
+        <Image HorizontalAlignment="{Binding BPMPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding BPMPoint[5], Source={StaticResource BaseUI}}" Stretch="{Binding BPMPoint[6], Source={StaticResource BaseUI}}" Source="{Binding BPMDrawing.DefaultDrawing, Source={StaticResource BaseUI}}" Visibility="{Binding IsBPMVisible, Converter={StaticResource VisibilityModifier}}" />
+        <Image HorizontalAlignment="{Binding BPMPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding BPMPoint[5], Source={StaticResource BaseUI}}" Stretch="{Binding BPMPoint[6], Source={StaticResource BaseUI}}" Source="{Binding BPM1Drawing, Source={StaticResource BaseUI}}" Visibility="{Binding IsBPM1Visible, Converter={StaticResource VisibilityModifier}}">
+            <ToolTipService.ToolTip>
+                <ToolTip Background="Transparent">
+                    <Border Style="{StaticResource WindowStandardPanel}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding BPMDrawing.DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding EntryItemValue.NoteFile.BPMMapValue}" Foreground="{StaticResource BPMPaint}" />
+                        </StackPanel>
+                    </Border>
+                </ToolTip>
+            </ToolTipService.ToolTip>
+        </Image>
+    </Grid>
+    <Grid Canvas.Left="{Binding BPMContentsPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding BPMContentsPoint[1], Source={StaticResource BaseUI}}" Width="{Binding BPMContentsPoint[2], Source={StaticResource BaseUI}}" Height="{Binding BPMContentsPoint[3], Source={StaticResource BaseUI}}">
+        <TextBlock Style="{StaticResource BaseUITextView}" Text="{Binding BPMText}" HorizontalAlignment="{Binding BPMContentsPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding BPMContentsPoint[5], Source={StaticResource BaseUI}}" FontSize="{Binding BPMContentsPoint[6], Source={StaticResource BaseUI}}" Foreground="{StaticResource BPMPaint}" />
+    </Grid>
+    <Image Source="{Binding InputModeDrawing.DefaultDrawing, Source={StaticResource BaseUI}}" Canvas.Left="{Binding InputModePoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding InputModePoint[1], Source={StaticResource BaseUI}}" Width="{Binding InputModePoint[2], Source={StaticResource BaseUI}}" Height="{Binding InputModePoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding InputModePoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding InputModePoint[5], Source={StaticResource BaseUI}}" Stretch="{Binding InputModePoint[6], Source={StaticResource BaseUI}}" />
+    <Image Source="{Binding EntryItemValue.NoteFile.InputMode, Converter={StaticResource InputModeDrawingModifier}}" Canvas.Left="{Binding InputModeContentsPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding InputModeContentsPoint[1], Source={StaticResource BaseUI}}" Width="{Binding InputModeContentsPoint[2], Source={StaticResource BaseUI}}" Height="{Binding InputModeContentsPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding InputModeContentsPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding InputModeContentsPoint[5], Source={StaticResource BaseUI}}" Stretch="{Binding InputModeContentsPoint[6], Source={StaticResource BaseUI}}" />
+    <Border Style="{StaticResource StandardPanelMargin0}" Canvas.Left="{Binding AssistViewPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding AssistViewPoint[1], Source={StaticResource BaseUI}}" Width="{Binding AssistViewPoint[2], Source={StaticResource BaseUI}}" Height="{Binding AssistViewPoint[3], Source={StaticResource BaseUI}}" Background="{Binding AssistViewPoint[7], Source={StaticResource BaseUI}}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="{Binding AssistViewPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding AssistViewPoint[5], Source={StaticResource BaseUI}}">
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist0, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist1, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist2, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist3, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist4, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" Visibility="{Binding IsEstablished, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist5, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" Visibility="{Binding IsEstablished, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist6, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist7, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist8, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
+        </StackPanel>
+    </Border>
+</Canvas>

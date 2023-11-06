@@ -1,0 +1,108 @@
+﻿<TabItem
+    x:Class="Qwilight.View.DefaultConfigureWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Style="{StaticResource StandardPageItem}"
+    Header="{Binding DefaultConfigureText, Source={StaticResource LanguageSystem}}"
+    DataContext="{Binding ConfigureValue, Source={StaticResource ViewModels}}">
+    <ScrollViewer>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding AutoComputePaint, Source={StaticResource Configure}}" Command="{Binding AutoComputeCommand}" Content="{Binding AutoComputeText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AutoComputeContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid Visibility="{Binding AutoCompute, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding AutoHighlightCommand}" Content="{Binding AutoHighlightText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AutoHighlightContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid Visibility="{Binding CanGetDefaultText, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding SaveDefaultNoteText, Source={StaticResource LanguageSystem}}" Command="{Binding DefaultNoteCommand}" />
+                    <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoGetDefaultNote, Source={StaticResource Configure}}" Content="{Binding AutoText, Source={StaticResource LanguageSystem}}" />
+                </StackPanel>
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding SaveDefaultNoteContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid Visibility="{Binding CanGetDefaultText, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding SaveDefaultUIText, Source={StaticResource LanguageSystem}}" Command="{Binding DefaultUICommand}" />
+                    <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoGetDefaultUI, Source={StaticResource Configure}}" Content="{Binding AutoText, Source={StaticResource LanguageSystem}}" />
+                </StackPanel>
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding SaveDefaultUIContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Separator Style="{StaticResource StandardHr}" />
+            <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding DBConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+            <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding InitCompiledCommand}" Content="{Binding InitCompiledText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding InitCompiledContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding InitFavoriteEntryCommand}" Content="{Binding InitFavoriteEntryText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding InitFavoriteEntryContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding InitWaitCommand}" Content="{Binding InitWaitText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding InitWaitContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding UndoColorCommand}" Content="{Binding UndoColorText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding UndoColorContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding InitMediaCommand}" Content="{Binding InitMediaText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding InitMediaContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding InitCommentCommand}" Content="{Binding InitCommentText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding InitCommentContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding InitTotalCommand}" Content="{Binding InitTotalText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding InitTotalContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</TabItem>

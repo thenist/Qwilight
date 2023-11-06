@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Qwilight": {
+      "commandName": "Project",
+      "commandLineArgs": "--vs"
+    }
+  }
+}

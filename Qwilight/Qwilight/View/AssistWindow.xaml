@@ -1,0 +1,475 @@
+﻿<Canvas
+    x:Class="Qwilight.View.AssistWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+    DataContext="{Binding AssistValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding AssistText, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <TabControl Style="{StaticResource StandardPageView}" Grid.Row="1" TabStripPlacement="Left">
+                    <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding TutorialAssistText, Source={StaticResource LanguageSystem}}">
+                        <StackPanel>
+                            <Image Style="{StaticResource StandardView}" Source="{StaticResource QwilightDrawing}" Width="596" Height="236" />
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Tutorial0, Source={StaticResource LanguageSystem}}" FontSize="{StaticResource FontLevel1}" />
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Tutorial1, Source={StaticResource LanguageSystem}}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Button Style="{StaticResource StandardInput}" Content="{Binding Tutorial20, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" PreviewMouseDown="OnViewItems">
+                                    <Button.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Style="{StaticResource StandardItem}" Header="{Binding Tutorial200, Source={StaticResource LanguageSystem}}" Command="{Binding NewBMSCommand}" />
+                                            <MenuItem Style="{StaticResource StandardItem}" Header="{Binding Tutorial201, Source={StaticResource LanguageSystem}}" Command="{Binding LoadBMSCommand}" />
+                                        </ContextMenu>
+                                    </Button.ContextMenu>
+                                </Button>
+                                <Button Grid.Column="1" Style="{StaticResource StandardInput}" Content="{Binding Tutorial21, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" Command="{Binding SetUICommand}" />
+                                <Button Grid.Column="2" Style="{StaticResource StandardInput}" Content="{Binding Tutorial22, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" Command="{Binding SetInputCommand}" />
+                            </Grid>
+                            <Grid Visibility="{Binding TVAssists, Source={StaticResource TVSystem}, Converter={StaticResource VisibilityModifier}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Separator Style="{StaticResource StandardHr}" />
+                                <CheckBox Grid.Column="1" Style="{StaticResource StandardVInput}" HorizontalAlignment="Right" Content="{Binding TVAssistConfigure, Source={StaticResource LanguageSystem}}" IsChecked="{Binding TVAssistConfigure, Source={StaticResource Configure}}" />
+                                <Separator Grid.Column="2" Style="{StaticResource StandardHr}" />
+                            </Grid>
+                            <StackPanel Visibility="{Binding TVAssist0, Source={StaticResource TVSystem}, Converter={StaticResource VisibilityModifier}}">
+                                <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="OBS, Twitch Studio, PRISM Live Studio, XSplit Broadcaster" />
+                                <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Foreground="DeepPink" Text="{Binding OBSText0, Source={StaticResource LanguageSystem}}" />
+                                <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Foreground="DeepSkyBlue" Text="{Binding OBSText1, Source={StaticResource LanguageSystem}}" />
+                            </StackPanel>
+                            <StackPanel Visibility="{Binding TVAssist1, Source={StaticResource TVSystem}, Converter={StaticResource VisibilityModifier}}">
+                                <Image Source="{StaticResource PlatformDrawing}" Width="146" Height="40" />
+                                <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Foreground="DeepPink" Text="{Binding PlatformText0, Source={StaticResource LanguageSystem}}" />
+                                <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Foreground="DeepSkyBlue" Text="{Binding PlatformText1, Source={StaticResource LanguageSystem}}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding DateAssistText, Source={StaticResource LanguageSystem}}">
+                        <Border Style="{StaticResource StandardPanelSquare}">
+                            <Grid>
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="Loading Edge…" />
+                                <wpf:WebView2 Source="https://taehui.ddns.net/qwilight/date" />
+                            </Grid>
+                        </Border>
+                    </TabItem>
+                    <TabItem Style="{StaticResource StandardPageItem}">
+                        <TabItem.Header>
+                            <Image Source="{StaticResource PlatformDrawing}" Height="24" />
+                        </TabItem.Header>
+                        <Border Style="{StaticResource StandardPanelSquare}">
+                            <wpf:WebView2 Source="https://taehui.ddns.net/qwilight/platform" />
+                        </Border>
+                    </TabItem>
+                    <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding Assister, Source={StaticResource LanguageSystem}}">
+                        <ScrollViewer>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding SoftwareAssister, Source={StaticResource LanguageSystem}}" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="Taehui" HorizontalAlignment="Right" />
+                                    <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://taehui.ddns.net" HorizontalAlignment="Left">불로그</Button>
+                                </Grid>
+                                <Separator Style="{StaticResource StandardHr}" />
+                                <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding DefaultNoteAssister, Source={StaticResource LanguageSystem}}" />
+                                <StackPanel>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="chilldive" HorizontalAlignment="Right" />
+                                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://linktr.ee/chilldive" HorizontalAlignment="Left">Linktree</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Euphoria Guru" HorizontalAlignment="Right" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/code02251">Twitter</Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="qfeileadh" HorizontalAlignment="Right" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/qfeileadh">Twitter</Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="RiraN" HorizontalAlignment="Right" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/riranofficial">SoundCloud</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/riranofficial">Twitter</Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="SCTL" HorizontalAlignment="Right" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/sctl_shin">SoundCloud</Button>
+                                            <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/sctl_clean">Twitter</Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Sobrem" HorizontalAlignment="Right" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/Sobrem">SoundCloud</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://sobrem.tistory.com">Tistory</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/SobremMusic">Twitter</Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Sound Souler" HorizontalAlignment="Right" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/sound_souler">SoundCloud</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/sound_souler">Twitter</Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Spehs" HorizontalAlignment="Right" />
+                                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://linktr.ee/spehscolon" HorizontalAlignment="Left">Linktree</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="sak" HorizontalAlignment="Right" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/sakofsuken">SoundCloud</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/sakofsuken">Twitter</Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="tkqn14" HorizontalAlignment="Right" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/tkqn14-official">SoundCloud</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/tkqn14">Twitter</Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="ああああ" HorizontalAlignment="Right" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/ricora">SoundCloud</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/q07a_">Twitter</Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="わかどり" HorizontalAlignment="Right" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/wakadori">SoundCloud</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/wakadoori">Twitter</Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                                <Separator Style="{StaticResource StandardHr}" />
+                                <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding DefaultUIAssister, Source={StaticResource LanguageSystem}}" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="CoolRyong" HorizontalAlignment="Right" />
+                                    <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/coolish_kor" HorizontalAlignment="Left">Twitter</Button>
+                                </Grid>
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="카인드맨" />
+                                <Separator Style="{StaticResource StandardHr}" />
+                                <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding AudioAssister, Source={StaticResource LanguageSystem}}" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="DYKWIM?" HorizontalAlignment="Right" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://www.instagram.com/d_y_k_w_i_m">Instagram</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/dykwim">SoundCloud</Button>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="KOTDARI" HorizontalAlignment="Right" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/kot-dari">SoundCloud</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/kotdari_forward">Twitter</Button>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="oSeann" HorizontalAlignment="Right" />
+                                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://linktr.ee/oSeann" HorizontalAlignment="Left">Linktree</Button>
+                                </Grid>
+                                <Separator Style="{StaticResource StandardHr}" />
+                                <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding Library, Source={StaticResource LanguageSystem}}" />
+                                <StackPanel>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="AuraServiceLib.NET" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/ChromaControl/AuraServiceLib.NET" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="CommandLineParser" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/commandlineparser/commandline" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="CommunityToolkit.Mvvm" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/CommunityToolkit/dotnet" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="CUESDK.NET" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/ChromaControl/CUESDK.NET" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="DiscordRichPresence" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/Lachee/discord-rpc-csharp" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="DotNetZip" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/haf/DotNetZip.Semverd" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Facepunch.Steamworks" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/Facepunch/Facepunch.Steamworks" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="FFmpegInteropX.Desktop" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/ffmpeginteropx/FFmpegInteropX" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Google.Protobuf" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/protocolbuffers/protobuf" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="HtmlAgilityPack" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/zzzprojects/html-agility-pack" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="ini-parser-new" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/sandrock/ini-parser-dotnet" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="MaterialDesignThemes" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Microsoft.Graphics.Win2D" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/microsoft/Win2D" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Microsoft.IO.RecyclableMemoryStream" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/microsoft/Microsoft.IO.RecyclableMemoryStream" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Microsoft.Web.WebView2" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://aka.ms/webview" HorizontalAlignment="Left">MSDN</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Microsoft.Windows.CsWin32" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/microsoft/CsWin32" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="MoonSharp" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/moonsharp-devs/moonsharp" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="NAudio" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/naudio/NAudio" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="OpusDotNet" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/mrphil2105/OpusDotNet" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="SharpCompress" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/adamhathcock/sharpcompress" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="System.Data.SQLite" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://system.data.sqlite.org" HorizontalAlignment="Left">Home</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="UTF.Unknown" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/CharsetDetector/UTF-unknown" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Vortice.DirectInput" HorizontalAlignment="Right" />
+                                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/amerkoleci/Vortice.Windows" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Vortice.XInput" HorizontalAlignment="Right" />
+                                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/amerkoleci/Vortice.Windows" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="YamlDotNet" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/aaubry/YamlDotNet" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Border>
+    </Grid>
+</Canvas>

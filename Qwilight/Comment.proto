@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+option csharp_namespace = "Qwilight";
+option java_package = "net.taehui";
+option java_outer_classname = "CommentClass";
+
+message Comment {
+	string date = 1;
+	int32 highestJudgment = 2;
+	int32 higherJudgment = 3;
+	int32 highJudgment = 4;
+	int32 lowJudgment = 5;
+	int32 lowerJudgment = 6;
+	int32 lowestJudgment = 7;
+	repeated InputEvent inputs = 8;
+	repeated MultiplierEvent multipliers = 9;
+	repeated PaintEvent paints = 10;
+	int32 loopUnit = 11;
+	repeated JudgmentMeterEvent judgmentMeters = 12;
+	repeated AudioMultiplierEvent audioMultipliers = 13;
+	double levyingMultiplier = 14;
+	double levyingAudioMultiplier = 15;
+}
+
+message InputEvent {
+	int32 input = 1;
+	double wait = 2;
+	int32 noteID = 3;
+	int32 judged = 4;
+}
+
+message MultiplierEvent {
+	double multiplier = 1;
+	double wait = 2;
+	bool isAutoEvent = 3;
+}
+
+message JudgmentMeterEvent {
+	double judgmentMeter = 1;
+	double wait = 2;
+	int32 assist = 3;
+}
+
+message PaintEvent {
+	double hitPoints = 1;
+	int32 stand = 2;
+	int32 band = 3;
+	double point = 4;
+	double wait = 5;
+}
+
+message AudioMultiplierEvent {
+	double audioMultiplier = 1;
+	double wait = 2;
+}

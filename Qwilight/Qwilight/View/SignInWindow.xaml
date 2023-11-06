@@ -1,0 +1,25 @@
+﻿<Canvas
+    x:Class="Qwilight.View.SignInWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    DataContext="{Binding SignInValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding SignIn, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding AvatarID, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnInputLower" materialDesign:HintAssist.Hint="{Binding AvatarID, Source={StaticResource LanguageSystem}}"  />
+                <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" KeyDown="OnInputLower" materialDesign:HintAssist.Hint="{Binding AvatarCipher, Source={StaticResource LanguageSystem}}" />
+                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoSignIn, Source={StaticResource Configure}}" Content="{Binding AutoSignIn, Source={StaticResource LanguageSystem}}" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Style="{StaticResource StandardInput}" Command="{Binding SignInCommand}" Content="{Binding SignIn, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Command="{Binding SignUpCommand}" Content="{Binding SignUp, Source={StaticResource LanguageSystem}}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Canvas>

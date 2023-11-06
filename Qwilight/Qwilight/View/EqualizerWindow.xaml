@@ -1,0 +1,62 @@
+﻿<Canvas
+    x:Class="Qwilight.View.EqualizerWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:view="clr-namespace:Qwilight.View"
+    DataContext="{Binding EqualizerValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding EqualizerText, Source={StaticResource LanguageSystem}}" />
+                    <ToggleButton Style="{StaticResource StandardIOInput}" IsChecked="{Binding Equalizer, Source={StaticResource Configure}}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <ContentControl Grid.Row="1" IsEnabled="{Binding Equalizer, Source={StaticResource Configure}}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <view:BinInput Lowest="20.0" Highest="22000.0" Value="{Binding EqualizerHz0, Source={StaticResource Configure}}" Format="0 Hz" ValueModified="OnEqualizerHz0" />
+                            <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Minimum="-30.0" Maximum="30.0" Value="{Binding Equalizer0, Source={StaticResource Configure}}" ValueChanged="OnEqualizer0" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Width="48" Text="{Binding Equalizer0, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0 dB'}" />
+
+                            <view:BinInput Grid.Row="1" Lowest="20.0" Highest="22000.0" Value="{Binding EqualizerHz1, Source={StaticResource Configure}}" Format="0 Hz" ValueModified="OnEqualizerHz1" />
+                            <Slider Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardSlider}" Minimum="-30.0" Maximum="30.0" Value="{Binding Equalizer1, Source={StaticResource Configure}}" ValueChanged="OnEqualizer1" />
+                            <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource StandardTextView}" Width="48" Text="{Binding Equalizer1, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0 dB'}" />
+
+                            <view:BinInput Grid.Row="2" Lowest="20.0" Highest="22000.0" Value="{Binding EqualizerHz2, Source={StaticResource Configure}}" Format="0 Hz" ValueModified="OnEqualizerHz2" />
+                            <Slider Grid.Row="2" Grid.Column="1" Style="{StaticResource StandardSlider}" Minimum="-30.0" Maximum="30.0" Value="{Binding Equalizer2, Source={StaticResource Configure}}" ValueChanged="OnEqualizer2" />
+                            <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource StandardTextView}" Width="48" Text="{Binding Equalizer2, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0 dB'}" />
+
+                            <view:BinInput Grid.Row="3" Lowest="20.0" Highest="22000.0" Value="{Binding EqualizerHz3, Source={StaticResource Configure}}" Format="0 Hz" ValueModified="OnEqualizerHz3" />
+                            <Slider Grid.Row="3" Grid.Column="1" Style="{StaticResource StandardSlider}" Minimum="-30.0" Maximum="30.0" Value="{Binding Equalizer3, Source={StaticResource Configure}}" ValueChanged="OnEqualizer3" />
+                            <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource StandardTextView}" Width="48" Text="{Binding Equalizer3, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0 dB'}" />
+
+                            <view:BinInput Grid.Row="4" Lowest="20.0" Highest="22000.0" Value="{Binding EqualizerHz4, Source={StaticResource Configure}}" Format="0 Hz" ValueModified="OnEqualizerHz4" />
+                            <Slider Grid.Row="4" Grid.Column="1" Style="{StaticResource StandardSlider}" Minimum="-30.0" Maximum="30.0" Value="{Binding Equalizer4, Source={StaticResource Configure}}" ValueChanged="OnEqualizer4" />
+                            <TextBlock Grid.Row="4" Grid.Column="2" Style="{StaticResource StandardTextView}" Width="48" Text="{Binding Equalizer4, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0 dB'}" />
+                        </Grid>
+                    </StackPanel>
+                </ContentControl>
+                <Button Grid.Row="2" Style="{StaticResource StandardInput}" Content="{Binding UndoEqualizerContents, Source={StaticResource LanguageSystem}}" Command="{Binding UndoEqualizerCommand}" />
+            </Grid>
+        </Border>
+    </Grid>
+</Canvas>

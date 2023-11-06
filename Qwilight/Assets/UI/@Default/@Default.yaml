@@ -1,0 +1,317 @@
+# https://taehui.ddns.net/qwilight/assist@YAML
+
+format:
+    zip: Default
+    lua: Default
+    title: Qwilight basic skin.
+    title-1042: Qwilight 기본 스킨
+    comment: It's a basic skin made by a developer.
+    comment-1041: 開発者が作った基本化粧水です。
+    comment-1042: 개발자가 만든 기본 스킨입니다.
+    
+    defaultLength: DefaultLength()
+    defaultHeight: DefaultHeight()
+
+func:
+    configure-0: 16：9, 16：10, 21：9, 32：9
+    configure-comment-0: Select the screen ratio.
+    configure-comment-0-1042: 화면 비율을 선택합니다.
+    
+    configure-1: Default (HD), Default (UHD), BGA
+    configure-comment-1: Choose an animation. (Selection)
+    configure-comment-1-1042: 애니메이션을 선택합니다. (선곡)
+    
+    configure-2: Default (HD), Default (UHD), BGA
+    configure-comment-2: Choose an animation. (Result)
+    configure-comment-2-1042: 애니메이션을 선택합니다. (리절트)
+
+paint:
+    siteDate: LightGray
+    siteEnter: DeepSkyBlue
+    siteQuit: HotPink
+    siteHref: LightBlue
+    siteTitle: White
+    siteArtist: DeepSkyBlue
+    siteGenre: LightGreen
+    siteStand: White
+
+    eventNoteName: MediumSeaGreen
+    title: White
+    artist: DeepSkyBlue
+    genre: LightGreen
+    wantLevelID: DodgerBlue
+    fittedText: MediumSpringGreen
+
+    file: LightGray
+    judgmentStage: MediumPurple
+    totalNotes: LightBlue
+    highestInputCount: LightGreen
+    length: LightYellow
+    bpm: LightPink
+
+    commentDate: LightGray
+    commentPoint: White
+    commentName: White
+    commentStand: White
+    
+    level0: Gray
+    level1: MediumSpringGreen
+    level2: MediumTurquoise
+    level3: Yellow
+    level4: MediumVioletRed
+    level5: MediumPurple
+
+    titleQuit: White
+    artistQuit: DeepSkyBlue
+    genreQuit: LightGreen
+    wantLevelIDQuit: DodgerBlue
+
+    judgmentStageQuit: MediumPurple
+    highestInputCountQuit: LightGreen
+    lengthQuit: LightYellow
+    bpmQuit: LightPink
+    standQuit: DeepSkyBlue
+    pointQuit: LightGreen
+    bandQuit: Orange
+
+    commentPlace: White
+    
+    lowestHitPoints: DarkGreen
+    lowerHitPoints: DarkTurquoise
+    defaultHitPoints: DarkGoldenrod
+    higherHitPoints: DarkRed
+    highestHitPoints: DarkViolet
+    failedHitPoints: DarkViolet
+    favorHitPoints: DarkGoldenrod
+    testHitPoints: DarkGoldenrod
+
+    standStatusView: DeepSkyBlue
+    pointStatusView: LightGreen
+    bandStatusView: Orange
+    hitPointsStatusView: Red
+
+    totalNotesJudgmentQuit: White
+    highestJudgmentQuit: Cyan
+    higherJudgmentQuit: DeepSkyBlue
+    highJudgmentQuit: LightGreen
+    lowJudgmentQuit: Yellow
+    lowerJudgmentQuit: Violet
+    lowestJudgmentQuit: Red
+
+    highestJudgmentV2: Cyan
+    higherJudgmentV2: DeepSkyBlue
+    highJudgmentV2: LightGreen
+    lowJudgmentV2: Yellow
+    lowerJudgmentV2: Violet
+    lowestJudgmentV2: Red
+
+    statusHandling: "#7F008000"
+    statusPaused: "#7FFFFF00"
+    statusLoadingNoteFile: "#7FFF0000"
+    statusLoadingDefaultEntry: "#7F0000FF"
+
+    quit0: Gold
+    quit1: Gold
+    quit2: ForestGreen
+    quit3: ForestGreen
+    quit4: Blue
+    quit5: Magenta
+    quit6: Red
+
+point:
+    noteFileMargin: 31.5
+    entryViewTitleMargin: 58, 0, 0, 0
+
+    signIn: AutoModePosition0(-5), 12, 34, 34, 1, 1, 0
+    configure: AutoModePosition0(-5), 56, 34, 34, 1, 1, 0
+
+    stopAuto: CommentViewLength(-12), InputNoteCountViewPosition1(5), 24, 24, 1, 1, 0
+    saltAuto: CommentViewLength(-12), InputNoteCountViewPosition1(39), 24, 24, 1, 1, 0
+
+    handledWallLength: 10
+    entryItemHeight: 60
+    commentItemHeight: 48
+
+    commentView: 13, 13, CommentViewLength(-2), CommentViewHeight(-2)
+    entryView: CommentViewLength(24), 12, EntryViewLength(0), EntryViewHeight()
+    inputNoteCountView: 13, InputNoteCountViewPosition1(1), CommentViewLength(-36), 66
+    assistView: CommentViewLength(13), AssistViewPosition1(), EntryViewLength(0), 24, 1, 1, White, "#7F000000"
+
+    autoMode: AutoModePosition0(0), AutoModePosition1(0), 24, 24, 1, 1, 0
+    noteSaltMode: AutoModePosition0(0), AutoModePosition1(1), 24, 24, 1, 1, 0
+    faintNoteMode: AutoModePosition0(0), AutoModePosition1(2), 24, 24, 1, 1, 0
+    judgmentMode: AutoModePosition0(0), AutoModePosition1(3), 24, 24, 1, 1, 0
+    hitPointsMode: AutoModePosition0(0), AutoModePosition1(4), 24, 24, 1, 1, 0
+    noteMobilityMode: AutoModePosition0(0), AutoModePosition1(5), 24, 24, 1, 1, 0
+    inputFavorMode: AutoModePosition0(0), AutoModePosition1(6), 24, 24, 1, 1, 0
+    longNoteMode: AutoModePosition0(0), AutoModePosition1(7), 24, 24, 1, 1, 0
+    noteModifyMode: AutoModePosition0(0), AutoModePosition1(8), 24, 24, 1, 1, 0
+    bpmMode: AutoModePosition0(0), AutoModePosition1(9), 24, 24, 1, 1, 0
+    waveMode: AutoModePosition0(0), AutoModePosition1(10), 24, 24, 1, 1, 0
+    setNoteMode: AutoModePosition0(0), AutoModePosition1(11), 24, 24, 1, 1, 0
+    lowestJudgmentConditionMode: AutoModePosition0(0), AutoModePosition1(12), 24, 24, 1, 1, 0
+
+    file: 12, FilePosition1(0), 72, 24, 0, 1, 0
+    fileContents: 162, FilePosition1(0), CommentViewLength(-150), 24, 0, 1, 12.0
+    fileViewer: 94, FilePosition1(0), 24, 24, 0, 1, 0
+    assistFileViewer: 128, FilePosition1(0), 24, 24, 0, 1, 0
+    judgmentStage: 12, FilePosition1(1), 72, 24, 0, 1, 0
+    judgmentStageContents: 94, FilePosition1(1), CommentViewLength(-82), 24, 0, 1, 12.0
+    totalNotes: 12, FilePosition1(2), 72, 24, 0, 1, 0
+    totalNotesContents: 94, FilePosition1(2), CommentViewLength(-82), 24, 0, 1, 12.0
+    highestInputCount: 12, FilePosition1(3), 72, 24, 0, 1, 0
+    highestInputCountContents: 94, FilePosition1(3), CommentViewLength(-82), 24, 0, 1, 12.0
+    length: 12, FilePosition1(4), 72, 24, 0, 1, 0
+    lengthContents: 94, FilePosition1(4), CommentViewLength(-82), 24, 0, 1, 12.0
+    bpm: 12, FilePosition1(5), 72, 24, 0, 1, 0
+    bpmContents: 94, FilePosition1(5), CommentViewLength(-82), 24, 0, 1, 12.0
+    inputMode: 12, FilePosition1(6), 72, 24, 0, 1, 0
+    inputModeContents: 94, FilePosition1(6), CommentViewLength(-82), 24, 0, 1, 0
+
+    # 선곡의 전체 화면 백그라운드 애니메이션
+    paintProperty0: 0, 0, DefaultLength(), DefaultHeight(), 1, 0, 0, PaintProperty0Variety(), PaintProperty0Etc(), 0
+
+    # 선곡의 기록 백그라운드 애니메이션
+    paintProperty1: 12, 12, CommentViewLength(0), CommentViewHeight(0), 0, 0, 0, PaintProperty1Variety(), null, 0
+
+    # 선곡의 기록 백그라운드 애니메이션 테두리
+    paintProperty2: 12, 12, CommentViewLength(0), CommentViewHeight(0), 1, 0, 0, 0, null, 0
+
+    # 리절트의 전체 화면 백그라운드 애니메이션
+    paintProperty3: 0, 0, DefaultLength(), DefaultHeight(), 1, 0, 0, PaintProperty3Variety(), PaintProperty3Etc(), 1
+
+    # 선곡의 오디오 비주얼라이저
+    paintProperty4: 12, 12, CommentViewLength(0), CommentViewHeight(0), 0, 0, 0, 10, null, 0
+
+    # 리절트의 BGA
+    paintProperty6: JudgmentMeterViewPosition0(), StatusViewPosition1(), JudgmentMeterViewLength(), 288, 0, 0, 0, PaintProperty6Variety(), null, 1
+    
+    # 리절트의 오디오 비주얼라이저
+    paintProperty7: JudgmentMeterViewPosition0(), StatusViewPosition1(), JudgmentMeterViewLength(), 288, 0, 0, 0, 10, null, 1
+
+    # 리절트의 프로필 이미지
+    paintProperty9: PaintProperty9Position0(), PaintProperty9Position1(0), 48, 48, 0, 0, 0, 8, null, 1
+    
+    # 리절트의 호칭
+    paintProperty10: PaintProperty10Position0(), PaintProperty9Position1(0), 256, 0, 0, 12.0, 0, 12, null, 1
+    
+    # 리절트의 닉네임
+    paintProperty11: PaintProperty10Position0(), PaintProperty9Position1(23), 256, 0, 0, 20.0, 0, 7, White, 1
+    
+    # 리절트의 노트 개수, 판정 개수 백그라운드 이미지
+    paintProperty12: 12, PaintProperty12Position1(), 394, 406, 1, 0, 0, 0, null, 1
+    
+    # 리절트의 점수, 정확도, 콤보 백그라운드 이미지
+    paintProperty13: StandQuitPosition0(-5), PaintProperty13Position1(), 394, 174, 1, 0, 0, 0, null, 1
+    
+    # 리절트의 판정 난이도, NPS, 시간, BPM, 라인 개수 백그라운드 이미지
+    paintProperty14: 0, JudgmentStageQuitPosition1(-5), DefaultLength(), 34, 1, 0, 0, 0, null, 1
+
+    # 리절트의 게임 모드 백그라운드 이미지
+    paintProperty15: 0, AutoModeQuitPosition1(-5), 442, 34, 1, 0, 0, 0, null, 1
+    
+    # 리절트의 제목, 작곡가, 장르, 난이도, 난이도 테이블 백그라운드 이미지
+    paintProperty16: 0, 0, TitleQuitLength(10), 170, 1, 0, 0, 0, null, 1
+
+    # 선곡의 오토 플레이 텍스트
+    paintProperty17: 12, InputNoteCountViewPosition1(-20), 207.5, 20, 1, 0, 1, 0, null, 0
+
+    # 선곡의 NPS 비주얼라이저 테두리
+    paintProperty21: 12, InputNoteCountViewPosition1(0), CommentViewLength(-34), 68, 1, 0, 0, 0, null, 0
+
+    # 선곡의 게임 모드 테두리
+    paintProperty22: AutoModePosition0(-5), PaintProperty22Position1(), 34, 442, 1, 0, 0, 0, null, 0
+
+    fadingProperty00: 50, 60, 0.5
+    fadingProperty01: 50, 60, 0.5
+    fadingProperty02: 50, 60, 0.5
+    fadingProperty03: 50, 60, 0.5
+
+    fadingProperty20: 28, 60, 0.5
+    fadingProperty21: 28, 60, 0.5
+    fadingProperty22: 28, 60, 0.5
+    fadingProperty23: 28, 60, 0.5
+
+    fadingProperty30: 50, 60, 0.5
+    fadingProperty31: 50, 60, 0.5
+
+    status: 13, InputNoteCountViewPosition1(1), CommentViewLength(-36), 66, 3
+    statusDefaultEntry: 13, InputNoteCountViewPosition1(1), CommentViewLength(-36), 66, 3
+
+    titleQuit: 5, 5, TitleQuitLength(0), 30, 30.0, 1, 2
+    artistQuit: 5, 45, TitleQuitLength(0), 20, 20.0, 1, 2
+    genreQuit: 5, 75, TitleQuitLength(0), 20.0, 20.0, 1, 2
+    levelQuit: 5, 105, TitleQuitLength(0), 20, 20.0, 1, 2
+    wantLevelIDQuit: 5, 135, TitleQuitLength(0), 20, 20.0, 1, 2
+
+    totalNotesJudgmentQuit: 17, TotalNotesQuitPosition1(0), 168, 48
+    totalNotesJudgmentContentsQuit: 185, TotalNotesQuitPosition1(0), 216, 48, 30.0, 0, 2
+    highestJudgmentQuit: 17, TotalNotesQuitPosition1(1), 168, 48
+    highestJudgmentContentsQuit: 185, TotalNotesQuitPosition1(1), 216, 48, 30.0, 0, 2
+    higherJudgmentQuit: 17, TotalNotesQuitPosition1(2), 168, 48
+    higherJudgmentContentsQuit: 185, TotalNotesQuitPosition1(2), 216, 48, 30.0, 0, 2
+    highJudgmentQuit: 17, TotalNotesQuitPosition1(3), 168, 48
+    highJudgmentContentsQuit: 185, TotalNotesQuitPosition1(3), 216, 48, 30.0, 0, 2
+    lowJudgmentQuit: 17, TotalNotesQuitPosition1(4), 168, 48
+    lowJudgmentContentsQuit: 185, TotalNotesQuitPosition1(4), 216, 48, 30.0, 0, 2
+    lowerJudgmentQuit: 17, TotalNotesQuitPosition1(5), 168, 48
+    lowerJudgmentContentsQuit: 185, TotalNotesQuitPosition1(5), 216, 48, 30.0, 0, 2
+    lowestJudgmentQuit: 17, TotalNotesQuitPosition1(6), 168, 48
+    lowestJudgmentContentsQuit: 185, TotalNotesQuitPosition1(6), 216, 48, 30.0, 0, 2
+
+    standQuit: StandQuitPosition0(0), StandQuitPosition1(0), 216, 48
+    standContentsQuit: StandContentsQuitPosition0(), StandQuitPosition1(0), 168, 48, 30.0, 0, 2
+    pointQuit: StandQuitPosition0(0), StandQuitPosition1(1), 216, 48
+    pointContentsQuit: StandContentsQuitPosition0(), StandQuitPosition1(1), 168, 48, 30.0, 0, 2
+    bandQuit: StandQuitPosition0(0), StandQuitPosition1(2), 216, 48
+    bandContentsQuit: StandContentsQuitPosition0(), StandQuitPosition1(2), 168, 48, 30.0, 0, 2
+    
+    commentPlace: StandQuitPosition0(0), PaintProperty9Position1(0), 158, 48, 30.0
+
+    judgmentStageQuit: 5, JudgmentStageQuitPosition1(0), 72, 24
+    judgmentStageContentsQuit: 87, JudgmentStageQuitPosition1(0), 192, 24, 12.0, 1, 2
+    highestInputCountQuit: 289, JudgmentStageQuitPosition1(0), 48, 24
+    highestInputCountContentsQuit: 347, JudgmentStageQuitPosition1(0), 144, 24, 12.0, 1, 2
+    lengthQuit: 501, JudgmentStageQuitPosition1(0), 72, 24
+    lengthContentsQuit: 583, JudgmentStageQuitPosition1(0), 96, 24, 12.0, 1, 2
+    bpmQuit: 760, JudgmentStageQuitPosition1(0), 48, 24
+    bpmContentsQuit: 818, JudgmentStageQuitPosition1(0), 288, 24, 12.0, 1, 2
+    inputModeQuit: 1116, JudgmentStageQuitPosition1(0), 72, 24
+    inputModeContentsQuit: 1198, JudgmentStageQuitPosition1(0), 72, 24, 12.0, 1, 2
+
+    autoModeQuit: 5, AutoModeQuitPosition1(0), 24, 24
+    noteSaltModeQuit: 39, AutoModeQuitPosition1(0), 24, 24
+    faintNoteModeQuit: 73, AutoModeQuitPosition1(0), 24, 24
+    judgmentModeQuit: 107, AutoModeQuitPosition1(0), 24, 24
+    hitPointsModeQuit: 141, AutoModeQuitPosition1(0), 24, 24
+    noteMobilityModeQuit: 175, AutoModeQuitPosition1(0), 24, 24
+    inputFavorModeQuit: 209, AutoModeQuitPosition1(0), 24, 24
+    longNoteModeQuit: 243, AutoModeQuitPosition1(0), 24, 24
+    noteModifyModeQuit: 277, AutoModeQuitPosition1(0), 24, 24
+    bpmModeQuit: 311, AutoModeQuitPosition1(0), 24, 24
+    waveModeQuit: 345, AutoModeQuitPosition1(0), 24, 24
+    setNoteModeQuit: 379, AutoModeQuitPosition1(0), 24, 24
+    lowestJudgmentConditionModeQuit: 413, AutoModeQuitPosition1(0), 24, 24
+
+    quitDrawingV2: QuitDrawingPosition0(), QuitDrawingPosition1(), 144, 144
+
+    judgmentMeterView: JudgmentMeterViewPosition0(), JudgmentMeterViewPosition1(), JudgmentMeterViewLength(), 288
+    statusView: JudgmentMeterViewPosition0(), StatusViewPosition1(), JudgmentMeterViewLength(), 288
+
+    viewComment: ViewCommentPosition0(), ViewCommentPosition1(), 113, 40.3
+    handleUndo: HandleUndoPosition0(), ViewCommentPosition1(), 97.3, 40.3
+
+font:
+    eventNoteNameLevel: 20.0
+    titleLevel: 20.0
+    artistLevel: 12.0
+    genreLevel: 12.0
+    levelLevel: 20.0
+    wantLevelIDLevel: 20.0
+    entryItemPositionLevel: 12.0
+    fittedTextLevel: 12.0
+
+    commentDateLevel: 12.0
+    commentPointLevel: 12.0
+    commentAvatarNameLevel: 16.0
+    commentStandLevel: 16.0

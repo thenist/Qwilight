@@ -1,0 +1,32 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:qm="clr-namespace:Qwilight.Modifier">
+    <qm:VisibilityModifier x:Key="VisibilityModifier" />
+    <qm:FormatModifier x:Key="FormatModifier" />
+    <qm:UnitModifier x:Key="UnitModifier" />
+    <qm:BoolModifier x:Key="BoolModifier" />
+    <qm:MultiplyModifier x:Key="MultiplyModifier" />
+    <qm:NotModifier x:Key="NotModifier" />
+    <qm:VisibilityNotModifier x:Key="VisibilityNotModifier" />
+    <qm:FaintModeComponentModifier x:Key="FaintModeComponentModifier" />
+    <qm:ModeComponentDrawingModifier x:Key="ModeComponentDrawingModifier" />
+    <qm:LowerStandTextModifier x:Key="LowerStandTextModifier" />
+    <qm:LowerStandPaintModifier x:Key="LowerStandPaintModifier" />
+    <qm:ModeComponentInputModifier x:Key="ModeComponentInputModifier" />
+    <qm:ModeComponentInputVisibilityModifier x:Key="ModeComponentInputVisibilityModifier" />
+    <qm:InputModeDrawingModifier x:Key="InputModeDrawingModifier" />
+    <qm:DefaultEntryDrawingModifier x:Key="DefaultEntryDrawingModifier" />
+    <qm:SaltAutoDrawingModifier x:Key="SaltAutoDrawingModifier" />
+    <qm:AvatarConfigureDrawingModifier x:Key="AvatarConfigureDrawingModifier" />
+    <qm:HeavyModifier x:Key="HeavyModifier" />
+    <qm:SiteHandDrawingModifier x:Key="SiteHandDrawingModifier" />
+    <qm:SiteSituationDrawingModifier x:Key="SiteSituationDrawingModifier" />
+    <qm:NotifyDrawingModifier x:Key="NotifyDrawingModifier" />
+    <qm:SiteConfigureDrawingModifier x:Key="SiteConfigureDrawingModifier" />
+    <qm:SiteCipherDrawingModifier x:Key="SiteCipherDrawingModifier" />
+    <qm:StopAutoDrawingModifier x:Key="StopAutoDrawingModifier" />
+    <qm:SiteAudioDrawingModifier x:Key="SiteAudioDrawingModifier" />
+    <qm:SiteMediaDrawingModifier x:Key="SiteMediaDrawingModifier" />
+    <qm:LevelPaintModifier x:Key="LevelPaintModifier" />
+</ResourceDictionary>

@@ -1,0 +1,28 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <FontFamily x:Key="FontFamilyValue">Century Gothic</FontFamily>
+    
+    <Thickness x:Key="StandardMargin">5.0</Thickness>
+
+    <system:Double x:Key="FontLevel0">13.0</system:Double>
+    
+    <!-- TextBlock -->
+    <Style TargetType="TextBlock">
+        <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Visibility" Value="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource VisibilityModifier}}" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+    
+    <!-- ProgressBar -->
+    <Style TargetType="ProgressBar">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+    </Style>
+</ResourceDictionary>

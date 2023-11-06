@@ -1,0 +1,23 @@
+﻿<Grid 
+    x:Class="Qwilight.View.NotifyXaml"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    DataContext="{Binding NotifyXamlValue, Source={StaticResource ViewModels}}">
+    <ItemsControl ItemsSource="{Binding NotifyXamlItemUICollection}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Border x:Name="View" Style="{StaticResource StandardPanel}" Background="{Binding Paint}" MouseDown="OnPointLower" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding Variety, Converter={StaticResource NotifyDrawingModifier}}" />
+                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Contents}" />
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</Grid>

@@ -1,0 +1,22 @@
+{
+  "ExeQwilight": {
+    "ko-KR": "Qwilight를 실행할까요?",
+    "en-US": "Do you want to run Qwilight?"
+  },
+  "Ignited": {
+    "ko-KR": "Qwilight 업데이트 성공",
+    "en-US": "Qwillight update successful"
+  },
+  "IgnitingFault": {
+    "ko-KR": "Qwilight 업데이트 중 오류가 발생한 것 같습니다. 다시 시도할까요?",
+    "en-US": "There seems to be an error during Qwillight update. Shall we try again?"
+  },
+  "Levy": {
+    "ko-KR": "Qwilight 업데이트를 시작합니다.",
+    "en-US": "Start the Qwillight update."
+  },
+  "LevyFault": {
+    "ko-KR": "이건 Qwilight의 일부입니다.",
+    "en-US": "This is part of Qwilight."
+  }
+}

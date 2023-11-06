@@ -1,0 +1,42 @@
+﻿<Canvas
+    x:Class="Qwilight.View.LevelVoteWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+    DataContext="{Binding LevelVoteValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding VoteText, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding AutoEdgeText, Source={StaticResource LanguageSystem}}" />
+                <TabControl Style="{StaticResource StandardPageView}" Grid.Row="2">
+                    <TabItem Header="{Binding NoteFilesLevelText, Source={StaticResource LanguageSystem}}" Style="{StaticResource StandardPageItem}" Visibility="{Binding IsWww0Visible, Converter={StaticResource VisibilityModifier}}">
+                        <Border Style="{StaticResource StandardPanelSquare}">
+                            <Grid>
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsEdgeView0Loading, Converter={StaticResource VisibilityModifier}}" />
+                                <wpf:WebView2 x:Name="EdgeView0" Source="{Binding Www0}" Visibility="{Binding IsEdgeView0Loading, Converter={StaticResource VisibilityNotModifier}}" />
+                            </Grid>
+                        </Border>
+                    </TabItem>
+                    <TabItem Header="{Binding NoteFileLevelText, Source={StaticResource LanguageSystem}}" Style="{StaticResource StandardPageItem}" Visibility="{Binding IsWww1Visible, Converter={StaticResource VisibilityModifier}}">
+                        <Border Style="{StaticResource StandardPanelSquare}">
+                            <Grid>
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsEdgeView1Loading, Converter={StaticResource VisibilityModifier}}" />
+                                <wpf:WebView2 x:Name="EdgeView1" Source="{Binding Www1}" Visibility="{Binding IsEdgeView1Loading, Converter={StaticResource VisibilityNotModifier}}" />
+                            </Grid>
+                        </Border>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Border>
+    </Grid>
+</Canvas>

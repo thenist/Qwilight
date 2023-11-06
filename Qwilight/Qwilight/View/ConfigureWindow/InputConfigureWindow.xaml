@@ -1,0 +1,391 @@
+﻿<TabItem
+    x:Class="Qwilight.View.InputConfigureWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:view="clr-namespace:Qwilight.View"
+    Style="{StaticResource StandardPageItem}"
+    DataContext="{Binding ConfigureValue, Source={StaticResource ViewModels}}"
+    Header="{Binding InputConfigureText, Source={StaticResource LanguageSystem}}">
+    <ScrollViewer>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            </StackPanel>
+            <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding InputConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode4}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[4], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode5}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[5], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode6}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[6], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode7}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[7], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode8}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[8], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode9}" >
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[9], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode10}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[14], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode51}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[10], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode71}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[11], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode102}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[12], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode142}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[13], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode242}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[15], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode484}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[16], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+            </WrapPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" Content="{Binding StandardDefaultControllerModeText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding StandardDefaultControllerModeContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding IsXwindowPaint, Source={StaticResource Configure}}" Command="{Binding IsXwindowCommand}" Content="{Binding IsXwindowText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding IsXwindowContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <view:BinInput Value="{Binding FastInputMillis, Source={StaticResource Configure}}" Lowest="0" HorizontalAlignment="Right" Format="#,##0.## ms" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding FastInputMillisContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding BWPaint, Source={StaticResource Configure}}" Command="{Binding BWCommand}" Content="{Binding BWText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding BWContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding LSPaint, Source={StaticResource Configure}}" Command="{Binding LSCommand}" Content="{Binding LSText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding LSContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding AuraPaint, Source={StaticResource Configure}}" Command="{Binding AuraCommand}" Content="{Binding AuraText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AuraContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding K70Paint, Source={StaticResource Configure}}" Command="{Binding K70Command}" Content="{Binding K70Text, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding K70Contents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding DefaultControllerInputAPICommand}" Content="{Binding DefaultControllerInputAPIText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding DefaultControllerInputAPIContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding LastDefaultControllerInput, Source={StaticResource DefaultControllerSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding DefaultControllerViewerContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Separator Style="{StaticResource StandardHr}" />
+            <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ControllerConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode4}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[4], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode5}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[5], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode6}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[6], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode7}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[7], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode8}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[8], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode9}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[9], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode10}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[14], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode51}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[10], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode71}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[11], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode102}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[12], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode142}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[13], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode242}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[15], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode484}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[16], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+            </WrapPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" Content="{Binding StandardControllerModeText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding StandardControllerModeContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerInputAPICommand}" Content="{Binding ControllerInputAPIText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding ControllerInputAPIContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
+            </Grid>
+            <StackPanel Visibility="{Binding IsControllerInputAPIDInput, Source={StaticResource Configure}, Converter={StaticResource VisibilityNotModifier}}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource StandardInput}" Command="{Binding VibrationModeCommand}" Content="{Binding VibrationModeText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                    <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding VibrationModeContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                </Grid>
+                <Grid Visibility="{Binding IsVibrationMode, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ContentControl>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Vibration0, Source={StaticResource LanguageSystem}}" />
+                                <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding Vibration0, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" />
+                                <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding Vibration0, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Vibration1, Source={StaticResource LanguageSystem}}" />
+                                <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding Vibration1, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" />
+                                <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding Vibration1, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" />
+                            </Grid>
+                        </Grid>
+                    </ContentControl>
+                    <ContentControl Grid.Column="1" IsEnabled="{Binding IsControllerInputAPIWGI, Source={StaticResource Configure}}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Vibration2, Source={StaticResource LanguageSystem}}" />
+                                <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding Vibration2, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" />
+                                <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding Vibration2, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Vibration3, Source={StaticResource LanguageSystem}}" />
+                                <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding Vibration3, Source={StaticResource Configure}}" Minimum="0" Maximum="1" TickFrequency="0.01" />
+                                <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding Vibration3, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" />
+                            </Grid>
+                        </Grid>
+                    </ContentControl>
+                </Grid>
+            </StackPanel>
+            <StackPanel Visibility="{Binding IsControllerInputAPIDInput, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Grid Visibility="{Binding IsDInputXyzSensitivityVisible, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <view:BinInput Value="{Binding DInputXyzSensitivityV2, Source={StaticResource Configure}}" Lowest="0" Highest="100" HorizontalAlignment="Right" Format="0％" />
+                    <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding DInputXyzSensitivityText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                </Grid>
+                <Grid Visibility="{Binding IsDInputIIDXSensitivityVisible, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <view:BinInput Value="{Binding DInputIIDXSensitivity, Source={StaticResource Configure}}" Lowest="0" Highest="1000" HorizontalAlignment="Right" Format="#,##0.## ms" />
+                    <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding DInputIIDXSensitivityText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <RadioButton Style="{StaticResource StandardOInput}" IsChecked="{Binding DInputBMSControllerMode}">BMS</RadioButton>
+                        <RadioButton Style="{StaticResource StandardOInput}" IsChecked="{Binding DInputIIDXControllerMode}">IIDX Infinitas</RadioButton>
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding DInputControllerVarietyText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                </Grid>
+            </StackPanel>
+            <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding MainControllerPowerStatus}" HorizontalAlignment="Right" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding MainControllerPowerText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding ControllerContents, Source={StaticResource ControllerSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding ControllerCountContents, Source={StaticResource ControllerSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding LastControllerInput, Source={StaticResource ControllerSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding ControllerViewerContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Separator Style="{StaticResource StandardHr}" />
+            <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding MIDIConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode4}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[4], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode5}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[5], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode6}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[6], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode7}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[7], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode8}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[8], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode9}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[9], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode10}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[14], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode51}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[10], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode71}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[11], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode102}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[12], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode142}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[13], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode242}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[15], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode484}">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[16], Source={StaticResource BaseUI}}"  Height="24" />
+                </Button>
+            </WrapPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" Content="{Binding StandardMIDIModeText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding StandardMIDIModeContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <view:BinInput Value="{Binding MIDIPBCSensitivity, Source={StaticResource Configure}}" Lowest="0" Highest="100" HorizontalAlignment="Right" Format="0％" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding MIDIPBCSensitivityText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding MIDIContents, Source={StaticResource MIDISystem}}" HorizontalAlignment="Right" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding MIDICountContents, Source={StaticResource MIDISystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Command="{Binding GetMIDICommand}" Content="{Binding GetMIDIText, Source={StaticResource LanguageSystem}}" />
+                </StackPanel>
+            </Grid>
+            <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding LastMIDI, Source={StaticResource MIDISystem}}" HorizontalAlignment="Right" />
+                <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding MIDIViewerContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</TabItem>

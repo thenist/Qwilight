@@ -1,0 +1,223 @@
+﻿<Canvas
+    x:Class="Qwilight.View.WantWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:view="clr-namespace:Qwilight.View"
+    DataContext="{Binding WantValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding WantText, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding CompatibleCommand}" Content="{Binding WantBannedText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding WantBannedContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding HellBPMCommand}" Content="{Binding WantHellBPMText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding HellBPMContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                    </Grid>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding NoteVarietyBMS}" Command="{Binding WantNoteVarietyCommand}" CommandParameter="{StaticResource NoteVarietyBMS}" Content="BMS" />
+                        <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding NoteVarietyBMSON}" Command="{Binding WantNoteVarietyCommand}" CommandParameter="{StaticResource NoteVarietyBMSON}" Content="BMSON" />
+                        <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding NoteVarietyEventNote}" Command="{Binding WantNoteVarietyCommand}" CommandParameter="{StaticResource NoteVarietyEventNote}" Content="{Binding EventNote, Source={StaticResource LanguageSystem}}" />
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding TotalWantNoteVarietyCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantNoteVariety, Converter={StaticResource VisibilityNotModifier}}">
+                            <Button.CommandParameter>
+                                <system:Boolean>true</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding TotalWantNoteVarietyCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantNoteVariety, Converter={StaticResource VisibilityModifier}}">
+                            <Button.CommandParameter>
+                                <system:Boolean>false</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </WrapPanel>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding HandledNot}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledNot}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[0], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledNot, Source={StaticResource LanguageSystem}}" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding HandledF}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledF}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[4], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledF, Source={StaticResource LanguageSystem}}" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding HandledClear}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledClear}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[1], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledClear, Source={StaticResource LanguageSystem}}" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding HandledHigherClear}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledHigherClear}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[5], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledHigherClear, Source={StaticResource LanguageSystem}}" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding HandledHighestClear}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledHighestClear}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[6], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledHighestClear, Source={StaticResource LanguageSystem}}" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding HandledBand1}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledBand1}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[2], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledBand1, Source={StaticResource LanguageSystem}}" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding TotalWantHandledCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantHandled, Converter={StaticResource VisibilityNotModifier}}">
+                            <Button.CommandParameter>
+                                <system:Boolean>true</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding TotalWantHandledCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantHandled, Converter={StaticResource VisibilityModifier}}">
+                            <Button.CommandParameter>
+                                <system:Boolean>false</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </WrapPanel>
+                    <Separator Style="{StaticResource StandardHr}" />
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding LevelWant, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode4}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode4}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[4], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode5}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode5}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[5], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode6}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode6}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[6], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode7}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode7}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[7], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode8}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode8}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[8], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode9}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode9}" >
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[9], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode10}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode10}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[14], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode51}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode51}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[10], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode71}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode71}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[11], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode102}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode102}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[12], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode142}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode142}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[13], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode242}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode242}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[15], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInputPadding0}" BorderThickness="{Binding Mode484}" Command="{Binding WantModeCommand}" CommandParameter="{StaticResource InputMode484}">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[16], Source={StaticResource BaseUI}}" Height="24" />
+                        </Button>
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding TotalWantModeCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantMode, Converter={StaticResource VisibilityNotModifier}}">
+                            <Button.CommandParameter>
+                                <system:Boolean>true</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding TotalWantModeCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantMode, Converter={StaticResource VisibilityModifier}}">
+                            <Button.CommandParameter>
+                                <system:Boolean>false</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </WrapPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level0}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level0}" Content="{Binding Level0Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[0], Source={StaticResource BaseUI}}" />
+                        <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level1}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level1}" Content="{Binding Level1Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[1], Source={StaticResource BaseUI}}" />
+                        <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level2}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level2}" Content="{Binding Level2Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[2], Source={StaticResource BaseUI}}" />
+                        <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level3}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level3}" Content="{Binding Level3Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[3], Source={StaticResource BaseUI}}" />
+                        <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level4}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level4}" Content="{Binding Level4Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[4], Source={StaticResource BaseUI}}" />
+                        <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level5}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level5}" Content="{Binding Level5Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[5], Source={StaticResource BaseUI}}" />
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevel, Converter={StaticResource VisibilityNotModifier}}">
+                            <Button.CommandParameter>
+                                <system:Boolean>true</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevel, Converter={StaticResource VisibilityModifier}}">
+                            <Button.CommandParameter>
+                                <system:Boolean>false</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <view:BinInput IsEnabled="{Binding WantLevelTextValue, Source={StaticResource Configure}}" Value="{Binding LowestWantLevelTextValue, Source={StaticResource Configure}}" Format="{Binding LowestWantLevelTextValue, Source={StaticResource LanguageSystem}}" ValueModified="OnLowestWantLevelTextValue" />
+                            <view:BinInput IsEnabled="{Binding WantLevelTextValue, Source={StaticResource Configure}}" Value="{Binding HighestWantLevelTextValue, Source={StaticResource Configure}}" Format="{Binding HighestWantLevelTextValue, Source={StaticResource LanguageSystem}}" ValueModified="OnHighestWantLevelTextValue" />
+                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding WantLevelTextValue, Source={StaticResource Configure}}" />
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding WantLevelTextValueContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <view:BinInput IsEnabled="{Binding WantBPM, Source={StaticResource Configure}}" Lowest="0" Value="{Binding LowestWantBPM, Source={StaticResource Configure}}" Format="{Binding LowestWantBPMContents, Source={StaticResource LanguageSystem}}" ValueModified="OnLowestWantBPM" />
+                            <view:BinInput IsEnabled="{Binding WantBPM, Source={StaticResource Configure}}" Lowest="0" Value="{Binding HighestWantBPM, Source={StaticResource Configure}}" Format="{Binding HighestWantBPMContents, Source={StaticResource LanguageSystem}}" ValueModified="OnHighestWantBPM" />
+                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding WantBPM, Source={StaticResource Configure}}" />
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding WantBPMContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <view:BinInput IsEnabled="{Binding WantAverageInputCount, Source={StaticResource Configure}}" Lowest="0" Value="{Binding LowestWantAverageInputCount, Source={StaticResource Configure}}" Format="{Binding LowestWantInputCountContents, Source={StaticResource LanguageSystem}}" ValueModified="OnLowestWantAverageInputCount" />
+                            <view:BinInput IsEnabled="{Binding WantAverageInputCount, Source={StaticResource Configure}}" Lowest="0" Value="{Binding HighestWantAverageInputCount, Source={StaticResource Configure}}" Format="{Binding HighestWantInputCountContents, Source={StaticResource LanguageSystem}}" ValueModified="OnHighestWantAverageInputCount" />
+                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding WantAverageInputCount, Source={StaticResource Configure}}" />
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding WantAverageInputCountContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <view:BinInput IsEnabled="{Binding WantHighestInputCount, Source={StaticResource Configure}}" Lowest="0" Value="{Binding LowestWantHighestInputCount, Source={StaticResource Configure}}" Format="{Binding LowestWantInputCountContents, Source={StaticResource LanguageSystem}}" ValueModified="OnLowestWantHighestInputCount" />
+                            <view:BinInput IsEnabled="{Binding WantHighestInputCount, Source={StaticResource Configure}}" Lowest="0" Value="{Binding HighestWantHighestInputCount, Source={StaticResource Configure}}" Format="{Binding HighestWantInputCountContents, Source={StaticResource LanguageSystem}}" ValueModified="OnHighestWantHighestInputCount" />
+                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding WantHighestInputCount, Source={StaticResource Configure}}" />
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding WantHighestInputCountContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Canvas>

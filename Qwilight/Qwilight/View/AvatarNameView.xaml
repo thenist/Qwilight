@@ -1,0 +1,9 @@
+﻿<StackPanel
+    x:Class="Qwilight.View.AvatarNameView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Name="Contents"
+    Orientation="Horizontal">
+    <TextBlock Style="{StaticResource StandardTextViewMargin0}" Text="{Binding AvatarWwwValue.AvatarTitleValue.TitleNBSP, ElementName=Contents}" Foreground="{Binding AvatarWwwValue.AvatarTitleValue.TitlePaint}" FontSize="{Binding FontLength, ElementName=Contents}" />
+    <TextBlock Style="{StaticResource StandardTextViewMargin0}" Text="{Binding AvatarName, ElementName=Contents}" Foreground="{Binding TextPaint, ElementName=Contents}" FontWeight="{Binding HeavyText, ElementName=Contents}" FontSize="{Binding FontLength, ElementName=Contents}" />
+</StackPanel>
