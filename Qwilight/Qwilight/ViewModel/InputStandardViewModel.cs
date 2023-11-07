@@ -37,7 +37,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        public void OnInputPosition(int? inputPosition)
+        void OnInputPosition(int? inputPosition)
         {
             if (inputPosition.HasValue)
             {

@@ -25,8 +25,6 @@ namespace Qwilight.ViewModel
 
         public void OnEqualizerHz4(RoutedPropertyChangedEventArgs<double> e) => AudioSystem.Instance.SetEqualizerHz(4, (float)e.NewValue);
 
-        public void OnEqualizerSet(bool isEqualizerSet) => AudioSystem.Instance.SetEqualizer(isEqualizerSet);
-
         public override double TargetLength => 0.4;
 
         public override double TargetHeight => 0.4;
@@ -34,9 +32,9 @@ namespace Qwilight.ViewModel
         public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
 
         [RelayCommand]
-        void OnUndoEqualizer()
+        static void OnInitEqualizer()
         {
-            Configure.Instance.UndoEqualizers(int.MaxValue);
+            Configure.Instance.InitEqualizers(int.MaxValue);
             AudioSystem.Instance.SetEqualizer(0, (float)Configure.Instance.Equalizer0);
             AudioSystem.Instance.SetEqualizer(1, (float)Configure.Instance.Equalizer1);
             AudioSystem.Instance.SetEqualizer(2, (float)Configure.Instance.Equalizer2);

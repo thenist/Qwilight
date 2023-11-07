@@ -797,7 +797,7 @@ namespace Qwilight
         public string UndoColorOK { get; set; }
         public string UndoColorText { get; set; }
         public string UndoContents { get; set; }
-        public string UndoEqualizerContents { get; set; }
+        public string InitEqualizerContents { get; set; }
         public string ValidNetMode0Text { get; set; }
         public string ValidNetMode1Text { get; set; }
         public string ValidNetMode2Text { get; set; }

@@ -26,7 +26,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetHeight => 0.2;
 
-        public Action<string> Handler { get; set; }
+        public Action<string> OnOK { get; set; }
 
         public void OnInputLower(KeyEventArgs e)
         {
@@ -40,7 +40,7 @@ namespace Qwilight.ViewModel
         void OnHandle()
         {
             Close();
-            Handler(Input);
+            OnOK(Input);
         }
     }
 }

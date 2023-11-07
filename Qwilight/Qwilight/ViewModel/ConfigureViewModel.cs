@@ -397,7 +397,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnCopySalt()
+        static void OnCopySalt()
         {
             var dataBundle = new DataPackage();
             dataBundle.SetText(ViewModels.Instance.MainValue.ModeComponentValue.Salt.ToString());
@@ -405,91 +405,91 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnSetAudioMultiplier(double e) => ViewModels.Instance.MainValue.ModeComponentValue.AudioMultiplier = e;
+        static void OnSetAudioMultiplier(double e) => ViewModels.Instance.MainValue.ModeComponentValue.AudioMultiplier = e;
 
         [RelayCommand]
-        void OnIsMediaFill() => Configure.Instance.IsMediaFill = !Configure.Instance.IsMediaFill;
+        static void OnIsMediaFill() => Configure.Instance.IsMediaFill = !Configure.Instance.IsMediaFill;
 
         [RelayCommand]
-        void OnViewQwilightEntry() => Utility.OpenAs(QwilightComponent.QwilightEntryPath);
+        static void OnViewQwilightEntry() => Utility.OpenAs(QwilightComponent.QwilightEntryPath);
 
         [RelayCommand]
-        void OnViewUIEntry() => Utility.OpenAs(QwilightComponent.UIEntryPath);
+        static void OnViewUIEntry() => Utility.OpenAs(QwilightComponent.UIEntryPath);
 
         [RelayCommand]
-        void OnOpenAs(string e) => Utility.OpenAs(e);
+        static void OnOpenAs(string e) => Utility.OpenAs(e);
 
         [RelayCommand]
-        void OnUIPipelineLimiter() => Configure.Instance.UIPipelineLimiter = !Configure.Instance.UIPipelineLimiter;
+        static void OnUIPipelineLimiter() => Configure.Instance.UIPipelineLimiter = !Configure.Instance.UIPipelineLimiter;
 
         [RelayCommand]
-        void OnUIPipelineMainDrawingPaint() => Configure.Instance.UIPipelineMainDrawingPaint = !Configure.Instance.UIPipelineMainDrawingPaint;
+        static void OnUIPipelineMainDrawingPaint() => Configure.Instance.UIPipelineMainDrawingPaint = !Configure.Instance.UIPipelineMainDrawingPaint;
 
         [RelayCommand]
-        void OnUIPipelineJudgmentMain() => Configure.Instance.UIPipelineJudgmentMain = !Configure.Instance.UIPipelineJudgmentMain;
+        static void OnUIPipelineJudgmentMain() => Configure.Instance.UIPipelineJudgmentMain = !Configure.Instance.UIPipelineJudgmentMain;
 
         [RelayCommand]
-        void OnUIPipelineJudgmentCount() => Configure.Instance.UIPipelineJudgmentCount = !Configure.Instance.UIPipelineJudgmentCount;
+        static void OnUIPipelineJudgmentCount() => Configure.Instance.UIPipelineJudgmentCount = !Configure.Instance.UIPipelineJudgmentCount;
 
         [RelayCommand]
-        void OnUIPipelineJudgmentMeter() => Configure.Instance.UIPipelineJudgmentMeter = !Configure.Instance.UIPipelineJudgmentMeter;
+        static void OnUIPipelineJudgmentMeter() => Configure.Instance.UIPipelineJudgmentMeter = !Configure.Instance.UIPipelineJudgmentMeter;
 
         [RelayCommand]
-        void OnUIPipelineJudgmentVisualizer() => Configure.Instance.UIPipelineJudgmentVisualizer = !Configure.Instance.UIPipelineJudgmentVisualizer;
+        static void OnUIPipelineJudgmentVisualizer() => Configure.Instance.UIPipelineJudgmentVisualizer = !Configure.Instance.UIPipelineJudgmentVisualizer;
 
         [RelayCommand]
-        void OnUIPipelineJudgmentPaint() => Configure.Instance.UIPipelineJudgmentPaint = !Configure.Instance.UIPipelineJudgmentPaint;
+        static void OnUIPipelineJudgmentPaint() => Configure.Instance.UIPipelineJudgmentPaint = !Configure.Instance.UIPipelineJudgmentPaint;
 
         [RelayCommand]
-        void OnUIPipelineHitNotePaint() => Configure.Instance.UIPipelineHitNotePaint = !Configure.Instance.UIPipelineHitNotePaint;
+        static void OnUIPipelineHitNotePaint() => Configure.Instance.UIPipelineHitNotePaint = !Configure.Instance.UIPipelineHitNotePaint;
 
         [RelayCommand]
-        void OnUIPipelineBPM() => Configure.Instance.UIPipelineBPM = !Configure.Instance.UIPipelineBPM;
+        static void OnUIPipelineBPM() => Configure.Instance.UIPipelineBPM = !Configure.Instance.UIPipelineBPM;
 
         [RelayCommand]
-        void OnUIPipelineNet() => Configure.Instance.UIPipelineNet = !Configure.Instance.UIPipelineNet;
+        static void OnUIPipelineNet() => Configure.Instance.UIPipelineNet = !Configure.Instance.UIPipelineNet;
 
         [RelayCommand]
-        void OnUIPipelineJudgmentInputVisualizer() => Configure.Instance.UIPipelineJudgmentInputVisualizer = !Configure.Instance.UIPipelineJudgmentInputVisualizer;
+        static void OnUIPipelineJudgmentInputVisualizer() => Configure.Instance.UIPipelineJudgmentInputVisualizer = !Configure.Instance.UIPipelineJudgmentInputVisualizer;
 
         [RelayCommand]
-        void OnUIPipelineHunter() => Configure.Instance.UIPipelineHunter = !Configure.Instance.UIPipelineHunter;
+        static void OnUIPipelineHunter() => Configure.Instance.UIPipelineHunter = !Configure.Instance.UIPipelineHunter;
 
         [RelayCommand]
-        void OnUICommentNote() => Configure.Instance.UICommentNote = !Configure.Instance.UICommentNote;
+        static void OnUICommentNote() => Configure.Instance.UICommentNote = !Configure.Instance.UICommentNote;
 
         [RelayCommand]
-        void OnUIPipelineMainJudgmentMeter() => Configure.Instance.UIPipelineMainJudgmentMeter = !Configure.Instance.UIPipelineMainJudgmentMeter;
+        static void OnUIPipelineMainJudgmentMeter() => Configure.Instance.UIPipelineMainJudgmentMeter = !Configure.Instance.UIPipelineMainJudgmentMeter;
 
         [RelayCommand]
-        void OnLowHitPointsFaintUI() => Configure.Instance.LowHitPointsFaintUI = !Configure.Instance.LowHitPointsFaintUI;
+        static void OnLowHitPointsFaintUI() => Configure.Instance.LowHitPointsFaintUI = !Configure.Instance.LowHitPointsFaintUI;
 
         [RelayCommand]
-        void OnAlwaysNotP2Position() => Configure.Instance.AlwaysNotP2Position = !Configure.Instance.AlwaysNotP2Position;
+        static void OnAlwaysNotP2Position() => Configure.Instance.AlwaysNotP2Position = !Configure.Instance.AlwaysNotP2Position;
 
         [RelayCommand]
-        void OnNetCommentFollow() => Configure.Instance.NetCommentFollow = !Configure.Instance.NetCommentFollow;
+        static void OnNetCommentFollow() => Configure.Instance.NetCommentFollow = !Configure.Instance.NetCommentFollow;
 
         [RelayCommand]
-        void OnNetItemTarget() => Configure.Instance.UbuntuNetItemTarget = !Configure.Instance.UbuntuNetItemTarget;
+        static void OnNetItemTarget() => Configure.Instance.UbuntuNetItemTarget = !Configure.Instance.UbuntuNetItemTarget;
 
         [RelayCommand]
-        void OnHandleMeter() => Configure.Instance.HandleMeter = !Configure.Instance.HandleMeter;
+        static void OnHandleMeter() => Configure.Instance.HandleMeter = !Configure.Instance.HandleMeter;
 
         [RelayCommand]
-        void OnFlowNetItem() => Configure.Instance.FlowNetItem = !Configure.Instance.FlowNetItem;
+        static void OnFlowNetItem() => Configure.Instance.FlowNetItem = !Configure.Instance.FlowNetItem;
 
         [RelayCommand]
-        void OnIsFailMode() => Configure.Instance.IsFailMode = !Configure.Instance.IsFailMode;
+        static void OnIsFailMode() => Configure.Instance.IsFailMode = !Configure.Instance.IsFailMode;
 
         [RelayCommand]
-        void OnPutCopyNotes() => ViewModels.Instance.MainValue.ModeComponentValue.PutCopyNotesValueV2 = (ModeComponent.PutCopyNotes)(((int)ViewModels.Instance.MainValue.ModeComponentValue.PutCopyNotesValueV2 + 1) % 4);
+        static void OnPutCopyNotes() => ViewModels.Instance.MainValue.ModeComponentValue.PutCopyNotesValueV2 = (ModeComponent.PutCopyNotes)(((int)ViewModels.Instance.MainValue.ModeComponentValue.PutCopyNotesValueV2 + 1) % 4);
 
         [RelayCommand]
-        void OnInitModeComponent() => ViewModels.Instance.MainValue.InitModeComponent();
+        static void OnInitModeComponent() => ViewModels.Instance.MainValue.InitModeComponent();
 
         [RelayCommand]
-        void OnModifyModeComponent(int? e)
+        static void OnModifyModeComponent(int? e)
         {
             if (e.HasValue)
             {
@@ -500,7 +500,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnSaveModeComponent(int? e)
+        static void OnSaveModeComponent(int? e)
         {
             if (e.HasValue)
             {
@@ -521,6 +521,494 @@ namespace Qwilight.ViewModel
                 });
             }
         }
+
+        [RelayCommand]
+        static void OnStopLastEqualAudio() => Configure.Instance.StopLastEqualAudio = !Configure.Instance.StopLastEqualAudio;
+
+        [RelayCommand]
+        static void OnGetMIDI() => MIDISystem.Instance.GetMIDIs();
+
+        [RelayCommand]
+        static void OnFontFamily(int? e)
+        {
+            if (e.HasValue)
+            {
+                ViewModels.Instance.FontFamilyValue.FontPosition = e.Value;
+                ViewModels.Instance.FontFamilyValue.Open();
+            }
+        }
+
+        [RelayCommand]
+        static void OnLoopWaveIn() => AudioInputSystem.Instance.LoopWaveIn = !AudioInputSystem.Instance.LoopWaveIn;
+
+        [RelayCommand]
+        static void OnIsXwindow() => Configure.Instance.IsXwindow = !Configure.Instance.IsXwindow;
+
+        [RelayCommand]
+        static void OnDefaultControllerInputAPI()
+        {
+            Configure.Instance.DefaultControllerInputAPI = (DefaultControllerSystem.InputAPI)((int)(Configure.Instance.DefaultControllerInputAPI + 1) % 2);
+            DefaultControllerSystem.Instance.HandleSystem();
+        }
+
+        [RelayCommand]
+        static void OnControllerInputAPI() => Configure.Instance.ControllerInputAPI = (ControllerSystem.InputAPI)((int)(Configure.Instance.ControllerInputAPI + 1) % 3);
+
+        [RelayCommand]
+        static void OnLostPointAudio() => Configure.Instance.LostPointAudio = !Configure.Instance.LostPointAudio;
+
+        [RelayCommand]
+        static void OnInitCompiled() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewAllowWindow,
+            Contents = new object[]
+            {
+                LanguageSystem.Instance.InitCompiledNotify,
+                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
+                new Action<MESSAGEBOX_RESULT>(r =>
+                {
+                    if (r == MESSAGEBOX_RESULT.IDYES)
+                    {
+                        FastDB.Instance.Clear();
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCompiledOK);
+                    }
+                })
+            }
+        });
+
+        [RelayCommand]
+        static void OnInitFavoriteEntry() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewAllowWindow,
+            Contents = new object[]
+            {
+                LanguageSystem.Instance.InitFavoriteEntryNotify,
+                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
+                new Action<MESSAGEBOX_RESULT>(r =>
+                {
+                    if (r == MESSAGEBOX_RESULT.IDYES)
+                    {
+                        ViewModels.Instance.MainValue.WipeFavoriteEntry();
+                        DB.Instance.WipeFavoriteEntry();
+                        foreach (var defaultEntryItem in Configure.Instance.DefaultEntryItems.Where(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite).ToArray())
+                        {
+                            Configure.Instance.DefaultEntryItems.Remove(defaultEntryItem);
+                        }
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitFavoriteEntryOK);
+                    }
+                })
+            }
+        });
+
+        [RelayCommand]
+        static void OnInitWait() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewAllowWindow,
+            Contents = new object[]
+            {
+                LanguageSystem.Instance.InitWaitNotify,
+                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
+                new Action<MESSAGEBOX_RESULT>(r =>
+                {
+                    if (r == MESSAGEBOX_RESULT.IDYES)
+                    {
+                        Configure.Instance.AudioWait = 0.0;
+                        Configure.Instance.BanalAudioWait = 0.0;
+                        Configure.Instance.MediaWait = 0.0;
+                        Configure.Instance.BanalMediaWait = 0.0;
+                        Configure.Instance.NotifyModel();
+                        DB.Instance.InitWait();
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitWaitOK);
+                    }
+                })
+            }
+        });
+
+        [RelayCommand]
+        static void OnUndoColor() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewAllowWindow,
+            Contents = new object[]
+            {
+                LanguageSystem.Instance.UndoColorNotify,
+                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
+                new Action<MESSAGEBOX_RESULT>(r =>
+                {
+                    if (r == MESSAGEBOX_RESULT.IDYES)
+                    {
+                        Configure.Instance.InitColors(int.MaxValue);
+                        AvatarTitleSystem.Instance.WipeAvatarTitles();
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.UndoColorOK);
+                    }
+                })
+            }
+        });
+
+        [RelayCommand]
+        static void OnInitMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewAllowWindow,
+            Contents = new object[]
+            {
+                LanguageSystem.Instance.InitMediaNotify,
+                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
+                new Action<MESSAGEBOX_RESULT>(r =>
+                {
+                    if (r == MESSAGEBOX_RESULT.IDYES)
+                    {
+                        Configure.Instance.Media = true;
+                        var handlingComputer = ViewModels.Instance.MainValue.GetHandlingComputer();
+                        if (handlingComputer != null)
+                        {
+                            MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
+                        }
+                        DB.Instance.InitMedia();
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitMediaOK);
+                    }
+                })
+            }
+        });
+
+        [RelayCommand]
+        static void OnInitComment() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewAllowWindow,
+            Contents = new object[]
+            {
+                LanguageSystem.Instance.InitCommentNotify,
+                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
+                new Action<MESSAGEBOX_RESULT>(r =>
+                {
+                    if (r == MESSAGEBOX_RESULT.IDYES)
+                    {
+                        DB.Instance.WipeComment();
+                        foreach (var commentFilePath in Utility.GetFiles(QwilightComponent.CommentEntryPath))
+                        {
+                            Utility.WipeFile(commentFilePath);
+                        }
+                        ViewModels.Instance.MainValue.DefaultCommentCollection.Clear();
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCommentOK);
+                    }
+                })
+            }
+        });
+
+        [RelayCommand]
+        void OnInitTotal() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewAllowWindow,
+            Contents = new object[]
+            {
+                LanguageSystem.Instance.InitTotalNotify,
+                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
+                new Action<MESSAGEBOX_RESULT>(r =>
+                {
+                    if (r == MESSAGEBOX_RESULT.IDYES)
+                    {
+                        Configure.Instance.Validate(true);
+                        ViewModels.Instance.MainValue.SetDefaultEntryItems();
+                        Init();
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitTotalOK);
+                    }
+                })
+            }
+        });
+
+        [RelayCommand]
+        static void OnMode(int? e)
+        {
+            if (e.HasValue)
+            {
+                var inputVIewModel = ViewModels.Instance.InputValue;
+                inputVIewModel.ControllerModeValue = InputViewModel.ControllerMode.DefaultInput;
+                inputVIewModel.InputMode = (Component.InputMode)e.Value;
+                inputVIewModel.Open();
+            }
+            else
+            {
+                ViewModels.Instance.InputStandardValue.Open();
+            }
+        }
+
+        [RelayCommand]
+        static void OnControllerMode(int? e)
+        {
+            if (e.HasValue)
+            {
+                var inputVIewModel = ViewModels.Instance.InputValue;
+                switch (Configure.Instance.ControllerInputAPI)
+                {
+                    case ControllerSystem.InputAPI.DInput:
+                        inputVIewModel.ControllerModeValue = InputViewModel.ControllerMode.DInput;
+                        break;
+                    case ControllerSystem.InputAPI.XInput:
+                        inputVIewModel.ControllerModeValue = InputViewModel.ControllerMode.XInput;
+                        break;
+                    case ControllerSystem.InputAPI.WGI:
+                        inputVIewModel.ControllerModeValue = InputViewModel.ControllerMode.WGI;
+                        break;
+                }
+                inputVIewModel.InputMode = (Component.InputMode)e.Value;
+                inputVIewModel.Open();
+            }
+            else
+            {
+                var inputStandardControllerViewModel = ViewModels.Instance.InputStandardControllerValue;
+                switch (Configure.Instance.ControllerInputAPI)
+                {
+                    case ControllerSystem.InputAPI.DInput:
+                        inputStandardControllerViewModel.ControllerModeValue = InputStandardControllerViewModel.ControllerMode.DInput;
+                        break;
+                    case ControllerSystem.InputAPI.XInput:
+                        inputStandardControllerViewModel.ControllerModeValue = InputStandardControllerViewModel.ControllerMode.XInput;
+                        break;
+                    case ControllerSystem.InputAPI.WGI:
+                        inputStandardControllerViewModel.ControllerModeValue = InputStandardControllerViewModel.ControllerMode.WGI;
+                        break;
+                }
+                inputStandardControllerViewModel.Open();
+            }
+        }
+
+        [RelayCommand]
+        static void OnMIDIMode(int? e)
+        {
+            if (e.HasValue)
+            {
+                var inputVIewModel = ViewModels.Instance.InputValue;
+                inputVIewModel.ControllerModeValue = InputViewModel.ControllerMode.MIDI;
+                inputVIewModel.InputMode = (Component.InputMode)e.Value;
+                inputVIewModel.Open();
+            }
+            else
+            {
+                var inputStandardControllerViewModel = ViewModels.Instance.InputStandardControllerValue;
+                inputStandardControllerViewModel.ControllerModeValue = InputStandardControllerViewModel.ControllerMode.MIDI;
+                inputStandardControllerViewModel.Open();
+            }
+        }
+
+        [RelayCommand]
+        static void OnAudioInputConfigure()
+        {
+            if (Configure.Instance.AudioInput)
+            {
+                AudioInputSystem.Instance.GetWaveInValues();
+                AudioInputSystem.Instance.GetWaveValues();
+            }
+            else
+            {
+                AudioInputSystem.Instance.CloseWaveIn();
+                AudioInputSystem.Instance.CloseWave();
+            }
+        }
+
+        [RelayCommand]
+        static void OnWaveIn()
+        {
+            if (Configure.Instance.WaveIn)
+            {
+                AudioInputSystem.Instance.GetWaveInValues();
+            }
+            else
+            {
+                AudioInputSystem.Instance.CloseWaveIn();
+            }
+        }
+
+        [RelayCommand]
+        static void OnWave()
+        {
+            if (Configure.Instance.Wave)
+            {
+                AudioInputSystem.Instance.GetWaveValues();
+            }
+            else
+            {
+                AudioInputSystem.Instance.CloseWave();
+            }
+        }
+
+        [RelayCommand]
+        static void OnGetWaveInValues() => AudioInputSystem.Instance.GetWaveInValues();
+
+        [RelayCommand]
+        static void OnGetWaveValues() => AudioInputSystem.Instance.GetWaveValues();
+
+        [RelayCommand]
+        static void OnMedia()
+        {
+            Configure.Instance.Media = !Configure.Instance.Media;
+            ViewModels.Instance.MainValue.AutoComputer?.SetWait();
+        }
+
+        [RelayCommand]
+        static void OnHandleInputAudio() => Configure.Instance.HandleInputAudio = !Configure.Instance.HandleInputAudio;
+
+        [RelayCommand]
+        static void OnBanalAudio() => Configure.Instance.BanalAudio = !Configure.Instance.BanalAudio;
+
+        [RelayCommand]
+        static void OnBanalMedia() => Configure.Instance.BanalMedia = !Configure.Instance.BanalMedia;
+
+        [RelayCommand]
+        static void OnBanalFailedMedia() => Configure.Instance.BanalFailedMedia = !Configure.Instance.BanalFailedMedia;
+
+        [RelayCommand]
+        static void OnBW() => BWSystem.Instance.Toggle();
+
+        [RelayCommand]
+        static void OnLS() => LSSystem.Instance.Toggle();
+
+        [RelayCommand]
+        static void OnAura() => AuraSystem.Instance.Toggle();
+
+        [RelayCommand]
+        static void OnK70() => K70System.Instance.Toggle();
+
+        [RelayCommand]
+        static void OnLoadBanalAudio() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewFileWindow,
+            Contents = new object[]
+            {
+                QwilightComponent.AudioFileFormatItems,
+                new Action<string>(fileName =>
+                {
+                    Configure.Instance.BanalAudioFilePath = fileName;
+                    Configure.Instance.BanalAudio = true;
+                    AudioSystem.Instance.LoadBanalAudio();
+                })
+            }
+        });
+
+        [RelayCommand]
+        static void OnLoadDefaultAudio() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewFileWindow,
+            Contents = new object[]
+            {
+                QwilightComponent.AudioFileFormatItems,
+                new Action<string>(fileName =>
+                {
+                    Configure.Instance.DefaultAudioVarietyValue = Configure.DefaultAudioVariety.Favor;
+                    Configure.Instance.DefaultAudioFilePath = fileName;
+                    AudioSystem.Instance.LoadDefaultAudio();
+                })
+            }
+        });
+
+        [RelayCommand]
+        static void OnDefaultAudioVariety() => Configure.Instance.DefaultAudioVarietyValue = (Configure.DefaultAudioVariety)((int)(Configure.Instance.DefaultAudioVarietyValue + 1) % 3);
+
+        [RelayCommand]
+        static void OnLoadBanalMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewFileWindow,
+            Contents = new object[]
+            {
+                QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats),
+                new Action<string>(fileName =>
+                {
+                    Configure.Instance.BanalMediaFilePath = fileName;
+                    Configure.Instance.BanalMedia = true;
+                    ViewModels.Instance.MainValue.HandleAutoComputer();
+                })
+            }
+        });
+
+        [RelayCommand]
+        static void OnDefaultNote() => TwilightSystem.Instance.GetDefaultNoteDate(0, false);
+
+        [RelayCommand]
+        static void OnDefaultUI() => TwilightSystem.Instance.GetDefaultUIDate(0, false);
+
+        [RelayCommand]
+        static void OnLoadBanalFailedMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        {
+            IDValue = ICC.ID.ViewFileWindow,
+            Contents = new object[]
+            {
+                QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats),
+                new Action<string>(fileName =>
+                {
+                    Configure.Instance.BanalFailedMediaFilePath = fileName;
+                    Configure.Instance.BanalFailedMedia = true;
+                    ViewModels.Instance.MainValue.HandleAutoComputer();
+                })
+            }
+        });
+
+        [RelayCommand]
+        static void OnMediaInputConfigure()
+        {
+            if (Configure.Instance.MediaInput)
+            {
+                MediaInputSystem.Instance.GetMediaInputItems();
+            }
+            else
+            {
+                MediaInputSystem.Instance.CloseMediaInput();
+            }
+        }
+
+        [RelayCommand]
+        static void OnGetMedia()
+        {
+            MediaInputSystem.Instance.GetMediaInputItems();
+        }
+
+        [RelayCommand]
+        static void OnGetQwilight() => ViewModels.Instance.MainValue.GetQwilight(false);
+
+        [RelayCommand]
+        static void OnAutoHighlight() => Configure.Instance.AutoHighlight = !Configure.Instance.AutoHighlight;
+
+        [RelayCommand]
+        static void OnAverager() => Configure.Instance.Averager = !Configure.Instance.Averager;
+
+        [RelayCommand]
+        static void OnEqualizer() => ViewModels.Instance.EqualizerValue.Open();
+
+        [RelayCommand]
+        static void OnTube() => Configure.Instance.Tube = !Configure.Instance.Tube;
+
+        [RelayCommand]
+        static void OnSFX() => Configure.Instance.SFX = !Configure.Instance.SFX;
+
+        [RelayCommand]
+        static void OnFlange() => Configure.Instance.Flange = !Configure.Instance.Flange;
+
+        [RelayCommand]
+        static void OnVibrationMode() => Configure.Instance.VibrationModeValue = (ControllerSystem.VibrationMode)((int)(Configure.Instance.VibrationModeValue + 1) % 3);
+
+        [RelayCommand]
+        static void OnAutoCompute() => Configure.Instance.AutoCompute = !Configure.Instance.AutoCompute;
+
+        [RelayCommand]
+        static void OnWindowedMode()
+        {
+            Configure.Instance.WindowedMode = !Configure.Instance.WindowedMode;
+            WeakReferenceMessenger.Default.Send<ICC>(new()
+            {
+                IDValue = ICC.ID.SetWindowedMode
+            });
+        }
+
+        [RelayCommand]
+        static void OnIsQwilightFill() => Configure.Instance.IsQwilightFill = !Configure.Instance.IsQwilightFill;
+
+        [RelayCommand]
+        static void OnVESA() => Configure.Instance.VESAV2 = !Configure.Instance.VESAV2;
+
+        [RelayCommand]
+        static void OnDataCount3() => Configure.Instance.DataCount3 = !Configure.Instance.DataCount3;
+
+        [RelayCommand]
+        static void OnNVLLMode() => Configure.Instance.NVLLModeValue = (Configure.NVLLMode)(((int)Configure.Instance.NVLLModeValue + 1) % 3);
+
+        [RelayCommand]
+        static void OnTelnet() => TelnetSystem.Instance.Toggle();
 
         [RelayCommand]
         void OnSaveAsBundle()
@@ -886,497 +1374,6 @@ namespace Qwilight.ViewModel
             {
                 AudioSystem.Instance.SetVolume(AudioSystem.SEAudio, audioVolume);
             }
-        }
-
-        [RelayCommand]
-        void OnStopLastEqualAudio() => Configure.Instance.StopLastEqualAudio = !Configure.Instance.StopLastEqualAudio;
-
-        [RelayCommand]
-        void OnGetMIDI() => MIDISystem.Instance.GetMIDIs();
-
-        [RelayCommand]
-        void OnFontFamily(int? e)
-        {
-            if (e.HasValue)
-            {
-                ViewModels.Instance.FontFamilyValue.FontPosition = e.Value;
-                ViewModels.Instance.FontFamilyValue.Open();
-            }
-        }
-
-        [RelayCommand]
-        void OnLoopWaveIn() => AudioInputSystem.Instance.LoopWaveIn = !AudioInputSystem.Instance.LoopWaveIn;
-
-        [RelayCommand]
-        void OnIsXwindow() => Configure.Instance.IsXwindow = !Configure.Instance.IsXwindow;
-
-        [RelayCommand]
-        void OnDefaultControllerInputAPI()
-        {
-            Configure.Instance.DefaultControllerInputAPI = (DefaultControllerSystem.InputAPI)((int)(Configure.Instance.DefaultControllerInputAPI + 1) % 2);
-            DefaultControllerSystem.Instance.HandleSystem();
-        }
-
-        [RelayCommand]
-        void OnControllerInputAPI() => Configure.Instance.ControllerInputAPI = (ControllerSystem.InputAPI)((int)(Configure.Instance.ControllerInputAPI + 1) % 3);
-
-        [RelayCommand]
-        void OnLostPointAudio() => Configure.Instance.LostPointAudio = !Configure.Instance.LostPointAudio;
-
-        [RelayCommand]
-        void OnInitCompiled() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
-            {
-                LanguageSystem.Instance.InitCompiledNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        FastDB.Instance.Clear();
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCompiledOK);
-                    }
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnInitFavoriteEntry() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
-            {
-                LanguageSystem.Instance.InitFavoriteEntryNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        ViewModels.Instance.MainValue.WipeFavoriteEntry();
-                        DB.Instance.WipeFavoriteEntry();
-                        foreach (var defaultEntryItem in Configure.Instance.DefaultEntryItems.Where(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite).ToArray())
-                        {
-                            Configure.Instance.DefaultEntryItems.Remove(defaultEntryItem);
-                        }
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitFavoriteEntryOK);
-                    }
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnInitWait() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
-            {
-                LanguageSystem.Instance.InitWaitNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        Configure.Instance.AudioWait = 0.0;
-                        Configure.Instance.BanalAudioWait = 0.0;
-                        Configure.Instance.MediaWait = 0.0;
-                        Configure.Instance.BanalMediaWait = 0.0;
-                        Configure.Instance.NotifyModel();
-                        DB.Instance.InitWait();
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitWaitOK);
-                    }
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnUndoColor() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
-            {
-                LanguageSystem.Instance.UndoColorNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        Configure.Instance.InitColors(int.MaxValue);
-                        AvatarTitleSystem.Instance.WipeAvatarTitles();
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.UndoColorOK);
-                    }
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnInitMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
-            {
-                LanguageSystem.Instance.InitMediaNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        Configure.Instance.Media = true;
-                        var handlingComputer = ViewModels.Instance.MainValue.GetHandlingComputer();
-                        if (handlingComputer != null)
-                        {
-                            MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
-                        }
-                        DB.Instance.InitMedia();
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitMediaOK);
-                    }
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnInitComment() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
-            {
-                LanguageSystem.Instance.InitCommentNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        DB.Instance.WipeComment();
-                        foreach (var commentFilePath in Utility.GetFiles(QwilightComponent.CommentEntryPath))
-                        {
-                            Utility.WipeFile(commentFilePath);
-                        }
-                        ViewModels.Instance.MainValue.DefaultCommentCollection.Clear();
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCommentOK);
-                    }
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnInitTotal() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
-            {
-                LanguageSystem.Instance.InitTotalNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        Configure.Instance.Validate(true);
-                        ViewModels.Instance.MainValue.SetDefaultEntryItems();
-                        Init();
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitTotalOK);
-                    }
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnMode(int? e)
-        {
-            if (e.HasValue)
-            {
-                var inputVIewModel = ViewModels.Instance.InputValue;
-                inputVIewModel.ControllerModeValue = InputViewModel.ControllerMode.DefaultInput;
-                inputVIewModel.InputMode = (Component.InputMode)e.Value;
-                inputVIewModel.Open();
-            }
-            else
-            {
-                ViewModels.Instance.InputStandardValue.Open();
-            }
-        }
-
-        [RelayCommand]
-        void OnControllerMode(int? e)
-        {
-            if (e.HasValue)
-            {
-                var inputVIewModel = ViewModels.Instance.InputValue;
-                switch (Configure.Instance.ControllerInputAPI)
-                {
-                    case ControllerSystem.InputAPI.DInput:
-                        inputVIewModel.ControllerModeValue = InputViewModel.ControllerMode.DInput;
-                        break;
-                    case ControllerSystem.InputAPI.XInput:
-                        inputVIewModel.ControllerModeValue = InputViewModel.ControllerMode.XInput;
-                        break;
-                    case ControllerSystem.InputAPI.WGI:
-                        inputVIewModel.ControllerModeValue = InputViewModel.ControllerMode.WGI;
-                        break;
-                }
-                inputVIewModel.InputMode = (Component.InputMode)e.Value;
-                inputVIewModel.Open();
-            }
-            else
-            {
-                var inputStandardControllerViewModel = ViewModels.Instance.InputStandardControllerValue;
-                switch (Configure.Instance.ControllerInputAPI)
-                {
-                    case ControllerSystem.InputAPI.DInput:
-                        inputStandardControllerViewModel.ControllerModeValue = InputStandardControllerViewModel.ControllerMode.DInput;
-                        break;
-                    case ControllerSystem.InputAPI.XInput:
-                        inputStandardControllerViewModel.ControllerModeValue = InputStandardControllerViewModel.ControllerMode.XInput;
-                        break;
-                    case ControllerSystem.InputAPI.WGI:
-                        inputStandardControllerViewModel.ControllerModeValue = InputStandardControllerViewModel.ControllerMode.WGI;
-                        break;
-                }
-                inputStandardControllerViewModel.Open();
-            }
-        }
-
-        [RelayCommand]
-        void OnMIDIMode(int? e)
-        {
-            if (e.HasValue)
-            {
-                var inputVIewModel = ViewModels.Instance.InputValue;
-                inputVIewModel.ControllerModeValue = InputViewModel.ControllerMode.MIDI;
-                inputVIewModel.InputMode = (Component.InputMode)e.Value;
-                inputVIewModel.Open();
-            }
-            else
-            {
-                var inputStandardControllerViewModel = ViewModels.Instance.InputStandardControllerValue;
-                inputStandardControllerViewModel.ControllerModeValue = InputStandardControllerViewModel.ControllerMode.MIDI;
-                inputStandardControllerViewModel.Open();
-            }
-        }
-
-        [RelayCommand]
-        void OnAudioInputConfigure()
-        {
-            if (Configure.Instance.AudioInput)
-            {
-                AudioInputSystem.Instance.GetWaveInValues();
-                AudioInputSystem.Instance.GetWaveValues();
-            }
-            else
-            {
-                AudioInputSystem.Instance.CloseWaveIn();
-                AudioInputSystem.Instance.CloseWave();
-            }
-        }
-
-        [RelayCommand]
-        void OnWaveIn()
-        {
-            if (Configure.Instance.WaveIn)
-            {
-                AudioInputSystem.Instance.GetWaveInValues();
-            }
-            else
-            {
-                AudioInputSystem.Instance.CloseWaveIn();
-            }
-        }
-
-        [RelayCommand]
-        void OnWave()
-        {
-            if (Configure.Instance.Wave)
-            {
-                AudioInputSystem.Instance.GetWaveValues();
-            }
-            else
-            {
-                AudioInputSystem.Instance.CloseWave();
-            }
-        }
-
-        [RelayCommand]
-        void OnGetWaveInValues() => AudioInputSystem.Instance.GetWaveInValues();
-
-        [RelayCommand]
-        void OnGetWaveValues() => AudioInputSystem.Instance.GetWaveValues();
-
-        [RelayCommand]
-        void OnMedia()
-        {
-            Configure.Instance.Media = !Configure.Instance.Media;
-            ViewModels.Instance.MainValue.AutoComputer?.SetWait();
-        }
-
-        [RelayCommand]
-        void OnHandleInputAudio() => Configure.Instance.HandleInputAudio = !Configure.Instance.HandleInputAudio;
-
-        [RelayCommand]
-        void OnBanalAudio() => Configure.Instance.BanalAudio = !Configure.Instance.BanalAudio;
-
-        [RelayCommand]
-        void OnBanalMedia() => Configure.Instance.BanalMedia = !Configure.Instance.BanalMedia;
-
-        [RelayCommand]
-        void OnBanalFailedMedia() => Configure.Instance.BanalFailedMedia = !Configure.Instance.BanalFailedMedia;
-
-        [RelayCommand]
-        void OnBW() => BWSystem.Instance.Toggle();
-
-        [RelayCommand]
-        void OnLS() => LSSystem.Instance.Toggle();
-
-        [RelayCommand]
-        void OnAura() => AuraSystem.Instance.Toggle();
-
-        [RelayCommand]
-        void OnK70() => K70System.Instance.Toggle();
-
-        [RelayCommand]
-        void OnLoadBanalAudio() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewFileWindow,
-            Contents = new object[]
-            {
-                QwilightComponent.AudioFileFormatItems,
-                new Action<string>(fileName =>
-                {
-                    Configure.Instance.BanalAudioFilePath = fileName;
-                    Configure.Instance.BanalAudio = true;
-                    AudioSystem.Instance.LoadBanalAudio();
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnLoadDefaultAudio() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewFileWindow,
-            Contents = new object[]
-            {
-                QwilightComponent.AudioFileFormatItems,
-                new Action<string>(fileName =>
-                {
-                    Configure.Instance.DefaultAudioVarietyValue = Configure.DefaultAudioVariety.Favor;
-                    Configure.Instance.DefaultAudioFilePath = fileName;
-                    AudioSystem.Instance.LoadDefaultAudio();
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnDefaultAudioVariety() => Configure.Instance.DefaultAudioVarietyValue = (Configure.DefaultAudioVariety)((int)(Configure.Instance.DefaultAudioVarietyValue + 1) % 3);
-
-        [RelayCommand]
-        void OnLoadBanalMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewFileWindow,
-            Contents = new object[]
-            {
-                QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats),
-                new Action<string>(fileName =>
-                {
-                    Configure.Instance.BanalMediaFilePath = fileName;
-                    Configure.Instance.BanalMedia = true;
-                    ViewModels.Instance.MainValue.HandleAutoComputer();
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnDefaultNote() => TwilightSystem.Instance.GetDefaultNoteDate(0, false);
-
-        [RelayCommand]
-        void OnDefaultUI() => TwilightSystem.Instance.GetDefaultUIDate(0, false);
-
-        [RelayCommand]
-        void OnLoadBanalFailedMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.ViewFileWindow,
-            Contents = new object[]
-            {
-                QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats),
-                new Action<string>(fileName =>
-                {
-                    Configure.Instance.BanalFailedMediaFilePath = fileName;
-                    Configure.Instance.BanalFailedMedia = true;
-                    ViewModels.Instance.MainValue.HandleAutoComputer();
-                })
-            }
-        });
-
-        [RelayCommand]
-        void OnMediaInputConfigure()
-        {
-            if (Configure.Instance.MediaInput)
-            {
-                MediaInputSystem.Instance.GetMediaInputItems();
-            }
-            else
-            {
-                MediaInputSystem.Instance.CloseMediaInput();
-            }
-        }
-
-        [RelayCommand]
-        void OnGetMedia()
-        {
-            MediaInputSystem.Instance.GetMediaInputItems();
-        }
-
-        [RelayCommand]
-        void OnGetQwilight() => ViewModels.Instance.MainValue.GetQwilight(false);
-
-        [RelayCommand]
-        void OnAutoHighlight() => Configure.Instance.AutoHighlight = !Configure.Instance.AutoHighlight;
-
-        [RelayCommand]
-        void OnAverager() => Configure.Instance.Averager = !Configure.Instance.Averager;
-
-        [RelayCommand]
-        void OnEqualizer() => ViewModels.Instance.EqualizerValue.Open();
-
-        [RelayCommand]
-        void OnTube() => Configure.Instance.Tube = !Configure.Instance.Tube;
-
-        [RelayCommand]
-        void OnSFX() => Configure.Instance.SFX = !Configure.Instance.SFX;
-
-        [RelayCommand]
-        void OnFlange() => Configure.Instance.Flange = !Configure.Instance.Flange;
-
-        [RelayCommand]
-        void OnVibrationMode() => Configure.Instance.VibrationModeValue = (ControllerSystem.VibrationMode)((int)(Configure.Instance.VibrationModeValue + 1) % 3);
-
-        [RelayCommand]
-        void OnAutoCompute() => Configure.Instance.AutoCompute = !Configure.Instance.AutoCompute;
-
-        [RelayCommand]
-        void OnWindowedMode()
-        {
-            Configure.Instance.WindowedMode = !Configure.Instance.WindowedMode;
-            WeakReferenceMessenger.Default.Send<ICC>(new()
-            {
-                IDValue = ICC.ID.SetWindowedMode
-            });
-        }
-
-        [RelayCommand]
-        void OnIsQwilightFill() => Configure.Instance.IsQwilightFill = !Configure.Instance.IsQwilightFill;
-
-        [RelayCommand]
-        void OnVESA() => Configure.Instance.VESAV2 = !Configure.Instance.VESAV2;
-
-        [RelayCommand]
-        void OnDataCount3() => Configure.Instance.DataCount3 = !Configure.Instance.DataCount3;
-
-        [RelayCommand]
-        void OnNVLLMode() => Configure.Instance.NVLLModeValue = (Configure.NVLLMode)(((int)Configure.Instance.NVLLModeValue + 1) % 3);
-
-        [RelayCommand]
-        void OnTelnet()
-        {
-            TelnetSystem.Instance.Toggle();
         }
 
         public ConfigureViewModel()

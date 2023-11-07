@@ -290,6 +290,11 @@ namespace Qwilight.Utilities
             }
         }
 
+        public static string GetTitle(IEnumerable<string> titles)
+        {
+            titles.
+        }
+
         public static T GetFavoriteItem<T>(IEnumerable<T> data)
         {
             var dataSet = new Dictionary<T, int>();

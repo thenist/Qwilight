@@ -59,9 +59,6 @@ namespace Qwilight.ViewModel
             });
         }
 
-        [RelayCommand]
-        void OnQuit() => Close();
-
         public override void OnOpened()
         {
             base.OnOpened();

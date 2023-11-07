@@ -10,7 +10,7 @@ namespace Qwilight.ViewModel
     public sealed partial class FavorHitPointsViewModel : BaseViewModel
     {
         string _favorHitPointsName;
-        FavorHitPoints? _favorHitPointsValue;
+        FavorHitPoints? _favorHitPoints;
 
         public override double TargetLength => 0.3;
 
@@ -20,11 +20,11 @@ namespace Qwilight.ViewModel
 
         public FavorHitPoints? FavorHitPointsValue
         {
-            get => _favorHitPointsValue;
+            get => _favorHitPoints;
 
             set
             {
-                if (SetProperty(ref _favorHitPointsValue, value, nameof(FavorHitPointsValue)) && value.HasValue)
+                if (SetProperty(ref _favorHitPoints, value, nameof(FavorHitPointsValue)) && value.HasValue)
                 {
                     var favorHitPointsValue = value.Value.Value;
                     ViewModels.Instance.MainValue.ModeComponentValue.HighestHitPoints0 = favorHitPointsValue[(int)Component.Judged.Highest][0];
@@ -90,7 +90,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnQuitFavorHitPoints()
+        void OnWipeFavorHitPoints()
         {
             Configure.Instance.FavorHitPoints.Remove(FavorHitPointsValue.Value);
             SetFavorHitPointsCollection();

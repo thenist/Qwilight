@@ -10,7 +10,7 @@ namespace Qwilight.ViewModel
     public sealed partial class FavorJudgmentViewModel : BaseViewModel
     {
         string _favorJudgmentName;
-        FavorJudgment? _favorJudgmentValue;
+        FavorJudgment? _favorJudgment;
 
         public override double TargetLength => 0.3;
 
@@ -20,11 +20,11 @@ namespace Qwilight.ViewModel
 
         public FavorJudgment? FavorJudgmentValue
         {
-            get => _favorJudgmentValue;
+            get => _favorJudgment;
 
             set
             {
-                if (SetProperty(ref _favorJudgmentValue, value, nameof(FavorJudgmentValue)) && value.HasValue)
+                if (SetProperty(ref _favorJudgment, value, nameof(FavorJudgmentValue)) && value.HasValue)
                 {
                     var favorJudgmentValue = value.Value.Value;
                     ViewModels.Instance.MainValue.ModeComponentValue.HighestJudgment0 = favorJudgmentValue[(int)Component.Judged.Highest][0];
@@ -90,7 +90,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnQuitFavorJudgment()
+        void OnWipeFavorJudgment()
         {
             Configure.Instance.FavorJudgments.Remove(FavorJudgmentValue.Value);
             SetFavorHitPointsCollection();

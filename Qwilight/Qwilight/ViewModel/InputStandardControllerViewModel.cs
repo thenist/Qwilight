@@ -36,7 +36,7 @@ namespace Qwilight.ViewModel
         public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
 
         [RelayCommand]
-        public void OnInputPosition(int? inputPosition)
+        void OnInputPosition(int? inputPosition)
         {
             if (inputPosition.HasValue)
             {

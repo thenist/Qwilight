@@ -1216,16 +1216,16 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnSignIn() => ViewModels.Instance.SignInValue.Open();
+        static void OnSignIn() => ViewModels.Instance.SignInValue.Open();
 
         [RelayCommand]
-        void OnLevelWindow() => ViewModels.Instance.LevelValue.Open();
+        static void OnLevelWindow() => ViewModels.Instance.LevelValue.Open();
 
         [RelayCommand]
-        void OnWantWindow() => ViewModels.Instance.WantValue.Open();
+        static void OnWantWindow() => ViewModels.Instance.WantValue.Open();
 
         [RelayCommand]
-        void OnViewMyAvatar()
+        static void OnViewMyAvatar()
         {
             var avatarViewModel = ViewModels.Instance.AvatarValue;
             avatarViewModel.AvatarID = TwilightSystem.Instance.AvatarID;
@@ -1233,10 +1233,10 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnViewMyBundle() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.CallBundle, TwilightSystem.Instance.AvatarID);
+        static void OnViewMyBundle() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.CallBundle, TwilightSystem.Instance.AvatarID);
 
         [RelayCommand]
-        void OnNotSignIn() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static void OnNotSignIn() => WeakReferenceMessenger.Default.Send<ICC>(new()
         {
             IDValue = ICC.ID.ViewAllowWindow,
             Contents = new object[]
@@ -1301,7 +1301,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnModeComponent(int? e)
+        static void OnModeComponent(int? e)
         {
             if (e.HasValue)
             {
@@ -1340,13 +1340,13 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnAutoSalt() => Configure.Instance.SaltAuto = !Configure.Instance.SaltAuto;
+        static void OnAutoSalt() => Configure.Instance.SaltAuto = !Configure.Instance.SaltAuto;
 
         [RelayCommand]
-        void OnConfigure() => ViewModels.Instance.ConfigureValue.Open();
+        static void OnConfigure() => ViewModels.Instance.ConfigureValue.Open();
 
         [RelayCommand]
-        void OnComment() => ViewModels.Instance.CommentValue.Open();
+        static void OnComment() => ViewModels.Instance.CommentValue.Open();
 
         [RelayCommand]
         void OnLowerTwilightCommentFavor()

@@ -3179,7 +3179,7 @@
     "ko-KR": "다시 시도",
     "en-US": "Retry"
   },
-  "UndoEqualizerContents": {
+  "InitEqualizerContents": {
     "ko-KR": "이퀄라이저 복원",
     "en-US": "Reset equalizer"
   },

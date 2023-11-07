@@ -55,7 +55,7 @@
                         </Grid>
                     </StackPanel>
                 </ContentControl>
-                <Button Grid.Row="2" Style="{StaticResource StandardInput}" Content="{Binding UndoEqualizerContents, Source={StaticResource LanguageSystem}}" Command="{Binding UndoEqualizerCommand}" />
+                <Button Grid.Row="2" Style="{StaticResource StandardInput}" Content="{Binding InitEqualizerContents, Source={StaticResource LanguageSystem}}" Command="{Binding InitEqualizerCommand}" />
             </Grid>
         </Border>
     </Grid>

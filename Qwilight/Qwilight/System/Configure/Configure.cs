@@ -2225,7 +2225,7 @@ namespace Qwilight
                 AudioWait = 0.0;
                 SaltAuto = false;
                 Equalizer = false;
-                UndoEqualizers(1);
+                InitEqualizers(1);
                 Vibration0 = 1.0;
                 Vibration1 = 1.0;
                 Vibration2 = 1.0;
@@ -2377,7 +2377,7 @@ namespace Qwilight
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 13, 32))
             {
-                UndoEqualizers(2);
+                InitEqualizers(2);
                 SFX = false;
                 Flange = false;
             }
@@ -3279,7 +3279,7 @@ namespace Qwilight
             }
         }
 
-        public void UndoEqualizers(int level)
+        public void InitEqualizers(int level)
         {
             if ((level & 1) == 1)
             {
