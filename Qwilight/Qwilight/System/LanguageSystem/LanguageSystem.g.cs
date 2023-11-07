@@ -498,10 +498,8 @@ namespace Qwilight
         public string NetUIContents { get; set; }
         public string NewDefaultEntry { get; set; }
         public string NewEventNote { get; set; }
-        public string NewFavorHitPoints { get; set; }
         public string NewFavoriteEntry { get; set; }
         public string NewFavoriteEntryContents { get; set; }
-        public string NewFavorJudgment { get; set; }
         public string NewFrontEntry { get; set; }
         public string NewNetSiteContents { get; set; }
         public string NewNetSiteText { get; set; }
