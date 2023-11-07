@@ -2161,8 +2161,8 @@ namespace Qwilight.ViewModel
                         var levelID256NoteFiles = new Dictionary<string, LevelNoteFile>(LevelSystem.Instance.LevelID256NoteFiles);
                         var logicalNoteFiles = new HashSet<BaseNoteFile>();
                         var titles = new List<string>();
-                        var bpmValues = new List<double>();
-                        var lengthValues = new List<double>();
+                        var bpms = new List<double>();
+                        var lengths = new List<double>();
                         var artists = new List<string>();
                         foreach (var entryItem in entryItems)
                         {
@@ -2207,17 +2207,17 @@ namespace Qwilight.ViewModel
                                 DateTime? latestDate = null;
                                 var handledCount = 0;
                                 titles.Clear();
-                                bpmValues.Clear();
-                                lengthValues.Clear();
+                                bpms.Clear();
+                                lengths.Clear();
                                 artists.Clear();
                                 foreach (var wellNoteFile in wellNoteFiles)
                                 {
                                     levelID128NoteFiles.Remove(wellNoteFile.GetNoteID128());
                                     levelID256NoteFiles.Remove(wellNoteFile.GetNoteID256());
                                     titles.Add(Utility.GetTitle(wellNoteFile.Title));
-                                    bpmValues.Add(wellNoteFile.BPM);
+                                    bpms.Add(wellNoteFile.BPM);
                                     artists.Add(wellNoteFile.Artist);
-                                    lengthValues.Add(wellNoteFile.Length);
+                                    lengths.Add(wellNoteFile.Length);
                                     totalNotes = Math.Max(totalNotes, wellNoteFile.TotalNotes);
                                     highestInputCount = Math.Max(highestInputCount, wellNoteFile.HighestInputCount);
                                     averageInputCount = Math.Max(averageInputCount, wellNoteFile.AverageInputCount);
@@ -2241,8 +2241,8 @@ namespace Qwilight.ViewModel
                                     }
                                 }
                                 entryItem.Artist = Utility.GetFavoriteItem(artists);
-                                entryItem.BPM = Utility.GetFavoriteItem(bpmValues);
-                                entryItem.Length = Utility.GetFavoriteItem(lengthValues);
+                                entryItem.BPM = Utility.GetFavoriteItem(bpms);
+                                entryItem.Length = Utility.GetFavoriteItem(lengths);
                                 entryItem.TotalNotes = totalNotes;
                                 entryItem.LevelTextValue = highestLevelTextValue;
                                 entryItem.HighestInputCount = highestInputCount;
