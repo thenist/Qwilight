@@ -8,13 +8,11 @@ namespace Qwilight.ViewModel
     {
         public override double TargetLength => 0.9;
 
-        public override double TargetHeight => 0.8;
+        [RelayCommand]
+        void OnWantHellBPM() => Configure.Instance.WantHellBPM = !Configure.Instance.WantHellBPM;
 
         [RelayCommand]
-        void OnHellBPM() => Configure.Instance.WantHellBPM = !Configure.Instance.WantHellBPM;
-
-        [RelayCommand]
-        void OnCompatible() => Configure.Instance.WantBannedValue = (Configure.WantBanned)(((int)Configure.Instance.WantBannedValue + 1) % 2);
+        void OnWantBanned() => Configure.Instance.WantBannedValue = (Configure.WantBanned)(((int)Configure.Instance.WantBannedValue + 1) % 2);
 
         [RelayCommand]
         void OnWantNoteVariety(int e)

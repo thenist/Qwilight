@@ -15,7 +15,6 @@
                 </StackPanel>
                 <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnInputLower" IsEnabled="{Binding IsInputEditable}" />
                 <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" KeyDown="OnInputLower" />
-                <Button Style="{StaticResource StandardInput}" Content="OK" HorizontalAlignment="Center" Command="{Binding HandleCommand}" />
             </StackPanel>
         </Border>
     </Grid>

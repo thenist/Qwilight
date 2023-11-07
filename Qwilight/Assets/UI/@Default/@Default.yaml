@@ -26,35 +26,35 @@ func:
     configure-comment-2-1042: 애니메이션을 선택합니다. (리절트)
 
 paint:
-    siteDate: LightGray
+    siteDate: DarkGray
     siteEnter: DeepSkyBlue
-    siteQuit: HotPink
-    siteHref: LightBlue
+    siteQuit: DeepPink
+    siteHref: LightGray
     siteTitle: White
-    siteArtist: DeepSkyBlue
-    siteGenre: LightGreen
+    siteArtist: LightGreen
+    siteGenre: LightCoral
     siteStand: White
 
-    eventNoteName: MediumSeaGreen
+    eventNoteName: DarkGray
     title: White
-    artist: DeepSkyBlue
-    genre: LightGreen
+    artist: LightGreen
+    genre: LightCoral
     wantLevelID: DodgerBlue
-    fittedText: MediumSpringGreen
+    fittedText: DodgerBlue
 
     file: LightGray
-    judgmentStage: MediumPurple
-    totalNotes: LightBlue
-    highestInputCount: LightGreen
-    length: LightYellow
-    bpm: LightPink
-
-    commentDate: LightGray
+    judgmentStage: LightGray
+    totalNotes: LightGray
+    highestInputCount: LightGray
+    length: LightGray
+    bpm: LightGray
+    
+    commentDate: DarkGray
     commentPoint: White
     commentName: White
     commentStand: White
     
-    level0: Gray
+    level0: DarkGray
     level1: MediumSpringGreen
     level2: MediumTurquoise
     level3: Yellow
@@ -62,14 +62,14 @@ paint:
     level5: MediumPurple
 
     titleQuit: White
-    artistQuit: DeepSkyBlue
+    artistQuit: LightBlue
     genreQuit: LightGreen
     wantLevelIDQuit: DodgerBlue
 
-    judgmentStageQuit: MediumPurple
-    highestInputCountQuit: LightGreen
-    lengthQuit: LightYellow
-    bpmQuit: LightPink
+    judgmentStageQuit: LightGray
+    highestInputCountQuit: LightGray
+    lengthQuit: LightGray
+    bpmQuit: LightGray
     standQuit: DeepSkyBlue
     pointQuit: LightGreen
     bandQuit: Orange
@@ -90,19 +90,19 @@ paint:
     bandStatusView: Orange
     hitPointsStatusView: Red
 
-    totalNotesJudgmentQuit: White
+    totalNotesJudgmentQuit: LightGray
     highestJudgmentQuit: Cyan
     higherJudgmentQuit: DeepSkyBlue
     highJudgmentQuit: LightGreen
     lowJudgmentQuit: Yellow
-    lowerJudgmentQuit: Violet
+    lowerJudgmentQuit: MediumPurple
     lowestJudgmentQuit: Red
 
     highestJudgmentV2: Cyan
     higherJudgmentV2: DeepSkyBlue
     highJudgmentV2: LightGreen
     lowJudgmentV2: Yellow
-    lowerJudgmentV2: Violet
+    lowerJudgmentV2: MediumPurple
     lowestJudgmentV2: Red
 
     statusHandling: "#7F008000"
@@ -110,10 +110,10 @@ paint:
     statusLoadingNoteFile: "#7FFF0000"
     statusLoadingDefaultEntry: "#7F0000FF"
 
-    quit0: Gold
-    quit1: Gold
-    quit2: ForestGreen
-    quit3: ForestGreen
+    quit0: Yellow
+    quit1: Yellow
+    quit2: Green
+    quit3: Green
     quit4: Blue
     quit5: Magenta
     quit6: Red
@@ -204,9 +204,6 @@ point:
     # 리절트의 점수, 정확도, 콤보 백그라운드 이미지
     paintProperty13: StandQuitPosition0(-5), PaintProperty13Position1(), 394, 174, 1, 0, 0, 0, null, 1
     
-    # 리절트의 판정 난이도, NPS, 시간, BPM, 라인 개수 백그라운드 이미지
-    paintProperty14: 0, JudgmentStageQuitPosition1(-5), DefaultLength(), 34, 1, 0, 0, 0, null, 1
-
     # 리절트의 게임 모드 백그라운드 이미지
     paintProperty15: 0, AutoModeQuitPosition1(-5), 442, 34, 1, 0, 0, 0, null, 1
     
@@ -268,16 +265,17 @@ point:
     
     commentPlace: StandQuitPosition0(0), PaintProperty9Position1(0), 158, 48, 30.0
 
-    judgmentStageQuit: 5, JudgmentStageQuitPosition1(0), 72, 24
-    judgmentStageContentsQuit: 87, JudgmentStageQuitPosition1(0), 192, 24, 12.0, 1, 2
-    highestInputCountQuit: 289, JudgmentStageQuitPosition1(0), 48, 24
-    highestInputCountContentsQuit: 347, JudgmentStageQuitPosition1(0), 144, 24, 12.0, 1, 2
-    lengthQuit: 501, JudgmentStageQuitPosition1(0), 72, 24
-    lengthContentsQuit: 583, JudgmentStageQuitPosition1(0), 96, 24, 12.0, 1, 2
-    bpmQuit: 760, JudgmentStageQuitPosition1(0), 48, 24
-    bpmContentsQuit: 818, JudgmentStageQuitPosition1(0), 288, 24, 12.0, 1, 2
-    inputModeQuit: 1116, JudgmentStageQuitPosition1(0), 72, 24
-    inputModeContentsQuit: 1198, JudgmentStageQuitPosition1(0), 72, 24, 12.0, 1, 2
+    judgmentStageQuit: JudgmentStageQuitPosition0(0), JudgmentStageQuitPosition1(1), 48, 12
+    judgmentStageContentsQuit: JudgmentStageQuitPosition0(53), JudgmentStageQuitPosition1(1), JudgmentStageQuitLength(), 12, 9.0, 1, 2
+    highestInputCountQuit: JudgmentStageQuitPosition0(0), JudgmentStageQuitPosition1(0), 48, 12
+    highestInputCountContentsQuit: JudgmentStageQuitPosition0(53), JudgmentStageQuitPosition1(0), JudgmentStageQuitLength(), 12, 9.0, 1, 2
+    
+    lengthQuit: LengthQuitPosition0(0), LengthQuitPosition1(0), 48, 12
+    lengthContentsQuit: LengthQuitPosition0(53), LengthQuitPosition1(0), JudgmentStageQuitLength(), 12, 9.0, 1, 2
+    bpmQuit: LengthQuitPosition0(0), LengthQuitPosition1(1), 48, 12
+    bpmContentsQuit: LengthQuitPosition0(53), LengthQuitPosition1(1), JudgmentStageQuitLength(), 12, 9.0, 1, 2
+    inputModeQuit: LengthQuitPosition0(0), LengthQuitPosition1(2), 48, 12
+    inputModeContentsQuit: LengthQuitPosition0(53), LengthQuitPosition1(2), 48, 12, 9.0, 1, 2
 
     autoModeQuit: 5, AutoModeQuitPosition1(0), 24, 24
     noteSaltModeQuit: 39, AutoModeQuitPosition1(0), 24, 24

@@ -18,14 +18,7 @@
                     <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding NewEventNote, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding EventNoteName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding EventNoteNameAssist, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
-                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" VerticalAlignment="Stretch" Command="{Binding SetEventNoteCommand}" Content="{Binding NewEventNote, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding EventNoteName, Converter={StaticResource BoolModifier}}" />
-                </Grid>
+                <TextBox Grid.Row="1" Style="{StaticResource StandardTextInput}" Text="{Binding EventNoteName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding EventNoteNameAssist, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
                 <ListView Grid.Row="2" Style="{StaticResource PointableNoteFilesView}" x:Name="NoteFileInput" ItemsSource="{Binding NoteFileCollection}" SelectedItem="{Binding NoteFile}" PreviewKeyDown="OnNoteFileView">
                     <ListView.ItemTemplate>
                         <DataTemplate>

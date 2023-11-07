@@ -167,7 +167,7 @@
                             <TextBox Grid.Row="1" AcceptsReturn="True" Style="{StaticResource StandardTextInput}" VerticalScrollBarVisibility="Auto" Text="{Binding AvatarIntro, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsMe, Converter={StaticResource NotModifier}}" materialDesign:HintAssist.Hint="{Binding AvatarViewIntro, Source={StaticResource LanguageSystem}}" />
                         </Grid>
                         <Border Grid.Column="1" Style="{StaticResource StandardPanel}">
-                            <TabControl>
+                            <TabControl Style="{StaticResource StandardPageView}">
                                 <TabControl.Resources>
                                     <DataTemplate x:Key="AvatarView">
                                         <StackPanel VerticalAlignment="Center" Margin="{StaticResource StandardMargin}">

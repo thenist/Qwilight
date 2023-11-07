@@ -21,11 +21,11 @@ namespace Qwilight.Utilities
             public override void Write(Utf8JsonWriter writer, XORFloat64 value, JsonSerializerOptions options) => writer.WriteNumberValue(value);
         }
 
-        static readonly JsonSerializerOptions _defaultGetJSONConfigure = new JsonSerializerOptions
+        static readonly JsonSerializerOptions _defaultGetJSONConfigure = new()
         {
             IncludeFields = true
         };
-        static readonly JsonSerializerOptions _defaultSetJSONConfigure = new JsonSerializerOptions
+        static readonly JsonSerializerOptions _defaultSetJSONConfigure = new()
         {
             Converters =
             {
@@ -36,24 +36,12 @@ namespace Qwilight.Utilities
             WriteIndented = QwilightComponent.IsVS
         };
 
-        public static T GetJSON<T>(string text, JsonSerializerOptions defaultJSONConfigure = null)
-        {
-            return JsonSerializer.Deserialize<T>(text, defaultJSONConfigure ?? _defaultGetJSONConfigure);
-        }
+        public static T GetJSON<T>(string text, JsonSerializerOptions defaultJSONConfigure = null) => JsonSerializer.Deserialize<T>(text, defaultJSONConfigure ?? _defaultGetJSONConfigure);
 
-        public static T GetJSON<T>(byte[] data)
-        {
-            return JsonSerializer.Deserialize<T>(data, _defaultGetJSONConfigure);
-        }
+        public static T GetJSON<T>(byte[] data) => JsonSerializer.Deserialize<T>(data, _defaultGetJSONConfigure);
 
-        public static T GetJSON<T>(Stream s)
-        {
-            return JsonSerializer.Deserialize<T>(s, _defaultGetJSONConfigure);
-        }
+        public static T GetJSON<T>(Stream s) => JsonSerializer.Deserialize<T>(s, _defaultGetJSONConfigure);
 
-        public static string SetJSON<T>(T data, JsonSerializerOptions defaultJSONConfigure = null)
-        {
-            return JsonSerializer.Serialize(data, defaultJSONConfigure ?? _defaultSetJSONConfigure);
-        }
+        public static string SetJSON<T>(T data, JsonSerializerOptions defaultJSONConfigure = null) => JsonSerializer.Serialize(data, defaultJSONConfigure ?? _defaultSetJSONConfigure);
     }
 }

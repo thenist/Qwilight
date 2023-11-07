@@ -14,7 +14,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetLength => 0.3;
 
-        public override double TargetHeight => 0.6;
+        public override double TargetHeight => 0.55;
 
         public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
 
@@ -61,32 +61,26 @@ namespace Qwilight.ViewModel
         {
             if (e.Key == Key.Enter)
             {
-                OnSetFavorHitPoints();
-            }
-        }
-
-        [RelayCommand]
-        void OnSetFavorHitPoints()
-        {
-            var value = new double[6][];
-            var favorHitPoints = ViewModels.Instance.MainValue.ModeComponentValue.FavorHitPoints;
-            for (var i = favorHitPoints.Length - 1; i >= 0; --i)
-            {
-                value[i] = new double[favorHitPoints[i].Length];
-                for (var j = favorHitPoints[i].Length - 1; j >= 0; --j)
+                var value = new double[6][];
+                var favorHitPoints = ViewModels.Instance.MainValue.ModeComponentValue.FavorHitPoints;
+                for (var i = favorHitPoints.Length - 1; i >= 0; --i)
                 {
-                    value[i][j] = favorHitPoints[i][j];
+                    value[i] = new double[favorHitPoints[i].Length];
+                    for (var j = favorHitPoints[i].Length - 1; j >= 0; --j)
+                    {
+                        value[i][j] = favorHitPoints[i][j];
+                    }
                 }
+                var favorHitPointsValue = new FavorHitPoints
+                {
+                    Name = FavorHitPointsName,
+                    Value = value
+                };
+                Configure.Instance.FavorHitPoints.Add(favorHitPointsValue);
+                SetFavorHitPointsCollection();
+                FavorHitPointsValue = favorHitPointsValue;
+                FavorHitPointsName = string.Empty;
             }
-            var favorHitPointsValue = new FavorHitPoints
-            {
-                Name = FavorHitPointsName,
-                Value = value
-            };
-            Configure.Instance.FavorHitPoints.Add(favorHitPointsValue);
-            SetFavorHitPointsCollection();
-            FavorHitPointsValue = favorHitPointsValue;
-            FavorHitPointsName = string.Empty;
         }
 
         [RelayCommand]

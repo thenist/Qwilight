@@ -4,6 +4,7 @@ using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace Qwilight.ViewModel
@@ -15,6 +16,8 @@ namespace Qwilight.ViewModel
         public override double TargetLength => 0.4;
 
         public override double TargetHeight => 0.8;
+
+        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Top;
 
         public void OnInput() => OnPropertyChanged(nameof(IsTotalWantLevel));
 

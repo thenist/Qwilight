@@ -20,14 +20,7 @@
                     <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ModifyModeComponentText, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding FavorHitPointsName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding FavorHitPointsNameAssist, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
-                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding SetFavorHitPointsCommand}" Content="{Binding NewFavorHitPoints, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding FavorHitPointsName, Converter={StaticResource BoolModifier}}" VerticalAlignment="Stretch" />
-                </Grid>
+                <TextBox Grid.Row="1" Style="{StaticResource StandardTextInput}" Text="{Binding FavorHitPointsName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding FavorHitPointsNameAssist, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />

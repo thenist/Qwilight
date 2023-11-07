@@ -19,15 +19,8 @@
                         <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentDrawings[3][5].DefaultDrawing, Source={StaticResource BaseUI}}" />
                         <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ModifyModeComponentText, Source={StaticResource LanguageSystem}}" />
                         <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
-                    </StackPanel>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding FavorJudgmentName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding FavorJudgmentNameAssist, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
-                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding SetFavorJudgmentCommand}" Content="{Binding NewFavorJudgment, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding FavorJudgmentName, Converter={StaticResource BoolModifier}}" VerticalAlignment="Stretch" />
-                </Grid>
+                </StackPanel>
+                <TextBox Grid.Row="1" Style="{StaticResource StandardTextInput}" Text="{Binding FavorJudgmentName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding FavorJudgmentNameAssist, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />

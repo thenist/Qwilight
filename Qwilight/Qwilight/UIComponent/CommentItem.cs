@@ -11,7 +11,7 @@ namespace Qwilight.UIComponent
 
         public DefaultCompute.QuitStatus Quit => Utility.GetQuitStatusValue(Point, Stand, 1.0, NoteFileCount);
 
-        public Brush PointedPaint => BaseUI.Instance.CommentViewerPaints[(int)Quit];
+        public Brush PointedPaint => BaseUI.Instance.CommentViewPaints[(int)Quit];
 
         public int NoteFileCount { get; init; }
 

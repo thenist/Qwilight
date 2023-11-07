@@ -14,7 +14,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetLength => 0.3;
 
-        public override double TargetHeight => 0.55;
+        public override double TargetHeight => 0.5;
 
         public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
 
@@ -61,32 +61,26 @@ namespace Qwilight.ViewModel
         {
             if (e.Key == Key.Enter)
             {
-                OnSetFavorJudgment();
-            }
-        }
-
-        [RelayCommand]
-        void OnSetFavorJudgment()
-        {
-            var value = new double[6][];
-            var favorJudgments = ViewModels.Instance.MainValue.ModeComponentValue.FavorJudgments;
-            for (var i = favorJudgments.Length - 1; i >= 0; --i)
-            {
-                value[i] = new double[favorJudgments[i].Length];
-                for (var j = favorJudgments[i].Length - 1; j >= 0; --j)
+                var value = new double[6][];
+                var favorJudgments = ViewModels.Instance.MainValue.ModeComponentValue.FavorJudgments;
+                for (var i = favorJudgments.Length - 1; i >= 0; --i)
                 {
-                    value[i][j] = favorJudgments[i][j];
+                    value[i] = new double[favorJudgments[i].Length];
+                    for (var j = favorJudgments[i].Length - 1; j >= 0; --j)
+                    {
+                        value[i][j] = favorJudgments[i][j];
+                    }
                 }
+                var favorJudgmentValue = new FavorJudgment
+                {
+                    Name = FavorJudgmentName,
+                    Value = value
+                };
+                Configure.Instance.FavorJudgments.Add(favorJudgmentValue);
+                SetFavorHitPointsCollection();
+                FavorJudgmentValue = favorJudgmentValue;
+                FavorJudgmentName = string.Empty;
             }
-            var favorJudgmentValue = new FavorJudgment
-            {
-                Name = FavorJudgmentName,
-                Value = value
-            };
-            Configure.Instance.FavorJudgments.Add(favorJudgmentValue);
-            SetFavorHitPointsCollection();
-            FavorJudgmentValue = favorJudgmentValue;
-            FavorJudgmentName = string.Empty;
         }
 
         [RelayCommand]

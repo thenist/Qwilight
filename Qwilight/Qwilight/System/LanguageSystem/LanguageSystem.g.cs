@@ -328,6 +328,7 @@ namespace Qwilight
         public string InitCompiledNotify { get; set; }
         public string InitCompiledOK { get; set; }
         public string InitCompiledText { get; set; }
+        public string InitEqualizerContents { get; set; }
         public string InitFavoriteEntryContents { get; set; }
         public string InitFavoriteEntryNotify { get; set; }
         public string InitFavoriteEntryOK { get; set; }
@@ -797,7 +798,6 @@ namespace Qwilight
         public string UndoColorOK { get; set; }
         public string UndoColorText { get; set; }
         public string UndoContents { get; set; }
-        public string InitEqualizerContents { get; set; }
         public string ValidNetMode0Text { get; set; }
         public string ValidNetMode1Text { get; set; }
         public string ValidNetMode2Text { get; set; }

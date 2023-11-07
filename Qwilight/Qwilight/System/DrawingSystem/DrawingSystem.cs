@@ -2551,15 +2551,15 @@ namespace Qwilight
                                                 targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.LowestJudgmentConditionModeVariety][(int)modeComponentValue.LowestJudgmentConditionModeValue]?.Drawing, modeComponentValue.LowestJudgmentConditionModeValue == ModeComponent.LowestJudgmentConditionMode.Default ? 0.125F : 1F);
 
                                                 r.Set(BaseUI.Instance.JudgmentStageQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.JudgmentStageDrawing?.Drawing);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.JudgmentStageQuitDrawing);
                                                 r.Set(BaseUI.Instance.HighestInputCountQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.HighestInputCountDrawing?.Drawing);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.HighestInputCountQuitDrawing);
                                                 r.Set(BaseUI.Instance.LengthQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.LengthDrawing?.Drawing);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.LengthQuitDrawing);
                                                 r.Set(BaseUI.Instance.BPMQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.BPMDrawing?.Drawing);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.BPMQuitDrawing);
                                                 r.Set(BaseUI.Instance.InputModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.InputModeDrawing?.Drawing);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.InputModeQuitDrawing);
 
                                                 r.Set(BaseUI.Instance.JudgmentStageContentsQuitPoint);
                                                 targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(defaultComputer.JudgmentStageContents, BaseUI.Instance.JudgmentStageQuitFont, (float)r.Length, (float)r.Height), ref r, BaseUI.Instance.JudgmentStageQuitColor);

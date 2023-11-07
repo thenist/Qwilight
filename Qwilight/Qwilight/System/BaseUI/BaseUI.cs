@@ -138,11 +138,29 @@ namespace Qwilight
 
         public ImageSource TotalNotesNetSiteDrawing { get; set; }
 
-        public HandledDrawingItem? JudgmentStageDrawing { get; set; }
+        public ImageSource JudgmentStageDrawing { get; set; }
+
+        public ImageSource HighestInputCountDrawing { get; set; }
+
+        public ImageSource LengthDrawing { get; set; }
+
+        public ImageSource BPMDrawing { get; set; }
+
+        public ImageSource BPM1Drawing { get; set; }
+
+        public ImageSource InputModeDrawing { get; set; }
+
+        public DrawingItem? JudgmentStageQuitDrawing { get; set; }
+
+        public DrawingItem? HighestInputCountQuitDrawing { get; set; }
+
+        public DrawingItem? LengthQuitDrawing { get; set; }
+
+        public DrawingItem? BPMQuitDrawing { get; set; }
+
+        public DrawingItem? InputModeQuitDrawing { get; set; }
 
         public ImageSource JudgmentStageNetSiteDrawing { get; set; }
-
-        public HandledDrawingItem? HighestInputCountDrawing { get; set; }
 
         public ImageSource HighestInputCountFitDrawing { get; set; }
 
@@ -152,23 +170,15 @@ namespace Qwilight
 
         public ImageSource EntryPathFitDrawing { get; set; }
 
-        public HandledDrawingItem? LengthDrawing { get; set; }
-
         public ImageSource LengthFitDrawing { get; set; }
 
         public ImageSource LengthNetSiteDrawing { get; set; }
-
-        public HandledDrawingItem? BPMDrawing { get; set; }
-
-        public ImageSource BPM1Drawing { get; set; }
 
         public ImageSource BPMFitDrawing { get; set; }
 
         public ImageSource BPMNetSiteDrawing { get; set; }
 
         public ImageSource BPM1NetSiteDrawing { get; set; }
-
-        public HandledDrawingItem? InputModeDrawing { get; set; }
 
         public ImageSource FileViewerDrawing { get; set; }
 
@@ -284,7 +294,7 @@ namespace Qwilight
 
         public System.Windows.Media.Color[] QuitColors { get; } = new System.Windows.Media.Color[7];
 
-        public Brush[] CommentViewerPaints { get; } = new Brush[7];
+        public Brush[] CommentViewPaints { get; } = new Brush[7];
 
         public Thickness NoteFileMargin { get; set; }
 
@@ -875,7 +885,7 @@ namespace Qwilight
 
                     for (var i = (int)DefaultCompute.QuitStatus.D; i >= (int)DefaultCompute.QuitStatus.SPlus; --i)
                     {
-                        CommentViewerPaints[i] = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(QuitColors[i]));
+                        CommentViewPaints[i] = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(QuitColors[i]));
                     }
 
                     NoteFileMargin = new(GetCalledValue(pointNode, "noteFileMargin", "31.5"), 1.0, 0.0, 1.0);
@@ -1456,14 +1466,14 @@ namespace Qwilight
                                         case "Want":
                                         case "Salt":
                                         case "Default Entry Configure":
-                                            NewDefaultDrawing(rms);
-                                            break;
-                                        case "Default":
                                         case "Judgment Stage":
                                         case "Highest Input Count":
                                         case "Length":
                                         case "BPM":
                                         case "Input Mode":
+                                            NewDefaultDrawing(rms);
+                                            break;
+                                        case "Default":
                                             NewHandledDrawing(rms);
                                             break;
                                     }
@@ -1601,6 +1611,21 @@ namespace Qwilight
                                     break;
                                 case "Move 1":
                                     QuitMove1Drawing = drawingItem;
+                                    break;
+                                case "Judgment Stage":
+                                    JudgmentStageQuitDrawing = drawingItem;
+                                    break;
+                                case "Highest Input Count":
+                                    HighestInputCountQuitDrawing = drawingItem;
+                                    break;
+                                case "Length":
+                                    LengthQuitDrawing = drawingItem;
+                                    break;
+                                case "BPM":
+                                    BPMQuitDrawing = drawingItem;
+                                    break;
+                                case "Input Mode":
+                                    InputModeQuitDrawing = drawingItem;
                                     break;
                             }
                             break;
@@ -1770,9 +1795,6 @@ namespace Qwilight
                                 case "Total Notes":
                                     TotalNotesDrawing = defaultDrawing;
                                     break;
-                                case "BPM!":
-                                    BPM1Drawing = defaultDrawing;
-                                    break;
                                 case "File Viewer":
                                     FileViewerDrawing = defaultDrawing;
                                     break;
@@ -1793,6 +1815,24 @@ namespace Qwilight
                                     break;
                                 case "Default Entry Configure":
                                     DefaultEntryConfigureDrawing = defaultDrawing;
+                                    break;
+                                case "Judgment Stage":
+                                    JudgmentStageDrawing = defaultDrawing;
+                                    break;
+                                case "Highest Input Count":
+                                    HighestInputCountDrawing = defaultDrawing;
+                                    break;
+                                case "Length":
+                                    LengthDrawing = defaultDrawing;
+                                    break;
+                                case "BPM":
+                                    BPMDrawing = defaultDrawing;
+                                    break;
+                                case "BPM!":
+                                    BPM1Drawing = defaultDrawing;
+                                    break;
+                                case "Input Mode":
+                                    InputModeDrawing = defaultDrawing;
                                     break;
                             }
                             break;
@@ -1899,21 +1939,6 @@ namespace Qwilight
                             {
                                 case "Default":
                                     DefaultDrawing = handledDrawingItem;
-                                    break;
-                                case "Judgment Stage":
-                                    JudgmentStageDrawing = handledDrawingItem;
-                                    break;
-                                case "Highest Input Count":
-                                    HighestInputCountDrawing = handledDrawingItem;
-                                    break;
-                                case "Length":
-                                    LengthDrawing = handledDrawingItem;
-                                    break;
-                                case "BPM":
-                                    BPMDrawing = handledDrawingItem;
-                                    break;
-                                case "Input Mode":
-                                    InputModeDrawing = handledDrawingItem;
                                     break;
                             }
                             break;

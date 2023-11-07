@@ -103,7 +103,7 @@
                     <RowDefinition />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TabControl>
+                <TabControl Style="{StaticResource StandardPageView}">
                     <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding NetText, Source={StaticResource LanguageSystem}}">
                         <StackPanel Grid.Column="2">
                             <StackPanel Orientation="Horizontal" Visibility="{Binding IsFavorModeComponent, Converter={StaticResource VisibilityNotModifier}}">

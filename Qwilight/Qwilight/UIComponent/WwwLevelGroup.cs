@@ -40,17 +40,17 @@ namespace Qwilight.UIComponent
         public bool HasEventNote => ViewModels.Instance.MainValue.EventNoteEntryItems.ContainsKey(GetEventNoteID());
 
         [RelayCommand]
-        void OnGetWwwLevel()
+        async Task OnGetWwwLevel()
         {
             try
             {
-                DB.Instance.SetEventNoteData(WwwLevelComputingCollection);
+                await DB.Instance.SetEventNoteData(WwwLevelComputingCollection);
                 if (WwwLevelItemValue != null)
                 {
                     var eventNoteName = WwwLevelItemValue.Title;
                     var date = DateTime.Now;
                     var eventNoteVariety = DB.EventNoteVariety.Qwilight;
-                    DB.Instance.SetEventNote(GetEventNoteID(), eventNoteName, date, eventNoteVariety);
+                    await DB.Instance.SetEventNote(GetEventNoteID(), eventNoteName, date, eventNoteVariety);
                     var mainViewModel = ViewModels.Instance.MainValue;
                     mainViewModel.LoadEventNoteEntryItems();
                     mainViewModel.Want();

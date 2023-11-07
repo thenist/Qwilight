@@ -11,11 +11,23 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Border x:Name="View" Style="{StaticResource StandardPanel}" Background="{Binding Paint}" MouseDown="OnPointLower" HorizontalAlignment="Left">
+                <Border Style="{StaticResource StandardPanel}" Background="{Binding Paint}" MouseDown="OnPointLower" HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
                         <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding Variety, Converter={StaticResource NotifyDrawingModifier}}" />
                         <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Contents}" />
                     </StackPanel>
+
+                    <Border.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <BeginStoryboard.Storyboard>
+                                    <Storyboard AutoReverse="False">
+                                        <DoubleAnimation Duration="0:0:0.5" From="0.0" To="1.0" Storyboard.TargetProperty="Opacity" />
+                                    </Storyboard>
+                                </BeginStoryboard.Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Border.Triggers>
                 </Border>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

@@ -33,7 +33,7 @@
                     <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding MultiplierContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
                     <Slider Grid.Column="2" Style="{StaticResource StandardSlider}" Value="{Binding MainValue.ModeComponentValue.MultiplierValue, Source={StaticResource ViewModels}}" Maximum="4096" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyMultiplier, Source={StaticResource ViewModels}}" />
                     <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.Multiplier, Source={StaticResource ViewModels}, Converter={StaticResource FormatModifier}, ConverterParameter='×0.0'}" />
-                    <view:BinInput Grid.Column="4" Value="{Binding MainValue.ModeComponentValue.MultiplierValue, Source={StaticResource ViewModels}}" Lowest="0" Format="0 BPM" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyMultiplier, Source={StaticResource ViewModels}}" />
+                    <view:BinInput Grid.Column="4" Value="{Binding MainValue.ModeComponentValue.MultiplierValue, Source={StaticResource ViewModels}}" Lowest="0" Format="0.### BPM" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyMultiplier, Source={StaticResource ViewModels}}" />
                     <TextBlock Grid.Column="5" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.IIDXMultiplierMillisText, Source={StaticResource ViewModels}}" Foreground="Green" />
                 </Grid>
                 <Grid Grid.Row="1">

@@ -933,7 +933,7 @@ namespace Qwilight
                                         var saveDataFlow = savedBundleItem.SaveDataFlow;
                                         eventItemData[0].WriteTo(saveDataFlow);
                                         saveDataFlow.Position = 0;
-                                        Utility.HandleLongParallel(() =>
+                                        Utility.HandleLongParallel(async () =>
                                         {
                                             var bundleVariety = (BundleItem.BundleVariety)twilightSavedBundle.bundleVariety;
                                             var isNotDefaultBundle = bundleVariety != BundleItem.BundleVariety.DefaultNotes && bundleVariety != BundleItem.BundleVariety.DefaultUI;
@@ -1020,7 +1020,7 @@ namespace Qwilight
                                                                 _ => default
                                                             };
                                                             var date = DateTime.Now;
-                                                            DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
+                                                            await DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
                                                             savedBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                                             savedBundleItem.Text = LanguageSystem.Instance.SavedBundleContents;
                                                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savedBundleItem.Text);

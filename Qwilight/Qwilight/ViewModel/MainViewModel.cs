@@ -614,7 +614,7 @@ namespace Qwilight.ViewModel
             var filePaths = e.Data.GetData(DataFormats.FileDrop) as string[];
             if (filePaths != null)
             {
-                Task.Run(() =>
+                Task.Run(async () =>
                 {
                     var wasEventNote = false;
                     var lastYamlFileName = string.Empty;
@@ -691,7 +691,7 @@ namespace Qwilight.ViewModel
                                         eventNoteID += ":0";
                                         var eventNoteName = eventNote.Title;
                                         var eventNoteVariety = DB.EventNoteVariety.MD5;
-                                        DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
+                                        await DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
                                         wasEventNote = true;
                                     }
                                     catch (SQLiteException)

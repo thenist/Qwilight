@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using Qwilight.NoteFile;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
@@ -81,32 +80,26 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void OnInputLower(KeyEventArgs e)
+        public async void OnInputLower(KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                OnSetEventNote();
-            }
-        }
-
-        [RelayCommand]
-        void OnSetEventNote()
-        {
-            try
-            {
-                var eventNoteID = string.Join('/', NoteFileCollection.Select(noteFile => noteFile.GetNoteID512()));
-                var date = DateTime.Now;
-                DB.Instance.SetEventNote(eventNoteID, EventNoteName, date, DB.EventNoteVariety.Qwilight);
-                var mainViewModel = ViewModels.Instance.MainValue;
-                mainViewModel.LoadEventNoteEntryItems();
-                mainViewModel.Want();
-                Close();
-                NoteFileCollection.Clear();
-                EventNoteName = null;
-            }
-            catch (SQLiteException)
-            {
-                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.BeforeEventNoteContents);
+                try
+                {
+                    var eventNoteID = string.Join('/', NoteFileCollection.Select(noteFile => noteFile.GetNoteID512()));
+                    var date = DateTime.Now;
+                    await DB.Instance.SetEventNote(eventNoteID, EventNoteName, date, DB.EventNoteVariety.Qwilight);
+                    Close();
+                    NoteFileCollection.Clear();
+                    EventNoteName = null;
+                    var mainViewModel = ViewModels.Instance.MainValue;
+                    mainViewModel.LoadEventNoteEntryItems();
+                    mainViewModel.Want();
+                }
+                catch (SQLiteException)
+                {
+                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.BeforeEventNoteContents);
+                }
             }
         }
     }

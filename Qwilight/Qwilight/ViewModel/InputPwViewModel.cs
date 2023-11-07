@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using System.Windows.Input;
 
 namespace Qwilight.ViewModel
@@ -12,7 +11,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetLength => 0.5;
 
-        public override double TargetHeight => 0.25;
+        public override double TargetHeight => 0.2;
 
         public string Text
         {
@@ -41,22 +40,16 @@ namespace Qwilight.ViewModel
         {
             if (e.Key == Key.Enter)
             {
-                OnHandle();
-            }
-        }
-
-        [RelayCommand]
-        void OnHandle()
-        {
-            Close();
-            WeakReferenceMessenger.Default.Send<ICC>(new()
-            {
-                IDValue = ICC.ID.GetPwWindowCipher,
-                Contents = new Action<string>(inputCipher =>
+                Close();
+                WeakReferenceMessenger.Default.Send<ICC>(new()
                 {
-                    Handler(Input, inputCipher);
-                })
-            });
+                    IDValue = ICC.ID.GetPwWindowCipher,
+                    Contents = new Action<string>(inputCipher =>
+                    {
+                        Handler(Input, inputCipher);
+                    })
+                });
+            }
         }
 
         public override void OnOpened()

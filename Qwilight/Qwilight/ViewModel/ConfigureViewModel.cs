@@ -1133,8 +1133,6 @@ namespace Qwilight.ViewModel
 
         public void NotifyCanSaveAsBundle() => OnPropertyChanged(nameof(CanSaveAsBundle));
 
-        public override double TargetLength => 0.9;
-
         public double CPUCount => QwilightComponent.CPUCount;
 
         public string MainControllerPowerStatus

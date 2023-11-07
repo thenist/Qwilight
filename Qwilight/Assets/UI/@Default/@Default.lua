@@ -41,11 +41,11 @@ function CommentViewLength(e)
 end
 
 function CommentViewHeight(e)
-	return DefaultHeight() - 360 + e
+	return DefaultHeight() - 330 + e
 end
 
 function InputNoteCountViewPosition1(e)
-	return DefaultHeight() - 318 + e
+	return DefaultHeight() - 288 + e
 end
 
 function EntryViewLength(e)
@@ -61,7 +61,7 @@ function AssistViewPosition1()
 end
 
 function FilePosition1(e)
-	return DefaultHeight() - 240 + 34 * e
+	return DefaultHeight() - 210 + 29 * e
 end
 
 function AutoModePosition0(e)
@@ -149,11 +149,27 @@ function StandContentsQuitPosition0()
 end
 
 function AutoModeQuitPosition1(e)
-	return DefaultHeight() - 63 + e
+	return DefaultHeight() - 5 - 24 + e
+end
+
+function JudgmentStageQuitPosition0(e)
+	return JudgmentMeterViewPosition0() + 5 + e
 end
 
 function JudgmentStageQuitPosition1(e)
-	return DefaultHeight() - 24 - 5 + e
+	return JudgmentMeterViewPosition1() + 288 - 5 - 12 - 17 * e
+end
+
+function JudgmentStageQuitLength()
+	return JudgmentMeterViewLength() - 5 - 48 - 5
+end
+
+function LengthQuitPosition0(e)
+	return JudgmentMeterViewPosition0() + 5 + e
+end
+
+function LengthQuitPosition1(e)
+	return StatusViewPosition1() + 288 - 5 - 12 - 17 * e
 end
 
 function TotalNotesQuitPosition1(e)

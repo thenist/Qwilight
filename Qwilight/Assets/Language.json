@@ -1303,6 +1303,10 @@
     "ko-KR": "모든 캐시 삭제",
     "en-US": "Delete All Caches"
   },
+  "InitEqualizerContents": {
+    "ko-KR": "이퀄라이저 복원",
+    "en-US": "Reset equalizer"
+  },
   "InitFavoriteEntryContents": {
     "ko-KR": "모든 컬렉션을 삭제합니다.",
     "en-US": "Delete all collections."
@@ -1979,10 +1983,6 @@
     "ko-KR": "코스 만들기",
     "en-US": "Create Course"
   },
-  "NewFavorHitPoints": {
-    "ko-KR": "프리셋 만들기",
-    "en-US": "Create Presets"
-  },
   "NewFavoriteEntry": {
     "ko-KR": "컬렉션 추가",
     "en-US": "Add Collection"
@@ -1990,10 +1990,6 @@
   "NewFavoriteEntryContents": {
     "ko-KR": "새 컬렉션의 이름을 입력하세요",
     "en-US": "Please enter a name for the new collection"
-  },
-  "NewFavorJudgment": {
-    "ko-KR": "프리셋 만들기",
-    "en-US": "Create Presets"
   },
   "NewFrontEntry": {
     "ko-KR": "의존 폴더 추가",
@@ -2524,8 +2520,8 @@
     "en-US": "The player is alone, so all items apply to you."
   },
   "PostableItemText": {
-    "ko-KR": "아이템 (Beta 0.9.4)",
-    "en-US": "Items (Beta 0.9.4)"
+    "ko-KR": "아이템전 설정",
+    "en-US": "Item Game Settings"
   },
   "PostItem0Contents": {
     "ko-KR": "첫번째 아이템 사용 ({0})",
@@ -3178,10 +3174,6 @@
   "UndoContents": {
     "ko-KR": "다시 시도",
     "en-US": "Retry"
-  },
-  "InitEqualizerContents": {
-    "ko-KR": "이퀄라이저 복원",
-    "en-US": "Reset equalizer"
   },
   "ValidNetMode0Text": {
     "ko-KR": "아이템 비활성화",
