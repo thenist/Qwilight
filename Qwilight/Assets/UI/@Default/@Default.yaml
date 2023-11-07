@@ -31,14 +31,14 @@ paint:
     siteQuit: DeepPink
     siteHref: LightGray
     siteTitle: White
-    siteArtist: LightGreen
-    siteGenre: LightCoral
+    siteArtist: LightGray
+    siteGenre: DarkGray
     siteStand: White
 
-    eventNoteName: DarkGray
+    eventNoteName: ForestGreen
     title: White
-    artist: LightGreen
-    genre: LightCoral
+    artist: LightGray
+    genre: DarkGray
     wantLevelID: DodgerBlue
     fittedText: DodgerBlue
 
@@ -62,8 +62,8 @@ paint:
     level5: MediumPurple
 
     titleQuit: White
-    artistQuit: LightBlue
-    genreQuit: LightGreen
+    artistQuit: LightGray
+    genreQuit: DarkGray
     wantLevelIDQuit: DodgerBlue
 
     judgmentStageQuit: LightGray
