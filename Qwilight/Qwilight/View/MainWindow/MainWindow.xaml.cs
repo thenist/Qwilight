@@ -196,14 +196,14 @@ namespace Qwilight.View
                     ViewModels.Instance.InputPwValue.Text = data[0] as string;
                     ViewModels.Instance.InputPwValue.Input = data[1] as string;
                     ViewModels.Instance.InputPwValue.IsInputEditable = (bool)data[2];
-                    ViewModels.Instance.InputPwValue.Handler = data[3] as Action<string, string>;
+                    ViewModels.Instance.InputPwValue.HandleOK = data[3] as Action<string, string>;
                     ViewModels.Instance.InputPwValue.Open();
                     break;
                 case ICC.ID.ViewInputWindow:
                     data = message.Contents as object[];
                     ViewModels.Instance.InputTextValue.Text = data[0] as string;
                     ViewModels.Instance.InputTextValue.Input = data[1] as string;
-                    ViewModels.Instance.InputTextValue.OnOK = data[2] as Action<string>;
+                    ViewModels.Instance.InputTextValue.HandleOK = data[2] as Action<string>;
                     ViewModels.Instance.InputTextValue.Open();
                     break;
                 case ICC.ID.SetWindowedMode:

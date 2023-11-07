@@ -12,6 +12,7 @@
     <Thickness x:Key="StandardMargin">5.0</Thickness>
     <Thickness x:Key="StandardHMargin">5.0 0.0</Thickness>
     <Thickness x:Key="StandardVMargin">0.0 5.0</Thickness>
+    <Thickness x:Key="StandardInputEdge">0 0 1 1</Thickness>
 
     <system:Double x:Key="FontLevel0">12.0</system:Double>
     <system:Double x:Key="FontLevel1">20.0</system:Double>
@@ -140,7 +141,7 @@
     <!-- GroupBox -->
     <Style x:Key="StandardGroupView" TargetType="GroupBox" BasedOn="{StaticResource MaterialDesignGroupBox}">
         <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
-        <Setter Property="Padding" Value="{StaticResource StandardMargin}" />
+        <Setter Property="Padding" Value="0" />
 
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
@@ -266,7 +267,7 @@
 
     <!-- Separator -->
     <Style x:Key="StandardHr" TargetType="Separator" BasedOn="{StaticResource MaterialDesignSeparator}">
-        <Setter Property="Margin" Value="25" />
+        <Setter Property="Margin" Value="10" />
 
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
@@ -323,9 +324,9 @@
     </Style>
 
     <!-- Button -->
-    <Style x:Key="StandardInput" TargetType="Button" BasedOn="{StaticResource MaterialDesignOutlinedButton}">
+    <Style x:Key="StandardInput" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
         <Setter Property="BorderBrush" Value="DarkGray" />
-        <Setter Property="BorderThickness" Value="0 0 1 1" />
+        <Setter Property="BorderThickness" Value="{StaticResource StandardInputEdge}" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -344,6 +345,13 @@
     </Style>
     <Style x:Key="StandardInputMargin0" TargetType="Button" BasedOn="{StaticResource StandardInput}">
         <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style x:Key="GroupInput" TargetType="Button" BasedOn="{StaticResource StandardInputMargin0}">
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="0" />
     </Style>
     <Style x:Key="BaseUIInput" TargetType="Button">
         <Setter Property="Margin" Value="0" />

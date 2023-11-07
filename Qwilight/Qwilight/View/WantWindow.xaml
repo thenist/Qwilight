@@ -37,12 +37,12 @@
                     <GroupBox Style="{StaticResource StandardGroupView}">
                         <GroupBox.Header>
                             <Grid>
-                                <Button Style="{StaticResource StandardInputMargin0}" Command="{Binding TotalWantNoteVarietyCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantNoteVariety, Converter={StaticResource VisibilityNotModifier}}">
+                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantNoteVarietyCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantNoteVariety, Converter={StaticResource VisibilityNotModifier}}">
                                     <Button.CommandParameter>
                                         <system:Boolean>true</system:Boolean>
                                     </Button.CommandParameter>
                                 </Button>
-                                <Button Style="{StaticResource StandardInputMargin0}" Command="{Binding TotalWantNoteVarietyCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantNoteVariety, Converter={StaticResource VisibilityModifier}}">
+                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantNoteVarietyCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantNoteVariety, Converter={StaticResource VisibilityModifier}}">
                                     <Button.CommandParameter>
                                         <system:Boolean>false</system:Boolean>
                                     </Button.CommandParameter>
@@ -58,12 +58,12 @@
                     <GroupBox Style="{StaticResource StandardGroupView}">
                         <GroupBox.Header>
                             <Grid>
-                                <Button Style="{StaticResource StandardInputMargin0}" Command="{Binding TotalWantHandledCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantHandled, Converter={StaticResource VisibilityNotModifier}}">
+                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantHandledCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantHandled, Converter={StaticResource VisibilityNotModifier}}">
                                     <Button.CommandParameter>
                                         <system:Boolean>true</system:Boolean>
                                     </Button.CommandParameter>
                                 </Button>
-                                <Button Style="{StaticResource StandardInputMargin0}" Command="{Binding TotalWantHandledCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantHandled, Converter={StaticResource VisibilityModifier}}">
+                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantHandledCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantHandled, Converter={StaticResource VisibilityModifier}}">
                                     <Button.CommandParameter>
                                         <system:Boolean>false</system:Boolean>
                                     </Button.CommandParameter>
@@ -114,12 +114,12 @@
                     <GroupBox Style="{StaticResource StandardGroupView}">
                         <GroupBox.Header>
                             <Grid>
-                                <Button Style="{StaticResource StandardInputMargin0}" Command="{Binding TotalWantModeCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantMode, Converter={StaticResource VisibilityNotModifier}}">
+                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantModeCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantMode, Converter={StaticResource VisibilityNotModifier}}">
                                     <Button.CommandParameter>
                                         <system:Boolean>true</system:Boolean>
                                     </Button.CommandParameter>
                                 </Button>
-                                <Button Style="{StaticResource StandardInputMargin0}" Command="{Binding TotalWantModeCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantMode, Converter={StaticResource VisibilityModifier}}">
+                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantModeCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantMode, Converter={StaticResource VisibilityModifier}}">
                                     <Button.CommandParameter>
                                         <system:Boolean>false</system:Boolean>
                                     </Button.CommandParameter>
@@ -171,12 +171,12 @@
                     <GroupBox Style="{StaticResource StandardGroupView}">
                         <GroupBox.Header>
                             <Grid>
-                                <Button Style="{StaticResource StandardInputMargin0}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevel, Converter={StaticResource VisibilityNotModifier}}">
+                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevel, Converter={StaticResource VisibilityNotModifier}}">
                                     <Button.CommandParameter>
                                         <system:Boolean>true</system:Boolean>
                                     </Button.CommandParameter>
                                 </Button>
-                                <Button Style="{StaticResource StandardInputMargin0}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevel, Converter={StaticResource VisibilityModifier}}">
+                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevel, Converter={StaticResource VisibilityModifier}}">
                                     <Button.CommandParameter>
                                         <system:Boolean>false</system:Boolean>
                                     </Button.CommandParameter>
@@ -184,12 +184,12 @@
                             </Grid>
                         </GroupBox.Header>
                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level0}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level0}" Content="{Binding Level0Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[0], Source={StaticResource BaseUI}}" />
-                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level1}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level1}" Content="{Binding Level1Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[1], Source={StaticResource BaseUI}}" />
-                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level2}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level2}" Content="{Binding Level2Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[2], Source={StaticResource BaseUI}}" />
-                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level3}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level3}" Content="{Binding Level3Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[3], Source={StaticResource BaseUI}}" />
-                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level4}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level4}" Content="{Binding Level4Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[4], Source={StaticResource BaseUI}}" />
-                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level5}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level5}" Content="{Binding Level5Contents, Source={StaticResource LanguageSystem}}" Foreground="{Binding LevelPaints[5], Source={StaticResource BaseUI}}" />
+                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level0}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level0}" Content="{Binding Level0Contents, Source={StaticResource LanguageSystem}}" BorderBrush="{Binding LevelPaints[0], Source={StaticResource BaseUI}}" />
+                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level1}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level1}" Content="{Binding Level1Contents, Source={StaticResource LanguageSystem}}" BorderBrush="{Binding LevelPaints[1], Source={StaticResource BaseUI}}" />
+                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level2}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level2}" Content="{Binding Level2Contents, Source={StaticResource LanguageSystem}}" BorderBrush="{Binding LevelPaints[2], Source={StaticResource BaseUI}}" />
+                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level3}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level3}" Content="{Binding Level3Contents, Source={StaticResource LanguageSystem}}" BorderBrush="{Binding LevelPaints[3], Source={StaticResource BaseUI}}" />
+                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level4}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level4}" Content="{Binding Level4Contents, Source={StaticResource LanguageSystem}}" BorderBrush="{Binding LevelPaints[4], Source={StaticResource BaseUI}}" />
+                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding Level5}" Command="{Binding WantLevelCommand}" CommandParameter="{StaticResource Level5}" Content="{Binding Level5Contents, Source={StaticResource LanguageSystem}}" BorderBrush="{Binding LevelPaints[5], Source={StaticResource BaseUI}}" />
                         </WrapPanel>
                     </GroupBox>
                     <Grid>

@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Qwilight.UIComponent;
 using System.Windows;
 using System.Windows.Input;
 
@@ -10,7 +9,7 @@ namespace Qwilight.ViewModel
     {
         public override double TargetLength => 0.2;
 
-        public override double TargetHeight => 0.3;
+        public override double TargetHeight => 0.2;
 
         public override HorizontalAlignment TargetLengthSystem => HorizontalAlignment.Center;
 

@@ -14,7 +14,14 @@
                     </StackPanel>
                 </StackPanel>
                 <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnInputLower" IsEnabled="{Binding IsInputEditable}" />
-                <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" KeyDown="OnInputLower" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" KeyDown="OnInputLower" />
+                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OKCommand}" Content="OK" />
+                </Grid>
             </StackPanel>
         </Border>
     </Grid>

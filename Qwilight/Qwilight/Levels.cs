@@ -17,5 +17,6 @@ namespace Qwilight
         public static readonly float StandardEllipseFloat32 = (float)StandardEllipse;
         public static readonly float StandardMarginFloat32 = (float)StandardMargin;
         public static readonly float StandardEdgeFloat32 = (float)QwilightComponent.GetBuiltInData<Thickness>("StandardEdge").Left;
+        public static readonly Thickness StandardInputEdge = QwilightComponent.GetBuiltInData<Thickness>("StandardInputEdge");
     }
 }

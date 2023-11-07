@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Windows.Input;
 
 namespace Qwilight.ViewModel
@@ -34,22 +35,28 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _isInputEditable, value, nameof(IsInputEditable));
         }
 
-        public Action<string, string> Handler { get; set; }
+        public Action<string, string> HandleOK { get; set; }
 
         public void OnInputLower(KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                Close();
-                WeakReferenceMessenger.Default.Send<ICC>(new()
-                {
-                    IDValue = ICC.ID.GetPwWindowCipher,
-                    Contents = new Action<string>(inputCipher =>
-                    {
-                        Handler(Input, inputCipher);
-                    })
-                });
+                OnOK();
             }
+        }
+
+        [RelayCommand]
+        void OnOK()
+        {
+            Close();
+            WeakReferenceMessenger.Default.Send<ICC>(new()
+            {
+                IDValue = ICC.ID.GetPwWindowCipher,
+                Contents = new Action<string>(inputCipher =>
+                {
+                    HandleOK(Input, inputCipher);
+                })
+            });
         }
 
         public override void OnOpened()

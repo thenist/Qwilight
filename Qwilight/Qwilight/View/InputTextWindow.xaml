@@ -13,7 +13,14 @@
                         <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                     </StackPanel>
                 </StackPanel>
-                <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnInputLower" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnInputLower" />
+                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OKCommand}" Content="OK" />
+                </Grid>
             </StackPanel>
         </Border>
     </Grid>

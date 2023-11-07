@@ -75,7 +75,7 @@
             </Grid>
             <GroupBox Style="{StaticResource StandardGroupView}" Grid.Row="2">
                 <GroupBox.Header>
-                    <Image Height="24" Style="{StaticResource StandardViewMargin0}" Source="{Binding UIConfigureValue.InputMode, Source={StaticResource Configure}, Converter={StaticResource InputModeDrawingModifier}}" />
+                    <Image Height="24" Style="{StaticResource StandardView}" Source="{Binding UIConfigureValue.InputMode, Source={StaticResource Configure}, Converter={StaticResource InputModeDrawingModifier}}" />
                 </GroupBox.Header>
                 <Grid>
                     <Grid.RowDefinitions>

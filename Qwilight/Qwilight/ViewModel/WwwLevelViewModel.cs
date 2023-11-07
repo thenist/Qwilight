@@ -82,7 +82,7 @@ namespace Qwilight.ViewModel
         {
             get => _isLevelGroupsLoading;
 
-            set => SetProperty(ref _isLevelGroupsLoading, value, nameof(IsLevelGroupLoading));
+            set => SetProperty(ref _isLevelGroupsLoading, value, nameof(IsLevelGroupsLoading));
         }
 
         public WwwLevelGroup WwwLevelGroupValue

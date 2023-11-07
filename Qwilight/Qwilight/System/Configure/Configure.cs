@@ -1625,7 +1625,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineLimiterPaint => new Thickness(UIPipelineLimiter ? 1.0 : 0.0);
+        public Thickness UIPipelineLimiterPaint => UIPipelineLimiter ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineMainDrawingPaint
         {
@@ -1634,7 +1634,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineMainDrawingPaint, value, nameof(UIPipelineMainDrawingPaintPaint));
         }
 
-        public Thickness UIPipelineMainDrawingPaintPaint => new Thickness(UIPipelineMainDrawingPaint ? 1.0 : 0.0);
+        public Thickness UIPipelineMainDrawingPaintPaint => UIPipelineMainDrawingPaint ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineJudgmentMain
         {
@@ -1643,7 +1643,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineJudgmentMain, value, nameof(UIPipelineJudgmentMainPaint));
         }
 
-        public Thickness UIPipelineJudgmentMainPaint => new Thickness(UIPipelineJudgmentMain ? 1.0 : 0.0);
+        public Thickness UIPipelineJudgmentMainPaint => UIPipelineJudgmentMain ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineJudgmentCount
         {
@@ -1652,7 +1652,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineJudgmentCount, value, nameof(UIPipelineJudgmentCountPaint));
         }
 
-        public Thickness UIPipelineJudgmentCountPaint => new Thickness(UIPipelineJudgmentCount ? 1.0 : 0.0);
+        public Thickness UIPipelineJudgmentCountPaint => UIPipelineJudgmentCount ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineJudgmentMeter
         {
@@ -1667,7 +1667,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineJudgmentMeterPaint => new Thickness(UIPipelineJudgmentMeter ? 1.0 : 0.0);
+        public Thickness UIPipelineJudgmentMeterPaint => UIPipelineJudgmentMeter ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineNet
         {
@@ -1682,7 +1682,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineNetPaint => new Thickness(UIPipelineNet ? 1.0 : 0.0);
+        public Thickness UIPipelineNetPaint => UIPipelineNet ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineHunter
         {
@@ -1697,7 +1697,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineHunterPaint => new Thickness(UIPipelineHunter ? 1.0 : 0.0);
+        public Thickness UIPipelineHunterPaint => UIPipelineHunter ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineJudgmentVisualizer
         {
@@ -1712,7 +1712,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineJudgmentVisualizerPaint => new Thickness(UIPipelineJudgmentVisualizer ? 1.0 : 0.0);
+        public Thickness UIPipelineJudgmentVisualizerPaint => UIPipelineJudgmentVisualizer ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineJudgmentPaint
         {
@@ -1721,7 +1721,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineJudgmentPaint, value, nameof(UIPipelineJudgmentPaint));
         }
 
-        public Thickness UIPipelineJudgmentPaintPaint => new Thickness(UIPipelineJudgmentPaint ? 1.0 : 0.0);
+        public Thickness UIPipelineJudgmentPaintPaint => UIPipelineJudgmentPaint ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineHitNotePaint
         {
@@ -1730,7 +1730,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineHitNotePaint, value, nameof(UIPipelineHitNotePaintPaint));
         }
 
-        public Thickness UIPipelineHitNotePaintPaint => new Thickness(UIPipelineHitNotePaint ? 1.0 : 0.0);
+        public Thickness UIPipelineHitNotePaintPaint => UIPipelineHitNotePaint ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineBPM
         {
@@ -1745,7 +1745,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineBPMPaint => new Thickness(UIPipelineBPM ? 1.0 : 0.0);
+        public Thickness UIPipelineBPMPaint => UIPipelineBPM ? Levels.StandardInputEdge : new Thickness();
 
         public bool UICommentNote
         {
@@ -1754,7 +1754,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUICommentNote, value, nameof(UICommentNotePaint));
         }
 
-        public Thickness UICommentNotePaint => new Thickness(UICommentNote ? 1.0 : 0.0);
+        public Thickness UICommentNotePaint => UICommentNote ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineMainJudgmentMeter
         {
@@ -1763,7 +1763,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineMainJudgmentMeter, value, nameof(UIPipelineMainJudgmentMeterPaint));
         }
 
-        public Thickness UIPipelineMainJudgmentMeterPaint => new Thickness(UIPipelineMainJudgmentMeter ? 1.0 : 0.0);
+        public Thickness UIPipelineMainJudgmentMeterPaint => UIPipelineMainJudgmentMeter ? Levels.StandardInputEdge : new Thickness();
 
         public bool UIPipelineJudgmentInputVisualizer
         {
@@ -1778,7 +1778,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineJudgmentInputVisualizerPaint => new Thickness(UIPipelineJudgmentInputVisualizer ? 1.0 : 0.0);
+        public Thickness UIPipelineJudgmentInputVisualizerPaint => UIPipelineJudgmentInputVisualizer ? Levels.StandardInputEdge : new Thickness();
 
         public bool LowHitPointsFaintUI
         {

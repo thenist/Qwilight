@@ -1624,8 +1624,7 @@
     "en-US": "Open Source Library"
   },
   "Limiter57Variety": {
-    "ko-KR": "5／7 (24K2S, 48K4S 전용)",
-    "en-US": "5／7 (24K2S, 48K4S only)"
+    "ko-KR": "5／7 (24K＋2S, 48K＋4S 전용)"
   },
   "LimiterColor": {
     "ko-KR": "\uD83C\uDFA8 라인 구분선",
@@ -2572,8 +2571,7 @@
     "en-US": "Does not exist ({0}％)"
   },
   "PutCopyNotesContents": {
-    "ko-KR": "1P를 2P로 복사합니다. (5K1S, 7K1S만 적용)",
-    "en-US": "Copy 1P to 2P. (5K1S, 7K1S only)"
+    "ko-KR": "1P를 2P로 복사합니다. (5K＋1S, 7K＋1S만 적용)"
   },
   "PutSetNoteModeContents": {
     "ko-KR": "BGM을 추가 노트로 만듭니다.",
@@ -3024,8 +3022,7 @@
     "en-US": "⌨️ To set the key"
   },
   "Tutorial220": {
-    "ko-KR": "BMS 키 설정을 하려면 5K, 7K 대신 5K1S, 7K1S를 클릭하세요",
-    "en-US": "To set the BMS key, click 5K1S, 7K1S instead of 5K, 7K"
+    "ko-KR": "BMS 키 설정을 하려면 5K, 7K 대신 5K＋1S, 7K＋1S를 클릭하세요"
   },
   "TutorialAssistText": {
     "ko-KR": "매뉴얼",

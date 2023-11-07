@@ -13,12 +13,22 @@
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
                 <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding AvatarID, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnInputLower" materialDesign:HintAssist.Hint="{Binding AvatarID, Source={StaticResource LanguageSystem}}"  />
-                <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" KeyDown="OnInputLower" materialDesign:HintAssist.Hint="{Binding AvatarCipher, Source={StaticResource LanguageSystem}}" />
-                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoSignIn, Source={StaticResource Configure}}" Content="{Binding AutoSignIn, Source={StaticResource LanguageSystem}}" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Style="{StaticResource StandardInput}" Command="{Binding SignInCommand}" Content="{Binding SignIn, Source={StaticResource LanguageSystem}}" />
-                    <Button Style="{StaticResource StandardInput}" Command="{Binding SignUpCommand}" Content="{Binding SignUp, Source={StaticResource LanguageSystem}}" />
-                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" KeyDown="OnInputLower" materialDesign:HintAssist.Hint="{Binding AvatarCipher, Source={StaticResource LanguageSystem}}" />
+                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding SignInCommand}" Content="{Binding SignIn, Source={StaticResource LanguageSystem}}" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoSignIn, Source={StaticResource Configure}}" Content="{Binding AutoSignIn, Source={StaticResource LanguageSystem}}" />
+                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding SignUpCommand}" Content="{Binding SignUp, Source={StaticResource LanguageSystem}}" />
+                </Grid>
             </StackPanel>
         </Border>
     </Grid>

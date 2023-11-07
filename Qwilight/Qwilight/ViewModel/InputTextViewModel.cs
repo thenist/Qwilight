@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 
 namespace Qwilight.ViewModel
 {
@@ -25,15 +26,21 @@ namespace Qwilight.ViewModel
 
         public override double TargetHeight => 0.15;
 
-        public Action<string> OnOK { get; set; }
+        public Action<string> HandleOK { get; set; }
 
         public void OnInputLower(KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                Close();
-                OnOK(Input);
+                OnOK();
             }
+        }
+
+        [RelayCommand]
+        void OnOK()
+        {
+            Close();
+            HandleOK(Input);
         }
     }
 }

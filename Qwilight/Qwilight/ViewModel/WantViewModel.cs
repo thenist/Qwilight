@@ -8,6 +8,10 @@ namespace Qwilight.ViewModel
     {
         public override double TargetLength => 0.9;
 
+        public override double TargetHeight => 0.8;
+
+        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Top;
+
         [RelayCommand]
         void OnWantHellBPM() => Configure.Instance.WantHellBPM = !Configure.Instance.WantHellBPM;
 
@@ -201,27 +205,27 @@ namespace Qwilight.ViewModel
             Configure.Instance.HighestWantHighestInputCount = Math.Max(Configure.Instance.LowestWantHighestInputCount, Configure.Instance.HighestWantHighestInputCount);
         }
 
-        public Thickness NoteVarietyBMS => new Thickness(Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMS] ? 1.0 : 0.0);
+        public Thickness NoteVarietyBMS => Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMS] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness NoteVarietyBMSON => new Thickness(Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMSON] ? 1.0 : 0.0);
+        public Thickness NoteVarietyBMSON => Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMSON] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness NoteVarietyEventNote => new Thickness(Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.EventNote] ? 1.0 : 0.0);
+        public Thickness NoteVarietyEventNote => Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.EventNote] ? Levels.StandardInputEdge : new Thickness();
 
         public bool IsTotalWantNoteVariety => Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMS] ||
             Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMSON] ||
             Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.EventNote];
 
-        public Thickness HandledNot => new Thickness(Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Not] ? 1.0 : 0.0);
+        public Thickness HandledNot => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Not] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness HandledClear => new Thickness(Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Clear] ? 1.0 : 0.0);
+        public Thickness HandledClear => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Clear] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness HandledBand1 => new Thickness(Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Band1] ? 1.0 : 0.0);
+        public Thickness HandledBand1 => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Band1] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness HandledF => new Thickness(Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.F] ? 1.0 : 0.0);
+        public Thickness HandledF => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.F] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness HandledHigherClear => new Thickness(Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HigherClear] ? 1.0 : 0.0);
+        public Thickness HandledHigherClear => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HigherClear] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness HandledHighestClear => new Thickness(Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear] ? 1.0 : 0.0);
+        public Thickness HandledHighestClear => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear] ? Levels.StandardInputEdge : new Thickness();
 
         public bool IsTotalWantHandled => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Not] ||
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Clear] ||
@@ -230,45 +234,45 @@ namespace Qwilight.ViewModel
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HigherClear] ||
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear];
 
-        public Thickness Level0 => new Thickness(Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level0] ? 1.0 : 0.0);
+        public Thickness Level0 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level0] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Level1 => new Thickness(Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level1] ? 1.0 : 0.0);
+        public Thickness Level1 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level1] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Level2 => new Thickness(Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level2] ? 1.0 : 0.0);
+        public Thickness Level2 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level2] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Level3 => new Thickness(Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level3] ? 1.0 : 0.0);
+        public Thickness Level3 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level3] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Level4 => new Thickness(Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level4] ? 1.0 : 0.0);
+        public Thickness Level4 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level4] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Level5 => new Thickness(Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level5] ? 1.0 : 0.0);
+        public Thickness Level5 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level5] ? Levels.StandardInputEdge : new Thickness();
 
         public bool IsTotalWantLevel => Configure.Instance.InputWantLevel.Any(inputWantLevel => inputWantLevel);
 
-        public Thickness Mode4 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode4] ? 1.0 : 0.0);
+        public Thickness Mode4 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode4] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode5 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode5] ? 1.0 : 0.0);
+        public Thickness Mode5 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode5] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode6 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode6] ? 1.0 : 0.0);
+        public Thickness Mode6 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode6] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode7 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode7] ? 1.0 : 0.0);
+        public Thickness Mode7 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode7] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode8 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode8] ? 1.0 : 0.0);
+        public Thickness Mode8 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode8] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode9 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode9] ? 1.0 : 0.0);
+        public Thickness Mode9 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode9] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode51 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode51] ? 1.0 : 0.0);
+        public Thickness Mode10 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode10] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode71 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode71] ? 1.0 : 0.0);
+        public Thickness Mode51 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode51] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode10 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode10] ? 1.0 : 0.0);
+        public Thickness Mode71 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode71] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode102 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode102] ? 1.0 : 0.0);
+        public Thickness Mode102 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode102] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode142 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode142] ? 1.0 : 0.0);
+        public Thickness Mode142 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode142] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode242 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode242] ? 1.0 : 0.0);
+        public Thickness Mode242 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode242] ? Levels.StandardInputEdge : new Thickness();
 
-        public Thickness Mode484 => new Thickness(Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode484] ? 1.0 : 0.0);
+        public Thickness Mode484 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode484] ? Levels.StandardInputEdge : new Thickness();
 
         public bool IsTotalWantMode => Configure.Instance.InputWantMode.Any(inputWantMode => inputWantMode);
 
