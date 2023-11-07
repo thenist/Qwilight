@@ -17,6 +17,7 @@ namespace Qwilight.UIComponent
         public const int LatestDate = 8;
         public const int HandledCount = 9;
         public const int AverageInputCount = 10;
+        public const int EntryPath = 11;
 
         public ImageSource Drawing => Mode switch
         {
@@ -31,6 +32,7 @@ namespace Qwilight.UIComponent
             LatestDate => BaseUI.Instance.LatestDateFitDrawing,
             HandledCount => BaseUI.Instance.HandledCountFitDrawing,
             AverageInputCount => BaseUI.Instance.AverageInputCountFitDrawing,
+            EntryPath => BaseUI.Instance.EntryPathFitDrawing,
             _ => default,
         };
 
@@ -76,6 +78,9 @@ namespace Qwilight.UIComponent
                     break;
                 case AverageInputCount:
                     FitImpl(entryItem => entryItem.AverageInputCount, (entryItem, noteFile) => entryItem.AverageInputCount == noteFile.AverageInputCount);
+                    break;
+                case EntryPath:
+                    FitImpl(entryItem => entryItem.EntryPath, null);
                     break;
             }
 
@@ -125,6 +130,7 @@ namespace Qwilight.UIComponent
                     break;
                 case Artist:
                 case Title:
+                case EntryPath:
                     foreach (var noteFile in entryItem.WellNoteFiles)
                     {
                         noteFile.FittedText = null;

@@ -21,15 +21,16 @@
             <ComboBox Style="{StaticResource StandardItemsInput}" x:Name="FitInput" SelectedItem="{Binding FitModeValue, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" ToolTipService.ToolTip="{Binding FitAssist, Source={StaticResource LanguageSystem}}" SelectionChanged="OnWant" DropDownClosed="OnFitMode" Visibility="{Binding LastDefaultEntryItem, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
                 <ComboBox.Items>
                     <quic:FitMode Mode="{StaticResource FitModeTitle}" />
-                    <quic:FitMode Mode="{StaticResource FitModeLatestDate}" />
-                    <quic:FitMode Mode="{StaticResource FitModeHandledCount}" />
-                    <quic:FitMode Mode="{StaticResource FitModeModifiedDate}" />
                     <quic:FitMode Mode="{StaticResource FitModeArtist}" />
+                    <quic:FitMode Mode="{StaticResource FitModeEntryPath}" />
+                    <quic:FitMode Mode="{StaticResource FitModeModifiedDate}" />
+                    <quic:FitMode Mode="{StaticResource FitModeHandledCount}" />
+                    <quic:FitMode Mode="{StaticResource FitModeLatestDate}" />
+                    <quic:FitMode Mode="{StaticResource FitModeLength}" />
                     <quic:FitMode Mode="{StaticResource FitModeLevelTextValue}" />
-                    <quic:FitMode Mode="{StaticResource FitModeTotalNotes}" />
                     <quic:FitMode Mode="{StaticResource FitModeAverageInputCount}" />
                     <quic:FitMode Mode="{StaticResource FitModeHighestInputCount}" />
-                    <quic:FitMode Mode="{StaticResource FitModeLength}" />
+                    <quic:FitMode Mode="{StaticResource FitModeTotalNotes}" />
                     <quic:FitMode Mode="{StaticResource FitModeBPM}" />
                 </ComboBox.Items>
                 <ComboBox.ItemTemplate>

@@ -85,6 +85,7 @@
     <system:Int32 x:Key="FitModeLatestDate">8</system:Int32>
     <system:Int32 x:Key="FitModeHandledCount">9</system:Int32>
     <system:Int32 x:Key="FitModeAverageInputCount">10</system:Int32>
+    <system:Int32 x:Key="FitModeEntryPath">11</system:Int32>
 
     <system:Int32 x:Key="HandledNot">0</system:Int32>
     <system:Int32 x:Key="HandledClear">1</system:Int32>

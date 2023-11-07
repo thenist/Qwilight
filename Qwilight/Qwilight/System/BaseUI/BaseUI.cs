@@ -150,6 +150,8 @@ namespace Qwilight
 
         public ImageSource HighestInputCountNetSiteDrawing { get; set; }
 
+        public ImageSource EntryPathFitDrawing { get; set; }
+
         public HandledDrawingItem? LengthDrawing { get; set; }
 
         public ImageSource LengthFitDrawing { get; set; }
@@ -1753,6 +1755,9 @@ namespace Qwilight
                                     break;
                                 case "Length":
                                     LengthFitDrawing = defaultDrawing;
+                                    break;
+                                case "Entry Path":
+                                    EntryPathFitDrawing = defaultDrawing;
                                     break;
                             }
                             break;

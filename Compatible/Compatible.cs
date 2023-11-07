@@ -872,6 +872,11 @@ namespace Compatible
                                 zipEntry.FileName = $"Fit/Level Text Value{Path.GetExtension(zipEntry.FileName)}";
                                 wasModified = true;
                             }
+                            if (zipEntry.FileName.StartsWith("Fit/Entry."))
+                            {
+                                zipEntry.FileName = $"Fit/Entry Path{Path.GetExtension(zipEntry.FileName)}";
+                                wasModified = true;
+                            }
                             else if (zipEntry.FileName.StartsWith("Quit Mode/Undo."))
                             {
                                 zipEntry.FileName = $"Quit Mode/Handle Undo{Path.GetExtension(zipEntry.FileName)}";
