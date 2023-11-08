@@ -252,12 +252,6 @@ point:
     hitPointsVisualizerLength: P1BuiltLength(1.0)
     hitPointsVisualizerHeight: 10
 
-    # 박자에 맞추어 반짝거리는 왼쪽 막대기
-    paintProperty0: MainPosition(-40), 0, 60, 720, 2, 10, 60, 1
-
-    # 박자에 맞추어 반짝거리는 오른쪽 막대기
-    paintProperty1: Wall(-20), 0, 60, 720, 2, 10, 60, 1
-
     # 박자에 맞추어 반짝거리는 아래 사각형 영역
     paintProperty2: MainPosition(0), 644, P1BuiltLength(1), 76, 2, PaintProperty2Frame(), 60, 1
 
@@ -275,7 +269,7 @@ point:
     multiplierStopPointDrawingLength: 8.4
     multiplierUnitDrawingLength: 20
 
-    netPosition0: Wall(25)
+    netPosition0: Wall(10)
     netPosition1: NetPosition1()
 
     pauseSystem: 0
@@ -291,17 +285,17 @@ point:
 
     statusSystem: 0
     statusPosition0: Wall(5)
-    statusPosition1: 0
+    statusPosition1: 480
     statusLength: 10
-    statusHeight: 720
+    statusHeight: 240
 
     statusSliderSystem: 0
     statusSliderPosition0: Wall(0)
-    statusSliderPosition1: 0
+    statusSliderPosition1: 480
     statusSliderContentsLength: 20
     statusSliderContentsHeight: 10
     statusSliderLength: 10
-    statusSliderHeight: 720
+    statusSliderHeight: 240
 
     hmsSystem: HmsSystem()
     hmsPosition0: HmsPosition0()

@@ -793,7 +793,7 @@ namespace Qwilight
                         ("level5", (int)BaseNoteFile.Level.Level5)
                     })
                     {
-                        LevelColors[pair.Item2] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, pair.Item1)).GetColor());
+                        LevelColors[pair.Item2] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor());
                         LevelPaints[pair.Item2] = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(LevelColors[pair.Item2]));
                         D2DLevelColors[pair.Item2] = Utility.ModifyColor(LevelColors[pair.Item2]);
                     }
@@ -824,7 +824,7 @@ namespace Qwilight
                     {
                         parallelItems.Add(() =>
                         {
-                            HitPointsColor[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1)).GetColor();
+                            HitPointsColor[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.Red))).GetColor();
                             HitPointsPaints[(int)pair.Item2] = DrawingSystem.Instance.GetDefaultPaint(HitPointsColor[(int)pair.Item2]);
                             DrawingSystem.Instance.SetFaintPaints(this, D2DHitPointsPaints[(int)pair.Item2], HitPointsColor[(int)pair.Item2]);
                         });
@@ -845,12 +845,12 @@ namespace Qwilight
                     })
                     {
                         var inputMode = (int)(Component.InputMode)pair.Item2;
-                        JudgmentColors[(int)inputMode] = GetCalledText(Utility.GetText(paintNode, pair.Item1)).GetColor();
+                        JudgmentColors[(int)inputMode] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor();
                         JudgmentPaints[(int)inputMode] = DrawingSystem.Instance.GetDefaultPaint(JudgmentColors[(int)inputMode]);
                         parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, D2DJudgmentPaints[(int)inputMode], JudgmentColors[(int)inputMode]));
                     }
 
-                    TotalNotesJudgmentQuitColor = GetCalledText(Utility.GetText(paintNode, "totalNotesJudgmentQuit")).GetColor();
+                    TotalNotesJudgmentQuitColor = GetCalledText(Utility.GetText(paintNode, "totalNotesJudgmentQuit", nameof(Colors.White))).GetColor();
                     foreach (var pair in new[] {
                         ("highestJudgmentQuit", Component.Judged.Highest),
                         ("higherJudgmentQuit", Component.Judged.Higher),
@@ -860,7 +860,7 @@ namespace Qwilight
                         ("lowestJudgmentQuit", Component.Judged.Lowest)
                     })
                     {
-                        JudgmentQuitColors[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1)).GetColor();
+                        JudgmentQuitColors[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor();
                     }
 
                     StatusHandlingColor = GetCalledText(Utility.GetText(paintNode, "statusHandling", "#7F008000")).GetColor();

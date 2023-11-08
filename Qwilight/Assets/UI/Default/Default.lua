@@ -115,7 +115,7 @@ end
 function MainPosition(e)
 	local position
 	if inputCount < 11 then
-		position = 540 - P1BuiltLength(1.0)
+		position = 555 - P1BuiltLength(1.0)
 	elseif inputCount < 16 then
 		position = 138.9
 	else
@@ -356,7 +356,7 @@ end
 
 function MediaPosition0()
 	if inputCount < 11 then
-		return MainPosition(0) + P1BuiltLength(1.0) + 20
+		return MainPosition(0) + P1BuiltLength(1.0) + 5
 	else
 		return 0
 	end
