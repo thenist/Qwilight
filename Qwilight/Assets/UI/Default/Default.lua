@@ -378,36 +378,12 @@ function JudgmentMainPosition(e)
 	return position
 end
 
-function HitNotePaintPosition01(e)
-	if IsO4U() then
-		return -NoteLength(e)
-	else
-		return -3 * NoteLength(e)
-	end
+function HitNotePaintPosition0(e)
+		return -1.5 * NoteLength(e)
 end
 
-function HitNotePaintPosition02(e)
-	if IsO4U() then
-		return -NoteLength(e)
-	else
-		return -3 * NoteLength(e)
-	end
-end
-
-function HitNotePaintPosition11(e)
-	if IsO4U() then
-		return -NoteLength(e)
-	else
-		return -3.6 * NoteLength(e)
-	end
-end
-
-function HitNotePaintPosition12(e)
-	if IsO4U() then
-		return -NoteLength(e)
-	else
-		return -3.6 * NoteLength(e)
-	end
+function HitNotePaintPosition1(e)
+		return -1.5 * NoteLength(e)
 end
 
 function LongNoteEdgePosition1()
@@ -550,14 +526,6 @@ function _GetNote(args)
 	if IsFloating() and args[1] == 1 and (args[3] == 0 or args[3] == 2 or args[3] == 4 or args[3] == 9 or args[3] == 14) then
 		return "N2"
 	elseif IsO4U() and args[1] != 0 and (not IsFloating() or args[1] != 1) then
-		return "N1"
-	else
-		return "N"
-	end
-end
-
-function _GetNotePaint()
-	if IsO4U() then
 		return "N1"
 	else
 		return "N"

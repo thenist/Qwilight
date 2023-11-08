@@ -215,15 +215,15 @@ point:
     judgmentLength: 300
     judgmentHeight: 100
 
-    hitNotePaintPosition0: HitNotePaintPosition01(2.0), HitNotePaintPosition02(1.0), ~, ~, ~, HitNotePaintPosition01(2.0), HitNotePaintPosition02(1.0), ~, ~, HitNotePaintPosition01(2.0)
-    hitNotePaintPosition1: HitNotePaintPosition11(2.0), HitNotePaintPosition12(1.0), ~, ~, ~, HitNotePaintPosition11(2.0), HitNotePaintPosition12(1.0), ~, ~, HitNotePaintPosition11(2.0)
-    hitNotePaintLength: HitNotePaintPosition01(-4.0), HitNotePaintPosition02(-2.0), ~, ~, ~, HitNotePaintPosition01(-4.0), HitNotePaintPosition02(-2.0), ~, ~, HitNotePaintPosition01(-4.0)
-    hitNotePaintHeight: HitNotePaintPosition11(-4.0), HitNotePaintPosition12(-2.0), ~, ~, ~, HitNotePaintPosition11(-4.0), HitNotePaintPosition12(-2.0), ~, ~, HitNotePaintPosition11(-4.0)
+    hitNotePaintPosition0: HitNotePaintPosition0(2.0), HitNotePaintPosition0(1.0), ~, ~, ~, HitNotePaintPosition0(2.0), HitNotePaintPosition0(1.0), ~, ~, HitNotePaintPosition0(2.0)
+    hitNotePaintPosition1: HitNotePaintPosition1(2.0), HitNotePaintPosition1(1.0), ~, ~, ~, HitNotePaintPosition1(2.0), HitNotePaintPosition1(1.0), ~, ~, HitNotePaintPosition1(2.0)
+    hitNotePaintLength: HitNotePaintPosition0(-4.0), HitNotePaintPosition0(-2.0), ~, ~, ~, HitNotePaintPosition0(-4.0), HitNotePaintPosition0(-2.0), ~, ~, HitNotePaintPosition0(-4.0)
+    hitNotePaintHeight: HitNotePaintPosition1(-4.0), HitNotePaintPosition1(-2.0), ~, ~, ~, HitNotePaintPosition1(-4.0), HitNotePaintPosition1(-2.0), ~, ~, HitNotePaintPosition1(-4.0)
 
-    hitLongNotePaintPosition0: HitNotePaintPosition01(2.0), HitNotePaintPosition02(1.0), ~, ~, ~, HitNotePaintPosition01(2.0), HitNotePaintPosition02(1.0), ~, ~, HitNotePaintPosition01(2.0)
-    hitLongNotePaintPosition1: HitNotePaintPosition11(2.0), HitNotePaintPosition12(1.0), ~, ~, ~, HitNotePaintPosition11(2.0), HitNotePaintPosition12(1.0), ~, ~, HitNotePaintPosition11(2.0)
-    hitLongNotePaintLength: HitNotePaintPosition01(-4.0), HitNotePaintPosition02(-2.0), ~, ~, ~, HitNotePaintPosition01(-4.0), HitNotePaintPosition02(-2.0), ~, ~, HitNotePaintPosition01(-4.0)
-    hitLongNotePaintHeight: HitNotePaintPosition11(-4.0), HitNotePaintPosition12(-2.0), ~, ~, ~, HitNotePaintPosition11(-4.0), HitNotePaintPosition12(-2.0), ~, ~, HitNotePaintPosition11(-4.0)
+    hitLongNotePaintPosition0: HitNotePaintPosition0(2.0), HitNotePaintPosition0(1.0), ~, ~, ~, HitNotePaintPosition0(2.0), HitNotePaintPosition0(1.0), ~, ~, HitNotePaintPosition0(2.0)
+    hitLongNotePaintPosition1: HitNotePaintPosition1(2.0), HitNotePaintPosition1(1.0), ~, ~, ~, HitNotePaintPosition1(2.0), HitNotePaintPosition1(1.0), ~, ~, HitNotePaintPosition1(2.0)
+    hitLongNotePaintLength: HitNotePaintPosition0(-4.0), HitNotePaintPosition0(-2.0), ~, ~, ~, HitNotePaintPosition0(-4.0), HitNotePaintPosition0(-2.0), ~, ~, HitNotePaintPosition0(-4.0)
+    hitLongNotePaintHeight: HitNotePaintPosition1(-4.0), HitNotePaintPosition1(-2.0), ~, ~, ~, HitNotePaintPosition1(-4.0), HitNotePaintPosition1(-2.0), ~, ~, HitNotePaintPosition1(-4.0)
 
     bpmSystem: BPMSystem()
     bpmPosition0: BPMPosition0()
@@ -240,17 +240,11 @@ point:
     judgmentMeterFrontDrawingLength: 14.63
     judgmentMeterUnitDrawingLength: 27.17
 
-    hitPointsSystem: 3
-    hitPointsPosition0: MainPosition(0)
-    hitPointsPosition1: HitPointsPosition1()
-    hitPointsLength: P1BuiltLength(1.0)
-    hitPointsHeight: 10
-
-    hitPointsVisualizerSystem: 2
-    hitPointsVisualizerPosition0: MainPosition(0)
-    hitPointsVisualizerPosition1: 613
-    hitPointsVisualizerLength: P1BuiltLength(1.0)
-    hitPointsVisualizerHeight: 10
+    hitPointsSystem: 0
+    hitPointsPosition0: MainPosition(-15)
+    hitPointsPosition1: 0
+    hitPointsLength: 10
+    hitPointsHeight: 360
 
     # 박자에 맞추어 반짝거리는 아래 사각형 영역
     paintProperty2: MainPosition(0), 644, P1BuiltLength(1), 76, 2, PaintProperty2Frame(), 60, 1
@@ -317,11 +311,11 @@ point:
     band!Length: 230
     band!Height: 18.75
 
-    judgmentPointsSystem: 0
-    judgmentPointsPosition0: MainPosition(-15)
-    judgmentPointsPosition1: 0
-    judgmentPointsLength: 10
-    judgmentPointsHeight: 720
+    judgmentPointsSystem: 3
+    judgmentPointsPosition0: MainPosition(0)
+    judgmentPointsPosition1: HitPointsPosition1()
+    judgmentPointsLength: P1BuiltLength(1.0)
+    judgmentPointsHeight: 10
 
     audioMultiplierSystem: 2
     audioMultiplierPosition0: AudioMultiplierPosition0()
@@ -404,11 +398,6 @@ point:
     artistPosition1: 699
     artistLength: 1270
     artistHeight: 16
-
-    mediaInputPosition0: MediaPosition0()
-    mediaInputPosition1: 0
-    mediaInputLength: MediaLength()
-    mediaInputHeight: 720
 
     audioVisualizerPosition0: 0
     audioVisualizerPosition1: 0
