@@ -16,7 +16,7 @@
                     <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding SignUp, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
-                <StackPanel Grid.Row="1">
+                <StackPanel Grid.Row="1" VerticalAlignment="Center">
                     <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding AvatarID, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding AvatarID, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
                     <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" materialDesign:HintAssist.Hint="{Binding AvatarCipher, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
                     <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipherTest" materialDesign:HintAssist.Hint="{Binding AvatarCipherTest, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
