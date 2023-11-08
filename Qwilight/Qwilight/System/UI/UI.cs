@@ -122,9 +122,9 @@ namespace Qwilight
 
         public Color WantLevelIDColor { get; set; }
 
-        public ICanvasBrush[] NetPaints { get; } = new ICanvasBrush[101];
+        public ICanvasBrush[] NetTextPaints { get; } = new ICanvasBrush[101];
 
-        public ICanvasBrush[] NetInPaints { get; } = new ICanvasBrush[101];
+        public ICanvasBrush[] NetWallPaints { get; } = new ICanvasBrush[101];
 
         public List<int> DrawingPipeline { get; } = new();
 
@@ -407,11 +407,11 @@ namespace Qwilight
                     SaveInt(funcNode, "drawingInputModeSystem", 0);
 
                     TitleColor = Utility.GetText(paintNode, "title", nameof(Colors.White)).GetColor();
-                    ArtistColor = Utility.GetText(paintNode, "artist", nameof(Colors.DeepSkyBlue)).GetColor();
-                    GenreColor = Utility.GetText(paintNode, "genre", nameof(Colors.LightGreen)).GetColor();
-                    WantLevelIDColor = Utility.GetText(paintNode, "wantLevelID", nameof(Colors.DodgerBlue)).GetColor();
-                    parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, NetPaints, Utility.GetText(paintNode, "net", nameof(Colors.White)).GetColor()));
-                    parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, NetInPaints, Utility.GetText(paintNode, "netIn", nameof(Colors.Black)).GetColor()));
+                    ArtistColor = Utility.GetText(paintNode, "artist", nameof(Colors.White)).GetColor();
+                    GenreColor = Utility.GetText(paintNode, "genre", nameof(Colors.White)).GetColor();
+                    WantLevelIDColor = Utility.GetText(paintNode, "wantLevelID", nameof(Colors.White)).GetColor();
+                    parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, NetTextPaints, Utility.GetText(paintNode, "netText", nameof(Colors.White)).GetColor()));
+                    parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, NetWallPaints, Utility.GetText(paintNode, "netWall", nameof(Colors.Black)).GetColor()));
 
                     SaveValueMap(pointNode, "mainPosition");
                     SaveValueMap(pointNode, "p2Position");

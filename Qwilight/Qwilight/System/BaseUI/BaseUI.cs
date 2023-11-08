@@ -756,111 +756,111 @@ namespace Qwilight
                     DefaultLength = GetCalledValue(formatNode, "defaultLength", "1280");
                     DefaultHeight = GetCalledValue(formatNode, "defaultHeight", "720");
 
-                    SiteDateColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteDate")).GetColor());
-                    SiteEnterColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteEnter")).GetColor());
-                    SiteQuitColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteQuit")).GetColor());
-                    SiteHrefColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteHref")).GetColor());
+                    SiteDateColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteDate", nameof(Colors.White))).GetColor());
+                    SiteEnterColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteEnter", nameof(Colors.White))).GetColor());
+                    SiteQuitColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteQuit", nameof(Colors.White))).GetColor());
+                    SiteHrefColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteHref", nameof(Colors.White))).GetColor());
                     SiteTitleColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteTitle", nameof(Colors.White))).GetColor());
-                    SiteArtistColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteArtist", nameof(Colors.DeepSkyBlue))).GetColor());
-                    SiteGenreColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteGenre", nameof(Colors.LightGreen))).GetColor());
+                    SiteArtistColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteArtist", nameof(Colors.White))).GetColor());
+                    SiteGenreColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteGenre", nameof(Colors.White))).GetColor());
                     SiteStandColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteStand", nameof(Colors.White))).GetColor());
 
-                    EventNoteNameColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "eventNoteName")).GetColor());
-                    TitleColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "title")).GetColor());
-                    ArtistColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "artist")).GetColor());
-                    GenreColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "genre")).GetColor());
-                    WantLevelIDColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "wantLevelID")).GetColor());
-                    FittedTextColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "fittedText", Colors.ForestGreen.ToString())).GetColor());
+                    EventNoteNameColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "eventNoteName", nameof(Colors.White))).GetColor());
+                    TitleColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "title", nameof(Colors.White))).GetColor());
+                    ArtistColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "artist", nameof(Colors.White))).GetColor());
+                    GenreColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "genre", nameof(Colors.White))).GetColor());
+                    WantLevelIDColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "wantLevelID", nameof(Colors.White))).GetColor());
+                    FittedTextColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "fittedText", nameof(Colors.White))).GetColor());
 
-                    FileColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "file")).GetColor());
-                    JudgmentStageColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "judgmentStage")).GetColor());
-                    TotalNotesColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "totalNotes")).GetColor());
-                    HighestInputCountColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "highestInputCount")).GetColor());
-                    LengthColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "length")).GetColor());
-                    BPMColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "bpm")).GetColor());
+                    FileColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "file", nameof(Colors.White))).GetColor());
+                    JudgmentStageColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "judgmentStage", nameof(Colors.White))).GetColor());
+                    TotalNotesColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "totalNotes", nameof(Colors.White))).GetColor());
+                    HighestInputCountColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "highestInputCount", nameof(Colors.White))).GetColor());
+                    LengthColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "length", nameof(Colors.White))).GetColor());
+                    BPMColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "bpm", nameof(Colors.White))).GetColor());
 
-                    CommentDateColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentDate")).GetColor());
-                    CommentNameColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentName")).GetColor());
-                    CommentPointColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentPoint")).GetColor());
-                    CommentStandColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentStand")).GetColor());
+                    CommentDateColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentDate", nameof(Colors.White))).GetColor());
+                    CommentNameColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentName", nameof(Colors.White))).GetColor());
+                    CommentPointColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentPoint", nameof(Colors.White))).GetColor());
+                    CommentStandColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentStand", nameof(Colors.White))).GetColor());
 
                     foreach (var pair in new[] {
-                        ("level0", (int)BaseNoteFile.Level.Level0, nameof(Colors.Gray)),
-                        ("level1", (int)BaseNoteFile.Level.Level1, nameof(Colors.MediumSpringGreen)),
-                        ("level2", (int)BaseNoteFile.Level.Level2, nameof(Colors.MediumTurquoise)),
-                        ("level3", (int)BaseNoteFile.Level.Level3, nameof(Colors.Yellow)),
-                        ("level4", (int)BaseNoteFile.Level.Level4, nameof(Colors.MediumVioletRed)),
-                        ("level5", (int)BaseNoteFile.Level.Level5,nameof(Colors.MediumPurple))
+                        ("level0", (int)BaseNoteFile.Level.Level0),
+                        ("level1", (int)BaseNoteFile.Level.Level1),
+                        ("level2", (int)BaseNoteFile.Level.Level2),
+                        ("level3", (int)BaseNoteFile.Level.Level3),
+                        ("level4", (int)BaseNoteFile.Level.Level4),
+                        ("level5", (int)BaseNoteFile.Level.Level5)
                     })
                     {
-                        LevelColors[pair.Item2] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, pair.Item1, pair.Item3)).GetColor());
+                        LevelColors[pair.Item2] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, pair.Item1)).GetColor());
                         LevelPaints[pair.Item2] = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(LevelColors[pair.Item2]));
                         D2DLevelColors[pair.Item2] = Utility.ModifyColor(LevelColors[pair.Item2]);
                     }
 
                     TitleQuitColor = GetCalledText(Utility.GetText(paintNode, "titleQuit", nameof(Colors.White))).GetColor();
-                    ArtistQuitColor = GetCalledText(Utility.GetText(paintNode, "artistQuit", nameof(Colors.DeepSkyBlue))).GetColor();
-                    GenreQuitColor = GetCalledText(Utility.GetText(paintNode, "genreQuit", nameof(Colors.LightGreen))).GetColor();
-                    WantLevelIDQuitColor = GetCalledText(Utility.GetText(paintNode, "wantLevelIDQuit", nameof(Colors.DodgerBlue))).GetColor();
-                    JudgmentStageQuitColor = GetCalledText(Utility.GetText(paintNode, "judgmentStageQuit", nameof(Colors.Orchid))).GetColor();
-                    HighestInputCountQuitColor = GetCalledText(Utility.GetText(paintNode, "highestInputCountQuit", nameof(Colors.LightGreen))).GetColor();
-                    LengthQuitColor = GetCalledText(Utility.GetText(paintNode, "lengthQuit", nameof(Colors.Yellow))).GetColor();
-                    BPMQuitColor = GetCalledText(Utility.GetText(paintNode, "bpmQuit", nameof(Colors.LightPink))).GetColor();
-                    StandQuitColor = GetCalledText(Utility.GetText(paintNode, "standQuit", nameof(Colors.Yellow))).GetColor();
-                    PointQuitColor = GetCalledText(Utility.GetText(paintNode, "pointQuit", nameof(Colors.MediumPurple))).GetColor();
-                    BandQuitColor = GetCalledText(Utility.GetText(paintNode, "bandQuit", nameof(Colors.MediumSpringGreen))).GetColor();
-                    CommentPlaceColor = GetCalledText(Utility.GetText(paintNode, "commentPlace", nameof(Colors.White))).GetColor();
+                    ArtistQuitColor = GetCalledText(Utility.GetText(paintNode, "artistQuit", nameof(Colors.White))).GetColor();
+                    GenreQuitColor = GetCalledText(Utility.GetText(paintNode, "genreQuit", nameof(Colors.White))).GetColor();
+                    WantLevelIDQuitColor = GetCalledText(Utility.GetText(paintNode, "wantLevelIDQuit", nameof(Colors.White))).GetColor();
+                    JudgmentStageQuitColor = GetCalledText(Utility.GetText(paintNode, "judgmentStageQuit", nameof(Colors.White))).GetColor();
+                    HighestInputCountQuitColor = GetCalledText(Utility.GetText(paintNode, "highestInputCountQuit", nameof(Colors.White))).GetColor();
+                    LengthQuitColor = GetCalledText(Utility.GetText(paintNode, "lengthQuit", nameof(Colors.White))).GetColor();
+                    BPMQuitColor = GetCalledText(Utility.GetText(paintNode, "bpmQuit", nameof(Colors.White))).GetColor();
+                    StandQuitColor = GetCalledText(Utility.GetText(paintNode, "standQuit", nameof(Colors.White))).GetColor();
+                    PointQuitColor = GetCalledText(Utility.GetText(paintNode, "pointQuit", nameof(Colors.White))).GetColor();
+                    BandQuitColor = GetCalledText(Utility.GetText(paintNode, "bandQuit", nameof(Colors.White))).GetColor();
+                    CommentPlaceColor = GetCalledText(Utility.GetText(paintNode, "commentPlace", nameof(Colors.White))).GetColor());
 
                     foreach (var pair in new[] {
-                        ("lowestHitPoints", ModeComponent.HitPointsMode.Lowest, nameof(Colors.DarkGreen)),
-                        ("lowerHitPoints", ModeComponent.HitPointsMode.Lower, nameof(Colors.DarkTurquoise)),
-                        ("defaultHitPoints", ModeComponent.HitPointsMode.Default, nameof(Colors.DarkGoldenrod)),
-                        ("higherHitPoints", ModeComponent.HitPointsMode.Higher, nameof(Colors.DarkRed)),
-                        ("highestHitPoints", ModeComponent.HitPointsMode.Highest, nameof(Colors.DarkViolet)),
-                        ("failedHitPoints", ModeComponent.HitPointsMode.Failed,nameof( Colors.DarkViolet)),
-                        ("favorHitPoints", ModeComponent.HitPointsMode.Favor,nameof( Colors.DarkGoldenrod)),
-                        ("testHitPoints", ModeComponent.HitPointsMode.Test, nameof(Colors.DarkGoldenrod))
+                        ("lowestHitPoints", ModeComponent.HitPointsMode.Lowest),
+                        ("lowerHitPoints", ModeComponent.HitPointsMode.Lower),
+                        ("defaultHitPoints", ModeComponent.HitPointsMode.Default),
+                        ("higherHitPoints", ModeComponent.HitPointsMode.Higher),
+                        ("highestHitPoints", ModeComponent.HitPointsMode.Highest),
+                        ("failedHitPoints", ModeComponent.HitPointsMode.Failed),
+                        ("favorHitPoints", ModeComponent.HitPointsMode.Favor),
+                        ("testHitPoints", ModeComponent.HitPointsMode.Test)
                     })
                     {
                         parallelItems.Add(() =>
                         {
-                            HitPointsColor[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1, pair.Item3)).GetColor();
+                            HitPointsColor[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1)).GetColor();
                             HitPointsPaints[(int)pair.Item2] = DrawingSystem.Instance.GetDefaultPaint(HitPointsColor[(int)pair.Item2]);
                             DrawingSystem.Instance.SetFaintPaints(this, D2DHitPointsPaints[(int)pair.Item2], HitPointsColor[(int)pair.Item2]);
                         });
                     }
 
-                    StandStatusViewColor = GetCalledText(Utility.GetText(paintNode, "standStatusView", nameof(Colors.DeepSkyBlue))).GetColor();
-                    PointStatusViewColor = GetCalledText(Utility.GetText(paintNode, "pointStatusView", nameof(Colors.LightGreen))).GetColor();
-                    BandStatusViewColor = GetCalledText(Utility.GetText(paintNode, "bandStatusView", nameof(Colors.Orange))).GetColor();
-                    HitPointsStatusViewColor = GetCalledText(Utility.GetText(paintNode, "hitPointsStatusView", nameof(Colors.Red))).GetColor();
+                    StandStatusViewColor = GetCalledText(Utility.GetText(paintNode, "standStatusView", nameof(Colors.White))).GetColor();
+                    PointStatusViewColor = GetCalledText(Utility.GetText(paintNode, "pointStatusView", nameof(Colors.White))).GetColor();
+                    BandStatusViewColor = GetCalledText(Utility.GetText(paintNode, "bandStatusView", nameof(Colors.White))).GetColor();
+                    HitPointsStatusViewColor = GetCalledText(Utility.GetText(paintNode, "hitPointsStatusView", nameof(Colors.White))).GetColor();
 
                     foreach (var pair in new[] {
-                        ("highestJudgmentV2", Component.Judged.Highest, nameof(Colors.Cyan)),
-                        ("higherJudgmentV2", Component.Judged.Higher, nameof(Colors.DeepSkyBlue)),
-                        ("highJudgmentV2", Component.Judged.High, nameof(Colors.LightGreen)),
-                        ("lowJudgmentV2", Component.Judged.Low, nameof(Colors.Yellow)),
-                        ("lowerJudgmentV2", Component.Judged.Lower, nameof(Colors.Violet)),
-                        ("lowestJudgmentV2", Component.Judged.Lowest,nameof( Colors.Red))
+                        ("highestJudgmentV2", Component.Judged.Highest),
+                        ("higherJudgmentV2", Component.Judged.Higher),
+                        ("highJudgmentV2", Component.Judged.High),
+                        ("lowJudgmentV2", Component.Judged.Low),
+                        ("lowerJudgmentV2", Component.Judged.Lower),
+                        ("lowestJudgmentV2", Component.Judged.Lowest)
                     })
                     {
                         var inputMode = (int)(Component.InputMode)pair.Item2;
-                        JudgmentColors[(int)inputMode] = GetCalledText(Utility.GetText(paintNode, pair.Item1, pair.Item3)).GetColor();
+                        JudgmentColors[(int)inputMode] = GetCalledText(Utility.GetText(paintNode, pair.Item1)).GetColor();
                         JudgmentPaints[(int)inputMode] = DrawingSystem.Instance.GetDefaultPaint(JudgmentColors[(int)inputMode]);
                         parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, D2DJudgmentPaints[(int)inputMode], JudgmentColors[(int)inputMode]));
                     }
 
-                    TotalNotesJudgmentQuitColor = GetCalledText(Utility.GetText(paintNode, "totalNotesJudgmentQuit", nameof(Colors.White))).GetColor();
+                    TotalNotesJudgmentQuitColor = GetCalledText(Utility.GetText(paintNode, "totalNotesJudgmentQuit")).GetColor();
                     foreach (var pair in new[] {
-                        ("highestJudgmentQuit", Component.Judged.Highest, nameof(Colors.Cyan)),
-                        ("higherJudgmentQuit", Component.Judged.Higher, nameof(Colors.DeepSkyBlue)),
-                        ("highJudgmentQuit", Component.Judged.High, nameof(Colors.LightGreen)),
-                        ("lowJudgmentQuit", Component.Judged.Low, nameof(Colors.Yellow)),
-                        ("lowerJudgmentQuit", Component.Judged.Lower, nameof(Colors.Violet)),
-                        ("lowestJudgmentQuit", Component.Judged.Lowest,nameof( Colors.Red))
+                        ("highestJudgmentQuit", Component.Judged.Highest),
+                        ("higherJudgmentQuit", Component.Judged.Higher),
+                        ("highJudgmentQuit", Component.Judged.High),
+                        ("lowJudgmentQuit", Component.Judged.Low),
+                        ("lowerJudgmentQuit", Component.Judged.Lower),
+                        ("lowestJudgmentQuit", Component.Judged.Lowest)
                     })
                     {
-                        JudgmentQuitColors[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1, pair.Item3)).GetColor();
+                        JudgmentQuitColors[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1)).GetColor();
                     }
 
                     StatusHandlingColor = GetCalledText(Utility.GetText(paintNode, "statusHandling", "#7F008000")).GetColor();
@@ -875,13 +875,13 @@ namespace Qwilight
                     StatusLoadingDefaultEntryColor = GetCalledText(Utility.GetText(paintNode, "statusLoadingDefaultEntry", "#7F0000FF")).GetColor();
                     StatusLoadingDefaultEntryPaint = DrawingSystem.Instance.GetDefaultPaint(StatusLoadingDefaultEntryColor);
 
-                    QuitColors[(int)DefaultCompute.QuitStatus.SPlus] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit0", nameof(Colors.Red))).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.S] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit1", nameof(Colors.Silver))).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.APlus] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit2", nameof(Colors.Gold))).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.A] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit3", nameof(Colors.Turquoise))).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.B] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit4", nameof(Colors.Blue))).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.C] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit5", nameof(Colors.Magenta))).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.D] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit6", nameof(Colors.Crimson))).GetColor());
+                    QuitColors[(int)DefaultCompute.QuitStatus.SPlus] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit0")).GetColor());
+                    QuitColors[(int)DefaultCompute.QuitStatus.S] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit1")).GetColor());
+                    QuitColors[(int)DefaultCompute.QuitStatus.APlus] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit2")).GetColor());
+                    QuitColors[(int)DefaultCompute.QuitStatus.A] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit3")).GetColor());
+                    QuitColors[(int)DefaultCompute.QuitStatus.B] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit4")).GetColor());
+                    QuitColors[(int)DefaultCompute.QuitStatus.C] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit5")).GetColor());
+                    QuitColors[(int)DefaultCompute.QuitStatus.D] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit6")).GetColor());
 
                     for (var i = (int)DefaultCompute.QuitStatus.D; i >= (int)DefaultCompute.QuitStatus.SPlus; --i)
                     {

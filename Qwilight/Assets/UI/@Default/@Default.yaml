@@ -29,7 +29,7 @@ paint:
     siteDate: DarkGray
     siteEnter: DeepSkyBlue
     siteQuit: DeepPink
-    siteHref: LightGray
+    siteHref: DodgerBlue
     siteTitle: White
     siteArtist: LightGray
     siteGenre: DarkGray
@@ -110,8 +110,8 @@ paint:
     statusLoadingNoteFile: "#7FFF0000"
     statusLoadingDefaultEntry: "#7F0000FF"
 
-    quit0: Yellow
-    quit1: Yellow
+    quit0: Gold
+    quit1: Gold
     quit2: Green
     quit3: Green
     quit4: Blue

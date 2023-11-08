@@ -1050,8 +1050,8 @@ namespace Qwilight
                                                                             var netPosition0 = drawingComponentValue.netPosition0;
                                                                             var netPosition1 = drawingComponentValue.netPosition1;
                                                                             var altNet = drawingComponentValue.altNet;
-                                                                            var netPaint = UI.Instance.NetPaints[netItemFaintInt];
-                                                                            var netInPaint = UI.Instance.NetInPaints[netItemFaintInt];
+                                                                            var netTextPaint = UI.Instance.NetTextPaints[netItemFaintInt];
+                                                                            var netPaint = UI.Instance.NetWallPaints[netItemFaintInt];
                                                                             for (var i = quitNetPosition; i >= levyingNetPosition; --i)
                                                                             {
                                                                                 foreach (var netItem in netItems)
@@ -1133,7 +1133,7 @@ namespace Qwilight
                                                                                             }
 
                                                                                             r.Set(r.Position0 + Levels.StandardEdgeFloat32, r.Position1 + Levels.StandardEdgeFloat32, r.Length - 2 * Levels.StandardEdgeFloat32, r.Height - 2 * Levels.StandardEdgeFloat32);
-                                                                                            targetSession.FillRectangle(r, netInPaint);
+                                                                                            targetSession.FillRectangle(r, netPaint);
 
                                                                                             r.Position0 += highestNetHeight;
                                                                                             r.Length = (highestNetLength - 2 * highestNetHeight) * netItemValue;
@@ -1150,19 +1150,19 @@ namespace Qwilight
                                                                                                 var position0 = Levels.StandardMargin + textBound0Length;
                                                                                                 targetSession.PaintText(textItem0, ref r, avatarTitle.Value.TitleColor);
                                                                                                 r.Position0 += position0;
-                                                                                                targetSession.PaintText(textItem1, ref r, netPaint);
+                                                                                                targetSession.PaintText(textItem1, ref r, netTextPaint);
                                                                                                 r.Position0 -= position0;
                                                                                             }
                                                                                             else
                                                                                             {
-                                                                                                targetSession.PaintText(textItem1, ref r, netPaint);
+                                                                                                targetSession.PaintText(textItem1, ref r, netTextPaint);
                                                                                             }
                                                                                             r.Position1 += Levels.StandardMargin + textBound1Height;
-                                                                                            targetSession.PaintText(textItem2, ref r, netPaint);
+                                                                                            targetSession.PaintText(textItem2, ref r, netTextPaint);
                                                                                             r.Position0 += Levels.StandardMargin + textBound2Length;
-                                                                                            targetSession.PaintText(textItem3, ref r, netPaint);
+                                                                                            targetSession.PaintText(textItem3, ref r, netTextPaint);
                                                                                             r.Position0 += Levels.StandardMargin + textBound3Length;
-                                                                                            targetSession.PaintText(textItem4, ref r, netPaint);
+                                                                                            targetSession.PaintText(textItem4, ref r, netTextPaint);
 
                                                                                             r.Set(targetPosition0 + distanceNet + Levels.StandardEdgeFloat32, drawingPosition1 + Levels.StandardEdgeFloat32, highestNetHeight, highestNetHeight);
                                                                                             targetSession.PaintDrawing(ref r, avatarDrawing?.Drawing, netItemFaint);
