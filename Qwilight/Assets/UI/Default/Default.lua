@@ -57,7 +57,7 @@ function NoteLength(e)
 end
 
 function NoteHeight1(e)
-	if IsO4U() then
+	if IsO4U() and not IsFloating() then
 		return 2.0 * NoteHeight2(e)
 	else
 		return NoteHeight2(e)
@@ -105,11 +105,7 @@ function FloatingNoteLength6()
 end
 
 function NoteHitFrame(e)
-	if IsO4U() then
-		return 20 * e
-	else
-		return 7 * e
-	end
+	return 7 * e
 end
 
 function MainPosition(e)
