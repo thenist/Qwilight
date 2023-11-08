@@ -1029,7 +1029,7 @@ namespace Qwilight
             UI.Instance.SetFontFamily();
         }
 
-        public string GetAFontFamily() => (FontFamilyValues.FirstOrDefault() ?? QwilightComponent.GetBuiltInData<FontFamily>("DefaultFontFamily")).ToString();
+        public string GetFontFamily() => (FontFamilyValues.FirstOrDefault() ?? QwilightComponent.GetBuiltInData<FontFamily>("DefaultFontFamily")).ToString();
 
         public int CommentViewTabPosition
         {

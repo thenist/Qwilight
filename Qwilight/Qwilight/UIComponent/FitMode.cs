@@ -216,7 +216,7 @@ namespace Qwilight.UIComponent
                         lowestHighestInputCount = Math.Min(lowestHighestInputCount, highestInputCount);
                         highestHighestInputCount = Math.Max(highestHighestInputCount, highestInputCount);
                     }
-                    entryItem.FittedText = lowestHighestInputCount != highestHighestInputCount ? $"{lowestHighestInputCount:#,##0.##/s} ~ {highestHighestInputCount:#,##0.##/s}" : lowestHighestInputCount.ToString("#,##0.##/s");
+                    entryItem.FittedText = lowestHighestInputCount != highestHighestInputCount ? $"{lowestHighestInputCount:#,##0.## / s} ~ {highestHighestInputCount:#,##0.## / s}" : lowestHighestInputCount.ToString("#,##0.## / s");
                     break;
                 case AverageInputCount:
                     var lowestAverageInputCount = double.MaxValue;
@@ -228,7 +228,7 @@ namespace Qwilight.UIComponent
                         lowestAverageInputCount = Math.Min(lowestAverageInputCount, averageInputCount);
                         highestAverageInputCount = Math.Max(highestAverageInputCount, averageInputCount);
                     }
-                    entryItem.FittedText = lowestAverageInputCount != highestAverageInputCount ? $"{lowestAverageInputCount:#,##0.##/s} ~ {highestAverageInputCount:#,##0.##/s}" : lowestAverageInputCount.ToString("#,##0.##/s");
+                    entryItem.FittedText = lowestAverageInputCount != highestAverageInputCount ? $"{lowestAverageInputCount:#,##0.## / s} ~ {highestAverageInputCount:#,##0.## / s}" : lowestAverageInputCount.ToString("#,##0.## / s");
                     break;
             }
         }

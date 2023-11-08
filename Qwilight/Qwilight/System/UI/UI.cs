@@ -410,8 +410,8 @@ namespace Qwilight
                     ArtistColor = Utility.GetText(paintNode, "artist", nameof(Colors.White)).GetColor();
                     GenreColor = Utility.GetText(paintNode, "genre", nameof(Colors.White)).GetColor();
                     WantLevelIDColor = Utility.GetText(paintNode, "wantLevelID", nameof(Colors.White)).GetColor();
-                    parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, NetTextPaints, Utility.GetText(paintNode, "netText", nameof(Colors.White)).GetColor()));
-                    parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, NetWallPaints, Utility.GetText(paintNode, "netWall", nameof(Colors.Black)).GetColor()));
+                    DrawingSystem.Instance.SetFaintPaints(this, NetTextPaints, Utility.GetText(paintNode, "netText", nameof(Colors.White)).GetColor());
+                    DrawingSystem.Instance.SetFaintPaints(this, NetWallPaints, Utility.GetText(paintNode, "netWall", nameof(Colors.Black)).GetColor());
 
                     SaveValueMap(pointNode, "mainPosition");
                     SaveValueMap(pointNode, "p2Position");

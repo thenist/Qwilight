@@ -809,7 +809,7 @@ namespace Qwilight
                     StandQuitColor = GetCalledText(Utility.GetText(paintNode, "standQuit", nameof(Colors.White))).GetColor();
                     PointQuitColor = GetCalledText(Utility.GetText(paintNode, "pointQuit", nameof(Colors.White))).GetColor();
                     BandQuitColor = GetCalledText(Utility.GetText(paintNode, "bandQuit", nameof(Colors.White))).GetColor();
-                    CommentPlaceColor = GetCalledText(Utility.GetText(paintNode, "commentPlace", nameof(Colors.White))).GetColor());
+                    CommentPlaceColor = GetCalledText(Utility.GetText(paintNode, "commentPlace", nameof(Colors.White))).GetColor();
 
                     foreach (var pair in new[] {
                         ("lowestHitPoints", ModeComponent.HitPointsMode.Lowest),
@@ -1036,30 +1036,30 @@ namespace Qwilight
                     DrawingSystem.Instance.SetFontLevel(CommentPlace1Font, (float)commentPlacePoint[4] / 2);
                     DrawingSystem.Instance.SetFontSystem(CommentPlace1Font, (int)CanvasHorizontalAlignment.Right, (int)CanvasVerticalAlignment.Bottom);
 
-                    SetFontSystem(TitleQuitPoint, TitleQuitFont);
-                    SetFontSystem(ArtistQuitPoint, ArtistQuitFont);
-                    SetFontSystem(GenreQuitPoint, GenreQuitFont);
-                    SetFontSystem(LevelQuitPoint, LevelQuitFont);
-                    SetFontSystem(WantLevelIDQuitPoint, WantLevelIDQuitFont);
+                    SetQuitFont(TitleQuitPoint, TitleQuitFont);
+                    SetQuitFont(ArtistQuitPoint, ArtistQuitFont);
+                    SetQuitFont(GenreQuitPoint, GenreQuitFont);
+                    SetQuitFont(LevelQuitPoint, LevelQuitFont);
+                    SetQuitFont(WantLevelIDQuitPoint, WantLevelIDQuitFont);
 
-                    SetFontSystem(JudgmentStageContentsQuitPoint, JudgmentStageQuitFont);
-                    SetFontSystem(HighestInputCountContentsQuitPoint, HighestInputCountQuitFont);
-                    SetFontSystem(LengthContentsQuitPoint, LengthQuitFont);
-                    SetFontSystem(BPMContentsQuitPoint, BPMQuitFont);
+                    SetQuitFont(JudgmentStageContentsQuitPoint, JudgmentStageQuitFont);
+                    SetQuitFont(HighestInputCountContentsQuitPoint, HighestInputCountQuitFont);
+                    SetQuitFont(LengthContentsQuitPoint, LengthQuitFont);
+                    SetQuitFont(BPMContentsQuitPoint, BPMQuitFont);
 
-                    SetFontSystem(TotalNotesJudgmentContentsQuitPoint, TotalNotesQuitFont);
-                    SetFontSystem(HighestJudgmentContentsQuitPoint, HighestJudgmentQuitFont);
-                    SetFontSystem(HigherJudgmentContentsQuitPoint, HigherJudgmentQuitFont);
-                    SetFontSystem(HighJudgmentContentsQuitPoint, HighJudgmentQuitFont);
-                    SetFontSystem(LowJudgmentContentsQuitPoint, LowJudgmentQuitFont);
-                    SetFontSystem(LowerJudgmentContentsQuitPoint, LowerJudgmentQuitFont);
-                    SetFontSystem(LowestJudgmentContentsQuitPoint, LowestJudgmentQuitFont);
+                    SetQuitFont(TotalNotesJudgmentContentsQuitPoint, TotalNotesQuitFont);
+                    SetQuitFont(HighestJudgmentContentsQuitPoint, HighestJudgmentQuitFont);
+                    SetQuitFont(HigherJudgmentContentsQuitPoint, HigherJudgmentQuitFont);
+                    SetQuitFont(HighJudgmentContentsQuitPoint, HighJudgmentQuitFont);
+                    SetQuitFont(LowJudgmentContentsQuitPoint, LowJudgmentQuitFont);
+                    SetQuitFont(LowerJudgmentContentsQuitPoint, LowerJudgmentQuitFont);
+                    SetQuitFont(LowestJudgmentContentsQuitPoint, LowestJudgmentQuitFont);
 
-                    SetFontSystem(StandContentsQuitPoint, StandQuitFont);
-                    SetFontSystem(PointContentsQuitPoint, PointQuitFont);
-                    SetFontSystem(BandContentsQuitPoint, BandQuitFont);
+                    SetQuitFont(StandContentsQuitPoint, StandQuitFont);
+                    SetQuitFont(PointContentsQuitPoint, PointQuitFont);
+                    SetQuitFont(BandContentsQuitPoint, BandQuitFont);
 
-                    void SetFontSystem(float[] point, CanvasTextFormat font)
+                    static void SetQuitFont(float[] point, CanvasTextFormat font)
                     {
                         DrawingSystem.Instance.SetFontLevel(font, (float)point[4]);
                         DrawingSystem.Instance.SetFontSystem(font, (int)point[5], (int)point[6]);

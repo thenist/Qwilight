@@ -3525,10 +3525,7 @@ namespace Qwilight
             WordWrapping = CanvasWordWrapping.NoWrap
         };
 
-        public virtual void SetFontLevel(CanvasTextFormat font, float fontLevel)
-        {
-            font.FontSize = fontLevel;
-        }
+        public virtual void SetFontLevel(CanvasTextFormat font, float fontLevel) => font.FontSize = fontLevel;
 
         public virtual void SetFontSystem(CanvasTextFormat font, int fontSystem0, int fontSystem1)
         {
@@ -3548,9 +3545,6 @@ namespace Qwilight
             };
         }
 
-        public virtual void SetFontFamily(CanvasTextFormat font)
-        {
-            font.FontFamily = Configure.Instance.GetAFontFamily();
-        }
+        public virtual void SetFontFamily(CanvasTextFormat font) => font.FontFamily = Configure.Instance.GetFontFamily();
     }
 }

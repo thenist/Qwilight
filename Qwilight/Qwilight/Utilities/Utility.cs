@@ -483,7 +483,7 @@ namespace Qwilight.Utilities
             }
         }
 
-        public static string GetHighestInputCountText(double averageInputCount, int highestInputCount, double audioMultiplier) => $"{(audioMultiplier * averageInputCount).ToString("#,##0.##/s")} (PEAK: {(audioMultiplier * highestInputCount).ToString("#,##0.##/s")})";
+        public static string GetHighestInputCountText(double averageInputCount, int highestInputCount, double audioMultiplier) => $"{(audioMultiplier * averageInputCount).ToString("#,##0.## / s")} (PEAK: {(audioMultiplier * highestInputCount).ToString("#,##0.## / s")})";
 
         public static string GetGenreText(string genre) => string.IsNullOrEmpty(genre) || genre.StartsWith('#') ? genre : $"#{genre}";
 

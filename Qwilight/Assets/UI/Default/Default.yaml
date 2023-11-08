@@ -16,6 +16,15 @@ format:
         스킨 세부 설정에서 O4U를 선택하면 원형 노트로 플레이 가능합니다.
         스킨 세부 설정에서 Floating을 선택하면 턴 테이블이 사이드 트랙 노트로 수정됩니다.
 
+paint:
+    title: White
+    artist: LightGray
+    genre: DarkGray
+    wantLevelID: DodgerBlue
+
+    netText: White
+    netWall: Black
+
 frame:
     note-frame: 1
     note-framerate: 60
