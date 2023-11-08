@@ -9,7 +9,7 @@ namespace Qwilight.ViewModel
     {
         public override double TargetLength => 0.2;
 
-        public override double TargetHeight => 0.2;
+        public override double TargetHeight => 0.25;
 
         public override HorizontalAlignment TargetLengthSystem => HorizontalAlignment.Center;
 

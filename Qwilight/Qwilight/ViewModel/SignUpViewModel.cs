@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Qwilight.Utilities;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Qwilight.ViewModel
 {
@@ -10,7 +11,7 @@ namespace Qwilight.ViewModel
     {
         public override double TargetLength => 0.2;
 
-        public override double TargetHeight => 0.45;
+        public override double TargetHeight => 0.35;
 
         public override HorizontalAlignment TargetLengthSystem => HorizontalAlignment.Center;
 
@@ -32,6 +33,14 @@ namespace Qwilight.ViewModel
             });
             AvatarName = string.Empty;
             Fax = string.Empty;
+        }
+
+        public void OnInputLower(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                OnSignUp();
+            }
         }
 
         [RelayCommand]

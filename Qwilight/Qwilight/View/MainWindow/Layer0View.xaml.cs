@@ -160,7 +160,7 @@ namespace Qwilight.View
                                 targetSession.DrawLine(Paints.Pen4, p1, p2);
                             }
 
-                            var inputCountText = PoolSystem.Instance.GetValueText(inputCount, "NPS: 0/s");
+                            var inputCountText = PoolSystem.Instance.GetValueText(inputCount, "NPS: #,##0 / s");
                             var defaultTextItem = PoolSystem.Instance.GetDefaultTextItem(inputCountText, Levels.FontLevel0, Paints.Paint4);
                             var defaultTextVisibleItem = PoolSystem.Instance.GetDefaultTextItem(inputCountText, Levels.FontLevel0, Paints.Paint0);
                             r.SetPosition(Levels.StandardMargin + inputNoteCountViewPosition0, Levels.StandardMargin + inputNoteCountViewPosition1);
@@ -168,7 +168,7 @@ namespace Qwilight.View
 
                             var length = (int)(autoComputer.Length / 1000.0);
                             var wait = Math.Clamp((int)(autoComputer.LoopingCounter / 1000.0), 0, length);
-                            inputCountText = PoolSystem.Instance.GetFormattedText("{0}:{1}／{2}:{3}",
+                            inputCountText = PoolSystem.Instance.GetFormattedText("{0}:{1} / {2}:{3}",
                                 PoolSystem.Instance.GetValueText(wait / 60, string.Empty),
                                 PoolSystem.Instance.GetValueText(wait % 60, "00"),
                                 PoolSystem.Instance.GetValueText(length / 60, string.Empty),

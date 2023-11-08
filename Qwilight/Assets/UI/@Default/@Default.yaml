@@ -152,21 +152,21 @@ point:
     lowestJudgmentConditionMode: AutoModePosition0(0), AutoModePosition1(12), 24, 24, 1, 1, 0
 
     file: 12, FilePosition1(0), 72, 24, 0, 1, 0
-    fileContents: 162, FilePosition1(0), CommentViewLength(-150), 24, 0, 1, 12.0
-    fileViewer: 94, FilePosition1(0), 24, 24, 0, 1, 0
-    assistFileViewer: 128, FilePosition1(0), 24, 24, 0, 1, 0
+    fileContents: 147, FilePosition1(0), CommentViewLength(-135), 24, 0, 1, 12.0
+    fileViewer: 89, FilePosition1(0), 24, 24, 0, 1, 0
+    assistFileViewer: 118, FilePosition1(0), 24, 24, 0, 1, 0
     judgmentStage: 12, FilePosition1(1), 72, 24, 0, 1, 0
-    judgmentStageContents: 94, FilePosition1(1), CommentViewLength(-82), 24, 0, 1, 12.0
+    judgmentStageContents: 89, FilePosition1(1), CommentViewLength(-77), 24, 0, 1, 12.0
     totalNotes: 12, FilePosition1(2), 72, 24, 0, 1, 0
-    totalNotesContents: 94, FilePosition1(2), CommentViewLength(-82), 24, 0, 1, 12.0
+    totalNotesContents: 89, FilePosition1(2), CommentViewLength(-77), 24, 0, 1, 12.0
     highestInputCount: 12, FilePosition1(3), 72, 24, 0, 1, 0
-    highestInputCountContents: 94, FilePosition1(3), CommentViewLength(-82), 24, 0, 1, 12.0
+    highestInputCountContents: 89, FilePosition1(3), CommentViewLength(-77), 24, 0, 1, 12.0
     length: 12, FilePosition1(4), 72, 24, 0, 1, 0
-    lengthContents: 94, FilePosition1(4), CommentViewLength(-82), 24, 0, 1, 12.0
+    lengthContents: 89, FilePosition1(4), CommentViewLength(-77), 24, 0, 1, 12.0
     bpm: 12, FilePosition1(5), 72, 24, 0, 1, 0
-    bpmContents: 94, FilePosition1(5), CommentViewLength(-82), 24, 0, 1, 12.0
+    bpmContents: 89, FilePosition1(5), CommentViewLength(-77), 24, 0, 1, 12.0
     inputMode: 12, FilePosition1(6), 72, 24, 0, 1, 0
-    inputModeContents: 94, FilePosition1(6), CommentViewLength(-82), 24, 0, 1, 0
+    inputModeContents: 89, FilePosition1(6), CommentViewLength(-77), 24, 0, 1, 0
 
     # 선곡의 전체 화면 백그라운드 애니메이션
     paintProperty0: 0, 0, DefaultLength(), DefaultHeight(), 1, 0, 0, PaintProperty0Variety(), PaintProperty0Etc(), 0
@@ -275,7 +275,7 @@ point:
     bpmQuit: LengthQuitPosition0(0), LengthQuitPosition1(1), 48, 12
     bpmContentsQuit: LengthQuitPosition0(53), LengthQuitPosition1(1), JudgmentStageQuitLength(), 12, 9.0, 1, 2
     inputModeQuit: LengthQuitPosition0(0), LengthQuitPosition1(2), 48, 12
-    inputModeContentsQuit: LengthQuitPosition0(53), LengthQuitPosition1(2), 48, 12, 9.0, 1, 2
+    inputModeContentsQuit: LengthQuitPosition0(53), LengthQuitPosition1(2), 24, 12, 9.0, 1, 2
 
     autoModeQuit: 5, AutoModeQuitPosition1(0), 24, 24
     noteSaltModeQuit: 39, AutoModeQuitPosition1(0), 24, 24

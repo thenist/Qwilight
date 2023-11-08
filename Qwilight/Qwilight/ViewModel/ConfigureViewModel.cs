@@ -51,6 +51,8 @@ namespace Qwilight.ViewModel
         bool _defaultNetCommentFollow;
         double _faint = 1.0;
 
+        public override double TargetLength => 0.9;
+
         public double Faint
         {
             get => _faint;

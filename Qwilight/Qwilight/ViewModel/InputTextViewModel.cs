@@ -24,7 +24,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetLength => 0.5;
 
-        public override double TargetHeight => 0.15;
+        public override double TargetHeight => 0.1;
 
         public Action<string> HandleOK { get; set; }
 

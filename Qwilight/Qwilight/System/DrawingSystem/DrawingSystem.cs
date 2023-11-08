@@ -1051,7 +1051,7 @@ namespace Qwilight
                                                                             var netPosition1 = drawingComponentValue.netPosition1;
                                                                             var altNet = drawingComponentValue.altNet;
                                                                             var netTextPaint = UI.Instance.NetTextPaints[netItemFaintInt];
-                                                                            var netPaint = UI.Instance.NetWallPaints[netItemFaintInt];
+                                                                            var netWallPaint = UI.Instance.NetWallPaints[netItemFaintInt];
                                                                             for (var i = quitNetPosition; i >= levyingNetPosition; --i)
                                                                             {
                                                                                 foreach (var netItem in netItems)
@@ -1133,7 +1133,7 @@ namespace Qwilight
                                                                                             }
 
                                                                                             r.Set(r.Position0 + Levels.StandardEdgeFloat32, r.Position1 + Levels.StandardEdgeFloat32, r.Length - 2 * Levels.StandardEdgeFloat32, r.Height - 2 * Levels.StandardEdgeFloat32);
-                                                                                            targetSession.FillRectangle(r, netPaint);
+                                                                                            targetSession.FillRectangle(r, netWallPaint);
 
                                                                                             r.Position0 += highestNetHeight;
                                                                                             r.Length = (highestNetLength - 2 * highestNetHeight) * netItemValue;

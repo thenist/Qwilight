@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using Qwilight.UIComponent;
+using Qwilight.ViewModel;
+using System.Windows.Input;
 
 namespace Qwilight.View
 {
@@ -24,5 +25,7 @@ namespace Qwilight.View
                     break;
             }
         }
+
+        void OnInputLower(object sender, KeyEventArgs e) => (DataContext as SignUpViewModel).OnInputLower(e);
     }
 }

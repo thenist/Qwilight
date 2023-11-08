@@ -6,7 +6,7 @@ namespace Qwilight.ViewModel
 {
     public sealed partial class WantViewModel : BaseViewModel
     {
-        public override double TargetLength => 0.9;
+        public override double TargetLength => 0.8;
 
         public override double TargetHeight => 0.8;
 
