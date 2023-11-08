@@ -2662,7 +2662,7 @@ namespace Qwilight
                                                 var distance = i == 1 && has2P ? distance2P : 0F;
                                                 if (lastPointedPositionX >= position0 + distance && lastPointedPositionX < position0 + distance + length && lastPointedPositionY >= position1 && lastPointedPositionY < position1 + height)
                                                 {
-                                                    defaultComputer.LevyingWait = lastPointed.Item2 ? 0.0 : system switch
+                                                    defaultComputer.LevyingWait = lastPointed.Item2 ? -Component.LevyingWait : system switch
                                                     {
                                                         0 => defaultComputer.Length * (1 - (lastPointedPositionY - position1) / height),
                                                         1 => defaultComputer.Length * (lastPointedPositionY - position1) / height,

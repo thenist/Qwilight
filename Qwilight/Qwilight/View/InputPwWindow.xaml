@@ -6,23 +6,27 @@
     Style="{StaticResource StandardModalWindow}">
     <Grid Style="{StaticResource StandardWindow}">
         <Border Style="{StaticResource WindowStandardPanel}">
-            <StackPanel>
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding Text}" />
-                        <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
-                    </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding Text}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
-                <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnInputLower" IsEnabled="{Binding IsInputEditable}" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" KeyDown="OnInputLower" />
-                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OKCommand}" Content="OK" />
-                </Grid>
-            </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}" KeyDown="OnInputLower" IsEnabled="{Binding IsInputEditable}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" KeyDown="OnInputLower" />
+                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OKCommand}" Content="OK" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </Canvas>

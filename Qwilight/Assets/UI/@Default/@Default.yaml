@@ -265,17 +265,17 @@ point:
     
     commentPlace: StandQuitPosition0(0), PaintProperty9Position1(0), 158, 48, 30.0
 
-    judgmentStageQuit: JudgmentStageQuitPosition0(0), JudgmentStageQuitPosition1(1), 48, 12
-    judgmentStageContentsQuit: JudgmentStageQuitPosition0(53), JudgmentStageQuitPosition1(1), JudgmentStageQuitLength(), 12, 9.0, 1, 2
-    highestInputCountQuit: JudgmentStageQuitPosition0(0), JudgmentStageQuitPosition1(0), 48, 12
-    highestInputCountContentsQuit: JudgmentStageQuitPosition0(53), JudgmentStageQuitPosition1(0), JudgmentStageQuitLength(), 12, 9.0, 1, 2
+    judgmentStageQuit: JudgmentStageQuitPosition0(0), JudgmentStageQuitPosition1(1), 45.87454, 12
+    judgmentStageContentsQuit: JudgmentStageQuitPosition0(50.87454), JudgmentStageQuitPosition1(1), JudgmentStageQuitLength(), 12, 9.0, 1, 2
+    highestInputCountQuit: JudgmentStageQuitPosition0(0), JudgmentStageQuitPosition1(0), 45.87454, 12
+    highestInputCountContentsQuit: JudgmentStageQuitPosition0(50.87454), JudgmentStageQuitPosition1(0), JudgmentStageQuitLength(), 12, 9.0, 1, 2
     
-    lengthQuit: LengthQuitPosition0(0), LengthQuitPosition1(0), 48, 12
-    lengthContentsQuit: LengthQuitPosition0(53), LengthQuitPosition1(0), JudgmentStageQuitLength(), 12, 9.0, 1, 2
-    bpmQuit: LengthQuitPosition0(0), LengthQuitPosition1(1), 48, 12
-    bpmContentsQuit: LengthQuitPosition0(53), LengthQuitPosition1(1), JudgmentStageQuitLength(), 12, 9.0, 1, 2
-    inputModeQuit: LengthQuitPosition0(0), LengthQuitPosition1(2), 48, 12
-    inputModeContentsQuit: LengthQuitPosition0(53), LengthQuitPosition1(2), 24, 12, 9.0, 1, 2
+    lengthQuit: LengthQuitPosition0(0), LengthQuitPosition1(0), 37.72694, 12
+    lengthContentsQuit: LengthQuitPosition0(42.72694), LengthQuitPosition1(0), JudgmentStageQuitLength(), 12, 9.0, 1, 2
+    bpmQuit: LengthQuitPosition0(0), LengthQuitPosition1(1), 37.72694, 12
+    bpmContentsQuit: LengthQuitPosition0(42.72694), LengthQuitPosition1(1), JudgmentStageQuitLength(), 12, 9.0, 1, 2
+    inputModeQuit: LengthQuitPosition0(0), LengthQuitPosition1(2), 37.72694, 12
+    inputModeContentsQuit: LengthQuitPosition0(42.72694), LengthQuitPosition1(2), 18.86347, 12, 9.0, 1, 2
 
     autoModeQuit: 5, AutoModeQuitPosition1(0), 24, 24
     noteSaltModeQuit: 39, AutoModeQuitPosition1(0), 24, 24

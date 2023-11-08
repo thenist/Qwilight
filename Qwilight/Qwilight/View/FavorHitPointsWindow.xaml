@@ -9,64 +9,60 @@
     <Grid Style="{StaticResource StandardWindow}">
         <Border Style="{StaticResource WindowStandardPanel}">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentDrawings[4][6].DefaultDrawing, Source={StaticResource BaseUI}}" />
                     <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ModifyModeComponentText, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
-                <TextBox Grid.Row="1" Style="{StaticResource StandardTextInput}" Text="{Binding FavorHitPointsName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding FavorHitPointsNameAssist, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding FavorHitPointsCollection}" SelectedItem="{Binding FavorHitPointsValue}" />
-                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding QuitFavorHitPointsCommand}" IsEnabled="{Binding CanWipe}" Foreground="Red">❌</Button>
-                </Grid>
-                <Border Grid.Row="3" Style="{StaticResource StandardPanel}" VerticalAlignment="Center">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding FavorHitPointsName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding FavorHitPointsNameAssist, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
+                    <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding FavorHitPoints0Unit, Source={StaticResource LanguageSystem}}" />
-                        <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding FavorHitPoints1Unit, Source={StaticResource LanguageSystem}}" />
-                        <Image Style="{StaticResource StandardView}" Grid.Row="1" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[0].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                        <view:BinInput Grid.Row="1" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.HighestHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <view:BinInput Grid.Row="1" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.HighestHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <Image Style="{StaticResource StandardView}" Grid.Row="2" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[1].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                        <view:BinInput Grid.Row="2" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.HigherHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <view:BinInput Grid.Row="2" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.HigherHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <Image Style="{StaticResource StandardView}" Grid.Row="3" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[2].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                        <view:BinInput Grid.Row="3" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.HighHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <view:BinInput Grid.Row="3" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.HighHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <Image Style="{StaticResource StandardView}" Grid.Row="4" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[3].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                        <view:BinInput Grid.Row="4" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.LowHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <view:BinInput Grid.Row="4" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.LowHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <Image Style="{StaticResource StandardView}" Grid.Row="5" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[4].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                        <view:BinInput Grid.Row="5" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.LowerHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <view:BinInput Grid.Row="5" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.LowerHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <Image Style="{StaticResource StandardView}" Grid.Row="6" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[5].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                        <view:BinInput Grid.Row="6" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.LowestHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
-                        <view:BinInput Grid.Row="6" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.LowestHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
+                        <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding FavorHitPointsCollection}" SelectedItem="{Binding FavorHitPointsValue}" />
+                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding QuitFavorHitPointsCommand}" IsEnabled="{Binding CanWipe}" Foreground="Red">❌</Button>
                     </Grid>
-                </Border>
+                    <Border Style="{StaticResource StandardPanel}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding FavorHitPoints0Unit, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding FavorHitPoints1Unit, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                            <Image Style="{StaticResource StandardView}" Grid.Row="1" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[0].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                            <view:BinInput Grid.Row="1" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.HighestHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <view:BinInput Grid.Row="1" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.HighestHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <Image Style="{StaticResource StandardView}" Grid.Row="2" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[1].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                            <view:BinInput Grid.Row="2" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.HigherHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <view:BinInput Grid.Row="2" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.HigherHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <Image Style="{StaticResource StandardView}" Grid.Row="3" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[2].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                            <view:BinInput Grid.Row="3" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.HighHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <view:BinInput Grid.Row="3" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.HighHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <Image Style="{StaticResource StandardView}" Grid.Row="4" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[3].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                            <view:BinInput Grid.Row="4" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.LowHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <view:BinInput Grid.Row="4" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.LowHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <Image Style="{StaticResource StandardView}" Grid.Row="5" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[4].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                            <view:BinInput Grid.Row="5" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.LowerHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <view:BinInput Grid.Row="5" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.LowerHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <Image Style="{StaticResource StandardView}" Grid.Row="6" HorizontalAlignment="Right" Height="24" Source="{Binding JudgmentDrawings[5].DefaultDrawing, Source={StaticResource BaseUI}}" />
+                            <view:BinInput Grid.Row="6" Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.LowestHitPoints0, Source={StaticResource ViewModels}}" Format="0.##％" />
+                            <view:BinInput Grid.Row="6" Grid.Column="2" Value="{Binding MainValue.ModeComponentValue.LowestHitPoints1, Source={StaticResource ViewModels}}" Format="0.##％" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
             </Grid>
         </Border>
     </Grid>

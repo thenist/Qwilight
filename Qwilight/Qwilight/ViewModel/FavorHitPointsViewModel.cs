@@ -14,7 +14,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetLength => 0.3;
 
-        public override double TargetHeight => 0.55;
+        public override double TargetHeight => 0.6;
 
         public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
 

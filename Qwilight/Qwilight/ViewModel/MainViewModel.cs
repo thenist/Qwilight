@@ -877,7 +877,7 @@ namespace Qwilight.ViewModel
                                 var statusPosition1 = statusPoint[1];
                                 var statusLength = statusPoint[2];
                                 var statusHeight = statusPoint[3];
-                                MoveStatus(isAlt ? 0.0 : statusPoint[4] switch
+                                MoveStatus(isAlt ? -Component.LevyingWait : statusPoint[4] switch
                                 {
                                     0 => 1 - (pointPositionY - statusPosition1) / statusHeight,
                                     1 => (pointPositionY - statusPosition1) / statusHeight,
@@ -888,7 +888,7 @@ namespace Qwilight.ViewModel
                             }
                             else if (inputNoteCountViewPoint?.Length > 2 && Utility.IsPoint(inputNoteCountViewPoint, pointPositionX, pointPositionY))
                             {
-                                MoveStatus(isAlt ? 0.0 : (pointPositionX - inputNoteCountViewPoint[0]) / inputNoteCountViewPoint[2], e.ClickCount == 2);
+                                MoveStatus(isAlt ? -Component.LevyingWait : (pointPositionX - inputNoteCountViewPoint[0]) / inputNoteCountViewPoint[2], e.ClickCount == 2);
                             }
                         })
                     });

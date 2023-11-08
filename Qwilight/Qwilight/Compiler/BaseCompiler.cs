@@ -959,6 +959,7 @@ namespace Qwilight.Compiler
                     var waitBPMMap = new Queue<KeyValuePair<double, double>>(defaultComputer.WaitBPMMap);
                     var lowestLongNoteModify = defaultComputer.ModeComponentValue.LowestLongNoteModify;
                     var highestLongNoteModify = defaultComputer.ModeComponentValue.HighestLongNoteModify;
+                    var distanceLongNoteModify = highestLongNoteModify - lowestLongNoteModify;
                     for (var i = inputCount; i > 0; --i)
                     {
                         var targetInputNotes = Notes.Where(note => note.LevyingInput == i).ToArray();
@@ -968,7 +969,7 @@ namespace Qwilight.Compiler
                             var targetInputNote = targetInputNotes[j];
                             if (j < targetInputNoteCount - 1 && targetInputNote.LongWait == 0.0 && targetInputNote.HasStand)
                             {
-                                var longNoteModify = lowestLongNoteModify + targetInputNote.Salt % (highestLongNoteModify - lowestLongNoteModify + 1);
+                                var longNoteModify = distanceLongNoteModify > 0.0 ? lowestLongNoteModify + targetInputNote.Salt % distanceLongNoteModify : lowestLongNoteModify;
                                 var targetNote = targetInputNotes[j + 1];
                                 var noteWait = targetInputNote.Wait;
                                 var targetLoopingCounter = targetNote.Wait;

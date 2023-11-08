@@ -7,24 +7,30 @@
     Style="{StaticResource StandardModalWindow}">
     <Grid Style="{StaticResource StandardWindow}">
         <Border Style="{StaticResource WindowStandardPanel}">
-            <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding SignUp, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
-                <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding AvatarID, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding AvatarID, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
-                <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" materialDesign:HintAssist.Hint="{Binding AvatarCipher, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
-                <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipherTest" materialDesign:HintAssist.Hint="{Binding AvatarCipherTest, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
-                <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding AvatarName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding AvatarName, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding Fax, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding Fax, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
-                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding SignUpCommand}" Content="{Binding SignUp, Source={StaticResource LanguageSystem}}"  HorizontalAlignment="Center" />
-                </Grid>
-            </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding AvatarID, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding AvatarID, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
+                    <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" materialDesign:HintAssist.Hint="{Binding AvatarCipher, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
+                    <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipherTest" materialDesign:HintAssist.Hint="{Binding AvatarCipherTest, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
+                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding AvatarName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding AvatarName, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding Fax, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding Fax, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
+                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding SignUpCommand}" Content="{Binding SignUp, Source={StaticResource LanguageSystem}}"  HorizontalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </Canvas>
