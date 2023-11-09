@@ -6,7 +6,6 @@ format:
     title: Qwilight basic skin.
     title-1042: Qwilight 기본 스킨
     comment: It's a basic skin made by a developer.
-    comment-1041: 開発者が作った基本化粧水です。
     comment-1042: 개발자가 만든 기본 스킨입니다.
     
     defaultLength: DefaultLength()

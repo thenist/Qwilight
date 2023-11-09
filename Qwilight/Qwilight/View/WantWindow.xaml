@@ -49,11 +49,11 @@
                                 </Button>
                             </Grid>
                         </GroupBox.Header>
-                            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding NoteVarietyBMS}" Command="{Binding WantNoteVarietyCommand}" CommandParameter="{StaticResource NoteVarietyBMS}" Content="BMS" />
-                                <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding NoteVarietyBMSON}" Command="{Binding WantNoteVarietyCommand}" CommandParameter="{StaticResource NoteVarietyBMSON}" Content="BMSON" />
-                                <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding NoteVarietyEventNote}" Command="{Binding WantNoteVarietyCommand}" CommandParameter="{StaticResource NoteVarietyEventNote}" Content="{Binding EventNote, Source={StaticResource LanguageSystem}}" />
-                            </WrapPanel>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding NoteVarietyBMS}" Command="{Binding WantNoteVarietyCommand}" CommandParameter="{StaticResource NoteVarietyBMS}" Content="BMS" />
+                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding NoteVarietyBMSON}" Command="{Binding WantNoteVarietyCommand}" CommandParameter="{StaticResource NoteVarietyBMSON}" Content="BMSON" />
+                            <Button Style="{StaticResource StandardInput}" BorderThickness="{Binding NoteVarietyEventNote}" Command="{Binding WantNoteVarietyCommand}" CommandParameter="{StaticResource NoteVarietyEventNote}" Content="{Binding EventNote, Source={StaticResource LanguageSystem}}" />
+                        </WrapPanel>
                     </GroupBox>
                     <GroupBox Style="{StaticResource StandardGroupView}">
                         <GroupBox.Header>

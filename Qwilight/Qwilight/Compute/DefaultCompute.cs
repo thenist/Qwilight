@@ -3247,7 +3247,7 @@ namespace Qwilight.Compute
                             }
                         }
 
-                        _millisMeter += millisLoopUnit;
+                        _millisMeter += millisLoopUnit * AudioMultiplier;
                         if (_millisMeter >= _millisStandardMeter)
                         {
                             _millisMeter %= _millisStandardMeter;

@@ -8,15 +8,15 @@ namespace Qwilight.ViewModel
     {
         public override double TargetLength => 0.8;
 
-        public override double TargetHeight => 0.8;
+        public override double TargetHeight => 0.9;
 
         public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Top;
 
         [RelayCommand]
-        void OnWantHellBPM() => Configure.Instance.WantHellBPM = !Configure.Instance.WantHellBPM;
+        static void OnWantHellBPM() => Configure.Instance.WantHellBPM = !Configure.Instance.WantHellBPM;
 
         [RelayCommand]
-        void OnWantBanned() => Configure.Instance.WantBannedValue = (Configure.WantBanned)(((int)Configure.Instance.WantBannedValue + 1) % 2);
+        static void OnWantBanned() => Configure.Instance.WantBannedValue = (Configure.WantBanned)(((int)Configure.Instance.WantBannedValue + 1) % 2);
 
         [RelayCommand]
         void OnWantNoteVariety(int e)
@@ -154,6 +154,9 @@ namespace Qwilight.ViewModel
             }
         }
 
+        [RelayCommand]
+        static void OnLevelWindow() => ViewModels.Instance.LevelValue.Open();
+
         public void OnLowestWantLevelTextValue()
         {
             Configure.Instance.HighestWantLevelTextValue = Math.Max(Configure.Instance.LowestWantLevelTextValue, Configure.Instance.HighestWantLevelTextValue);
@@ -165,9 +168,6 @@ namespace Qwilight.ViewModel
             Configure.Instance.LowestWantLevelTextValue = Math.Min(Configure.Instance.LowestWantLevelTextValue, Configure.Instance.HighestWantLevelTextValue);
             Configure.Instance.HighestWantLevelTextValue = Math.Max(Configure.Instance.LowestWantLevelTextValue, Configure.Instance.HighestWantLevelTextValue);
         }
-
-        [RelayCommand]
-        void OnLevelWindow() => ViewModels.Instance.LevelValue.Open();
 
         public void OnLowestWantBPM()
         {

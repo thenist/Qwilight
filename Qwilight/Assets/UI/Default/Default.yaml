@@ -67,26 +67,26 @@ func:
     setNoteLength: true
     setNoteHeight: true
     setBandPosition: true
-
-    configure-comment-0: Select the shape of the note.
+    
     configure-0: Default (Bar Note), O4U (Round note)
-    configure-comment-0-1042: 노트 모양을 선택합니다.
     configure-0-1042: Default (바 노트), O4U (원형 노트)
-
-    configure-comment-1: Choose a style.
+    configure-comment-0: Select the shape of the note.
+    configure-comment-0-1042: 노트 모양을 선택합니다.
+    
     configure-1: Default (New), Classic (Old)
-    configure-comment-1-1042: 스타일을 선택합니다.
     configure-1-1042: Default (신형), Classic (구형)
-
-    configure-comment-2: Select a turn table.
+    configure-comment-1: Choose a style.
+    configure-comment-1-1042: 스타일을 선택합니다.
+    
     configure-2: Default (General), Floating (Side Track)
-    configure-comment-2-1042: 턴 테이블을 선택합니다.
     configure-2-1042: Default (일반), Floating (사이드 트랙)
-
-    configure-comment-3: Select a center note color.
-    configure-3: Default (Yellow), Classic (Blue)
-    configure-comment-3-1042: 중앙 노트 색상을 선택합니다.
+    configure-comment-2: Select a turn table.
+    configure-comment-2-1042: 턴 테이블을 선택합니다.
+    
+    configure-3: Default (Yellow), Classic (Blue
     configure-3-1042: Classic (파란색), Default (노란색)
+    configure-comment-3: Select a center note color.
+    configure-comment-3-1042: 중앙 노트 색상을 선택합니다.
 
     pipeline: Pipeline()
 
@@ -246,11 +246,14 @@ point:
     hitPointsLength: 10
     hitPointsHeight: 360
 
-    # 박자에 맞추어 반짝거리는 아래 사각형 영역
-    paintProperty2: MainPosition(0), 644, P1BuiltLength(1), 76, 2, PaintProperty2Frame(), 60, 1
+    # 버튼 백그라운드 이미지
+    paintProperty1: MainPosition(0), JudgmentMainPosition(0), P1BuiltLength(1), 120, 2, 1, 60, 0
 
-    # 라이프 게이지를 감싸는 막대기
-    paintProperty3: MainPosition(0), PaintProperty3Position1(), P1BuiltLength(1), 20, 2, 1, 60, 0
+    # 버튼 아래 사각형 영역
+    paintProperty2: MainPosition(0), 644, P1BuiltLength(1), 76, 2, PaintProperty2Frame(), 60, 0
+
+    # 박자에 반응하는 판정 비율 막대기
+    paintProperty3: MainPosition(0), PaintProperty3Position1(), P1BuiltLength(1), 20, 2, 100, 60, 1
     
     # 판정 비주얼라이저 기준점
     paintProperty4: PaintProperty4Position0(), PaintProperty4Position1(), 7, 4, 2, 1, 60, 0, 43

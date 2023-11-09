@@ -60,7 +60,6 @@ namespace Qwilight
         public static readonly string AssetsEntryPath;
         public static readonly string CPUAssetsEntryPath;
         public static readonly string QwilightEntryPath;
-        public static readonly string TraceEntryPath;
         public static readonly string EdgeEntryPath;
         public static readonly string UIEntryPath;
         public static readonly string BundleEntryPath;
@@ -140,9 +139,8 @@ namespace Qwilight
             CPUAssetsEntryPath = Path.Combine(AssetsEntryPath, "ARM64");
 #endif
             QwilightEntryPath = Path.Combine(AppContext.BaseDirectory, IsValve ? "SavesDir" : Environment.UserName);
-            TraceEntryPath = Path.Combine(QwilightEntryPath, "Trace");
-            EdgeEntryPath = Path.Combine(TraceEntryPath, "Edge");
-            FaultEntryPath = Path.Combine(TraceEntryPath, "Fault");
+            EdgeEntryPath = Path.Combine(QwilightEntryPath, "Edge");
+            FaultEntryPath = Path.Combine(QwilightEntryPath, "Fault");
             UIEntryPath = Path.Combine(QwilightEntryPath, "UI");
             BundleEntryPath = Path.Combine(QwilightEntryPath, "Bundle");
             CommentEntryPath = Path.Combine(QwilightEntryPath, "Comment");
