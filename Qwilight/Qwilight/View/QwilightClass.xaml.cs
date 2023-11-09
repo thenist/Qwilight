@@ -171,12 +171,6 @@ namespace Qwilight.View
                 Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "steam_api64.dll"), Path.Combine(AppContext.BaseDirectory, "steam_api64.dll"));
             }
 
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffmpeg.exe"), Path.Combine(QwilightComponent.SoftwareEntryPath, "ffmpeg.exe"));
-
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Flint.exe"), Path.Combine(QwilightComponent.SoftwareEntryPath, "Flint.exe"));
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Igniter.exe"), Path.Combine(QwilightComponent.SoftwareEntryPath, "Igniter.exe"));
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Xwindow.exe"), Path.Combine(QwilightComponent.SoftwareEntryPath, "Xwindow.exe"));
-
             var qwilightBundleFilePath = Path.Combine(QwilightComponent.QwilightEntryPath, "Qwilight.zip");
             if (File.Exists(qwilightBundleFilePath))
             {

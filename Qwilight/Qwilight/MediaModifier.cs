@@ -20,7 +20,7 @@ namespace Qwilight
                 {
                     if (_isAvailable)
                     {
-                        _exe = Process.Start(new ProcessStartInfo(Path.Combine(QwilightComponent.SoftwareEntryPath, "ffmpeg.exe"), $"""
+                        _exe = Process.Start(new ProcessStartInfo(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffmpeg.exe"), $"""
                             -i "{mediaFilePath}" -y -an {(isWrongMedia || isCounterWave ? string.Empty : "-vcodec copy")} {(isCounterWave ? "-vf reverse" : string.Empty)} -preset ultrafast "{hashMediaFilePath}"
                         """)
                         {

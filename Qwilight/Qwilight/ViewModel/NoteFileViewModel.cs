@@ -84,7 +84,7 @@ namespace Qwilight.ViewModel
             {
                 try
                 {
-                    var flintFilePath = Path.Combine(QwilightComponent.SoftwareEntryPath, "Flint.exe");
+                    var flintFilePath = Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Flint.exe");
                     var noteFilePath = noteFile.NoteFilePath;
                     if (QwilightComponent.BMSNoteFileFormats.Any(format => noteFilePath.IsTailCaselsss(format)))
                     {

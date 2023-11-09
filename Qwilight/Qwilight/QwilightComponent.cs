@@ -60,13 +60,13 @@ namespace Qwilight
         public static readonly string AssetsEntryPath;
         public static readonly string CPUAssetsEntryPath;
         public static readonly string QwilightEntryPath;
+        public static readonly string TraceEntryPath;
         public static readonly string EdgeEntryPath;
         public static readonly string UIEntryPath;
         public static readonly string BundleEntryPath;
         public static readonly string CommentEntryPath;
         public static readonly string FaultEntryPath;
         public static readonly string MediaEntryPath;
-        public static readonly string SoftwareEntryPath;
         public static readonly string AMD64Name = string.Empty;
         public static readonly string OSName = string.Empty;
         public static readonly string RAMName = string.Empty;
@@ -140,13 +140,13 @@ namespace Qwilight
             CPUAssetsEntryPath = Path.Combine(AssetsEntryPath, "ARM64");
 #endif
             QwilightEntryPath = Path.Combine(AppContext.BaseDirectory, IsValve ? "SavesDir" : Environment.UserName);
-            EdgeEntryPath = Path.Combine(QwilightEntryPath, "Edge");
+            TraceEntryPath = Path.Combine(QwilightEntryPath, "Trace");
+            EdgeEntryPath = Path.Combine(TraceEntryPath, "Edge");
+            FaultEntryPath = Path.Combine(TraceEntryPath, "Fault");
             UIEntryPath = Path.Combine(QwilightEntryPath, "UI");
             BundleEntryPath = Path.Combine(QwilightEntryPath, "Bundle");
             CommentEntryPath = Path.Combine(QwilightEntryPath, "Comment");
-            FaultEntryPath = Path.Combine(QwilightEntryPath, "Fault");
             MediaEntryPath = Path.Combine(QwilightEntryPath, "Media");
-            SoftwareEntryPath = Path.Combine(QwilightEntryPath, "Software");
 
             var rawHwMode = new DEVMODEW();
             PInvoke.EnumDisplaySettings(null, ENUM_DISPLAY_SETTINGS_MODE.ENUM_CURRENT_SETTINGS, ref rawHwMode);
