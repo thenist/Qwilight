@@ -253,7 +253,7 @@ point:
     paintProperty2: MainPosition(0), 644, P1BuiltLength(1), 76, 2, PaintProperty2Frame(), 60, 0
 
     # 박자에 반응하는 판정 비율 막대기
-    paintProperty3: MainPosition(0), PaintProperty3Position1(), P1BuiltLength(1), 20, 2, 100, 60, 1
+    paintProperty3: MainPosition(0), PaintProperty3Position1(), P1BuiltLength(1), 20, 2, 20, 60, 0
     
     # 판정 비주얼라이저 기준점
     paintProperty4: PaintProperty4Position0(), PaintProperty4Position1(), 7, 4, 2, 1, 60, 0, 43
