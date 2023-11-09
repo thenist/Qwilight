@@ -215,15 +215,15 @@ point:
     judgmentLength: 300
     judgmentHeight: 100
 
-    hitNotePaintPosition0: HitNotePaintPosition0(2.0), HitNotePaintPosition0(1.0), ~, ~, ~, HitNotePaintPosition0(2.0), HitNotePaintPosition0(1.0), ~, ~, HitNotePaintPosition0(2.0)
-    hitNotePaintPosition1: HitNotePaintPosition1(2.0), HitNotePaintPosition1(1.0), ~, ~, ~, HitNotePaintPosition1(2.0), HitNotePaintPosition1(1.0), ~, ~, HitNotePaintPosition1(2.0)
-    hitNotePaintLength: HitNotePaintPosition0(-4.0), HitNotePaintPosition0(-2.0), ~, ~, ~, HitNotePaintPosition0(-4.0), HitNotePaintPosition0(-2.0), ~, ~, HitNotePaintPosition0(-4.0)
-    hitNotePaintHeight: HitNotePaintPosition1(-4.0), HitNotePaintPosition1(-2.0), ~, ~, ~, HitNotePaintPosition1(-4.0), HitNotePaintPosition1(-2.0), ~, ~, HitNotePaintPosition1(-4.0)
+    hitNotePaintPosition0: HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, ~, HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, HitNotePaintPosition(2.0)
+    hitNotePaintPosition1: HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, ~, HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, HitNotePaintPosition(2.0)
+    hitNotePaintLength: HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, ~, HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, HitNotePaintPosition(-4.0)
+    hitNotePaintHeight: HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, ~, HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, HitNotePaintPosition(-4.0)
 
-    hitLongNotePaintPosition0: HitNotePaintPosition0(2.0), HitNotePaintPosition0(1.0), ~, ~, ~, HitNotePaintPosition0(2.0), HitNotePaintPosition0(1.0), ~, ~, HitNotePaintPosition0(2.0)
-    hitLongNotePaintPosition1: HitNotePaintPosition1(2.0), HitNotePaintPosition1(1.0), ~, ~, ~, HitNotePaintPosition1(2.0), HitNotePaintPosition1(1.0), ~, ~, HitNotePaintPosition1(2.0)
-    hitLongNotePaintLength: HitNotePaintPosition0(-4.0), HitNotePaintPosition0(-2.0), ~, ~, ~, HitNotePaintPosition0(-4.0), HitNotePaintPosition0(-2.0), ~, ~, HitNotePaintPosition0(-4.0)
-    hitLongNotePaintHeight: HitNotePaintPosition1(-4.0), HitNotePaintPosition1(-2.0), ~, ~, ~, HitNotePaintPosition1(-4.0), HitNotePaintPosition1(-2.0), ~, ~, HitNotePaintPosition1(-4.0)
+    hitLongNotePaintPosition0: HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, ~, HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, HitNotePaintPosition(2.0)
+    hitLongNotePaintPosition1: HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, ~, HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, HitNotePaintPosition(2.0)
+    hitLongNotePaintLength: HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, ~, HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, HitNotePaintPosition(-4.0)
+    hitLongNotePaintHeight: HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, ~, HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, HitNotePaintPosition(-4.0)
 
     bpmSystem: BPMSystem()
     bpmPosition0: BPMPosition0()
@@ -313,7 +313,7 @@ point:
 
     judgmentPointsSystem: 3
     judgmentPointsPosition0: MainPosition(0)
-    judgmentPointsPosition1: HitPointsPosition1()
+    judgmentPointsPosition1: judgmentPointsPosition1()
     judgmentPointsLength: P1BuiltLength(1.0)
     judgmentPointsHeight: 10
 

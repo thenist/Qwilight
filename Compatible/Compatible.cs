@@ -541,7 +541,9 @@ namespace Compatible
                             .Replace("inputSemiCount", "autoableInputCount")
                             .Replace("etudeInputCount", "autoableInputCount")
                             .Replace("inputDefaultCount", "defaultInputCount")
-                            .Replace("_GetAuto(", "_GetAutoInput(");
+                            .Replace("_GetAuto(", "_GetAutoInput(")
+                            .Replace("_GetNotePaint(", "_GetHitNotePaint(")
+                            .Replace("_GetLongNotePaint(", "_GetHitLongNotePaint(");
                         foreach (Match m in GetWallFunc().Matches(luaContents1))
                         {
                             luaContents1 = luaContents1.Replace(m.Value, "Wall(" + m.Value[4..]);

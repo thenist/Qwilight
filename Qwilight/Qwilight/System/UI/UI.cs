@@ -1161,8 +1161,8 @@ namespace Qwilight
                 }
 
                 var getNote = new Func<int[], string>(args => "N");
-                var getNotePaint = new Func<int[], string>(args => "N");
-                var getLongNotePaint = new Func<int[], string>(args => "L");
+                var getHitNotePaint = new Func<int[], string>(args => "N");
+                var getHitLongNotePaint = new Func<int[], string>(args => "L");
                 var getJudgmentPaint = new Func<int[], string>(args => "J");
                 var getMain = new Func<int[], string>(args => "M");
                 var getWall = new Func<int[], string>(args => "W");
@@ -1179,8 +1179,8 @@ namespace Qwilight
                 var getStandBin = new Func<int[], string>(args => "S");
 
                 SetFunc("_GetNote", ref getNote);
-                SetFunc("_GetNotePaint", ref getNotePaint);
-                SetFunc("_GetLongNotePaint", ref getLongNotePaint);
+                SetFunc("_GetHitNotePaint", ref getHitNotePaint);
+                SetFunc("_GetHitLongNotePaint", ref getHitLongNotePaint);
                 SetFunc("_GetJudgmentPaint", ref getJudgmentPaint);
                 SetFunc("_GetMain", ref getMain);
                 SetFunc("_GetWall", ref getWall);
@@ -1487,7 +1487,7 @@ namespace Qwilight
                             var fileNameContents = justFileName.Split(' ');
                             var main = Utility.ToInt32(fileNameContents.ElementAtOrDefault(1));
                             var frame = Utility.ToInt32(fileNameContents.ElementAtOrDefault(2));
-                            if (fileNameContents[0] == getNotePaint(new[] { main, frame }))
+                            if (fileNameContents[0] == getHitNotePaint(new[] { main, frame }))
                             {
                                 switch (fileNameContents.Length)
                                 {
@@ -1505,7 +1505,7 @@ namespace Qwilight
                                         break;
                                 }
                             }
-                            else if (fileNameContents[0] == getLongNotePaint(new[] { main, frame }))
+                            else if (fileNameContents[0] == getHitLongNotePaint(new[] { main, frame }))
                             {
                                 switch (fileNameContents.Length)
                                 {

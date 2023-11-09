@@ -235,7 +235,7 @@ function HmsPosition0()
 		return Wall(25)
 	else
 		if isNarrower() then
-			return MainPosition(-25)
+			return MainPosition(-5) - 5
 		elseif isNarrow() then
 			return MainPosition(5)
 		else
@@ -271,7 +271,7 @@ function StandPosition0()
 		return 1275
 	else
 		if isNarrower() then
-			return MainPosition(-25)
+			return MainPosition(-5) - 5
 		elseif isNarrow() then
 			return MainPosition(5)
 		else
@@ -329,7 +329,7 @@ function BPMPosition0()
 		return 1232.6
 	else
 		if isNarrow() then
-			return MainPosition(-25 - 42.4)
+			return MainPosition(-5) - 5 - 42.4
 		else
 			return MainPosition(5)
 		end
@@ -374,12 +374,8 @@ function JudgmentMainPosition(e)
 	return position
 end
 
-function HitNotePaintPosition0(e)
-		return -1.5 * NoteLength(e)
-end
-
-function HitNotePaintPosition1(e)
-		return -1.5 * NoteLength(e)
+function HitNotePaintPosition(e)
+	return -2.0 * NoteLength(e)
 end
 
 function LongNoteEdgePosition1()
@@ -414,7 +410,7 @@ function LongNoteEdgeHeight2()
 	end
 end
 
-function HitPointsPosition1()
+function judgmentPointsPosition1()
 	if IsClassic() then
 		return 705
 	else
