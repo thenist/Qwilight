@@ -339,7 +339,7 @@ namespace Qwilight
                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, eventItemText);
                                     break;
                                 case Event.Types.EventID.LevelUp:
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.LevelUpContents, true, "Level Up");
+                                    Utility.HandleUIAudio("Level Up");
                                     BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelUp);
                                     break;
                                 case Event.Types.EventID.AbilityUp:

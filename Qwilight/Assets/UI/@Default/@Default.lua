@@ -180,6 +180,10 @@ function PaintProperty12Position1()
 	return TotalNotesQuitPosition1(0) - 5
 end
 
+function PaintProperty23Position0(e)
+	return DefaultLength(1.0) - e
+end
+
 function PaintProperty0Variety()
 	if IsNoteFileModeBGA() then
 		return 2

@@ -404,7 +404,6 @@ namespace Qwilight
         public string LevelInputContents { get; set; }
         public string LevelItem { get; set; }
         public string LevelSystemText { get; set; }
-        public string LevelUpContents { get; set; }
         public string LevyNoteFileContents { get; set; }
         public string LevyWwwLevel { get; set; }
         public string Library { get; set; }

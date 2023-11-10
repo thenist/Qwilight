@@ -1607,10 +1607,6 @@
     "ko-KR": "난이도 테이블 설정",
     "en-US": "Setting the difficulty table"
   },
-  "LevelUpContents": {
-    "ko-KR": "레벨 업! 축하합니다.",
-    "en-US": "Level up! Congratulations!"
-  },
   "LevyNoteFileContents": {
     "ko-KR": "게임 시작 ({0})",
     "en-US": "Game Start ({0})"

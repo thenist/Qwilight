@@ -211,12 +211,31 @@ point:
 
     # 선곡의 오토 플레이 텍스트
     paintProperty17: 12, InputNoteCountViewPosition1(-20), 207.5, 20, 1, 0, 1, 0, null, 0
+    
+    # 리절트의 트리거 백그라운드 이미지
+    paintProperty20: PaintProperty23Position0(591), AutoModeQuitPosition1(-5), 591, 34, 1, 0, 0, 0, null, 1
 
     # 선곡의 NPS 비주얼라이저 테두리
     paintProperty21: 12, InputNoteCountViewPosition1(0), CommentViewLength(-34), 68, 1, 0, 0, 0, null, 0
 
     # 선곡의 게임 모드 테두리
     paintProperty22: AutoModePosition0(-5), PaintProperty22Position1(), 34, 442, 1, 0, 0, 0, null, 0
+    
+    # 레벨 업
+    paintProperty23: PaintProperty23Position0(108), AutoModeQuitPosition1(0), 103, 24, 1, 0, 0, 0, null, 1
+    paintProperty24: PaintProperty23Position0(108), AutoModeQuitPosition1(0), 103, 24, 1, 0, 0, 100, null, 1
+
+    # 도전 과제 클리어
+    paintProperty25: PaintProperty23Position0(353), AutoModeQuitPosition1(0), 235, 24, 1, 0, 0, 0, null, 1
+    paintProperty26: PaintProperty23Position0(353), AutoModeQuitPosition1(0), 235, 24, 1, 0, 0, 101, null, 1
+
+    # 호칭 얻음
+    paintProperty27: PaintProperty23Position0(455), AutoModeQuitPosition1(0), 92, 24, 1, 0, 0, 0, null, 1
+    paintProperty28: PaintProperty23Position0(455), AutoModeQuitPosition1(0), 92, 24, 1, 0, 0, 106, null, 1
+
+    # 레이팅 Point 얻음
+    paintProperty29: PaintProperty23Position0(586), AutoModeQuitPosition1(0), 121, 24, 1, 0, 0, 0, null, 1
+    paintProperty30: PaintProperty23Position0(586), AutoModeQuitPosition1(0), 121, 24, 1, 0, 0, 107, null, 1
 
     fadingProperty00: 50, 60, 0.5
     fadingProperty01: 50, 60, 0.5
