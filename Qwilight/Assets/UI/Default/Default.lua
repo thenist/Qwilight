@@ -4,16 +4,12 @@ function IsO4U()
 	return configures[2] == 1
 end
 
-function IsClassic()
+function IsFloating()
 	return configures[3] == 1
 end
 
-function IsFloating()
-	return configures[4] == 1
-end
-
 function IsYellow()
-	return configures[5] == 1
+	return configures[4] == 1
 end
 
 function DefaultLength(e)
@@ -42,14 +38,6 @@ end
 
 function StatusHeight()
 	return DefaultHeight(1 / 3)
-end
-
-function Pipeline()
-	if IsClassic() then
-		return "1, 101, 26, 3, 4, 7, 8, 57, 31, 102, 103, 2, 6, 9, 10, 11, 12, 13, 14, 30, 28, 15, 16, 27, 29, 33, 35, 36, 37, 38, 39, 40, 43, 44, 46, 47, 48, 51, 58, 104"
-	else
-		return "1, 101, 26, 3, 4, 7, 8, 57, 31, 102, 103, 61, 2, 6, 9, 10, 11, 12, 13, 14, 30, 28, 15, 16, 27, 29, 33, 35, 36, 37, 38, 39, 40, 43, 44, 46, 47, 48, 51, 58, 104"
-	end
 end
 
 function JudgmentMainHeight()
@@ -139,7 +127,7 @@ end
 function MainPosition(e)
 	local position
 	if inputCount < 11 then
-		position = 555 - P1BuiltLength(1.0)
+		position = DefaultLength(1.0) - DefaultHeight(1.0) - 5 - P1BuiltLength(1.0)
 	elseif inputCount < 16 then
 		position = 138.9
 	else
@@ -164,14 +152,6 @@ function isNarrower()
 	end
 end
 
-function NetPosition1()
-	if IsClassic() then
-		return 30
-	else
-		return 5
-	end
-end
-
 function BandPosition1()
 	return 120 + bandPosition
 end
@@ -180,203 +160,91 @@ function JudgmentMeterPosition1()
 	return 96 + bandPosition
 end
 
-function AltClassic()
-	if IsClassic() then
-		return 0
-	else
-		return 2
-	end
-end
-
-function MultiplierPosition0()
-	if IsClassic() then
-		return 1275
-	else
-		return Wall(-5)
-	end
-end
-
 function MultiplierPosition1()
-	if IsClassic() then
-		return 599
-	else
-		return JudgmentMainPosition(1.0) + 120 + 20 + 5
-	end
-end
-
-function AudioMultiplierPosition0()
-	if IsClassic() then
-		return 1275
-	else
-		return Wall(-5)
-	end
+	return JudgmentMainPosition(1.0) + 120 + 20 + 5
 end
 
 function AudioMultiplierPosition1()
-	if IsClassic() then
-		return 624
-	else
-		return JudgmentMainPosition(1.0) + 120 + 20 + 5 + 20 + 10
-	end
-end
-
-function InputVisualizerSystem()
-	if IsClassic() then
-		return 0
-	else
-		return 2
-	end
-end
-
-function InputVisualizerPosition0()
-	if IsClassic() then
-		return Wall(25)
-	else
-		return Wall(-5)
-	end
+	return JudgmentMainPosition(1.0) + 120 + 20 + 5 + 20 + 10
 end
 
 function InputVisualizerPosition1()
-	if IsClassic() then
-		return 554
-	else
-		return JudgmentMainPosition(1.0) + 120 + 20 + 5 + 20 + 10 + 20 + 5
-	end
+	return JudgmentMainPosition(1.0) + 120 + 20 + 5 + 20 + 10 + 20 + 5
 end
 
 function HmsSystem()
-	if IsClassic() then
+	if isNarrower() then
+		return 2
+	elseif isNarrow() then
 		return 0
-	else
-		if isNarrower() then
-			return 2
-		elseif isNarrow() then
-			return 0
-		else
-			return 1
-		end
-	end
-end
-
-function HmsPosition0()
-	if IsClassic() then
-		return Wall(25)
-	else
-		if isNarrower() then
-			return MainPosition(-5) - 5
-		elseif isNarrow() then
-			return MainPosition(5)
-		else
-			return Contents(0.5)
-		end
-	end
-end
-
-function HmsPosition1()
-	if IsClassic() then
-		return 5
-	else
-		return JudgmentMainPosition(1.0) + 120 + 20 + 5
-	end
-end
-
-function StandSystem()
-	if IsClassic() then
-		return 2
-	else
-		if isNarrower() then
-			return 2
-		elseif isNarrow() then
-			return 0
-		else
-			return 0
-		end
-	end
-end
-
-function StandPosition0()
-	if IsClassic() then
-		return 1275
-	else
-		if isNarrower() then
-			return MainPosition(-5) - 5
-		elseif isNarrow() then
-			return MainPosition(5)
-		else
-			return MainPosition(5)
-		end
-	end
-end
-
-function StandPosition1()
-	if IsClassic() then
-		return 5
-	else
-		return JudgmentMainPosition(1.0) + 120 + 20 + 5 + 20 + 10
-	end
-end
-
-function LowestJudgmentValuePosition1(e)
-	return DefaultHeight(1.0) - (20 + 5) * e
-end
-
-function PointSystem()
-	if IsClassic() then
-		return 2
 	else
 		return 1
 	end
 end
 
-function PointPosition0()
-	if IsClassic() then
-		return 1275
+function HmsPosition0()
+	if isNarrower() then
+		return MainPosition(-5) - 5
+	elseif isNarrow() then
+		return MainPosition(5)
 	else
 		return Contents(0.5)
 	end
 end
 
-function PointPosition1()
-	if IsClassic() then
-		return 46
+function HmsPosition1()
+	return StandPosition1() - 10 - 20
+end
+
+function StandSystem()
+	if isNarrower() then
+		return 2
 	else
-		return 175 + bandPosition
+		return 0
 	end
 end
 
+function StandPosition0()
+	if isNarrower() then
+		return MainPosition(-5) - 5
+	else
+		return MainPosition(5)
+	end
+end
+
+function StandPosition1()
+	return JudgmentMainPosition(1.0) + 120 + 20 + 5 + 20 + 10
+end
+
+function HighestJudgmentValuePosition1(e)
+	return DefaultHeight(1.0) - (5 + 20) * (6 - e)
+end
+
+function PointPosition1()
+	return 175 + bandPosition
+end
+
 function BPMSystem()
-	if IsClassic() then
+	if isNarrow() then
 		return 2
 	else
-		if isNarrow() then
-			return 2
-		else
-			return 0
-		end
+		return 0
 	end
 end
 
 function BPMPosition0()
-	if IsClassic() then
-		return 1232.6
+	if isNarrow() then
+		return MainPosition(-5) - 5 - 42.4
 	else
-		if isNarrow() then
-			return MainPosition(-5) - 5 - 42.4
-		else
-			return MainPosition(5)
-		end
+		return MainPosition(5)
 	end
 end
 
 function BPMPosition1()
-	if IsClassic() then
-		return 649
+	if isNarrower() then
+		return HmsPosition1() - 10 - 20
 	else
-		if isNarrower() then
-			return 619
-		else
-			return JudgmentMainPosition(1.0) + 120 + 20 + 5
-		end
+		return JudgmentMainPosition(1.0) + 120 + 20 + 5
 	end
 end
 
@@ -397,11 +265,7 @@ function MediaLength()
 end
 
 function JudgmentMainPosition(e)
-	local position =  DefaultHeight(1.0) - 76 - 20 - 120 + judgmentMainPositionV3 + e
-	if IsClassic() then
-		position = position + 76
-	end
-	return position
+	return DefaultHeight(1.0) - 76 - 20 - 120 + judgmentMainPositionV3 + e
 end
 
 function HitNotePaintPosition(e)
@@ -445,41 +309,39 @@ function PaintProperty4Position0()
 end
 
 function PaintProperty4Position1()
-	local position
-	if IsClassic() then
-		position = 190
-	else
-		position = 214
-	end
-	return position + bandPosition
-end
-
-function PaintProperty2Frame()
-	if IsClassic() then
-		return 0
-	else
-		return 1
-	end
+	return 214 + bandPosition
 end
 
 function JudgmentVisualizerPosition1()
-	local position
-	if IsClassic() then
-		position = 175
-	else
-		position = 199
-	end
-	return position + bandPosition
+	return 199 + bandPosition
 end
 
 function HunterPosition1()
-	local position
-	if IsClassic() then
-		position = 199
-	else
-		position = 223
-	end
-	return position + bandPosition
+	return 223 + bandPosition
+end
+
+function TitlePosition1()
+	return ArtistPosition1() - 5 - 20
+end
+
+function TitleLength()
+	return DefaultLength(1.0) - 5 - 5
+end
+
+function ArtistPosition1()
+	return DefaultHeight(1.0) - 5 - 16
+end
+
+function ArtistLength()
+	return DefaultLength(1.0) - 5 - 5
+end
+
+function PausedUnpausePosition0()
+	return DefaultLength(0.5) - 202 / 2
+end
+
+function PausedUnpausePosition1(e)
+	return DefaultHeight(0.5) - (4 * 53 + 3 * 10) / 2 + (53 + 10) * e
 end
 
 function DrawingInputMode(e)

@@ -852,8 +852,8 @@ namespace Qwilight
                     SaveValueMap(pointNode, "pausedStopLength", 202);
                     SaveValueMap(pointNode, "pausedStopHeight", 53);
 
-                    SaveValueMapAsDefaultID("assistTextPosition1", "defaultHeight", value => value / 2);
-                    SaveValueMapAsDefaultID("inputAssistTextPosition1", "defaultHeight", value => 2 * value / 3);
+                    SaveValueMap(pointNode, "assistTextPosition1", 360.0);
+                    SaveValueMap(pointNode, "inputAssistTextPosition1", 480.0);
 
                     for (var i = HighestNoteID; i > 0; --i)
                     {

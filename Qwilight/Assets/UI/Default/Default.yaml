@@ -80,22 +80,17 @@ func:
     configure-comment-1: Select the shape of the note.
     configure-comment-1-1042: 노트 모양을 선택합니다.
     
-    configure-2: Default (New), Classic (Old)
-    configure-2-1042: Default (신형), Classic (구형)
-    configure-comment-2: Choose a style.
-    configure-comment-2-1042: 스타일을 선택합니다.
+    configure-2: Default (General), Floating (Side Track)
+    configure-2-1042: Default (일반), Floating (사이드 트랙)
+    configure-comment-2: Select a turn table.
+    configure-comment-2-1042: 턴 테이블을 선택합니다.
     
-    configure-3: Default (General), Floating (Side Track)
-    configure-3-1042: Default (일반), Floating (사이드 트랙)
-    configure-comment-3: Select a turn table.
-    configure-comment-3-1042: 턴 테이블을 선택합니다.
-    
-    configure-4: Default (Yellow), Classic (Blue
-    configure-4-1042: Classic (파란색), Default (노란색)
-    configure-comment-4: Select a center note color.
-    configure-comment-4-1042: 중앙 노트 색상을 선택합니다.
+    configure-3: Default (Yellow), Classic (Blue
+    configure-3-1042: Classic (파란색), Default (노란색)
+    configure-comment-3: Select a center note color.
+    configure-comment-3-1042: 중앙 노트 색상을 선택합니다.
 
-    pipeline: Pipeline()
+    pipeline: 1, 26, 3, 4, 7, 101, 8, 57, 31, 102, 103, 61, 2, 6, 9, 10, 11, 12, 13, 14, 30, 28, 15, 16, 27, 29, 33, 35, 36, 37, 38, 39, 40, 43, 44, 46, 47, 48, 51, 58, 104
 
     drawingInputModeSystem: 2
     drawingInputMode4: 2, 3, 3, 2
@@ -129,8 +124,8 @@ func:
     alt-status: 2
     alt-status-slider: 2
     alt-band: 2
-    alt-bpm: AltClassic()
-    alt-multiplier: AltClassic()
+    alt-bpm: 2
+    alt-multiplier: 2
     alt-stand: 2
     alt-point: 2
     alt-net: 0
@@ -142,8 +137,8 @@ func:
     alt-band!: 2
     alt-wall-0: 2
     alt-wall-1: 2
-    alt-audio-multiplier: AltClassic()
-    alt-input-visualizer: AltClassic()
+    alt-audio-multiplier: 2
+    alt-input-visualizer: 2
     alt-judgment-visualizer: 2
     alt-hunter: 2
     alt-judgment-input-visualizer: 2
@@ -201,8 +196,8 @@ point:
     binStandHeight: 36
     standCommaDrawingLength: 11
 
-    pointSystem: PointSystem()
-    pointPosition0: PointPosition0()
+    pointSystem: 1
+    pointPosition0: Contents(0.5)
     pointPosition1: PointPosition1()
     binPointLength: 19.6
     binPointHeight: 19
@@ -257,7 +252,7 @@ point:
     paintProperty1: MainPosition(0), JudgmentMainPosition(0), P1BuiltLength(1), 120, 2, 1, 60, 0
 
     # 버튼 아래 사각형 영역
-    paintProperty2: MainPosition(0), JudgmentMainPosition(140), P1BuiltLength(1), 76, 2, PaintProperty2Frame(), 60, 0
+    paintProperty2: MainPosition(0), JudgmentMainPosition(140), P1BuiltLength(1), 76, 2, 1, 60, 0
 
     # 움직이는 판정 비율 막대기
     paintProperty3: MainPosition(0), JudgmentMainPosition(120), P1BuiltLength(1), 20, 2, 20, 60, 0
@@ -266,7 +261,7 @@ point:
     paintProperty4: PaintProperty4Position0(), PaintProperty4Position1(), 7, 4, 2, 1, 60, 0, 43
 
     multiplierSystem: 2
-    multiplierPosition0: MultiplierPosition0()
+    multiplierPosition0: Wall(-5)
     multiplierPosition1: MultiplierPosition1()
     binMultiplierLength: 15.4
     binMultiplierHeight: 20
@@ -274,7 +269,7 @@ point:
     multiplierUnitDrawingLength: 20
 
     netPosition0: Wall(10)
-    netPosition1: NetPosition1()
+    netPosition1: 5
 
     pauseSystem: 0
     pausePosition0: 5
@@ -309,17 +304,17 @@ point:
     hmsColonDrawingLength: 8.4
     hmsSlashDrawingLength: 12.1
 
-    lastSystem: 1
-    lastPosition0: Contents(0.5)
-    lastPosition1: 250
-    lastLength: 119
-    lastHeight: 18.25
+    lastSystem: 0
+    lastPosition0: MainPosition(0.0)
+    lastPosition1: 0
+    lastLength: P1BuiltLength(1.0)
+    lastHeight: JudgmentMainPosition(-5)
 
-    band!System: 1
-    band!Position0: Contents(0.5)
-    band!Position1: 250
-    band!Length: 230
-    band!Height: 18.75
+    band!System: 0
+    band!Position0: MainPosition(0.0)
+    band!Position1: 0
+    band!Length: P1BuiltLength(1.0)
+    band!Height: JudgmentMainPosition(-5)
 
     judgmentPointsSystem: 3
     judgmentPointsPosition0: MainPosition(0)
@@ -328,7 +323,7 @@ point:
     judgmentPointsHeight: 10
 
     audioMultiplierSystem: 2
-    audioMultiplierPosition0: AudioMultiplierPosition0()
+    audioMultiplierPosition0: Wall(-5)
     audioMultiplierPosition1: AudioMultiplierPosition1()
     binAudioMultiplierLength: 15.4
     binAudioMultiplierHeight: 20
@@ -337,37 +332,37 @@ point:
 
     highestJudgmentValueSystem: 0
     highestJudgmentValuePosition0: Wall(25)
-    highestJudgmentValuePosition1: LowestJudgmentValuePosition1(6)
+    highestJudgmentValuePosition1: HighestJudgmentValuePosition1(0)
     binHighestJudgmentValueLength: 15.4
     binHighestJudgmentValueHeight: 20
 
     higherJudgmentValueSystem: 0
     higherJudgmentValuePosition0: Wall(25)
-    higherJudgmentValuePosition1: LowestJudgmentValuePosition1(5)
+    higherJudgmentValuePosition1: HighestJudgmentValuePosition1(1)
     binHigherJudgmentValueLength: 15.4
     binHigherJudgmentValueHeight: 20
 
     highJudgmentValueSystem: 0
     highJudgmentValuePosition0: Wall(25)
-    highJudgmentValuePosition1: LowestJudgmentValuePosition1(4)
+    highJudgmentValuePosition1: HighestJudgmentValuePosition1(2)
     binHighJudgmentValueLength: 15.4
     binHighJudgmentValueHeight: 20
 
     lowJudgmentValueSystem: 0
     lowJudgmentValuePosition0: Wall(25)
-    lowJudgmentValuePosition1: LowestJudgmentValuePosition1(3)
+    lowJudgmentValuePosition1: HighestJudgmentValuePosition1(3)
     binLowJudgmentValueLength: 15.4
     binLowJudgmentValueHeight: 20
 
     lowerJudgmentValueSystem: 0
     lowerJudgmentValuePosition0: Wall(25)
-    lowerJudgmentValuePosition1: LowestJudgmentValuePosition1(2)
+    lowerJudgmentValuePosition1: HighestJudgmentValuePosition1(4)
     binLowerJudgmentValueLength: 15.4
     binLowerJudgmentValueHeight: 20
 
     lowestJudgmentValueSystem: 0
     lowestJudgmentValuePosition0: Wall(25)
-    lowestJudgmentValuePosition1: LowestJudgmentValuePosition1(1)
+    lowestJudgmentValuePosition1: HighestJudgmentValuePosition1(5)
     binLowestJudgmentValueLength: 15.4
     binLowestJudgmentValueHeight: 20
 
@@ -375,8 +370,8 @@ point:
     limiterLength: 1
     limiterHeight: JudgmentMainPosition(-5)
 
-    inputVisualizerSystem: InputVisualizerSystem()
-    inputVisualizerPosition0: InputVisualizerPosition0()
+    inputVisualizerSystem: 2
+    inputVisualizerPosition0: Wall(-5)
     inputVisualizerPosition1: InputVisualizerPosition1()
     binInputVisualizerLength: 8.47
     binInputVisualizerHeight: 11
@@ -398,15 +393,15 @@ point:
     titleSystem0: 0
     titleSystem1: 1
     titlePosition0: 5
-    titlePosition1: 674
-    titleLength: 1270
+    titlePosition1: TitlePosition1()
+    titleLength: TitleLength()
     titleHeight: 20
     
     artistSystem0: 0
     artistSystem1: 1
     artistPosition0: 5
-    artistPosition1: 699
-    artistLength: 1270
+    artistPosition1: ArtistPosition1()
+    artistLength: ArtistLength()
     artistHeight: 16
 
     audioVisualizerPosition0: 0
@@ -422,23 +417,23 @@ point:
     judgmentInputVisualizerLength: P1BuiltLength(1)
     judgmentInputVisualizerHeight: 76
 
-    pausedUnpausePosition0: 539
-    pausedUnpausePosition1: 239
+    pausedUnpausePosition0: PausedUnpausePosition0()
+    pausedUnpausePosition1: PausedUnpausePosition1(0)
     pausedUnpauseLength: 202
     pausedUnpauseHeight: 53
 
-    pausedConfigurePosition0: 539
-    pausedConfigurePosition1: 302
+    pausedConfigurePosition0: PausedUnpausePosition0()
+    pausedConfigurePosition1: PausedUnpausePosition1(1)
     pausedConfigureLength: 202
     pausedConfigureHeight: 53
 
-    pausedUndoPosition0: 539
-    pausedUndoPosition1: 365
+    pausedUndoPosition0: PausedUnpausePosition0()
+    pausedUndoPosition1: PausedUnpausePosition1(2)
     pausedUndoLength: 202
     pausedUndoHeight: 53
 
-    pausedStopPosition0: 539
-    pausedStopPosition1: 428
+    pausedStopPosition0: PausedUnpausePosition0()
+    pausedStopPosition1: PausedUnpausePosition1(3)
     pausedStopLength: 202
     pausedStopHeight: 53
 
