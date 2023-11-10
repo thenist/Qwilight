@@ -753,8 +753,8 @@ namespace Qwilight
                         lsCaller.DoString(File.ReadAllText(luaFilePath, Encoding.UTF8));
                     }
 
-                    DefaultLength = GetCalledValue(formatNode, "defaultLength", "1280");
-                    DefaultHeight = GetCalledValue(formatNode, "defaultHeight", "720");
+                    DefaultLength = GetCalledValue(formatNode, "defaultLength", "1280.0");
+                    DefaultHeight = GetCalledValue(formatNode, "defaultHeight", "720.0");
 
                     SiteDateColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteDate", nameof(Colors.White))).GetColor());
                     SiteEnterColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteEnter", nameof(Colors.White))).GetColor());

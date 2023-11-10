@@ -398,9 +398,9 @@ namespace Qwilight.ViewModel
             OnPropertyChanged(nameof(CanHigherTwilightCommentFavor));
         }
 
-        public double DefaultLength => IsComputingMode ? Computer.DrawingComponentValue.defaultLength : BaseUI.Instance.DefaultLength;
+        public double DefaultLength => IsComputingMode ? UI.Instance.DefaultLength : BaseUI.Instance.DefaultLength;
 
-        public double DefaultHeight => IsComputingMode ? Computer.DrawingComponentValue.defaultHeight : BaseUI.Instance.DefaultHeight;
+        public double DefaultHeight => IsComputingMode ? UI.Instance.DefaultHeight : BaseUI.Instance.DefaultHeight;
 
         public bool IsNoteFileMode => ModeValue == Mode.NoteFile;
 

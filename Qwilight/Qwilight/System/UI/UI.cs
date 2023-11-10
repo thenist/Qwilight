@@ -365,6 +365,9 @@ namespace Qwilight
                     Script.RunString(UILS);
                     lsCaller.DoString(UILS);
 
+                    DefaultLength = GetCalledValue(formatNode, "defaultLength", "1280.0");
+                    DefaultHeight = GetCalledValue(formatNode, "defaultHeight", "720.0");
+
                     var setPaintPipelines = Utility.ToBool(Utility.GetText(funcNode, "set-paint-pinelines", bool.FalseString));
                     foreach (var pipeline in GetCalledText(Utility.GetText(funcNode, "pipeline")).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var pipeline) ? pipeline : 0))
                     {
@@ -412,9 +415,6 @@ namespace Qwilight
                     WantLevelIDColor = Utility.GetText(paintNode, "wantLevelID", nameof(Colors.White)).GetColor();
                     parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, NetTextPaints, Utility.GetText(paintNode, "netText", nameof(Colors.White)).GetColor()));
                     parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, NetWallPaints, Utility.GetText(paintNode, "netWall", nameof(Colors.Black)).GetColor()));
-
-                    SaveValueMap(formatNode, "defaultLength", 1280.0);
-                    SaveValueMap(formatNode, "defaultHeight", 720.0);
 
                     SaveValueMap(pointNode, "mainPosition");
                     SaveValueMap(pointNode, "p2Position");
@@ -884,6 +884,7 @@ namespace Qwilight
                     {
                         return new int[] { default }.Concat(GetCalledText(Utility.GetText(funcNode, $"drawingInputMode{mode}", defaultValue)).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < HighestNoteID)).ToArray();
                     }
+
                     int[] GetDrawingInputMode2P(int mode, string defaultValue)
                     {
                         var drawingInputModeMap = GetDrawingInputMode(mode, defaultValue).Skip(1).ToArray();
@@ -895,6 +896,25 @@ namespace Qwilight
                             _ => throw new ArgumentException("drawingInputModeSystem")
                         };
                     }
+
+                    double GetCalledValue(YamlNode yamlNode, string target, string defaultValue = null)
+                    {
+                        var text = Utility.GetText(yamlNode, target, defaultValue);
+                        if (Utility.ToFloat64(text, out var r))
+                        {
+                            return r;
+                        }
+                        else if (QwilightComponent.GetCallComputer().IsMatch(text))
+                        {
+                            var values = text.Split("(").Select(value => value.Trim()).ToArray();
+                            return lsCaller.Call(lsCaller.Globals[values[0]], values[1][0..^1].Split(',').Where(value => !string.IsNullOrEmpty(value)).Select(value => Utility.ToFloat64(value) as object).ToArray()).Number;
+                        }
+                        else
+                        {
+                            throw new ArgumentException(target.ToString());
+                        }
+                    }
+
                     string GetCalledText(string text)
                     {
                         if (QwilightComponent.GetCallComputer().IsMatch(text))
@@ -2164,6 +2184,8 @@ namespace Qwilight
                     Array.Clear(data, 0, data.Length);
                 }
             }
+            DefaultLength = 1280.0;
+            DefaultHeight = 720.0;
             _audioItemMap.Clear();
             ValueCallMap.Clear();
             ValueMap.Clear();
