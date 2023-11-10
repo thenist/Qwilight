@@ -14,8 +14,7 @@ namespace Qwilight
         static readonly object _exeCSX = new();
         static readonly string[] _wrongMedia = new string[]
         {
-            "ed7f217838d78942898e53d5dbee64ec", // Celestial Axes
-            "095bf7b6bc3eb3c06b3569f5b0247163" // キミとボクへの葬送歌
+            "ed7f217838d78942898e53d5dbee64ec" // Celestial Axes
         };
 
         readonly ConcurrentDictionary<IMediaContainer, ConcurrentDictionary<string, HandledMediaItem>> _mediaMap = new();
@@ -99,6 +98,7 @@ namespace Qwilight
             }
 
             var mediaSrc = Utility.Await(FFmpegMediaSource.CreateFromFileAsync(mediaFilePath));
+            var mediaLength = mediaSrc.Duration;
             var mediaModifierValue = mediaContainer.MediaModifierValue;
             if (mediaModifierValue != null)
             {
@@ -111,7 +111,7 @@ namespace Qwilight
                     }
                     else
                     {
-                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1;
+                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || mediaLength < TimeSpan.FromMinutes(1.0);
                         var hasAudio = mediaSrc.AudioStreams.Count > 0;
                         if (isWrongMedia || hasAudio || isCounterWave)
                         {
@@ -125,7 +125,7 @@ namespace Qwilight
                 }
             }
             mediaSrc ??= Utility.Await(FFmpegMediaSource.CreateFromFileAsync(mediaFilePath));
-            var mediaLength = mediaSrc.Duration.TotalMilliseconds;
+            mediaLength = mediaSrc.Duration;
             handledMediaItem = new()
             {
                 MediaSrc = mediaSrc,
@@ -145,7 +145,7 @@ namespace Qwilight
                     defaultMedia.Stop();
                     return defaultMedia;
                 }),
-                Length = mediaLength > 0.0 ? mediaLength : double.PositiveInfinity
+                Length = mediaLength.TotalMilliseconds
             };
             handledMediaItem.Media.CommandManager.IsEnabled = false;
             handledMediaItem.Media.SystemMediaTransportControls.IsEnabled = false;
