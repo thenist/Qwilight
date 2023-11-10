@@ -16,24 +16,32 @@ function IsYellow()
 	return configures[5] == 1
 end
 
-function DefaultLength()
+function DefaultLength(e)
 	if configures[1] == 2 then
-		return 720 * 21 / 9
+		return e * 720 * 21 / 9
 	elseif configures[1] == 3 then
-		return 720 * 32 / 9
+		return e * 720 * 32 / 9
 	else
-		return 1280
+		return e * 1280
 	end
 end
 
-function DefaultHeight()
+function DefaultHeight(e)
 	if configures[1] == 0 then
-		return 1280 * 9 / 16
+		return e * 1280 * 9 / 16
 	elseif configures[1] == 1 then
-		return 1280 * 10 / 16
+		return e * 1280 * 10 / 16
 	else
-		return 720
+		return e * 720
 	end
+end
+
+function StatusPosition1()
+	return DefaultHeight(2 / 3)
+end
+
+function StatusHeight()
+	return DefaultHeight(1 / 3)
 end
 
 function Pipeline()
@@ -192,7 +200,7 @@ function MultiplierPosition1()
 	if IsClassic() then
 		return 599
 	else
-		return 649
+		return JudgmentMainPosition(1.0) + 120 + 20 + 5
 	end
 end
 
@@ -208,7 +216,7 @@ function AudioMultiplierPosition1()
 	if IsClassic() then
 		return 624
 	else
-		return 679
+		return JudgmentMainPosition(1.0) + 120 + 20 + 5 + 20 + 10
 	end
 end
 
@@ -232,7 +240,7 @@ function InputVisualizerPosition1()
 	if IsClassic() then
 		return 554
 	else
-		return 704
+		return JudgmentMainPosition(1.0) + 120 + 20 + 5 + 20 + 10 + 20 + 5
 	end
 end
 
@@ -268,7 +276,7 @@ function HmsPosition1()
 	if IsClassic() then
 		return 5
 	else
-		return 649
+		return JudgmentMainPosition(1.0) + 120 + 20 + 5
 	end
 end
 
@@ -304,8 +312,12 @@ function StandPosition1()
 	if IsClassic() then
 		return 5
 	else
-		return 679
+		return JudgmentMainPosition(1.0) + 120 + 20 + 5 + 20 + 10
 	end
+end
+
+function LowestJudgmentValuePosition1(e)
+	return DefaultHeight(1.0) - (20 + 5) * e
 end
 
 function PointSystem()
@@ -362,10 +374,8 @@ function BPMPosition1()
 	else
 		if isNarrower() then
 			return 619
-		elseif isNarrow() then
-			return 649
 		else
-			return 649
+			return JudgmentMainPosition(1.0) + 120 + 20 + 5
 		end
 	end
 end
@@ -380,14 +390,14 @@ end
 
 function MediaLength()
 	if inputCount < 11 then
-		return DefaultHeight()
+		return DefaultHeight(1.0)
 	else
-		return DefaultLength()
+		return DefaultLength(1.0)
 	end
 end
 
 function JudgmentMainPosition(e)
-	local position =  504 + judgmentMainPositionV3 + e
+	local position =  DefaultHeight(1.0) - 76 - 20 - 120 + judgmentMainPositionV3 + e
 	if IsClassic() then
 		position = position + 76
 	end
@@ -427,22 +437,6 @@ function LongNoteEdgeHeight2()
 		return 51
 	else
 		return 11
-	end
-end
-
-function judgmentPointsPosition1()
-	if IsClassic() then
-		return 705
-	else
-		return 629
-	end
-end
-
-function PaintProperty3Position1()
-	if IsClassic() then
-		return 700
-	else
-		return 624
 	end
 end
 

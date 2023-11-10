@@ -16,8 +16,8 @@ format:
         스킨 세부 설정에서 O4U를 선택하면 원형 노트로 플레이 가능합니다.
         스킨 세부 설정에서 Floating을 선택하면 턴 테이블이 사이드 트랙 노트로 수정됩니다.
     
-    defaultLength: DefaultLength()
-    defaultHeight: DefaultHeight()
+    defaultLength: DefaultLength(1.0)
+    defaultHeight: DefaultHeight(1.0)
 
 paint:
     title: White
@@ -184,11 +184,11 @@ point:
 
     mainWall0Position1: 0
     mainWall0Length: 20
-    mainWall0Height: DefaultHeight()
+    mainWall0Height: DefaultHeight(1.0)
 
     mainWall1Position1: 0
     mainWall1Length: 20
-    mainWall1Height: DefaultHeight()
+    mainWall1Height: DefaultHeight(1.0)
 
     binLength: 30.8
     binHeight: 40
@@ -251,16 +251,16 @@ point:
     hitPointsPosition0: MainPosition(-15)
     hitPointsPosition1: 0
     hitPointsLength: 10
-    hitPointsHeight: 360
+    hitPointsHeight: DefaultHeight(0.5)
 
     # 버튼 백그라운드 이미지
     paintProperty1: MainPosition(0), JudgmentMainPosition(0), P1BuiltLength(1), 120, 2, 1, 60, 0
 
     # 버튼 아래 사각형 영역
-    paintProperty2: MainPosition(0), 644, P1BuiltLength(1), 76, 2, PaintProperty2Frame(), 60, 0
+    paintProperty2: MainPosition(0), JudgmentMainPosition(140), P1BuiltLength(1), 76, 2, PaintProperty2Frame(), 60, 0
 
     # 움직이는 판정 비율 막대기
-    paintProperty3: MainPosition(0), PaintProperty3Position1(), P1BuiltLength(1), 20, 2, 20, 60, 0
+    paintProperty3: MainPosition(0), JudgmentMainPosition(120), P1BuiltLength(1), 20, 2, 20, 60, 0
     
     # 판정 비주얼라이저 기준점
     paintProperty4: PaintProperty4Position0(), PaintProperty4Position1(), 7, 4, 2, 1, 60, 0, 43
@@ -285,21 +285,21 @@ point:
     mediaPosition0: MediaPosition0()
     mediaPosition1: 0
     mediaLength: MediaLength()
-    mediaHeight: DefaultHeight()
+    mediaHeight: DefaultHeight(1.0)
 
     statusSystem: 0
     statusPosition0: Wall(5)
-    statusPosition1: 480
+    statusPosition1: StatusPosition1()
     statusLength: 10
-    statusHeight: 240
+    statusHeight: StatusHeight()
 
     statusSliderSystem: 0
     statusSliderPosition0: Wall(0)
-    statusSliderPosition1: 480
+    statusSliderPosition1: StatusPosition1()
     statusSliderContentsLength: 20
     statusSliderContentsHeight: 10
     statusSliderLength: 10
-    statusSliderHeight: 240
+    statusSliderHeight: StatusHeight()
 
     hmsSystem: HmsSystem()
     hmsPosition0: HmsPosition0()
@@ -323,7 +323,7 @@ point:
 
     judgmentPointsSystem: 3
     judgmentPointsPosition0: MainPosition(0)
-    judgmentPointsPosition1: judgmentPointsPosition1()
+    judgmentPointsPosition1: JudgmentMainPosition(125)
     judgmentPointsLength: P1BuiltLength(1.0)
     judgmentPointsHeight: 10
 
@@ -337,37 +337,37 @@ point:
 
     highestJudgmentValueSystem: 0
     highestJudgmentValuePosition0: Wall(25)
-    highestJudgmentValuePosition1: 570
+    highestJudgmentValuePosition1: LowestJudgmentValuePosition1(6)
     binHighestJudgmentValueLength: 15.4
     binHighestJudgmentValueHeight: 20
 
     higherJudgmentValueSystem: 0
     higherJudgmentValuePosition0: Wall(25)
-    higherJudgmentValuePosition1: 595
+    higherJudgmentValuePosition1: LowestJudgmentValuePosition1(5)
     binHigherJudgmentValueLength: 15.4
     binHigherJudgmentValueHeight: 20
 
     highJudgmentValueSystem: 0
     highJudgmentValuePosition0: Wall(25)
-    highJudgmentValuePosition1: 620
+    highJudgmentValuePosition1: LowestJudgmentValuePosition1(4)
     binHighJudgmentValueLength: 15.4
     binHighJudgmentValueHeight: 20
 
     lowJudgmentValueSystem: 0
     lowJudgmentValuePosition0: Wall(25)
-    lowJudgmentValuePosition1: 645
+    lowJudgmentValuePosition1: LowestJudgmentValuePosition1(3)
     binLowJudgmentValueLength: 15.4
     binLowJudgmentValueHeight: 20
 
     lowerJudgmentValueSystem: 0
     lowerJudgmentValuePosition0: Wall(25)
-    lowerJudgmentValuePosition1: 670
+    lowerJudgmentValuePosition1: LowestJudgmentValuePosition1(2)
     binLowerJudgmentValueLength: 15.4
     binLowerJudgmentValueHeight: 20
 
     lowestJudgmentValueSystem: 0
     lowestJudgmentValuePosition0: Wall(25)
-    lowestJudgmentValuePosition1: 695
+    lowestJudgmentValuePosition1: LowestJudgmentValuePosition1(1)
     binLowestJudgmentValueLength: 15.4
     binLowestJudgmentValueHeight: 20
 
@@ -411,14 +411,14 @@ point:
 
     audioVisualizerPosition0: 0
     audioVisualizerPosition1: 0
-    audioVisualizerLength: DefaultLength()
-    audioVisualizerHeight: DefaultHeight()
+    audioVisualizerLength: DefaultLength(1.0)
+    audioVisualizerHeight: DefaultHeight(1.0)
 
     mainJudgmentMeterPosition1: JudgmentMainPosition(-99)
     mainJudgmentMeterHeight: MainJudgmentMeterHeight(), 199, ~, ~, ~, MainJudgmentMeterHeight(), 199, ~, ~, MainJudgmentMeterHeight()
 
     judgmentInputVisualizerPosition0: MainPosition(0)
-    judgmentInputVisualizerPosition1: 644
+    judgmentInputVisualizerPosition1: JudgmentMainPosition(140)
     judgmentInputVisualizerLength: P1BuiltLength(1)
     judgmentInputVisualizerHeight: 76
 
