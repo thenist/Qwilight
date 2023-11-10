@@ -1600,7 +1600,10 @@ namespace Qwilight.ViewModel
                 {
                     try
                     {
-                        Process.Start(new ProcessStartInfo(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Igniter.exe"), $"\"{_qwilightFileName}\"")
+                        var tmpFilePath = Path.GetTempFileName();
+                        var exeFilePath = Path.ChangeExtension(tmpFilePath, ".exe");
+                        Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Igniter.exe"), exeFilePath);
+                        Process.Start(new ProcessStartInfo(exeFilePath, $"\"{_qwilightFileName}\"")
                         {
                             UseShellExecute = true
                         });
