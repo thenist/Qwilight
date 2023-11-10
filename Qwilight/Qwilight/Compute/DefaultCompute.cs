@@ -647,7 +647,7 @@ namespace Qwilight.Compute
                 }
                 else
                 {
-                    lock (ContentsCSX)
+                    lock (LoadedCSX)
                     {
                         if (HasContents)
                         {
@@ -837,7 +837,7 @@ namespace Qwilight.Compute
                 IsIn2P = Component.IsIn2P[(int)InputMode];
                 Has2P = Component.Has2P[(int)InputMode];
             }
-            lock (UI.Instance.ContentsCSX)
+            lock (UI.Instance.LoadedCSX)
             {
                 if (string.IsNullOrEmpty(UI.Instance.FaultText))
                 {
@@ -939,7 +939,7 @@ namespace Qwilight.Compute
             SendSituation();
         });
 
-        public object ContentsCSX { get; } = new();
+        public object LoadedCSX { get; } = new();
 
         public bool HasContents { get; set; } = true;
 
@@ -972,7 +972,7 @@ namespace Qwilight.Compute
                         _targetHandler.Join();
                     }
                 }
-                lock (ContentsCSX)
+                lock (LoadedCSX)
                 {
                     if (HasContents)
                     {
@@ -1654,7 +1654,7 @@ namespace Qwilight.Compute
                         {
                             var bmsID = audioItemValue.BMSID;
                             StopLastEqualAudioItem(bmsID);
-                            lock (ContentsCSX)
+                            lock (LoadedCSX)
                             {
                                 if (HasContents)
                                 {
@@ -1684,7 +1684,7 @@ namespace Qwilight.Compute
                         var isLooping = mediaNote.IsLooping;
                         if (isLooping || mediaItem == null || LoopingCounter < waitModified + mediaItem.Length)
                         {
-                            lock (ContentsCSX)
+                            lock (LoadedCSX)
                             {
                                 if (HasContents)
                                 {
@@ -2669,7 +2669,7 @@ namespace Qwilight.Compute
                                                 {
                                                     var bmsID = audioItemValue.BMSID;
                                                     StopLastEqualAudioItem(bmsID);
-                                                    lock (ContentsCSX)
+                                                    lock (LoadedCSX)
                                                     {
                                                         if (HasContents)
                                                         {
@@ -2709,7 +2709,7 @@ namespace Qwilight.Compute
                                             {
                                                 var bmsID = audioItemValue.BMSID;
                                                 StopLastEqualAudioItem(bmsID);
-                                                lock (ContentsCSX)
+                                                lock (LoadedCSX)
                                                 {
                                                     if (HasContents)
                                                     {
@@ -3618,7 +3618,7 @@ namespace Qwilight.Compute
                 note.IsFailed = true;
                 foreach (var audioChannel in note.AudioChannels)
                 {
-                    lock (ContentsCSX)
+                    lock (LoadedCSX)
                     {
                         if (HasContents)
                         {
@@ -3681,7 +3681,7 @@ namespace Qwilight.Compute
                             {
                                 foreach (var audioNote in note.AudioNotes)
                                 {
-                                    lock (ContentsCSX)
+                                    lock (LoadedCSX)
                                     {
                                         if (HasContents)
                                         {

@@ -57,7 +57,7 @@ namespace Qwilight
         /// <summary>
         /// UI, BaseUI가 로드됨을 보장하는 락
         /// </summary>
-        public object ContentsCSX { get; } = new();
+        public object LoadedCSX { get; } = new();
 
         public XamlUIConfigure[] XamlUIConfigures { get; set; } = Array.Empty<XamlUIConfigure>();
 
@@ -96,7 +96,7 @@ namespace Qwilight
 
         public double DefaultLength { get; set; }
 
-        public double DefaultHeight => Component.StandardHeight;
+        public double DefaultHeight { get; set; }
 
         public ObservableCollection<UIItem> UIItems { get; } = new();
 
@@ -276,7 +276,7 @@ namespace Qwilight
 
         public bool HandleAudio(string audioFileName, string defaultFileName, PausableAudioHandler pausableAudioHandler, double fadeInLength)
         {
-            lock (ContentsCSX)
+            lock (LoadedCSX)
             {
                 if (!_audioItemMap.TryGetValue(audioFileName, out var audioItem) && defaultFileName != null)
                 {
@@ -413,6 +413,9 @@ namespace Qwilight
                     parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, NetTextPaints, Utility.GetText(paintNode, "netText", nameof(Colors.White)).GetColor()));
                     parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, NetWallPaints, Utility.GetText(paintNode, "netWall", nameof(Colors.Black)).GetColor()));
 
+                    SaveValueMap(formatNode, "defaultLength", 1280.0);
+                    SaveValueMap(formatNode, "defaultHeight", 720.0);
+
                     SaveValueMap(pointNode, "mainPosition");
                     SaveValueMap(pointNode, "p2Position");
 
@@ -482,8 +485,6 @@ namespace Qwilight
                     DrawingSystem.Instance.SetFontLevel(GenreFont, Utility.ToFloat32(Utility.GetText(fontNode, "genreLevel", QwilightComponent.GetBuiltInFloat64As("FontLevel0"))));
                     DrawingSystem.Instance.SetFontLevel(LevelTextFont, Utility.ToFloat32(Utility.GetText(fontNode, "levelTextLevel", QwilightComponent.GetBuiltInFloat64As("FontLevel0"))));
                     DrawingSystem.Instance.SetFontLevel(WantLevelFont, Utility.ToFloat32(Utility.GetText(fontNode, "wantLevelLevel", QwilightComponent.GetBuiltInFloat64As("FontLevel0"))));
-
-                    DefaultLength = Utility.ToFloat64(Utility.GetText(formatNode, "defaultLength", "1280"));
 
                     SaveValueMap(pointNode, "mainWall0Length");
                     SaveValueMap(pointNode, "mainWall1Length");
@@ -851,8 +852,8 @@ namespace Qwilight
                     SaveValueMap(pointNode, "pausedStopLength", 202);
                     SaveValueMap(pointNode, "pausedStopHeight", 53);
 
-                    SaveValueMap(pointNode, "assistTextPosition1", DefaultHeight / 2);
-                    SaveValueMap(pointNode, "inputAssistTextPosition1", 2 * DefaultHeight / 3);
+                    SaveValueMapAsDefaultID("assistTextPosition1", "defaultHeight", value => value / 2);
+                    SaveValueMapAsDefaultID("inputAssistTextPosition1", "defaultHeight", value => 2 * value / 3);
 
                     for (var i = HighestNoteID; i > 0; --i)
                     {
@@ -2171,7 +2172,6 @@ namespace Qwilight
             AltMap.Clear();
             PaintPipelineValues.Clear();
             DrawingPipeline.Clear();
-            DefaultLength = 1280.0;
             DrawingSystem.Instance.SetFontLevel(TitleFont, Levels.FontLevel0Float32);
             DrawingSystem.Instance.SetFontLevel(ArtistFont, Levels.FontLevel0Float32);
             DrawingSystem.Instance.SetFontLevel(GenreFont, Levels.FontLevel0Float32);
@@ -2198,7 +2198,7 @@ namespace Qwilight
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpeningUIFileContents);
                     Task.Run(() =>
                     {
-                        lock (ContentsCSX)
+                        lock (LoadedCSX)
                         {
                             try
                             {
@@ -2225,7 +2225,7 @@ namespace Qwilight
                 }
                 else
                 {
-                    lock (ContentsCSX)
+                    lock (LoadedCSX)
                     {
                         try
                         {

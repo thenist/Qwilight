@@ -410,7 +410,7 @@ namespace Qwilight
                                 {
                                     using (targetSession = _rawTargetSystem.CreateDrawingSession(Colors.Black))
                                     {
-                                        lock (UI.Instance.ContentsCSX)
+                                        lock (UI.Instance.LoadedCSX)
                                         {
                                             PaintFading();
                                             PaintNotifyXamlItems();
@@ -430,7 +430,7 @@ namespace Qwilight
                                     {
                                         targetSession.Clear(Colors.Black);
 
-                                        lock (UI.Instance.ContentsCSX)
+                                        lock (UI.Instance.LoadedCSX)
                                         {
                                             var faultText = UI.Instance.FaultText;
                                             if (string.IsNullOrEmpty(faultText))
@@ -2331,7 +2331,7 @@ namespace Qwilight
                                     {
                                         targetSession.Clear(Colors.Black);
 
-                                        lock (UI.Instance.ContentsCSX)
+                                        lock (UI.Instance.LoadedCSX)
                                         {
                                             var faultText = BaseUI.Instance.FaultText;
                                             if (string.IsNullOrEmpty(faultText))
@@ -2775,7 +2775,7 @@ namespace Qwilight
                                     var hasContents = false;
                                     if (fadingComputer != null)
                                     {
-                                        lock (fadingComputer.ContentsCSX)
+                                        lock (fadingComputer.LoadedCSX)
                                         {
                                             var fadingViewDrawing = fadingComputer.NoteHandledDrawingItem;
                                             hasContents = fadingComputer.HasContents && fadingViewDrawing != null;

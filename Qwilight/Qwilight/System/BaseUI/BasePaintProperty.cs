@@ -177,7 +177,7 @@ namespace Qwilight
                             if (defaultMediaFaint > 0)
                             {
                                 targetSession.FillRectangle(r, DrawingSystem.Instance.FaintFilledPaints[(int)(100 * defaultMediaFaint)]);
-                                lock (handlingComputer.ContentsCSX)
+                                lock (handlingComputer.LoadedCSX)
                                 {
                                     if (handlingComputer.HasContents)
                                     {

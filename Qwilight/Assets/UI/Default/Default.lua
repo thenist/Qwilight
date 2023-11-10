@@ -1,19 +1,39 @@
 -- https://taehui.ddns.net/qwilight/assistLS
 
 function IsO4U()
-	return configures[1] == 1
-end
-
-function IsClassic()
 	return configures[2] == 1
 end
 
-function IsFloating()
+function IsClassic()
 	return configures[3] == 1
 end
 
-function IsYellow()
+function IsFloating()
 	return configures[4] == 1
+end
+
+function IsYellow()
+	return configures[5] == 1
+end
+
+function DefaultLength()
+	if configures[1] == 2 then
+		return 720 * 21 / 9
+	elseif configures[1] == 3 then
+		return 720 * 32 / 9
+	else
+		return 1280
+	end
+end
+
+function DefaultHeight()
+	if configures[1] == 0 then
+		return 1280 * 9 / 16
+	elseif configures[1] == 1 then
+		return 1280 * 10 / 16
+	else
+		return 720
+	end
 end
 
 function Pipeline()
@@ -360,9 +380,9 @@ end
 
 function MediaLength()
 	if inputCount < 11 then
-		return 720
+		return DefaultHeight()
 	else
-		return 1280
+		return DefaultLength()
 	end
 end
 

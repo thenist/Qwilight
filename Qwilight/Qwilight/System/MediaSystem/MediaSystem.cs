@@ -171,15 +171,6 @@ namespace Qwilight
 
         public MediaHandlerItem Handle(HandledMediaItem handledMediaItem, IMediaHandler mediaHandler, TimeSpan levyingWait, MediaNote.Mode mode, bool isLooping)
         {
-            if (!isLooping)
-            {
-                switch (handledMediaItem.MediaSrc.VideoStreams[0].CodecName)
-                {
-                    case "mpeg1video":
-                        levyingWait -= TimeSpan.FromMilliseconds(500.0);
-                        break;
-                }
-            }
             handledMediaItem.Media.IsLoopingEnabled = isLooping;
             var mediaHandlerItem = new MediaHandlerItem
             {

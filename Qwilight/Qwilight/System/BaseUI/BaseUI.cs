@@ -65,7 +65,7 @@ namespace Qwilight
 
         public bool HandleAudio(string audioFileName, string defaultFileName = null, PausableAudioHandler pausableAudioHandler = null, double fadeInLength = 0.0)
         {
-            lock (UI.Instance.ContentsCSX)
+            lock (UI.Instance.LoadedCSX)
             {
                 if (!_audioItemMap.TryGetValue(audioFileName, out var audioItem) && defaultFileName != null)
                 {
@@ -2089,7 +2089,7 @@ namespace Qwilight
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpeningUIFileContents);
                     Task.Run(() =>
                     {
-                        lock (UI.Instance.ContentsCSX)
+                        lock (UI.Instance.LoadedCSX)
                         {
                             try
                             {
@@ -2113,7 +2113,7 @@ namespace Qwilight
                 }
                 else
                 {
-                    lock (UI.Instance.ContentsCSX)
+                    lock (UI.Instance.LoadedCSX)
                     {
                         try
                         {

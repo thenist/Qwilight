@@ -11,6 +11,9 @@ namespace Qwilight
         public int hitNotePaintComposition;
         public int hitInputPaintComposition;
 
+        public float defaultLength;
+        public float defaultHeight;
+
         public float audioVisualizerPosition0;
         public float audioVisualizerPosition1;
         public float audioVisualizerLength;

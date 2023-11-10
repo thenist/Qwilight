@@ -15,6 +15,9 @@ format:
         일반 노트와 원형 노트를 지원합니다.
         스킨 세부 설정에서 O4U를 선택하면 원형 노트로 플레이 가능합니다.
         스킨 세부 설정에서 Floating을 선택하면 턴 테이블이 사이드 트랙 노트로 수정됩니다.
+    
+    defaultLength: DefaultLength()
+    defaultHeight: DefaultHeight()
 
 paint:
     title: White
@@ -67,26 +70,30 @@ func:
     setNoteLength: true
     setNoteHeight: true
     setBandPosition: true
+
+    configure-0: 16：9, 16：10, 21：9, 32：9
+    configure-comment-0: Select the screen ratio.
+    configure-comment-0-1042: 화면 비율을 선택합니다.
     
-    configure-0: Default (Bar Note), O4U (Round note)
-    configure-0-1042: Default (바 노트), O4U (원형 노트)
-    configure-comment-0: Select the shape of the note.
-    configure-comment-0-1042: 노트 모양을 선택합니다.
+    configure-1: Default (Bar Note), O4U (Round note)
+    configure-1-1042: Default (바 노트), O4U (원형 노트)
+    configure-comment-1: Select the shape of the note.
+    configure-comment-1-1042: 노트 모양을 선택합니다.
     
-    configure-1: Default (New), Classic (Old)
-    configure-1-1042: Default (신형), Classic (구형)
-    configure-comment-1: Choose a style.
-    configure-comment-1-1042: 스타일을 선택합니다.
+    configure-2: Default (New), Classic (Old)
+    configure-2-1042: Default (신형), Classic (구형)
+    configure-comment-2: Choose a style.
+    configure-comment-2-1042: 스타일을 선택합니다.
     
-    configure-2: Default (General), Floating (Side Track)
-    configure-2-1042: Default (일반), Floating (사이드 트랙)
-    configure-comment-2: Select a turn table.
-    configure-comment-2-1042: 턴 테이블을 선택합니다.
+    configure-3: Default (General), Floating (Side Track)
+    configure-3-1042: Default (일반), Floating (사이드 트랙)
+    configure-comment-3: Select a turn table.
+    configure-comment-3-1042: 턴 테이블을 선택합니다.
     
-    configure-3: Default (Yellow), Classic (Blue
-    configure-3-1042: Classic (파란색), Default (노란색)
-    configure-comment-3: Select a center note color.
-    configure-comment-3-1042: 중앙 노트 색상을 선택합니다.
+    configure-4: Default (Yellow), Classic (Blue
+    configure-4-1042: Classic (파란색), Default (노란색)
+    configure-comment-4: Select a center note color.
+    configure-comment-4-1042: 중앙 노트 색상을 선택합니다.
 
     pipeline: Pipeline()
 
@@ -177,11 +184,11 @@ point:
 
     mainWall0Position1: 0
     mainWall0Length: 20
-    mainWall0Height: 720
+    mainWall0Height: DefaultHeight()
 
     mainWall1Position1: 0
     mainWall1Length: 20
-    mainWall1Height: 720
+    mainWall1Height: DefaultHeight()
 
     binLength: 30.8
     binHeight: 40
@@ -252,7 +259,7 @@ point:
     # 버튼 아래 사각형 영역
     paintProperty2: MainPosition(0), 644, P1BuiltLength(1), 76, 2, PaintProperty2Frame(), 60, 0
 
-    # 박자에 반응하는 판정 비율 막대기
+    # 움직이는 판정 비율 막대기
     paintProperty3: MainPosition(0), PaintProperty3Position1(), P1BuiltLength(1), 20, 2, 20, 60, 0
     
     # 판정 비주얼라이저 기준점
@@ -278,7 +285,7 @@ point:
     mediaPosition0: MediaPosition0()
     mediaPosition1: 0
     mediaLength: MediaLength()
-    mediaHeight: 720
+    mediaHeight: DefaultHeight()
 
     statusSystem: 0
     statusPosition0: Wall(5)
@@ -404,8 +411,8 @@ point:
 
     audioVisualizerPosition0: 0
     audioVisualizerPosition1: 0
-    audioVisualizerLength: 1280
-    audioVisualizerHeight: 720
+    audioVisualizerLength: DefaultLength()
+    audioVisualizerHeight: DefaultHeight()
 
     mainJudgmentMeterPosition1: JudgmentMainPosition(-99)
     mainJudgmentMeterHeight: MainJudgmentMeterHeight(), 199, ~, ~, ~, MainJudgmentMeterHeight(), 199, ~, ~, MainJudgmentMeterHeight()
