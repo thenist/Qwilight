@@ -131,6 +131,7 @@ namespace Qwilight.View
                 Directory.CreateDirectory(QwilightComponent.EdgeEntryPath);
                 Directory.CreateDirectory(QwilightComponent.FaultEntryPath);
                 Directory.CreateDirectory(QwilightComponent.MediaEntryPath);
+                Directory.CreateDirectory(QwilightComponent.UtilityEntryPath);
                 Directory.CreateDirectory(LevelSystem.EntryPath);
             }
             catch
@@ -142,6 +143,8 @@ namespace Qwilight.View
             PIDClass.Instance.HaveIt(_wpfLoadingAsset);
 
             Utility.CopyEntry(Path.Combine(QwilightComponent.AssetsEntryPath, "UI"), Path.Combine(QwilightComponent.UIEntryPath));
+
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Igniter.exe"), Path.Combine(QwilightComponent.UtilityEntryPath, "Igniter.exe"));
 
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.common.dll"), Path.Combine(AppContext.BaseDirectory, "sl.common.dll"));
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.interposer.dll"), Path.Combine(AppContext.BaseDirectory, "sl.interposer.dll"));

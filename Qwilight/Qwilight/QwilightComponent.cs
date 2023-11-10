@@ -66,6 +66,7 @@ namespace Qwilight
         public static readonly string CommentEntryPath;
         public static readonly string FaultEntryPath;
         public static readonly string MediaEntryPath;
+        public static readonly string UtilityEntryPath;
         public static readonly string AMD64Name = string.Empty;
         public static readonly string OSName = string.Empty;
         public static readonly string RAMName = string.Empty;
@@ -145,6 +146,7 @@ namespace Qwilight
             BundleEntryPath = Path.Combine(QwilightEntryPath, "Bundle");
             CommentEntryPath = Path.Combine(QwilightEntryPath, "Comment");
             MediaEntryPath = Path.Combine(QwilightEntryPath, "Media");
+            UtilityEntryPath = Path.Combine(QwilightEntryPath, "Utility");
 
             var rawHwMode = new DEVMODEW();
             PInvoke.EnumDisplaySettings(null, ENUM_DISPLAY_SETTINGS_MODE.ENUM_CURRENT_SETTINGS, ref rawHwMode);
