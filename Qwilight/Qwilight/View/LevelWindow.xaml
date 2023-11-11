@@ -24,18 +24,22 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://hibyethere.github.io/table">◈</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://classmaterma.github.io/UE/table.html">UE</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/sl/table.html">sl</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/st/table.html">st</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/fr/table.html">fr</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table.html">▽</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_insane.html">▼</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_overjoy.html">★★</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://mqppppp.neocities.org/StardustTable">ξ</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://djkuroakari.github.io/starlighttable.html">sr</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://pmsdifficulty.xxxxxxxx.jp/PMSdifficulty.html">PLv</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://pmsdifficulty.xxxxxxxx.jp/insane_PMSdifficulty.html">P●</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://hibyethere.github.io/table" HorizontalAlignment="Right">⑤LEVEL</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://classmaterma.github.io/UE/table.html" HorizontalAlignment="Right">UE</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/sl/table.html" HorizontalAlignment="Right">sl</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/st/table.html" HorizontalAlignment="Right">st</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/fr/table.html" HorizontalAlignment="Right">fr</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table.html" HorizontalAlignment="Right">▽</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_insane.html" HorizontalAlignment="Right">▼</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_overjoy.html" HorizontalAlignment="Right">★★</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://mqppppp.neocities.org/StardustTable" HorizontalAlignment="Right">ξ</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://djkuroakari.github.io/starlighttable.html" HorizontalAlignment="Right">sr</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://pmsdifficulty.xxxxxxxx.jp/PMSdifficulty.html" HorizontalAlignment="Right">PLv</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://pmsdifficulty.xxxxxxxx.jp/insane_PMSdifficulty.html" HorizontalAlignment="Right">P●</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://dpbmsdelta.web.fc2.com/table/dpdelta.html" HorizontalAlignment="Right">δ</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://dpbmsdelta.web.fc2.com/table/insane.html" HorizontalAlignment="Right">★</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://excln.github.io/table24k/table.html" HorizontalAlignment="Right">🎹</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://excln.github.io/table48k/table.html" HorizontalAlignment="Right">🎹</Button>
                         </StackPanel>
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>

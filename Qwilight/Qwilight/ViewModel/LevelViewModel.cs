@@ -14,7 +14,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetLength => 0.4;
 
-        public override double TargetHeight => 0.7;
+        public override double TargetHeight => 0.8;
 
         public void OnInput() => OnPropertyChanged(nameof(IsTotalWantLevel));
 
