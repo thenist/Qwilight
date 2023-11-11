@@ -2,6 +2,5 @@
 {
     public interface IAudioHandler
     {
-        public void SetAudioPosition(uint audioPosition);
     }
 }

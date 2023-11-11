@@ -12,9 +12,5 @@
                 IsHandling = false;
             }
         }
-
-        public void SetAudioPosition(uint audioPosition)
-        {
-        }
     }
 }

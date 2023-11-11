@@ -3612,7 +3612,8 @@ namespace Qwilight.ViewModel
             }
             if (_pausableAudioHandler.AudioFileName != audioFileName)
             {
-                AudioSystem.Instance.Fade(_pausableAudioHandler, QwilightComponent.StandardWaitMillis);
+                _pausableAudioHandler.SetAudioPosition((uint)(AudioSystem.Instance.Fade(_pausableAudioHandler, QwilightComponent.StandardWaitMillis)));
+
                 if (IsNoteFileMode || audioFileName == null)
                 {
                     _pausableAudioHandler.AudioFileName = audioFileName;

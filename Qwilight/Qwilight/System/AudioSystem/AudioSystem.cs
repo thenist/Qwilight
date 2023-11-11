@@ -996,7 +996,7 @@ namespace Qwilight
             }
         }
 
-        public void Fade(IAudioHandler audioHandler, double fadeMillis)
+        public double Fade(IAudioHandler audioHandler, double fadeMillis)
         {
             if (_audioHandlerMap.TryRemove(audioHandler, out var audioHandlerItems))
             {
@@ -1009,12 +1009,11 @@ namespace Qwilight
                         if (_isAvailable)
                         {
                             audioChannel.getPosition(out var audioPosition, TIMEUNIT.MS);
-                            audioHandler.SetAudioPosition((uint)(audioPosition + fadeMillis));
-
                             audioChannel.getDSPClock(out _, out var audioStandardUnit);
                             audioChannel.addFadePoint(audioStandardUnit, 1F);
                             audioChannel.addFadePoint(audioStandardUnit + (ulong)(_rate * fadeMillis), 0F);
                             audioChannel.setDelay(0UL, audioStandardUnit + (ulong)(_rate * fadeMillis));
+                            return audioPosition + fadeMillis;
                         }
                     }
                     finally
@@ -1023,6 +1022,8 @@ namespace Qwilight
                     }
                 }
             }
+
+            return default;
         }
 
         public void Close(IAudioContainer audioContainer, IAudioHandler audioHandler = null)

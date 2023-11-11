@@ -4732,9 +4732,5 @@ namespace Qwilight.Compute
         }
 
         public void SetCommentFile() => _comments.Add(Comment.Clone());
-
-        public void SetAudioPosition(uint audioPosition)
-        {
-        }
     }
 }
