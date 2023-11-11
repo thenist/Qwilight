@@ -8,9 +8,13 @@
         {
             if (IsHandling.HasValue)
             {
-                AudioSystem.Instance.Stop(this);
+                AudioSystem.Instance.Fade(this, QwilightComponent.StandardWaitMillis);
                 IsHandling = false;
             }
+        }
+
+        public void SetAudioPosition(uint audioPosition)
+        {
         }
     }
 }

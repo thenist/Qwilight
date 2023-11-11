@@ -996,21 +996,22 @@ namespace Qwilight
             }
         }
 
-        public void Fade(PausableAudioHandler pausableAudioHandler, double fadeMillis)
+        public void Fade(IAudioHandler audioHandler, double fadeMillis)
         {
-            if (_audioHandlerMap.TryRemove(pausableAudioHandler, out var audioHandlerItems))
+            if (_audioHandlerMap.TryRemove(audioHandler, out var audioHandlerItems))
             {
                 foreach (var audioHandlerItem in audioHandlerItems)
                 {
                     var audioChannel = audioHandlerItem.Channel;
-                    audioChannel.getDSPClock(out _, out var audioStandardUnit);
                     try
                     {
                         _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             audioChannel.getPosition(out var audioPosition, TIMEUNIT.MS);
-                            pausableAudioHandler.SetAudioPosition((uint)(audioPosition + fadeMillis));
+                            audioHandler.SetAudioPosition((uint)(audioPosition + fadeMillis));
+
+                            audioChannel.getDSPClock(out _, out var audioStandardUnit);
                             audioChannel.addFadePoint(audioStandardUnit, 1F);
                             audioChannel.addFadePoint(audioStandardUnit + (ulong)(_rate * fadeMillis), 0F);
                             audioChannel.setDelay(0UL, audioStandardUnit + (ulong)(_rate * fadeMillis));
