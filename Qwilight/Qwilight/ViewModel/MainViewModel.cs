@@ -905,7 +905,6 @@ namespace Qwilight.ViewModel
         {
             if (!IsDefaultEntryLoading && (Configure.Instance.LastDefaultEntryItem == null ^ defaultEntryItem == null))
             {
-                Configure.Instance.WantInput = string.Empty;
                 Configure.Instance.LastDefaultEntryItem = defaultEntryItem;
                 LoadDefaultEntryItem(false);
             }
@@ -1461,11 +1460,7 @@ namespace Qwilight.ViewModel
                     HandleAutoComputerImmediately(true);
                 }
             };
-            _wantHandler.Tick += (sender, e) =>
-            {
-                (sender as DispatcherTimer).Stop();
-                Want();
-            };
+            _wantHandler.Tick += (sender, e) => Want();
             _fsw.Renamed += (sender, e) =>
             {
                 if (e.OldFullPath.IsTailCaselsss(".crdownload") && QwilightComponent.BundleFileFormats.Any(format => e.FullPath.IsTailCaselsss(format)))
@@ -2105,6 +2100,7 @@ namespace Qwilight.ViewModel
 
         public void Want(EntryItem wantEntryItem = null)
         {
+            _wantHandler.Stop();
             if (IsNoteFileMode && !IsDefaultEntryLoading)
             {
                 HandlingUISystem.Instance.HandleParallel(() =>

@@ -215,7 +215,6 @@ namespace Qwilight
         bool _lostPointAudio;
         bool _isMediaFill;
         bool _isQwilightFill;
-        string _wantInput;
         bool _saltAuto;
         bool _isFailMode;
         WantBanned _wantBanned;
@@ -1879,11 +1878,14 @@ namespace Qwilight
 
         public string LostPointAudioText => LostPointAudio ? LanguageSystem.Instance.LostPointAudioText : LanguageSystem.Instance.NotLostPointAudioText;
 
+        public Dictionary<string, string> LastWantInputs { get; set; }
+
+        [JsonIgnore]
         public string WantInput
         {
-            get => _wantInput;
+            get => LastWantInputs.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, string.Empty);
 
-            set => SetProperty(ref _wantInput, value, nameof(WantInput));
+            set => LastWantInputs[LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty] = value;
         }
 
         public bool SaltAuto
@@ -2093,7 +2095,13 @@ namespace Qwilight
         {
             get => _lastDefaultEntryItem;
 
-            set => SetProperty(ref _lastDefaultEntryItem, value, nameof(LastDefaultEntryItem));
+            set
+            {
+                if (SetProperty(ref _lastDefaultEntryItem, value, nameof(LastDefaultEntryItem)))
+                {
+                    OnPropertyChanged(nameof(WantInput));
+                }
+            }
         }
 
         public UIItem UIItemValue
@@ -2242,10 +2250,6 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 5, 8))
             {
                 DefaultEntryItems = new();
-            }
-            if (isInit || Utility.IsLowerDate(Date, 1, 5, 16))
-            {
-                WantInput = string.Empty;
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 8, 7))
             {
@@ -3262,6 +3266,10 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 6))
             {
                 LoadedMedia = true;
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 7))
+            {
+                LastWantInputs = new();
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {
