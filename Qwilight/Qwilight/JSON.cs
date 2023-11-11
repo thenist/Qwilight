@@ -224,7 +224,17 @@ namespace Qwilight
             public Component.InputMode inputMode;
             public double ability;
 
-            public override string ToString() => ability < 0.01 ? string.Format(LanguageSystem.Instance.AbilityUpMiniContents, inputMode) : string.Format(LanguageSystem.Instance.AbilityUpMiniContents, inputMode, ability);
+            public override string ToString()
+            {
+                var inputModeText = inputMode switch
+                {
+                    Component.InputMode.InputMode51 => "⑤K",
+                    Component.InputMode.InputMode71 => "⑦K",
+                    Component.InputMode.InputMode9 => "9K",
+                    _ => string.Empty
+                };
+                return ability < 0.01 ? string.Format(LanguageSystem.Instance.AbilityUpMiniContents, inputModeText) : string.Format(LanguageSystem.Instance.AbilityUpMiniContents, inputModeText, ability);
+            }
         }
 
         public struct TwilightSiteYell

@@ -9,11 +9,11 @@
   },
   "AbilityUpContents": {
     "ko-KR": "{0} 레이팅 {1} Point 얻음",
-    "en-US": "{0} Rating {1} Points Earned"
+    "en-US": "{0} Rating {1} Points earned"
   },
   "AbilityUpMiniContents": {
     "ko-KR": "{0} 레이팅 < 0.01 Point 얻음",
-    "en-US": "(0) Rating < 0.01 Point Earned"
+    "en-US": "(0) Rating < 0.01 Point earned"
   },
   "AegisPostedItemText": {
     "ko-KR": "{0}의 {1}를 방어함",
