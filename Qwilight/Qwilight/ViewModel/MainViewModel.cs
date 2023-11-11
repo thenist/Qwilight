@@ -3527,7 +3527,7 @@ namespace Qwilight.ViewModel
                                 Configure.Instance.BanalMedia != AutoComputer.BanalMedia || Configure.Instance.AlwaysBanalMedia != AutoComputer.AlwaysBanalMedia || Configure.Instance.BanalMediaFilePath != AutoComputer.BanalMediaFilePath ||
                                 Configure.Instance.BanalFailedMedia != AutoComputer.BanalFailedMedia || Configure.Instance.AlwaysBanalFailedMedia != AutoComputer.AlwaysBanalFailedMedia || Configure.Instance.BanalFailedMediaFilePath != AutoComputer.BanalFailedMediaFilePath)
                             {
-                                NewAutoComputer(AutoComputer.IsHandling && !AutoComputer.TrailerAudioHandler.IsHandling ? AutoComputer.LoopingCounter : AutoComputer.LevyingWait, true);
+                                NewAutoComputer(AutoComputer.IsHandling && AutoComputer.TrailerAudioHandler.IsHandling == false ? AutoComputer.LoopingCounter : AutoComputer.LevyingWait, true);
                             }
                             else
                             {

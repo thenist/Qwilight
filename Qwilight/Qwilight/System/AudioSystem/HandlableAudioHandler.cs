@@ -2,16 +2,16 @@
 {
     public sealed class HandlableAudioHandler : IAudioHandler
     {
-        bool _isHandling;
+        bool? _isHandling;
 
-        public bool IsHandling
+        public bool? IsHandling
         {
             get => _isHandling;
 
             set
             {
                 _isHandling = value;
-                if (!value)
+                if (value == false)
                 {
                     AudioSystem.Instance.Stop(this);
                 }
