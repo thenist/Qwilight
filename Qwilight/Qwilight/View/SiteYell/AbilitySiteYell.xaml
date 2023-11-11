@@ -26,6 +26,6 @@
             <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Date}" Foreground="{StaticResource SiteDatePaint}" />
         </StackPanel>
-        <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding Text}" />
+        <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding Text}" HorizontalAlignment="Left" />
     </Grid>
 </Grid>
