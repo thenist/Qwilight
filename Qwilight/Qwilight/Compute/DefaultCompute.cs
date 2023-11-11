@@ -956,7 +956,7 @@ namespace Qwilight.Compute
             IsSilent = true;
             SetStop = true;
             SendNotCompiled();
-            TrailerAudioHandler.IsHandling = false;
+            TrailerAudioHandler.Stop();
             Task.Run(() =>
             {
                 if (_targetCompiler != null)
@@ -1780,7 +1780,7 @@ namespace Qwilight.Compute
 
                     if (!_loopingHandler.IsRunning && !IsInEvents)
                     {
-                        TrailerAudioHandler.IsHandling = false;
+                        TrailerAudioHandler.Stop();
                         _loopingHandler.Start();
                     }
 
