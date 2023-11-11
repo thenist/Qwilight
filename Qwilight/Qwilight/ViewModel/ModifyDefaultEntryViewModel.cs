@@ -22,7 +22,7 @@ namespace Qwilight
 
             set
             {
-                if (SetProperty(ref _groupEntryInputs[0], value, nameof(GroupEntry0)))
+                if (SetProperty(ref _groupEntryInputs[0], value, nameof(GroupEntry0)) && value)
                 {
                     Configure.Instance.GroupEntry = false;
                 }
@@ -35,7 +35,7 @@ namespace Qwilight
 
             set
             {
-                if (SetProperty(ref _groupEntryInputs[1], value, nameof(GroupEntry1)))
+                if (SetProperty(ref _groupEntryInputs[1], value, nameof(GroupEntry1)) && value)
                 {
                     Configure.Instance.GroupEntry = true;
                 }
