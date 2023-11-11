@@ -1208,8 +1208,8 @@
     "en-US": "Very hard judgment mode"
   },
   "HighestLongNoteModify": {
-    "ko-KR": "가장 긴 노트 간격",
-    "en-US": "Longest note spacing"
+    "ko-KR": "끝 간격",
+    "en-US": "End interval"
   },
   "HighestWantBPMContents": {
     "ko-KR": "0 BPM 까지",
@@ -1732,8 +1732,8 @@
     "en-US": "Very easy judgment mode"
   },
   "LowestLongNoteModify": {
-    "ko-KR": "노트 간격",
-    "en-US": "Shortest note spacing"
+    "ko-KR": "시작 간격",
+    "en-US": "Start interval"
   },
   "LowestWantBPMContents": {
     "ko-KR": "0 BPM 부터",
