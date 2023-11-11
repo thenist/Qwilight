@@ -3527,7 +3527,7 @@ namespace Qwilight.ViewModel
                                 Configure.Instance.BanalMedia != AutoComputer.BanalMedia || Configure.Instance.AlwaysBanalMedia != AutoComputer.AlwaysBanalMedia || Configure.Instance.BanalMediaFilePath != AutoComputer.BanalMediaFilePath ||
                                 Configure.Instance.BanalFailedMedia != AutoComputer.BanalFailedMedia || Configure.Instance.AlwaysBanalFailedMedia != AutoComputer.AlwaysBanalFailedMedia || Configure.Instance.BanalFailedMediaFilePath != AutoComputer.BanalFailedMediaFilePath)
                             {
-                                NewAutoComputer(AutoComputer.IsHandling ? AutoComputer.LoopingCounter : AutoComputer.LevyingWait, true);
+                                NewAutoComputer(AutoComputer.IsHandling && !AutoComputer.TrailerAudioHandler.IsHandling ? AutoComputer.LoopingCounter : AutoComputer.LevyingWait, true);
                             }
                             else
                             {
@@ -3555,13 +3555,15 @@ namespace Qwilight.ViewModel
                                 AutoComputer.Migrate(targetComputer);
                             }
                             var trailerAudioFilePath = Utility.GetAvailable(targetNoteFile.TrailerAudioPath, Utility.AvailableFlag.Audio);
-                            if (doTrailerAudio && !string.IsNullOrEmpty(trailerAudioFilePath))
+                            if (doTrailerAudio && !string.IsNullOrEmpty(trailerAudioFilePath) && AutoComputer?.TrailerAudioHandler?.IsHandling != false)
                             {
                                 CloseAutoComputer(null);
+                                var trailerAudioHandler = autoComputer.TrailerAudioHandler;
                                 if (!isMigrate)
                                 {
-                                    AudioSystem.Instance.HandleImmediately(trailerAudioFilePath, autoComputer, autoComputer.TrailerAudioHandler);
+                                    AudioSystem.Instance.HandleImmediately(trailerAudioFilePath, autoComputer, trailerAudioHandler);
                                 }
+                                trailerAudioHandler.IsHandling = true;
                                 autoComputer.SetPause = true;
                             }
                             else

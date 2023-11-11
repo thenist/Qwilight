@@ -975,18 +975,7 @@ namespace Qwilight
             {
                 foreach (var audioHandlerItem in audioHandlerItems)
                 {
-                    try
-                    {
-                        _audioCSX.EnterWriteLock();
-                        if (_isAvailable)
-                        {
-                            audioHandlerItem.Channel.stop();
-                        }
-                    }
-                    finally
-                    {
-                        _audioCSX.ExitWriteLock();
-                    }
+                    Stop(audioHandlerItem.Channel);
                 }
             }
         }

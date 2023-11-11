@@ -1123,7 +1123,7 @@ namespace Qwilight.Compiler
                 {
                     if (note.HasStand && Random.Shared.NextDouble() < rateItem)
                     {
-                        note.SetItem(Random.Shared.Next(), defaultComputer.AllowedPostableitems);
+                        note.SetItem(Random.Shared.Next(), defaultComputer.AllowedPostableItems);
                     }
                 }
             }

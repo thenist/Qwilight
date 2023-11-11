@@ -183,9 +183,9 @@ namespace Qwilight.Compute
 
         public int AvatarsCount { get; set; }
 
-        public PostableItem[] AllowedPostableitems { get; set; }
+        public PostableItem[] AllowedPostableItems { get; set; }
 
-        public AudioHandler TrailerAudioHandler { get; } = new();
+        public HandlableAudioHandler TrailerAudioHandler { get; } = new();
 
         public List<BaseNote> PaintedNotes { get; } = new();
 
@@ -956,7 +956,7 @@ namespace Qwilight.Compute
             IsSilent = true;
             SetStop = true;
             SendNotCompiled();
-            AudioSystem.Instance.Stop(TrailerAudioHandler);
+            TrailerAudioHandler.IsHandling = false;
             Task.Run(() =>
             {
                 if (_targetCompiler != null)
@@ -1780,7 +1780,7 @@ namespace Qwilight.Compute
 
                     if (!_loopingHandler.IsRunning && !IsInEvents)
                     {
-                        AudioSystem.Instance.Stop(TrailerAudioHandler);
+                        TrailerAudioHandler.IsHandling = false;
                         _loopingHandler.Start();
                     }
 
