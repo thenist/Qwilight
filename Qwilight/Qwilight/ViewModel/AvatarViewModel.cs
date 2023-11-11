@@ -41,7 +41,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetHeight => 0.8;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Top;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Top;
 
         readonly int[] _avatarLevels = new int[3];
         string _avatarAbility5KPlaceText0 = string.Empty;

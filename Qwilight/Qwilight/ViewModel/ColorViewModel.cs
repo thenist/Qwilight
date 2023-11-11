@@ -12,7 +12,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetHeight => 0.2;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
         public Action<Color> OnLazyCollasped { get; set; }
 

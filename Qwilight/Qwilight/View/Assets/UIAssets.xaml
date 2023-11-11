@@ -77,7 +77,7 @@
     </Style>
 
     <!-- Canvas -->
-    <Style x:Key="StandardModalWindow" TargetType="Canvas">
+    <Style x:Key="StandardModalWindow" TargetType="Grid">
         <Setter Property="Background" Value="{Binding ModalPaint}" />
         <Setter Property="Canvas.ZIndex" Value="{Binding Zvalue}" />
         <Setter Property="Visibility" Value="{Binding IsOpened, Mode=OneWay, Converter={StaticResource VisibilityModifier}}" />
@@ -91,8 +91,8 @@
     <Style x:Key="StandardWindow" TargetType="Grid">
         <Setter Property="Width" Value="{Binding Length}" />
         <Setter Property="Height" Value="{Binding Height}" />
-        <Setter Property="Canvas.Left" Value="{Binding Position0}" />
-        <Setter Property="Canvas.Top" Value="{Binding Position1}" />
+        <Setter Property="HorizontalAlignment" Value="{Binding LengthSystem}" />
+        <Setter Property="VerticalAlignment" Value="{Binding HeightSystem}" />
 
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />

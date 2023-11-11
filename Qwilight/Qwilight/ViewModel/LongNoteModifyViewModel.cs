@@ -6,9 +6,9 @@ namespace Qwilight.ViewModel
     {
         public override double TargetLength => 0.2;
 
-        public override double TargetHeight => 0.3;
+        public override double TargetHeight => double.NaN;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
         public override bool ClosingCondition
         {

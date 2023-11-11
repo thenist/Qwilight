@@ -35,27 +35,13 @@ namespace Qwilight.ViewModel
 
         public double Height => ViewModels.Instance.MainValue.DefaultHeight * TargetHeight;
 
-        public double Position0 => TargetLengthSystem switch
-        {
-            HorizontalAlignment.Right => ViewModels.Instance.MainValue.DefaultLength - Length,
-            HorizontalAlignment.Center => (ViewModels.Instance.MainValue.DefaultLength - Length) / 2,
-            _ => 0.0
-        };
-
-        public double Position1 => TargetHeightSystem switch
-        {
-            VerticalAlignment.Bottom => ViewModels.Instance.MainValue.DefaultHeight - Height,
-            VerticalAlignment.Center => (ViewModels.Instance.MainValue.DefaultHeight - Height) / 2,
-            _ => 0.0
-        };
-
         public virtual double TargetLength => 1.0;
 
         public virtual double TargetHeight => 1.0;
 
-        public virtual HorizontalAlignment TargetLengthSystem => HorizontalAlignment.Center;
+        public virtual HorizontalAlignment LengthSystem => HorizontalAlignment.Center;
 
-        public virtual VerticalAlignment TargetHeightSystem => VerticalAlignment.Center;
+        public virtual VerticalAlignment HeightSystem => VerticalAlignment.Center;
 
         public int Zvalue
         {
@@ -118,8 +104,6 @@ namespace Qwilight.ViewModel
 
         public void NotifyArea()
         {
-            OnPropertyChanged(nameof(Position0));
-            OnPropertyChanged(nameof(Position1));
             OnPropertyChanged(nameof(Length));
             OnPropertyChanged(nameof(Height));
         }

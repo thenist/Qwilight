@@ -27,9 +27,9 @@ namespace Qwilight.ViewModel
 
         public override double TargetLength => 0.4;
 
-        public override double TargetHeight => 0.4;
+        public override double TargetHeight => double.NaN;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
         [RelayCommand]
         static void OnInitEqualizer()

@@ -15,9 +15,9 @@ namespace Qwilight.ViewModel
 
         public override double TargetHeight => 0.6;
 
-        public override HorizontalAlignment TargetLengthSystem => HorizontalAlignment.Center;
+        public override HorizontalAlignment LengthSystem => HorizontalAlignment.Center;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
         public ObservableCollection<AvatarTitleItem> AvatarTitleItemCollection { get; } = new();
 

@@ -1,4 +1,4 @@
-﻿<Canvas
+﻿<Grid
     x:Class="Qwilight.View.SiteContainer"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,4 +16,4 @@
             <TabControl Style="{StaticResource StandardPageView}" SelectedItem="{Binding SiteView}" ItemsSource="{Binding SiteCollection}" SelectionChanged="OnSiteView" />
         </Border>
     </Grid>
-</Canvas>
+</Grid>

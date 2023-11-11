@@ -12,7 +12,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetLength => 0.5;
 
-        public override double TargetHeight => 0.2;
+        public override double TargetHeight => double.NaN;
 
         public string Text
         {

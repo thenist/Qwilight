@@ -14,7 +14,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetHeight => 0.6;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Top;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Top;
 
         public ObservableCollection<NotifyItem> NotifyItemCollection { get; } = new();
 

@@ -26,9 +26,9 @@ namespace Qwilight.ViewModel
         int _endPage;
         bool _allowEssentialsInputs;
 
-        public override double TargetHeight => 0.3;
+        public override double TargetHeight => double.NaN;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
         public TextDecorationCollection BMSFont { get; set; }
 

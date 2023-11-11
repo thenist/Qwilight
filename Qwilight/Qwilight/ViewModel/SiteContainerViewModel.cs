@@ -50,7 +50,6 @@ namespace Qwilight.ViewModel
         public override void OnOpened()
         {
             base.OnOpened();
-            OnPropertyChanged(nameof(Position1));
             if (ViewModels.Instance.HasSiteViewModel())
             {
                 HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.HandleSiteViewModels(siteViewModel => siteViewModel.OnOpened()));

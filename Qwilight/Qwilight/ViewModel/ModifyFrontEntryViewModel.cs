@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Qwilight.UIComponent;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Qwilight.ViewModel
@@ -14,8 +13,6 @@ namespace Qwilight.ViewModel
         public override double TargetLength => 0.6;
 
         public override double TargetHeight => 0.4;
-
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Top;
 
         public ObservableCollection<FrontEntryItem> FrontEntryItemCollection { get; } = new();
 

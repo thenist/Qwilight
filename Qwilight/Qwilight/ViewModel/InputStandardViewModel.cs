@@ -21,9 +21,9 @@ namespace Qwilight.ViewModel
         int _inputPosition;
         bool _allowEssentialInputs;
 
-        public override double TargetHeight => 0.25;
+        public override double TargetHeight => double.NaN;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
         public Brush[] InputPaints { get; } = new Brush[10];
 

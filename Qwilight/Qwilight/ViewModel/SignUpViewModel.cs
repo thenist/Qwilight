@@ -11,11 +11,11 @@ namespace Qwilight.ViewModel
     {
         public override double TargetLength => 0.2;
 
-        public override double TargetHeight => 0.35;
+        public override double TargetHeight => double.NaN;
 
-        public override HorizontalAlignment TargetLengthSystem => HorizontalAlignment.Center;
+        public override HorizontalAlignment LengthSystem => HorizontalAlignment.Center;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Center;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Center;
 
         public string AvatarID { get; set; }
 

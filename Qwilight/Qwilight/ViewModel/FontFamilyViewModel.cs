@@ -18,7 +18,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetHeight => 0.5;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
         public int FontPosition { get; set; }
 

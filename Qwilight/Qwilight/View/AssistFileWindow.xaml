@@ -1,4 +1,4 @@
-﻿<Canvas
+﻿<Grid
     x:Class="Qwilight.View.AssistFileWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -19,4 +19,4 @@
             </Grid>
         </Border>
     </Grid>
-</Canvas>
+</Grid>

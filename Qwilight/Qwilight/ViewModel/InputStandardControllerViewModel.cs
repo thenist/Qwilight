@@ -27,13 +27,13 @@ namespace Qwilight.ViewModel
 
         int _inputPosition;
 
-        public override double TargetHeight => 0.25;
+        public override double TargetHeight => double.NaN;
 
         public Brush[] InputPaints { get; } = new Brush[11];
 
         public string[] Inputs { get; } = new string[11];
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Bottom;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
         [RelayCommand]
         void OnInputPosition(int? inputPosition)

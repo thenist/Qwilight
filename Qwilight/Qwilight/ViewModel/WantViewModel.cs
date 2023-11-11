@@ -10,7 +10,7 @@ namespace Qwilight.ViewModel
 
         public override double TargetHeight => 0.9;
 
-        public override VerticalAlignment TargetHeightSystem => VerticalAlignment.Top;
+        public override VerticalAlignment HeightSystem => VerticalAlignment.Top;
 
         [RelayCommand]
         static void OnWantHellBPM() => Configure.Instance.WantHellBPM = !Configure.Instance.WantHellBPM;
