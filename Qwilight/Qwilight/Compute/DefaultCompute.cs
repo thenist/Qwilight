@@ -571,6 +571,14 @@ namespace Qwilight.Compute
             }
         }
 
+        public void Migrate(DefaultCompute targetComputer)
+        {
+            AudioSystem.Instance.Migrate(this as IAudioContainer, targetComputer as IAudioContainer);
+            AudioSystem.Instance.Migrate(TrailerAudioHandler, targetComputer.TrailerAudioHandler);
+            MediaSystem.Instance.Migrate(this, targetComputer);
+            DrawingSystem.Instance.Migrate(this, targetComputer);
+        }
+
         public void PaintDefaultMedia(DrawingContext targetSession, ref Bound r, int defaultMediaFaint)
         {
             if (defaultMediaFaint < 100)

@@ -1069,6 +1069,14 @@ namespace Qwilight
             }
         }
 
+        public void Migrate(IAudioHandler src, IAudioHandler target)
+        {
+            if (_audioHandlerMap.TryRemove(src, out var audioItems))
+            {
+                _audioHandlerMap[target] = audioItems;
+            }
+        }
+
         public void Pause(IAudioHandler audioHandler, bool isPaused)
         {
             if (_audioHandlerMap.TryGetValue(audioHandler, out var audioHandlerItems))
@@ -1247,61 +1255,56 @@ namespace Qwilight
             return default;
         }
 
-        public bool HandleImmediately(string audioFilePath, IAudioContainer audioContainer, IAudioHandler audioHandler)
+        public void HandleImmediately(string audioFilePath, IAudioContainer audioContainer, IAudioHandler audioHandler)
         {
-            if (!string.IsNullOrEmpty(audioFilePath))
+            var rms = PoolSystem.Instance.GetDataFlow(File.ReadAllBytes(audioFilePath));
+            var hash = Utility.GetID128s(rms);
+            rms.Position = 0;
+            var audioInfo = new CREATESOUNDEXINFO
             {
-                var rms = PoolSystem.Instance.GetDataFlow(File.ReadAllBytes(audioFilePath));
-                var hash = Utility.GetID128s(rms);
-                rms.Position = 0;
-                var audioInfo = new CREATESOUNDEXINFO
+                length = (uint)rms.Length,
+                cbsize = Marshal.SizeOf<CREATESOUNDEXINFO>()
+            };
+            try
+            {
+                _audioCSX.EnterWriteLock();
+                if (_isAvailable)
                 {
-                    length = (uint)rms.Length,
-                    cbsize = Marshal.SizeOf<CREATESOUNDEXINFO>()
-                };
-                try
-                {
-                    _audioCSX.EnterWriteLock();
-                    if (_isAvailable)
+                    if (_targetSystem.createSound(rms.GetBuffer(), LoadingImmediatelyAudioModes, ref audioInfo, out var audioData) == RESULT.OK && audioData.getLength(out var audioLength, TIMEUNIT.MS) == RESULT.OK)
                     {
-                        if (_targetSystem.createSound(rms.GetBuffer(), LoadingImmediatelyAudioModes, ref audioInfo, out var audioData) == RESULT.OK && audioData.getLength(out var audioLength, TIMEUNIT.MS) == RESULT.OK)
+                        _audioMap.AddOrUpdate(audioContainer, (audioContainer, audioItem) => new(new[] { KeyValuePair.Create(hash, audioItem) }), (audioContainer, audioItems, audioItem) =>
                         {
-                            _audioMap.AddOrUpdate(audioContainer, (audioContainer, audioItem) => new(new[] { KeyValuePair.Create(hash, audioItem) }), (audioContainer, audioItems, audioItem) =>
-                            {
-                                audioItems[hash] = audioItem;
-                                return audioItems;
-                            }, new AudioItem
-                            {
-                                System = _targetSystem.handle,
-                                AudioData = audioData,
-                                AudioVolume = 1F,
-                                Length = audioLength
-                            });
-                            _targetSystem.playSound(audioData, _audioGroups[MainAudio], false, out var audioChannel);
-                            audioChannel.getDSPClock(out _, out var audioStandardUnit);
-                            var audioHandlerItem = new AudioHandlerItem
-                            {
-                                Channel = audioChannel,
-                                AudioStandardUnit = audioStandardUnit
-                            };
-                            _audioHandlerMap.AddOrUpdate(audioHandler, (audioHandler, audioHandlerItem) => new()
-                            {
-                                audioHandlerItem
-                            }, (audioHandler, audioHandlerItems, audioHandlerItem) =>
-                            {
-                                audioHandlerItems.Add(audioHandlerItem);
-                                return audioHandlerItems;
-                            }, audioHandlerItem);
-                            return true;
-                        }
+                            audioItems[hash] = audioItem;
+                            return audioItems;
+                        }, new AudioItem
+                        {
+                            System = _targetSystem.handle,
+                            AudioData = audioData,
+                            AudioVolume = 1F,
+                            Length = audioLength
+                        });
+                        _targetSystem.playSound(audioData, _audioGroups[MainAudio], false, out var audioChannel);
+                        audioChannel.getDSPClock(out _, out var audioStandardUnit);
+                        var audioHandlerItem = new AudioHandlerItem
+                        {
+                            Channel = audioChannel,
+                            AudioStandardUnit = audioStandardUnit
+                        };
+                        _audioHandlerMap.AddOrUpdate(audioHandler, (audioHandler, audioHandlerItem) => new()
+                        {
+                            audioHandlerItem
+                        }, (audioHandler, audioHandlerItems, audioHandlerItem) =>
+                        {
+                            audioHandlerItems.Add(audioHandlerItem);
+                            return audioHandlerItems;
+                        }, audioHandlerItem);
                     }
                 }
-                finally
-                {
-                    _audioCSX.ExitWriteLock();
-                }
             }
-            return false;
+            finally
+            {
+                _audioCSX.ExitWriteLock();
+            }
         }
 
         public void Dispose()

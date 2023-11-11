@@ -3391,6 +3391,16 @@ namespace Qwilight.ViewModel
 
         public void SetNoteFileMode(string faultText = null)
         {
+            switch (ModeValue)
+            {
+                case Mode.Computing:
+                    Fade(HandleImpl, Computer, true, 1);
+                    break;
+                case Mode.Quit:
+                    Fade(HandleImpl, GetHandlingComputer(), true, 1);
+                    break;
+            }
+
             void HandleImpl()
             {
                 if (Computer.DefaultModeComponentValue != null)
@@ -3409,40 +3419,10 @@ namespace Qwilight.ViewModel
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, faultText);
                 }
             }
-            switch (ModeValue)
-            {
-                case Mode.Computing:
-                    Fade(HandleImpl, Computer, true, 1);
-                    break;
-                case Mode.Quit:
-                    Fade(HandleImpl, GetHandlingComputer(), true, 1);
-                    break;
-            }
         }
 
         public void SetComputingMode(DefaultCompute targetComputer)
         {
-            void HandleImpl()
-            {
-                if (AutoComputer != null)
-                {
-                    AudioSystem.Instance.Migrate(AutoComputer, targetComputer);
-                    MediaSystem.Instance.Migrate(AutoComputer, targetComputer);
-                    DrawingSystem.Instance.Migrate(AutoComputer, targetComputer);
-                }
-                else if (Computer != null)
-                {
-                    AudioSystem.Instance.Migrate(Computer, targetComputer);
-                    MediaSystem.Instance.Migrate(Computer, targetComputer);
-                    DrawingSystem.Instance.Migrate(Computer, targetComputer);
-                }
-                var defaultComputer = Computer;
-                Computer = targetComputer;
-                Computer.HandleCompiler();
-                ModeValue = Mode.Computing;
-                defaultComputer?.Close();
-                CloseAutoComputer();
-            }
             switch (ModeValue)
             {
                 case Mode.NoteFile:
@@ -3455,18 +3435,21 @@ namespace Qwilight.ViewModel
                     Fade(HandleImpl, GetHandlingComputer(), true, 1);
                     break;
             }
+
+            void HandleImpl()
+            {
+                (AutoComputer ?? Computer)?.Migrate(targetComputer);
+                var defaultComputer = Computer;
+                Computer = targetComputer;
+                Computer.HandleCompiler();
+                ModeValue = Mode.Computing;
+                defaultComputer?.Close();
+                CloseAutoComputer();
+            }
         }
 
         public void SetQuitMode(DefaultCompute defaultComputer)
         {
-            void HandleImpl()
-            {
-                defaultComputer.SetJudgmentMillis();
-                defaultComputer.AtQuitMode();
-                defaultComputer.NotifyCompute();
-                Computer = defaultComputer;
-                ModeValue = Mode.Quit;
-            }
             switch (ModeValue)
             {
                 case Mode.NoteFile:
@@ -3478,6 +3461,15 @@ namespace Qwilight.ViewModel
                 case Mode.Quit:
                     HandleImpl();
                     break;
+            }
+
+            void HandleImpl()
+            {
+                defaultComputer.SetJudgmentMillis();
+                defaultComputer.AtQuitMode();
+                defaultComputer.NotifyCompute();
+                Computer = defaultComputer;
+                ModeValue = Mode.Quit;
             }
         }
 
@@ -3555,21 +3547,31 @@ namespace Qwilight.ViewModel
                             CloseAutoComputer("Default");
                             targetNoteFile.SetConfigure();
                         }
+
                         void NewAutoComputer(double levyingWait, bool doMigrate)
                         {
                             ModeComponentValue.ComputingValue = targetNoteFile;
                             var autoComputer = new AutoCompute(new[] { targetNoteFile }, null, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), -1, levyingWait);
-                            var hasTrailerAudio = doTrailerAudio && AudioSystem.Instance.HandleImmediately(Utility.GetAvailable(targetNoteFile.TrailerAudioPath, Utility.AvailableFlag.Audio), autoComputer, autoComputer.TrailerAudioHandler);
-                            autoComputer.SetPause = hasTrailerAudio;
-                            var defaultComputer = doMigrate ? autoComputer : null;
-                            var isMigrate = AutoComputer != null && defaultComputer != null;
+                            var targetComputer = doMigrate ? autoComputer : null;
+                            var isMigrate = AutoComputer != null && targetComputer != null;
                             if (isMigrate)
                             {
-                                AudioSystem.Instance.Migrate(AutoComputer, defaultComputer);
-                                MediaSystem.Instance.Migrate(AutoComputer, defaultComputer);
-                                DrawingSystem.Instance.Migrate(AutoComputer, defaultComputer);
+                                AutoComputer.Migrate(targetComputer);
                             }
-                            CloseAutoComputer(isMigrate || !doTrailerAudio || hasTrailerAudio ? null : "Default");
+                            var trailerAudioFilePath = Utility.GetAvailable(targetNoteFile.TrailerAudioPath, Utility.AvailableFlag.Audio);
+                            if (doTrailerAudio && !string.IsNullOrEmpty(trailerAudioFilePath))
+                            {
+                                CloseAutoComputer(null);
+                                if (!isMigrate)
+                                {
+                                    AudioSystem.Instance.HandleImmediately(trailerAudioFilePath, autoComputer, autoComputer.TrailerAudioHandler);
+                                }
+                                autoComputer.SetPause = true;
+                            }
+                            else
+                            {
+                                CloseAutoComputer(isMigrate ? null : "Default");
+                            }
                             AutoComputer = autoComputer;
                             AutoComputer.HandleCompiler();
                             if (IsComputingMode)
