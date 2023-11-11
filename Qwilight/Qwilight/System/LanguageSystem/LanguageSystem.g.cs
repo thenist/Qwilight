@@ -4,6 +4,8 @@ namespace Qwilight
     {
         public string _4DModeContents { get; set; }
         public string AbilityStandContents { get; set; }
+        public string AbilityUpContents { get; set; }
+        public string AbilityUpMiniContents { get; set; }
         public string AegisPostedItemText { get; set; }
         public string AllowEssentialInputs { get; set; }
         public string AllowTotalLevyingText { get; set; }

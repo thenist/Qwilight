@@ -343,7 +343,8 @@ namespace Qwilight
                                     BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelUp);
                                     break;
                                 case Event.Types.EventID.AbilityUp:
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, eventItemText, true, "Ability Up");
+                                    var twilightAbilityUp = Utility.GetJSON<JSON.TwilightAbilityUp>(eventItemText);
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, twilightAbilityUp.ToString(), true, "Ability Up");
                                     BaseUI.Instance.HandleEvent(BaseUI.EventItem.AbilityUp);
                                     break;
                                 case Event.Types.EventID.WwwLevel:

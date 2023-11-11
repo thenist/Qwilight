@@ -482,6 +482,7 @@ namespace Qwilight
                 {
                     OnPropertyChanged(nameof(VESAPaint));
                     OnPropertyChanged(nameof(VESAText));
+                    OnSetAutoNVLLFramerate();
                 }
             }
         }
@@ -576,9 +577,16 @@ namespace Qwilight
         {
             if (_isLoaded && AutoNVLLFramerate)
             {
-                var rawHwMode = new DEVMODEW();
-                PInvoke.EnumDisplaySettings(null, ENUM_DISPLAY_SETTINGS_MODE.ENUM_CURRENT_SETTINGS, ref rawHwMode);
-                NVLLFramerate = rawHwMode.dmDisplayFrequency;
+                if (VESAV2)
+                {
+                    NVLLFramerate = 0.0;
+                }
+                else
+                {
+                    var rawHwMode = new DEVMODEW();
+                    PInvoke.EnumDisplaySettings(null, ENUM_DISPLAY_SETTINGS_MODE.ENUM_CURRENT_SETTINGS, ref rawHwMode);
+                    NVLLFramerate = rawHwMode.dmDisplayFrequency;
+                }
             }
         }
 

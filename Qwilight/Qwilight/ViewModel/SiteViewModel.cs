@@ -905,6 +905,10 @@ namespace Qwilight.ViewModel
                         return new NewNetSiteYell(avatarID, siteYell, date, siteYellID);
                     case "@Comment":
                         return new CommentSiteYell(siteYell, date, siteYellID);
+                    case "@Ability":
+                        return new AbilitySiteYell(siteYell, date, siteYellID);
+                    case "@Level":
+                        return new LevelSiteYell(siteYell, date, siteYellID);
                     case "@Notify":
                         SiteNotify = siteYell;
                         return new TaehuiSiteYell(siteYell, date, siteYellID);

@@ -1,0 +1,31 @@
+﻿<Grid
+    x:Class="Qwilight.View.SiteYell.AbilitySiteYell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:view="clr-namespace:Qwilight.View"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <view:AvatarDrawingView Width="48" Height="48" AvatarWwwValue="{Binding AvatarWwwValue}">
+        <view:AvatarDrawingView.ContextMenu>
+            <ContextMenu>
+                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewAvatarCommand}" />
+                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewBundleCommand}" />
+                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+            </ContextMenu>
+        </view:AvatarDrawingView.ContextMenu>
+    </view:AvatarDrawingView>
+    <Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Date}" Foreground="{StaticResource SiteDatePaint}" />
+        </StackPanel>
+        <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding Text}" />
+    </Grid>
+</Grid>

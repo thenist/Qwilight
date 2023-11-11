@@ -219,6 +219,14 @@ namespace Qwilight
             public int avatarCount;
         }
 
+        public class TwilightAbilityUp
+        {
+            public Component.InputMode inputMode;
+            public double ability;
+
+            public override string ToString() => ability < 0.01 ? string.Format(LanguageSystem.Instance.AbilityUpMiniContents, inputMode) : string.Format(LanguageSystem.Instance.AbilityUpMiniContents, inputMode, ability);
+        }
+
         public struct TwilightSiteYell
         {
             public string siteID;
@@ -253,6 +261,21 @@ namespace Qwilight
             public BaseNoteFile.Level level;
             public int stand;
             public int hitPointsMode;
+        }
+
+        public sealed class TwilightAbilitySiteYell : TwilightAbilityUp
+        {
+            public string avatarID;
+            public string avatarName;
+        }
+
+        public struct TwilightLevelSiteYell
+        {
+            public string avatarID;
+            public string avatarName;
+            public string title;
+
+            public override string ToString() => string.Format(LanguageSystem.Instance.WwwLevelClearContents, title);
         }
 
         public struct TwilightInviteSiteYell
@@ -355,6 +378,10 @@ namespace Qwilight
                     case "@Comment":
                         var twilightCommentSiteYell = Utility.GetJSON<TwilightCommentSiteYell>(siteYell);
                         return $"{twilightCommentSiteYell.avatarName} {ltDate} {Utility.GetPlatformText(twilightCommentSiteYell.title, twilightCommentSiteYell.artist, Utility.GetGenreText(twilightCommentSiteYell.genre), twilightCommentSiteYell.levelText)} {twilightCommentSiteYell.stand.ToString(LanguageSystem.Instance.StandContents)}";
+                    case "@Ability":
+                        return Utility.GetJSON<TwilightAbilitySiteYell>(siteYell).ToString();
+                    case "@Level":
+                        return Utility.GetJSON<TwilightLevelSiteYell>(siteYell).ToString();
                     case "":
                         return siteYell;
                     default:
