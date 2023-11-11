@@ -17,7 +17,7 @@
                     <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ModifyModeComponentText, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
-                <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                <StackPanel Grid.Row="1">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition />

@@ -17,7 +17,7 @@
                     <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding StandardDefaultControllerModeText, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
-                <Grid Grid.Row="1" VerticalAlignment="Center">
+                <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
