@@ -233,7 +233,7 @@ namespace Qwilight
                     Component.InputMode.InputMode9 => "9K",
                     _ => string.Empty
                 };
-                return ability < 0.01 ? string.Format(LanguageSystem.Instance.AbilityUpMiniContents, inputModeText) : string.Format(LanguageSystem.Instance.AbilityUpContents, inputModeText, ability);
+                return ability < 0.01 ? string.Format(LanguageSystem.Instance.AbilityUpMiniContents, inputModeText) : string.Format(LanguageSystem.Instance.AbilityUpContents, inputModeText, Math.Round(ability, 2));
             }
         }
 
