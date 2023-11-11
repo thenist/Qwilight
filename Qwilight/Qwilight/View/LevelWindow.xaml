@@ -24,7 +24,8 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://hibyethere.github.io/table/">◈</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://hibyethere.github.io/table">◈</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://classmaterma.github.io/UE/table.html">UE</Button>
                             <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/sl/table.html">sl</Button>
                             <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/st/table.html">st</Button>
                             <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/fr/table.html">fr</Button>

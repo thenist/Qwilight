@@ -573,8 +573,10 @@ namespace Qwilight.Compute
 
         public void Migrate(DefaultCompute targetComputer)
         {
-            AudioSystem.Instance.Migrate(this as IAudioContainer, targetComputer as IAudioContainer);
             AudioSystem.Instance.Migrate(TrailerAudioHandler, targetComputer.TrailerAudioHandler);
+            targetComputer.TrailerAudioHandler.IsHandling = TrailerAudioHandler.IsHandling;
+
+            AudioSystem.Instance.Migrate(this as IAudioContainer, targetComputer as IAudioContainer);
             MediaSystem.Instance.Migrate(this, targetComputer);
             DrawingSystem.Instance.Migrate(this, targetComputer);
         }
