@@ -1939,7 +1939,7 @@ namespace Qwilight
             }
         }
 
-        public string WantLevelNameText => !WantLevelSystem || string.IsNullOrEmpty(WantLevelName) ? "✔️" : WantLevelName;
+        public string WantLevelNameText => !WantLevelSystem || string.IsNullOrEmpty(WantLevelName) ? "🔖" : WantLevelName;
 
         public string[] WantLevelIDs { get; set; }
 
