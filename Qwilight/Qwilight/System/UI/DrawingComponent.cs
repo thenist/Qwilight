@@ -486,6 +486,7 @@ namespace Qwilight
             lsCaller.Globals["noteLength"] = Configure.Instance.UIConfigureValue.NoteLengthText.GetValueOrDefault((int)inputMode);
             lsCaller.Globals["noteHeight"] = Configure.Instance.UIConfigureValue.NoteHeightValue.GetValueOrDefault((int)inputMode);
             lsCaller.Globals["bandPosition"] = Configure.Instance.UIConfigureValue.BandPositionV2;
+            lsCaller.Globals["hitNotePaintPosition"] = Configure.Instance.UIConfigureValue.HitNotePaintPosition;
             lsCaller.Globals["inputMapping"] = (int)Configure.Instance.InputMappingValue;
             lsCaller.Globals["P1Length"] = p1Length;
             lsCaller.Globals["P1BuiltLength"] = p1BuiltLengthFunc;

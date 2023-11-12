@@ -70,6 +70,7 @@ func:
     setNoteLength: true
     setNoteHeight: true
     setBandPosition: true
+    setHitNotePaintPosition: true
 
     configure-0: 16：9, 16：10, 21：9, 32：9
     configure-comment-0: Select the screen ratio.
@@ -213,7 +214,7 @@ point:
 
     judgmentSystem: 1
     judgmentPosition0: Contents(0.5)
-    judgmentPosition1: JudgmentMainPosition(-154)
+    judgmentPosition1: JudgmentPosition1()
     judgmentLength: 300
     judgmentHeight: 100
 

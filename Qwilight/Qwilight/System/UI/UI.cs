@@ -222,6 +222,8 @@ namespace Qwilight
 
         public bool SetBandPosition { get; set; }
 
+        public bool SetHitNotePaintPosition { get; set; }
+
         public DrawingItem?[] HitPointsDrawings { get; } = new DrawingItem?[8];
 
         public HandledDrawingItem? VeilDrawing { get; set; }
@@ -530,6 +532,7 @@ namespace Qwilight
                     SetNoteLength = Utility.ToBool(Utility.GetText(funcNode, "setNoteLength", bool.FalseString));
                     SetNoteHeight = Utility.ToBool(Utility.GetText(funcNode, "setNoteHeight", bool.FalseString));
                     SetBandPosition = Utility.ToBool(Utility.GetText(funcNode, "setBandPosition", bool.FalseString));
+                    SetHitNotePaintPosition = Utility.ToBool(Utility.GetText(funcNode, "setHitNotePaintPosition", bool.FalseString));
 
                     SaveIntMap(funcNode, "judgmentPaintComposition");
                     SaveIntMap(funcNode, "hitNotePaintComposition", (int)CanvasComposite.Add);
@@ -1198,6 +1201,7 @@ namespace Qwilight
                 var getPaintProperty = new Func<int[], string>(args => "P");
                 var getHighestBandBin = new Func<int[], string>(args => "HC");
                 var getStandBin = new Func<int[], string>(args => "S");
+                var getBandBin = new Func<int[], string>(args => "C");
 
                 SetFunc("_GetNote", ref getNote);
                 SetFunc("_GetHitNotePaint", ref getHitNotePaint);
@@ -1213,6 +1217,7 @@ namespace Qwilight
                 SetFunc("_GetPaintProperty", ref getPaintProperty);
                 SetFunc("_GetHighestBandBin", ref getHighestBandBin);
                 SetFunc("_GetStandBin", ref getStandBin);
+                SetFunc("_GetBandBin", ref getBandBin);
 
                 void SetFunc(string funcName, ref Func<int[], string> value)
                 {
@@ -1763,7 +1768,7 @@ namespace Qwilight
                                     {
                                         BinBPMMap.SetValue(value1, drawingItem);
                                     }
-                                    else if (fileNameContents[0] == "C")
+                                    else if (fileNameContents[0] == getBandBin(new[] { value1, value2 }))
                                     {
                                         switch (fileNameContents.Length)
                                         {

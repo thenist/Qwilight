@@ -456,8 +456,8 @@
     "en-US": "■ Combo"
   },
   "BandPositionContents": {
-    "ko-KR": "콤보 높이",
-    "en-US": "Combo Height"
+    "ko-KR": "콤보 위치",
+    "en-US": "Combo location"
   },
   "BandValidHunterModeText": {
     "ko-KR": "콤보 우선",
@@ -1230,6 +1230,10 @@
   "HighestWantLevelTextValue": {
     "ko-KR": "0 난이도 까지",
     "en-US": "Up to level 0"
+  },
+  "HitNotePaintPositionContents": {
+    "ko-KR": "노트 폭발 애니메이션 위치",
+    "en-US": "Note Explosion Animation Location"
   },
   "HitPoints": {
     "ko-KR": "라이프",

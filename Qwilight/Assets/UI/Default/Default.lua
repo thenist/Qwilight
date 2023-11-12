@@ -40,6 +40,10 @@ function StatusHeight()
 	return DefaultHeight(1 / 3)
 end
 
+function JudgmentPosition1()
+	return JudgmentMainPosition(-154) + hitNotePaintPosition
+end
+
 function JudgmentMainHeight()
 	if IsFloating() then
 		return 0

@@ -310,6 +310,7 @@ namespace Qwilight
         public string HighestWantBPMContents { get; set; }
         public string HighestWantInputCountContents { get; set; }
         public string HighestWantLevelTextValue { get; set; }
+        public string HitNotePaintPositionContents { get; set; }
         public string HitPoints { get; set; }
         public string HitPointsLegend { get; set; }
         public string HitPointsModeAssist { get; set; }

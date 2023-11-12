@@ -102,9 +102,9 @@
                             <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.NoteHeightContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" Visibility="{Binding SetNoteHeight, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
                         </Grid>
                     </GroupBox>
-
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
@@ -117,9 +117,13 @@
                         <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.BandPositionV2, Source={StaticResource Configure}}" Minimum="-512" Maximum="512" Visibility="{Binding SetBandPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Thumb.DragStarted="OnComputingPointed" ValueChanged="OnComputingModified" Thumb.DragCompleted="OnComputingNotPointed" />
                         <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.BandPositionContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" Visibility="{Binding SetBandPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
 
-                        <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding VeilDrawingHeightContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" VerticalAlignment="Top" />
-                        <Slider Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding VeilDrawingHeight, Source={StaticResource Configure}}" Minimum="0" Maximum="1024" VerticalAlignment="Top" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
-                        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" Visibility="{Binding SetNoteHeight, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}">
+                        <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding HitNotePaintPositionContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" Visibility="{Binding SetHitNotePaintPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+                        <Slider Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.HitNotePaintPosition, Source={StaticResource Configure}}" Minimum="-512" Maximum="512" Visibility="{Binding SetHitNotePaintPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Thumb.DragStarted="OnComputingPointed" ValueChanged="OnComputingModified" Thumb.DragCompleted="OnComputingNotPointed" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.HitNotePaintPositionContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" Visibility="{Binding SetHitNotePaintPosition, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" />
+
+                        <TextBlock Grid.Row="2" Style="{StaticResource StandardTextView}" Text="{Binding VeilDrawingHeightContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                        <Slider Grid.Row="2" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding VeilDrawingHeight, Source={StaticResource Configure}}" Minimum="0" Maximum="1024" VerticalAlignment="Top" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Visibility="{Binding SetNoteHeight, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}">
                             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding VeilDrawingHeightContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                             <Border Style="{StaticResource StandardPanelSquare}" Height="72" MouseDown="OnVeilDrawing" Cursor="Hand">
                                 <Image Style="{StaticResource StandardViewMargin0}" Source="{Binding VeilDrawing.DefaultDrawing, Source={StaticResource DrawingSystem}}" />

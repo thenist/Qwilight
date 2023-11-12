@@ -12,6 +12,7 @@ namespace Qwilight
         double _judgmentMainPosition1;
         double _noteWait;
         double _bandPosition;
+        double _hitNotePaintPosition;
 
         public string[] UIConfiguresV2 { get; set; } = new string[UI.HighestUIConfigure];
 
@@ -140,6 +141,21 @@ namespace Qwilight
         }
 
         public string BandPositionContents => BandPositionV2.ToString(LanguageSystem.Instance.PointLevelContents);
+
+        public double HitNotePaintPosition
+        {
+            get => _hitNotePaintPosition;
+
+            set
+            {
+                if (SetProperty(ref _hitNotePaintPosition, value, nameof(HitNotePaintPosition)))
+                {
+                    OnPropertyChanged(nameof(HitNotePaintPositionContents));
+                }
+            }
+        }
+
+        public string HitNotePaintPositionContents => HitNotePaintPosition.ToString(LanguageSystem.Instance.PointLevelContents);
 
         public void NotifyInputMode()
         {
