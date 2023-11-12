@@ -457,7 +457,7 @@
   },
   "BandPositionContents": {
     "ko-KR": "콤보 위치",
-    "en-US": "Combo location"
+    "en-US": "Combo position"
   },
   "BandValidHunterModeText": {
     "ko-KR": "콤보 우선",
@@ -1233,7 +1233,7 @@
   },
   "HitNotePaintPositionContents": {
     "ko-KR": "노트 폭발 애니메이션 위치",
-    "en-US": "Note Explosion Animation Location"
+    "en-US": "Note explosion animation position"
   },
   "HitPoints": {
     "ko-KR": "라이프",
@@ -1556,8 +1556,8 @@
     "en-US": "Disable the Windows key to prevent accidental presses"
   },
   "JudgmentMainPosition1Contents": {
-    "ko-KR": "판정선 높이",
-    "en-US": "Judgment Line Height"
+    "ko-KR": "판정선 위치",
+    "en-US": "Judgment line position"
   },
   "JudgmentMeterMillisText": {
     "ko-KR": "판정 오차가 얼마 이상이면 보여줄지 설정합니다.",
@@ -1793,7 +1793,7 @@
   },
   "MainPositionContents": {
     "ko-KR": "기어 위치",
-    "en-US": "Gear Position"
+    "en-US": "Gear position"
   },
   "MainSetContents": {
     "ko-KR": "주 메모리 사용량입니다.",
