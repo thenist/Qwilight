@@ -422,48 +422,6 @@ namespace Qwilight.ViewModel
         static void OnOpenAs(string e) => Utility.OpenAs(e);
 
         [RelayCommand]
-        static void OnUIPipelineLimiter() => Configure.Instance.UIPipelineLimiter = !Configure.Instance.UIPipelineLimiter;
-
-        [RelayCommand]
-        static void OnUIPipelineMainDrawingPaint() => Configure.Instance.UIPipelineMainDrawingPaint = !Configure.Instance.UIPipelineMainDrawingPaint;
-
-        [RelayCommand]
-        static void OnUIPipelineJudgmentMain() => Configure.Instance.UIPipelineJudgmentMain = !Configure.Instance.UIPipelineJudgmentMain;
-
-        [RelayCommand]
-        static void OnUIPipelineJudgmentCount() => Configure.Instance.UIPipelineJudgmentCount = !Configure.Instance.UIPipelineJudgmentCount;
-
-        [RelayCommand]
-        static void OnUIPipelineJudgmentMeter() => Configure.Instance.UIPipelineJudgmentMeter = !Configure.Instance.UIPipelineJudgmentMeter;
-
-        [RelayCommand]
-        static void OnUIPipelineJudgmentVisualizer() => Configure.Instance.UIPipelineJudgmentVisualizer = !Configure.Instance.UIPipelineJudgmentVisualizer;
-
-        [RelayCommand]
-        static void OnUIPipelineJudgmentPaint() => Configure.Instance.UIPipelineJudgmentPaint = !Configure.Instance.UIPipelineJudgmentPaint;
-
-        [RelayCommand]
-        static void OnUIPipelineHitNotePaint() => Configure.Instance.UIPipelineHitNotePaint = !Configure.Instance.UIPipelineHitNotePaint;
-
-        [RelayCommand]
-        static void OnUIPipelineBPM() => Configure.Instance.UIPipelineBPM = !Configure.Instance.UIPipelineBPM;
-
-        [RelayCommand]
-        static void OnUIPipelineNet() => Configure.Instance.UIPipelineNet = !Configure.Instance.UIPipelineNet;
-
-        [RelayCommand]
-        static void OnUIPipelineJudgmentInputVisualizer() => Configure.Instance.UIPipelineJudgmentInputVisualizer = !Configure.Instance.UIPipelineJudgmentInputVisualizer;
-
-        [RelayCommand]
-        static void OnUIPipelineHunter() => Configure.Instance.UIPipelineHunter = !Configure.Instance.UIPipelineHunter;
-
-        [RelayCommand]
-        static void OnUICommentNote() => Configure.Instance.UICommentNote = !Configure.Instance.UICommentNote;
-
-        [RelayCommand]
-        static void OnUIPipelineMainJudgmentMeter() => Configure.Instance.UIPipelineMainJudgmentMeter = !Configure.Instance.UIPipelineMainJudgmentMeter;
-
-        [RelayCommand]
         static void OnLowHitPointsFaintUI() => Configure.Instance.LowHitPointsFaintUI = !Configure.Instance.LowHitPointsFaintUI;
 
         [RelayCommand]
@@ -955,10 +913,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        static void OnGetMedia()
-        {
-            MediaInputSystem.Instance.GetMediaInputItems();
-        }
+        static void OnGetMedia() => MediaInputSystem.Instance.GetMediaInputItems();
 
         [RelayCommand]
         static void OnGetQwilight() => ViewModels.Instance.MainValue.GetQwilight(false);

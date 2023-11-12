@@ -407,3 +407,11 @@ function _GetMain(args)
 		return "M"
 	end
 end
+
+function _GetInput(args)
+	if IsFloating() and args[1] == 1 then
+		return ""
+	else
+		return "I"
+	end
+end

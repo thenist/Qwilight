@@ -163,147 +163,155 @@
                             <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding InputMapText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
                         </Grid>
                         <Separator Style="{StaticResource StandardHr}" />
-                        <WrapPanel HorizontalAlignment="Center">
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasJudgmentMain, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineJudgmentMainPaint, Source={StaticResource Configure}}" Content="{Binding UIJudgmentMain, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineJudgmentMainCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Foreground="{Binding UIPipelineLimiterPaint, Source={StaticResource Configure}}" Content="{Binding UILimiter, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineLimiterCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasMain, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineMainDrawingPaintPaint, Source={StaticResource Configure}}" Content="{Binding UIMainDrawingPaint, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineMainDrawingPaintCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasMainJudgmentMeter, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineMainJudgmentMeterPaint, Source={StaticResource Configure}}" Content="{Binding UIMainJudgmentMeter, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineMainJudgmentMeterCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasHitNotePaint, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineHitNotePaintPaint, Source={StaticResource Configure}}" Content="{Binding UIHitNotePaint, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineHitNotePaintCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasJudgmentPaint, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineJudgmentPaintPaint, Source={StaticResource Configure}}" Content="{Binding UIJudgmentPaint, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineJudgmentPaintCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Foreground="{Binding UICommentNotePaint, Source={StaticResource Configure}}" Content="{Binding UICommentNote, Source={StaticResource LanguageSystem}}" Command="{Binding UICommentNoteCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasJudgmentMeter, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineJudgmentMeterPaint, Source={StaticResource Configure}}" Content="{Binding UIJudgmentMeter, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineJudgmentMeterCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasJudgmentVisualizer, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineJudgmentVisualizerPaint, Source={StaticResource Configure}}" Content="{Binding UIJudgmentVisualizer, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineJudgmentVisualizerCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasBPM, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineBPMPaint, Source={StaticResource Configure}}" Command="{Binding UIPipelineBPMCommand}">BPM</Button>
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasJudgmentCount, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineJudgmentCountPaint, Source={StaticResource Configure}}" Content="{Binding UIJudgmentCount, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineJudgmentCountCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasHunter, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineHunterPaint, Source={StaticResource Configure}}" Content="{Binding UIHunter, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineHunterCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasNet, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineNetPaint, Source={StaticResource Configure}}" Content="{Binding UINet, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineNetCommand}" />
-                            <Button Style="{StaticResource StandardInput}" Visibility="{Binding HasJudgmentInputVisualizer, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" Foreground="{Binding UIPipelineJudgmentInputVisualizerPaint, Source={StaticResource Configure}}" Content="{Binding UIJudgmentInputVisualizer, Source={StaticResource LanguageSystem}}" Command="{Binding UIPipelineJudgmentInputVisualizerCommand}" />
-                          </WrapPanel>
-                        <Grid Visibility="{Binding UIPipelineLimiter, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding TotalLimiterVariety, Source={StaticResource Configure}}" Content="{Binding TotalLimiterVariety, Source={StaticResource LanguageSystem}}" />
-                                <ContentControl IsEnabled="{Binding TotalLimiterVariety, Source={StaticResource Configure}, Converter={StaticResource NotModifier}}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoableLimiterVariety, Source={StaticResource Configure}}" Content="{Binding AutoableLimiterVariety, Source={StaticResource LanguageSystem}}" />
-                                        <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding CenterLimiterVariety, Source={StaticResource Configure}}" Content="{Binding CenterLimiterVariety, Source={StaticResource LanguageSystem}}" />
-                                        <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding Limiter57Variety, Source={StaticResource Configure}}" Content="{Binding Limiter57Variety, Source={StaticResource LanguageSystem}}" />
-                                    </StackPanel>
-                                </ContentControl>
-                            </StackPanel>
-                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding LimiterVarietyContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
-                        </Grid>
-                        <Grid Visibility="{Binding UIPipelineJudgmentMeter, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid HorizontalAlignment="Right">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <view:BinInput Lowest="0" Value="{Binding JudgmentMeterMillis, Source={StaticResource Configure}}" Format="#,##0.## ms" />
-                                <ComboBox Grid.Column="1" Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding AutoJudgmentMeterMillisItemValue, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding AutoJudgmentMeterMillis, Source={StaticResource Configure}}">
-                                    <ComboBox.Items>
-                                        <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource HighestJudgment}" />
-                                        <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource HigherJudgment}" />
-                                        <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource HighJudgment}" />
-                                        <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource LowJudgment}" />
-                                        <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource LowerJudgment}" />
-                                        <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource LowestJudgment}" />
-                                    </ComboBox.Items>
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding Drawing}" Height="12" />
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                                <CheckBox Grid.Column="2" IsChecked="{Binding AutoJudgmentMeterMillis, Source={StaticResource Configure}}" />
-                            </Grid>
-                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding JudgmentMeterMillisText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
-                        </Grid>
-                        <Grid Visibility="{Binding UIPipelineJudgmentVisualizer, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <view:BinInput Lowest="1" Value="{Binding JudgmentVisualizerMillis, Source={StaticResource Configure}}" Format="#,##0.## ms" HorizontalAlignment="Right" />
-                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding JudgmentVisualizerMillisText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
-                        </Grid>
-                        <Grid Visibility="{Binding UIPipelineBPM, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding BPMVarietyValue, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
-                                <ComboBox.Items>
-                                    <quic:BPMVariety Data="{StaticResource BPMVarietyBPM}" />
-                                    <quic:BPMVariety Data="{StaticResource BPMVarietyAudioMultiplier}" />
-                                    <quic:BPMVariety Data="{StaticResource BPMVarietyMultiplier}" />
-                                </ComboBox.Items>
-                            </ComboBox>
-                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding BPMVarietyContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
-                        </Grid>
-                        <Grid Visibility="{Binding UIPipelineHunter, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding HunterVarietyV2Value, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
-                                <ComboBox.Items>
-                                    <quic:HunterVariety Mode="{StaticResource HunterVariety1st}" />
-                                    <quic:HunterVariety Mode="{StaticResource HunterVarietyHigher}" />
-                                    <quic:HunterVariety Mode="{StaticResource HunterVarietyLower}" />
-                                    <quic:HunterVariety Mode="{StaticResource HunterVarietyMe}" />
-                                    <quic:HunterVariety Mode="{StaticResource HunterVarietyFavor}" />
-                                </ComboBox.Items>
-                            </ComboBox>
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HunterVarietyContents, Source={StaticResource LanguageSystem}}" />
-                                <view:BinInput Value="{Binding FavorHunterStand, Source={StaticResource Configure}}" Lowest="0" Format="{Binding StandContents, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsFavorHunterVariety, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}" />
-                            </StackPanel>
-                        </Grid>
-                        <Separator Style="{StaticResource StandardHr}" />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="3*" />
                             </Grid.ColumnDefinitions>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding HandleMeterCommand}" Content="{Binding HandleMeterText, Source={StaticResource Configure}}" Foreground="{Binding HandleMeterPaint, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
-                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding HandleMeterContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                            <StackPanel>
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasJudgmentMain, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineJudgmentMain, Source={StaticResource Configure}}" Content="{Binding UIJudgmentMain, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding UIPipelineLimiter, Source={StaticResource Configure}}" Content="{Binding UILimiter, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasMain, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineMainDrawingPaint, Source={StaticResource Configure}}" Content="{Binding UIMainDrawingPaint, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasMainJudgmentMeter, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineMainJudgmentMeter, Source={StaticResource Configure}}" Content="{Binding UIMainJudgmentMeter, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasHitNotePaint, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineHitNotePaint, Source={StaticResource Configure}}" Content="{Binding UIHitNotePaint, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasJudgmentPaint, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineJudgmentPaint, Source={StaticResource Configure}}" Content="{Binding UIJudgmentPaint, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding UICommentNote, Source={StaticResource Configure}}" Content="{Binding UICommentNote, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasJudgmentMeter, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineJudgmentMeter, Source={StaticResource Configure}}" Content="{Binding UIJudgmentMeter, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasJudgmentVisualizer, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineJudgmentVisualizer, Source={StaticResource Configure}}" Content="{Binding UIJudgmentVisualizer, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasBPM, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineBPM, Source={StaticResource Configure}}">BPM</CheckBox>
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasJudgmentCount, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineJudgmentCount, Source={StaticResource Configure}}" Content="{Binding UIJudgmentCount, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasHunter, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineHunter, Source={StaticResource Configure}}" Content="{Binding UIHunter, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasNet, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineNet, Source={StaticResource Configure}}" Content="{Binding UINet, Source={StaticResource LanguageSystem}}" />
+                                <CheckBox Style="{StaticResource StandardVInput}" Visibility="{Binding HasJudgmentInputVisualizer, Source={StaticResource UI}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding UIPipelineJudgmentInputVisualizer, Source={StaticResource Configure}}" Content="{Binding UIJudgmentInputVisualizer, Source={StaticResource LanguageSystem}}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Style="{StaticResource StandardInput}" Command="{Binding HandleMeterCommand}" Content="{Binding HandleMeterText, Source={StaticResource Configure}}" Foreground="{Binding HandleMeterPaint, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding HandleMeterContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                                </Grid>
+                                <Separator Style="{StaticResource StandardHr}" />
+                                <Grid Visibility="{Binding UIPipelineLimiter, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding TotalLimiterVariety, Source={StaticResource Configure}}" Content="{Binding TotalLimiterVariety, Source={StaticResource LanguageSystem}}" />
+                                        <ContentControl IsEnabled="{Binding TotalLimiterVariety, Source={StaticResource Configure}, Converter={StaticResource NotModifier}}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoableLimiterVariety, Source={StaticResource Configure}}" Content="{Binding AutoableLimiterVariety, Source={StaticResource LanguageSystem}}" />
+                                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding CenterLimiterVariety, Source={StaticResource Configure}}" Content="{Binding CenterLimiterVariety, Source={StaticResource LanguageSystem}}" />
+                                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding Limiter57Variety, Source={StaticResource Configure}}" Content="{Binding Limiter57Variety, Source={StaticResource LanguageSystem}}" />
+                                            </StackPanel>
+                                        </ContentControl>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding LimiterVarietyContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                                </Grid>
+                                <Grid Visibility="{Binding UIPipelineJudgmentMeter, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid HorizontalAlignment="Right">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <view:BinInput Lowest="0" Value="{Binding JudgmentMeterMillis, Source={StaticResource Configure}}" Format="#,##0.## ms" />
+                                        <ComboBox Grid.Column="1" Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding AutoJudgmentMeterMillisItemValue, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding AutoJudgmentMeterMillis, Source={StaticResource Configure}}">
+                                            <ComboBox.Items>
+                                                <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource HighestJudgment}" />
+                                                <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource HigherJudgment}" />
+                                                <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource HighJudgment}" />
+                                                <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource LowJudgment}" />
+                                                <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource LowerJudgment}" />
+                                                <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource LowestJudgment}" />
+                                            </ComboBox.Items>
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Image Source="{Binding Drawing}" Height="12" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <CheckBox Grid.Column="2" IsChecked="{Binding AutoJudgmentMeterMillis, Source={StaticResource Configure}}" />
+                                    </Grid>
+                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding JudgmentMeterMillisText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                                </Grid>
+                                <Grid Visibility="{Binding UIPipelineJudgmentVisualizer, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <view:BinInput Lowest="1" Value="{Binding JudgmentVisualizerMillis, Source={StaticResource Configure}}" Format="#,##0.## ms" HorizontalAlignment="Right" />
+                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding JudgmentVisualizerMillisText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                                </Grid>
+                                <Grid Visibility="{Binding UIPipelineBPM, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding BPMVarietyValue, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+                                        <ComboBox.Items>
+                                            <quic:BPMVariety Data="{StaticResource BPMVarietyBPM}" />
+                                            <quic:BPMVariety Data="{StaticResource BPMVarietyAudioMultiplier}" />
+                                            <quic:BPMVariety Data="{StaticResource BPMVarietyMultiplier}" />
+                                        </ComboBox.Items>
+                                    </ComboBox>
+                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding BPMVarietyContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                                </Grid>
+                                <Grid Visibility="{Binding UIPipelineHunter, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding HunterVarietyV2Value, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+                                        <ComboBox.Items>
+                                            <quic:HunterVariety Mode="{StaticResource HunterVariety1st}" />
+                                            <quic:HunterVariety Mode="{StaticResource HunterVarietyHigher}" />
+                                            <quic:HunterVariety Mode="{StaticResource HunterVarietyLower}" />
+                                            <quic:HunterVariety Mode="{StaticResource HunterVarietyMe}" />
+                                            <quic:HunterVariety Mode="{StaticResource HunterVarietyFavor}" />
+                                        </ComboBox.Items>
+                                    </ComboBox>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HunterVarietyContents, Source={StaticResource LanguageSystem}}" />
+                                        <view:BinInput Value="{Binding FavorHunterStand, Source={StaticResource Configure}}" Lowest="0" Format="{Binding StandContents, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsFavorHunterVariety, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}" />
+                                    </StackPanel>
+                                </Grid>
+                                <StackPanel Visibility="{Binding UIPipelineNet, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                                    <Separator Style="{StaticResource StandardHr}" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding NetCommentFollowCommand}" Content="{Binding NetCommentFollowText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding NetCommentFollowContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <view:BinInput Lowest="2" Highest="8" Value="{Binding NetItemCount, Source={StaticResource Configure}}" Format="{Binding CountContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding NetItemCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding FlowNetItemCommand}" Content="{Binding FlowNetItemText, Source={StaticResource Configure}}" Foreground="{Binding FlowNetItemPaint, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding FlowNetItemContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
                         </Grid>
-                        <StackPanel Visibility="{Binding UIPipelineNet, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                            <Separator Style="{StaticResource StandardHr}" />
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding NetCommentFollowCommand}" Content="{Binding NetCommentFollowText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
-                                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding NetCommentFollowContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
-                            </Grid>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <view:BinInput Lowest="2" Highest="8" Value="{Binding NetItemCount, Source={StaticResource Configure}}" Format="{Binding CountContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
-                                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding NetItemCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
-                            </Grid>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding FlowNetItemCommand}" Content="{Binding FlowNetItemText, Source={StaticResource Configure}}" Foreground="{Binding FlowNetItemPaint, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
-                                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding FlowNetItemContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
-                            </Grid>
-                        </StackPanel>
                         <Separator Style="{StaticResource StandardHr}" />
                         <WrapPanel HorizontalAlignment="Center">
                             <view:ColorInput ColorValue="{Binding InputNoteCountViewColor, Source={StaticResource Configure}, Mode=TwoWay}" PaintValue="{Binding InputNoteCountViewPaint, Source={StaticResource Configure}}" Content="{Binding InputNoteCountViewColor, Source={StaticResource LanguageSystem}}" />

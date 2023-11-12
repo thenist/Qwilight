@@ -1111,19 +1111,19 @@ namespace Qwilight.ViewModel
                     }
                     else
                     {
-                        var foundEntryItem = EntryItems.Skip(EntryItemPosition + 1).FirstOrDefault(IsSatisfy) ?? EntryItems.FirstOrDefault(IsSatisfy);
+                        var foundEntryItem = Utility.HasInput(VirtualKey.LeftShift) ? EntryItems.SkipLast(EntryItems.Count - EntryItemPosition).LastOrDefault(IsSatisfy) ?? EntryItems.LastOrDefault(IsSatisfy) : EntryItems.Skip(EntryItemPosition + 1).FirstOrDefault(IsSatisfy) ?? EntryItems.FirstOrDefault(IsSatisfy);
                         if (foundEntryItem != null)
                         {
                             EntryItemValue = foundEntryItem;
                         }
 
-                        bool IsSatisfy(EntryItem entryItem) => entryItem.Title?.IsFrontCaselsss(titleLetter) == true;
+                        bool IsSatisfy(EntryItem entryItem) => entryItem.Title.IsFrontCaselsss(titleLetter);
                     }
                 }
             }
         }
 
-        public void OnEntryViewPointingLower(MouseButtonEventArgs e)
+        public void OnEntryViewPointLower(MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Right)
             {

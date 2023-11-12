@@ -127,43 +127,43 @@
                             </Grid>
                         </GroupBox.Header>
                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode4}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode4}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode4}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode4}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[4], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode5}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode5}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode5}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode5}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[5], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode6}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode6}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode6}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode6}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[6], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode7}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode7}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode7}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode7}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[7], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode8}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode8}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode8}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode8}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[8], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode9}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode9}" >
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode9}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode9}" >
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[9], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode10}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode10}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode10}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode10}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[14], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode51}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode51}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode51}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode51}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[10], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode71}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode71}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode71}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode71}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[11], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode102}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode102}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode102}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode102}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[12], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode142}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode142}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode142}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode142}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[13], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode242}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode242}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode242}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode242}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[15], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding InputMode484}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode484}">
+                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode484}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode484}">
                                 <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[16], Source={StaticResource BaseUI}}" Height="24" />
                             </Button>
                         </WrapPanel>
