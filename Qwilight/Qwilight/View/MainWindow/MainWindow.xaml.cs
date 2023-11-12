@@ -5,6 +5,7 @@ using Microsoft.UI;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Content;
 using Microsoft.UI.Input;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
@@ -290,6 +291,8 @@ namespace Qwilight.View
             {
                 _siteView.Enable();
                 _siteView.Show();
+                _windowXamlView.NavigateFocus(new(XamlSourceFocusNavigationReason.Programmatic));
+                _d2DView.Focus(FocusState.Programmatic);
             }
             else
             {
