@@ -2149,6 +2149,7 @@ namespace Qwilight
             }
             finally
             {
+                DrawingSystem.Instance.LoadVeilDrawing();
                 ViewModels.Instance.NotifyWindowViewModels();
                 mainViewModel.NotifyModel();
                 mainViewModel.IsUILoading = false;

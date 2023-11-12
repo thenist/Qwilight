@@ -833,7 +833,7 @@ namespace Qwilight
 
         public double FailedDrawingMillis { get; set; }
 
-        public bool[] InputWantMode { get; set; }
+        public bool[] InputWantInputMode { get; set; }
 
         public bool[] InputWantNoteVariety { get; set; }
 
@@ -846,7 +846,7 @@ namespace Qwilight
         public Brush InputWantWindowPaint => WantHellBPM ||
             !IsTotalWantNoteVariety ||
             InputWantHandled.Any(inputWantHandled => !inputWantHandled) ||
-            InputWantMode.Skip(1).Any(inputWantMode => !inputWantMode) ||
+            InputWantInputMode.Skip(1).Any(inputWantInputMode => !inputWantInputMode) ||
             InputWantLevel.Any(inputWantLevel => !inputWantLevel) ||
             WantLevelTextValue ||
             WantBPM ||
@@ -1632,7 +1632,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineLimiterPaint => UIPipelineLimiter ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineLimiterPaint => Paints.PointPaints[UIPipelineLimiter ? 1 : 0];
 
         public bool UIPipelineMainDrawingPaint
         {
@@ -1641,7 +1641,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineMainDrawingPaint, value, nameof(UIPipelineMainDrawingPaintPaint));
         }
 
-        public Thickness UIPipelineMainDrawingPaintPaint => UIPipelineMainDrawingPaint ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineMainDrawingPaintPaint => Paints.PointPaints[UIPipelineMainDrawingPaint ? 1 : 0];
 
         public bool UIPipelineJudgmentMain
         {
@@ -1650,7 +1650,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineJudgmentMain, value, nameof(UIPipelineJudgmentMainPaint));
         }
 
-        public Thickness UIPipelineJudgmentMainPaint => UIPipelineJudgmentMain ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineJudgmentMainPaint => Paints.PointPaints[UIPipelineJudgmentMain ? 1 : 0];
 
         public bool UIPipelineJudgmentCount
         {
@@ -1659,7 +1659,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineJudgmentCount, value, nameof(UIPipelineJudgmentCountPaint));
         }
 
-        public Thickness UIPipelineJudgmentCountPaint => UIPipelineJudgmentCount ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineJudgmentCountPaint => Paints.PointPaints[UIPipelineJudgmentCount ? 1 : 0];
 
         public bool UIPipelineJudgmentMeter
         {
@@ -1674,7 +1674,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineJudgmentMeterPaint => UIPipelineJudgmentMeter ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineJudgmentMeterPaint => Paints.PointPaints[UIPipelineJudgmentMeter ? 1 : 0];
 
         public bool UIPipelineNet
         {
@@ -1689,7 +1689,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineNetPaint => UIPipelineNet ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineNetPaint => Paints.PointPaints[UIPipelineNet ? 1 : 0];
 
         public bool UIPipelineHunter
         {
@@ -1704,7 +1704,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineHunterPaint => UIPipelineHunter ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineHunterPaint => Paints.PointPaints[UIPipelineHunter ? 1 : 0];
 
         public bool UIPipelineJudgmentVisualizer
         {
@@ -1719,7 +1719,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineJudgmentVisualizerPaint => UIPipelineJudgmentVisualizer ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineJudgmentVisualizerPaint => Paints.PointPaints[UIPipelineJudgmentVisualizer ? 1 : 0];
 
         public bool UIPipelineJudgmentPaint
         {
@@ -1728,7 +1728,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineJudgmentPaint, value, nameof(UIPipelineJudgmentPaint));
         }
 
-        public Thickness UIPipelineJudgmentPaintPaint => UIPipelineJudgmentPaint ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineJudgmentPaintPaint => Paints.PointPaints[UIPipelineJudgmentPaint ? 1 : 0];
 
         public bool UIPipelineHitNotePaint
         {
@@ -1737,7 +1737,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineHitNotePaint, value, nameof(UIPipelineHitNotePaintPaint));
         }
 
-        public Thickness UIPipelineHitNotePaintPaint => UIPipelineHitNotePaint ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineHitNotePaintPaint => Paints.PointPaints[UIPipelineHitNotePaint ? 1 : 0];
 
         public bool UIPipelineBPM
         {
@@ -1752,7 +1752,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineBPMPaint => UIPipelineBPM ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineBPMPaint => Paints.PointPaints[UIPipelineBPM ? 1 : 0];
 
         public bool UICommentNote
         {
@@ -1761,7 +1761,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUICommentNote, value, nameof(UICommentNotePaint));
         }
 
-        public Thickness UICommentNotePaint => UICommentNote ? Levels.StandardInputEdge : new Thickness();
+        public Brush UICommentNotePaint => Paints.PointPaints[UICommentNote ? 1 : 0];
 
         public bool UIPipelineMainJudgmentMeter
         {
@@ -1770,7 +1770,7 @@ namespace Qwilight
             set => SetProperty(ref _valueUIPipelineMainJudgmentMeter, value, nameof(UIPipelineMainJudgmentMeterPaint));
         }
 
-        public Thickness UIPipelineMainJudgmentMeterPaint => UIPipelineMainJudgmentMeter ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineMainJudgmentMeterPaint => Paints.PointPaints[UIPipelineMainJudgmentMeter ? 1 : 0];
 
         public bool UIPipelineJudgmentInputVisualizer
         {
@@ -1785,7 +1785,7 @@ namespace Qwilight
             }
         }
 
-        public Thickness UIPipelineJudgmentInputVisualizerPaint => UIPipelineJudgmentInputVisualizer ? Levels.StandardInputEdge : new Thickness();
+        public Brush UIPipelineJudgmentInputVisualizerPaint => Paints.PointPaints[UIPipelineJudgmentInputVisualizer ? 1 : 0];
 
         public bool LowHitPointsFaintUI
         {
@@ -1886,14 +1886,14 @@ namespace Qwilight
 
         public string LostPointAudioText => LostPointAudio ? LanguageSystem.Instance.LostPointAudioText : LanguageSystem.Instance.NotLostPointAudioText;
 
-        public Dictionary<string, string> LastWantInputs { get; set; }
+        public Dictionary<string, string> LastInputWants { get; set; }
 
         [JsonIgnore]
-        public string WantInput
+        public string InputWant
         {
-            get => LastWantInputs.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, string.Empty);
+            get => LastInputWants.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, string.Empty);
 
-            set => LastWantInputs[LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty] = value;
+            set => LastInputWants[LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty] = value;
         }
 
         public bool SaltAuto
@@ -2107,7 +2107,7 @@ namespace Qwilight
             {
                 if (SetProperty(ref _lastDefaultEntryItem, value, nameof(LastDefaultEntryItem)))
                 {
-                    OnPropertyChanged(nameof(WantInput));
+                    OnPropertyChanged(nameof(InputWant));
                 }
             }
         }
@@ -2727,8 +2727,6 @@ namespace Qwilight
             {
                 WantLevelName = null;
                 WantLevelIDs = Array.Empty<string>();
-                InputWantMode = new bool[17];
-                Array.Fill(InputWantMode, true);
                 InputWantLevel = new bool[6];
                 Array.Fill(InputWantLevel, true);
             }
@@ -3275,9 +3273,11 @@ namespace Qwilight
             {
                 LoadedMedia = true;
             }
-            if (isInit || Utility.IsLowerDate(Date, 1, 16, 7))
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 8))
             {
-                LastWantInputs = new();
+                LastInputWants = new();
+                InputWantInputMode = new bool[17];
+                Array.Fill(InputWantInputMode, true);
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

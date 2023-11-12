@@ -1996,7 +1996,6 @@ namespace Qwilight
             finally
             {
                 DrawingSystem.Instance.LoadDefaultDrawing();
-                DrawingSystem.Instance.LoadVeilDrawing();
                 ViewModels.Instance.NotifyWindowViewModels();
                 mainViewModel.NotifyModel();
                 mainViewModel.IsUILoading = false;

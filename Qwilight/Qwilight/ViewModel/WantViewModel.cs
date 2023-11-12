@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Qwilight.NoteFile;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Qwilight.ViewModel
 {
@@ -77,48 +78,48 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnWantMode(int e)
+        void OnWantInputMode(int e)
         {
-            Configure.Instance.InputWantMode[e] = !Configure.Instance.InputWantMode[e];
-            OnPropertyChanged(nameof(Mode4));
-            OnPropertyChanged(nameof(Mode5));
-            OnPropertyChanged(nameof(Mode6));
-            OnPropertyChanged(nameof(Mode7));
-            OnPropertyChanged(nameof(Mode8));
-            OnPropertyChanged(nameof(Mode9));
-            OnPropertyChanged(nameof(Mode51));
-            OnPropertyChanged(nameof(Mode71));
-            OnPropertyChanged(nameof(Mode10));
-            OnPropertyChanged(nameof(Mode102));
-            OnPropertyChanged(nameof(Mode142));
-            OnPropertyChanged(nameof(Mode242));
-            OnPropertyChanged(nameof(Mode484));
-            OnPropertyChanged(nameof(IsTotalWantMode));
+            Configure.Instance.InputWantInputMode[e] = !Configure.Instance.InputWantInputMode[e];
+            OnPropertyChanged(nameof(InputMode4));
+            OnPropertyChanged(nameof(InputMode5));
+            OnPropertyChanged(nameof(InputMode6));
+            OnPropertyChanged(nameof(InputMode7));
+            OnPropertyChanged(nameof(InputMode8));
+            OnPropertyChanged(nameof(InputMode9));
+            OnPropertyChanged(nameof(InputMode51));
+            OnPropertyChanged(nameof(InputMode71));
+            OnPropertyChanged(nameof(InputMode10));
+            OnPropertyChanged(nameof(InputMode102));
+            OnPropertyChanged(nameof(InputMode142));
+            OnPropertyChanged(nameof(InputMode242));
+            OnPropertyChanged(nameof(InputMode484));
+            OnPropertyChanged(nameof(IsTotalWantInputMode));
         }
 
         [RelayCommand]
-        void OnTotalWantMode(bool? e)
+        void OnTotalWantInputMode(bool? e)
         {
             if (e.HasValue)
             {
-                for (var i = Configure.Instance.InputWantMode.Length - 1; i >= 0; --i)
+                for (var i = Configure.Instance.InputWantInputMode.Length - 1; i >= 0; --i)
                 {
-                    Configure.Instance.InputWantMode[i] = e.Value;
+                    Configure.Instance.InputWantInputMode[i] = e.Value;
                 }
-                OnPropertyChanged(nameof(Mode4));
-                OnPropertyChanged(nameof(Mode5));
-                OnPropertyChanged(nameof(Mode6));
-                OnPropertyChanged(nameof(Mode7));
-                OnPropertyChanged(nameof(Mode8));
-                OnPropertyChanged(nameof(Mode9));
-                OnPropertyChanged(nameof(Mode51));
-                OnPropertyChanged(nameof(Mode71));
-                OnPropertyChanged(nameof(Mode10));
-                OnPropertyChanged(nameof(Mode102));
-                OnPropertyChanged(nameof(Mode142));
-                OnPropertyChanged(nameof(Mode242));
-                OnPropertyChanged(nameof(Mode484));
-                OnPropertyChanged(nameof(IsTotalWantMode));
+                OnPropertyChanged(nameof(InputMode4));
+                OnPropertyChanged(nameof(InputMode5));
+                OnPropertyChanged(nameof(InputMode6));
+                OnPropertyChanged(nameof(InputMode7));
+                OnPropertyChanged(nameof(InputMode8));
+                OnPropertyChanged(nameof(InputMode9));
+                OnPropertyChanged(nameof(InputMode51));
+                OnPropertyChanged(nameof(InputMode71));
+                OnPropertyChanged(nameof(InputMode10));
+                OnPropertyChanged(nameof(InputMode102));
+                OnPropertyChanged(nameof(InputMode142));
+                OnPropertyChanged(nameof(InputMode242));
+                OnPropertyChanged(nameof(InputMode484));
+                OnPropertyChanged(nameof(IsTotalWantInputMode));
             }
         }
 
@@ -205,27 +206,27 @@ namespace Qwilight.ViewModel
             Configure.Instance.HighestWantHighestInputCount = Math.Max(Configure.Instance.LowestWantHighestInputCount, Configure.Instance.HighestWantHighestInputCount);
         }
 
-        public Thickness NoteVarietyBMS => Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMS] ? Levels.StandardInputEdge : new Thickness();
+        public Brush NoteVarietyBMS => Paints.PointPaints[Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMS] ? 1 : 0];
 
-        public Thickness NoteVarietyBMSON => Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMSON] ? Levels.StandardInputEdge : new Thickness();
+        public Brush NoteVarietyBMSON => Paints.PointPaints[Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMSON] ? 1 : 0];
 
-        public Thickness NoteVarietyEventNote => Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.EventNote] ? Levels.StandardInputEdge : new Thickness();
+        public Brush NoteVarietyEventNote => Paints.PointPaints[Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.EventNote] ? 1 : 0];
 
         public bool IsTotalWantNoteVariety => Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMS] ||
             Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMSON] ||
             Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.EventNote];
 
-        public Thickness HandledNot => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Not] ? Levels.StandardInputEdge : new Thickness();
+        public Brush HandledNot => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Not] ? 1 : 0];
 
-        public Thickness HandledClear => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Clear] ? Levels.StandardInputEdge : new Thickness();
+        public Brush HandledClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Clear] ? 1 : 0];
 
-        public Thickness HandledBand1 => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Band1] ? Levels.StandardInputEdge : new Thickness();
+        public Brush HandledBand1 => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Band1] ? 1 : 0];
 
-        public Thickness HandledF => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.F] ? Levels.StandardInputEdge : new Thickness();
+        public Brush HandledF => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.F] ? 1 : 0];
 
-        public Thickness HandledHigherClear => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HigherClear] ? Levels.StandardInputEdge : new Thickness();
+        public Brush HandledHigherClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HigherClear] ? 1 : 0];
 
-        public Thickness HandledHighestClear => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear] ? Levels.StandardInputEdge : new Thickness();
+        public Brush HandledHighestClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear] ? 1 : 0];
 
         public bool IsTotalWantHandled => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Not] ||
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Clear] ||
@@ -234,47 +235,47 @@ namespace Qwilight.ViewModel
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HigherClear] ||
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear];
 
-        public Thickness Level0 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level0] ? Levels.StandardInputEdge : new Thickness();
+        public Brush Level0 => Paints.PointPaints[Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level0] ? 1 : 0];
 
-        public Thickness Level1 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level1] ? Levels.StandardInputEdge : new Thickness();
+        public Brush Level1 => Paints.PointPaints[Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level1] ? 1 : 0];
 
-        public Thickness Level2 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level2] ? Levels.StandardInputEdge : new Thickness();
+        public Brush Level2 => Paints.PointPaints[Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level2] ? 1 : 0];
 
-        public Thickness Level3 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level3] ? Levels.StandardInputEdge : new Thickness();
+        public Brush Level3 => Paints.PointPaints[Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level3] ? 1 : 0];
 
-        public Thickness Level4 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level4] ? Levels.StandardInputEdge : new Thickness();
+        public Brush Level4 => Paints.PointPaints[Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level4] ? 1 : 0];
 
-        public Thickness Level5 => Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level5] ? Levels.StandardInputEdge : new Thickness();
+        public Brush Level5 => Paints.PointPaints[Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level5] ? 1 : 0];
 
         public bool IsTotalWantLevel => Configure.Instance.InputWantLevel.Any(inputWantLevel => inputWantLevel);
 
-        public Thickness Mode4 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode4] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode4 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode4] ? 1 : 0];
 
-        public Thickness Mode5 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode5] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode5 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode5] ? 1 : 0];
 
-        public Thickness Mode6 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode6] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode6 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode6] ? 1 : 0];
 
-        public Thickness Mode7 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode7] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode7 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode7] ? 1 : 0];
 
-        public Thickness Mode8 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode8] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode8 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode8] ? 1 : 0];
 
-        public Thickness Mode9 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode9] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode9 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode9] ? 1 : 0];
 
-        public Thickness Mode10 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode10] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode10 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode10] ? 1 : 0];
 
-        public Thickness Mode51 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode51] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode51 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode51] ? 1 : 0];
 
-        public Thickness Mode71 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode71] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode71 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode71] ? 1 : 0];
 
-        public Thickness Mode102 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode102] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode102 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode102] ? 1 : 0];
 
-        public Thickness Mode142 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode142] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode142 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode142] ? 1 : 0];
 
-        public Thickness Mode242 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode242] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode242 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode242] ? 1 : 0];
 
-        public Thickness Mode484 => Configure.Instance.InputWantMode[(int)Component.InputMode.InputMode484] ? Levels.StandardInputEdge : new Thickness();
+        public Brush InputMode484 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode484] ? 1 : 0];
 
-        public bool IsTotalWantMode => Configure.Instance.InputWantMode.Any(inputWantMode => inputWantMode);
+        public bool IsTotalWantInputMode => Configure.Instance.InputWantInputMode.Any(inputWantInputMode => inputWantInputMode);
 
         public override bool ClosingCondition
         {
@@ -298,7 +299,7 @@ namespace Qwilight.ViewModel
                     return false;
                 }
 
-                if (!IsTotalWantMode)
+                if (!IsTotalWantInputMode)
                 {
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotWantModeContents);
                     return false;

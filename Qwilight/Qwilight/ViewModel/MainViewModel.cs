@@ -2105,15 +2105,15 @@ namespace Qwilight.ViewModel
             {
                 HandlingUISystem.Instance.HandleParallel(() =>
                 {
-                    var wantInput = Configure.Instance.WantInput;
-                    var isNotWantInput = string.IsNullOrEmpty(wantInput);
+                    var inputWant = Configure.Instance.InputWant;
+                    var isNotWantInput = string.IsNullOrEmpty(inputWant);
                     var lastDefaultEntryItem = Configure.Instance.LastDefaultEntryItem;
                     var validEntryItems = new List<EntryItem>();
                     var lastDefaultEntryPath = lastDefaultEntryItem?.DefaultEntryPath ?? string.Empty;
                     if (lastDefaultEntryItem == null)
                     {
                         validEntryItems.Add(EntryItem.DefaultEntryConfigureEntryItem);
-                        validEntryItems.AddRange(DefaultEntryItems.Select(defaultEntryItem => defaultEntryItem.GetEntryItem(true, Interlocked.Increment(ref _lastEntryItemID))).Where(entryItem => isNotWantInput || entryItem.Title.Contains(wantInput) || entryItem.Artist.Contains(wantInput)));
+                        validEntryItems.AddRange(DefaultEntryItems.Select(defaultEntryItem => defaultEntryItem.GetEntryItem(true, Interlocked.Increment(ref _lastEntryItemID))).Where(entryItem => isNotWantInput || entryItem.Title.Contains(inputWant) || entryItem.Artist.Contains(inputWant)));
                         EntryItems = new(validEntryItems);
                         OnPropertyChanged(nameof(EntryItems));
                     }
@@ -2131,8 +2131,8 @@ namespace Qwilight.ViewModel
                             var defaultEntryItem = entryItem.DefaultEntryItem;
                             return defaultEntryItem?.DefaultEntryVarietyValue != DefaultEntryItem.DefaultEntryVariety.Net && (isDefaultEntryLogical || !string.IsNullOrEmpty(entryItem.EventNoteID) || lastDefaultEntryItem == defaultEntryItem);
                         }).ToArray();
-                        var isWantBannedTotal = Configure.Instance.WantBannedValue == Configure.WantBanned.Total;
-                        var inputWantMode = Configure.Instance.InputWantMode;
+                        var isTotalWantBanned = Configure.Instance.WantBannedValue == Configure.WantBanned.Total;
+                        var inputWantInputMode = Configure.Instance.InputWantInputMode;
                         var inputWantLevel = Configure.Instance.InputWantLevel;
                         var IsNotWantLevel = !Configure.Instance.WantLevelTextValue;
                         var inputWantHandled = Configure.Instance.InputWantHandled;
@@ -2293,11 +2293,11 @@ namespace Qwilight.ViewModel
                             return (!isWantLevelSystem || isNotWantLevelItem || !string.IsNullOrEmpty(noteFile.WantLevelID)) &&
                             (isTotalWantNoteVariety || (hasEventNoteVariety ? isEntryItemEventNote || inputWantNoteVariety[(int)noteFile.NoteVarietyValue] : !isEntryItemEventNote && inputWantNoteVariety[(int)noteFile.NoteVarietyValue])) &&
                             (isNotWantInput ||
-                                (noteFile.Title.ContainsCaselsss(wantInput)) ||
-                                (noteFile.Artist.ContainsCaselsss(wantInput)) ||
-                                (noteFile.LevelText.ContainsCaselsss(wantInput)) ||
-                                (noteFile.Genre.ContainsCaselsss(wantInput)) ||
-                                (noteFile.Tag.ContainsCaselsss(wantInput))
+                                (noteFile.Title.ContainsCaselsss(inputWant)) ||
+                                (noteFile.Artist.ContainsCaselsss(inputWant)) ||
+                                (noteFile.LevelText.ContainsCaselsss(inputWant)) ||
+                                (noteFile.Genre.ContainsCaselsss(inputWant)) ||
+                                (noteFile.Tag.ContainsCaselsss(inputWant))
                             );
                         }
 
@@ -2310,8 +2310,8 @@ namespace Qwilight.ViewModel
                             return IsAtLeastSatisfy(noteFile, isEntryItemEventNote) &&
                             (isDefaultEntryNotFavorite || noteFile.FavoriteEntryItems.Contains(lastDefaultEntryItem)) &&
                             (isDefaultEntryLogical || noteFile.DefaultEntryItem == lastDefaultEntryItem) &&
-                            (isWantBannedTotal || !noteFile.IsBanned) &&
-                            inputWantMode[(int)noteFile.InputMode] &&
+                            (isTotalWantBanned || !noteFile.IsBanned) &&
+                            inputWantInputMode[(int)noteFile.InputMode] &&
                             inputWantLevel[(int)noteFile.LevelValue] &&
                             inputWantHandled[(int)noteFile.HandledValue] &&
                             (IsNotWantLevel || double.IsNaN(levelTextValue) || (lowestWantLevelTextValue <= levelTextValue && levelTextValue <= highestWantLevelTextValue)) &&

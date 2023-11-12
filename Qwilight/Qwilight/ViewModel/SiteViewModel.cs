@@ -98,7 +98,7 @@ namespace Qwilight.ViewModel
         public bool IsOpened { get; set; }
 
         [RelayCommand]
-        void OnTwilightConfigure()
+        static void OnTwilightConfigure()
         {
             if (TwilightSystem.Instance.IsSignedIn)
             {
@@ -111,37 +111,16 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnSite() => ViewModels.Instance.SiteWindowValue.Toggle();
+        static void OnSite() => ViewModels.Instance.SiteWindowValue.Toggle();
 
         [RelayCommand]
-        void OnUbuntu() => ViewModels.Instance.UbuntuValue.Toggle();
+        static void OnUbuntu() => ViewModels.Instance.UbuntuValue.Toggle();
 
         [RelayCommand]
         void OnQuit()
         {
             TwilightSystem.Instance.StopBundle(SiteID);
             TwilightSystem.Instance.SendParallel(Event.Types.EventID.QuitSite, SiteID);
-        }
-
-        public void OnSetFavorNoteFile()
-        {
-            TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetFavorNoteFile, SiteID);
-        }
-
-        public void OnSetFavorModeComponent() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetFavorModeComponent, SiteID);
-
-        public void OnSetFavorAudioMultiplier() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetFavorAudioMultiplier, SiteID);
-
-        public void OnSetAutoSiteHand() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetAutoSiteHand, SiteID);
-
-        public void OnInputPostableItem()
-        {
-            OnPropertyChanged(nameof(IsTotalWantPostableUIItem));
-            TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetAllowedPostableItems, new
-            {
-                siteID = SiteID,
-                allowedPostableItems = PostableUIItemCollection.Where(postableUIItem => postableUIItem.IsWanted).Select(postableUIitem => (int)postableUIitem.PostableItemValue.VarietyValue).ToArray()
-            });
         }
 
         [RelayCommand]
@@ -157,88 +136,14 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void OnInputLower(KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                if (!string.IsNullOrWhiteSpace(Input))
-                {
-                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.SiteYell, new
-                    {
-                        siteID = SiteID,
-                        siteYell = Input
-                    });
-                }
-                Input = string.Empty;
-            }
-        }
-
-        public async void OnEssentialInputLower(KeyEventArgs e)
-        {
-            if (e.Key == Key.V && Utility.HasInput(VirtualKey.LeftControl) && string.IsNullOrEmpty(Input))
-            {
-                try
-                {
-                    using var ras = await (await Clipboard.GetContent().GetBitmapAsync()).OpenReadAsync();
-                    var data = ArrayPool<byte>.Shared.Rent((int)ras.Size);
-                    try
-                    {
-                        await ras.ReadAsync(data.AsBuffer(), (uint)ras.Size, InputStreamOptions.None);
-                        TwilightSystem.Instance.SendParallel(Event.Types.EventID.PostFile, ras.ContentType.Split("/")[1], UnsafeByteOperations.UnsafeWrap(data));
-                    }
-                    finally
-                    {
-                        ArrayPool<byte>.Shared.Return(data);
-                    }
-                    e.Handled = true;
-                }
-                catch
-                {
-                }
-            }
-        }
-
-        public void OnPointedModified(bool e) => HasPointedInput = e;
-
-        public void OnSiteYellsViewerMove(ScrollChangedEventArgs e)
-        {
-            if (_lastPosition1BeforeCall > 0.0)
-            {
-                View.SiteYellsViewer.ScrollToVerticalOffset(View.SiteYellsViewer.ExtentHeight - View.SiteYellsViewer.ActualHeight - _lastPosition1BeforeCall);
-                _lastPosition1BeforeCall = 0.0;
-            }
-            else
-            {
-                var siteYellID = (SiteYellCollection.FirstOrDefault() as ISiteYell)?.SiteYellID;
-                if (siteYellID.HasValue && siteYellID.Value > 0 && View.SiteYellsViewer.VerticalOffset == 0.0)
-                {
-                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.GetSiteYells, new
-                    {
-                        siteID = SiteID,
-                        siteYellID = siteYellID.Value
-                    });
-                }
-            }
-            _isSiteYellsViewLowest = View.SiteYellsViewer.VerticalOffset + View.SiteYellsViewer.ActualHeight >= View.SiteYellsViewer.ExtentHeight;
-        }
+        [RelayCommand]
+        void OnViewBundle() => AvatarItemValue?.AvatarWwwValue?.ViewBundleCommand?.Execute(null);
 
         [RelayCommand]
-        void OnViewBundle()
-        {
-            AvatarItemValue?.AvatarWwwValue?.ViewBundleCommand?.Execute(null);
-        }
+        void OnNewUbuntu() => AvatarItemValue?.AvatarWwwValue?.NewUbuntuCommand?.Execute(null);
 
         [RelayCommand]
-        void OnNewUbuntu()
-        {
-            AvatarItemValue?.AvatarWwwValue?.NewUbuntuCommand?.Execute(null);
-        }
-
-        [RelayCommand]
-        void OnViewAvatar()
-        {
-            AvatarItemValue?.AvatarWwwValue?.ViewAvatarCommand?.Execute(null);
-        }
+        void OnViewAvatar() => AvatarItemValue?.AvatarWwwValue?.ViewAvatarCommand?.Execute(null);
 
         [RelayCommand]
         void OnCallIO()
@@ -336,7 +241,7 @@ namespace Qwilight.ViewModel
         });
 
         [RelayCommand]
-        void OnPostFile() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static void OnPostFile() => WeakReferenceMessenger.Default.Send<ICC>(new()
         {
             IDValue = ICC.ID.ViewFileWindow,
             Contents = new object[]
@@ -345,6 +250,88 @@ namespace Qwilight.ViewModel
                 new Action<string>(async fileName =>TwilightSystem.Instance.SendParallel(Event.Types.EventID.PostFile, Path.GetFileName(fileName), UnsafeByteOperations.UnsafeWrap(await File.ReadAllBytesAsync(fileName))))
             }
         });
+
+        public void OnSetFavorNoteFile() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetFavorNoteFile, SiteID);
+
+        public void OnSetFavorModeComponent() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetFavorModeComponent, SiteID);
+
+        public void OnSetFavorAudioMultiplier() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetFavorAudioMultiplier, SiteID);
+
+        public void OnSetAutoSiteHand() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetAutoSiteHand, SiteID);
+
+        public void OnInputPostableItem()
+        {
+            OnPropertyChanged(nameof(IsTotalWantPostableUIItem));
+            TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetAllowedPostableItems, new
+            {
+                siteID = SiteID,
+                allowedPostableItems = PostableUIItemCollection.Where(postableUIItem => postableUIItem.IsWanted).Select(postableUIitem => (int)postableUIitem.PostableItemValue.VarietyValue).ToArray()
+            });
+        }
+        public void OnInputLower(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (!string.IsNullOrWhiteSpace(Input))
+                {
+                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.SiteYell, new
+                    {
+                        siteID = SiteID,
+                        siteYell = Input
+                    });
+                }
+                Input = string.Empty;
+            }
+        }
+
+        public async void OnEssentialInputLower(KeyEventArgs e)
+        {
+            if (e.Key == Key.V && Utility.HasInput(VirtualKey.LeftControl) && string.IsNullOrEmpty(Input))
+            {
+                try
+                {
+                    using var ras = await (await Clipboard.GetContent().GetBitmapAsync()).OpenReadAsync();
+                    var data = ArrayPool<byte>.Shared.Rent((int)ras.Size);
+                    try
+                    {
+                        await ras.ReadAsync(data.AsBuffer(), (uint)ras.Size, InputStreamOptions.None);
+                        TwilightSystem.Instance.SendParallel(Event.Types.EventID.PostFile, ras.ContentType.Split("/")[1], UnsafeByteOperations.UnsafeWrap(data));
+                    }
+                    finally
+                    {
+                        ArrayPool<byte>.Shared.Return(data);
+                    }
+                    e.Handled = true;
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        public void OnPointedModified(bool e) => HasPointedInput = e;
+
+        public void OnSiteYellsViewerMove(ScrollChangedEventArgs e)
+        {
+            if (_lastPosition1BeforeCall > 0.0)
+            {
+                View.SiteYellsViewer.ScrollToVerticalOffset(View.SiteYellsViewer.ExtentHeight - View.SiteYellsViewer.ActualHeight - _lastPosition1BeforeCall);
+                _lastPosition1BeforeCall = 0.0;
+            }
+            else
+            {
+                var siteYellID = (SiteYellCollection.FirstOrDefault() as ISiteYell)?.SiteYellID;
+                if (siteYellID.HasValue && siteYellID.Value > 0 && View.SiteYellsViewer.VerticalOffset == 0.0)
+                {
+                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.GetSiteYells, new
+                    {
+                        siteID = SiteID,
+                        siteYellID = siteYellID.Value
+                    });
+                }
+            }
+            _isSiteYellsViewLowest = View.SiteYellsViewer.VerticalOffset + View.SiteYellsViewer.ActualHeight >= View.SiteYellsViewer.ExtentHeight;
+        }
 
         public ModeComponent ModeComponentValue { get; } = new();
 
