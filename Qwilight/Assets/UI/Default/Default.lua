@@ -277,7 +277,7 @@ function HitNotePaintPosition(e)
 end
 
 function HitNotePaintLength(e)
-	return 2.0 * NoteLength(e) + hitNotePaintArea
+	return 4.0 * NoteLength(e) + hitNotePaintArea
 end
 
 function LongNoteEdgePosition1()
