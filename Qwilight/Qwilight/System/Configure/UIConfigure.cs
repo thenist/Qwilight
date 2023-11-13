@@ -13,7 +13,6 @@ namespace Qwilight
         double _noteWait;
         double _bandPosition;
         double _judgmentPaintPosition;
-        double _hitNotePaintArea;
 
         public string[] UIConfiguresV2 { get; set; } = new string[UI.HighestUIConfigure];
 
@@ -75,16 +74,16 @@ namespace Qwilight
 
         public string NoteWaitContents => NoteWait.ToString(LanguageSystem.Instance.PointLevelContents);
 
-        public Dictionary<int, double> MainPositionValues { get; set; } = new();
+        public Dictionary<int, double> MainPositions { get; set; } = new();
 
         [JsonIgnore]
         public double MainPosition
         {
-            get => MainPositionValues.TryGetValue((int)InputMode, out var mainPosition) ? mainPosition : 0.0;
+            get => MainPositions.TryGetValue((int)InputMode, out var mainPosition) ? mainPosition : 0.0;
 
             set
             {
-                MainPositionValues[(int)InputMode] = value;
+                MainPositions[(int)InputMode] = value;
                 OnPropertyChanged(nameof(MainPosition));
                 OnPropertyChanged(nameof(MainPositionContents));
             }
@@ -92,16 +91,16 @@ namespace Qwilight
 
         public string MainPositionContents => MainPosition.ToString(LanguageSystem.Instance.PointLevelContents);
 
-        public Dictionary<int, double> NoteLengthText { get; set; } = new();
+        public Dictionary<int, double> NoteLengths { get; set; } = new();
 
         [JsonIgnore]
         public double NoteLength
         {
-            get => NoteLengthText.TryGetValue((int)InputMode, out var noteLength) ? noteLength : 0.0;
+            get => NoteLengths.TryGetValue((int)InputMode, out var noteLength) ? noteLength : 0.0;
 
             set
             {
-                NoteLengthText[(int)InputMode] = value;
+                NoteLengths[(int)InputMode] = value;
                 OnPropertyChanged(nameof(NoteLength));
                 OnPropertyChanged(nameof(NoteLengthContents));
             }
@@ -109,16 +108,16 @@ namespace Qwilight
 
         public string NoteLengthContents => NoteLength.ToString(LanguageSystem.Instance.PointLevelContents);
 
-        public Dictionary<int, double> NoteHeightValue { get; set; } = new();
+        public Dictionary<int, double> NoteHeights { get; set; } = new();
 
         [JsonIgnore]
         public double NoteHeight
         {
-            get => NoteHeightValue.TryGetValue((int)InputMode, out var noteHeight) ? noteHeight : 0.0;
+            get => NoteHeights.TryGetValue((int)InputMode, out var noteHeight) ? noteHeight : 0.0;
 
             set
             {
-                NoteHeightValue[(int)InputMode] = value;
+                NoteHeights[(int)InputMode] = value;
                 OnPropertyChanged(nameof(NoteHeight));
                 OnPropertyChanged(nameof(NoteHeightContents));
             }
@@ -158,16 +157,18 @@ namespace Qwilight
 
         public string JudgmentPaintPositionContents => JudgmentPaintPosition.ToString(LanguageSystem.Instance.PointLevelContents);
 
+        public Dictionary<int, double> HitNotePaintAreas { get; set; } = new();
+
+        [JsonIgnore]
         public double HitNotePaintArea
         {
-            get => _hitNotePaintArea;
+            get => HitNotePaintAreas.TryGetValue((int)InputMode, out var hitNotePaintArea) ? hitNotePaintArea : 0.0;
 
             set
             {
-                if (SetProperty(ref _hitNotePaintArea, value, nameof(HitNotePaintArea)))
-                {
-                    OnPropertyChanged(nameof(HitNotePaintAreaContents));
-                }
+                HitNotePaintAreas[(int)InputMode] = value;
+                OnPropertyChanged(nameof(HitNotePaintArea));
+                OnPropertyChanged(nameof(HitNotePaintAreaContents));
             }
         }
 
@@ -181,6 +182,8 @@ namespace Qwilight
             OnPropertyChanged(nameof(NoteLengthContents));
             OnPropertyChanged(nameof(NoteHeight));
             OnPropertyChanged(nameof(NoteHeightContents));
+            OnPropertyChanged(nameof(HitNotePaintArea));
+            OnPropertyChanged(nameof(HitNotePaintAreaContents));
             OnPropertyChanged(nameof(InputMode));
         }
     }

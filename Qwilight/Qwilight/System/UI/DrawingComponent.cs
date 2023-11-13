@@ -482,9 +482,9 @@ namespace Qwilight
             lsCaller.Globals["judgmentMainPosition"] = judgmentMainPosition1 + 600.0;
             lsCaller.Globals["judgmentMainPositionV2"] = 1.0 + judgmentMainPosition1 / 600.0;
             lsCaller.Globals["judgmentMainPositionV3"] = judgmentMainPosition1;
-            lsCaller.Globals["mainPosition"] = Configure.Instance.UIConfigureValue.MainPositionValues.GetValueOrDefault((int)inputMode);
-            lsCaller.Globals["noteLength"] = Configure.Instance.UIConfigureValue.NoteLengthText.GetValueOrDefault((int)inputMode);
-            lsCaller.Globals["noteHeight"] = Configure.Instance.UIConfigureValue.NoteHeightValue.GetValueOrDefault((int)inputMode);
+            lsCaller.Globals["mainPosition"] = Configure.Instance.UIConfigureValue.MainPositions.GetValueOrDefault((int)inputMode);
+            lsCaller.Globals["noteLength"] = Configure.Instance.UIConfigureValue.NoteLengths.GetValueOrDefault((int)inputMode);
+            lsCaller.Globals["noteHeight"] = Configure.Instance.UIConfigureValue.NoteHeights.GetValueOrDefault((int)inputMode);
             lsCaller.Globals["bandPosition"] = Configure.Instance.UIConfigureValue.BandPositionV2;
             lsCaller.Globals["judgmentPaintPosition"] = Configure.Instance.UIConfigureValue.JudgmentPaintPosition;
             lsCaller.Globals["hitNotePaintArea"] = Configure.Instance.UIConfigureValue.HitNotePaintArea;
