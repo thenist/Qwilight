@@ -3311,7 +3311,7 @@
     "ko-KR": "피크 NPS 범위를 설정합니다.",
     "en-US": "Sets the peak NPS range."
   },
-  "WantInputAssist": {
+  "InputWantAssist": {
     "ko-KR": "검색할 단어를 입력하세요",
     "en-US": "Please enter a word to search for"
   },

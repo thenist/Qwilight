@@ -830,7 +830,7 @@ namespace Qwilight
         public string WantBannedContents { get; set; }
         public string WantBPMContents { get; set; }
         public string WantHighestInputCountContents { get; set; }
-        public string WantInputAssist { get; set; }
+        public string InputWantAssist { get; set; }
         public string WantLevelItemContents { get; set; }
         public string WantLevelTextValueContents { get; set; }
         public string WantNotBannedText { get; set; }

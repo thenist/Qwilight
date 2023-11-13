@@ -20,7 +20,7 @@
                         <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                     </StackPanel>
                 </StackPanel>
-                <TextBox Grid.Row="1" Style="{StaticResource StandardTextInput}" Text="{Binding WantInput, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding WantInputAssist, Source={StaticResource LanguageSystem}}" TextChanged="OnWant" />
+                <TextBox Grid.Row="1" Style="{StaticResource StandardTextInput}" Text="{Binding WantInput, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding InputWantAssist, Source={StaticResource LanguageSystem}}" TextChanged="OnWant" />
                 <ListView Grid.Row="2" Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding FontFamilyCollection}" SelectedItem="{Binding FontFamilyItem}" MouseDoubleClick="OnPointLower">
                     <ListView.ItemTemplate>
                         <DataTemplate>
