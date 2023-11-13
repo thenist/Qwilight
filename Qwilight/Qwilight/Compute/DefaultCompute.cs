@@ -1771,11 +1771,11 @@ namespace Qwilight.Compute
                     var lastEnlargedBandLoopFrame = DrawingComponentValue.lastEnlargedBandLoopFrame;
                     var judgmentFrame = DrawingComponentValue.judgmentFrame;
                     var judgmentFramerate = DrawingComponentValue.judgmentFramerate;
-                    var judgmentSystem = DrawingComponentValue.judgmentSystem;
-                    var judgmentPosition0 = DrawingComponentValue.judgmentPosition0;
-                    var judgmentPosition1 = DrawingComponentValue.judgmentPosition1;
-                    var judgmentLength = DrawingComponentValue.judgmentLength;
-                    var judgmentHeight = DrawingComponentValue.judgmentHeight;
+                    var judgmentSystem = DrawingComponentValue.judgmentPaintSystem;
+                    var judgmentPosition0 = DrawingComponentValue.judgmentPaintPosition0;
+                    var judgmentPosition1 = DrawingComponentValue.judgmentPaintPosition1;
+                    var judgmentLength = DrawingComponentValue.judgmentPaintLength;
+                    var judgmentHeight = DrawingComponentValue.judgmentPaintHeight;
                     var mainFrame = DrawingComponentValue.mainFrame;
                     var inputFrame = DrawingComponentValue.inputFrame;
                     var inputPaintFrame = DrawingComponentValue.hitInputPaintFrame;
@@ -3899,7 +3899,7 @@ namespace Qwilight.Compute
                     {
                         lock (JudgmentPaints)
                         {
-                            JudgmentPaints[isIn2P ? 1 : 0] = new(this, judged, isIn2P, DrawingComponentValue.judgmentSystem, DrawingComponentValue.judgmentPosition0, DrawingComponentValue.judgmentPosition1, DrawingComponentValue.judgmentFrame, DrawingComponentValue.judgmentFramerate, DrawingComponentValue.judgmentLength, DrawingComponentValue.judgmentHeight);
+                            JudgmentPaints[isIn2P ? 1 : 0] = new(this, judged, isIn2P, DrawingComponentValue.judgmentPaintSystem, DrawingComponentValue.judgmentPaintPosition0, DrawingComponentValue.judgmentPaintPosition1, DrawingComponentValue.judgmentFrame, DrawingComponentValue.judgmentFramerate, DrawingComponentValue.judgmentPaintLength, DrawingComponentValue.judgmentPaintHeight);
                         }
                     }
                 }

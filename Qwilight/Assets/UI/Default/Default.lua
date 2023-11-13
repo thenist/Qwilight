@@ -40,8 +40,8 @@ function StatusHeight()
 	return DefaultHeight(1 / 3)
 end
 
-function JudgmentPosition1()
-	return JudgmentMainPosition(-154) + hitNotePaintPosition
+function JudgmentPaintPosition1()
+	return JudgmentMainPosition(-154) + judgmentPaintPosition
 end
 
 function JudgmentMainHeight()
@@ -273,7 +273,11 @@ function JudgmentMainPosition(e)
 end
 
 function HitNotePaintPosition(e)
-	return -2.0 * NoteLength(e)
+	return -HitNotePaintLength(e) / 2
+end
+
+function HitNotePaintLength(e)
+	return 2.0 * NoteLength(e) + hitNotePaintArea
 end
 
 function LongNoteEdgePosition1()

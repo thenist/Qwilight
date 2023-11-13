@@ -271,11 +271,11 @@ namespace Qwilight
         public int wantLevelSystem0;
         public int wantLevelSystem1;
 
-        public float judgmentPosition0;
-        public float judgmentPosition1;
-        public float judgmentLength;
-        public float judgmentHeight;
-        public int judgmentSystem;
+        public float judgmentPaintPosition0;
+        public float judgmentPaintPosition1;
+        public float judgmentPaintLength;
+        public float judgmentPaintHeight;
+        public int judgmentPaintSystem;
 
         public int earlyValueSystem;
         public float earlyValuePosition0;
@@ -486,7 +486,8 @@ namespace Qwilight
             lsCaller.Globals["noteLength"] = Configure.Instance.UIConfigureValue.NoteLengthText.GetValueOrDefault((int)inputMode);
             lsCaller.Globals["noteHeight"] = Configure.Instance.UIConfigureValue.NoteHeightValue.GetValueOrDefault((int)inputMode);
             lsCaller.Globals["bandPosition"] = Configure.Instance.UIConfigureValue.BandPositionV2;
-            lsCaller.Globals["hitNotePaintPosition"] = Configure.Instance.UIConfigureValue.HitNotePaintPosition;
+            lsCaller.Globals["judgmentPaintPosition"] = Configure.Instance.UIConfigureValue.JudgmentPaintPosition;
+            lsCaller.Globals["hitNotePaintArea"] = Configure.Instance.UIConfigureValue.HitNotePaintArea;
             lsCaller.Globals["inputMapping"] = (int)Configure.Instance.InputMappingValue;
             lsCaller.Globals["P1Length"] = p1Length;
             lsCaller.Globals["P1BuiltLength"] = p1BuiltLengthFunc;

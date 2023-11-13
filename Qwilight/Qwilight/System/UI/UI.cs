@@ -222,7 +222,9 @@ namespace Qwilight
 
         public bool SetBandPosition { get; set; }
 
-        public bool SetHitNotePaintPosition { get; set; }
+        public bool SetJudgmentPaintPosition { get; set; }
+
+        public bool SetHitNotePaintArea { get; set; }
 
         public DrawingItem?[] HitPointsDrawings { get; } = new DrawingItem?[8];
 
@@ -532,7 +534,8 @@ namespace Qwilight
                     SetNoteLength = Utility.ToBool(Utility.GetText(funcNode, "setNoteLength", bool.FalseString));
                     SetNoteHeight = Utility.ToBool(Utility.GetText(funcNode, "setNoteHeight", bool.FalseString));
                     SetBandPosition = Utility.ToBool(Utility.GetText(funcNode, "setBandPosition", bool.FalseString));
-                    SetHitNotePaintPosition = Utility.ToBool(Utility.GetText(funcNode, "setHitNotePaintPosition", bool.FalseString));
+                    SetJudgmentPaintPosition = Utility.ToBool(Utility.GetText(funcNode, "setJudgmentPaintPosition", bool.FalseString));
+                    SetHitNotePaintArea = Utility.ToBool(Utility.GetText(funcNode, "setHitNotePaintArea", bool.FalseString));
 
                     SaveIntMap(funcNode, "judgmentPaintComposition");
                     SaveIntMap(funcNode, "hitNotePaintComposition", (int)CanvasComposite.Add);
@@ -611,11 +614,11 @@ namespace Qwilight
                     SaveValueMap(frameNode, "long-note-hit-framerate");
                     SaveIntMap(frameNode, "judgment-frame");
                     SaveValueMap(frameNode, "judgment-framerate");
-                    SaveIntMap(pointNode, "judgmentSystem");
-                    SaveValueMap(pointNode, "judgmentPosition0");
-                    SaveValueMap(pointNode, "judgmentPosition1");
-                    SaveValueMap(pointNode, "judgmentLength");
-                    SaveValueMap(pointNode, "judgmentHeight");
+                    SaveIntMap(pointNode, "judgmentPaintSystem");
+                    SaveValueMap(pointNode, "judgmentPaintPosition0");
+                    SaveValueMap(pointNode, "judgmentPaintPosition1");
+                    SaveValueMap(pointNode, "judgmentPaintLength");
+                    SaveValueMap(pointNode, "judgmentPaintHeight");
                     SaveSplitValueMap("hitNotePaintLength");
                     SaveSplitValueMap("hitNotePaintHeight");
                     SaveSplitValueMap("hitLongNotePaintLength");

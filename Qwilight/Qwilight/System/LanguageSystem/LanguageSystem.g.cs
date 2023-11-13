@@ -310,7 +310,7 @@ namespace Qwilight
         public string HighestWantBPMContents { get; set; }
         public string HighestWantInputCountContents { get; set; }
         public string HighestWantLevelTextValue { get; set; }
-        public string HitNotePaintPositionContents { get; set; }
+        public string HitNotePaintAreaContents { get; set; }
         public string HitPoints { get; set; }
         public string HitPointsLegend { get; set; }
         public string HitPointsModeAssist { get; set; }
@@ -395,6 +395,7 @@ namespace Qwilight
         public string JudgmentMainPosition1Contents { get; set; }
         public string JudgmentMeterMillisText { get; set; }
         public string JudgmentModeAssist { get; set; }
+        public string JudgmentPaintPositionContents { get; set; }
         public string JudgmentStage { get; set; }
         public string JudgmentVisualizerMillisText { get; set; }
         public string K70Contents { get; set; }

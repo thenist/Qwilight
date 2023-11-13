@@ -12,7 +12,8 @@ namespace Qwilight
         double _judgmentMainPosition1;
         double _noteWait;
         double _bandPosition;
-        double _hitNotePaintPosition;
+        double _judgmentPaintPosition;
+        double _hitNotePaintArea;
 
         public string[] UIConfiguresV2 { get; set; } = new string[UI.HighestUIConfigure];
 
@@ -142,20 +143,35 @@ namespace Qwilight
 
         public string BandPositionContents => BandPositionV2.ToString(LanguageSystem.Instance.PointLevelContents);
 
-        public double HitNotePaintPosition
+        public double JudgmentPaintPosition
         {
-            get => _hitNotePaintPosition;
+            get => _judgmentPaintPosition;
 
             set
             {
-                if (SetProperty(ref _hitNotePaintPosition, value, nameof(HitNotePaintPosition)))
+                if (SetProperty(ref _judgmentPaintPosition, value, nameof(JudgmentPaintPosition)))
                 {
-                    OnPropertyChanged(nameof(HitNotePaintPositionContents));
+                    OnPropertyChanged(nameof(JudgmentPaintPositionContents));
                 }
             }
         }
 
-        public string HitNotePaintPositionContents => HitNotePaintPosition.ToString(LanguageSystem.Instance.PointLevelContents);
+        public string JudgmentPaintPositionContents => JudgmentPaintPosition.ToString(LanguageSystem.Instance.PointLevelContents);
+
+        public double HitNotePaintArea
+        {
+            get => _hitNotePaintArea;
+
+            set
+            {
+                if (SetProperty(ref _hitNotePaintArea, value, nameof(HitNotePaintArea)))
+                {
+                    OnPropertyChanged(nameof(HitNotePaintAreaContents));
+                }
+            }
+        }
+
+        public string HitNotePaintAreaContents => HitNotePaintArea.ToString(LanguageSystem.Instance.PointLevelContents);
 
         public void NotifyInputMode()
         {

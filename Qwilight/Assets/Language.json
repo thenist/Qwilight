@@ -1231,9 +1231,9 @@
     "ko-KR": "0 난이도 까지",
     "en-US": "Up to level 0"
   },
-  "HitNotePaintPositionContents": {
-    "ko-KR": "노트 폭발 애니메이션 위치",
-    "en-US": "Note explosion animation position"
+  "HitNotePaintAreaContents": {
+    "ko-KR": "노트 폭발 애니메이션 크기",
+    "en-US": "Note Explosion Animation Size"
   },
   "HitPoints": {
     "ko-KR": "라이프",
@@ -1570,6 +1570,10 @@
   "JudgmentModeAssist": {
     "ko-KR": "판정 난이도를 설정합니다.",
     "en-US": "Set the judgment difficulty"
+  },
+  "JudgmentPaintPositionContents": {
+    "ko-KR": "판정 애니메이션 위치",
+    "en-US": "Decision Animation Location"
   },
   "JudgmentStage": {
     "ko-KR": "판정 난이도",

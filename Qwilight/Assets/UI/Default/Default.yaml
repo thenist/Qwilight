@@ -70,7 +70,8 @@ func:
     setNoteLength: true
     setNoteHeight: true
     setBandPosition: true
-    setHitNotePaintPosition: true
+    setJudgmentPaintPosition: true
+    setHitNotePaintArea: true
 
     configure-0: 16：9, 16：10, 21：9, 32：9
     configure-comment-0: Select the screen ratio.
@@ -212,21 +213,21 @@ point:
     binBandHeight: 50
     enlargeBand: 12
 
-    judgmentSystem: 1
-    judgmentPosition0: Contents(0.5)
-    judgmentPosition1: JudgmentPosition1()
-    judgmentLength: 300
-    judgmentHeight: 100
+    judgmentPaintSystem: 1
+    judgmentPaintPosition0: Contents(0.5)
+    judgmentPaintPosition1: JudgmentPaintPosition1()
+    judgmentPaintLength: 300
+    judgmentPaintHeight: 100
 
     hitNotePaintPosition0: HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, ~, HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, HitNotePaintPosition(2.0)
     hitNotePaintPosition1: HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, ~, HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, HitNotePaintPosition(2.0)
-    hitNotePaintLength: HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, ~, HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, HitNotePaintPosition(-4.0)
-    hitNotePaintHeight: HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, ~, HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, HitNotePaintPosition(-4.0)
+    hitNotePaintLength: HitNotePaintLength(2.0), HitNotePaintLength(1.0), ~, ~, ~, HitNotePaintLength(2.0), HitNotePaintLength(1.0), ~, ~, HitNotePaintLength(2.0)
+    hitNotePaintHeight: HitNotePaintLength(2.0), HitNotePaintLength(1.0), ~, ~, ~, HitNotePaintLength(2.0), HitNotePaintLength(1.0), ~, ~, HitNotePaintLength(2.0)
 
     hitLongNotePaintPosition0: HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, ~, HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, HitNotePaintPosition(2.0)
     hitLongNotePaintPosition1: HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, ~, HitNotePaintPosition(2.0), HitNotePaintPosition(1.0), ~, ~, HitNotePaintPosition(2.0)
-    hitLongNotePaintLength: HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, ~, HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, HitNotePaintPosition(-4.0)
-    hitLongNotePaintHeight: HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, ~, HitNotePaintPosition(-4.0), HitNotePaintPosition(-2.0), ~, ~, HitNotePaintPosition(-4.0)
+    hitLongNotePaintLength: HitNotePaintLength(2.0), HitNotePaintLength(1.0), ~, ~, ~, HitNotePaintLength(2.0), HitNotePaintLength(1.0), ~, ~, HitNotePaintLength(2.0)
+    hitLongNotePaintHeight: HitNotePaintLength(2.0), HitNotePaintLength(1.0), ~, ~, ~, HitNotePaintLength(2.0), HitNotePaintLength(1.0), ~, ~, HitNotePaintLength(2.0)
 
     bpmSystem: BPMSystem()
     bpmPosition0: BPMPosition0()
