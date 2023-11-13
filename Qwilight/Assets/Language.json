@@ -1487,6 +1487,10 @@
     "ko-KR": "버튼을 누를 때",
     "en-US": "When you press the button"
   },
+  "InputWantAssist": {
+    "ko-KR": "검색할 단어를 입력하세요",
+    "en-US": "Please enter a word to search for"
+  },
   "InputWindowAssist0": {
     "ko-KR": "◀: 이전 키",
     "en-US": "◀: Previous Key"
@@ -3310,10 +3314,6 @@
   "WantHighestInputCountContents": {
     "ko-KR": "피크 NPS 범위를 설정합니다.",
     "en-US": "Sets the peak NPS range."
-  },
-  "InputWantAssist": {
-    "ko-KR": "검색할 단어를 입력하세요",
-    "en-US": "Please enter a word to search for"
   },
   "WantLevelItemContents": {
     "ko-KR": "지정된 난이도 테이블의 난이도를 설정합니다.",

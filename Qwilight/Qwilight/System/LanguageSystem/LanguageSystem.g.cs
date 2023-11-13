@@ -374,6 +374,7 @@ namespace Qwilight
         public string InputSaltCommentWarning { get; set; }
         public string InputSaltModeContents { get; set; }
         public string InputVibrationModeText { get; set; }
+        public string InputWantAssist { get; set; }
         public string InputWindowAssist0 { get; set; }
         public string InputWindowAssist1 { get; set; }
         public string InputWindowAssist2 { get; set; }
@@ -830,7 +831,6 @@ namespace Qwilight
         public string WantBannedContents { get; set; }
         public string WantBPMContents { get; set; }
         public string WantHighestInputCountContents { get; set; }
-        public string InputWantAssist { get; set; }
         public string WantLevelItemContents { get; set; }
         public string WantLevelTextValueContents { get; set; }
         public string WantNotBannedText { get; set; }
