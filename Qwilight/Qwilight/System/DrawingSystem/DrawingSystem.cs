@@ -23,6 +23,7 @@ using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.Win32;
 using Windows.Win32.System.WinRT.Direct3D11;
+using Windows.Win32.UI.WindowsAndMessaging;
 using WinRT;
 using Brush = System.Windows.Media.Brush;
 using GradientStop = System.Windows.Media.GradientStop;
@@ -121,6 +122,27 @@ namespace Qwilight
 
         public DrawingSystem()
         {
+            CanvasDevice.GetSharedDevice().DeviceLost += (sender, args) =>
+            {
+                WeakReferenceMessenger.Default.Send(new ICC
+                {
+                    IDValue = ICC.ID.ViewAllowWindow,
+                    Contents = new object[]
+                    {
+                        LanguageSystem.Instance.D2DSystemFault,
+                        MESSAGEBOX_STYLE.MB_OK | MESSAGEBOX_STYLE.MB_ICONERROR,
+                        new Action<MESSAGEBOX_RESULT>(r =>
+                        {
+                            WeakReferenceMessenger.Default.Send(new ICC
+                            {
+                                IDValue = ICC.ID.Quit,
+                                Contents = false
+                            });
+                        })
+                    }
+                });
+            };
+
             MeterFont = GetFont();
             UtilityFont = GetFont();
             NotifyXamlFont = GetFont();

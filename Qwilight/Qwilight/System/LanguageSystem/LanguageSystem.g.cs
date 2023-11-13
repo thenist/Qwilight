@@ -166,6 +166,7 @@ namespace Qwilight
         public string CopyPutCopyNotesText { get; set; }
         public string CountContents { get; set; }
         public string CounterWaveModeContents { get; set; }
+        public string D2DSystemFault { get; set; }
         public string DataCount3Contents { get; set; }
         public string DataCount3Text { get; set; }
         public string DateAssistText { get; set; }

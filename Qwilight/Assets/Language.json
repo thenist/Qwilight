@@ -655,6 +655,10 @@
     "ko-KR": "거꾸로 플레이합니다.",
     "en-US": "Play backwards"
   },
+  "D2DSystemFault": {
+    "ko-KR": "Direct2D™ 디바이스가 더 이상 응답하지 않습니다.",
+    "en-US": "Direct2D™ devices are no longer responding."
+  },
   "DataCount3Contents": {
     "ko-KR": "삼중 버퍼링을 사용합니다.",
     "en-US": "Set triple buffering"
