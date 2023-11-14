@@ -225,6 +225,18 @@ namespace Qwilight.ViewModel
                         Contents = !value
                     });
                     IsVital = IsComputingMode && !value;
+                    ViewModels.Instance.NotifyWindowViewModels();
+                    DrawingSystem.Instance.OnModified();
+                    var handlingComputer = GetHandlingComputer();
+                    if (handlingComputer != null)
+                    {
+                        MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
+                        MediaSystem.Instance.HandleIfAvailable(handlingComputer);
+                    }
+                    MediaSystem.Instance.HandleDefaultIfAvailable(BaseUI.Instance);
+                    MediaSystem.Instance.HandleIfAvailable(BaseUI.Instance);
+                    TVSystem.Instance.HandleSystemIfAvailable();
+                    PoolSystem.Instance.Wipe(value);
                 }
             }
         }
@@ -422,7 +434,7 @@ namespace Qwilight.ViewModel
                     OnPropertyChanged(nameof(CanModifyModeComponent));
                     OnPropertyChanged(nameof(DefaultLength));
                     OnPropertyChanged(nameof(DefaultHeight));
-                    OnWPFViewVisibilityModified();
+                    SetWPFViewVisibility();
                     ViewModels.Instance.NotifyWindowViewModels();
                     BaseUI.Instance.InitEvents();
                     Configure.Instance.UIConfigureValue.NotifyInputMode();
@@ -3044,20 +3056,9 @@ namespace Qwilight.ViewModel
             IDValue = ICC.ID.PointEntryView
         });
 
-        public void OnWPFViewVisibilityModified()
+        public void SetWPFViewVisibility()
         {
             IsWPFViewVisible = IsNoteFileMode || ViewModels.Instance.WindowViewModels.Any(windowViewModel => windowViewModel.IsOpened);
-            ViewModels.Instance.NotifyWindowViewModels();
-            DrawingSystem.Instance.OnModified();
-            var handlingComputer = GetHandlingComputer();
-            if (handlingComputer != null)
-            {
-                MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
-                MediaSystem.Instance.HandleIfAvailable(handlingComputer);
-            }
-            MediaSystem.Instance.HandleDefaultIfAvailable(BaseUI.Instance);
-            MediaSystem.Instance.HandleIfAvailable(BaseUI.Instance);
-            TVSystem.Instance.HandleSystemIfAvailable();
         }
 
         public async void GetQwilight(bool isSilent)

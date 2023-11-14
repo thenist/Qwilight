@@ -16,9 +16,9 @@ namespace Qwilight
         public static readonly PoolSystem Instance = new();
 
         readonly RecyclableMemoryStreamManager _rmsm = new();
-        readonly Dictionary<TextID, CanvasTextLayout> _textItems = new();
-        readonly Dictionary<DefaultTextID, FormattedText> _defaultTextItems = new();
-        readonly Dictionary<TargetID, CanvasRenderTarget> _targetItems = new();
+        readonly ConcurrentDictionary<TextID, CanvasTextLayout> _textItems = new();
+        readonly ConcurrentDictionary<DefaultTextID, FormattedText> _defaultTextItems = new();
+        readonly ConcurrentDictionary<TargetID, CanvasRenderTarget> _targetItems = new();
         readonly ConcurrentDictionary<ValueTextID<int>, string> _valueIntTexts = new();
         readonly ConcurrentDictionary<ValueTextID<double>, string> _valueFloat64Texts = new();
         readonly ConcurrentDictionary<FormattedTextID, string> _formattedTexts = new();
@@ -30,6 +30,46 @@ namespace Qwilight
             _rmsm.AggressiveBufferReturn = true;
             _rmsm.MaximumFreeSmallPoolBytes = _rmsm.LargeBufferMultiple * 4;
             _rmsm.MaximumFreeLargePoolBytes = 100 * _rmsm.BlockSize;
+        }
+
+        public void Wipe(bool isWPFViewVisible)
+        {
+            if (isWPFViewVisible)
+            {
+                foreach (var (textID, textItem) in _textItems)
+                {
+                    using (textItem)
+                    {
+                        _textItems.TryRemove(textID, out _);
+                    }
+                }
+                foreach (var (targetID, targetItem) in _targetItems)
+                {
+                    using (targetItem)
+                    {
+                        _targetItems.TryRemove(targetID, out _);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var (defaultTextID, defaultTextItem) in _defaultTextItems)
+                {
+                    _defaultTextItems.TryRemove(defaultTextID, out _);
+                }
+            }
+            foreach (var (valueTextID, text) in _valueIntTexts)
+            {
+                _valueIntTexts.TryRemove(valueTextID, out _);
+            }
+            foreach (var (valueTextID, text) in _valueFloat64Texts)
+            {
+                _valueFloat64Texts.TryRemove(valueTextID, out _);
+            }
+            foreach (var (value, text) in _formattedUnitTexts)
+            {
+                _formattedUnitTexts.TryRemove(value, out _);
+            }
         }
 
         public MemoryStream GetDataFlow()
@@ -54,12 +94,7 @@ namespace Qwilight
                 targetLength = targetLength,
                 targetHeight = targetHeight
             };
-            if (!_targetItems.TryGetValue(targetID, out var targetItem))
-            {
-                targetItem = new(CanvasDevice.GetSharedDevice(), targetLength, targetHeight, 96F, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
-                _targetItems[targetID] = targetItem;
-            }
-            return targetItem;
+            return _targetItems.GetOrAdd(targetID, targetID => new(CanvasDevice.GetSharedDevice(), targetID.targetLength, targetID.targetHeight, 96F, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore));
         }
 
         public CanvasTextLayout GetTextItem(string text, CanvasTextFormat font, float textLength = 0F, float textHeight = 0F)
@@ -73,16 +108,17 @@ namespace Qwilight
                 textSystem0 = font.HorizontalAlignment,
                 textSystem1 = font.VerticalAlignment,
             };
-            if (!_textItems.TryGetValue(textID, out var textItem))
+            return _textItems.GetOrAdd(textID, (textID, font) =>
             {
-                textItem = new(CanvasDevice.GetSharedDevice(), text, font, textLength, textHeight);
+                var textLength = textID.textLength;
+                var textHeight = textID.textHeight;
+                var textItem = new CanvasTextLayout(CanvasDevice.GetSharedDevice(), textID.text, font, textLength, textHeight);
                 if (textLength > 0F && textHeight > 0F)
                 {
                     textItem.Options = CanvasDrawTextOptions.Clip;
                 }
-                _textItems[textID] = textItem;
-            }
-            return textItem;
+                return textItem;
+            }, font);
         }
 
         public FormattedText GetDefaultTextItem(string text, double fontLength, Brush fontPaint, double textLength = 0.0)
@@ -94,19 +130,19 @@ namespace Qwilight
                 textLength = textLength,
                 fontPaint = fontPaint
             };
-            if (!_defaultTextItems.TryGetValue(defaultTextID, out var defaultTextItem))
+            return _defaultTextItems.GetOrAdd(defaultTextID, defaultTextID =>
             {
-                defaultTextItem = new(text, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, Configure.Instance.FontFace, fontLength, fontPaint, 96.0)
+                var defaultTextItem = new FormattedText(defaultTextID.text, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, Configure.Instance.FontFace, defaultTextID.fontLength, defaultTextID.fontPaint, 96.0)
                 {
                     MaxLineCount = 1
                 };
+                var textLength = defaultTextID.textLength;
                 if (textLength > 0.0)
                 {
                     defaultTextItem.SetMaxTextWidths(new[] { textLength });
                 }
-                _defaultTextItems[defaultTextID] = defaultTextItem;
-            }
-            return defaultTextItem;
+                return defaultTextItem;
+            });
         }
 
         public string GetValueText(int value, string textFormat)
@@ -116,12 +152,12 @@ namespace Qwilight
                 value = value,
                 textFormat = textFormat
             };
-            if (!_valueIntTexts.TryGetValue(valueTextID, out var valueText))
+            return _valueIntTexts.GetOrAdd(valueTextID, valueTextID =>
             {
-                valueText = string.IsNullOrEmpty(textFormat) ? value.ToString() : value.ToString(textFormat);
-                _valueIntTexts[valueTextID] = valueText;
-            }
-            return valueText;
+                var value = valueTextID.value;
+                var textFormat = valueTextID.textFormat;
+                return string.IsNullOrEmpty(textFormat) ? value.ToString() : value.ToString(textFormat);
+            });
         }
 
         public string GetValueText(double value, string textFormat)
@@ -131,12 +167,12 @@ namespace Qwilight
                 value = value,
                 textFormat = textFormat
             };
-            if (!_valueFloat64Texts.TryGetValue(valueTextID, out var valueText))
+            return _valueFloat64Texts.GetOrAdd(valueTextID, valueTextID =>
             {
-                valueText = string.IsNullOrEmpty(textFormat) ? value.ToString() : value.ToString(textFormat);
-                _valueFloat64Texts[valueTextID] = valueText;
-            }
-            return valueText;
+                var value = valueTextID.value;
+                var textFormat = valueTextID.textFormat;
+                return string.IsNullOrEmpty(textFormat) ? value.ToString() : value.ToString(textFormat);
+            });
         }
 
         public string GetFormattedText(string textFormat, string param0, string param1 = null, string param2 = null, string param3 = null)
@@ -149,22 +185,15 @@ namespace Qwilight
                 param2 = param2,
                 param3 = param3,
             };
-            if (!_formattedTexts.TryGetValue(formattedTextID, out var formattedText))
+            return _formattedTexts.GetOrAdd(formattedTextID, formattedTextID =>
             {
-                formattedText = string.Format(textFormat, param0, param1, param2, param3);
-                _formattedTexts[formattedTextID] = formattedText;
-            }
-            return formattedText;
+                return string.Format(formattedTextID.textFormat, formattedTextID.param0, formattedTextID.param1, formattedTextID.param2, formattedTextID.param3);
+            });
         }
 
         public string GetFormattedUnitText(long value)
         {
-            if (!_formattedUnitTexts.TryGetValue(value, out var formattedUnitText))
-            {
-                formattedUnitText = Utility.FormatUnit(value);
-                _formattedUnitTexts[value] = formattedUnitText;
-            }
-            return formattedUnitText;
+            return _formattedUnitTexts.GetOrAdd(value, Utility.FormatUnit);
         }
     }
 }

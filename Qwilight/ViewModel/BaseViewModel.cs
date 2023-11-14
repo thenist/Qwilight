@@ -26,7 +26,7 @@ namespace Qwilight.ViewModel
                 if (SetProperty(ref _isControlling, value, nameof(IsControlling)))
                 {
                     NotifyIsOpened();
-                    ViewModels.Instance.MainValue.OnWPFViewVisibilityModified();
+                    ViewModels.Instance.MainValue.SetWPFViewVisibility();
                 }
             }
         }
