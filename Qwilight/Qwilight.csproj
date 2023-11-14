@@ -202,10 +202,10 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='ARM64'">
-		<None Update="Assets\ARM64\windowsappruntimeinstall-arm64.exe">
+		<None Update="Assets\ARM64\concrt140_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\ARM64\concrt140_app.dll">
+		<None Update="Assets\ARM64\Flint.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\ARM64\msvcp140_1_app.dll">
@@ -229,6 +229,12 @@
 		<None Update="Assets\ARM64\vcruntime140_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\ARM64\windowsappruntimeinstall-arm64.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\Xwindow.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='x64'">
@@ -238,6 +244,12 @@
 		<None Update="Assets\x64\ffmpeg.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\x64\Flint.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\x64\Igniter.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\x64\msvcp140_1_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -245,6 +257,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\msvcp140_app.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\x64\NVIDIA.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\sl.common.dll">
@@ -275,6 +290,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\windowsappruntimeinstall-x64.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\x64\Xwindow.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
