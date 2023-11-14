@@ -75,6 +75,7 @@ namespace Qwilight.ViewModel
         {
             EnableRaisingEvents = true
         };
+        DispatcherTimer _fadeHandler;
         DispatcherTimer _fadeInHandler;
         bool _isAvailable = true;
         string _twilightCommentText0 = string.Empty;
@@ -2357,7 +2358,7 @@ namespace Qwilight.ViewModel
 
             var millis = BaseUI.Instance.FadingPropertyValues[(int)ModeValue]?[FadingValue.Layer]?.Millis;
             var fadingCounter = Stopwatch.StartNew();
-            new DispatcherTimer(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
+            _fadeHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
             {
                 if (millis > 0)
                 {

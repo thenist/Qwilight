@@ -109,6 +109,7 @@ namespace Qwilight
         public const int TotalAudio = 3;
 
         readonly ReaderWriterLockSlim _audioCSX = new();
+        readonly Timer _audioHandler;
         readonly SYSTEM_CALLBACK _onModified;
         readonly float[] _audioVolumes = new float[4];
         readonly ChannelGroup[] _audioGroups = new ChannelGroup[3];
@@ -124,7 +125,6 @@ namespace Qwilight
         readonly double[][] _audioVisualizerValue = new double[2][];
         FMOD.System _targetSystem;
         int _rate;
-        Timer _audioSystemHandler;
         bool _isAvailable;
         float _audioInputVolume = 1F;
         AudioValue? _audioValue;
@@ -261,43 +261,6 @@ namespace Qwilight
                 });
                 return RESULT.OK;
             };
-            for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
-            {
-                _audioVisualizerValue[audioVariety] = new double[256];
-            }
-        }
-
-        public virtual void Init()
-        {
-            try
-            {
-                _audioCSX.EnterWriteLock();
-                if (!_isAvailable)
-                {
-                    Factory.System_Create(out _targetSystem);
-                    _targetSystem.getVersion(out var audioDate);
-                    AudioDate = $"v{(audioDate >> 16)}.{((audioDate >> 8) & 255).ToString("00")}.{Convert.ToString(audioDate & 255, 16)}";
-                    AudioDateHTML = $"https://fmod.com/resources/documentation-api?version={(audioDate >> 16)}.{((audioDate >> 8) & 255)}&page=welcome-revision-history.html";
-                    _targetSystem.setSoftwareChannels(Channel);
-                    _targetSystem.getSoftwareFormat(out var rate, out _, out _);
-                    _rate = (int)(rate / 1000.0);
-                    _targetSystem.setDSPBufferSize(Configure.Instance.AudioDataLength, 4);
-                    _targetSystem.init(Channel, INITFLAGS.NORMAL, nint.Zero);
-
-                    for (var audioVariety = SEAudio; audioVariety >= MainAudio; --audioVariety)
-                    {
-                        _targetSystem.createChannelGroup(null, out _audioGroups[audioVariety]);
-                        _audioGroups[audioVariety].setVolumeRamp(false);
-                    }
-
-                    _targetSystem.setCallback(_onModified, SYSTEM_CALLBACK_TYPE.DEVICELISTCHANGED | SYSTEM_CALLBACK_TYPE.DEVICELOST);
-                    _isAvailable = true;
-                }
-            }
-            finally
-            {
-                _audioCSX.ExitWriteLock();
-            }
 
             var targetAudioVisualizerValues = new double[2][];
             var targetAudioHeights = new double[2][];
@@ -307,8 +270,9 @@ namespace Qwilight
             {
                 targetAudioVisualizerValues[audioVariety] = new double[256];
                 targetAudioHeights[audioVariety] = new double[256];
+                _audioVisualizerValue[audioVariety] = new double[256];
             }
-            _audioSystemHandler = new(state =>
+            _audioHandler = new(state =>
             {
                 try
                 {
@@ -404,6 +368,39 @@ namespace Qwilight
                     _audioCSX.ExitWriteLock();
                 }
             }, null, TimeSpan.Zero, QwilightComponent.StandardFrametime);
+        }
+
+        public virtual void Init()
+        {
+            try
+            {
+                _audioCSX.EnterWriteLock();
+                if (!_isAvailable)
+                {
+                    Factory.System_Create(out _targetSystem);
+                    _targetSystem.getVersion(out var audioDate);
+                    AudioDate = $"v{(audioDate >> 16)}.{((audioDate >> 8) & 255).ToString("00")}.{Convert.ToString(audioDate & 255, 16)}";
+                    AudioDateHTML = $"https://fmod.com/resources/documentation-api?version={(audioDate >> 16)}.{((audioDate >> 8) & 255)}&page=welcome-revision-history.html";
+                    _targetSystem.setSoftwareChannels(Channel);
+                    _targetSystem.getSoftwareFormat(out var rate, out _, out _);
+                    _rate = (int)(rate / 1000.0);
+                    _targetSystem.setDSPBufferSize(Configure.Instance.AudioDataLength, 4);
+                    _targetSystem.init(Channel, INITFLAGS.NORMAL, nint.Zero);
+
+                    for (var audioVariety = SEAudio; audioVariety >= MainAudio; --audioVariety)
+                    {
+                        _targetSystem.createChannelGroup(null, out _audioGroups[audioVariety]);
+                        _audioGroups[audioVariety].setVolumeRamp(false);
+                    }
+
+                    _targetSystem.setCallback(_onModified, SYSTEM_CALLBACK_TYPE.DEVICELISTCHANGED | SYSTEM_CALLBACK_TYPE.DEVICELOST);
+                    _isAvailable = true;
+                }
+            }
+            finally
+            {
+                _audioCSX.ExitWriteLock();
+            }
 
             for (var i = PostableItem.Values.Length - 1; i >= 0; --i)
             {
@@ -1340,7 +1337,6 @@ namespace Qwilight
                     {
                         audioGroup.release();
                     }
-                    _audioSystemHandler.Dispose();
                     _targetSystem.release();
                     _targetSystem.close();
                 }
