@@ -283,22 +283,24 @@
 		<ProjectReference Include="..\ChromaSDK\ChromaSDK.csproj" />
 		<ProjectReference Include="..\Compatible\Compatible.csproj" />
 		<ProjectReference Include="..\Flint\Flint.vcxproj">
-			<OutputItemType>Content</OutputItemType>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<OutputItemType>Content</OutputItemType>
 		</ProjectReference>
 		<ProjectReference Include="..\FMODAPI\FMODAPI.csproj" />
 		<ProjectReference Include="..\Igniter\Igniter.csproj">
-		  <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<OutputItemType>Content</OutputItemType>
+			<ReferenceOutputAssembly>False</ReferenceOutputAssembly>
 		</ProjectReference>
 		<ProjectReference Include="..\LedCSharp\LedCSharp.csproj" />
 		<ProjectReference Include="..\NVIDIA\NVIDIA.vcxproj">
-			<OutputItemType>Content</OutputItemType>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<OutputItemType>Content</OutputItemType>
 		</ProjectReference>
 		<ProjectReference Include="..\Protobuf\Protobuf.csproj" />
 		<ProjectReference Include="..\Xwindow\Xwindow.vcxproj">
-			<OutputItemType>Content</OutputItemType>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<OutputItemType>Content</OutputItemType>
 		</ProjectReference>
 	</ItemGroup>
 </Project>
