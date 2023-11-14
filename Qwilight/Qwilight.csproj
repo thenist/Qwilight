@@ -36,11 +36,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Assets\UI\%40Default\%40Default.zip %282%29.old" />
-	  <None Remove="Assets\UI\%40Default\%40Default.zip.old" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="AuraServiceLib.NET" Version="1.0.1" />
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />

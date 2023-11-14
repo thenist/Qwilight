@@ -532,15 +532,16 @@ namespace Qwilight.Utilities
         {
             var data = www.Select(data =>
             {
-                var date = data.date.HasValue ? DateTimeOffset.FromUnixTimeMilliseconds(data.date.Value).LocalDateTime : null as DateTime?;
+                var date = data.date;
+                var dateValue = date.HasValue ? DateTimeOffset.FromUnixTimeMilliseconds(date.Value).LocalDateTime : null as DateTime?;
                 var audioMultiplier = Math.Round(data.audioMultiplier, 2);
                 var sentMultiplier = data.multiplier;
                 return new CommentItem(data.avatarID, (DefaultCompute.InputFlag)data.inputFlags)
                 {
                     IsTwilightComment = true,
                     NoteFileCount = 1,
-                    Date = date ?? DateTime.MinValue,
-                    DateText = date?.ToString("yyyy-MM-dd HH:mm:ss") ?? "❌",
+                    Date = dateValue ?? DateTime.MinValue,
+                    DateText = dateValue?.ToString("yyyy-MM-dd HH:mm:ss") ?? "❌",
                     CommentID = data.commentID,
                     AvatarName = data.avatarName,
                     ModeComponentValue = new()
