@@ -54,7 +54,7 @@ namespace Qwilight
 
         readonly HandlingController<HwDInput> _handlingControllerDInput = new HandlingController<HwDInput>(rawInput => ViewModels.Instance.InputValue.OnDInputLower(rawInput), rawInput => ViewModels.Instance.InputStandardControllerValue.OnDInputLower(rawInput), DefaultCompute.InputFlag.Controller);
         readonly HandlingController<HwXInput> _handlingControllerXInput = new HandlingController<HwXInput>(rawInput => ViewModels.Instance.InputValue.OnXInputLower(rawInput), rawInput => ViewModels.Instance.InputStandardControllerValue.OnXInputLower(rawInput), DefaultCompute.InputFlag.Controller);
-        readonly HandlingController<WGI> _handlingControllerWGI = new HandlingController<WGI>(rawInput => ViewModels.Instance.InputValue.OnWGILower(rawInput), rawInput => ViewModels.Instance.InputStandardControllerValue.OnWGILower(rawInput), DefaultCompute.InputFlag.Controller);
+        readonly HandlingController<WGI> handlingControllerWGI = new HandlingController<WGI>(rawInput => ViewModels.Instance.InputValue.OnWGILower(rawInput), rawInput => ViewModels.Instance.InputStandardControllerValue.OnWGILower(rawInput), DefaultCompute.InputFlag.Controller);
         double _failedVibration;
 
         public string[] Controllers { get; set; } = Array.Empty<string>();
@@ -73,7 +73,7 @@ namespace Qwilight
         {
             _handlingControllerDInput.Init();
             _handlingControllerXInput.Init();
-            _handlingControllerWGI.Init();
+            handlingControllerWGI.Init();
         }
 
         public void HandleSystem(nint handle)
@@ -900,7 +900,7 @@ namespace Qwilight
                             var d = ((ushort)lastInput.Buttons & i) - ((ushort)data.Buttons & i);
                             if (d == i)
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -911,7 +911,7 @@ namespace Qwilight
                             }
                             else if (d == -i)
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -923,7 +923,7 @@ namespace Qwilight
                         }
                         if (data.LeftTrigger == 0.0 && lastInput.LeftTrigger > data.LeftTrigger && mainWGILower.Remove("+LT"))
                         {
-                            _handlingControllerWGI.Input(new WGI
+                            handlingControllerWGI.Input(new WGI
                             {
                                 Data = new GamepadReading
                                 {
@@ -933,7 +933,7 @@ namespace Qwilight
                         }
                         else if (data.LeftTrigger == 1.0 && lastInput.LeftTrigger < data.LeftTrigger && mainWGILower.Add("+LT"))
                         {
-                            _handlingControllerWGI.Input(new WGI
+                            handlingControllerWGI.Input(new WGI
                             {
                                 Data = new GamepadReading
                                 {
@@ -943,7 +943,7 @@ namespace Qwilight
                         }
                         if (data.RightTrigger == 0.0 && lastInput.RightTrigger > data.RightTrigger && mainWGILower.Remove("+RT"))
                         {
-                            _handlingControllerWGI.Input(new WGI
+                            handlingControllerWGI.Input(new WGI
                             {
                                 Data = new GamepadReading
                                 {
@@ -953,7 +953,7 @@ namespace Qwilight
                         }
                         else if (data.RightTrigger == 1.0 && lastInput.RightTrigger < data.RightTrigger && mainWGILower.Add("+RT"))
                         {
-                            _handlingControllerWGI.Input(new WGI
+                            handlingControllerWGI.Input(new WGI
                             {
                                 Data = new GamepadReading
                                 {
@@ -965,7 +965,7 @@ namespace Qwilight
                         {
                             if (lastInput.LeftThumbstickX > data.LeftThumbstickX && mainWGILower.Add("-LTX"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -978,7 +978,7 @@ namespace Qwilight
                         {
                             if (lastInput.LeftThumbstickX < data.LeftThumbstickX && mainWGILower.Add("+LTX"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -991,7 +991,7 @@ namespace Qwilight
                         {
                             if (lastInput.LeftThumbstickX < data.LeftThumbstickX && mainWGILower.Remove("-LTX"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1001,7 +1001,7 @@ namespace Qwilight
                             }
                             else if (lastInput.LeftThumbstickX > data.LeftThumbstickX && mainWGILower.Remove("+LTX"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1014,7 +1014,7 @@ namespace Qwilight
                         {
                             if (lastInput.LeftThumbstickY > data.LeftThumbstickY && mainWGILower.Add("-LTY"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1027,7 +1027,7 @@ namespace Qwilight
                         {
                             if (lastInput.LeftThumbstickY < data.LeftThumbstickY && mainWGILower.Add("+LTY"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1040,7 +1040,7 @@ namespace Qwilight
                         {
                             if (lastInput.LeftThumbstickY < data.LeftThumbstickY && mainWGILower.Remove("-LTY"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1050,7 +1050,7 @@ namespace Qwilight
                             }
                             else if (lastInput.LeftThumbstickY > data.LeftThumbstickY && mainWGILower.Remove("+LTY"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1063,7 +1063,7 @@ namespace Qwilight
                         {
                             if (lastInput.RightThumbstickX > data.RightThumbstickX && mainWGILower.Add("-RTX"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1076,7 +1076,7 @@ namespace Qwilight
                         {
                             if (lastInput.RightThumbstickX < data.RightThumbstickX && mainWGILower.Add("+RTX"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1089,7 +1089,7 @@ namespace Qwilight
                         {
                             if (lastInput.RightThumbstickX < data.RightThumbstickX && mainWGILower.Remove("-RTX"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1099,7 +1099,7 @@ namespace Qwilight
                             }
                             else if (lastInput.RightThumbstickX > data.RightThumbstickX && mainWGILower.Remove("+RTX"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1112,7 +1112,7 @@ namespace Qwilight
                         {
                             if (lastInput.RightThumbstickY > data.RightThumbstickY && mainWGILower.Add("-RTY"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1125,7 +1125,7 @@ namespace Qwilight
                         {
                             if (lastInput.RightThumbstickY < data.RightThumbstickY && mainWGILower.Add("+RTY"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1138,7 +1138,7 @@ namespace Qwilight
                         {
                             if (lastInput.RightThumbstickY < data.RightThumbstickY && mainWGILower.Remove("-RTY"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1148,7 +1148,7 @@ namespace Qwilight
                             }
                             else if (lastInput.RightThumbstickY > data.RightThumbstickY && mainWGILower.Remove("+RTY"))
                             {
-                                _handlingControllerWGI.Input(new WGI
+                                handlingControllerWGI.Input(new WGI
                                 {
                                     Data = new GamepadReading
                                     {
@@ -1280,7 +1280,7 @@ namespace Qwilight
                             {
                                 while (Configure.Instance.ControllerInputAPI == InputAPI.WGI)
                                 {
-                                    _handlingControllerWGI.HandleLooping(targetWGIControllers.Count > 0, onHandleWGI1000, onHandleWGI);
+                                    handlingControllerWGI.HandleLooping(targetWGIControllers.Count > 0, onHandleWGI1000, onHandleWGI);
                                 }
                             }
                             finally

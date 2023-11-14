@@ -823,23 +823,21 @@ namespace Qwilight.ViewModel
                     {
                         LanguageSystem.Instance.WipeCommentNotify,
                         MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                        new Action<MESSAGEBOX_RESULT>(r =>
+                        new Action<MESSAGEBOX_RESULT>(async r =>
                         {
-                            var defaultCommentItem = DefaultCommentItem;
-                             if (r == MESSAGEBOX_RESULT.IDYES && defaultCommentItem != null)
+                             if (r == MESSAGEBOX_RESULT.IDYES)
                              {
-                                var defaultCommentFilePath = defaultCommentItem.CommentID;
-                                var eventNoteID = EntryItemValue.EventNoteID;
-                                DB.Instance.WipeComment(defaultCommentFilePath);
-                                if (string.IsNullOrEmpty(eventNoteID))
-                                {
-                                    Utility.WipeFile(defaultCommentFilePath);
-                                }
-                                else
+                                DefaultCommentCollection.Remove(DefaultCommentItem);
+                                var defaultCommentFilePath = DefaultCommentItem.CommentID;
+                                if (string.IsNullOrEmpty(EntryItemValue.EventNoteID))
                                 {
                                     Utility.WipeFile(Path.Combine(QwilightComponent.CommentEntryPath, Path.ChangeExtension(defaultCommentFilePath, ".zip")));
                                 }
-                                DefaultCommentCollection.Remove(defaultCommentItem);
+                                else
+                                {
+                                    Utility.WipeFile(defaultCommentFilePath);
+                                }
+                                await DB.Instance.WipeComment(defaultCommentFilePath);
                             }
                         })
                     }
@@ -2572,10 +2570,10 @@ namespace Qwilight.ViewModel
         {
             if (HasNotInput() && EntryItemValue?.LowerNoteFile() == true)
             {
-                DB.Instance.SetNotePosition(EntryItemValue);
                 NotifyNoteFile();
                 Utility.HandleUIAudio("Lower Note File");
                 BaseUI.Instance.HandleEvent(BaseUI.EventItem.ModifyNoteFile);
+                DB.Instance.SetNotePosition(EntryItemValue);
             }
         }
 
@@ -2583,10 +2581,10 @@ namespace Qwilight.ViewModel
         {
             if (HasNotInput() && EntryItemValue?.HigherNoteFile() == true)
             {
-                DB.Instance.SetNotePosition(EntryItemValue);
                 NotifyNoteFile();
                 Utility.HandleUIAudio("Higher Note File");
                 BaseUI.Instance.HandleEvent(BaseUI.EventItem.ModifyNoteFile);
+                DB.Instance.SetNotePosition(EntryItemValue);
             }
         }
 

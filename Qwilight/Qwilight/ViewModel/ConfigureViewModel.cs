@@ -544,16 +544,13 @@ namespace Qwilight.ViewModel
             {
                 LanguageSystem.Instance.InitFavoriteEntryNotify,
                 MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
+                new Action<MESSAGEBOX_RESULT>(async r =>
                 {
                     if (r == MESSAGEBOX_RESULT.IDYES)
                     {
                         ViewModels.Instance.MainValue.WipeFavoriteEntry();
-                        DB.Instance.WipeFavoriteEntry();
-                        foreach (var defaultEntryItem in Configure.Instance.DefaultEntryItems.Where(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite).ToArray())
-                        {
-                            Configure.Instance.DefaultEntryItems.Remove(defaultEntryItem);
-                        }
+                        Configure.Instance.DefaultEntryItems.RemoveWhere(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite);
+                        await DB.Instance.WipeFavoriteEntry();
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitFavoriteEntryOK);
                     }
                 })
@@ -568,7 +565,7 @@ namespace Qwilight.ViewModel
             {
                 LanguageSystem.Instance.InitWaitNotify,
                 MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
+                new Action<MESSAGEBOX_RESULT>(async r =>
                 {
                     if (r == MESSAGEBOX_RESULT.IDYES)
                     {
@@ -577,7 +574,7 @@ namespace Qwilight.ViewModel
                         Configure.Instance.MediaWait = 0.0;
                         Configure.Instance.BanalMediaWait = 0.0;
                         Configure.Instance.NotifyModel();
-                        DB.Instance.InitWait();
+                        await DB.Instance.InitWait();
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitWaitOK);
                     }
                 })
@@ -612,7 +609,7 @@ namespace Qwilight.ViewModel
             {
                 LanguageSystem.Instance.InitMediaNotify,
                 MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
+                new Action<MESSAGEBOX_RESULT>(async r =>
                 {
                     if (r == MESSAGEBOX_RESULT.IDYES)
                     {
@@ -620,9 +617,11 @@ namespace Qwilight.ViewModel
                         var handlingComputer = ViewModels.Instance.MainValue.GetHandlingComputer();
                         if (handlingComputer != null)
                         {
+                            handlingComputer.SetWait();
                             MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
+                            MediaSystem.Instance.HandleIfAvailable(handlingComputer);
                         }
-                        DB.Instance.InitMedia();
+                        await DB.Instance.InitMedia();
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitMediaOK);
                     }
                 })
@@ -637,16 +636,16 @@ namespace Qwilight.ViewModel
             {
                 LanguageSystem.Instance.InitCommentNotify,
                 MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
+                new Action<MESSAGEBOX_RESULT>(async r =>
                 {
                     if (r == MESSAGEBOX_RESULT.IDYES)
                     {
-                        DB.Instance.WipeComment();
+                        ViewModels.Instance.MainValue.DefaultCommentCollection.Clear();
                         foreach (var commentFilePath in Utility.GetFiles(QwilightComponent.CommentEntryPath))
                         {
                             Utility.WipeFile(commentFilePath);
                         }
-                        ViewModels.Instance.MainValue.DefaultCommentCollection.Clear();
+                        await DB.Instance.WipeComment();
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCommentOK);
                     }
                 })
@@ -799,7 +798,13 @@ namespace Qwilight.ViewModel
         static void OnMedia()
         {
             Configure.Instance.Media = !Configure.Instance.Media;
-            ViewModels.Instance.MainValue.AutoComputer?.SetWait();
+            var handlingComputer = ViewModels.Instance.MainValue.GetHandlingComputer();
+            if (handlingComputer != null)
+            {
+                handlingComputer.SetWait();
+                MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
+                MediaSystem.Instance.HandleIfAvailable(handlingComputer);
+            }
         }
 
         [RelayCommand]

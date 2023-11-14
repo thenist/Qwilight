@@ -284,18 +284,18 @@ Qwilight
         }
 
         [RelayCommand]
-        void OnWipeHandled(int mode)
+        async Task OnWipeHandled(int mode)
         {
             switch (mode)
             {
                 case 0:
-                    DB.Instance.WipeHandled(NoteFile);
+                    await DB.Instance.WipeHandled(NoteFile);
                     NoteFile.HandledValue = BaseNoteFile.Handled.Not;
                     break;
                 case 1:
                     foreach (var noteFile in EntryItemValue.NoteFiles)
                     {
-                        DB.Instance.WipeHandled(noteFile);
+                        await DB.Instance.WipeHandled(noteFile);
                         noteFile.HandledValue = BaseNoteFile.Handled.Not;
                     }
                     break;
@@ -321,9 +321,9 @@ Qwilight
                 {
                     LanguageSystem.Instance.ModifyEventNoteNameContents,
                     entryItemValue.EventNoteName,
-                    new Action<string>(eventNoteName =>
+                    new Action<string>(async eventNoteName =>
                     {
-                        DB.Instance.ModifyEventNoteName(entryItemValue.EventNoteID, eventNoteName);
+                        await DB.Instance.ModifyEventNoteName(entryItemValue.EventNoteID, eventNoteName);
                         entryItemValue.EventNoteName = eventNoteName;
                     })
                 }
@@ -361,15 +361,16 @@ Qwilight
         }
 
         [RelayCommand]
-        void OnNoteFileFormatID(int? e)
+        async Task OnNoteFileFormatID(int? e)
         {
             if (e.HasValue)
             {
-                Configure.Instance.NoteFormatID = e.Value;
+                var noteFormatID = e.Value;
+                Configure.Instance.NoteFormatID = noteFormatID;
                 var noteFile = EntryItemValue?.NoteFile;
                 if (noteFile != null)
                 {
-                    DB.Instance.SetNoteFormat(noteFile, e.Value);
+                    await DB.Instance.SetNoteFormat(noteFile, noteFormatID);
                     FastDB.Instance.WipeNoteFile(noteFile);
                 }
                 var mainViewModel = ViewModels.Instance.MainValue;
@@ -378,7 +379,7 @@ Qwilight
         }
 
         [RelayCommand]
-        void OnEntryItemFormatID(int? e)
+        async Task OnEntryItemFormatID(int? e)
         {
             if (e.HasValue)
             {
@@ -390,7 +391,7 @@ Qwilight
                     {
                         if (!noteFile.IsLogical)
                         {
-                            DB.Instance.SetNoteFormat(noteFile, e.Value);
+                            await DB.Instance.SetNoteFormat(noteFile, e.Value);
                             FastDB.Instance.WipeNoteFile(noteFile);
                         }
                     }

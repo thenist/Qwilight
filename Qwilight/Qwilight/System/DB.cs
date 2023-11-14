@@ -896,9 +896,9 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync();
         }
 
-        public void SetFavoriteEntry(BaseNoteFile noteFile)
+        public async void SetFavoriteEntry(BaseNoteFile noteFile)
         {
-            Ta(async () =>
+            await Ta(async () =>
             {
                 using (var dbStatement = new SQLiteCommand(@"DELETE
                     FROM note
@@ -941,7 +941,7 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync();
         }
 
-        public async void ModifyEventNoteName(string eventNoteID, string eventNoteName)
+        public async ValueTask ModifyEventNoteName(string eventNoteID, string eventNoteName)
         {
             using var dbStatement = new SQLiteCommand(@"UPDATE event_note
                 SET Name = @eventNoteName
@@ -1026,7 +1026,7 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync();
         }
 
-        public async void SetNoteFormat(BaseNoteFile noteFile, int format)
+        public async ValueTask SetNoteFormat(BaseNoteFile noteFile, int format)
         {
             using var dbStatement = new SQLiteCommand(@"REPLACE
                 INTO format
@@ -1036,14 +1036,14 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync();
         }
 
-        public async void WipeFavoriteEntry()
+        public async ValueTask WipeFavoriteEntry()
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
                 FROM note", _db);
             await dbStatement.ExecuteNonQueryAsync();
         }
 
-        public async void WipeHandled(BaseNoteFile noteFile)
+        public async ValueTask WipeHandled(BaseNoteFile noteFile)
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
                 FROM handle
@@ -1052,21 +1052,21 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync();
         }
 
-        public async void InitWait()
+        public async ValueTask InitWait()
         {
             using var dbStatement = new SQLiteCommand(@"UPDATE wait
                 SET Audio_Wait = NULL, Media_Wait = 0.0", _db);
             await dbStatement.ExecuteNonQueryAsync();
         }
 
-        public async void InitMedia()
+        public async ValueTask InitMedia()
         {
             using var dbStatement = new SQLiteCommand(@"UPDATE wait
                 SET Media = NULL", _db);
             await dbStatement.ExecuteNonQueryAsync();
         }
 
-        public async void WipeComment(string comment)
+        public async ValueTask WipeComment(string comment)
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
                 FROM comment
@@ -1075,14 +1075,14 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync();
         }
 
-        public async void WipeComment()
+        public async ValueTask WipeComment()
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
                 FROM comment", _db);
             await dbStatement.ExecuteNonQueryAsync();
         }
 
-        async void Ta(Action onHandle)
+        async ValueTask Ta(Action onHandle)
         {
             using var t = await _db.BeginTransactionAsync();
             try
