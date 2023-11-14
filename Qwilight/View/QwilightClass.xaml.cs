@@ -142,7 +142,7 @@ namespace Qwilight.View
 
             Utility.CopyEntry(Path.Combine(QwilightComponent.AssetsEntryPath, "UI"), Path.Combine(QwilightComponent.UIEntryPath));
 
-            Utility.CopyFile(Path.Combine(AppContext.BaseDirectory, "Igniter.exe"), Path.Combine(QwilightComponent.UtilityEntryPath, "Igniter.exe"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Igniter.exe"), Path.Combine(QwilightComponent.UtilityEntryPath, "Igniter.exe"));
 
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.common.dll"), Path.Combine(AppContext.BaseDirectory, "sl.common.dll"));
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.interposer.dll"), Path.Combine(AppContext.BaseDirectory, "sl.interposer.dll"));

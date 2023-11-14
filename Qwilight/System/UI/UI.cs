@@ -1413,7 +1413,7 @@ namespace Qwilight
                 {
                     if (!fileNames.Contains($"Paused/{pausedFileName}"))
                     {
-                        SetDrawing($"Paused/{pausedFileName}", File.OpenRead(Path.Combine(AppContext.BaseDirectory, "Assets", "Paused", pausedFileName)));
+                        SetDrawing($"Paused/{pausedFileName}", File.OpenRead(Path.Combine(QwilightComponent.AssetsEntryPath, "Paused", pausedFileName)));
                     }
                 }
                 void SetDrawing(string fileName, Stream s)

@@ -283,11 +283,6 @@
 		<ProjectReference Include="..\ChromaSDK\ChromaSDK.csproj" />
 		<ProjectReference Include="..\Compatible\Compatible.csproj" />
 		<ProjectReference Include="..\FMODAPI\FMODAPI.csproj" />
-		<ProjectReference Include="..\Igniter\Igniter.csproj">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-			<OutputItemType>Content</OutputItemType>
-			<ReferenceOutputAssembly>False</ReferenceOutputAssembly>
-		</ProjectReference>
 		<ProjectReference Include="..\LedCSharp\LedCSharp.csproj" />
 		<ProjectReference Include="..\Protobuf\Protobuf.csproj" />
 	</ItemGroup>
