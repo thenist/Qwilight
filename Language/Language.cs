@@ -17,9 +17,9 @@ var qwilightEntryPath = Path.Combine(Environment.GetFolderPath(Environment.Speci
 var twilightEntryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "IdeaProjects", "Twilight");
 var taehuiEntryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "source", "repos", "taehui");
 SetCSJavaLanguage(Path.Combine(qwilightEntryPath, "Qwilight", "Assets", "Language.json"));
-SetCSLanguageSystem(Path.Combine(qwilightEntryPath, "Qwilight", "Assets", "Language.json"), Path.Combine(qwilightEntryPath, "Qwilight", "Qwilight", "System", "LanguageSystem", "LanguageSystem.g.cs"), "Qwilight");
+SetCSLanguageSystem(Path.Combine(qwilightEntryPath, "Qwilight", "Assets", "Language.json"), Path.Combine(qwilightEntryPath, "Qwilight", "System", "LanguageSystem", "LanguageSystem.g.cs"), "Qwilight");
 SetCSJavaLanguage(Path.Combine(qwilightEntryPath, "Igniter", "Resources", "Language.json"));
-SetCSLanguageSystem(Path.Combine(qwilightEntryPath, "Igniter", "Resources", "Language.json"), Path.Combine(qwilightEntryPath, "Igniter", "Igniter", "System", "LanguageSystem", "LanguageSystem.g.cs"), "Igniter");
+SetCSLanguageSystem(Path.Combine(qwilightEntryPath, "Igniter", "Resources", "Language.json"), Path.Combine(qwilightEntryPath, "Igniter", "System", "LanguageSystem", "LanguageSystem.g.cs"), "Igniter");
 SetCSJavaLanguage(Path.Combine(twilightEntryPath, "src", "main", "resources", "Language.json"));
 SetTSLanguage(Path.Combine(taehuiEntryPath, "qwilight-fe", "src", "Language.json"));
 SetTSLanguage(Path.Combine(taehuiEntryPath, "taehui-fe", "src", "Language.json"));
