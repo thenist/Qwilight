@@ -285,7 +285,7 @@ namespace Qwilight.Compiler
 
         readonly Dictionary<long, double> _bmsonPositionLogicalYMap = new();
         readonly SortedDictionary<double, double> _bmsonPositionWaitMap = new();
-        JSON.Bmson _text;
+        JSON.BMSON _text;
         bool _hasMedia;
         long _res;
 
@@ -306,7 +306,7 @@ namespace Qwilight.Compiler
                     rms.Position = 0;
                     format = formatComputer != null && formatComputer.Confidence >= 0.875 && formatComputer.Encoding != null ? formatComputer.Encoding.CodePage : 65001;
                 }
-                _text = Utility.GetJSON<JSON.Bmson>(Encoding.GetEncoding(format).GetString(rms.GetBuffer(), 0, (int)rms.Length));
+                _text = Utility.GetJSON<JSON.BMSON>(Encoding.GetEncoding(format).GetString(rms.GetBuffer(), 0, (int)rms.Length));
             }
             var title = _text.info.title;
             var titleAssister0 = _text.info.subtitle;

@@ -5,16 +5,16 @@ namespace Qwilight
     public static class XML
     {
         [XmlRoot(ElementName = "courselist")]
-        public sealed class Courselist
+        public sealed class LR2CRS
         {
             [XmlElement(ElementName = "course")]
-            public Course[] Course { get; set; }
-        }
+            public Item[] Items { get; set; }
 
-        public struct Course
-        {
-            public string title;
-            public string hash;
+            public struct Item
+            {
+                public string title;
+                public string hash;
+            }
         }
     }
 }

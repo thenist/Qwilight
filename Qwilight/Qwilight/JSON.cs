@@ -39,24 +39,24 @@ namespace Qwilight
             }
         }
 
-        public struct Bmson
+        public struct BMSON
         {
             public BGA bga = new BGA();
-            public BpmEvent[] bpm_events = Array.Empty<BpmEvent>();
-            public BmsonInfo info = new BmsonInfo();
-            public BarLine[] lines = Array.Empty<BarLine>();
-            public SoundChannel[] mine_channels = Array.Empty<SoundChannel>();
-            public SoundChannel[] sound_channels = Array.Empty<SoundChannel>();
+            public BPMEvent[] bpm_events = Array.Empty<BPMEvent>();
+            public BMSONInfo info = new BMSONInfo();
+            public Meter[] lines = Array.Empty<Meter>();
+            public AudioChannel[] mine_channels = Array.Empty<AudioChannel>();
+            public AudioChannel[] sound_channels = Array.Empty<AudioChannel>();
             public StopEvent[] stop_events = Array.Empty<StopEvent>();
 
-            public Bmson()
+            public BMSON()
             {
             }
 
             public struct BGA
             {
                 public BGAEvent[] bga_events = Array.Empty<BGAEvent>();
-                public BGAHeader[] bga_header = Array.Empty<BGAHeader>();
+                public BGAID[] bga_header = Array.Empty<BGAID>();
                 public BGAEvent[] layer_events = Array.Empty<BGAEvent>();
                 public BGAEvent[] poor_events = Array.Empty<BGAEvent>();
 
@@ -70,24 +70,24 @@ namespace Qwilight
                     public long y;
                 }
 
-                public struct BGAHeader
+                public struct BGAID
                 {
                     public object id;
                     public string name = string.Empty;
 
-                    public BGAHeader()
+                    public BGAID()
                     {
                     }
                 }
             }
 
-            public struct BpmEvent
+            public struct BPMEvent
             {
                 public double bpm;
                 public long y;
             }
 
-            public struct BmsonInfo
+            public struct BMSONInfo
             {
                 public string artist = string.Empty;
                 public string back_image = string.Empty;
@@ -107,22 +107,22 @@ namespace Qwilight
                 public string title_image = string.Empty;
                 public double total = 100.0;
 
-                public BmsonInfo()
+                public BMSONInfo()
                 {
                 }
             }
 
-            public struct BarLine
+            public struct Meter
             {
                 public long y;
             }
 
-            public struct SoundChannel
+            public struct AudioChannel
             {
                 public string name = string.Empty;
                 public Note[] notes = Array.Empty<Note>();
 
-                public SoundChannel()
+                public AudioChannel()
                 {
                 }
 

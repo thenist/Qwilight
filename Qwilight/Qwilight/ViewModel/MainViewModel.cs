@@ -679,7 +679,7 @@ namespace Qwilight.ViewModel
                             {
                                 var date = DateTime.Now;
                                 using var fs = File.OpenRead(filePath);
-                                foreach (var eventNote in (new XmlSerializer(typeof(XML.Courselist)).Deserialize(fs) as XML.Courselist).Course)
+                                foreach (var eventNote in (new XmlSerializer(typeof(XML.LR2CRS)).Deserialize(fs) as XML.LR2CRS).Items)
                                 {
                                     try
                                     {
@@ -691,7 +691,7 @@ namespace Qwilight.ViewModel
                                         eventNoteID += ":0";
                                         var eventNoteName = eventNote.title;
                                         var eventNoteVariety = DB.EventNoteVariety.MD5;
-                                        _ = DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
+                                        DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety).Wait();
                                         lastEventNoteID = eventNoteID;
                                     }
                                     catch (SQLiteException)
