@@ -3998,17 +3998,16 @@ namespace Qwilight.Compute
                 }
                 DB.Instance.SetHandled(NoteFile);
 
+                DB.Instance.NewDate(NoteFile, default, date);
                 NoteFile.LatestDate = date;
                 ++NoteFile.HandledCount;
-
-                DB.Instance.NewDate(NoteFile, default, date);
             }
             else
             {
-                EventNoteEntryItem.LatestDate = date;
-                ++EventNoteEntryItem.HandledCount;
 
                 DB.Instance.NewDate(default, eventNoteID, date);
+                EventNoteEntryItem.LatestDate = date;
+                ++EventNoteEntryItem.HandledCount;
             }
 
             if (!IsF)
