@@ -239,9 +239,6 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='x64'">
-		<None Update="Assets\x64\CChromaEditorLibrary64.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\x64\concrt140_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -251,13 +248,7 @@
 		<None Update="Assets\x64\Flint.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\fmod.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\x64\Igniter.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\x64\LogitechLedEnginesWrapper.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\msvcp140_1_app.dll">
@@ -308,6 +299,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\ChromaSDK\ChromaSDK.csproj" />
 		<ProjectReference Include="..\Compatible\Compatible.csproj" />
+		<ProjectReference Include="..\FMODAPI\FMODAPI.csproj" />
+		<ProjectReference Include="..\LedCSharp\LedCSharp.csproj" />
 	</ItemGroup>
 </Project>

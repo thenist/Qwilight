@@ -339,8 +339,11 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-/Language/Assets/Client.json
-/Test/qpdgo
+!/ChromaSDK/Assets/ARM64
+!/ChromaSDK/Assets/x64
+
+!/FMODAPI/Assets/ARM64
+!/FMODAPI/Assets/x64
 
 !/Qwilight/Assets/ARM64
 /Qwilight/Assets/ARM64/Flint.exe
@@ -353,9 +356,16 @@ healthchecksdb
 /Qwilight/Assets/x64/NVIDIA.dll
 /Qwilight/Assets/x64/Xwindow.exe
 
+/Language/Assets/Client.json
+
+!/LedCSharp/Assets/ARM64
+!/LedCSharp/Assets/x64
+
 !/Qwilight/sdk/tools/ContentBuilder/builder/steamcmd
 !/Qwilight/sdk/tools/ContentBuilder/scripts/simple_app_build.vdf
 /Qwilight/sdk/tools/ContentBuilder/builder
 /Qwilight/sdk/tools/ContentBuilder/output
 
 /Qwilight.zip
+
+/Test/qpdgo

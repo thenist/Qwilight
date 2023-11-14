@@ -134,7 +134,7 @@ namespace Qwilight
                     SupportedDevice = 1,
                     Category = 2
                 };
-                var isOK = ChromaAnimationAPI.InitSDK(ref data) == RazerErrors.RZRESULT_SUCCESS;
+                var isOK = ChromaAnimationAPI.InitSDK(ref data) == 0;
                 if (isOK)
                 {
                     _dataInputColors = new int[ChromaAnimationAPI.GetMaxRow(ChromaAnimationAPI.Device2D.Keyboard) * ChromaAnimationAPI.GetMaxColumn(ChromaAnimationAPI.Device2D.Keyboard)];

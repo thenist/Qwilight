@@ -28,7 +28,6 @@ using UtfUnknown;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.System;
 using Windows.Win32.UI.WindowsAndMessaging;
-using Xml2CSharp;
 using Clipboard = Windows.ApplicationModel.DataTransfer.Clipboard;
 
 namespace Qwilight.ViewModel
@@ -680,17 +679,17 @@ namespace Qwilight.ViewModel
                             {
                                 var date = DateTime.Now;
                                 using var fs = File.OpenRead(filePath);
-                                foreach (var eventNote in (new XmlSerializer(typeof(Courselist)).Deserialize(fs) as Courselist).Course)
+                                foreach (var eventNote in (new XmlSerializer(typeof(XML.Courselist)).Deserialize(fs) as XML.Courselist).Course)
                                 {
                                     try
                                     {
-                                        var eventNoteID = eventNote.Hash[32..];
+                                        var eventNoteID = eventNote.hash[32..];
                                         for (var m = eventNoteID.Length - 32; m > 0; m -= 32)
                                         {
                                             eventNoteID = eventNoteID.Insert(m, ":0/");
                                         }
                                         eventNoteID += ":0";
-                                        var eventNoteName = eventNote.Title;
+                                        var eventNoteName = eventNote.title;
                                         var eventNoteVariety = DB.EventNoteVariety.MD5;
                                         _ = DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
                                         lastEventNoteID = eventNoteID;

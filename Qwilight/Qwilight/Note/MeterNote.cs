@@ -81,7 +81,10 @@ namespace Qwilight.Note
                 var isMeterVisible = defaultComputer.IsMeterVisible;
                 if (isMeterVisible)
                 {
-                    r.Position0 -= p1BuiltLength;
+                    if (has2P)
+                    {
+                        r.Position0 -= p1BuiltLength;
+                    }
 
                     var faintClearPaint = DrawingSystem.Instance.FaintClearedPaints[faint];
                     var textItem = PoolSystem.Instance.GetTextItem(_meter, DrawingSystem.Instance.MeterFont);

@@ -9,9 +9,8 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
-using System.Xml.Serialization;
+using System.Xml;
 using Windows.System;
-using Xml2CSharp;
 
 namespace Qwilight.ViewModel
 {
@@ -132,64 +131,57 @@ Qwilight
 
 """;
                                     bmseViewerData.AddRange(data.Split(Environment.NewLine));
-                                    Utility.SaveText(bmseViewerFilePath, bmseViewerText + data, Encoding.ASCII);
+                                    Utility.SaveText(bmseViewerFilePath, bmseViewerText + data, Encoding.UTF8);
                                 }
 
-                                var doEdit = false;
                                 var bmseCompiler = new FileIniDataParser();
                                 IniData bmse;
                                 using (var sr = File.OpenText(bmseFilePath))
                                 {
                                     bmse = bmseCompiler.ReadData(sr);
-                                    var targetViewerID = (bmseViewerData.IndexOf(flintFilePath) / 6).ToString();
-                                    if (bmse["View"]["ViewerNum"] != targetViewerID)
+                                    var flintID = (bmseViewerData.IndexOf(flintFilePath) / 6).ToString();
+                                    if (bmse["View"]["ViewerNum"] != flintID)
                                     {
-                                        doEdit = true;
-                                        bmse["View"]["ViewerNum"] = targetViewerID;
+                                        bmse["View"]["ViewerNum"] = flintID;
                                     }
                                 }
-                                if (doEdit)
+                                using (var fw = File.Open(bmscFilePath, FileMode.Create))
+                                using (var sw = new StreamWriter(fw, Encoding.UTF8))
                                 {
-                                    using var fw = File.Open(bmseFilePath, FileMode.Create);
-                                    using var sw = new StreamWriter(fw);
                                     bmseCompiler.WriteData(sw, bmse);
                                 }
                                 Utility.OpenAs(Configure.Instance.BMSEditorFilePath, $"\"{noteFilePath}\"");
                             }
                             else if (File.Exists(bmscFilePath))
                             {
-                                var doEdit = false;
-                                var bmsdCompiler = new XmlSerializer(typeof(IBMSC));
-                                IBMSC bmsc;
-                                using (var fs = File.OpenRead(bmscFilePath))
+                                var bmscCompiler = new XmlDocument();
+                                bmscCompiler.LoadXml(File.ReadAllText(bmscFilePath));
+
+                                var nodesViewer = bmscCompiler.SelectNodes("/iBMSC/Player/Player").Cast<XmlNode>().ToList();
+                                var flintID = nodesViewer.FindIndex(node => Utility.EqualsCaseless(node.Attributes["Path"].Value, flintFilePath));
+                                if (flintID == -1)
                                 {
-                                    bmsc = bmsdCompiler.Deserialize(fs) as IBMSC;
-                                    var targetViewerID = bmsc.Players.Player.FindIndex(line => line.Path == flintFilePath);
-                                    if (targetViewerID == -1)
-                                    {
-                                        doEdit = true;
-                                        targetViewerID = bmsc.Players.Player.Count;
-                                        bmsc.Players.Player.Add(new Player
-                                        {
-                                            Index = targetViewerID.ToString(),
-                                            Path = flintFilePath,
-                                            FromBeginning = "-P -N0 \"<filename>\"",
-                                            FromHere = "-P -N<measure> \"<filename>\"",
-                                            Stop = "-S"
-                                        });
-                                        bmsc.Players.Count = bmsc.Players.Player.Count.ToString();
-                                    }
-                                    if (Utility.ToInt32(bmsc.Players.CurrentPlayer) != targetViewerID)
-                                    {
-                                        doEdit = true;
-                                        bmsc.Players.CurrentPlayer = targetViewerID.ToString();
-                                    }
+                                    flintID = nodesViewer.Count;
+                                    var flintViewer = bmscCompiler.CreateElement("Player");
+                                    flintViewer.SetAttribute("Index", flintID.ToString());
+                                    flintViewer.SetAttribute("Path", flintFilePath);
+                                    flintViewer.SetAttribute("FromBeginning", "-P -N0 \"<filename>\"");
+                                    flintViewer.SetAttribute("FromHere", "-P -N<measure> \"<filename>\"");
+                                    flintViewer.SetAttribute("Stop", "-S");
+                                    var nodeViewer = bmscCompiler.SelectSingleNode("/iBMSC/Player");
+                                    nodeViewer.AppendChild(flintViewer);
+                                    nodeViewer.Attributes["Count"].Value = nodeViewer.ChildNodes.Count.ToString();
+                                    nodeViewer.Attributes["CurrentPlayer"].Value = flintID.ToString();
                                 }
-                                if (doEdit)
+                                else
                                 {
-                                    using var fw = File.Open(bmscFilePath, FileMode.Create);
-                                    using var sw = new StreamWriter(fw, Encoding.Unicode);
-                                    bmsdCompiler.Serialize(sw, bmsc);
+                                    var nodeViewer = bmscCompiler.SelectSingleNode("/iBMSC/Player");
+                                    nodeViewer.Attributes["CurrentPlayer"].Value = flintID.ToString();
+                                }
+                                using (var fw = File.Open(bmscFilePath, FileMode.Create))
+                                using (var sw = new StreamWriter(fw, Encoding.Unicode))
+                                {
+                                    bmscCompiler.Save(sw);
                                 }
                                 Utility.OpenAs(Configure.Instance.BMSEditorFilePath, $"\"{noteFilePath}\"");
                             }
@@ -228,7 +220,6 @@ Qwilight
                             var bms1FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BmsONE", "Settings.ini");
                             if (File.Exists(bms1FilePath))
                             {
-                                var doEdit = false;
                                 var bms1Compiler = new FileIniDataParser();
                                 IniData bms1;
                                 using (var sr = File.OpenText(bms1FilePath))
@@ -239,7 +230,6 @@ Qwilight
                                     flintFilePath = flintFilePath.Replace(@"\", @"\\");
                                     if (!Enumerable.Range(0, targetViewerID).Any(i => targetViewer[$@"Viewer{i}\Path"] == flintFilePath))
                                     {
-                                        doEdit = true;
                                         targetViewer[$@"Viewer{targetViewerID}\Name"] = "Qwilight";
                                         targetViewer[$@"Viewer{targetViewerID}\Path"] = flintFilePath;
                                         targetViewer[$@"Viewer{targetViewerID}\Icon"] = "";
@@ -251,10 +241,9 @@ Qwilight
                                         targetViewer["ViewerCount"] = (targetViewerID + 1).ToString();
                                     }
                                 }
-                                if (doEdit)
+                                using (var fw = File.Open(bms1FilePath, FileMode.Create))
+                                using (var sw = new StreamWriter(fw, Encoding.UTF8))
                                 {
-                                    using var fw = File.Open(bms1FilePath, FileMode.Create);
-                                    using var sw = new StreamWriter(fw, Encoding.UTF8);
                                     bms1Compiler.WriteData(sw, bms1);
                                 }
                                 Utility.OpenAs(Configure.Instance.BMSONEditorFilePath, $"\"{noteFilePath}\"");
