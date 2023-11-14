@@ -9,6 +9,8 @@ SET WIN10X64=bin\x64\Release\net7.0-windows10.0.22621.0\win10-x64
 SET PUBLISH=Qwilight\%WIN10X64%\publish
 
 DEL Qwilight.zip
+ 
+CALL CI
 
 CHOICE /M TEST
 SET TEST=%ERRORLEVEL%

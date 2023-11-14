@@ -13,7 +13,7 @@ namespace Qwilight
         {
             try
             {
-                _exe = Process.Start(Path.Combine(AppContext.BaseDirectory, "Xwindow.exe"), $"\"{PIDClass.FilePath}\"");
+                _exe = Process.Start(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Xwindow.exe"), $"\"{PIDClass.FilePath}\"");
             }
             catch
             {
