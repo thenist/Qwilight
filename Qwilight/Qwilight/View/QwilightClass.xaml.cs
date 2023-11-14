@@ -142,12 +142,11 @@ namespace Qwilight.View
 
             Utility.CopyEntry(Path.Combine(QwilightComponent.AssetsEntryPath, "UI"), Path.Combine(QwilightComponent.UIEntryPath));
 
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Igniter.exe"), Path.Combine(QwilightComponent.UtilityEntryPath, "Igniter.exe"));
+            Utility.CopyFile(Path.Combine(AppContext.BaseDirectory, "Igniter.exe"), Path.Combine(QwilightComponent.UtilityEntryPath, "Igniter.exe"));
 
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.common.dll"), Path.Combine(AppContext.BaseDirectory, "sl.common.dll"));
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.interposer.dll"), Path.Combine(AppContext.BaseDirectory, "sl.interposer.dll"));
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.reflex.dll"), Path.Combine(AppContext.BaseDirectory, "sl.reflex.dll"));
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "NVIDIA.dll"), Path.Combine(AppContext.BaseDirectory, "NVIDIA.dll"));
 
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "CChromaEditorLibrary64.dll"), Path.Combine(AppContext.BaseDirectory, "CChromaEditorLibrary64.dll"));
 

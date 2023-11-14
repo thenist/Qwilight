@@ -1,9 +1,5 @@
 syntax = "proto3";
 
-option csharp_namespace = "Qwilight";
-option java_package = "net.taehui";
-option java_outer_classname = "EventClass";
-
 message Event {
 	int64 millis = 1;
 	string avatarID = 2;

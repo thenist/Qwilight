@@ -10,8 +10,6 @@ SET PUBLISH=Qwilight\%WIN10X64%\publish
 
 DEL Qwilight.zip
 
-CALL CI
-
 CHOICE /M TEST
 SET TEST=%ERRORLEVEL%
 IF %TEST% == 1 (

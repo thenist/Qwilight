@@ -1,9 +1,5 @@
 syntax = "proto3";
 
-option csharp_namespace = "Qwilight";
-option java_package = "net.taehui";
-option java_outer_classname = "CommentClass";
-
 message Comment {
 	string date = 1;
 	int32 highestJudgment = 2;

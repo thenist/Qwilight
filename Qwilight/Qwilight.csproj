@@ -44,7 +44,6 @@
 		<PackageReference Include="DotNetZip" Version="1.16.0" />
 		<PackageReference Include="Facepunch.Steamworks" Version="2.3.3" />
 		<PackageReference Include="FFmpegInteropX.Desktop" Version="2.0.0-pre2" />
-		<PackageReference Include="Google.Protobuf" Version="3.25.0" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
 		<PackageReference Include="ini-parser-new" Version="2.6.2" />
 		<PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
@@ -203,13 +202,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='ARM64'">
-		<None Update="Assets\ARM64\Flint.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\ARM64\windowsappruntimeinstall-arm64.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\Xwindow.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\ARM64\concrt140_app.dll">
@@ -245,12 +238,6 @@
 		<None Update="Assets\x64\ffmpeg.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\Flint.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\x64\Igniter.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\x64\msvcp140_1_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -258,9 +245,6 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\msvcp140_app.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\x64\NVIDIA.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\sl.common.dll">
@@ -293,15 +277,28 @@
 		<None Update="Assets\x64\windowsappruntimeinstall-x64.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\Xwindow.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\ChromaSDK\ChromaSDK.csproj" />
 		<ProjectReference Include="..\Compatible\Compatible.csproj" />
+		<ProjectReference Include="..\Flint\Flint.vcxproj">
+			<OutputItemType>Content</OutputItemType>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</ProjectReference>
 		<ProjectReference Include="..\FMODAPI\FMODAPI.csproj" />
+		<ProjectReference Include="..\Igniter\Igniter.csproj">
+		  <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+		</ProjectReference>
 		<ProjectReference Include="..\LedCSharp\LedCSharp.csproj" />
+		<ProjectReference Include="..\NVIDIA\NVIDIA.vcxproj">
+			<OutputItemType>Content</OutputItemType>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</ProjectReference>
+		<ProjectReference Include="..\Protobuf\Protobuf.csproj" />
+		<ProjectReference Include="..\Xwindow\Xwindow.vcxproj">
+			<OutputItemType>Content</OutputItemType>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</ProjectReference>
 	</ItemGroup>
 </Project>

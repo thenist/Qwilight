@@ -346,15 +346,7 @@ healthchecksdb
 !/FMODAPI/Assets/x64
 
 !/Qwilight/Assets/ARM64
-/Qwilight/Assets/ARM64/Flint.exe
-/Qwilight/Assets/ARM64/NVIDIA.dll
-/Qwilight/Assets/ARM64/Xwindow.exe
-
 !/Qwilight/Assets/x64
-/Qwilight/Assets/x64/Flint.exe
-/Qwilight/Assets/x64/Igniter.exe
-/Qwilight/Assets/x64/NVIDIA.dll
-/Qwilight/Assets/x64/Xwindow.exe
 
 /Language/Assets/Client.json
 
