@@ -300,7 +300,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\ChromaSDK\ChromaSDK.csproj" />
 		<ProjectReference Include="..\Compatible\Compatible.csproj" />
-		<ProjectReference Include="..\FMODAPI\FMODAPI.csproj" />
+		<ProjectReference Include="..\FMODCoreAPI\FMODCoreAPI.csproj" />
 		<ProjectReference Include="..\LedCSharp\LedCSharp.csproj" />
 		<ProjectReference Include="..\Protobuf\Protobuf.csproj" />
 	</ItemGroup>
