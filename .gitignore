@@ -353,6 +353,9 @@ healthchecksdb
 !/LedCSharp/Assets/ARM64
 !/LedCSharp/Assets/x64
 
+!/Qwilight/Protobuf/protoc.exe
+!/Qwilight/Protobuf/protoc-gen-js.exe
+
 !/Qwilight/sdk/tools/ContentBuilder/builder/steamcmd
 !/Qwilight/sdk/tools/ContentBuilder/scripts/simple_app_build.vdf
 /Qwilight/sdk/tools/ContentBuilder/builder
