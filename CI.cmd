@@ -20,4 +20,4 @@ Robocopy Xwindow\x64\Release Qwilight\Assets\x64 Xwindow.exe
 Robocopy Xwindow\ARM64\Release Qwilight\Assets\ARM64 Xwindow.exe
 
 dotnet build Language\Language.csproj -c Release -p:Platform=x64
-Language\bin\x64\Release\net7.0\Language.exe Qwilight\Assets\Language.json ..\..\..\IdeaProjects\Twilight\src\main\resources\Language.json ..\taehui\qwilight-fe\src\Language.json ..\taehui\taehui-fe\src\Language.json Qwilight\Qwilight\System\LanguageSystem\LanguageSystem.g.cs
+Language\bin\x64\Release\net7.0\Language.exe
