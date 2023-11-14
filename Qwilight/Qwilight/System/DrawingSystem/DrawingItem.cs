@@ -4,13 +4,6 @@ namespace Qwilight
 {
     public struct DrawingItem : IDisposable
     {
-        readonly bool _disposable;
-
-        public DrawingItem(bool disposable = true)
-        {
-            _disposable = disposable;
-        }
-
         public ICanvasImage Drawing { get; set; }
 
         public Bound DrawingBound { get; set; }
@@ -19,12 +12,6 @@ namespace Qwilight
 
         public double StandardHeight { get; set; }
 
-        public void Dispose()
-        {
-            if (_disposable)
-            {
-                Drawing.Dispose();
-            }
-        }
+        public void Dispose() => Drawing.Dispose();
     }
 }

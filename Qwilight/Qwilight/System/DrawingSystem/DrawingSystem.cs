@@ -153,23 +153,7 @@ namespace Qwilight
             JudgmentMeterViewFont = GetFont();
             StatusViewFont = GetFont();
 
-            SetFaintPaints(null, FaintFilledPaints, Colors.Black);
-            SetFaintPaints(null, FaintClearedPaints, Colors.White);
-            SetFaintPaints(null, FaintPositiveItemPaints, Colors.DeepSkyBlue);
-            SetFaintPaints(null, FaintNegativeItemPaints, Colors.DeepPink);
-            SetFaintPaints(null, FaintNeutralItemPaints, Colors.Gray);
-            FaintItemPaints[1] = FaintPositiveItemPaints;
-            FaintItemPaints[0] = FaintNegativeItemPaints;
-            FaintItemPaints[-1] = FaintNeutralItemPaints;
-            SetFaintPaints(null, _lowHitPointsPaints, Colors.Red);
-            SetFaintPaints(null, _avatarNetStatusPaints[(int)Event.Types.AvatarNetStatus.Default], Colors.White);
-            SetFaintPaints(null, _avatarNetStatusPaints[(int)Event.Types.AvatarNetStatus.Clear], Colors.Green);
-            SetFaintPaints(null, _avatarNetStatusPaints[(int)Event.Types.AvatarNetStatus.Failed], Colors.Red);
-
             Init();
-
-            DefaultDrawing = ClearedDrawing;
-            VeilDrawing = ClearedDrawing;
         }
 
         public virtual void Init()
@@ -184,6 +168,19 @@ namespace Qwilight
             }
             Configure.Instance.SetNVLLConfigureImpl();
 
+            SetFaintPaints(this, FaintFilledPaints, Colors.Black);
+            SetFaintPaints(this, FaintClearedPaints, Colors.White);
+            SetFaintPaints(this, FaintPositiveItemPaints, Colors.DeepSkyBlue);
+            SetFaintPaints(this, FaintNegativeItemPaints, Colors.DeepPink);
+            SetFaintPaints(this, FaintNeutralItemPaints, Colors.Gray);
+            FaintItemPaints[1] = FaintPositiveItemPaints;
+            FaintItemPaints[0] = FaintNegativeItemPaints;
+            FaintItemPaints[-1] = FaintNeutralItemPaints;
+            SetFaintPaints(this, _lowHitPointsPaints, Colors.Red);
+            SetFaintPaints(this, _avatarNetStatusPaints[(int)Event.Types.AvatarNetStatus.Default], Colors.White);
+            SetFaintPaints(this, _avatarNetStatusPaints[(int)Event.Types.AvatarNetStatus.Clear], Colors.Green);
+            SetFaintPaints(this, _avatarNetStatusPaints[(int)Event.Types.AvatarNetStatus.Failed], Colors.Red);
+
             var faintNoteDrawing = new CanvasRenderTarget(CanvasDevice.GetSharedDevice(), 1F, 200F, 96F, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Premultiplied);
             using (var targetSession = faintNoteDrawing.CreateDrawingSession())
             {
@@ -193,7 +190,7 @@ namespace Qwilight
                     targetSession.FillRectangle(0F, i, 1F, 1F, FaintFilledPaints[Math.Min(i, 100)]);
                 }
             }
-            _faintNoteDrawing = new(false)
+            _faintNoteDrawing = new()
             {
                 Drawing = faintNoteDrawing,
                 DrawingBound = faintNoteDrawing.Bounds
@@ -208,13 +205,16 @@ namespace Qwilight
             defaultClearedDrawing.Freeze();
             ClearedDrawing = new()
             {
-                Drawing = new(false)
+                Drawing = new()
                 {
                     Drawing = d2DClearedDrawing,
                     DrawingBound = d2DClearedDrawing.Bounds
                 },
                 DefaultDrawing = defaultClearedDrawing
             };
+
+            DefaultDrawing = ClearedDrawing;
+            VeilDrawing = ClearedDrawing;
         }
 
         public ConcurrentQueue<(Point, bool)> LastPointedQueue { get; } = new();
@@ -279,7 +279,10 @@ namespace Qwilight
 
         public void LoadDefaultDrawing()
         {
-            DefaultDrawing.Dispose();
+            if (!ClearedDrawing.Equals(DefaultDrawing))
+            {
+                DefaultDrawing.Dispose();
+            }
             try
             {
                 var filePath = Configure.Instance.DefaultDrawingFilePath;
@@ -305,7 +308,10 @@ namespace Qwilight
 
         public void LoadVeilDrawing()
         {
-            VeilDrawing.Dispose();
+            if (!ClearedDrawing.Equals(VeilDrawing))
+            {
+                VeilDrawing.Dispose();
+            }
             try
             {
                 var filePath = Configure.Instance.VeilDrawingFilePath;
