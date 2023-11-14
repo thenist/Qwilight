@@ -27,7 +27,7 @@ namespace Qwilight
             return _avatarCSXs.GetOrAdd(avatarID, GetCSX).CurrentCount > 0;
         }
 
-        public async ValueTask<AvatarTitle?> GetAvatarTitle(string avatarID, bool allowNotAvatarTitle = false)
+        public async Task<AvatarTitle?> GetAvatarTitle(string avatarID, bool allowNotAvatarTitle = false)
         {
             avatarID ??= string.Empty;
             var avatarCSX = _avatarCSXs.GetOrAdd(avatarID, GetCSX);

@@ -122,15 +122,14 @@ namespace Qwilight
                             {
                                 var avatarID = TwilightSystem.Instance.AvatarID;
                                 var avatarTitle = AvatarTitleSystem.Instance.JustGetAvatarTitle(avatarID);
-                                var hasAvatarTitle = avatarTitle.HasValue;
-                                if (!hasAvatarTitle && AvatarTitleSystem.Instance.CanCallAPI(avatarID))
-                                {
-                                    Task.Run(async () => await AvatarTitleSystem.Instance.GetAvatarTitle(avatarID));
-                                }
-                                if (hasAvatarTitle)
+                                if (avatarTitle.HasValue)
                                 {
                                     var avatarTitleValue = avatarTitle.Value;
                                     targetSession.PaintVisibleText(PoolSystem.Instance.GetDefaultTextItem(avatarTitleValue.Title, Framerate, avatarTitleValue.TitlePaint, r.Length), PoolSystem.Instance.GetDefaultTextItem(avatarTitleValue.Title, Framerate, Paints.Paint0, r.Length), ref r);
+                                }
+                                else if (AvatarTitleSystem.Instance.CanCallAPI(avatarID))
+                                {
+                                    _ = AvatarTitleSystem.Instance.GetAvatarTitle(avatarID);
                                 }
                             }
                             break;
@@ -198,26 +197,24 @@ namespace Qwilight
                         case 8:
                             var avatarID = defaultComputer.AvatarID;
                             var avatarDrawing = AvatarDrawingSystem.Instance.JustGetAvatarDrawing(avatarID);
-                            var hasAvatarDrawing = avatarDrawing.HasValue;
-                            if (!hasAvatarDrawing && AvatarDrawingSystem.Instance.CanCallAPI(avatarID))
-                            {
-                                Task.Run(async () => await AvatarDrawingSystem.Instance.GetAvatarDrawing(avatarID));
-                            }
-                            if (hasAvatarDrawing)
+                            if (avatarDrawing.HasValue)
                             {
                                 targetSession.PaintDrawing(ref r, avatarDrawing.Value.Drawing);
                             }
+                            else if (AvatarDrawingSystem.Instance.CanCallAPI(avatarID))
+                            {
+                                _ = AvatarDrawingSystem.Instance.GetAvatarDrawing(avatarID);
+                            }
 
                             var avatarEdge = AvatarEdgeSystem.Instance.JustGetAvatarEdge(avatarID);
-                            var hasAvatarEdge = avatarEdge.HasValue;
-                            if (!avatarEdge.HasValue && AvatarEdgeSystem.Instance.CanCallAPI(avatarID))
-                            {
-                                Task.Run(async () => await AvatarEdgeSystem.Instance.GetAvatarEdge(avatarID));
-                            }
-                            if (hasAvatarEdge)
+                            if (avatarEdge.HasValue)
                             {
                                 r.Set(r.Position0 + r.Length * Levels.EdgeXY, r.Position1 + r.Height * Levels.EdgeXY, r.Length * Levels.EdgeMargin, r.Height * Levels.EdgeMargin);
                                 targetSession.PaintDrawing(ref r, avatarEdge.Value.Drawing);
+                            }
+                            else if (AvatarEdgeSystem.Instance.CanCallAPI(avatarID))
+                            {
+                                _ = AvatarEdgeSystem.Instance.GetAvatarEdge(avatarID);
                             }
                             break;
                         case 9:
@@ -271,7 +268,7 @@ namespace Qwilight
                                 var hasAvatarTitle = avatarTitle.HasValue;
                                 if (!hasAvatarTitle && AvatarTitleSystem.Instance.CanCallAPI(avatarID))
                                 {
-                                    Task.Run(async () => await AvatarTitleSystem.Instance.GetAvatarTitle(avatarID));
+                                    _ = AvatarTitleSystem.Instance.GetAvatarTitle(avatarID);
                                 }
                                 if (hasAvatarTitle)
                                 {

@@ -9,7 +9,7 @@ namespace Qwilight.ViewModel
 
         public ObservableCollection<Site> SiteCollection { get; } = new();
 
-        public bool HasPointedInput => IsOpened && SiteValue?.HasPointedInput == true;
+        public bool IsInputPointed => IsOpened && SiteValue?.IsInputPointed == true;
 
         public Site SiteView
         {

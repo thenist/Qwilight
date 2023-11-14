@@ -309,7 +309,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void OnPointedModified(bool e) => HasPointedInput = e;
+        public void OnPointedModified(bool e) => IsInputPointed = e;
 
         public void OnSiteYellsViewerMove(ScrollChangedEventArgs e)
         {
@@ -369,7 +369,7 @@ namespace Qwilight.ViewModel
 
         public bool IsSiteHand => SiteHand == TwilightSystem.Instance.AvatarID;
 
-        public bool HasPointedInput { get; set; }
+        public bool IsInputPointed { get; set; }
 
         public bool IsGetNotify
         {

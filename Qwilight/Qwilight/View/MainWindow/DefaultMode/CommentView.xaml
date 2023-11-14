@@ -132,7 +132,7 @@
                             <TextBlock Style="{StaticResource StandardTextView}" Margin="5 5 0 5" Text="{Binding TwilightCommentText0}" FontSize="{StaticResource FontLevel1}" />
                             <TextBlock Style="{StaticResource StandardTextView}" Margin="0 5 5 5" Text="{Binding TwilightCommentText1}" VerticalAlignment="Bottom" />
                         </StackPanel>
-                        <TextBox Grid.Column="1" Style="{StaticResource StandardTextInput}" Text="{Binding TwilightCommentary, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" materialDesign:HintAssist.Hint="{Binding TwilightCommentaryAssist, Source={StaticResource LanguageSystem}}" Visibility="{Binding CanTwilightCommentary,Converter={StaticResource VisibilityModifier}}" KeyDown="OnTwilightCommentary" GotFocus="OnInputTwilightCommentaryPointed" LostFocus="OnInputTwilightCommentaryNotPointed" />
+                        <TextBox Grid.Column="1" Style="{StaticResource StandardTextInput}" Text="{Binding TwilightCommentary, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" materialDesign:HintAssist.Hint="{Binding TwilightCommentaryAssist, Source={StaticResource LanguageSystem}}" Visibility="{Binding CanTwilightCommentary,Converter={StaticResource VisibilityModifier}}" KeyDown="OnTwilightCommentary" GotFocus="OnSetTwilightCommentaryPoint" LostFocus="OnSetTwilightCommentaryNotPoint" />
                     </Grid>
                 </Grid>
                 <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding BannedNoteFileContents, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsEntryItemBanned, Converter={StaticResource VisibilityModifier}}" />

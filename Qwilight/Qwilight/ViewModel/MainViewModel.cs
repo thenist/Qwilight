@@ -92,8 +92,8 @@ namespace Qwilight.ViewModel
         bool _wasLowerMillis = true;
         bool _isUILoading;
         bool _isDefaultEntryLoading;
-        bool _isWantInputPointed;
-        bool _isCommentaryInputPointed;
+        bool _isInputWantPointed;
+        bool _isTwilightCommentaryPointed;
         bool _wasSiteContainerOpened;
         bool _wasCommentOpened;
         bool _isDefaultCommentLoading;
@@ -131,7 +131,7 @@ namespace Qwilight.ViewModel
 
         public bool IsBPM1Visible => EntryItemValue?.NoteFile?.HasBPMMap == true;
 
-        bool HasNotInput(BaseViewModel targetViewModel = null) => IsNotModal(targetViewModel) && IsAvailable && (!IsWPFViewVisible || !_isWantInputPointed && !_isCommentaryInputPointed && !ViewModels.Instance.SiteContainerValue.HasPointedInput);
+        bool HasNotInput(BaseViewModel targetViewModel = null) => IsNotModal(targetViewModel) && IsAvailable && (!IsWPFViewVisible || !_isInputWantPointed && !_isTwilightCommentaryPointed && !ViewModels.Instance.SiteContainerValue.IsInputPointed);
 
         public double WindowDPI
         {
@@ -614,9 +614,9 @@ namespace Qwilight.ViewModel
             var filePaths = e.Data.GetData(DataFormats.FileDrop) as string[];
             if (filePaths != null)
             {
-                Task.Run(async () =>
+                Task.Run(() =>
                 {
-                    var wasEventNote = false;
+                    var lastEventNoteID = string.Empty;
                     var lastYamlFileName = string.Empty;
                     DefaultEntryItem lastDefaultEntryItem = null;
                     foreach (var filePath in filePaths)
@@ -691,8 +691,8 @@ namespace Qwilight.ViewModel
                                         eventNoteID += ":0";
                                         var eventNoteName = eventNote.Title;
                                         var eventNoteVariety = DB.EventNoteVariety.MD5;
-                                        await DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
-                                        wasEventNote = true;
+                                        _ = DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
+                                        lastEventNoteID = eventNoteID;
                                     }
                                     catch (SQLiteException)
                                     {
@@ -713,7 +713,7 @@ namespace Qwilight.ViewModel
                             lastDefaultEntryItem = defaultEntryItem;
                         }
                     }
-                    if (wasEventNote)
+                    if (!string.IsNullOrEmpty(lastEventNoteID))
                     {
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedEventNotes);
                         LoadEventNoteEntryItems();
@@ -741,9 +741,9 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void OnInputWantPointed(bool isWantInputPointed) => _isWantInputPointed = isWantInputPointed;
+        public void OnSetInputWantPoint(bool hasPoint) => _isInputWantPointed = hasPoint;
 
-        public void OnInputTwilightCommentaryPointed(bool isCommentaryInputPointed) => _isCommentaryInputPointed = isCommentaryInputPointed;
+        public void OnSetTwilightCommentaryPoint(bool hasPoint) => _isTwilightCommentaryPointed = hasPoint;
 
         public void OnSetPoint(bool hasPoint)
         {

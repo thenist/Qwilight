@@ -921,7 +921,7 @@ namespace Qwilight
             });
         }
 
-        public async ValueTask SetEventNote(string eventNoteID, string eventNoteName, DateTime date, EventNoteVariety eventNoteVariety)
+        public async Task SetEventNote(string eventNoteID, string eventNoteName, DateTime date, EventNoteVariety eventNoteVariety)
         {
             using var dbStatement = new SQLiteCommand(@"INSERT INTO event_note
                 VALUES(@eventNoteID, @eventNoteName, @date, @eventNoteVariety)", _db);

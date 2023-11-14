@@ -114,7 +114,7 @@ namespace Qwilight.Compute
         readonly int _tooLongLongNoteDate;
         readonly List<AudioNote>[] _lastIIDXInputAudioNoteMap = new List<AudioNote>[53];
         readonly List<Comment> _comments = new();
-        readonly List<NetItem> _savedNetItems = new();
+        readonly List<NetItem> _netItems = new();
         readonly Dictionary<MediaNote.Mode, IHandlerItem> DrawingCollection = new();
         readonly Stopwatch _loopingHandler = new();
         readonly ConcurrentQueue<(int, byte)> _rawInputQueue = new();
@@ -3960,144 +3960,147 @@ namespace Qwilight.Compute
         {
             Utility.HandleUIAudio(IsF ? "F" : "Quit");
 
-            var date = DateTime.Now;
-            var eventNoteID = EventNoteEntryItem?.EventNoteID;
-            if (string.IsNullOrEmpty(eventNoteID))
+            if (!IsPostableItemMode)
             {
-                if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
+
+                var date = DateTime.Now;
+                var eventNoteID = EventNoteEntryItem?.EventNoteID;
+                if (string.IsNullOrEmpty(eventNoteID))
                 {
-                    if (IsP)
+                    if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
                     {
-                        NoteFile.HandledValue = BaseNoteFile.Handled.Band1;
-                    }
-                    else
-                    {
-                        if (IsF)
+                        if (IsP)
                         {
-                            if (NoteFile.HandledValue == BaseNoteFile.Handled.Not)
+                            NoteFile.HandledValue = BaseNoteFile.Handled.Band1;
+                        }
+                        else
+                        {
+                            if (IsF)
                             {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.F;
+                                if (NoteFile.HandledValue == BaseNoteFile.Handled.Not)
+                                {
+                                    NoteFile.HandledValue = BaseNoteFile.Handled.F;
+                                }
+                            }
+                            else
+                            {
+                                if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Highest)
+                                {
+                                    NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
+                                }
+                                else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Higher && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
+                                {
+                                    NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
+                                }
+                                else if (NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
+                                {
+                                    NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
+                                }
+                            }
+                        }
+                    }
+                    DB.Instance.SetHandled(NoteFile);
+
+                    DB.Instance.NewDate(NoteFile, default, date);
+                    NoteFile.LatestDate = date;
+                    ++NoteFile.HandledCount;
+                }
+                else
+                {
+
+                    DB.Instance.NewDate(default, eventNoteID, date);
+                    EventNoteEntryItem.LatestDate = date;
+                    ++EventNoteEntryItem.HandledCount;
+                }
+
+                if (!IsF)
+                {
+                    if (!ModeComponentValue.PutCopyNotesAvailable)
+                    {
+                        var commentID = Guid.NewGuid().ToString().Replace("-", string.Empty);
+                        if (string.IsNullOrEmpty(eventNoteID))
+                        {
+                            try
+                            {
+                                DB.Instance.SaveComment(date, NoteFile, string.Empty, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
+                                using var fs = File.OpenWrite(Path.Combine(QwilightComponent.CommentEntryPath, commentID));
+                                _comments.Single().WriteTo(fs);
+                            }
+                            catch (Exception e)
+                            {
+                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SaveCommentFailed, e.Message));
+                            }
+                            if (!IsBanned && ModeComponentValue.CanBeTwilightComment && Configure.Instance.AllowTwilightComment)
+                            {
+                                if (TwilightSystem.Instance.IsSignedIn)
+                                {
+                                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.Comment, new
+                                    {
+                                        dataID = NoteFile.DataID,
+                                        multiplier = TotallyLevyingMultiplier,
+                                        autoMode = (int)ModeComponentValue.AutoModeValue,
+                                        noteSaltMode = (int)ModeComponentValue.NoteSaltModeValue,
+                                        audioMultiplier = TotallyLevyingAudioMultiplier,
+                                        faintNoteMode = (int)ModeComponentValue.FaintNoteModeValue,
+                                        judgmentMode = (int)ModeComponentValue.JudgmentModeValue,
+                                        hitPointsMode = (int)ModeComponentValue.HandlingHitPointsModeValue,
+                                        noteMobilityMode = (int)ModeComponentValue.NoteMobilityModeValue,
+                                        longNoteMode = (int)ModeComponentValue.LongNoteModeValue,
+                                        inputFavorMode = (int)ModeComponentValue.InputFavorModeValue,
+                                        noteModifyMode = (int)ModeComponentValue.NoteModifyModeValue,
+                                        lowestJudgmentConditionMode = (int)ModeComponentValue.LowestJudgmentConditionModeValue,
+                                        stand = Stand.TargetValue,
+                                        highestBand = HighestBand,
+                                        point = Point.TargetValue,
+                                        salt = ModeComponentValue.Salt,
+                                        isPaused = _isPaused,
+                                        inputFlags = _inputFlags,
+                                        inputMode = InputMode
+                                    }, UnsafeByteOperations.UnsafeWrap(NoteFileContents), Comment.ToByteString());
+                                }
+                                else if (QwilightComponent.IsValve)
+                                {
+                                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.ValveComment, new
+                                    {
+                                        dataID = NoteFile.DataID,
+                                        stand = Stand.TargetValue,
+                                        hitPointsMode = (int)ModeComponentValue.HandlingHitPointsModeValue
+                                    }, UnsafeByteOperations.UnsafeWrap(NoteFileContents));
+                                }
                             }
                         }
                         else
                         {
-                            if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Highest)
+                            try
                             {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
-                            }
-                            else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Higher && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
-                            {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
-                            }
-                            else if (NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
-                            {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
-                            }
-                        }
-                    }
-                }
-                DB.Instance.SetHandled(NoteFile);
-
-                DB.Instance.NewDate(NoteFile, default, date);
-                NoteFile.LatestDate = date;
-                ++NoteFile.HandledCount;
-            }
-            else
-            {
-
-                DB.Instance.NewDate(default, eventNoteID, date);
-                EventNoteEntryItem.LatestDate = date;
-                ++EventNoteEntryItem.HandledCount;
-            }
-
-            if (!IsF)
-            {
-                if (!ModeComponentValue.PutCopyNotesAvailable)
-                {
-                    var commentID = Guid.NewGuid().ToString().Replace("-", string.Empty);
-                    if (string.IsNullOrEmpty(eventNoteID))
-                    {
-                        try
-                        {
-                            DB.Instance.SaveComment(date, NoteFile, string.Empty, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
-                            using var fs = File.OpenWrite(Path.Combine(QwilightComponent.CommentEntryPath, commentID));
-                            _comments.Single().WriteTo(fs);
-                        }
-                        catch (Exception e)
-                        {
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SaveCommentFailed, e.Message));
-                        }
-                        if (!IsBanned && ModeComponentValue.CanBeTwilightComment && Configure.Instance.AllowTwilightComment)
-                        {
-                            if (TwilightSystem.Instance.IsSignedIn)
-                            {
-                                TwilightSystem.Instance.SendParallel(Event.Types.EventID.Comment, new
+                                DB.Instance.SaveComment(date, default, eventNoteID, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
+                                using (var zipFile = new ZipFile(Path.Combine(QwilightComponent.CommentEntryPath, Path.ChangeExtension(commentID, ".zip"))))
                                 {
-                                    dataID = NoteFile.DataID,
-                                    multiplier = TotallyLevyingMultiplier,
-                                    autoMode = (int)ModeComponentValue.AutoModeValue,
-                                    noteSaltMode = (int)ModeComponentValue.NoteSaltModeValue,
-                                    audioMultiplier = TotallyLevyingAudioMultiplier,
-                                    faintNoteMode = (int)ModeComponentValue.FaintNoteModeValue,
-                                    judgmentMode = (int)ModeComponentValue.JudgmentModeValue,
-                                    hitPointsMode = (int)ModeComponentValue.HandlingHitPointsModeValue,
-                                    noteMobilityMode = (int)ModeComponentValue.NoteMobilityModeValue,
-                                    longNoteMode = (int)ModeComponentValue.LongNoteModeValue,
-                                    inputFavorMode = (int)ModeComponentValue.InputFavorModeValue,
-                                    noteModifyMode = (int)ModeComponentValue.NoteModifyModeValue,
-                                    lowestJudgmentConditionMode = (int)ModeComponentValue.LowestJudgmentConditionModeValue,
-                                    stand = Stand.TargetValue,
-                                    highestBand = HighestBand,
-                                    point = Point.TargetValue,
-                                    salt = ModeComponentValue.Salt,
-                                    isPaused = _isPaused,
-                                    inputFlags = _inputFlags,
-                                    inputMode = InputMode
-                                }, UnsafeByteOperations.UnsafeWrap(NoteFileContents), Comment.ToByteString());
-                            }
-                            else if (QwilightComponent.IsValve)
-                            {
-                                TwilightSystem.Instance.SendParallel(Event.Types.EventID.ValveComment, new
-                                {
-                                    dataID = NoteFile.DataID,
-                                    stand = Stand.TargetValue,
-                                    hitPointsMode = (int)ModeComponentValue.HandlingHitPointsModeValue
-                                }, UnsafeByteOperations.UnsafeWrap(NoteFileContents));
-                            }
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            DB.Instance.SaveComment(date, default, eventNoteID, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
-                            using (var zipFile = new ZipFile(Path.Combine(QwilightComponent.CommentEntryPath, Path.ChangeExtension(commentID, ".zip"))))
-                            {
-                                for (var i = _comments.Count - 1; i >= 0; --i)
-                                {
-                                    using var rms = PoolSystem.Instance.GetDataFlow();
-                                    _comments[i].WriteTo(rms);
-                                    rms.Position = 0;
-                                    zipFile.AddEntry(i.ToString(), rms);
-                                    zipFile.Save();
+                                    for (var i = _comments.Count - 1; i >= 0; --i)
+                                    {
+                                        using var rms = PoolSystem.Instance.GetDataFlow();
+                                        _comments[i].WriteTo(rms);
+                                        rms.Position = 0;
+                                        zipFile.AddEntry(i.ToString(), rms);
+                                        zipFile.Save();
+                                    }
                                 }
                             }
-                        }
-                        catch (Exception e)
-                        {
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SaveCommentFailed, e.Message));
-                        }
-                    }
-                    if (WwwLevelDataValue != null)
-                    {
-                        TwilightSystem.Instance.SendParallel(Event.Types.EventID.WwwLevel, new
-                        {
-                            noteID = eventNoteID ?? NoteFile.GetNoteID512(),
-                            stand = Stand.TargetValue,
-                            point = Point.TargetValue,
-                            highestBand = HighestBand,
-                            judgments = new[]
+                            catch (Exception e)
                             {
+                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SaveCommentFailed, e.Message));
+                            }
+                        }
+                        if (WwwLevelDataValue != null)
+                        {
+                            TwilightSystem.Instance.SendParallel(Event.Types.EventID.WwwLevel, new
+                            {
+                                noteID = eventNoteID ?? NoteFile.GetNoteID512(),
+                                stand = Stand.TargetValue,
+                                point = Point.TargetValue,
+                                highestBand = HighestBand,
+                                judgments = new[]
+                                {
                                 InheritedHighestJudgment,
                                 InheritedHigherJudgment,
                                 InheritedHighJudgment,
@@ -4105,25 +4108,26 @@ namespace Qwilight.Compute
                                 InheritedLowerJudgment,
                                 InheritedLowestJudgment
                             },
-                            autoMode = (int)ModeComponentValue.AutoModeValue,
-                            noteSaltMode = (int)ModeComponentValue.NoteSaltModeValue,
-                            faintNoteMode = (int)ModeComponentValue.FaintNoteModeValue,
-                            judgmentMode = (int)ModeComponentValue.JudgmentModeValue,
-                            hitPointsMode = (int)ModeComponentValue.HandlingHitPointsModeValue,
-                            noteMobilityMode = (int)ModeComponentValue.NoteMobilityModeValue,
-                            longNoteMode = (int)ModeComponentValue.LongNoteModeValue,
-                            inputFavorMode = (int)ModeComponentValue.InputFavorModeValue,
-                            noteModifyMode = (int)ModeComponentValue.NoteModifyModeValue,
-                            bpmMode = (int)ModeComponentValue.BPMModeValue,
-                            waveMode = (int)ModeComponentValue.WaveModeValue,
-                            setNoteMode = (int)ModeComponentValue.SetNoteModeValue,
-                            lowestJudgmentConditionMode = (int)ModeComponentValue.LowestJudgmentConditionModeValue
-                        });
+                                autoMode = (int)ModeComponentValue.AutoModeValue,
+                                noteSaltMode = (int)ModeComponentValue.NoteSaltModeValue,
+                                faintNoteMode = (int)ModeComponentValue.FaintNoteModeValue,
+                                judgmentMode = (int)ModeComponentValue.JudgmentModeValue,
+                                hitPointsMode = (int)ModeComponentValue.HandlingHitPointsModeValue,
+                                noteMobilityMode = (int)ModeComponentValue.NoteMobilityModeValue,
+                                longNoteMode = (int)ModeComponentValue.LongNoteModeValue,
+                                inputFavorMode = (int)ModeComponentValue.InputFavorModeValue,
+                                noteModifyMode = (int)ModeComponentValue.NoteModifyModeValue,
+                                bpmMode = (int)ModeComponentValue.BPMModeValue,
+                                waveMode = (int)ModeComponentValue.WaveModeValue,
+                                setNoteMode = (int)ModeComponentValue.SetNoteModeValue,
+                                lowestJudgmentConditionMode = (int)ModeComponentValue.LowestJudgmentConditionModeValue
+                            });
+                        }
                     }
                 }
-                var netItems = _savedNetItems.Where(netItem => !netItem.IsMyNetItem && netItem.AvatarID == AvatarID).ToArray();
-                IsNewStand = netItems.Length == 0 || Stand.TargetValue > netItems.Max(netItem => netItem.StandValue);
             }
+
+            IsNewStand = Stand.TargetValue > _netItems.Where(netItem => !netItem.IsMyNetItem && netItem.AvatarID == AvatarID).DefaultIfEmpty().Max(netItem => netItem?.StandValue ?? 0);
         }
 
         void NewPaintEvent()
@@ -4488,7 +4492,7 @@ namespace Qwilight.Compute
             return targetPosition;
         }
 
-        public virtual void GetNetItems()
+        public virtual async void GetNetItems()
         {
             if (!_wasNetItems)
             {
@@ -4498,46 +4502,49 @@ namespace Qwilight.Compute
                     IsMyNetItem = true,
                     HitPointsModeValue = ModeComponentValue.HandlingHitPointsModeValue
                 };
-                SetNetItems(new()
+                lock (IsTwilightNetItemsCSX)
                 {
-                    netItem
-                });
-                Task.Run(async () =>
-                {
-                    var eventNoteID = EventNoteEntryItem?.EventNoteID;
-                    var netItems = new List<NetItem>();
-                    switch (!string.IsNullOrEmpty(eventNoteID) || NoteFile.IsBanned ? 0 : Configure.Instance.CommentViewTabPosition)
+                    if (!IsTwilightNetItems)
                     {
-                        case 0:
-                            netItems.AddRange(GetNetItemsImpl(await DB.Instance.GetCommentItems(NoteFiles[0], eventNoteID, NoteFiles.Length)));
-                            break;
-                        case 1:
-                        case 2:
-                            var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&target={Configure.Instance.UbuntuNetItemTarget}");
-                            if (twilightWwwComment.HasValue)
-                            {
-                                netItems.AddRange(GetNetItemsImpl(HandleTwilightNetItems(Utility.GetCommentItems(twilightWwwComment.Value.comments, NoteFile))));
-                            }
-                            break;
-                    }
-                    netItems.Add(netItem);
-                    _savedNetItems.AddRange(netItems);
-                    lock (IsTwilightNetItemsCSX)
-                    {
-                        if (!IsTwilightNetItems)
+                        SetNetItems(new()
                         {
-                            SetNetItems(netItems);
-                        }
+                            netItem
+                        });
                     }
-                    _wasGetNetItems = true;
-
-                    IEnumerable<NetItem> GetNetItemsImpl(ICollection<CommentItem> commentItems) => commentItems.Select(commentItem => new NetItem(commentItem.AvatarWwwValue.AvatarID, commentItem.AvatarName, commentItem.Date, commentItem.Stand, commentItem.Band, commentItem.Point, commentItem.Stand / (1000000.0 * NoteFiles.Length))
+                }
+                var eventNoteID = EventNoteEntryItem?.EventNoteID;
+                var netItems = new List<NetItem>();
+                switch (!string.IsNullOrEmpty(eventNoteID) || NoteFile.IsBanned ? 0 : Configure.Instance.CommentViewTabPosition)
+                {
+                    case 0:
+                        netItems.AddRange(GetNetItemsImpl(await DB.Instance.GetCommentItems(NoteFiles[0], eventNoteID, NoteFiles.Length)));
+                        break;
+                    case 1:
+                    case 2:
+                        var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&target={Configure.Instance.UbuntuNetItemTarget}");
+                        if (twilightWwwComment.HasValue)
+                        {
+                            netItems.AddRange(GetNetItemsImpl(HandleTwilightNetItems(Utility.GetCommentItems(twilightWwwComment.Value.comments, NoteFile))));
+                        }
+                        break;
+                }
+                netItems.Add(netItem);
+                _netItems.AddRange(netItems);
+                lock (IsTwilightNetItemsCSX)
+                {
+                    if (!IsTwilightNetItems)
                     {
-                        CommentItem = commentItem,
-                        AvatarNetStatus = Event.Types.AvatarNetStatus.Clear,
-                        QuitValue = Utility.GetQuitStatusValue(commentItem.Point, commentItem.Stand, 1.0, NoteFiles.Length),
-                        HitPointsModeValue = commentItem.ModeComponentValue.HandlingHitPointsModeValue
-                    });
+                        SetNetItems(netItems);
+                    }
+                }
+                _wasGetNetItems = true;
+
+                IEnumerable<NetItem> GetNetItemsImpl(ICollection<CommentItem> commentItems) => commentItems.Select(commentItem => new NetItem(commentItem.AvatarWwwValue.AvatarID, commentItem.AvatarName, commentItem.Date, commentItem.Stand, commentItem.Band, commentItem.Point, commentItem.Stand / (1000000.0 * NoteFiles.Length))
+                {
+                    CommentItem = commentItem,
+                    AvatarNetStatus = Event.Types.AvatarNetStatus.Clear,
+                    QuitValue = Utility.GetQuitStatusValue(commentItem.Point, commentItem.Stand, 1.0, NoteFiles.Length),
+                    HitPointsModeValue = commentItem.ModeComponentValue.HandlingHitPointsModeValue
                 });
             }
         }

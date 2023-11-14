@@ -18,7 +18,9 @@ namespace Qwilight.UIComponent
                 if (_wantDrawing)
                 {
                     _wantDrawing = false;
-                    Task.Run(async () =>
+
+                    SetDrawing();
+                    async void SetDrawing()
                     {
                         using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/edge?edgeID={EdgeID}");
                         if (s.Length > 0)
@@ -35,7 +37,7 @@ namespace Qwilight.UIComponent
                         {
                             SetProperty(ref _drawing, null, nameof(Drawing));
                         }
-                    });
+                    }
                 }
                 return _drawing;
             }

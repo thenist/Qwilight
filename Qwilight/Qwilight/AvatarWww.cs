@@ -25,7 +25,9 @@ namespace Qwilight
                 if (_wantAvatarDrawing)
                 {
                     _wantAvatarDrawing = false;
-                    Task.Run(async () => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID)).DefaultDrawing, nameof(AvatarDrawing)));
+
+                    SetAvatarDrawing();
+                    async void SetAvatarDrawing() => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID)).DefaultDrawing, nameof(AvatarDrawing));
                 }
                 return _avatarDrawing;
             }
@@ -38,7 +40,9 @@ namespace Qwilight
                 if (_wantAvatarTitle)
                 {
                     _wantAvatarTitle = false;
-                    Task.Run(async () => SetProperty(ref _avatarTitle, await AvatarTitleSystem.Instance.GetAvatarTitle(AvatarID, _allowNotAvatarTitle), nameof(AvatarTitleValue)));
+
+                    SetAvatarTitle();
+                    async void SetAvatarTitle() => SetProperty(ref _avatarTitle, await AvatarTitleSystem.Instance.GetAvatarTitle(AvatarID, _allowNotAvatarTitle), nameof(AvatarTitleValue));
                 }
                 return _avatarTitle;
             }
@@ -51,7 +55,9 @@ namespace Qwilight
                 if (_wantAvatarEdge)
                 {
                     _wantAvatarEdge = false;
-                    Task.Run(async () => SetProperty(ref _avatarEdge, (await AvatarEdgeSystem.Instance.GetAvatarEdge(AvatarID)).DefaultDrawing, nameof(AvatarEdge)));
+
+                    SetAvatarEdge();
+                    async void SetAvatarEdge() => SetProperty(ref _avatarEdge, (await AvatarEdgeSystem.Instance.GetAvatarEdge(AvatarID)).DefaultDrawing, nameof(AvatarEdge));
                 }
                 return _avatarEdge;
             }

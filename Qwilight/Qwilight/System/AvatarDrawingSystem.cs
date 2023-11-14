@@ -43,7 +43,7 @@ namespace Qwilight
             return _avatarCSXs.GetOrAdd(avatarID, GetCSX).CurrentCount > 0;
         }
 
-        public async ValueTask<HandledDrawingItem> GetAvatarDrawing(string avatarID)
+        public async Task<HandledDrawingItem> GetAvatarDrawing(string avatarID)
         {
             avatarID ??= string.Empty;
             var avatarCSX = _avatarCSXs.GetOrAdd(avatarID, GetCSX);

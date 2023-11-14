@@ -33,8 +33,8 @@ namespace Qwilight.View
 
         void OnTwilightCommentary(object sender, KeyEventArgs e) => (DataContext as MainViewModel).OnTwilightCommentary(e);
 
-        void OnInputTwilightCommentaryPointed(object sender, RoutedEventArgs e) => (DataContext as MainViewModel).OnInputTwilightCommentaryPointed(true);
+        void OnSetTwilightCommentaryPoint(object sender, RoutedEventArgs e) => (DataContext as MainViewModel).OnSetTwilightCommentaryPoint(true);
 
-        void OnInputTwilightCommentaryNotPointed(object sender, RoutedEventArgs e) => (DataContext as MainViewModel).OnInputTwilightCommentaryPointed(false);
+        void OnSetTwilightCommentaryNotPoint(object sender, RoutedEventArgs e) => (DataContext as MainViewModel).OnSetTwilightCommentaryPoint(false);
     }
 }

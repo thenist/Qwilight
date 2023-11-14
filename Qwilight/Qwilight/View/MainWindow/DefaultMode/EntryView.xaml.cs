@@ -26,9 +26,9 @@ namespace Qwilight.View
 
         void OnEntryViewPointLower(object sender, MouseButtonEventArgs e) => (DataContext as MainViewModel).OnEntryViewPointLower(e);
 
-        void OnInputWantPointed(object sender, RoutedEventArgs e) => (DataContext as MainViewModel).OnInputWantPointed(true);
+        void OnSetInputWantPoint(object sender, RoutedEventArgs e) => (DataContext as MainViewModel).OnSetInputWantPoint(true);
 
-        void OnInputWantNotPointed(object sender, RoutedEventArgs e) => (DataContext as MainViewModel).OnInputWantPointed(false);
+        void OnSetInputWantNotPoint(object sender, RoutedEventArgs e) => (DataContext as MainViewModel).OnSetInputWantPoint(false);
 
         public void Receive(ICC message)
         {

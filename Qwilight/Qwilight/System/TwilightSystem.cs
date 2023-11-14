@@ -77,7 +77,9 @@ namespace Qwilight
                 if (_wantAvatarDrawing)
                 {
                     _wantAvatarDrawing = false;
-                    Task.Run(async () => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID)).DefaultDrawing, nameof(AvatarDrawing)));
+
+                    SetAvatarDrawing();
+                    async void SetAvatarDrawing() => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID)).DefaultDrawing, nameof(AvatarDrawing));
                 }
                 return _avatarDrawing;
             }

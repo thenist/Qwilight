@@ -51,15 +51,7 @@ namespace Qwilight.Compute
 
         public override void AtQuitMode()
         {
-            if (!IsPostableItemMode)
-            {
-                base.AtQuitMode();
-            }
-            SetPendingQuitNetItems();
-        }
-
-        public void SetPendingQuitNetItems()
-        {
+            base.AtQuitMode();
             NoteFiles = PendingQuitNetItems.Select(quitNetItem => new NetNoteFile(quitNetItem)).ToArray();
             Comments = PendingQuitNetComments;
             Stands = PendingQuitNetItems.Select(quitNetItem => new MoveValue<XORInt32>(quitNetItem.stand)).ToArray();
@@ -72,10 +64,6 @@ namespace Qwilight.Compute
             HighestComputingPosition = NoteFiles.Length - 1;
             LevyingComputingPosition = Array.IndexOf(PendingQuitNetItems, PendingQuitNetItems.Single(netItem => netItem.avatarID == AvatarID));
             Configure.Instance.NotifyTutorial(Configure.TutorialID.NetQuitMode);
-        }
-
-        public override void GetNetItems()
-        {
         }
 
         public override void GetNetComments()
