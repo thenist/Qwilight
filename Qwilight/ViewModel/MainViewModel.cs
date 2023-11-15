@@ -610,11 +610,7 @@ namespace Qwilight.ViewModel
 
             if (QwilightComponent.IsTest)
             {
-                WeakReferenceMessenger.Default.Send<ICC>(new()
-                {
-                    IDValue = ICC.ID.Quit,
-                    Contents = false
-                });
+                StrongReferenceMessenger.Default.Send<Quit>();
             }
         }
 
@@ -2726,10 +2722,9 @@ namespace Qwilight.ViewModel
                             _setCancelDefaultEntryItem.Cancel();
                             return;
                         }
-                        WeakReferenceMessenger.Default.Send<ICC>(new()
+                        StrongReferenceMessenger.Default.Send(new Quit
                         {
-                            IDValue = ICC.ID.Quit,
-                            Contents = true
+                            ViewAllowWindow = true
                         });
                         break;
                     case Mode.Computing:

@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using System.Collections.ObjectModel;
@@ -28,57 +27,52 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnNewNetSite()
+        static void OnNewNetSite()
         {
             var mainViewModel = ViewModels.Instance.MainValue;
             var entryItemValue = mainViewModel.EntryItemValue;
             var noteFile = entryItemValue?.NoteFile;
             if (noteFile?.IsLogical == false)
             {
-                WeakReferenceMessenger.Default.Send<ICC>(new()
+                var inputPwViewModel = ViewModels.Instance.InputPwValue;
+                inputPwViewModel.Text = LanguageSystem.Instance.NewNetSiteContents;
+                inputPwViewModel.Input = noteFile.Title;
+                inputPwViewModel.IsInputEditable = true;
+                inputPwViewModel.HandleOK = new Action<string, string>((input, inputCipher) =>
                 {
-                    IDValue = ICC.ID.ViewPwWindow,
-                    Contents = new object[]
+                    var modeComponentValue = mainViewModel.ModeComponentValue;
+                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.NewSite, new
                     {
-                        LanguageSystem.Instance.NewNetSiteContents,
-                        noteFile.Title,
-                        true,
-                        new Action<string, string>((input, inputCipher) =>
-                        {
-                            var modeComponentValue = mainViewModel.ModeComponentValue;
-                            TwilightSystem.Instance.SendParallel(Event.Types.EventID.NewSite, new
-                            {
-                                siteName = input,
-                                siteCipher = inputCipher,
-                                isNetSite = true,
-                                data = modeComponentValue.GetJSON(),
-                                noteID = noteFile.GetNoteID512(),
-                                noteIDs = noteFile.EntryItem.CompatibleNoteFiles.Select(noteFile => noteFile.GetNoteID512()),
-                                title = noteFile.Title,
-                                artist = noteFile.Artist,
-                                genre = noteFile.Genre,
-                                levelText = noteFile.LevelText,
-                                level = noteFile.LevelValue,
-                                wantLevelID = noteFile.WantLevelID,
-                                judgmentStage = noteFile.JudgmentStage,
-                                hitPointsValue = noteFile.HitPointsValue,
-                                totalNotes = noteFile.TotalNotes,
-                                longNotes = noteFile.LongNotes,
-                                autoableNotes = noteFile.AutoableNotes,
-                                trapNotes = noteFile.TrapNotes,
-                                highestInputCount = noteFile.HighestInputCount,
-                                length = noteFile.Length,
-                                bpm = noteFile.BPM,
-                                lowestBPM = noteFile.LowestBPM,
-                                highestBPM = noteFile.HighestBPM,
-                                inputMode = noteFile.InputMode,
-                                isAutoLongNote = noteFile.IsAutoLongNote,
-                                bundleEntryPath = noteFile.EntryItem.EntryPath,
-                                allowedPostableItems = Enumerable.Range(0, PostableItem.Values.Length).ToArray()
-                            });
-                        })
-                    }
+                        siteName = input,
+                        siteCipher = inputCipher,
+                        isNetSite = true,
+                        data = modeComponentValue.GetJSON(),
+                        noteID = noteFile.GetNoteID512(),
+                        noteIDs = noteFile.EntryItem.CompatibleNoteFiles.Select(noteFile => noteFile.GetNoteID512()),
+                        title = noteFile.Title,
+                        artist = noteFile.Artist,
+                        genre = noteFile.Genre,
+                        levelText = noteFile.LevelText,
+                        level = noteFile.LevelValue,
+                        wantLevelID = noteFile.WantLevelID,
+                        judgmentStage = noteFile.JudgmentStage,
+                        hitPointsValue = noteFile.HitPointsValue,
+                        totalNotes = noteFile.TotalNotes,
+                        longNotes = noteFile.LongNotes,
+                        autoableNotes = noteFile.AutoableNotes,
+                        trapNotes = noteFile.TrapNotes,
+                        highestInputCount = noteFile.HighestInputCount,
+                        length = noteFile.Length,
+                        bpm = noteFile.BPM,
+                        lowestBPM = noteFile.LowestBPM,
+                        highestBPM = noteFile.HighestBPM,
+                        inputMode = noteFile.InputMode,
+                        isAutoLongNote = noteFile.IsAutoLongNote,
+                        bundleEntryPath = noteFile.EntryItem.EntryPath,
+                        allowedPostableItems = Enumerable.Range(0, PostableItem.Values.Length).ToArray()
+                    });
                 });
+                inputPwViewModel.Open();
             }
             else
             {
@@ -87,57 +81,49 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnNewSite()
+        static void OnNewSite()
         {
-            WeakReferenceMessenger.Default.Send<ICC>(new()
+            var inputPwViewModel = ViewModels.Instance.InputPwValue;
+            inputPwViewModel.Text = LanguageSystem.Instance.NewSiteContents;
+            inputPwViewModel.Input = string.Empty;
+            inputPwViewModel.IsInputEditable = true;
+            inputPwViewModel.HandleOK = new Action<string, string>((input, inputCipher) =>
             {
-                IDValue = ICC.ID.ViewPwWindow,
-                Contents = new object[]
+                TwilightSystem.Instance.SendParallel(Event.Types.EventID.NewSite, new
                 {
-                    LanguageSystem.Instance.NewSiteContents,
-                    string.Empty,
-                    true,
-                    new Action<string, string>((input, inputCipher) =>
-                    {
-                        TwilightSystem.Instance.SendParallel(Event.Types.EventID.NewSite, new
-                        {
-                            siteName = input,
-                            siteCipher = inputCipher,
-                            isNetSite = false
-                        });
-                    })
-                }
+                    siteName = input,
+                    siteCipher = inputCipher,
+                    isNetSite = false
+                });
             });
+            inputPwViewModel.Open();
         }
 
         public void OnEnterSite()
         {
-            var siteItem = SiteItem;
-            if (siteItem != null)
+            if (SiteItem != null)
             {
-                if (siteItem.HasCipher)
+                if (SiteItem.HasCipher)
                 {
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    var inputPwViewModel = ViewModels.Instance.InputPwValue;
+                    inputPwViewModel.Text = LanguageSystem.Instance.EnterSiteCipherContents;
+                    inputPwViewModel.Input = SiteItem.SiteName;
+                    inputPwViewModel.IsInputEditable = false;
+                    inputPwViewModel.HandleOK = new Action<string, string>((input, inputCipher) =>
                     {
-                        IDValue = ICC.ID.ViewPwWindow,
-                        Contents = new object[]
+                        TwilightSystem.Instance.SendParallel(Event.Types.EventID.EnterSite, new
                         {
-                            LanguageSystem.Instance.EnterSiteCipherContents,
-                            siteItem.SiteName,
-                            false,
-                            new Action<string, string>((input, inputCipher) => TwilightSystem.Instance.SendParallel(Event.Types.EventID.EnterSite, new
-                            {
-                                siteID = siteItem.SiteID,
-                                siteCipher = inputCipher
-                            }))
-                        }
+                            siteID = SiteItem.SiteID,
+                            siteCipher = inputCipher
+                        });
                     });
+                    inputPwViewModel.Open();
                 }
                 else
                 {
                     TwilightSystem.Instance.SendParallel(Event.Types.EventID.EnterSite, new
                     {
-                        siteID = siteItem.SiteID,
+                        siteID = SiteItem.SiteID,
                         siteCipher = string.Empty
                     });
                 }

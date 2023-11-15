@@ -4,9 +4,6 @@
     {
         public enum ID
         {
-            Quit,
-            ViewPwWindow,
-            ViewInputWindow,
             MoveEntryView,
             PointEntryView,
             MoveDefaultEntryView,

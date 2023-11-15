@@ -295,21 +295,15 @@ Qwilight
         [RelayCommand]
         void OnModifyEventNoteName()
         {
-            var entryItemValue = EntryItemValue;
-            WeakReferenceMessenger.Default.Send<ICC>(new()
+            var inputTextViewModel = ViewModels.Instance.InputTextValue;
+            inputTextViewModel.Text = LanguageSystem.Instance.ModifyEventNoteNameContents;
+            inputTextViewModel.Input = EntryItemValue.EventNoteName;
+            inputTextViewModel.HandleOK = new Action<string>(text =>
             {
-                IDValue = ICC.ID.ViewInputWindow,
-                Contents = new object[]
-                {
-                    LanguageSystem.Instance.ModifyEventNoteNameContents,
-                    entryItemValue.EventNoteName,
-                    new Action<string>(eventNoteName =>
-                    {
-                        _ = DB.Instance.ModifyEventNoteName(entryItemValue.EventNoteID, eventNoteName);
-                        entryItemValue.EventNoteName = eventNoteName;
-                    })
-                }
+                _ = DB.Instance.ModifyEventNoteName(EntryItemValue.EventNoteID, text);
+                EntryItemValue.EventNoteName = text;
             });
+            inputTextViewModel.Open();
         }
 
         [RelayCommand]

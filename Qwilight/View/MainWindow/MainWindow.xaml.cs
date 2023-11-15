@@ -172,6 +172,7 @@ namespace Qwilight.View
                 }
                 message.Reply((await fop.PickSingleFileAsync())?.Path);
             });
+            StrongReferenceMessenger.Default.Register<Quit>(this, (recipient, message) => PInvoke.PostMessage(_handle, PInvoke.WM_CLOSE, message.ViewAllowWindow ? (WPARAM)1 : (WPARAM)0, (LPARAM)0));
 
             WeakReferenceMessenger.Default.Register<ICC>(this);
         }
@@ -195,24 +196,6 @@ namespace Qwilight.View
         {
             switch (message.IDValue)
             {
-                case ICC.ID.Quit:
-                    PInvoke.PostMessage(_handle, PInvoke.WM_CLOSE, (bool)message.Contents ? (WPARAM)1 : (WPARAM)0, (LPARAM)0);
-                    break;
-                case ICC.ID.ViewPwWindow:
-                    var data = message.Contents as object[];
-                    ViewModels.Instance.InputPwValue.Text = data[0] as string;
-                    ViewModels.Instance.InputPwValue.Input = data[1] as string;
-                    ViewModels.Instance.InputPwValue.IsInputEditable = (bool)data[2];
-                    ViewModels.Instance.InputPwValue.HandleOK = data[3] as Action<string, string>;
-                    ViewModels.Instance.InputPwValue.Open();
-                    break;
-                case ICC.ID.ViewInputWindow:
-                    data = message.Contents as object[];
-                    ViewModels.Instance.InputTextValue.Text = data[0] as string;
-                    ViewModels.Instance.InputTextValue.Input = data[1] as string;
-                    ViewModels.Instance.InputTextValue.HandleOK = data[2] as Action<string>;
-                    ViewModels.Instance.InputTextValue.Open();
-                    break;
                 case ICC.ID.SetWindowArea:
                     var windowInfo = new WINDOWINFO
                     {

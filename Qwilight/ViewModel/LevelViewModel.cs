@@ -63,23 +63,18 @@ namespace Qwilight.ViewModel
         {
             if (string.IsNullOrEmpty(www))
             {
-                WeakReferenceMessenger.Default.Send<ICC>(new()
+                var inputTextViewModel = ViewModels.Instance.InputTextValue;
+                inputTextViewModel.Text = LanguageSystem.Instance.LevelInputContents;
+                inputTextViewModel.Input = string.Empty;
+                inputTextViewModel.HandleOK = new Action<string>(async text =>
                 {
-                    IDValue = ICC.ID.ViewInputWindow,
-                    Contents = new object[]
+                    if (!string.IsNullOrEmpty(text))
                     {
-                        LanguageSystem.Instance.LevelInputContents,
-                        string.Empty,
-                        new Action<string>(async levelInput =>
-                        {
-                            if (!string.IsNullOrEmpty(levelInput))
-                            {
-                                await LevelSystem.Instance.LoadWww(levelInput).ConfigureAwait(false);
-                                await LevelSystem.Instance.LoadJSON(true);
-                            }
-                        })
+                        await LevelSystem.Instance.LoadWww(text).ConfigureAwait(false);
+                        await LevelSystem.Instance.LoadJSON(true);
                     }
                 });
+                inputTextViewModel.Open();
             }
             else
             {

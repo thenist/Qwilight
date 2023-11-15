@@ -137,37 +137,36 @@ namespace Qwilight
         [RelayCommand]
         void OnNewFavoriteEntry()
         {
-            WeakReferenceMessenger.Default.Send<ICC>(new()
+            var inputTextViewModel = ViewModels.Instance.InputTextValue;
+            inputTextViewModel.Text = LanguageSystem.Instance.NewFavoriteEntryContents;
+            inputTextViewModel.Input = string.Empty;
+            inputTextViewModel.HandleOK = new Action<string>(text =>
             {
-                IDValue = ICC.ID.ViewInputWindow,
-                Contents = new object[]
+                if (!string.IsNullOrEmpty(text))
                 {
-                    LanguageSystem.Instance.NewFavoriteEntryContents,
-                    string.Empty,
-                    new Action<string>(favoriteEntryName =>
+                    DefaultEntryItemCollection.Add(new DefaultEntryItem
                     {
-                        DefaultEntryItemCollection.Add(new DefaultEntryItem
-                        {
-                            DefaultEntryVarietyValue = DefaultEntryItem.DefaultEntryVariety.Favorite,
-                            DefaultEntryPath = Guid.NewGuid().ToString(),
-                            FavoriteEntryName = favoriteEntryName
-                        });
-                    })
+                        DefaultEntryVarietyValue = DefaultEntryItem.DefaultEntryVariety.Favorite,
+                        DefaultEntryPath = Guid.NewGuid().ToString(),
+                        FavoriteEntryName = text
+                    });
                 }
             });
+            inputTextViewModel.Open();
         }
 
         [RelayCommand]
-        void OnModifyFavoriteEntryName() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        void OnModifyFavoriteEntryName()
         {
-            IDValue = ICC.ID.ViewInputWindow,
-            Contents = new object[]
+            var inputTextViewModel = ViewModels.Instance.InputTextValue;
+            inputTextViewModel.Text = LanguageSystem.Instance.ModifyFavoriteEntryNameContents;
+            inputTextViewModel.Input = DefaultEntryItem.FavoriteEntryName;
+            inputTextViewModel.HandleOK = new Action<string>(text =>
             {
-                LanguageSystem.Instance.ModifyFavoriteEntryNameContents,
-                DefaultEntryItem.FavoriteEntryName,
-                new Action<string>(favoriteEntryName => DefaultEntryItem.FavoriteEntryName = favoriteEntryName)
-            }
-        });
+                DefaultEntryItem.FavoriteEntryName = text;
+            });
+            inputTextViewModel.Open();
+        }
 
         [RelayCommand]
         void OnModifyFrontEntry()

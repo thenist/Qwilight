@@ -458,20 +458,15 @@ namespace Qwilight.ViewModel
             if (e.HasValue)
             {
                 var modeComponentBundle = Configure.Instance.ModeComponentBundles[e.Value];
-                WeakReferenceMessenger.Default.Send<ICC>(new()
+                var inputTextViewModel = ViewModels.Instance.InputTextValue;
+                inputTextViewModel.Text = LanguageSystem.Instance.SaveModeComponentContents;
+                inputTextViewModel.Input = modeComponentBundle.Name;
+                inputTextViewModel.HandleOK = new Action<string>(text =>
                 {
-                    IDValue = ICC.ID.ViewInputWindow,
-                    Contents = new object[]
-                    {
-                        LanguageSystem.Instance.SaveModeComponentContents,
-                        modeComponentBundle.Name,
-                        new Action<string>(modeComponentBundleName =>
-                        {
-                            modeComponentBundle.Name = modeComponentBundleName;
-                            modeComponentBundle.Value.CopyAs(ViewModels.Instance.MainValue.ModeComponentValue);
-                        })
-                    }
+                    modeComponentBundle.Name = text;
+                    modeComponentBundle.Value.CopyAs(ViewModels.Instance.MainValue.ModeComponentValue);
                 });
+                inputTextViewModel.Open();
             }
         }
 

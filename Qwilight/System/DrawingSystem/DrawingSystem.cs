@@ -130,11 +130,7 @@ namespace Qwilight
                     Text = LanguageSystem.Instance.D2DSystemFault,
                     Data = MESSAGEBOX_STYLE.MB_OK | MESSAGEBOX_STYLE.MB_ICONERROR
                 });
-                WeakReferenceMessenger.Default.Send(new ICC
-                {
-                    IDValue = ICC.ID.Quit,
-                    Contents = false
-                });
+                StrongReferenceMessenger.Default.Send<Quit>();
             };
 
             MeterFont = GetFont();

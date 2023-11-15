@@ -226,20 +226,21 @@ namespace Qwilight.ViewModel
         void OnNetSIteComments() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.CallNetSiteComments, SiteID);
 
         [RelayCommand]
-        void OnSetSiteName() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        void OnSetSiteName()
         {
-            IDValue = ICC.ID.ViewInputWindow,
-            Contents = new object[]
+            var inputTextViewModel = ViewModels.Instance.InputTextValue;
+            inputTextViewModel.Text = LanguageSystem.Instance.SetSiteNameContents;
+            inputTextViewModel.Input = SiteName;
+            inputTextViewModel.HandleOK = new Action<string>(text =>
             {
-                LanguageSystem.Instance.SetSiteNameContents,
-                SiteName,
-                new Action<string>(siteName => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetSiteName, new
+                TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetSiteName, new
                 {
                     siteID = SiteID,
-                    siteName = siteName
-                }))
-            }
-        });
+                    siteName = text
+                });
+            });
+            inputTextViewModel.Open();
+        }
 
         [RelayCommand]
         static async Task OnPostFile()
