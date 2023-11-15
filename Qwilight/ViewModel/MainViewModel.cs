@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Ionic.Zip;
 using Qwilight.Compute;
+using Qwilight.MSG;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
@@ -542,10 +543,7 @@ namespace Qwilight.ViewModel
 
         public async Task OnLoaded(nint handle)
         {
-            WeakReferenceMessenger.Default.Send<ICC>(new()
-            {
-                IDValue = ICC.ID.SetWindowedMode
-            });
+            StrongReferenceMessenger.Default.Send(new SetWindowedMode());
 
             StillSystem.Instance.Init(handle);
             await MIDISystem.Instance.HandleSystem().ConfigureAwait(false);
@@ -555,8 +553,7 @@ namespace Qwilight.ViewModel
             DrawingSystem.Instance.LoadDefaultDrawing();
             DrawingSystem.Instance.LoadVeilDrawing();
 
-            await LevelSystem.Instance.LoadJSON(false);
-
+            await LevelSystem.Instance.LoadJSON(false).ConfigureAwait(false);
             await ValveSystem.Instance.Init().ConfigureAwait(false);
             await Task.Run(() =>
             {

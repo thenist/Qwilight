@@ -4,7 +4,6 @@
     {
         public enum ID
         {
-            ViewAllowWindow,
             ViewEntryWindow,
             ViewFileWindow,
             Quit,
@@ -23,7 +22,6 @@
             GetPwWindowCipher,
             ClearPwWindowCipher,
             SetBaseDrawingUIElement,
-            SetWindowedMode,
             SetNoteFileModeWindowInputs,
             GetWindowArea,
             SetWindowArea,

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Qwilight.Compute;
+using Qwilight.MSG;
 using Qwilight.Utilities;
 using Qwilight.ViewModel;
 using System.Diagnostics;
@@ -194,10 +195,7 @@ namespace Qwilight
                                     break;
                                 case VirtualKey.Enter when isAlt:
                                     Configure.Instance.WindowedMode = !Configure.Instance.WindowedMode;
-                                    WeakReferenceMessenger.Default.Send<ICC>(new()
-                                    {
-                                        IDValue = ICC.ID.SetWindowedMode
-                                    });
+                                    StrongReferenceMessenger.Default.Send(new SetWindowedMode());
                                     break;
                             }
                             switch (input)

@@ -10,6 +10,7 @@ using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Qwilight.Compute;
+using Qwilight.MSG;
 using Qwilight.ViewModel;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
@@ -135,6 +136,25 @@ namespace Qwilight.View
             }
             lpPrevWndFunc = Marshal.GetDelegateForFunctionPointer<WNDPROC>(PInvoke.SetWindowLongPtr(_handle, WINDOW_LONG_PTR_INDEX.GWLP_WNDPROC, Marshal.GetFunctionPointerForDelegate<WNDPROC>(_onWin32)));
 
+            StrongReferenceMessenger.Default.Register<SetWindowedMode>(this, (recipient, message) =>
+            {
+                HandlingUISystem.Instance.HandleParallel(() =>
+                {
+                    if (Configure.Instance.WindowedMode)
+                    {
+                        ResizeMode = ResizeMode.CanResize;
+                        WindowStyle = WindowStyle.SingleBorderWindow;
+                        WindowState = WindowState.Normal;
+                    }
+                    else
+                    {
+                        ResizeMode = ResizeMode.NoResize;
+                        WindowStyle = WindowStyle.None;
+                        WindowState = WindowState.Maximized;
+                    }
+                });
+            });
+
             WeakReferenceMessenger.Default.Register<ICC>(this);
         }
 
@@ -206,23 +226,6 @@ namespace Qwilight.View
                     ViewModels.Instance.InputTextValue.Input = data[1] as string;
                     ViewModels.Instance.InputTextValue.HandleOK = data[2] as Action<string>;
                     ViewModels.Instance.InputTextValue.Open();
-                    break;
-                case ICC.ID.SetWindowedMode:
-                    HandlingUISystem.Instance.HandleParallel(() =>
-                    {
-                        if (Configure.Instance.WindowedMode)
-                        {
-                            ResizeMode = ResizeMode.CanResize;
-                            WindowStyle = WindowStyle.SingleBorderWindow;
-                            WindowState = WindowState.Normal;
-                        }
-                        else
-                        {
-                            ResizeMode = ResizeMode.NoResize;
-                            WindowStyle = WindowStyle.None;
-                            WindowState = WindowState.Maximized;
-                        }
-                    });
                     break;
                 case ICC.ID.SetWindowArea:
                     var windowInfo = new WINDOWINFO

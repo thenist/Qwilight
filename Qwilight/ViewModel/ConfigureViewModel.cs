@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using FMOD;
 using Ionic.Zip;
 using Qwilight.Compute;
+using Qwilight.MSG;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using System.Collections.ObjectModel;
@@ -934,10 +935,7 @@ namespace Qwilight.ViewModel
         static void OnWindowedMode()
         {
             Configure.Instance.WindowedMode = !Configure.Instance.WindowedMode;
-            WeakReferenceMessenger.Default.Send<ICC>(new()
-            {
-                IDValue = ICC.ID.SetWindowedMode
-            });
+            StrongReferenceMessenger.Default.Send(new SetWindowedMode());
         }
 
         [RelayCommand]

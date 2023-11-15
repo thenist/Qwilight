@@ -103,9 +103,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="ICC.cs" />
     <Compile Include="IgniterComponent.cs" />
     <Compile Include="Modifier\VisibilityModifier.cs" />
+    <Compile Include="MSG\ViewAllowWindow.cs" />
     <Compile Include="System\LanguageSystem\LanguageSystem.cs" />
     <Compile Include="System\LanguageSystem\LanguageSystem.g.cs" />
     <Compile Include="Utilities\IOUtility.cs" />

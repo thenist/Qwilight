@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using Igniter.MSG;
 using Ionic.Zip;
 using System;
 using System.Diagnostics;
@@ -36,132 +37,99 @@ namespace Igniter.ViewModel
             set => SetProperty(ref _isVisible, value, nameof(IsVisible));
         }
 
-        public void OnLoaded()
+        public async Task OnLoaded()
         {
-            WeakReferenceMessenger.Default.Send(new ICC
+            switch (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                IDValue = ICC.ID.ViewAllowWindow,
-                Contents = new object[]
-                {
-                    LanguageSystem.Instance.Levy,
-                    MessageBoxButton.OKCancel,
-                    MessageBoxImage.Information,
-                    new Action<MessageBoxResult>(async r =>
+                Text = LanguageSystem.Instance.Levy,
+                Input = MessageBoxButton.OKCancel,
+                Drawing = MessageBoxImage.Information
+            }).Response)
+            {
+                case MessageBoxResult.OK:
+                    while (true)
                     {
-                        switch (r)
+                        try
                         {
-                            case MessageBoxResult.OK:
-                                while (true)
+                            using (var zipFile = ZipFile.Read(Environment.GetCommandLineArgs()[1]))
+                            {
+                                zipFile.ExtractProgress += (sender, e) =>
                                 {
-                                    try
+                                    if (e.EntriesTotal > 0)
                                     {
-                                        using (var zipFile = ZipFile.Read(Environment.GetCommandLineArgs()[1]))
-                                        {
-                                            zipFile.ExtractProgress += (sender, e) =>
-                                            {
-                                                if (e.EntriesTotal > 0)
-                                                {
-                                                    Value = 100.0 * e.EntriesExtracted / e.EntriesTotal;
-                                                }
-                                                var fileName = e.CurrentEntry?.FileName;
-                                                if (!string.IsNullOrEmpty(fileName))
-                                                {
-                                                    Text = fileName;
-                                                }
-                                            };
-                                            await Task.Run(() => zipFile.ExtractAll(Path.GetDirectoryName(IgniterComponent.QwilightFilePath), ExtractExistingFileAction.OverwriteSilently)).ConfigureAwait(false);
-                                        }
+                                        Value = 100.0 * e.EntriesExtracted / e.EntriesTotal;
+                                    }
+                                    var fileName = e.CurrentEntry?.FileName;
+                                    if (!string.IsNullOrEmpty(fileName))
+                                    {
+                                        Text = fileName;
+                                    }
+                                };
+                                await Task.Run(() => zipFile.ExtractAll(Path.GetDirectoryName(IgniterComponent.QwilightFilePath), ExtractExistingFileAction.OverwriteSilently)).ConfigureAwait(false);
+                            }
 
-                                        OnIgnited();
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        OnIgnitingFault(e);
-                                        if (IsVisible)
-                                        {
-                                            continue;
-                                        }
-                                    }
-                                }
-                            case MessageBoxResult.Cancel:
-                                Environment.Exit(1);
-                                break;
+                            OnIgnited();
                         }
-                    })
-                }
-            });
+                        catch (Exception e)
+                        {
+                            OnIgnitingFault(e);
+                            if (IsVisible)
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                case MessageBoxResult.Cancel:
+                    Environment.Exit(1);
+                    break;
+            }
 
             void OnIgnited()
             {
                 IsVisible = false;
-                WeakReferenceMessenger.Default.Send(new ICC
+                StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                 {
-                    IDValue = ICC.ID.ViewAllowWindow,
-                    Contents = new object[]
-                    {
-                        LanguageSystem.Instance.Ignited,
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information
-                    }
+                    Text = LanguageSystem.Instance.Ignited,
+                    Input = MessageBoxButton.OK,
+                    Drawing = MessageBoxImage.Information
                 });
-                WeakReferenceMessenger.Default.Send(new ICC
+                switch (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                 {
-                    IDValue = ICC.ID.ViewAllowWindow,
-                    Contents = new object[]
-                    {
-                        LanguageSystem.Instance.ExeQwilight,
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Question,
-                        new Action<MessageBoxResult>(r =>
-                        {
-                            switch (r)
-                            {
-                                case MessageBoxResult.Yes:
-                                    Process.Start(IgniterComponent.QwilightFilePath);
-                                    break;
-                            }
-
-                            Environment.Exit(0);
-                        })
-                    }
-                });
+                    Text = LanguageSystem.Instance.ExeQwilight,
+                    Input = MessageBoxButton.YesNo,
+                    Drawing = MessageBoxImage.Question
+                }).Response)
+                {
+                    case MessageBoxResult.Yes:
+                        Process.Start(IgniterComponent.QwilightFilePath);
+                        break;
+                }
+                Environment.Exit(0);
             }
 
             void OnIgnitingFault(Exception e)
             {
                 IsVisible = false;
-                WeakReferenceMessenger.Default.Send(new ICC
+                StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                 {
-                    IDValue = ICC.ID.ViewAllowWindow,
-                    Contents = new object[]
-                    {
-                        e.Message,
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error
-                    }
+                    Text = e.Message,
+                    Input = MessageBoxButton.OK,
+                    Drawing = MessageBoxImage.Error
                 });
-                WeakReferenceMessenger.Default.Send(new ICC
+                switch (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                 {
-                    IDValue = ICC.ID.ViewAllowWindow,
-                    Contents = new object[]
-                    {
-                        LanguageSystem.Instance.IgnitingFault,
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Warning,
-                        new Action<MessageBoxResult>(r =>
-                        {
-                            switch (r)
-                            {
-                                case MessageBoxResult.Yes:
-                                    IsVisible = true;
-                                    break;
-                                case MessageBoxResult.No:
-                                    Environment.Exit(1);
-                                    break;
-                            }
-                        })
-                    }
-                });
+                    Text = LanguageSystem.Instance.IgnitingFault,
+                    Input = MessageBoxButton.YesNo,
+                    Drawing = MessageBoxImage.Warning
+                }).Response)
+                {
+                    case MessageBoxResult.Yes:
+                        IsVisible = true;
+                        break;
+                    case MessageBoxResult.No:
+                        Environment.Exit(1);
+                        break;
+                }
             }
         }
     }

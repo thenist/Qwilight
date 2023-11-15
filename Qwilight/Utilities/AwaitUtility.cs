@@ -6,7 +6,7 @@ namespace Qwilight.Utilities
     {
         public static T Await<T>(IAsyncOperation<T> t)
         {
-            return Await(t);
+            return Await(t.AsTask());
         }
 
         public static T Await<T>(Task<T> t)
