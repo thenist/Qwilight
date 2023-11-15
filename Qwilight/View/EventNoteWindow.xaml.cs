@@ -14,7 +14,7 @@ namespace Qwilight.View
 
         void OnNoteFileView(object sender, KeyEventArgs e) => (DataContext as EventNoteViewModel).OnNoteFileView(e);
 
-        void OnInputLower(object sender, KeyEventArgs e) => (DataContext as EventNoteViewModel).OnInputLower(e);
+        async void OnInputLower(object sender, KeyEventArgs e) => await (DataContext as EventNoteViewModel).OnInputLower(e);
 
         public void Receive(ICC message)
         {

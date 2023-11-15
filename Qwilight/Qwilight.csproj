@@ -18,9 +18,9 @@
 		<WindowsPackageType>None</WindowsPackageType>
 		<WindowsAppSdkBootstrapInitialize>false</WindowsAppSdkBootstrapInitialize>
 		<StartupObject>Qwilight.View.QwilightClass</StartupObject>
-		<DebugType>embedded</DebugType>
 		<PublishReadyToRun>true</PublishReadyToRun>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<SelfContained>true</SelfContained>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Platform)'=='x64'">

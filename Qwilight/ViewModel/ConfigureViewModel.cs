@@ -486,7 +486,7 @@ namespace Qwilight.ViewModel
         static void OnStopLastEqualAudio() => Configure.Instance.StopLastEqualAudio = !Configure.Instance.StopLastEqualAudio;
 
         [RelayCommand]
-        static void OnGetMIDI() => MIDISystem.Instance.GetMIDIs();
+        static async Task OnGetMIDI() => await MIDISystem.Instance.GetMIDIs();
 
         [RelayCommand]
         static void OnFontFamily(int? e)
