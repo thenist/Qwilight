@@ -87,7 +87,7 @@ namespace Qwilight.ViewModel
                     {
                         IsVoteGroupLoading = true;
 
-                        var twilightWwwVotes = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwVote[]>($"{QwilightComponent.QwilightAPI}/vote?voteName={value}");
+                        var twilightWwwVotes = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwVote[]>($"{QwilightComponent.QwilightAPI}/vote?voteName={value}").ConfigureAwait(false);
                         if (twilightWwwVotes != null && VoteName == value)
                         {
                             Utility.SetUICollection(ComputingValues, twilightWwwVotes.Select(data => new VoteComputing
@@ -132,14 +132,11 @@ namespace Qwilight.ViewModel
 
             IsVoteGroupsLoading = true;
 
-            var voteNames = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/vote");
+            var voteNames = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/vote").ConfigureAwait(false);
             if (voteNames != null)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
-                {
-                    Utility.SetUICollection(VoteNames, voteNames);
-                    VoteName = VoteName ?? VoteNames.FirstOrDefault();
-                });
+                Utility.SetUICollection(VoteNames, voteNames);
+                HandlingUISystem.Instance.HandleParallel(() => VoteName ??= VoteNames.FirstOrDefault());
             }
 
             IsVoteGroupsLoading = false;

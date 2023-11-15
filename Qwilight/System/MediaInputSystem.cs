@@ -29,7 +29,6 @@ namespace Qwilight
                 if (SetProperty(ref _mediaInputItem, value, nameof(MediaInputItemValue)) && value.HasValue)
                 {
                     InitMediaInput();
-
                     async void InitMediaInput()
                     {
                         _mediaInputComputer = await _mediaInputSystem.CreateFrameReaderAsync(_mediaInputSystem.FrameSources[value.Value.ID], MediaEncodingSubtypes.Bgra8);
@@ -49,7 +48,6 @@ namespace Qwilight
                 if (SetProperty(ref _mediaInputQuality, value, nameof(MediaInputQualityValue)) && value.HasValue)
                 {
                     SetMediaInputQuality();
-
                     async void SetMediaInputQuality()
                     {
                         await _mediaInputSystem.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoRecord, value.Value.Data);

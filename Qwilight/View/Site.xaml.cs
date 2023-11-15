@@ -11,7 +11,7 @@ namespace Qwilight.View
 
         void OnInputLower(object sender, KeyEventArgs e) => (DataContext as SiteViewModel).OnInputLower(e);
 
-        void OnEssentialInputLower(object sender, KeyEventArgs e) => (DataContext as SiteViewModel).OnEssentialInputLower(e);
+        async void OnEssentialInputLower(object sender, KeyEventArgs e) => await (DataContext as SiteViewModel).OnEssentialInputLower(e);
 
         void OnPointedModified(object sender, KeyboardFocusChangedEventArgs e) => (DataContext as SiteViewModel).OnPointedModified(sender == e.NewFocus);
 

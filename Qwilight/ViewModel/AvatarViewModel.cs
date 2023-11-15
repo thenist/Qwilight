@@ -177,7 +177,7 @@ namespace Qwilight.ViewModel
 
             IsAvatarLoading = true;
 
-            var twilightWwwAvatar = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatar?>($"{QwilightComponent.QwilightAPI}/avatar?avatarID={AvatarID}");
+            var twilightWwwAvatar = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatar?>($"{QwilightComponent.QwilightAPI}/avatar?avatarID={AvatarID}").ConfigureAwait(false);
             if (twilightWwwAvatar.HasValue)
             {
                 var twilightWwwAvatarValue = twilightWwwAvatar.Value;
@@ -211,7 +211,7 @@ namespace Qwilight.ViewModel
                 OnPropertyChanged(nameof(AvatarViewLevelValue));
 
                 var avatarAbility5KClass = twilightWwwAvatarValue.avatarAbility5KClass;
-                using (var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass5K={(avatarAbility5KClass < 0 ? avatarAbility5KClass : 100 * avatarAbility5KClass)}"))
+                using (var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass5K={(avatarAbility5KClass < 0 ? avatarAbility5KClass : 100 * avatarAbility5KClass)}").ConfigureAwait(false))
                 {
                     if (s.Length > 0)
                     {
@@ -238,7 +238,7 @@ namespace Qwilight.ViewModel
                 OnPropertyChanged(nameof(AvatarViewAbility5KText));
 
                 var avatarAbility7KClass = twilightWwwAvatarValue.avatarAbility7KClass;
-                using (var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass7K={(avatarAbility7KClass < 0 ? avatarAbility7KClass : 100 * avatarAbility7KClass)}"))
+                using (var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass7K={(avatarAbility7KClass < 0 ? avatarAbility7KClass : 100 * avatarAbility7KClass)}").ConfigureAwait(false))
                 {
                     if (s.Length > 0)
                     {
@@ -265,7 +265,7 @@ namespace Qwilight.ViewModel
                 OnPropertyChanged(nameof(AvatarViewAbility7KText));
 
                 var avatarAbility9KClass = twilightWwwAvatarValue.avatarAbility9KClass;
-                using (var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass9K={(avatarAbility9KClass < 0 ? avatarAbility9KClass : 100 * avatarAbility9KClass)}"))
+                using (var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass9K={(avatarAbility9KClass < 0 ? avatarAbility9KClass : 100 * avatarAbility9KClass)}").ConfigureAwait(false))
                 {
                     if (s.Length > 0)
                     {
@@ -299,92 +299,95 @@ namespace Qwilight.ViewModel
 
                 Array.Copy(twilightWwwAvatarValue.dateValues, DateValues, DateValues.Length);
 
-                FavoriteAvatarComputingCollection.Clear();
-                foreach (var wwwAvatarFavorite in twilightWwwAvatarValue.favorites)
+                HandlingUISystem.Instance.HandleParallel(() =>
                 {
-                    FavoriteAvatarComputingCollection.Add(new AvatarComputing
+                    FavoriteAvatarComputingCollection.Clear();
+                    foreach (var wwwAvatarFavorite in twilightWwwAvatarValue.favorites)
                     {
-                        AvatarNoteVarietyValue = wwwAvatarFavorite.noteVariety,
-                        Title = wwwAvatarFavorite.title,
-                        Artist = wwwAvatarFavorite.artist,
-                        Genre = wwwAvatarFavorite.genre,
-                        LevelValue = wwwAvatarFavorite.level,
-                        LevelText = wwwAvatarFavorite.levelText,
-                        AvatarValue = wwwAvatarFavorite.totalCount.ToString(LanguageSystem.Instance.HandledContents)
-                    });
-                }
+                        FavoriteAvatarComputingCollection.Add(new AvatarComputing
+                        {
+                            AvatarNoteVarietyValue = wwwAvatarFavorite.noteVariety,
+                            Title = wwwAvatarFavorite.title,
+                            Artist = wwwAvatarFavorite.artist,
+                            Genre = wwwAvatarFavorite.genre,
+                            LevelValue = wwwAvatarFavorite.level,
+                            LevelText = wwwAvatarFavorite.levelText,
+                            AvatarValue = wwwAvatarFavorite.totalCount.ToString(LanguageSystem.Instance.HandledContents)
+                        });
+                    }
 
-                LastAvatarComputingCollection.Clear();
-                foreach (var wwwAvatarLast in twilightWwwAvatarValue.lasts)
-                {
-                    LastAvatarComputingCollection.Add(new AvatarComputing
+                    LastAvatarComputingCollection.Clear();
+                    foreach (var wwwAvatarLast in twilightWwwAvatarValue.lasts)
                     {
-                        AvatarNoteVarietyValue = wwwAvatarLast.noteVariety,
-                        Title = wwwAvatarLast.title,
-                        Artist = wwwAvatarLast.artist,
-                        Genre = wwwAvatarLast.genre,
-                        LevelValue = wwwAvatarLast.level,
-                        LevelText = wwwAvatarLast.levelText,
-                        AvatarValue = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(wwwAvatarLast.date).ToString()
-                    });
-                }
+                        LastAvatarComputingCollection.Add(new AvatarComputing
+                        {
+                            AvatarNoteVarietyValue = wwwAvatarLast.noteVariety,
+                            Title = wwwAvatarLast.title,
+                            Artist = wwwAvatarLast.artist,
+                            Genre = wwwAvatarLast.genre,
+                            LevelValue = wwwAvatarLast.level,
+                            LevelText = wwwAvatarLast.levelText,
+                            AvatarValue = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(wwwAvatarLast.date).ToString()
+                        });
+                    }
 
-                Ability5KAvatarComputingCollection.Clear();
-                foreach (var wwwAvatarAbility in twilightWwwAvatarValue.abilities5K)
-                {
-                    Ability5KAvatarComputingCollection.Add(new AvatarComputing
+                    Ability5KAvatarComputingCollection.Clear();
+                    foreach (var wwwAvatarAbility in twilightWwwAvatarValue.abilities5K)
                     {
-                        AvatarNoteVarietyValue = wwwAvatarAbility.noteVariety,
-                        Title = wwwAvatarAbility.title,
-                        Artist = wwwAvatarAbility.artist,
-                        Genre = wwwAvatarAbility.genre,
-                        LevelValue = wwwAvatarAbility.level,
-                        LevelText = wwwAvatarAbility.levelText,
-                        AvatarValue = string.Format(LanguageSystem.Instance.AbilityStandContents, wwwAvatarAbility.stand.ToString("#,##0"), Math.Round(wwwAvatarAbility.ability, 3))
-                    });
-                }
+                        Ability5KAvatarComputingCollection.Add(new AvatarComputing
+                        {
+                            AvatarNoteVarietyValue = wwwAvatarAbility.noteVariety,
+                            Title = wwwAvatarAbility.title,
+                            Artist = wwwAvatarAbility.artist,
+                            Genre = wwwAvatarAbility.genre,
+                            LevelValue = wwwAvatarAbility.level,
+                            LevelText = wwwAvatarAbility.levelText,
+                            AvatarValue = string.Format(LanguageSystem.Instance.AbilityStandContents, wwwAvatarAbility.stand.ToString("#,##0"), Math.Round(wwwAvatarAbility.ability, 3))
+                        });
+                    }
 
-                Ability7KAvatarComputingCollection.Clear();
-                foreach (var wwwAvatarAbility in twilightWwwAvatarValue.abilities7K)
-                {
-                    Ability7KAvatarComputingCollection.Add(new AvatarComputing
+                    Ability7KAvatarComputingCollection.Clear();
+                    foreach (var wwwAvatarAbility in twilightWwwAvatarValue.abilities7K)
                     {
-                        AvatarNoteVarietyValue = wwwAvatarAbility.noteVariety,
-                        Title = wwwAvatarAbility.title,
-                        Artist = wwwAvatarAbility.artist,
-                        Genre = wwwAvatarAbility.genre,
-                        LevelValue = wwwAvatarAbility.level,
-                        LevelText = wwwAvatarAbility.levelText,
-                        AvatarValue = string.Format(LanguageSystem.Instance.AbilityStandContents, wwwAvatarAbility.stand.ToString("#,##0"), Math.Round(wwwAvatarAbility.ability, 3))
-                    });
-                }
+                        Ability7KAvatarComputingCollection.Add(new AvatarComputing
+                        {
+                            AvatarNoteVarietyValue = wwwAvatarAbility.noteVariety,
+                            Title = wwwAvatarAbility.title,
+                            Artist = wwwAvatarAbility.artist,
+                            Genre = wwwAvatarAbility.genre,
+                            LevelValue = wwwAvatarAbility.level,
+                            LevelText = wwwAvatarAbility.levelText,
+                            AvatarValue = string.Format(LanguageSystem.Instance.AbilityStandContents, wwwAvatarAbility.stand.ToString("#,##0"), Math.Round(wwwAvatarAbility.ability, 3))
+                        });
+                    }
 
-                Ability9KAvatarComputingCollection.Clear();
-                foreach (var wwwAvatarAbility in twilightWwwAvatarValue.abilities9K)
-                {
-                    Ability9KAvatarComputingCollection.Add(new AvatarComputing
+                    Ability9KAvatarComputingCollection.Clear();
+                    foreach (var wwwAvatarAbility in twilightWwwAvatarValue.abilities9K)
                     {
-                        AvatarNoteVarietyValue = wwwAvatarAbility.noteVariety,
-                        Title = wwwAvatarAbility.title,
-                        Artist = wwwAvatarAbility.artist,
-                        Genre = wwwAvatarAbility.genre,
-                        LevelValue = wwwAvatarAbility.level,
-                        LevelText = wwwAvatarAbility.levelText,
-                        AvatarValue = string.Format(LanguageSystem.Instance.AbilityStandContents, wwwAvatarAbility.stand.ToString("#,##0"), Math.Round(wwwAvatarAbility.ability, 3))
-                    });
-                }
+                        Ability9KAvatarComputingCollection.Add(new AvatarComputing
+                        {
+                            AvatarNoteVarietyValue = wwwAvatarAbility.noteVariety,
+                            Title = wwwAvatarAbility.title,
+                            Artist = wwwAvatarAbility.artist,
+                            Genre = wwwAvatarAbility.genre,
+                            LevelValue = wwwAvatarAbility.level,
+                            LevelText = wwwAvatarAbility.levelText,
+                            AvatarValue = string.Format(LanguageSystem.Instance.AbilityStandContents, wwwAvatarAbility.stand.ToString("#,##0"), Math.Round(wwwAvatarAbility.ability, 3))
+                        });
+                    }
 
-                AvatarWwwLevelItemCollection.Clear();
-                foreach (var wwwLevel in twilightWwwAvatarValue.levels)
-                {
-                    AvatarWwwLevelItemCollection.Add(new AvatarLevelItem
+                    AvatarWwwLevelItemCollection.Clear();
+                    foreach (var wwwLevel in twilightWwwAvatarValue.levels)
                     {
-                        Title = wwwLevel.title,
-                        LevelValue = wwwLevel.level,
-                        LevelText = wwwLevel.levelText,
-                        Date = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(wwwLevel.date).ToString()
-                    });
-                }
+                        AvatarWwwLevelItemCollection.Add(new AvatarLevelItem
+                        {
+                            Title = wwwLevel.title,
+                            LevelValue = wwwLevel.level,
+                            LevelText = wwwLevel.levelText,
+                            Date = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(wwwLevel.date).ToString()
+                        });
+                    }
+                });
 
                 OnPropertyChanged(nameof(AvatarViewWwwLevelContents));
             }
@@ -415,7 +418,7 @@ namespace Qwilight.ViewModel
                         new[] { ".png" },
                         new Action<string>(async fileName =>
                         {
-                            if (await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName))
+                            if (await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
                             {
                                 InitAvatarWwwValue(TwilightSystem.Instance.AvatarID);
                                 TwilightSystem.Instance.NotifyAvatarDrawing();
@@ -439,7 +442,7 @@ namespace Qwilight.ViewModel
             base.OnCollasped();
             if (IsMe)
             {
-                await TwilightSystem.Instance.PutAvatarParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/avatarIntro", AvatarIntro);
+                await TwilightSystem.Instance.PutAvatarParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/avatarIntro", AvatarIntro).ConfigureAwait(false);
             }
         }
     }

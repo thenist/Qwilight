@@ -110,24 +110,24 @@ namespace Qwilight
             try
             {
                 var o = new HtmlDocument();
-                using var os = await TwilightSystem.Instance.GetWwwParallel(www);
+                using var os = await TwilightSystem.Instance.GetWwwParallel(www).ConfigureAwait(false);
                 o.Load(os);
                 using var s = await TwilightSystem.Instance.GetWwwParallel(WebUtility.HtmlDecode(ModifyDataValue(o.CreateNavigator().SelectSingleNode("/html/head/meta[@name='bmstable']/@content")?.ToString()
                     ?? o.CreateNavigator().SelectSingleNode("/html/body/meta[@name='bmstable']/@content")?.ToString()
-                    ?? o.CreateNavigator().SelectSingleNode("/html/head/body/meta[@name='bmstable']/@content")?.ToString())));
+                    ?? o.CreateNavigator().SelectSingleNode("/html/head/body/meta[@name='bmstable']/@content")?.ToString()))).ConfigureAwait(false);
                 var levelTable = Utility.GetJSON<JSON.BMSTable?>(s);
                 s.Position = 0;
                 if (levelTable.HasValue)
                 {
                     var levelTableValue = levelTable.Value;
-                    var savingLevelBundleItem = new NotifyItem
+                    var savingBundleItem = new NotifyItem
                     {
                         Text = LanguageSystem.Instance.SavingLevelContents,
                         Variety = NotifySystem.NotifyVariety.Levying,
                         OnStop = isTotal => false
                     };
-                    HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingLevelBundleItem));
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingLevelBundleItem.Text);
+                    HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingBundleItem));
+                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
                     var target = ModifyDataValue(levelTableValue.data_url);
                     var levelTableFileName = levelTableValue.name;
                     foreach (var targetFileName in Path.GetInvalidFileNameChars())
@@ -138,25 +138,25 @@ namespace Qwilight
                     {
                         wwwClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
                         using (var fs = File.Open(Path.Combine(EntryPath, $"{levelTableFileName}.json"), FileMode.Create))
-                        using (var ts = await wwwClient.GetAsync(target))
+                        using (var ts = await wwwClient.GetAsync(target).ConfigureAwait(false))
                         {
-                            savingLevelBundleItem.QuitStatus = ts.Content.Headers.ContentLength ?? 0L;
+                            savingBundleItem.QuitStatus = ts.Content.Headers.ContentLength ?? 0L;
                             var length = 0;
-                            while ((length = await (await ts.Content.ReadAsStreamAsync()).ReadAsync(data.AsMemory(0, data.Length))) > 0)
+                            while ((length = await (await ts.Content.ReadAsStreamAsync().ConfigureAwait(false)).ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
                             {
-                                await fs.WriteAsync(data.AsMemory(0, length));
-                                savingLevelBundleItem.LevyingStatus += length;
-                                savingLevelBundleItem.NotifyBundleStatus();
+                                await fs.WriteAsync(data.AsMemory(0, length)).ConfigureAwait(false);
+                                savingBundleItem.LevyingStatus += length;
+                                savingBundleItem.NotifyBundleStatus();
                             }
                         }
                     }
                     using (var fs = File.Open(Path.Combine(EntryPath, $"#{levelTableFileName}.json"), FileMode.Create))
                     {
-                        await s.CopyToAsync(fs);
+                        await s.CopyToAsync(fs).ConfigureAwait(false);
                     }
-                    savingLevelBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
-                    savingLevelBundleItem.Text = LanguageSystem.Instance.SavedLevelContents;
-                    savingLevelBundleItem.OnStop = isTotal => true;
+                    savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
+                    savingBundleItem.Text = LanguageSystem.Instance.SavedLevelContents;
+                    savingBundleItem.OnStop = isTotal => true;
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedLevelContents);
                     Configure.Instance.LevelTargetMap[levelTableFileName] = www;
                     LoadLevelFiles();

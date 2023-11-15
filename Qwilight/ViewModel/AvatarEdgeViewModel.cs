@@ -41,7 +41,7 @@ namespace Qwilight.ViewModel
             base.OnOpened();
             IsAvatarEdgeLoading = true;
 
-            var edgeIDs = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/edges?avatarID={TwilightSystem.Instance.AvatarID}");
+            var edgeIDs = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/edges?avatarID={TwilightSystem.Instance.AvatarID}").ConfigureAwait(false);
             if (edgeIDs != null)
             {
                 Utility.SetUICollection(AvatarEdgeItemCollection, edgeIDs.Select(edgeID => new AvatarEdgeItem

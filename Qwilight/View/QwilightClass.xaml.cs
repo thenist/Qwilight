@@ -95,14 +95,14 @@ namespace Qwilight.View
 
         readonly ConcurrentDictionary<Exception, object> _handledFaultMap = new();
 
-        async void OnUnhandledFault(Exception e)
+        async ValueTask OnUnhandledFault(Exception e)
         {
             if (_handledFaultMap.TryAdd(e, null))
             {
                 var (logFilePath, faultText) = Utility.SetFault(QwilightComponent.FaultEntryPath, e);
                 PInvoke.MessageBox(HWND.Null, e.Message, "Qwilight", MESSAGEBOX_STYLE.MB_OK | MESSAGEBOX_STYLE.MB_ICONERROR);
                 Utility.OpenAs(logFilePath);
-                await TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/fault", faultText);
+                await TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/fault", faultText).ConfigureAwait(false);
             }
         }
 
@@ -112,12 +112,12 @@ namespace Qwilight.View
         {
             AppContext.SetSwitch("MVVMTOOLKIT_DISABLE_INOTIFYPROPERTYCHANGING", true);
 
-            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+            AppDomain.CurrentDomain.UnhandledException += async (sender, e) =>
             {
                 var fault = e.ExceptionObject as Exception;
                 if (!(fault is Win32Exception && (fault as Win32Exception).NativeErrorCode == 1400))
                 {
-                    OnUnhandledFault(fault);
+                    await OnUnhandledFault(fault).ConfigureAwait(false);
                 }
             };
             HandlingUISystem.Instance.Init(OnUnhandledFault);

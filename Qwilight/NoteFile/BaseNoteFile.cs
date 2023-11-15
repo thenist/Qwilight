@@ -78,10 +78,10 @@ namespace Qwilight.NoteFile
                 if (_wantNoteDrawing && !string.IsNullOrEmpty(NoteDrawingPath))
                 {
                     _wantNoteDrawing = false;
-                    var noteDrawingPath = Utility.GetAvailable(NoteDrawingPath, Utility.AvailableFlag.Drawing);
-                    if (!string.IsNullOrEmpty(noteDrawingPath))
+                    Task.Run(() =>
                     {
-                        Task.Run(() =>
+                        var noteDrawingPath = Utility.GetAvailable(NoteDrawingPath, Utility.AvailableFlag.Drawing);
+                        if (!string.IsNullOrEmpty(noteDrawingPath))
                         {
                             try
                             {
@@ -90,8 +90,8 @@ namespace Qwilight.NoteFile
                             catch
                             {
                             }
-                        });
-                    }
+                        }
+                    });
                 }
                 return _noteDrawing ?? DrawingSystem.Instance.DefaultDrawing.DefaultDrawing;
             }
@@ -104,10 +104,10 @@ namespace Qwilight.NoteFile
                 if (_wantBannerDrawing && !string.IsNullOrEmpty(BannerDrawingPath))
                 {
                     _wantBannerDrawing = false;
-                    var bannerDrawingPath = Utility.GetAvailable(BannerDrawingPath, Utility.AvailableFlag.Drawing);
-                    if (!string.IsNullOrEmpty(bannerDrawingPath))
+                    Task.Run(() =>
                     {
-                        Task.Run(() =>
+                        var bannerDrawingPath = Utility.GetAvailable(BannerDrawingPath, Utility.AvailableFlag.Drawing);
+                        if (!string.IsNullOrEmpty(bannerDrawingPath))
                         {
                             try
                             {
@@ -116,8 +116,8 @@ namespace Qwilight.NoteFile
                             catch
                             {
                             }
-                        });
-                    }
+                        }
+                    });
                 }
                 return _bannerDrawing;
             }

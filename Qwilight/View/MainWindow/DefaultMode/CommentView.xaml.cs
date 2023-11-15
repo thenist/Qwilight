@@ -21,11 +21,11 @@ namespace Qwilight.View
 
         void OnTwilightCommentViewModified(object sender, SelectionChangedEventArgs e) => (DataContext as MainViewModel).OnTwilightCommentViewModified();
 
-        void OnTwilightComment(object sender, MouseButtonEventArgs e)
+        async void OnTwilightComment(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount >= 2)
             {
-                (DataContext as MainViewModel).OnTwilightComment();
+                await (DataContext as MainViewModel).OnTwilightComment();
             }
         }
 

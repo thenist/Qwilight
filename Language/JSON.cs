@@ -14,25 +14,25 @@
 
         public struct N2MT
         {
-            public Message message = new Message();
+            public MSG message = new MSG();
 
             public N2MT()
             {
             }
 
-            public struct Message
+            public struct MSG
             {
-                public Result result = new Result();
+                public Data result = new Data();
 
-                public Message()
+                public MSG()
                 {
                 }
 
-                public struct Result
+                public struct Data
                 {
                     public string translatedText = string.Empty;
 
-                    public Result()
+                    public Data()
                     {
                     }
                 }

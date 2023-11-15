@@ -49,7 +49,7 @@ namespace Qwilight
             var avatarCSX = _avatarCSXs.GetOrAdd(avatarID, GetCSX);
             try
             {
-                await avatarCSX.WaitAsync();
+                await avatarCSX.WaitAsync().ConfigureAwait(false);
                 if (!_avatarDrawings.TryGetValue(avatarID, out var avatarDrawing))
                 {
                     if (string.IsNullOrEmpty(avatarID))
@@ -60,7 +60,7 @@ namespace Qwilight
                     {
                         try
                         {
-                            using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?avatarID={WebUtility.UrlEncode(avatarID)}&drawingVariety=0");
+                            using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?avatarID={WebUtility.UrlEncode(avatarID)}&drawingVariety=0").ConfigureAwait(false);
                             avatarDrawing = new()
                             {
                                 Drawing = DrawingSystem.Instance.Load(s, null),

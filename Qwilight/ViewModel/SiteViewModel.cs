@@ -284,7 +284,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async void OnEssentialInputLower(KeyEventArgs e)
+        public async ValueTask OnEssentialInputLower(KeyEventArgs e)
         {
             if (e.Key == Key.V && Utility.HasInput(VirtualKey.LeftControl) && string.IsNullOrEmpty(Input))
             {

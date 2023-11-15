@@ -22,7 +22,7 @@ namespace Qwilight.UIComponent
                     SetDrawing();
                     async void SetDrawing()
                     {
-                        using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/edge?edgeID={EdgeID}");
+                        using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/edge?edgeID={EdgeID}").ConfigureAwait(false);
                         if (s.Length > 0)
                         {
                             try

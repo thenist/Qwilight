@@ -550,7 +550,7 @@ namespace Qwilight.ViewModel
                     {
                         ViewModels.Instance.MainValue.WipeFavoriteEntry();
                         Configure.Instance.DefaultEntryItems.RemoveWhere(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite);
-                        await DB.Instance.WipeFavoriteEntry();
+                        await DB.Instance.WipeFavoriteEntry().ConfigureAwait(false);
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitFavoriteEntryOK);
                     }
                 })
@@ -574,7 +574,7 @@ namespace Qwilight.ViewModel
                         Configure.Instance.MediaWait = 0.0;
                         Configure.Instance.BanalMediaWait = 0.0;
                         Configure.Instance.NotifyModel();
-                        await DB.Instance.InitWait();
+                        await DB.Instance.InitWait().ConfigureAwait(false);
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitWaitOK);
                     }
                 })
@@ -621,7 +621,7 @@ namespace Qwilight.ViewModel
                             MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
                             MediaSystem.Instance.HandleIfAvailable(handlingComputer);
                         }
-                        await DB.Instance.InitMedia();
+                        await DB.Instance.InitMedia().ConfigureAwait(false);
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitMediaOK);
                     }
                 })
@@ -645,7 +645,7 @@ namespace Qwilight.ViewModel
                         {
                             Utility.WipeFile(commentFilePath);
                         }
-                        await DB.Instance.WipeComment();
+                        await DB.Instance.WipeComment().ConfigureAwait(false);
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCommentOK);
                     }
                 })

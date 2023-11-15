@@ -44,13 +44,13 @@ namespace Qwilight.UIComponent
         {
             try
             {
-                await DB.Instance.SetEventNoteData(WwwLevelComputingCollection);
+                await DB.Instance.SetEventNoteData(WwwLevelComputingCollection).ConfigureAwait(false);
                 if (WwwLevelItemValue != null)
                 {
                     var eventNoteName = WwwLevelItemValue.Title;
                     var date = DateTime.Now;
                     var eventNoteVariety = DB.EventNoteVariety.Qwilight;
-                    await DB.Instance.SetEventNote(GetEventNoteID(), eventNoteName, date, eventNoteVariety);
+                    await DB.Instance.SetEventNote(GetEventNoteID(), eventNoteName, date, eventNoteVariety).ConfigureAwait(false);
                     var mainViewModel = ViewModels.Instance.MainValue;
                     mainViewModel.LoadEventNoteEntryItems();
                     mainViewModel.Want();
@@ -232,8 +232,7 @@ namespace Qwilight.UIComponent
                         IsLevelItemLoading = true;
 
                         var levelID = value.LevelID;
-
-                        var twilightWwwLevel = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwLevel?>($"{QwilightComponent.QwilightAPI}/level?levelID={levelID}&language={Configure.Instance.Language}");
+                        var twilightWwwLevel = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwLevel?>($"{QwilightComponent.QwilightAPI}/level?levelID={levelID}&language={Configure.Instance.Language}").ConfigureAwait(false);
                         if (twilightWwwLevel.HasValue && WwwLevelItemValue?.LevelID == levelID)
                         {
                             var twilightWwwLevelValue = twilightWwwLevel.Value;
@@ -243,34 +242,6 @@ namespace Qwilight.UIComponent
 
                             Comment = value.Comment;
                             OnPropertyChanged(nameof(Comment));
-
-                            WwwLevelComputingCollection.Clear();
-                            foreach (var levelNote in twilightWwwLevelValue.levelNote)
-                            {
-                                var title = levelNote.title;
-                                var artist = levelNote.artist;
-                                var levelText = levelNote.levelText;
-                                var genre = levelNote.genre;
-                                var noteVariety = levelNote.noteVariety;
-                                if (noteVariety == BaseNoteFile.NoteVariety.EventNote)
-                                {
-                                    title = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                                    artist = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                                    levelText = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                                    genre = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                                }
-                                WwwLevelComputingCollection.Add(new WwwLevelComputing
-                                {
-                                    WwwLevelNoteVariety = noteVariety,
-                                    NoteID = levelNote.noteID,
-                                    Title = title,
-                                    Artist = artist,
-                                    Genre = genre,
-                                    LevelValue = levelNote.level,
-                                    LevelText = levelText,
-                                    NotHaveIt = !ViewModels.Instance.MainValue.NoteID512s.ContainsKey(levelNote.noteID)
-                                });
-                            }
 
                             Array.Fill(StandContents, null);
                             if (twilightWwwLevelValue.stand != null)
@@ -382,247 +353,278 @@ namespace Qwilight.UIComponent
                             var siteContainerViewModel = ViewModels.Instance.SiteContainerValue;
                             var toModifyModeComponentViewModel = ViewModels.Instance.ModifyModeComponentValue;
 
-                            AutoModes.Clear();
-                            if (twilightWwwLevelValue.autoMode != null)
+                            HandlingUISystem.Instance.HandleParallel(() =>
                             {
-                                foreach (var autoMode in twilightWwwLevelValue.autoMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.AutoModeVariety].FindIndex(modeComponentValue => (ModeComponent.AutoMode)modeComponentValue.Value == value)))
+                                WwwLevelComputingCollection.Clear();
+                                foreach (var levelNote in twilightWwwLevelValue.levelNote)
                                 {
-                                    AutoModes.Add(new WwwLevelModeComponent<ModeComponent.AutoMode>
+                                    var title = levelNote.title;
+                                    var artist = levelNote.artist;
+                                    var levelText = levelNote.levelText;
+                                    var genre = levelNote.genre;
+                                    var noteVariety = levelNote.noteVariety;
+                                    if (noteVariety == BaseNoteFile.NoteVariety.EventNote)
                                     {
-                                        Value = autoMode,
-                                        OnInput = new RelayCommand(() =>
-                                        {
-                                            mainViewModel.ModeComponentValue.AutoModeValue = autoMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            OnPropertyChanged(nameof(IsAutoModeCompatible));
-                                        })
+                                        title = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                                        artist = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                                        levelText = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                                        genre = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                                    }
+                                    WwwLevelComputingCollection.Add(new WwwLevelComputing
+                                    {
+                                        WwwLevelNoteVariety = noteVariety,
+                                        NoteID = levelNote.noteID,
+                                        Title = title,
+                                        Artist = artist,
+                                        Genre = genre,
+                                        LevelValue = levelNote.level,
+                                        LevelText = levelText,
+                                        NotHaveIt = !ViewModels.Instance.MainValue.NoteID512s.ContainsKey(levelNote.noteID)
                                     });
                                 }
-                            }
 
-                            NoteSaltModes.Clear();
-                            if (twilightWwwLevelValue.noteSaltMode != null)
-                            {
-                                foreach (var noteSaltMode in twilightWwwLevelValue.noteSaltMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.NoteSaltModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteSaltMode)modeComponentValue.Value == value)))
+                                AutoModes.Clear();
+                                if (twilightWwwLevelValue.autoMode != null)
                                 {
-                                    NoteSaltModes.Add(new WwwLevelModeComponent<ModeComponent.NoteSaltMode>
+                                    foreach (var autoMode in twilightWwwLevelValue.autoMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.AutoModeVariety].FindIndex(modeComponentValue => (ModeComponent.AutoMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = noteSaltMode,
-                                        OnInput = new RelayCommand(() =>
+                                        AutoModes.Add(new WwwLevelModeComponent<ModeComponent.AutoMode>
                                         {
-                                            mainViewModel.ModeComponentValue.NoteSaltModeValue = noteSaltMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            mainViewModel.HandleAutoComputer();
-                                            OnPropertyChanged(nameof(IsNoteSaltModeCompatible));
-                                        })
-                                    });
+                                            Value = autoMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.AutoModeValue = autoMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                OnPropertyChanged(nameof(IsAutoModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            FaintNoteModes.Clear();
-                            if (twilightWwwLevelValue.faintNoteMode != null)
-                            {
-                                foreach (var faintNoteMode in twilightWwwLevelValue.faintNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.FaintNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.FaintNoteMode)modeComponentValue.Value == value)))
+                                NoteSaltModes.Clear();
+                                if (twilightWwwLevelValue.noteSaltMode != null)
                                 {
-                                    FaintNoteModes.Add(new WwwLevelModeComponent<ModeComponent.FaintNoteMode>
+                                    foreach (var noteSaltMode in twilightWwwLevelValue.noteSaltMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.NoteSaltModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteSaltMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = faintNoteMode,
-                                        OnInput = new RelayCommand(() =>
+                                        NoteSaltModes.Add(new WwwLevelModeComponent<ModeComponent.NoteSaltMode>
                                         {
-                                            mainViewModel.ModeComponentValue.FaintNoteModeValue = faintNoteMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            OnPropertyChanged(nameof(IsFaintNoteModeCompatible));
-                                        })
-                                    });
+                                            Value = noteSaltMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.NoteSaltModeValue = noteSaltMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                mainViewModel.HandleAutoComputer();
+                                                OnPropertyChanged(nameof(IsNoteSaltModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            JudgmentModes.Clear();
-                            if (twilightWwwLevelValue.judgmentMode != null)
-                            {
-                                foreach (var judgmentMode in twilightWwwLevelValue.judgmentMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.JudgmentModeVariety].FindIndex(modeComponentValue => (ModeComponent.JudgmentMode)modeComponentValue.Value == value)))
+                                FaintNoteModes.Clear();
+                                if (twilightWwwLevelValue.faintNoteMode != null)
                                 {
-                                    JudgmentModes.Add(new WwwLevelModeComponent<ModeComponent.JudgmentMode>
+                                    foreach (var faintNoteMode in twilightWwwLevelValue.faintNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.FaintNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.FaintNoteMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = judgmentMode,
-                                        OnInput = new RelayCommand(() =>
+                                        FaintNoteModes.Add(new WwwLevelModeComponent<ModeComponent.FaintNoteMode>
                                         {
-                                            mainViewModel.ModeComponentValue.JudgmentModeValue = judgmentMode;
-                                            mainViewModel.OnJudgmentMeterMillisModified();
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            OnPropertyChanged(nameof(IsJudgmentModeCompatible));
-                                        })
-                                    });
+                                            Value = faintNoteMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.FaintNoteModeValue = faintNoteMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                OnPropertyChanged(nameof(IsFaintNoteModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            HitPointsModes.Clear();
-                            if (twilightWwwLevelValue.hitPointsMode != null)
-                            {
-                                foreach (var hitPointsMode in twilightWwwLevelValue.hitPointsMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.HitPointsModeVariety].FindIndex(modeComponentValue => (ModeComponent.HitPointsMode)modeComponentValue.Value == value)))
+                                JudgmentModes.Clear();
+                                if (twilightWwwLevelValue.judgmentMode != null)
                                 {
-                                    HitPointsModes.Add(new WwwLevelModeComponent<ModeComponent.HitPointsMode>
+                                    foreach (var judgmentMode in twilightWwwLevelValue.judgmentMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.JudgmentModeVariety].FindIndex(modeComponentValue => (ModeComponent.JudgmentMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = hitPointsMode,
-                                        OnInput = new RelayCommand(() =>
+                                        JudgmentModes.Add(new WwwLevelModeComponent<ModeComponent.JudgmentMode>
                                         {
-                                            mainViewModel.ModeComponentValue.HitPointsModeValue = hitPointsMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            OnPropertyChanged(nameof(IsHitPointsModeCompatible));
-                                        })
-                                    });
+                                            Value = judgmentMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.JudgmentModeValue = judgmentMode;
+                                                mainViewModel.OnJudgmentMeterMillisModified();
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                OnPropertyChanged(nameof(IsJudgmentModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            NoteMobilityModes.Clear();
-                            if (twilightWwwLevelValue.noteMobilityMode != null)
-                            {
-                                foreach (var noteMobilityMode in twilightWwwLevelValue.noteMobilityMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.NoteMobilityModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteMobilityMode)modeComponentValue.Value == value)))
+                                HitPointsModes.Clear();
+                                if (twilightWwwLevelValue.hitPointsMode != null)
                                 {
-                                    NoteMobilityModes.Add(new WwwLevelModeComponent<ModeComponent.NoteMobilityMode>
+                                    foreach (var hitPointsMode in twilightWwwLevelValue.hitPointsMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.HitPointsModeVariety].FindIndex(modeComponentValue => (ModeComponent.HitPointsMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = noteMobilityMode,
-                                        OnInput = new RelayCommand(() =>
+                                        HitPointsModes.Add(new WwwLevelModeComponent<ModeComponent.HitPointsMode>
                                         {
-                                            mainViewModel.ModeComponentValue.NoteMobilityModeValue = noteMobilityMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            OnPropertyChanged(nameof(IsNoteMobilityModeCompatible));
-                                        })
-                                    });
+                                            Value = hitPointsMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.HitPointsModeValue = hitPointsMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                OnPropertyChanged(nameof(IsHitPointsModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            LongNoteModes.Clear();
-                            if (twilightWwwLevelValue.longNoteMode != null)
-                            {
-                                foreach (var longNoteMode in twilightWwwLevelValue.longNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.LongNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.LongNoteMode)modeComponentValue.Value == value)))
+                                NoteMobilityModes.Clear();
+                                if (twilightWwwLevelValue.noteMobilityMode != null)
                                 {
-                                    LongNoteModes.Add(new WwwLevelModeComponent<ModeComponent.LongNoteMode>
+                                    foreach (var noteMobilityMode in twilightWwwLevelValue.noteMobilityMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.NoteMobilityModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteMobilityMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = longNoteMode,
-                                        OnInput = new RelayCommand(() =>
+                                        NoteMobilityModes.Add(new WwwLevelModeComponent<ModeComponent.NoteMobilityMode>
                                         {
-                                            mainViewModel.ModeComponentValue.LongNoteModeValue = longNoteMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            mainViewModel.HandleAutoComputer();
-                                            OnPropertyChanged(nameof(IsLongNoteModeCompatible));
-                                        })
-                                    });
+                                            Value = noteMobilityMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.NoteMobilityModeValue = noteMobilityMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                OnPropertyChanged(nameof(IsNoteMobilityModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            InputFavorModes.Clear();
-                            if (twilightWwwLevelValue.inputFavorMode != null)
-                            {
-                                foreach (var inputFavorMode in twilightWwwLevelValue.inputFavorMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.InputFavorModeVariety].FindIndex(modeComponentValue => (ModeComponent.InputFavorMode)modeComponentValue.Value == value)))
+                                LongNoteModes.Clear();
+                                if (twilightWwwLevelValue.longNoteMode != null)
                                 {
-                                    InputFavorModes.Add(new WwwLevelModeComponent<ModeComponent.InputFavorMode>
+                                    foreach (var longNoteMode in twilightWwwLevelValue.longNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.LongNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.LongNoteMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = inputFavorMode,
-                                        OnInput = new RelayCommand(() =>
+                                        LongNoteModes.Add(new WwwLevelModeComponent<ModeComponent.LongNoteMode>
                                         {
-                                            mainViewModel.ModeComponentValue.InputFavorModeValue = inputFavorMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            mainViewModel.HandleAutoComputer();
-                                            OnPropertyChanged(nameof(IsInputFavorModeCompatible));
-                                        })
-                                    });
+                                            Value = longNoteMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.LongNoteModeValue = longNoteMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                mainViewModel.HandleAutoComputer();
+                                                OnPropertyChanged(nameof(IsLongNoteModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            NoteModifyModes.Clear();
-                            if (twilightWwwLevelValue.noteModifyMode != null)
-                            {
-                                foreach (var noteModifyMode in twilightWwwLevelValue.noteModifyMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.NoteModifyModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteModifyMode)modeComponentValue.Value == value)))
+                                InputFavorModes.Clear();
+                                if (twilightWwwLevelValue.inputFavorMode != null)
                                 {
-                                    NoteModifyModes.Add(new WwwLevelModeComponent<ModeComponent.NoteModifyMode>
+                                    foreach (var inputFavorMode in twilightWwwLevelValue.inputFavorMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.InputFavorModeVariety].FindIndex(modeComponentValue => (ModeComponent.InputFavorMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = noteModifyMode,
-                                        OnInput = new RelayCommand(() =>
+                                        InputFavorModes.Add(new WwwLevelModeComponent<ModeComponent.InputFavorMode>
                                         {
-                                            mainViewModel.ModeComponentValue.NoteModifyModeValue = noteModifyMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            mainViewModel.HandleAutoComputer();
-                                            OnPropertyChanged(nameof(IsNoteModifyModeCompatible));
-                                        })
-                                    });
+                                            Value = inputFavorMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.InputFavorModeValue = inputFavorMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                mainViewModel.HandleAutoComputer();
+                                                OnPropertyChanged(nameof(IsInputFavorModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            BPMModes.Clear();
-                            if (twilightWwwLevelValue.bpmMode != null)
-                            {
-                                foreach (var bpmMode in twilightWwwLevelValue.bpmMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.BPMModeVariety].FindIndex(modeComponentValue => (ModeComponent.BPMMode)modeComponentValue.Value == value)))
+                                NoteModifyModes.Clear();
+                                if (twilightWwwLevelValue.noteModifyMode != null)
                                 {
-                                    BPMModes.Add(new WwwLevelModeComponent<ModeComponent.BPMMode>
+                                    foreach (var noteModifyMode in twilightWwwLevelValue.noteModifyMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.NoteModifyModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteModifyMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = bpmMode,
-                                        OnInput = new RelayCommand(() =>
+                                        NoteModifyModes.Add(new WwwLevelModeComponent<ModeComponent.NoteModifyMode>
                                         {
-                                            mainViewModel.ModeComponentValue.BPMModeValue = bpmMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            mainViewModel.HandleAutoComputer();
-                                            OnPropertyChanged(nameof(IsBPMModeCompatible));
-                                        })
-                                    });
+                                            Value = noteModifyMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.NoteModifyModeValue = noteModifyMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                mainViewModel.HandleAutoComputer();
+                                                OnPropertyChanged(nameof(IsNoteModifyModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            WaveModes.Clear();
-                            if (twilightWwwLevelValue.waveMode != null)
-                            {
-                                foreach (var waveMode in twilightWwwLevelValue.waveMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.WaveModeVariety].FindIndex(modeComponentValue => (ModeComponent.WaveMode)modeComponentValue.Value == value)))
+                                BPMModes.Clear();
+                                if (twilightWwwLevelValue.bpmMode != null)
                                 {
-                                    WaveModes.Add(new WwwLevelModeComponent<ModeComponent.WaveMode>
+                                    foreach (var bpmMode in twilightWwwLevelValue.bpmMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.BPMModeVariety].FindIndex(modeComponentValue => (ModeComponent.BPMMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = waveMode,
-                                        OnInput = new RelayCommand(() =>
+                                        BPMModes.Add(new WwwLevelModeComponent<ModeComponent.BPMMode>
                                         {
-                                            mainViewModel.ModeComponentValue.WaveModeValue = waveMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            mainViewModel.HandleAutoComputer();
-                                            OnPropertyChanged(nameof(IsWaveModeCompatible));
-                                        })
-                                    });
+                                            Value = bpmMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.BPMModeValue = bpmMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                mainViewModel.HandleAutoComputer();
+                                                OnPropertyChanged(nameof(IsBPMModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            SetNoteModes.Clear();
-                            if (twilightWwwLevelValue.setNoteMode != null)
-                            {
-                                foreach (var setNoteMode in twilightWwwLevelValue.setNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.SetNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.SetNoteMode)modeComponentValue.Value == value)))
+                                WaveModes.Clear();
+                                if (twilightWwwLevelValue.waveMode != null)
                                 {
-                                    SetNoteModes.Add(new WwwLevelModeComponent<ModeComponent.SetNoteMode>
+                                    foreach (var waveMode in twilightWwwLevelValue.waveMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.WaveModeVariety].FindIndex(modeComponentValue => (ModeComponent.WaveMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = setNoteMode,
-                                        OnInput = new RelayCommand(() =>
+                                        WaveModes.Add(new WwwLevelModeComponent<ModeComponent.WaveMode>
                                         {
-                                            mainViewModel.ModeComponentValue.SetNoteModeValue = setNoteMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            mainViewModel.HandleAutoComputer();
-                                            OnPropertyChanged(nameof(IsSetNoteModeCompatible));
-                                        })
-                                    });
+                                            Value = waveMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.WaveModeValue = waveMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                mainViewModel.HandleAutoComputer();
+                                                OnPropertyChanged(nameof(IsWaveModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
 
-                            LowestJudgmentConditionModes.Clear();
-                            if (twilightWwwLevelValue.lowestJudgmentConditionMode != null)
-                            {
-                                foreach (var lowestJudgmentConditionMode in twilightWwwLevelValue.lowestJudgmentConditionMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.LowestJudgmentConditionModeVariety].FindIndex(modeComponentValue => (ModeComponent.LowestJudgmentConditionMode)modeComponentValue.Value == value)))
+                                SetNoteModes.Clear();
+                                if (twilightWwwLevelValue.setNoteMode != null)
                                 {
-                                    LowestJudgmentConditionModes.Add(new WwwLevelModeComponent<ModeComponent.LowestJudgmentConditionMode>
+                                    foreach (var setNoteMode in twilightWwwLevelValue.setNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.SetNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.SetNoteMode)modeComponentValue.Value == value)))
                                     {
-                                        Value = lowestJudgmentConditionMode,
-                                        OnInput = new RelayCommand(() =>
+                                        SetNoteModes.Add(new WwwLevelModeComponent<ModeComponent.SetNoteMode>
                                         {
-                                            mainViewModel.ModeComponentValue.LowestJudgmentConditionModeValue = lowestJudgmentConditionMode;
-                                            siteContainerViewModel.CallSetModeComponent();
-                                            OnPropertyChanged(nameof(IsLowestJudgmentConditionModeCompatible));
-                                        })
-                                    });
+                                            Value = setNoteMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.SetNoteModeValue = setNoteMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                mainViewModel.HandleAutoComputer();
+                                                OnPropertyChanged(nameof(IsSetNoteModeCompatible));
+                                            })
+                                        });
+                                    }
                                 }
-                            }
+
+                                LowestJudgmentConditionModes.Clear();
+                                if (twilightWwwLevelValue.lowestJudgmentConditionMode != null)
+                                {
+                                    foreach (var lowestJudgmentConditionMode in twilightWwwLevelValue.lowestJudgmentConditionMode.OrderBy(value => toModifyModeComponentViewModel.ModeComponentValues[ModifyModeComponentViewModel.LowestJudgmentConditionModeVariety].FindIndex(modeComponentValue => (ModeComponent.LowestJudgmentConditionMode)modeComponentValue.Value == value)))
+                                    {
+                                        LowestJudgmentConditionModes.Add(new WwwLevelModeComponent<ModeComponent.LowestJudgmentConditionMode>
+                                        {
+                                            Value = lowestJudgmentConditionMode,
+                                            OnInput = new RelayCommand(() =>
+                                            {
+                                                mainViewModel.ModeComponentValue.LowestJudgmentConditionModeValue = lowestJudgmentConditionMode;
+                                                siteContainerViewModel.CallSetModeComponent();
+                                                OnPropertyChanged(nameof(IsLowestJudgmentConditionModeCompatible));
+                                            })
+                                        });
+                                    }
+                                }
+                            });
 
                             Utility.SetUICollection(ClearedTitleItemCollection, twilightWwwLevelValue.titles.Select(title => new AvatarTitleItem
                             {

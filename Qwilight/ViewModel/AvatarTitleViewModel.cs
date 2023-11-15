@@ -42,7 +42,7 @@ namespace Qwilight.ViewModel
             base.OnOpened();
             IsAvatarTitleLoading = true;
 
-            var twilightWwwTitles = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwTitles[]>($"{QwilightComponent.QwilightAPI}/titles?avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}");
+            var twilightWwwTitles = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwTitles[]>($"{QwilightComponent.QwilightAPI}/titles?avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}").ConfigureAwait(false);
             if (twilightWwwTitles != null)
             {
                 Utility.SetUICollection(AvatarTitleItemCollection, twilightWwwTitles.Prepend(new JSON.TwilightWwwTitles

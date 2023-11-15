@@ -146,11 +146,11 @@ namespace Qwilight.View
 
         void OnFileAs(object sender, DragEventArgs e) => ViewModels.Instance.MainValue.OnFileAs(e);
 
-        void OnLoaded(object sender, EventArgs e)
+        async void OnLoaded(object sender, EventArgs e)
         {
             var mainViewModel = ViewModels.Instance.MainValue;
             mainViewModel.OnWindowDPIModified(PInvoke.GetDpiForWindow(_handle) / 96.0);
-            mainViewModel.OnLoaded(_handle);
+            await mainViewModel.OnLoaded(_handle);
         }
 
         public async void Receive(ICC message)

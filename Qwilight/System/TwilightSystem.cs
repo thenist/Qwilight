@@ -79,7 +79,7 @@ namespace Qwilight
                     _wantAvatarDrawing = false;
 
                     SetAvatarDrawing();
-                    async void SetAvatarDrawing() => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID)).DefaultDrawing, nameof(AvatarDrawing));
+                    async void SetAvatarDrawing() => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarDrawing));
                 }
                 return _avatarDrawing;
             }
@@ -1023,7 +1023,7 @@ namespace Qwilight
                                                                 _ => default
                                                             };
                                                             var date = DateTime.Now;
-                                                            await DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
+                                                            await DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety).ConfigureAwait(false);
                                                             savedBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                                             savedBundleItem.Text = LanguageSystem.Instance.SavedBundleContents;
                                                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savedBundleItem.Text);
@@ -1394,9 +1394,9 @@ namespace Qwilight
                 try
                 {
                     var dataGet = new HttpRequestMessage(HttpMethod.Get, target);
-                    var www = await _wwwClient.SendAsync(dataGet);
+                    var www = await _wwwClient.SendAsync(dataGet).ConfigureAwait(false);
                     www.EnsureSuccessStatusCode();
-                    return await www.Content.ReadAsStreamAsync();
+                    return await www.Content.ReadAsStreamAsync().ConfigureAwait(false);
                 }
                 catch
                 {
@@ -1413,9 +1413,9 @@ namespace Qwilight
                 try
                 {
                     var dataGet = new HttpRequestMessage(HttpMethod.Get, target);
-                    using var www = await _wwwClient.SendAsync(dataGet);
+                    using var www = await _wwwClient.SendAsync(dataGet).ConfigureAwait(false);
                     www.EnsureSuccessStatusCode();
-                    var text = await www.Content.ReadAsStringAsync();
+                    var text = await www.Content.ReadAsStringAsync().ConfigureAwait(false);
                     if (!string.IsNullOrEmpty(text))
                     {
                         return Utility.GetJSON<T>(text);
@@ -1440,7 +1440,7 @@ namespace Qwilight
                         Content = new StringContent(data, Encoding.UTF8, dataVariety)
                     };
                     dataPost.Headers.Add("millis", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString());
-                    using var www = await _wwwClient.SendAsync(dataPost);
+                    using var www = await _wwwClient.SendAsync(dataPost).ConfigureAwait(false);
                     www.EnsureSuccessStatusCode();
                     return true;
                 }
@@ -1458,7 +1458,7 @@ namespace Qwilight
             {
                 try
                 {
-                    var dataContents = new ByteArrayContent(await File.ReadAllBytesAsync(fileName));
+                    var dataContents = new ByteArrayContent(await File.ReadAllBytesAsync(fileName).ConfigureAwait(false));
                     dataContents.Headers.ContentDisposition = new("form-data")
                     {
                         Name = "data",
@@ -1474,7 +1474,7 @@ namespace Qwilight
                     };
                     dataPost.Headers.Add("millis", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString());
                     dataPost.Headers.Add("totem", Totem);
-                    using var www = await _wwwClient.SendAsync(dataPost);
+                    using var www = await _wwwClient.SendAsync(dataPost).ConfigureAwait(false);
                     www.EnsureSuccessStatusCode();
                     return true;
                 }
@@ -1497,9 +1497,9 @@ namespace Qwilight
                         Content = new ByteArrayContent(data)
                     };
                     dataPost.Headers.Add("millis", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString());
-                    using var www = await _wwwClient.SendAsync(dataPost);
+                    using var www = await _wwwClient.SendAsync(dataPost).ConfigureAwait(false);
                     www.EnsureSuccessStatusCode();
-                    return await www.Content.ReadAsStringAsync();
+                    return await www.Content.ReadAsStringAsync().ConfigureAwait(false);
                 }
                 catch
                 {
@@ -1521,7 +1521,7 @@ namespace Qwilight
                     };
                     dataPut.Headers.Add("millis", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString());
                     dataPut.Headers.Add("totem", Totem);
-                    using var www = await _wwwClient.SendAsync(dataPut);
+                    using var www = await _wwwClient.SendAsync(dataPut).ConfigureAwait(false);
                     www.EnsureSuccessStatusCode();
                     return true;
                 }
@@ -1535,7 +1535,7 @@ namespace Qwilight
 
         public async void GetDefaultNoteDate(long defaultNoteDate, bool isSilent)
         {
-            var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultNoteDate?date={defaultNoteDate}");
+            var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultNoteDate?date={defaultNoteDate}").ConfigureAwait(false);
             if (twilightWwwDefaultDate.HasValue)
             {
                 var date = twilightWwwDefaultDate.Value.date;
@@ -1574,7 +1574,7 @@ namespace Qwilight
 
         public async void GetDefaultUIDate(long defaultUIDate, bool isSilent)
         {
-            var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultUIDate?date={defaultUIDate}");
+            var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultUIDate?date={defaultUIDate}").ConfigureAwait(false);
             if (twilightWwwDefaultDate.HasValue && !ViewModels.Instance.MainValue.IsVital)
             {
                 var date = twilightWwwDefaultDate.Value.date;

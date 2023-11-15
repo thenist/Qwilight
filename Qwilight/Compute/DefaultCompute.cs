@@ -4517,11 +4517,11 @@ namespace Qwilight.Compute
                 switch (!string.IsNullOrEmpty(eventNoteID) || NoteFile.IsBanned ? 0 : Configure.Instance.CommentViewTabPosition)
                 {
                     case 0:
-                        netItems.AddRange(GetNetItemsImpl(await DB.Instance.GetCommentItems(NoteFiles[0], eventNoteID, NoteFiles.Length)));
+                        netItems.AddRange(GetNetItemsImpl(await DB.Instance.GetCommentItems(NoteFiles[0], eventNoteID, NoteFiles.Length).ConfigureAwait(false)));
                         break;
                     case 1:
                     case 2:
-                        var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&target={Configure.Instance.UbuntuNetItemTarget}");
+                        var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&target={Configure.Instance.UbuntuNetItemTarget}").ConfigureAwait(false);
                         if (twilightWwwComment.HasValue)
                         {
                             netItems.AddRange(GetNetItemsImpl(HandleTwilightNetItems(Utility.GetCommentItems(twilightWwwComment.Value.comments, NoteFile))));
@@ -4572,7 +4572,7 @@ namespace Qwilight.Compute
                                     var commentID = commentItem.CommentID;
                                     if (commentItem.IsTwilightComment)
                                     {
-                                        using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&commentID={commentID}");
+                                        using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&commentID={commentID}").ConfigureAwait(false);
                                         if (s.Length > 0)
                                         {
                                             netItem.Comment = Comment.Parser.ParseFrom(s);

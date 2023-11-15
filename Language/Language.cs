@@ -113,7 +113,7 @@ void SetCSJavaLanguage(string languageFilePath)
         else
         {
             Console.WriteLine($"＋{targetPropertyName}");
-            return await N2Mt(targetLanguage, defaultLanguageValue);
+            return await N2Mt(targetLanguage, defaultLanguageValue).ConfigureAwait(false);
         }
     }
 }
@@ -212,7 +212,7 @@ void SetTSLanguage(string languageFilePath)
             else
             {
                 Console.WriteLine($"＋{defaultLanguage.Key}");
-                targetLanguageStore[defaultLanguage.Key] = await N2Mt(targetLanguage, defaultLanguage.Value);
+                targetLanguageStore[defaultLanguage.Key] = await N2Mt(targetLanguage, defaultLanguage.Value).ConfigureAwait(false);
             }
         }
 
@@ -270,14 +270,14 @@ namespace {{languageSystemName}}
     File.WriteAllText(languageSystemFilePath, builder.ToString());
 }
 
-async Task<string> N2Mt(string targetLanguage, string src)
+async ValueTask<string> N2Mt(string targetLanguage, string src)
 {
     var t = await wwwClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, "https://openapi.naver.com/v1/papago/n2mt")
     {
         Content = new FormUrlEncodedContent(new[] { KeyValuePair.Create("source", "ko"), KeyValuePair.Create("target", targetLanguage), KeyValuePair.Create("text", src) }),
         Version = HttpVersion.Version20
-    });
-    var text = await t.Content.ReadAsStringAsync();
+    }).ConfigureAwait(false);
+    var text = await t.Content.ReadAsStringAsync().ConfigureAwait(false);
     if (t.IsSuccessStatusCode)
     {
         return JsonSerializer.Deserialize<JSON.N2MT>(text, new JsonSerializerOptions
@@ -287,7 +287,7 @@ async Task<string> N2Mt(string targetLanguage, string src)
     }
     else
     {
-        await Console.Error.WriteLineAsync(t.StatusCode.ToString());
+        await Console.Error.WriteLineAsync(t.StatusCode.ToString()).ConfigureAwait(false);
         return string.Empty;
     }
 }

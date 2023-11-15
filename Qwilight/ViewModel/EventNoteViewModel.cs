@@ -80,7 +80,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async void OnInputLower(KeyEventArgs e)
+        public async ValueTask OnInputLower(KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -88,7 +88,7 @@ namespace Qwilight.ViewModel
                 {
                     var eventNoteID = string.Join('/', NoteFileCollection.Select(noteFile => noteFile.GetNoteID512()));
                     var date = DateTime.Now;
-                    await DB.Instance.SetEventNote(eventNoteID, EventNoteName, date, DB.EventNoteVariety.Qwilight);
+                    await DB.Instance.SetEventNote(eventNoteID, EventNoteName, date, DB.EventNoteVariety.Qwilight).ConfigureAwait(false);
                     Close();
                     NoteFileCollection.Clear();
                     EventNoteName = null;

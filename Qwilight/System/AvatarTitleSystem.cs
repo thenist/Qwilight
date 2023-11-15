@@ -33,7 +33,7 @@ namespace Qwilight
             var avatarCSX = _avatarCSXs.GetOrAdd(avatarID, GetCSX);
             try
             {
-                await avatarCSX.WaitAsync();
+                await avatarCSX.WaitAsync().ConfigureAwait(false);
                 if (!_avatarTitles.TryGetValue(avatarID, out var avatarTitle))
                 {
                     if (string.IsNullOrEmpty(avatarID))
@@ -44,7 +44,7 @@ namespace Qwilight
                     {
                         try
                         {
-                            var twilightWwwTitle = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwTitle?>($"{QwilightComponent.QwilightAPI}/title?avatarID={WebUtility.UrlEncode(avatarID)}&language={Configure.Instance.Language}");
+                            var twilightWwwTitle = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwTitle?>($"{QwilightComponent.QwilightAPI}/title?avatarID={WebUtility.UrlEncode(avatarID)}&language={Configure.Instance.Language}").ConfigureAwait(false);
                             avatarTitle = twilightWwwTitle.HasValue ? new AvatarTitle(twilightWwwTitle.Value.title, Utility.GetTitlePaint(twilightWwwTitle.Value.titleColor), Utility.GetTitleColor(twilightWwwTitle.Value.titleColor)) : new AvatarTitle(string.Empty, default, default);
                         }
                         catch

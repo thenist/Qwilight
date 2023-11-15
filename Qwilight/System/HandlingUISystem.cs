@@ -8,13 +8,13 @@ namespace Qwilight
 
         public Dispatcher UIHandler { get; set; }
 
-        public void Init(Action<Exception> onUnhandledFault)
+        public void Init(Func<Exception, ValueTask> onUnhandledFault)
         {
             UIHandler = Dispatcher.CurrentDispatcher;
-            UIHandler.UnhandledException += (sender, e) =>
+            UIHandler.UnhandledException += async (sender, e) =>
             {
-                onUnhandledFault(e.Exception);
                 e.Handled = true;
+                await onUnhandledFault(e.Exception).ConfigureAwait(false);
             };
         }
 

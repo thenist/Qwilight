@@ -541,7 +541,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async void OnLoaded(nint handle)
+        public async ValueTask OnLoaded(nint handle)
         {
             WeakReferenceMessenger.Default.Send<ICC>(new()
             {
@@ -549,7 +549,7 @@ namespace Qwilight.ViewModel
             });
 
             StillSystem.Instance.Init(handle);
-            MIDISystem.Instance.HandleSystem();
+            await MIDISystem.Instance.HandleSystem();
 
             AudioSystem.Instance.LoadDefaultAudio();
             AudioSystem.Instance.LoadBanalAudio();
@@ -558,7 +558,7 @@ namespace Qwilight.ViewModel
 
             LevelSystem.Instance.LoadJSON(false);
 
-            await ValveSystem.Instance.Init();
+            await ValveSystem.Instance.Init().ConfigureAwait(false);
             await Task.Run(() =>
             {
                 BaseUI.Instance.LoadUI(null, Configure.Instance.BaseUIItemValue, false);
@@ -616,7 +616,7 @@ namespace Qwilight.ViewModel
                         Contents = false
                     });
                 }
-            });
+            }).ConfigureAwait(false);
 
             _isLoaded = true;
         }
@@ -849,7 +849,7 @@ namespace Qwilight.ViewModel
                                 {
                                     Utility.WipeFile(defaultCommentFilePath);
                                 }
-                                await DB.Instance.WipeComment(defaultCommentFilePath);
+                                await DB.Instance.WipeComment(defaultCommentFilePath).ConfigureAwait(false);
                             }
                         })
                     }
@@ -940,7 +940,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async void OnEntryViewInputLower(KeyEventArgs e)
+        public async ValueTask OnEntryViewInputLower(KeyEventArgs e)
         {
             if (IsNoteFileMode)
             {
@@ -964,7 +964,7 @@ namespace Qwilight.ViewModel
                                 }
                                 foreach (var noteFile in EntryItemValue.NoteFiles.Where(noteFile => !noteFile.IsLogical))
                                 {
-                                    await TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents());
+                                    await TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents()).ConfigureAwait(false);
                                 }
                                 break;
                             case DB.EventNoteVariety.Qwilight:
@@ -972,7 +972,7 @@ namespace Qwilight.ViewModel
                                 Clipboard.SetContent(dataBundle);
                                 foreach (var noteFile in EntryItemValue.NoteFiles.Where(noteFile => !noteFile.IsLogical))
                                 {
-                                    await TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents());
+                                    await TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents()).ConfigureAwait(false);
                                 }
                                 break;
                         }
@@ -1082,7 +1082,7 @@ namespace Qwilight.ViewModel
                                                 {
                                                     if (r == MESSAGEBOX_RESULT.IDYES)
                                                     {
-                                                        await DB.Instance.WipeEventNote(eventNoteID);
+                                                        await DB.Instance.WipeEventNote(eventNoteID).ConfigureAwait(false);
                                                         LoadEventNoteEntryItems();
                                                         Want();
                                                     }
@@ -1194,13 +1194,13 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async void OnTwilightComment()
+        public async ValueTask OnTwilightComment()
         {
             var noteID = EntryItemValue?.NoteFile?.GetNoteID512();
             var commentID = TwilightCommentItem?.CommentID;
             if (!string.IsNullOrEmpty(noteID) && !string.IsNullOrEmpty(commentID))
             {
-                using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&commentID={commentID}");
+                using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&commentID={commentID}").ConfigureAwait(false);
                 var noteFile = EntryItemValue?.NoteFile;
                 var twilightCommentItem = TwilightCommentItem;
                 if (IsNoteFileMode && noteFile?.GetNoteID512() == noteID && twilightCommentItem?.CommentID == commentID)
@@ -1387,7 +1387,7 @@ namespace Qwilight.ViewModel
                 if (EntryItemValue != null)
                 {
                     var targetNoteFiles = EntryItemValue.NoteFiles;
-                    var commentItems = await (IsEntryItemEventNote ? DB.Instance.GetCommentItems(targetNoteFiles[0], EntryItemValue.EventNoteID, targetNoteFiles.Length) : DB.Instance.GetCommentItems(EntryItemValue.NoteFile, EntryItemValue.EventNoteID, 1));
+                    var commentItems = await (IsEntryItemEventNote ? DB.Instance.GetCommentItems(targetNoteFiles[0], EntryItemValue.EventNoteID, targetNoteFiles.Length).ConfigureAwait(false) : DB.Instance.GetCommentItems(EntryItemValue.NoteFile, EntryItemValue.EventNoteID, 1).ConfigureAwait(false));
 
                     DefaultCommentCollection.Clear();
                     foreach (var commentItem in commentItems)
@@ -1404,7 +1404,7 @@ namespace Qwilight.ViewModel
                 if (noteFile != null)
                 {
                     var noteID = noteFile.GetNoteID512();
-                    var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}&target={Configure.Instance.UbuntuNetItemTarget}");
+                    var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}&target={Configure.Instance.UbuntuNetItemTarget}").ConfigureAwait(false);
                     if (twilightWwwComment.HasValue)
                     {
                         var twilightWwwCommentValue = twilightWwwComment.Value;
@@ -3065,14 +3065,14 @@ namespace Qwilight.ViewModel
         {
             try
             {
-                var taehuiQwilight = await TwilightSystem.Instance.GetWwwParallel<JSON.TaehuiQwilight?>($"{QwilightComponent.TaehuiNetFE}/qwilight/qwilight.json");
+                var taehuiQwilight = await TwilightSystem.Instance.GetWwwParallel<JSON.TaehuiQwilight?>($"{QwilightComponent.TaehuiNetFE}/qwilight/qwilight.json").ConfigureAwait(false);
                 if (taehuiQwilight.HasValue)
                 {
                     var taehuiQwilightValue = taehuiQwilight.Value;
                     var date = Version.Parse(taehuiQwilightValue.date);
                     if (QwilightComponent.Date < date || QwilightComponent.HashText != taehuiQwilightValue.hash)
                     {
-                        SaveQwilight();
+                        await SaveQwilight();
                     }
                     else if (!isSilent)
                     {
@@ -3083,18 +3083,18 @@ namespace Qwilight.ViewModel
                             {
                                 LanguageSystem.Instance.AlreadyLatestDate,
                                 MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                                new Action<MESSAGEBOX_RESULT>(r =>
+                                new Action<MESSAGEBOX_RESULT>(async r =>
                                 {
                                     if (r == MESSAGEBOX_RESULT.IDYES)
                                     {
-                                        SaveQwilight();
+                                        await SaveQwilight();
                                     }
                                 })
                             }
                         });
                     }
 
-                    async void SaveQwilight()
+                    async ValueTask SaveQwilight()
                     {
                         var data = ArrayPool<byte>.Shared.Rent(QwilightComponent.SendUnit);
                         var savingBundleItem = new NotifyItem
@@ -3112,17 +3112,14 @@ namespace Qwilight.ViewModel
                             var target = $"{QwilightComponent.TaehuiNetFE}/qwilight/{title}";
                             using (var wwwClient = new HttpClient())
                             {
-                                using (var hrm = await wwwClient.GetAsync(target, HttpCompletionOption.ResponseHeadersRead))
-                                {
-                                    savingBundleItem.QuitStatus = hrm.Content.Headers.ContentLength ?? 0L;
-                                }
-                                using (var s = await wwwClient.GetStreamAsync(target))
                                 using (var fs = File.OpenWrite(tmpFileName))
+                                using (var ts = await wwwClient.GetAsync(target).ConfigureAwait(false))
                                 {
+                                    savingBundleItem.QuitStatus = ts.Content.Headers.ContentLength ?? 0L;
                                     var length = 0;
-                                    while ((length = await s.ReadAsync(data.AsMemory(0, data.Length))) > 0)
+                                    while ((length = await (await ts.Content.ReadAsStreamAsync().ConfigureAwait(false)).ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
                                     {
-                                        await fs.WriteAsync(data.AsMemory(0, length));
+                                        await fs.WriteAsync(data.AsMemory(0, length)).ConfigureAwait(false);
                                         savingBundleItem.LevyingStatus += length;
                                         savingBundleItem.NotifyBundleStatus();
                                     }
@@ -3202,7 +3199,7 @@ namespace Qwilight.ViewModel
         {
             IsWowLoading = true;
 
-            var twilightWwwWow = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwWow?>($"{QwilightComponent.QwilightAPI}/wow");
+            var twilightWwwWow = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwWow?>($"{QwilightComponent.QwilightAPI}/wow").ConfigureAwait(false);
             if (twilightWwwWow.HasValue)
             {
                 var twilightWwwWowValue = twilightWwwWow.Value;

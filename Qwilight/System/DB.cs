@@ -620,8 +620,8 @@ namespace Qwilight
             {
                 dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
             }
-            using var rows = await dbStatement.ExecuteReaderAsync();
-            while (await rows.ReadAsync())
+            using var rows = await dbStatement.ExecuteReaderAsync().ConfigureAwait(false);
+            while (await rows.ReadAsync().ConfigureAwait(false))
             {
                 var date = (DateTime)rows["Date"];
                 var sentMultiplier = (double)rows["Multiplier"];
@@ -716,7 +716,7 @@ namespace Qwilight
                     dbStatement.Parameters.AddWithValue("level", wwwLevelComputingValue.LevelValue);
                     dbStatement.Parameters.AddWithValue("levelText", wwwLevelComputingValue.LevelText);
                     dbStatement.Parameters.AddWithValue("genre", wwwLevelComputingValue.Genre);
-                    await dbStatement.ExecuteNonQueryAsync();
+                    await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
                 }
             }
         }
@@ -808,7 +808,7 @@ namespace Qwilight
                 VALUES(@noteID, @handled)", _db);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
             dbStatement.Parameters.AddWithValue("handled", noteFile.HandledValue);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public (DateTime?, int) GetDate(BaseNoteFile noteFile, string eventNoteID)
@@ -840,7 +840,7 @@ namespace Qwilight
             dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512());
             dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
             dbStatement.Parameters.AddWithValue("date", date);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public int GetNotePosition(string entryPath)
@@ -893,7 +893,7 @@ namespace Qwilight
                 VALUES(@entryPath, @notePosition)", _db);
             dbStatement.Parameters.AddWithValue("entryPath", entryItem.EntryPath);
             dbStatement.Parameters.AddWithValue("notePosition", entryItem.NotePosition);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async void SetFavoriteEntry(BaseNoteFile noteFile)
@@ -905,7 +905,7 @@ namespace Qwilight
                     WHERE Note_ID = @noteID", _db))
                 {
                     dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
-                    await dbStatement.ExecuteNonQueryAsync();
+                    await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
                 }
                 using (var dbStatement = new SQLiteCommand(@"REPLACE
                     INTO note
@@ -915,10 +915,10 @@ namespace Qwilight
                     {
                         dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
                         dbStatement.Parameters.AddWithValue("favoriteEntry", favoriteEntryItem.DefaultEntryPath);
-                        await dbStatement.ExecuteNonQueryAsync();
+                        await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
                     }
                 }
-            });
+            }).ConfigureAwait(false);
         }
 
         public async Task SetEventNote(string eventNoteID, string eventNoteName, DateTime date, EventNoteVariety eventNoteVariety)
@@ -929,7 +929,7 @@ namespace Qwilight
             dbStatement.Parameters.AddWithValue("eventNoteName", eventNoteName);
             dbStatement.Parameters.AddWithValue("date", date);
             dbStatement.Parameters.AddWithValue("eventNoteVariety", eventNoteVariety);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async ValueTask WipeEventNote(string eventNoteID)
@@ -938,7 +938,7 @@ namespace Qwilight
                 FROM event_note
                 WHERE Event_Note_ID = @eventNoteID", _db);
             dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async ValueTask ModifyEventNoteName(string eventNoteID, string eventNoteName)
@@ -948,7 +948,7 @@ namespace Qwilight
                 WHERE Event_Note_ID = @eventNoteID", _db);
             dbStatement.Parameters.AddWithValue("eventNoteName", eventNoteName);
             dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async void SaveComment(DateTime date, BaseNoteFile noteFile, string eventNoteID, string comment, string avatar, double multiplier, double audioMultiplier, ModeComponent modeComponentValue, int stand, int band, bool isP, double point, bool isPaused, DefaultCompute.InputFlag inputFlags)
@@ -1011,7 +1011,7 @@ namespace Qwilight
             dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512());
             dbStatement.Parameters.AddWithValue("isPaused", isPaused);
             dbStatement.Parameters.AddWithValue("inputFlags", inputFlags);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async void SetWait(BaseNoteFile noteFile, double audioWait, double mediaWait, bool media)
@@ -1023,7 +1023,7 @@ namespace Qwilight
             dbStatement.Parameters.AddWithValue("audioWait", audioWait);
             dbStatement.Parameters.AddWithValue("mediaWait", mediaWait);
             dbStatement.Parameters.AddWithValue("media", media);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async ValueTask SetNoteFormat(BaseNoteFile noteFile, int format)
@@ -1033,14 +1033,14 @@ namespace Qwilight
                 VALUES(@noteID, @format)", _db);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
             dbStatement.Parameters.AddWithValue("format", format);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async ValueTask WipeFavoriteEntry()
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
                 FROM note", _db);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async ValueTask WipeHandled(BaseNoteFile noteFile)
@@ -1049,21 +1049,21 @@ namespace Qwilight
                 FROM handle
                 WHERE Note_ID = @noteID", _db);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async ValueTask InitWait()
         {
             using var dbStatement = new SQLiteCommand(@"UPDATE wait
                 SET Audio_Wait = NULL, Media_Wait = 0.0", _db);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async ValueTask InitMedia()
         {
             using var dbStatement = new SQLiteCommand(@"UPDATE wait
                 SET Media = NULL", _db);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async ValueTask WipeComment(string comment)
@@ -1072,27 +1072,27 @@ namespace Qwilight
                 FROM comment
                 WHERE Comment = @comment", _db);
             dbStatement.Parameters.AddWithValue("comment", comment);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         public async ValueTask WipeComment()
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
                 FROM comment", _db);
-            await dbStatement.ExecuteNonQueryAsync();
+            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
         async ValueTask Ta(Action onHandle)
         {
-            using var t = await _db.BeginTransactionAsync();
+            using var t = await _db.BeginTransactionAsync().ConfigureAwait(false);
             try
             {
                 onHandle();
-                await t.CommitAsync();
+                await t.CommitAsync().ConfigureAwait(false);
             }
             catch
             {
-                await t.RollbackAsync();
+                await t.RollbackAsync().ConfigureAwait(false);
                 throw;
             }
         }
