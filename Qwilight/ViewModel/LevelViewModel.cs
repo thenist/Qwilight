@@ -58,7 +58,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        async Task OnLoadLevel(string www)
+        static async Task OnLoadLevel(string www)
         {
             if (string.IsNullOrEmpty(www))
             {
@@ -74,6 +74,7 @@ namespace Qwilight.ViewModel
                             if (!string.IsNullOrEmpty(levelInput))
                             {
                                 await LevelSystem.Instance.LoadWww(levelInput).ConfigureAwait(false);
+                                LevelSystem.Instance.LoadJSON(true);
                             }
                         })
                     }
@@ -82,12 +83,12 @@ namespace Qwilight.ViewModel
             else
             {
                 await LevelSystem.Instance.LoadWww(www).ConfigureAwait(false);
+                LevelSystem.Instance.LoadJSON(true);
             }
-            LevelSystem.Instance.LoadJSON(true);
         }
 
         [RelayCommand]
-        async Task OnGetLevel()
+        static async Task OnGetLevel()
         {
             if (Configure.Instance.LevelTargetMap.TryGetValue(Configure.Instance.WantLevelName, out var target))
             {
@@ -101,7 +102,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnWipeLevel() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static void OnWipeLevel() => WeakReferenceMessenger.Default.Send<ICC>(new()
         {
             IDValue = ICC.ID.ViewAllowWindow,
             Contents = new object[]

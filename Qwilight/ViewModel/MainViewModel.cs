@@ -549,7 +549,7 @@ namespace Qwilight.ViewModel
             });
 
             StillSystem.Instance.Init(handle);
-            await MIDISystem.Instance.HandleSystem();
+            await MIDISystem.Instance.HandleSystem().ConfigureAwait(false);
 
             AudioSystem.Instance.LoadDefaultAudio();
             AudioSystem.Instance.LoadBanalAudio();
@@ -563,7 +563,7 @@ namespace Qwilight.ViewModel
             {
                 BaseUI.Instance.LoadUI(null, Configure.Instance.BaseUIItemValue, false);
                 UI.Instance.LoadUI(null, Configure.Instance.UIItemValue, false);
-            });
+            }).ConfigureAwait(false);
 
             _isLoaded = true;
 
@@ -607,6 +607,11 @@ namespace Qwilight.ViewModel
 
             SetDefaultEntryItems();
 
+            if (Configure.Instance.AutoGetQwilight)
+            {
+                _ = GetQwilight(true);
+            }
+
             if (QwilightComponent.IsTest)
             {
                 WeakReferenceMessenger.Default.Send<ICC>(new()
@@ -614,11 +619,6 @@ namespace Qwilight.ViewModel
                     IDValue = ICC.ID.Quit,
                     Contents = false
                 });
-            }
-
-            if (Configure.Instance.AutoGetQwilight)
-            {
-                await GetQwilight(true);
             }
         }
 
@@ -850,7 +850,7 @@ namespace Qwilight.ViewModel
                                 {
                                     Utility.WipeFile(defaultCommentFilePath);
                                 }
-                                await DB.Instance.WipeComment(defaultCommentFilePath).ConfigureAwait(false);
+                                _ = DB.Instance.WipeComment(defaultCommentFilePath).ConfigureAwait(false);
                             }
                         })
                     }
@@ -941,7 +941,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async ValueTask OnEntryViewInputLower(KeyEventArgs e)
+        public void OnEntryViewInputLower(KeyEventArgs e)
         {
             if (IsNoteFileMode)
             {
@@ -965,7 +965,7 @@ namespace Qwilight.ViewModel
                                 }
                                 foreach (var noteFile in EntryItemValue.NoteFiles.Where(noteFile => !noteFile.IsLogical))
                                 {
-                                    await TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents()).ConfigureAwait(false);
+                                    _ = TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents()).ConfigureAwait(false);
                                 }
                                 break;
                             case DB.EventNoteVariety.Qwilight:
@@ -973,7 +973,7 @@ namespace Qwilight.ViewModel
                                 Clipboard.SetContent(dataBundle);
                                 foreach (var noteFile in EntryItemValue.NoteFiles.Where(noteFile => !noteFile.IsLogical))
                                 {
-                                    await TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents()).ConfigureAwait(false);
+                                    _ = TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents()).ConfigureAwait(false);
                                 }
                                 break;
                         }
@@ -1195,7 +1195,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async ValueTask OnTwilightComment()
+        public async Task OnTwilightComment()
         {
             var noteID = EntryItemValue?.NoteFile?.GetNoteID512();
             var commentID = TwilightCommentItem?.CommentID;
@@ -1455,7 +1455,7 @@ namespace Qwilight.ViewModel
                                             noteFile.HandledValue = BaseNoteFile.Handled.Clear;
                                         }
                                     }
-                                    await DB.Instance.SetHandled(noteFile).ConfigureAwait(false);
+                                    _ = DB.Instance.SetHandled(noteFile);
                                 }
                             }
                         }
@@ -2552,7 +2552,7 @@ namespace Qwilight.ViewModel
                 var handlingComputer = GetHandlingComputer();
                 if (handlingComputer != null)
                 {
-                    handlingComputer.SetWait();
+                    _ = handlingComputer.SetWait();
                     MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
                     MediaSystem.Instance.HandleIfAvailable(handlingComputer);
                 }
@@ -2586,7 +2586,7 @@ namespace Qwilight.ViewModel
                 NotifyNoteFile();
                 Utility.HandleUIAudio("Lower Note File");
                 BaseUI.Instance.HandleEvent(BaseUI.EventItem.ModifyNoteFile);
-                DB.Instance.SetNotePosition(EntryItemValue);
+                _ = DB.Instance.SetNotePosition(EntryItemValue);
             }
         }
 
@@ -2597,7 +2597,7 @@ namespace Qwilight.ViewModel
                 NotifyNoteFile();
                 Utility.HandleUIAudio("Higher Note File");
                 BaseUI.Instance.HandleEvent(BaseUI.EventItem.ModifyNoteFile);
-                DB.Instance.SetNotePosition(EntryItemValue);
+                _ = DB.Instance.SetNotePosition(EntryItemValue);
             }
         }
 
@@ -2729,7 +2729,7 @@ namespace Qwilight.ViewModel
                                 {
                                     favoriteEntryItem.FrontEntryPaths.Add(noteFile.DefaultEntryItem.DefaultEntryPath);
                                 }
-                                DB.Instance.SetFavoriteEntry(noteFile);
+                                _ = DB.Instance.SetFavoriteEntry(noteFile);
                             }
                         }
                         if (favoriteEntryItemModified != null)
@@ -3073,7 +3073,7 @@ namespace Qwilight.ViewModel
                     var date = Version.Parse(taehuiQwilightValue.date);
                     if (QwilightComponent.Date < date || QwilightComponent.HashText != taehuiQwilightValue.hash)
                     {
-                        await SaveQwilight();
+                        _ = SaveQwilight();
                     }
                     else if (!isSilent)
                     {
@@ -3084,18 +3084,18 @@ namespace Qwilight.ViewModel
                             {
                                 LanguageSystem.Instance.AlreadyLatestDate,
                                 MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                                new Action<MESSAGEBOX_RESULT>(async r =>
+                                new Action<MESSAGEBOX_RESULT>(r =>
                                 {
                                     if (r == MESSAGEBOX_RESULT.IDYES)
                                     {
-                                        await SaveQwilight();
+                                        _ = SaveQwilight();
                                     }
                                 })
                             }
                         });
                     }
 
-                    async ValueTask SaveQwilight()
+                    async Task SaveQwilight()
                     {
                         var data = ArrayPool<byte>.Shared.Rent(QwilightComponent.SendUnit);
                         var savingBundleItem = new NotifyItem

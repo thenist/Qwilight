@@ -310,9 +310,9 @@ Qwilight
                 {
                     LanguageSystem.Instance.ModifyEventNoteNameContents,
                     entryItemValue.EventNoteName,
-                    new Action<string>(async eventNoteName =>
+                    new Action<string>(eventNoteName =>
                     {
-                        await DB.Instance.ModifyEventNoteName(entryItemValue.EventNoteID, eventNoteName);
+                        _ = DB.Instance.ModifyEventNoteName(entryItemValue.EventNoteID, eventNoteName);
                         entryItemValue.EventNoteName = eventNoteName;
                     })
                 }

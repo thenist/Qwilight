@@ -211,19 +211,7 @@ namespace Qwilight.ViewModel
                 OnPropertyChanged(nameof(AvatarViewLevelValue));
 
                 var avatarAbility5KClass = twilightWwwAvatarValue.avatarAbility5KClass;
-                using (var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass5K={(avatarAbility5KClass < 0 ? avatarAbility5KClass : 100 * avatarAbility5KClass)}").ConfigureAwait(false))
-                {
-                    if (s.Length > 0)
-                    {
-                        try
-                        {
-                            AbilityClass5KDrawing = DrawingSystem.Instance.LoadDefault(s, null);
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
+                AbilityClass5KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass5K={(avatarAbility5KClass < 0 ? avatarAbility5KClass : 100 * avatarAbility5KClass)}").ConfigureAwait(false), null);
                 if (twilightWwwAvatarValue.avatarAbility5KPlace > 0)
                 {
                     AvatarAbility5KPlaceText0 = twilightWwwAvatarValue.avatarAbility5KPlace.ToString("＃#,##0");
@@ -238,19 +226,7 @@ namespace Qwilight.ViewModel
                 OnPropertyChanged(nameof(AvatarViewAbility5KText));
 
                 var avatarAbility7KClass = twilightWwwAvatarValue.avatarAbility7KClass;
-                using (var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass7K={(avatarAbility7KClass < 0 ? avatarAbility7KClass : 100 * avatarAbility7KClass)}").ConfigureAwait(false))
-                {
-                    if (s.Length > 0)
-                    {
-                        try
-                        {
-                            AbilityClass7KDrawing = DrawingSystem.Instance.LoadDefault(s, null);
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
+                AbilityClass7KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass7K={(avatarAbility7KClass < 0 ? avatarAbility7KClass : 100 * avatarAbility7KClass)}").ConfigureAwait(false), null);
                 if (twilightWwwAvatarValue.avatarAbility7KPlace > 0)
                 {
                     AvatarAbility7KPlaceText0 = twilightWwwAvatarValue.avatarAbility7KPlace.ToString("＃#,##0");
@@ -265,19 +241,7 @@ namespace Qwilight.ViewModel
                 OnPropertyChanged(nameof(AvatarViewAbility7KText));
 
                 var avatarAbility9KClass = twilightWwwAvatarValue.avatarAbility9KClass;
-                using (var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass9K={(avatarAbility9KClass < 0 ? avatarAbility9KClass : 100 * avatarAbility9KClass)}").ConfigureAwait(false))
-                {
-                    if (s.Length > 0)
-                    {
-                        try
-                        {
-                            AbilityClass9KDrawing = DrawingSystem.Instance.LoadDefault(s, null);
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
+                AbilityClass9KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass9K={(avatarAbility9KClass < 0 ? avatarAbility9KClass : 100 * avatarAbility9KClass)}").ConfigureAwait(false), null);
                 if (twilightWwwAvatarValue.avatarAbility9KPlace > 0)
                 {
                     AvatarAbility9KPlaceText0 = twilightWwwAvatarValue.avatarAbility9KPlace.ToString("＃#,##0");
@@ -437,12 +401,12 @@ namespace Qwilight.ViewModel
             OnPropertyChanged(nameof(AvatarWwwValue));
         }
 
-        public override async void OnCollasped()
+        public override void OnCollasped()
         {
             base.OnCollasped();
             if (IsMe)
             {
-                await TwilightSystem.Instance.PutAvatarParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/avatarIntro", AvatarIntro).ConfigureAwait(false);
+                _ = TwilightSystem.Instance.PutAvatarParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/avatarIntro", AvatarIntro).ConfigureAwait(false);
             }
         }
     }

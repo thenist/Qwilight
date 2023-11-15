@@ -22,7 +22,7 @@ namespace Qwilight.View
 
         void OnFitMode(object sender, EventArgs e) => (DataContext as MainViewModel).OnFitMode();
 
-        async void OnEntryViewInputLower(object sender, KeyEventArgs e) => await (DataContext as MainViewModel).OnEntryViewInputLower(e);
+        void OnEntryViewInputLower(object sender, KeyEventArgs e) => (DataContext as MainViewModel).OnEntryViewInputLower(e);
 
         void OnEntryViewPointLower(object sender, MouseButtonEventArgs e) => (DataContext as MainViewModel).OnEntryViewPointLower(e);
 

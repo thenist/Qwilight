@@ -20,24 +20,7 @@ namespace Qwilight.UIComponent
                     _wantDrawing = false;
 
                     _ = Awaitable();
-                    async Task Awaitable()
-                    {
-                        using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/edge?edgeID={EdgeID}").ConfigureAwait(false);
-                        if (s.Length > 0)
-                        {
-                            try
-                            {
-                                SetProperty(ref _drawing, DrawingSystem.Instance.LoadDefault(s, null), nameof(Drawing));
-                            }
-                            catch
-                            {
-                            }
-                        }
-                        else
-                        {
-                            SetProperty(ref _drawing, null, nameof(Drawing));
-                        }
-                    }
+                    async Task Awaitable() => SetProperty(ref _drawing, DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/edge?edgeID={EdgeID}").ConfigureAwait(false), null), nameof(Drawing));
                 }
                 return _drawing;
             }

@@ -886,7 +886,7 @@ namespace Qwilight
             return rows.Read() ? (int)(long)rows["Format"] : -1;
         }
 
-        public async void SetNotePosition(EntryItem entryItem)
+        public async Task SetNotePosition(EntryItem entryItem)
         {
             using var dbStatement = new SQLiteCommand(@"REPLACE
                 INTO entry
@@ -896,7 +896,7 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
-        public async void SetFavoriteEntry(BaseNoteFile noteFile)
+        public async Task SetFavoriteEntry(BaseNoteFile noteFile)
         {
             await Ta(async () =>
             {
@@ -941,7 +941,7 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
-        public async ValueTask ModifyEventNoteName(string eventNoteID, string eventNoteName)
+        public async Task ModifyEventNoteName(string eventNoteID, string eventNoteName)
         {
             using var dbStatement = new SQLiteCommand(@"UPDATE event_note
                 SET Name = @eventNoteName
@@ -951,7 +951,7 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
-        public async void SaveComment(DateTime date, BaseNoteFile noteFile, string eventNoteID, string comment, string avatar, double multiplier, double audioMultiplier, ModeComponent modeComponentValue, int stand, int band, bool isP, double point, bool isPaused, DefaultCompute.InputFlag inputFlags)
+        public async Task SaveComment(DateTime date, BaseNoteFile noteFile, string eventNoteID, string comment, string avatar, double multiplier, double audioMultiplier, ModeComponent modeComponentValue, int stand, int band, bool isP, double point, bool isPaused, DefaultCompute.InputFlag inputFlags)
         {
             using var dbStatement = new SQLiteCommand(@"INSERT
                 INTO comment
@@ -1014,7 +1014,7 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
-        public async void SetWait(BaseNoteFile noteFile, double audioWait, double mediaWait, bool media)
+        public async Task SetWait(BaseNoteFile noteFile, double audioWait, double mediaWait, bool media)
         {
             using var dbStatement = new SQLiteCommand(@"REPLACE
                 INTO wait
@@ -1066,7 +1066,7 @@ namespace Qwilight
             await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
-        public async ValueTask WipeComment(string comment)
+        public async Task WipeComment(string comment)
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
                 FROM comment

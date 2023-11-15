@@ -80,7 +80,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async ValueTask OnInputLower(KeyEventArgs e)
+        public async Task OnInputLower(KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {

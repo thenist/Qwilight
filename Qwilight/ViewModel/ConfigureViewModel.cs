@@ -617,7 +617,7 @@ namespace Qwilight.ViewModel
                         var handlingComputer = ViewModels.Instance.MainValue.GetHandlingComputer();
                         if (handlingComputer != null)
                         {
-                            handlingComputer.SetWait();
+                            _ = handlingComputer.SetWait();
                             MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
                             MediaSystem.Instance.HandleIfAvailable(handlingComputer);
                         }
@@ -1511,7 +1511,7 @@ namespace Qwilight.ViewModel
                     UI.Instance.LoadUI(null, Configure.Instance.UIItemValue, false);
                 });
             }
-            mainViewModel.AutoComputer?.SetWait();
+            _ = mainViewModel.AutoComputer?.SetWait();
             mainViewModel.HandleAutoComputer();
         }
     }

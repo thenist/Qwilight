@@ -28,9 +28,7 @@ namespace Qwilight
                     SteamScreenshots.Hooked = true;
                     SteamScreenshots.OnScreenshotRequested += ViewModels.Instance.MainValue.HandleF12;
                     ValveName = SteamClient.Name;
-                    using var t = SteamFriends.GetLargeAvatarAsync(SteamClient.SteamId);
-                    t.Wait();
-                    var largeAvatarDrawing = t.Result;
+                    var largeAvatarDrawing = await SteamFriends.GetLargeAvatarAsync(SteamClient.SteamId).ConfigureAwait(false);
                     if (largeAvatarDrawing.HasValue)
                     {
                         var largeAvatarDrawingValue = largeAvatarDrawing.Value;

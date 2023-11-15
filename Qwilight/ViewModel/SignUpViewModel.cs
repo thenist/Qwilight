@@ -57,7 +57,7 @@ namespace Qwilight.ViewModel
                         avatarCipher = inputCipher,
                         avatarName = AvatarName,
                         fax = Fax
-                    }), "application/json"))
+                    }), "application/json").ConfigureAwait(false))
                     {
                         Close();
                         Configure.Instance.AvatarID = AvatarID;

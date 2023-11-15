@@ -392,9 +392,9 @@ namespace Qwilight
             var handleUndoImpl = new Action(mainViewModel.HandleInitComment);
             var handleQuitMove0Impl = new Action(() => defaultComputer.NotifyCompute(-1));
             var handleQuitMove1Impl = new Action(() => defaultComputer.NotifyCompute(1));
-            var getAvatarDrawing = new Action<object>(async avatarID => await AvatarDrawingSystem.Instance.GetAvatarDrawing(avatarID as string).ConfigureAwait(false));
-            var getAvatarTitle = new Action<object>(async avatarID => await AvatarTitleSystem.Instance.GetAvatarTitle(avatarID as string).ConfigureAwait(false));
-            var getAvatarEdge = new Action<object>(async avatarID => await AvatarEdgeSystem.Instance.GetAvatarEdge(avatarID as string).ConfigureAwait(false));
+            var getAvatarDrawing = new Action<object>(avatarID => _ = AvatarDrawingSystem.Instance.GetAvatarDrawing(avatarID as string));
+            var getAvatarTitle = new Action<object>(avatarID => _ = AvatarTitleSystem.Instance.GetAvatarTitle(avatarID as string));
+            var getAvatarEdge = new Action<object>(avatarID => _ = AvatarEdgeSystem.Instance.GetAvatarEdge(avatarID as string));
 
             var distanceMillisMax = double.MinValue;
             var frametime = 0.0;

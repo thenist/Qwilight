@@ -133,7 +133,7 @@ namespace Qwilight
             }
         }
 
-        public async ValueTask GetMIDIs()
+        public async Task GetMIDIs()
         {
             var rawMIDIControllers = (await Task.WhenAll((await DeviceInformation.FindAllAsync(MidiInPort.GetDeviceSelector())).Select(async data => (data.Name, await MidiInPort.FromIdAsync(data.Id)))).ConfigureAwait(false)).Where(inputController => inputController.Item2 != null).ToArray();
             Utility.SetUICollection(_rawMIDIControllers, rawMIDIControllers.Select(rawMIDIController => rawMIDIController.Item2).ToArray(), rawMIDIController =>
@@ -164,10 +164,10 @@ namespace Qwilight
         {
             await GetMIDIs();
             var w = DeviceInformation.CreateWatcher(MidiInPort.GetDeviceSelector());
-            w.Added += async (sender, args) => await GetMIDIs();
-            w.Removed += async (sender, args) => await GetMIDIs();
-            w.Updated += async (sender, args) => await GetMIDIs();
-            w.EnumerationCompleted += async (sender, args) => await GetMIDIs();
+            w.Added += (sender, args) => _ = GetMIDIs();
+            w.Removed += (sender, args) => _ = GetMIDIs();
+            w.Updated += (sender, args) => _ = GetMIDIs();
+            w.EnumerationCompleted += (sender, args) => _ = GetMIDIs();
             w.Start();
         }
     }

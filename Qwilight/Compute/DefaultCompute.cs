@@ -4022,7 +4022,7 @@ namespace Qwilight.Compute
                         {
                             try
                             {
-                                DB.Instance.SaveComment(date, NoteFile, string.Empty, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
+                                _ = DB.Instance.SaveComment(date, NoteFile, string.Empty, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
                                 using var fs = File.OpenWrite(Path.Combine(QwilightComponent.CommentEntryPath, commentID));
                                 _comments.Single().WriteTo(fs);
                             }
@@ -4073,7 +4073,7 @@ namespace Qwilight.Compute
                         {
                             try
                             {
-                                DB.Instance.SaveComment(date, default, eventNoteID, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
+                                _ = DB.Instance.SaveComment(date, default, eventNoteID, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
                                 using (var zipFile = new ZipFile(Path.Combine(QwilightComponent.CommentEntryPath, Path.ChangeExtension(commentID, ".zip"))))
                                 {
                                     for (var i = _comments.Count - 1; i >= 0; --i)
@@ -4193,7 +4193,7 @@ namespace Qwilight.Compute
             }
         });
 
-        public void SetWait() => DB.Instance.SetWait(NoteFile, Math.Clamp(Configure.Instance.AudioWait, -1000.0, 1000.0), Math.Clamp(Configure.Instance.MediaWait, -1000.0, 1000.0), Configure.Instance.Media);
+        public void SetWait() => _ = DB.Instance.SetWait(NoteFile, Math.Clamp(Configure.Instance.AudioWait, -1000.0, 1000.0), Math.Clamp(Configure.Instance.MediaWait, -1000.0, 1000.0), Configure.Instance.Media);
 
         IHandlerItem GetHandlerItem(MediaNote.Mode mode) => ViewFailedDrawing && _failedDrawingMillis > 0.0 && DrawingCollection.TryGetValue(MediaNote.Mode.Failed, out var failedHandler) ? failedHandler : DrawingCollection.TryGetValue(mode, out var handler) ? handler : null;
 

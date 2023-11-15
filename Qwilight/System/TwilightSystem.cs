@@ -936,7 +936,7 @@ namespace Qwilight
                                         var saveDataFlow = savedBundleItem.SaveDataFlow;
                                         eventItemData[0].WriteTo(saveDataFlow);
                                         saveDataFlow.Position = 0;
-                                        Utility.HandleLongParallel(async () =>
+                                        Utility.HandleLongParallel(() =>
                                         {
                                             var bundleVariety = (BundleItem.BundleVariety)twilightSavedBundle.bundleVariety;
                                             var isNotDefaultBundle = bundleVariety != BundleItem.BundleVariety.DefaultNotes && bundleVariety != BundleItem.BundleVariety.DefaultUI;
@@ -1023,7 +1023,7 @@ namespace Qwilight
                                                                 _ => default
                                                             };
                                                             var date = DateTime.Now;
-                                                            await DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety).ConfigureAwait(false);
+                                                            DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety).Wait();
                                                             savedBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                                             savedBundleItem.Text = LanguageSystem.Instance.SavedBundleContents;
                                                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savedBundleItem.Text);
@@ -1429,7 +1429,7 @@ namespace Qwilight
             return default(T);
         }
 
-        public async ValueTask<bool> PostWwwParallel(string target, string data, string dataVariety = "text/plain")
+        public async Task<bool> PostWwwParallel(string target, string data, string dataVariety = "text/plain")
         {
             if (IsEstablished)
             {
@@ -1486,7 +1486,7 @@ namespace Qwilight
             return false;
         }
 
-        public async ValueTask<string> PostWwwParallel(string target, byte[] data)
+        public async Task<string> PostWwwParallel(string target, byte[] data)
         {
             if (IsEstablished)
             {
@@ -1509,7 +1509,7 @@ namespace Qwilight
             return string.Empty;
         }
 
-        public async ValueTask<bool> PutAvatarParallel(string target, string avatarIntro)
+        public async Task PutAvatarParallel(string target, string avatarIntro)
         {
             if (!target.IsFrontCaselsss(QwilightComponent.TaehuiNetFE) || IsEstablished)
             {
@@ -1523,17 +1523,14 @@ namespace Qwilight
                     dataPut.Headers.Add("totem", Totem);
                     using var www = await _wwwClient.SendAsync(dataPut).ConfigureAwait(false);
                     www.EnsureSuccessStatusCode();
-                    return true;
                 }
                 catch
                 {
                 }
             }
-
-            return false;
         }
 
-        public async ValueTask GetDefaultNoteDate(long defaultNoteDate, bool isSilent)
+        public async Task GetDefaultNoteDate(long defaultNoteDate, bool isSilent)
         {
             var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultNoteDate?date={defaultNoteDate}").ConfigureAwait(false);
             if (twilightWwwDefaultDate.HasValue)
@@ -1572,7 +1569,7 @@ namespace Qwilight
             }
         }
 
-        public async ValueTask GetDefaultUIDate(long defaultUIDate, bool isSilent)
+        public async Task GetDefaultUIDate(long defaultUIDate, bool isSilent)
         {
             var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultUIDate?date={defaultUIDate}").ConfigureAwait(false);
             if (twilightWwwDefaultDate.HasValue && !ViewModels.Instance.MainValue.IsVital)

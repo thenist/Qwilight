@@ -99,7 +99,7 @@ namespace Qwilight.ViewModel
                     {
                         favoriteEntryItem.FrontEntryPaths.Add(NoteFile.DefaultEntryItem.DefaultEntryPath);
                     }
-                    DB.Instance.SetFavoriteEntry(NoteFile);
+                    _ = DB.Instance.SetFavoriteEntry(NoteFile);
                     break;
                 case EntryItemMode:
                     foreach (var noteFile in EntryItem.NoteFiles)
@@ -127,7 +127,7 @@ namespace Qwilight.ViewModel
                             {
                                 favoriteEntryItem.FrontEntryPaths.Add(noteFile.DefaultEntryItem.DefaultEntryPath);
                             }
-                            DB.Instance.SetFavoriteEntry(noteFile);
+                            _ = DB.Instance.SetFavoriteEntry(noteFile);
                         }
                     }
                     break;
