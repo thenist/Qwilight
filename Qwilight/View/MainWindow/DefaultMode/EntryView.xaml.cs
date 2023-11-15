@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,12 +7,33 @@ using System.Windows.Input;
 
 namespace Qwilight.View
 {
-    public partial class EntryView : IRecipient<ICC>
+    public partial class EntryView
     {
         public EntryView()
         {
             InitializeComponent();
-            WeakReferenceMessenger.Default.Register<ICC>(this);
+
+            StrongReferenceMessenger.Default.Register<MoveEntryView>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
+            {
+                if ((DataContext as MainViewModel).IsNoteFileMode)
+                {
+                    EntryItemsView.ScrollIntoView(message.Target);
+                }
+            }));
+            StrongReferenceMessenger.Default.Register<PointEntryView>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
+            {
+                if ((DataContext as MainViewModel).IsNoteFileMode)
+                {
+                    EntryItemsView.Focus();
+                }
+            }));
+            StrongReferenceMessenger.Default.Register<SetFitInputs>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
+            {
+                var i = FitInput.SelectedIndex;
+                FitInput.Items.Refresh();
+                FitInput.SelectedIndex = -1;
+                FitInput.SelectedIndex = i;
+            }));
         }
 
         void OnWant(object sender, SelectionChangedEventArgs e) => (DataContext as MainViewModel).Want();
@@ -29,39 +51,5 @@ namespace Qwilight.View
         void OnSetInputWantPoint(object sender, RoutedEventArgs e) => (DataContext as MainViewModel).OnSetInputWantPoint(true);
 
         void OnSetInputWantNotPoint(object sender, RoutedEventArgs e) => (DataContext as MainViewModel).OnSetInputWantPoint(false);
-
-        public void Receive(ICC message)
-        {
-            switch (message.IDValue)
-            {
-                case ICC.ID.MoveEntryView:
-                    HandlingUISystem.Instance.HandleParallel(() =>
-                    {
-                        if ((DataContext as MainViewModel).IsNoteFileMode)
-                        {
-                            EntryItemsView.ScrollIntoView(message.Contents);
-                        }
-                    });
-                    break;
-                case ICC.ID.PointEntryView:
-                    HandlingUISystem.Instance.HandleParallel(() =>
-                    {
-                        if ((DataContext as MainViewModel).IsNoteFileMode)
-                        {
-                            EntryItemsView.Focus();
-                        }
-                    });
-                    break;
-                case ICC.ID.SetNoteFileModeWindowInputs:
-                    HandlingUISystem.Instance.HandleParallel(() =>
-                    {
-                        var i = FitInput.SelectedIndex;
-                        FitInput.Items.Refresh();
-                        FitInput.SelectedIndex = -1;
-                        FitInput.SelectedIndex = i;
-                    });
-                    break;
-            }
-        }
     }
 }

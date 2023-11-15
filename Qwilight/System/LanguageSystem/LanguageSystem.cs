@@ -1,5 +1,4 @@
-﻿using Qwilight.ViewModel;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Text.Json;
 
@@ -158,8 +157,6 @@ namespace Qwilight
 
             LowestJudgmentConditionModeTexts[(int)ModeComponent.LowestJudgmentConditionMode.Default] = DefaultLowestJudgmentConditionModeContents;
             LowestJudgmentConditionModeTexts[(int)ModeComponent.LowestJudgmentConditionMode.Wrong] = WrongLowestJudgmentConditionModeContents;
-
-            ViewModels.Instance.MainValue.NotifyModel();
         }
     }
 }

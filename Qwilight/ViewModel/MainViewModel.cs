@@ -576,10 +576,7 @@ namespace Qwilight.ViewModel
                 AudioSystem.Instance.SetAudioMultiplierAtone(true, ModeComponentValue.AudioMultiplier);
             }
 
-            WeakReferenceMessenger.Default.Send<ICC>(new()
-            {
-                IDValue = ICC.ID.FadingLoadingView
-            });
+            StrongReferenceMessenger.Default.Send<FadeLoadingView>();
 
             if (!string.IsNullOrEmpty(Configure.Instance.ConfigureFault))
             {
@@ -2963,16 +2960,12 @@ namespace Qwilight.ViewModel
             }
         }
 
-        void MoveEntryView() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        void MoveEntryView() => WeakReferenceMessenger.Default.Send(new MoveEntryView
         {
-            IDValue = ICC.ID.MoveEntryView,
-            Contents = EntryItemValue
+            Target = EntryItemValue
         });
 
-        public void PointEntryView() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.PointEntryView
-        });
+        public void PointEntryView() => WeakReferenceMessenger.Default.Send<PointEntryView>();
 
         public void SetWPFViewVisibility()
         {
@@ -3267,10 +3260,7 @@ namespace Qwilight.ViewModel
         public override void NotifyModel()
         {
             base.NotifyModel();
-            WeakReferenceMessenger.Default.Send<ICC>(new()
-            {
-                IDValue = ICC.ID.SetNoteFileModeWindowInputs
-            });
+            WeakReferenceMessenger.Default.Send<SetFitInputs>();
             DrawingSystem.Instance.OnModified();
             BaseUI.Instance.NotifyModel();
             UI.Instance.NotifyModel();

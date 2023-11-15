@@ -4,8 +4,6 @@
     {
         public enum ID
         {
-            MoveEntryView,
-            PointEntryView,
             MoveDefaultEntryView,
             MoveFrontEntryView,
             PointEventNoteView,
@@ -17,11 +15,9 @@
             GetPwWindowCipher,
             ClearPwWindowCipher,
             SetBaseDrawingUIElement,
-            SetNoteFileModeWindowInputs,
             GetWPFView,
             GetWindowHandle,
-            SetVoteWindowEdgeView,
-            FadingLoadingView
+            SetVoteWindowEdgeView
         }
 
         public ID IDValue { get; init; }

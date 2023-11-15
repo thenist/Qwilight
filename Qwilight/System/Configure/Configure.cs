@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using FMOD;
 using Microsoft.Win32;
+using Qwilight.MSG;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
@@ -363,10 +364,7 @@ namespace Qwilight
         {
             if (_isLoaded)
             {
-                WeakReferenceMessenger.Default.Send<ICC>(new()
-                {
-                    IDValue = ICC.ID.SetD2DViewArea
-                });
+                WeakReferenceMessenger.Default.Send<SetD2DViewArea>();
             }
         }
 
@@ -705,6 +703,7 @@ namespace Qwilight
                 {
                     LanguageSystem.Instance.Init(value);
                     TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetLanguage, value);
+                    ViewModels.Instance.MainValue.NotifyModel();
                 }
             }
         }
