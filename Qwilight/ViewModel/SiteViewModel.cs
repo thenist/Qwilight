@@ -247,7 +247,7 @@ namespace Qwilight.ViewModel
             Contents = new object[]
             {
                 Array.Empty<string>(),
-                new Action<string>(async fileName => TwilightSystem.Instance.SendParallel(Event.Types.EventID.PostFile, Path.GetFileName(fileName), UnsafeByteOperations.UnsafeWrap(await File.ReadAllBytesAsync(fileName))))
+                new Action<string>(async fileName => TwilightSystem.Instance.SendParallel(Event.Types.EventID.PostFile, Path.GetFileName(fileName), UnsafeByteOperations.UnsafeWrap(await File.ReadAllBytesAsync(fileName).ConfigureAwait(false))))
             }
         });
 

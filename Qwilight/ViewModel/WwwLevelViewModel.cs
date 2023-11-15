@@ -51,7 +51,7 @@ namespace Qwilight.ViewModel
                         IsLevelGroupsLoading = true;
 
                         var avatarID = value?.AvatarWwwValue?.AvatarID ?? string.Empty;
-                        var levelNames = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/level?avatarID={WebUtility.UrlEncode(avatarID)}");
+                        var levelNames = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/level?avatarID={WebUtility.UrlEncode(avatarID)}").ConfigureAwait(false);
                         if (levelNames != null && (WwwLevelAvatarValue?.AvatarWwwValue?.AvatarID ?? string.Empty) == avatarID)
                         {
                             Utility.SetUICollection(WwwLevelGroupCollection, levelNames.Select(levelName => new WwwLevelGroup
@@ -99,7 +99,7 @@ namespace Qwilight.ViewModel
                         IsLevelGroupLoading = true;
 
                         var levelName = value.LevelName;
-                        var twilightWwwLevels = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwLevels[]>($"{QwilightComponent.QwilightAPI}/level?levelName={WebUtility.UrlEncode(levelName)}");
+                        var twilightWwwLevels = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwLevels[]>($"{QwilightComponent.QwilightAPI}/level?levelName={WebUtility.UrlEncode(levelName)}").ConfigureAwait(false);
                         if (twilightWwwLevels != null && WwwLevelGroupValue?.LevelName == levelName)
                         {
                             var wwwLevelItemCollection = value.WwwLevelItemCollection;
@@ -132,7 +132,7 @@ namespace Qwilight.ViewModel
         {
             base.OnOpened();
             IsAvatarIDsLoading = true;
-            var twilightWwwLevelAvatars = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwLevelAvatars?>($"{QwilightComponent.QwilightAPI}/level?avatarIDMe={WebUtility.UrlEncode(TwilightSystem.Instance.AvatarID)}");
+            var twilightWwwLevelAvatars = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwLevelAvatars?>($"{QwilightComponent.QwilightAPI}/level?avatarIDMe={WebUtility.UrlEncode(TwilightSystem.Instance.AvatarID)}").ConfigureAwait(false);
             if (twilightWwwLevelAvatars.HasValue)
             {
                 var twilightWwwLevelAvatarsValue = twilightWwwLevelAvatars.Value;

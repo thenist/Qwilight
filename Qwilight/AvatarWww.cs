@@ -26,7 +26,7 @@ namespace Qwilight
                 {
                     _wantAvatarDrawing = false;
 
-                    _ = Awaitable().ConfigureAwait(false);
+                    _ = Awaitable();
                     async Task Awaitable() => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarDrawing));
                 }
                 return _avatarDrawing;
@@ -41,7 +41,7 @@ namespace Qwilight
                 {
                     _wantAvatarTitle = false;
 
-                    _ = Awaitable().ConfigureAwait(false);
+                    _ = Awaitable();
                     async Task Awaitable() => SetProperty(ref _avatarTitle, await AvatarTitleSystem.Instance.GetAvatarTitle(AvatarID, _allowNotAvatarTitle).ConfigureAwait(false), nameof(AvatarTitleValue));
                 }
                 return _avatarTitle;
@@ -56,7 +56,7 @@ namespace Qwilight
                 {
                     _wantAvatarEdge = false;
 
-                    _ = Awaitable().ConfigureAwait(false);
+                    _ = Awaitable();
                     async Task Awaitable() => SetProperty(ref _avatarEdge, (await AvatarEdgeSystem.Instance.GetAvatarEdge(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarEdge));
                 }
                 return _avatarEdge;

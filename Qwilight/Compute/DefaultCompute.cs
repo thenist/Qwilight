@@ -3999,16 +3999,16 @@ namespace Qwilight.Compute
                             }
                         }
                     }
-                    _ = DB.Instance.SetHandled(NoteFile).ConfigureAwait(false);
+                    _ = DB.Instance.SetHandled(NoteFile);
 
-                    _ = DB.Instance.NewDate(NoteFile, default, date).ConfigureAwait(false);
+                    _ = DB.Instance.NewDate(NoteFile, default, date);
                     NoteFile.LatestDate = date;
                     ++NoteFile.HandledCount;
                 }
                 else
                 {
 
-                    _ = DB.Instance.NewDate(default, eventNoteID, date).ConfigureAwait(false);
+                    _ = DB.Instance.NewDate(default, eventNoteID, date);
                     EventNoteEntryItem.LatestDate = date;
                     ++EventNoteEntryItem.HandledCount;
                 }
@@ -4513,7 +4513,7 @@ namespace Qwilight.Compute
                     }
                 }
 
-                _ = Awaitable().ConfigureAwait(false);
+                _ = Awaitable();
                 async Task Awaitable()
                 {
                     var eventNoteID = EventNoteEntryItem?.EventNoteID;
@@ -4577,11 +4577,7 @@ namespace Qwilight.Compute
                                     var commentID = commentItem.CommentID;
                                     if (commentItem.IsTwilightComment)
                                     {
-                                        using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&commentID={commentID}").ConfigureAwait(false);
-                                        if (s.Length > 0)
-                                        {
-                                            netItem.Comment = Comment.Parser.ParseFrom(s);
-                                        }
+                                        netItem.Comment = Comment.Parser.ParseFrom(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&commentID={commentID}").ConfigureAwait(false));
                                     }
                                     else
                                     {

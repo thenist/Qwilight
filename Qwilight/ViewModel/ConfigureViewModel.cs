@@ -486,7 +486,7 @@ namespace Qwilight.ViewModel
         static void OnStopLastEqualAudio() => Configure.Instance.StopLastEqualAudio = !Configure.Instance.StopLastEqualAudio;
 
         [RelayCommand]
-        static async Task OnGetMIDI() => await MIDISystem.Instance.GetMIDIs();
+        static async Task OnGetMIDI() => await MIDISystem.Instance.GetMIDIs().ConfigureAwait(false);
 
         [RelayCommand]
         static void OnFontFamily(int? e)
@@ -617,7 +617,7 @@ namespace Qwilight.ViewModel
                         var handlingComputer = ViewModels.Instance.MainValue.GetHandlingComputer();
                         if (handlingComputer != null)
                         {
-                            _ = handlingComputer.SetWait();
+                            handlingComputer.SetWait();
                             MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
                             MediaSystem.Instance.HandleIfAvailable(handlingComputer);
                         }
@@ -883,10 +883,10 @@ namespace Qwilight.ViewModel
         });
 
         [RelayCommand]
-        static async Task OnDefaultNote() => await TwilightSystem.Instance.GetDefaultNoteDate(0, false);
+        static async Task OnDefaultNote() => await TwilightSystem.Instance.GetDefaultNoteDate(0, false).ConfigureAwait(false);
 
         [RelayCommand]
-        static async Task OnDefaultUI() => await TwilightSystem.Instance.GetDefaultUIDate(0, false);
+        static async Task OnDefaultUI() => await TwilightSystem.Instance.GetDefaultUIDate(0, false).ConfigureAwait(false);
 
         [RelayCommand]
         static void OnLoadBanalFailedMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
@@ -909,7 +909,7 @@ namespace Qwilight.ViewModel
         {
             if (Configure.Instance.MediaInput)
             {
-                await MediaInputSystem.Instance.GetMediaInputItems();
+                await MediaInputSystem.Instance.GetMediaInputItems().ConfigureAwait(false);
             }
             else
             {
@@ -918,10 +918,10 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        static async Task OnGetMedia() => await MediaInputSystem.Instance.GetMediaInputItems();
+        static async Task OnGetMedia() => await MediaInputSystem.Instance.GetMediaInputItems().ConfigureAwait(false);
 
         [RelayCommand]
-        static async Task OnGetQwilight() => await ViewModels.Instance.MainValue.GetQwilight(false);
+        static async Task OnGetQwilight() => await ViewModels.Instance.MainValue.GetQwilight(false).ConfigureAwait(false);
 
         [RelayCommand]
         static void OnAutoHighlight() => Configure.Instance.AutoHighlight = !Configure.Instance.AutoHighlight;
@@ -1511,7 +1511,7 @@ namespace Qwilight.ViewModel
                     UI.Instance.LoadUI(null, Configure.Instance.UIItemValue, false);
                 });
             }
-            _ = mainViewModel.AutoComputer?.SetWait();
+            mainViewModel.AutoComputer?.SetWait();
             mainViewModel.HandleAutoComputer();
         }
     }

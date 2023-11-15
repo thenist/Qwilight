@@ -69,7 +69,7 @@ namespace Igniter.ViewModel
                                                     Text = fileName;
                                                 }
                                             };
-                                            await Task.Run(() => zipFile.ExtractAll(Path.GetDirectoryName(IgniterComponent.QwilightFilePath), ExtractExistingFileAction.OverwriteSilently));
+                                            await Task.Run(() => zipFile.ExtractAll(Path.GetDirectoryName(IgniterComponent.QwilightFilePath), ExtractExistingFileAction.OverwriteSilently)).ConfigureAwait(false);
                                         }
 
                                         OnIgnited();

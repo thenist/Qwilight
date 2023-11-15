@@ -406,7 +406,7 @@ namespace Qwilight.ViewModel
             base.OnCollasped();
             if (IsMe)
             {
-                _ = TwilightSystem.Instance.PutAvatarParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/avatarIntro", AvatarIntro).ConfigureAwait(false);
+                _ = TwilightSystem.Instance.PutAvatarParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/avatarIntro", AvatarIntro);
             }
         }
     }

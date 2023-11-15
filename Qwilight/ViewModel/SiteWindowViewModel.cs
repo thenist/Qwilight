@@ -151,7 +151,7 @@ namespace Qwilight.ViewModel
             {
                 if (IsOpened)
                 {
-                    var twilightWwwSites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwSite[]>($"{QwilightComponent.QwilightAPI}/sites");
+                    var twilightWwwSites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwSite[]>($"{QwilightComponent.QwilightAPI}/sites").ConfigureAwait(false);
                     if (twilightWwwSites != null)
                     {
                         Utility.SetUICollection(SiteItemCollection, twilightWwwSites.Select(data => new SiteItem

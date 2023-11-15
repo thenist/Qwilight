@@ -74,7 +74,6 @@ namespace Qwilight.ViewModel
         {
             EnableRaisingEvents = true
         };
-        DispatcherTimer _fadeHandler;
         DispatcherTimer _fadeInHandler;
         bool _isAvailable = true;
         string _twilightCommentText0 = string.Empty;
@@ -541,7 +540,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async ValueTask OnLoaded(nint handle)
+        public async Task OnLoaded(nint handle)
         {
             WeakReferenceMessenger.Default.Send<ICC>(new()
             {
@@ -836,7 +835,7 @@ namespace Qwilight.ViewModel
                     {
                         LanguageSystem.Instance.WipeCommentNotify,
                         MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                        new Action<MESSAGEBOX_RESULT>(async r =>
+                        new Action<MESSAGEBOX_RESULT>(r =>
                         {
                              if (r == MESSAGEBOX_RESULT.IDYES)
                              {
@@ -850,7 +849,7 @@ namespace Qwilight.ViewModel
                                 {
                                     Utility.WipeFile(defaultCommentFilePath);
                                 }
-                                _ = DB.Instance.WipeComment(defaultCommentFilePath).ConfigureAwait(false);
+                                _ = DB.Instance.WipeComment(defaultCommentFilePath);
                             }
                         })
                     }
@@ -965,7 +964,7 @@ namespace Qwilight.ViewModel
                                 }
                                 foreach (var noteFile in EntryItemValue.NoteFiles.Where(noteFile => !noteFile.IsLogical))
                                 {
-                                    _ = TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents()).ConfigureAwait(false);
+                                    _ = TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents());
                                 }
                                 break;
                             case DB.EventNoteVariety.Qwilight:
@@ -973,7 +972,7 @@ namespace Qwilight.ViewModel
                                 Clipboard.SetContent(dataBundle);
                                 foreach (var noteFile in EntryItemValue.NoteFiles.Where(noteFile => !noteFile.IsLogical))
                                 {
-                                    _ = TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents()).ConfigureAwait(false);
+                                    _ = TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/note", noteFile.GetContents());
                                 }
                                 break;
                         }
@@ -2370,7 +2369,7 @@ namespace Qwilight.ViewModel
 
             var millis = BaseUI.Instance.FadingPropertyValues[(int)ModeValue]?[FadingValue.Layer]?.Millis;
             var fadingCounter = Stopwatch.StartNew();
-            _fadeHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
+            new DispatcherTimer(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
             {
                 if (millis > 0)
                 {
@@ -2552,7 +2551,7 @@ namespace Qwilight.ViewModel
                 var handlingComputer = GetHandlingComputer();
                 if (handlingComputer != null)
                 {
-                    _ = handlingComputer.SetWait();
+                    handlingComputer.SetWait();
                     MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
                     MediaSystem.Instance.HandleIfAvailable(handlingComputer);
                 }

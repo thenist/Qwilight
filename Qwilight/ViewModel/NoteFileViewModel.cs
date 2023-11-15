@@ -278,13 +278,13 @@ Qwilight
             switch (mode)
             {
                 case 0:
-                    await DB.Instance.WipeHandled(NoteFile);
+                    await DB.Instance.WipeHandled(NoteFile).ConfigureAwait(false);
                     NoteFile.HandledValue = BaseNoteFile.Handled.Not;
                     break;
                 case 1:
                     foreach (var noteFile in EntryItemValue.NoteFiles)
                     {
-                        await DB.Instance.WipeHandled(noteFile);
+                        await DB.Instance.WipeHandled(noteFile).ConfigureAwait(false);
                         noteFile.HandledValue = BaseNoteFile.Handled.Not;
                     }
                     break;
@@ -359,7 +359,7 @@ Qwilight
                 var noteFile = EntryItemValue?.NoteFile;
                 if (noteFile != null)
                 {
-                    await DB.Instance.SetNoteFormat(noteFile, noteFormatID);
+                    await DB.Instance.SetNoteFormat(noteFile, noteFormatID).ConfigureAwait(false);
                     FastDB.Instance.WipeNoteFile(noteFile);
                 }
                 var mainViewModel = ViewModels.Instance.MainValue;
@@ -380,7 +380,7 @@ Qwilight
                     {
                         if (!noteFile.IsLogical)
                         {
-                            await DB.Instance.SetNoteFormat(noteFile, e.Value);
+                            await DB.Instance.SetNoteFormat(noteFile, e.Value).ConfigureAwait(false);
                             FastDB.Instance.WipeNoteFile(noteFile);
                         }
                     }
