@@ -219,10 +219,9 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _isWPFViewVisible, value, nameof(IsWPFViewVisible)))
                 {
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    StrongReferenceMessenger.Default.Send(new SetD2DViewVisibility
                     {
-                        IDValue = ICC.ID.SetD2DViewVisibility,
-                        Contents = !value
+                        IsVisible = !value
                     });
                     IsVital = IsComputingMode && !value;
                     ViewModels.Instance.NotifyWindowViewModels();
@@ -775,28 +774,23 @@ namespace Qwilight.ViewModel
         {
             if (Configure.Instance.WindowedMode)
             {
-                WeakReferenceMessenger.Default.Send<ICC>(new()
-                {
-                    IDValue = ICC.ID.GetWindowArea,
-                    Contents = new Action<int, int, int, int>((windowAreaPosition0, windowAreaPosition1, windowAreaLength, windowAreaHeight) =>
-                    {
-                        Configure.Instance.WindowLengthV2 = (int)(windowAreaLength / WindowDPI);
-                        Configure.Instance.WindowHeightV2 = (int)(windowAreaHeight / WindowDPI);
-                    })
-                });
+                var windowArea = StrongReferenceMessenger.Default.Send<GetWindowArea>().Response;
+                var windowAreaLength = windowArea.Width;
+                var windowAreaHeight = windowArea.Height;
+                Configure.Instance.WindowLengthV2 = (int)(windowAreaLength / WindowDPI);
+                Configure.Instance.WindowHeightV2 = (int)(windowAreaHeight / WindowDPI);
             }
             DrawingSystem.Instance.OnModified();
         }
 
-        public void OnMove() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        public void OnMove()
         {
-            IDValue = ICC.ID.GetWindowArea,
-            Contents = new Action<int, int, int, int>((windowAreaPosition0, windowAreaPosition1, windowAreaLength, windowAreaHeight) =>
-            {
-                Configure.Instance.WindowPosition0V2 = windowAreaPosition0;
-                Configure.Instance.WindowPosition1V2 = windowAreaPosition1;
-            })
-        });
+            var windowArea = StrongReferenceMessenger.Default.Send<GetWindowArea>().Response;
+            var windowAreaPosition0 = windowArea.X;
+            var windowAreaPosition1 = windowArea.Y;
+            Configure.Instance.WindowPosition0V2 = windowAreaPosition0;
+            Configure.Instance.WindowPosition1V2 = windowAreaPosition1;
+        }
 
         public void OnTwilightCommentary(KeyEventArgs e)
         {

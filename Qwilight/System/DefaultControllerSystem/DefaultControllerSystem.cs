@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.IO;
 using Vortice.DirectInput;
 using Windows.System;
-using Windows.Win32.Foundation;
 
 namespace Qwilight
 {
@@ -82,11 +81,7 @@ namespace Qwilight
                     break;
                 case InputAPI.DInput:
                     _dInputSystem = new DInputSystem(this);
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
-                    {
-                        IDValue = ICC.ID.GetWindowHandle,
-                        Contents = new Action<HWND>(handle => _dInputSystem.HandleSystem(handle))
-                    });
+                    _dInputSystem.HandleSystem(StrongReferenceMessenger.Default.Send<GetWindowHandle>().Response);
                     break;
             }
         }

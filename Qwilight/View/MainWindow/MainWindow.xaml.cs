@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.UI;
 using Microsoft.UI.Composition.SystemBackdrops;
@@ -32,7 +31,7 @@ using WindowStyle = System.Windows.WindowStyle;
 
 namespace Qwilight.View
 {
-    public sealed partial class MainWindow : IRecipient<ICC>
+    public sealed partial class MainWindow
     {
         [LibraryImport("NVIDIA")]
         private static partial void NotifyNVLL(uint statsWindowMessage);
@@ -173,8 +172,52 @@ namespace Qwilight.View
                 message.Reply((await fop.PickSingleFileAsync())?.Path);
             });
             StrongReferenceMessenger.Default.Register<Quit>(this, (recipient, message) => PInvoke.PostMessage(_handle, PInvoke.WM_CLOSE, message.ViewAllowWindow ? (WPARAM)1 : (WPARAM)0, (LPARAM)0));
-
-            WeakReferenceMessenger.Default.Register<ICC>(this);
+            StrongReferenceMessenger.Default.Register<SetWindowArea>(this, (recipient, message) =>
+            {
+                var windowInfo = new WINDOWINFO
+                {
+                    cbSize = (uint)Marshal.SizeOf<WINDOWINFO>()
+                };
+                PInvoke.GetWindowInfo(_handle, ref windowInfo);
+                var windowDPI = PInvoke.GetDpiForWindow(_handle) / 96.0;
+                PInvoke.SetWindowPos(_handle, HWND.Null, 0, 0,
+                    (int)(windowDPI * Configure.Instance.WindowLengthV2 + (windowInfo.rcWindow.right - windowInfo.rcWindow.left) - (windowInfo.rcClient.right - windowInfo.rcClient.left)),
+                    (int)(windowDPI * Configure.Instance.WindowHeightV2 + (windowInfo.rcWindow.bottom - windowInfo.rcWindow.top) - (windowInfo.rcClient.bottom - windowInfo.rcClient.top)),
+                    SET_WINDOW_POS_FLAGS.SWP_NOMOVE
+                );
+            });
+            StrongReferenceMessenger.Default.Register<GetWindowArea>(this, (recipient, message) => message.Reply(GetWindowArea()));
+            StrongReferenceMessenger.Default.Register<GetWindowHandle>(this, (recipient, message) => message.Reply(_handle));
+            StrongReferenceMessenger.Default.Register<SetD2DView>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() => _d2DView.SwapChain = message.D2DView));
+            StrongReferenceMessenger.Default.Register<SetD2DViewArea>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
+            {
+                var windowArea = GetWindowArea();
+                var windowAreaLength = windowArea.Width;
+                var windowAreaHeight = windowArea.Height;
+                var defaultLength = _d2DView.SwapChain.Size.Width;
+                var defaultHeight = _d2DView.SwapChain.Size.Height;
+                var windowDPI = PInvoke.GetDpiForWindow(_handle) / 96.0;
+                if (Configure.Instance.IsQwilightFill)
+                {
+                    _d2DView.Width = windowAreaLength / windowDPI;
+                    _d2DView.Height = windowAreaHeight / windowDPI;
+                }
+                else
+                {
+                    if (defaultLength / windowAreaLength > defaultHeight / windowAreaHeight)
+                    {
+                        _d2DView.Width = windowAreaLength / windowDPI;
+                        _d2DView.Height = (windowAreaLength * defaultHeight / defaultLength) / windowDPI;
+                    }
+                    else
+                    {
+                        _d2DView.Width = (windowAreaHeight * defaultLength / defaultHeight) / windowDPI;
+                        _d2DView.Height = windowAreaHeight / windowDPI;
+                    }
+                }
+                _siteView.MoveAndResize(new RectInt32(0, 0, windowAreaLength, windowAreaHeight));
+            }));
+            StrongReferenceMessenger.Default.Register<SetD2DViewVisibility>(this, (recipient, message) => SetD2DViewVisibility(message.IsVisible));
         }
 
         void OnEssentialInputLower(object sender, KeyEventArgs e) => ViewModels.Instance.MainValue.OnEssentialInputLower(e);
@@ -190,71 +233,6 @@ namespace Qwilight.View
             var mainViewModel = ViewModels.Instance.MainValue;
             mainViewModel.OnWindowDPIModified(PInvoke.GetDpiForWindow(_handle) / 96.0);
             _ = mainViewModel.OnLoaded(_handle);
-        }
-
-        public void Receive(ICC message)
-        {
-            switch (message.IDValue)
-            {
-                case ICC.ID.SetWindowArea:
-                    var windowInfo = new WINDOWINFO
-                    {
-                        cbSize = (uint)Marshal.SizeOf<WINDOWINFO>()
-                    };
-                    PInvoke.GetWindowInfo(_handle, ref windowInfo);
-                    var windowDPI = PInvoke.GetDpiForWindow(_handle) / 96.0;
-                    PInvoke.SetWindowPos(_handle, HWND.Null, 0, 0,
-                        (int)(windowDPI * Configure.Instance.WindowLengthV2 + (windowInfo.rcWindow.right - windowInfo.rcWindow.left) - (windowInfo.rcClient.right - windowInfo.rcClient.left)),
-                        (int)(windowDPI * Configure.Instance.WindowHeightV2 + (windowInfo.rcWindow.bottom - windowInfo.rcWindow.top) - (windowInfo.rcClient.bottom - windowInfo.rcClient.top)),
-                        SET_WINDOW_POS_FLAGS.SWP_NOMOVE
-                    );
-                    break;
-                case ICC.ID.GetWindowArea:
-                    {
-                        var windowArea = GetWindowArea();
-                        (message.Contents as Action<int, int, int, int>)(windowArea.X, windowArea.Y, windowArea.Width, windowArea.Height);
-                    }
-                    break;
-                case ICC.ID.GetWindowHandle:
-                    (message.Contents as Action<HWND>)(_handle);
-                    break;
-                case ICC.ID.SetD2DView:
-                    HandlingUISystem.Instance.HandleParallel(() => _d2DView.SwapChain = message.Contents as CanvasSwapChain);
-                    break;
-                case ICC.ID.SetD2DViewArea:
-                    HandlingUISystem.Instance.HandleParallel(() =>
-                    {
-                        var windowArea = GetWindowArea();
-                        var windowAreaLength = windowArea.Width;
-                        var windowAreaHeight = windowArea.Height;
-                        var defaultLength = _d2DView.SwapChain.Size.Width;
-                        var defaultHeight = _d2DView.SwapChain.Size.Height;
-                        var windowDPI = PInvoke.GetDpiForWindow(_handle) / 96.0;
-                        if (Configure.Instance.IsQwilightFill)
-                        {
-                            _d2DView.Width = windowAreaLength / windowDPI;
-                            _d2DView.Height = windowAreaHeight / windowDPI;
-                        }
-                        else
-                        {
-                            if (defaultLength / windowAreaLength > defaultHeight / windowAreaHeight)
-                            {
-                                _d2DView.Width = windowAreaLength / windowDPI;
-                                _d2DView.Height = (windowAreaLength * defaultHeight / defaultLength) / windowDPI;
-                            }
-                            else
-                            {
-                                _d2DView.Width = (windowAreaHeight * defaultLength / defaultHeight) / windowDPI;
-                                _d2DView.Height = windowAreaHeight / windowDPI;
-                            }
-                        }
-                        _siteView.MoveAndResize(new RectInt32(0, 0, windowAreaLength, windowAreaHeight));
-                    });
-                    break;
-                case ICC.ID.SetD2DViewVisibility:
-                    HandlingUISystem.Instance.HandleParallel(() => SetD2DViewVisibility((bool)message.Contents));
-                    break;
-            }
         }
 
         void SetD2DViewVisibility(bool isVisible)

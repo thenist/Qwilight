@@ -18,12 +18,7 @@
             ClearPwWindowCipher,
             SetBaseDrawingUIElement,
             SetNoteFileModeWindowInputs,
-            GetWindowArea,
-            SetWindowArea,
             GetWPFView,
-            SetD2DView,
-            SetD2DViewArea,
-            SetD2DViewVisibility,
             GetWindowHandle,
             SetVoteWindowEdgeView,
             FadingLoadingView

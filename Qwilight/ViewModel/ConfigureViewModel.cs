@@ -241,10 +241,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void OnWindowArea() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.SetWindowArea
-        });
+        public void OnWindowArea() => StrongReferenceMessenger.Default.Send<SetWindowArea>();
 
         public async Task OnDefaultDrawing()
         {

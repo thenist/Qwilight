@@ -3061,62 +3061,56 @@ namespace Qwilight
             }
         }
 
-        public void OnModified() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        public void OnModified()
         {
-            IDValue = ICC.ID.GetWindowArea,
-            Contents = new Action<int, int, int, int>((windowAreaPosition0, windowAreaPosition1, windowAreaLength, windowAreaHeight) =>
+            var windowArea = StrongReferenceMessenger.Default.Send<GetWindowArea>().Response;
+            var windowAreaPosition0 = windowArea.X;
+            var windowAreaPosition1 = windowArea.Y;
+            var windowAreaLength = windowArea.Width;
+            var windowAreaHeight = windowArea.Height;
+            var mainViewModel = ViewModels.Instance.MainValue;
+            var defaultLength = (float)mainViewModel.DefaultLength;
+            var defaultHeight = (float)mainViewModel.DefaultHeight;
+            var drawingQuality = new Vector2((float)(96.0 * windowAreaLength / defaultLength), (float)(96.0 * windowAreaHeight / defaultHeight));
+            var targetWindowDPI = Math.Max(drawingQuality.X, drawingQuality.Y);
+            var dataCount = Configure.Instance.DataCount;
+            if (_rawTargetSystem == null)
             {
-                var mainViewModel = ViewModels.Instance.MainValue;
-                var defaultLength = (float)mainViewModel.DefaultLength;
-                var defaultHeight = (float)mainViewModel.DefaultHeight;
-                var drawingQuality = new Vector2((float)(96.0 * windowAreaLength / defaultLength), (float)(96.0 * windowAreaHeight / defaultHeight));
-                var targetWindowDPI = Math.Max(drawingQuality.X, drawingQuality.Y);
-                var dataCount = Configure.Instance.DataCount;
-                if (_rawTargetSystem == null)
+                Task.Run(() =>
                 {
-                    Task.Run(() =>
+                    lock (D2D1CSX)
                     {
-                        lock (D2D1CSX)
-                        {
-                            _targetSystem?.Dispose();
-                            _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
-                            _rawTargetSystemData = new byte[_targetSystem.SizeInPixels.Width * _targetSystem.SizeInPixels.Height * 4];
-                            _targetSystemData = _rawTargetSystemData.AsBuffer();
-                            _rawTargetSystem?.Dispose();
-                            _rawTargetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount, CanvasAlphaMode.Ignore);
-                        }
-                        WeakReferenceMessenger.Default.Send<ICC>(new()
-                        {
-                            IDValue = ICC.ID.SetD2DView,
-                            Contents = _rawTargetSystem
-                        });
-                        WeakReferenceMessenger.Default.Send<ICC>(new()
-                        {
-                            IDValue = ICC.ID.SetD2DViewArea
-                        });
+                        _targetSystem?.Dispose();
+                        _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
+                        _rawTargetSystemData = new byte[_targetSystem.SizeInPixels.Width * _targetSystem.SizeInPixels.Height * 4];
+                        _targetSystemData = _rawTargetSystemData.AsBuffer();
+                        _rawTargetSystem?.Dispose();
+                        _rawTargetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount, CanvasAlphaMode.Ignore);
+                    }
+                    StrongReferenceMessenger.Default.Send(new SetD2DView
+                    {
+                        D2DView = _rawTargetSystem
                     });
-                }
-                else if (_rawTargetSystem.Size.Width != defaultLength || _rawTargetSystem.Size.Height != defaultHeight || _drawingQuality != drawingQuality || _rawTargetSystem.BufferCount != dataCount)
+                    StrongReferenceMessenger.Default.Send<SetD2DViewArea>();
+                });
+            }
+            else if (_rawTargetSystem.Size.Width != defaultLength || _rawTargetSystem.Size.Height != defaultHeight || _drawingQuality != drawingQuality || _rawTargetSystem.BufferCount != dataCount)
+            {
+                Task.Run(() =>
                 {
-                    Task.Run(() =>
+                    lock (D2D1CSX)
                     {
-                        lock (D2D1CSX)
-                        {
-                            _targetSystem?.Dispose();
-                            _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
-                            _rawTargetSystemData = new byte[_targetSystem.SizeInPixels.Width * _targetSystem.SizeInPixels.Height * 4];
-                            _targetSystemData = _rawTargetSystemData.AsBuffer();
-                            _rawTargetSystem.ResizeBuffers(defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount);
-                        }
-                        WeakReferenceMessenger.Default.Send<ICC>(new()
-                        {
-                            IDValue = ICC.ID.SetD2DViewArea
-                        });
-                    });
-                }
-                _drawingQuality = drawingQuality;
-            })
-        });
+                        _targetSystem?.Dispose();
+                        _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
+                        _rawTargetSystemData = new byte[_targetSystem.SizeInPixels.Width * _targetSystem.SizeInPixels.Height * 4];
+                        _targetSystemData = _rawTargetSystemData.AsBuffer();
+                        _rawTargetSystem.ResizeBuffers(defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount);
+                    }
+                    StrongReferenceMessenger.Default.Send<SetD2DViewArea>();
+                });
+            }
+            _drawingQuality = drawingQuality;
+        }
 
         public DrawingItem Load(string drawingFilePath, IDrawingContainer drawingContainer)
         {
