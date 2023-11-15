@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.ViewModel;
 using Windows.Win32.UI.WindowsAndMessaging;
 
@@ -57,26 +58,21 @@ namespace Qwilight.UIComponent
         });
 
         [RelayCommand]
-        void OnWipe() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        void OnWipe()
         {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
+            if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                LanguageSystem.Instance.WipeBundleNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        BundleCollection.Remove(this);
-                        var bundleViewModel = ViewModels.Instance.BundleValue;
-                        bundleViewModel.TargetValue -= Length;
-                        bundleViewModel.NotifyUI();
-                        TwilightSystem.Instance.SendParallel(Event.Types.EventID.WipeBundle, Name);
-                    }
-                })
+                Text = LanguageSystem.Instance.WipeBundleNotify,
+                Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+            }) == MESSAGEBOX_RESULT.IDYES)
+            {
+                BundleCollection.Remove(this);
+                var bundleViewModel = ViewModels.Instance.BundleValue;
+                bundleViewModel.TargetValue -= Length;
+                bundleViewModel.NotifyUI();
+                TwilightSystem.Instance.SendParallel(Event.Types.EventID.WipeBundle, Name);
             }
-        });
+        }
 
         public BundleItem(BundleCompetence bundleCompetence) => _bundleCompetence = bundleCompetence;
     }

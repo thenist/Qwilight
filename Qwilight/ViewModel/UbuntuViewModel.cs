@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.UIComponent;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -20,22 +21,14 @@ namespace Qwilight.ViewModel
             var ubuntuID = UbuntuItem?.AvatarID;
             if (e.Key == Key.Delete && ubuntuID != null)
             {
-                WeakReferenceMessenger.Default.Send<ICC>(new()
+                if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                 {
-                    IDValue = ICC.ID.ViewAllowWindow,
-                    Contents = new object[]
-                    {
-                        LanguageSystem.Instance.WipeUbuntuNotify,
-                        MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                        new Action<MESSAGEBOX_RESULT>(r =>
-                        {
-                            if (r == MESSAGEBOX_RESULT.IDYES)
-                            {
-                                TwilightSystem.Instance.SendParallel(Event.Types.EventID.WipeUbuntu, ubuntuID);
-                            }
-                        })
-                    }
-                });
+                    Text = LanguageSystem.Instance.WipeUbuntuNotify,
+                    Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                }) == MESSAGEBOX_RESULT.IDYES)
+                {
+                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.WipeUbuntu, ubuntuID);
+                }
             }
         }
 

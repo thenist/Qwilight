@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using System.Collections.ObjectModel;
@@ -102,27 +103,22 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        static void OnWipeLevel() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static void OnWipeLevel()
         {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
+            if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                LanguageSystem.Instance.WipeLevelNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        Utility.WipeFile(Path.Combine(LevelSystem.EntryPath, $"{Configure.Instance.WantLevelName}.json"));
-                        Utility.WipeFile(Path.Combine(LevelSystem.EntryPath, $"#{Configure.Instance.WantLevelName}.json"));
-                        Configure.Instance.LevelTargetMap.Remove(Configure.Instance.WantLevelName);
-                        var i = LevelSystem.Instance.LevelFileNames.IndexOf(Configure.Instance.WantLevelName);
-                        LevelSystem.Instance.LevelFileNames.RemoveAt(i);
-                        Configure.Instance.WantLevelName = LevelSystem.Instance.LevelFileNames.ElementAtOrDefault(i) ?? LevelSystem.Instance.LevelFileNames.LastOrDefault();
-                    }
-                })
+                Text = LanguageSystem.Instance.WipeLevelNotify,
+                Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+            }) == MESSAGEBOX_RESULT.IDYES)
+            {
+                Utility.WipeFile(Path.Combine(LevelSystem.EntryPath, $"{Configure.Instance.WantLevelName}.json"));
+                Utility.WipeFile(Path.Combine(LevelSystem.EntryPath, $"#{Configure.Instance.WantLevelName}.json"));
+                Configure.Instance.LevelTargetMap.Remove(Configure.Instance.WantLevelName);
+                var i = LevelSystem.Instance.LevelFileNames.IndexOf(Configure.Instance.WantLevelName);
+                LevelSystem.Instance.LevelFileNames.RemoveAt(i);
+                Configure.Instance.WantLevelName = LevelSystem.Instance.LevelFileNames.ElementAtOrDefault(i) ?? LevelSystem.Instance.LevelFileNames.LastOrDefault();
             }
-        });
+        }
 
         public override void OnOpened()
         {

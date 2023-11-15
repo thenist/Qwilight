@@ -646,7 +646,7 @@ namespace Qwilight.ViewModel
                                 }
                                 else
                                 {
-                                    var savingBundleItem = new NotifyItem
+                                    var savingUIItem = new NotifyItem
                                     {
                                         Text = LanguageSystem.Instance.SavingUIContents,
                                         Variety = NotifySystem.NotifyVariety.Levying,
@@ -654,29 +654,29 @@ namespace Qwilight.ViewModel
                                     };
                                     try
                                     {
-                                        HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingBundleItem));
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                        HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingUIItem));
+                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingUIItem.Text);
                                         zipFile.ExtractProgress += (sender, e) =>
                                         {
-                                            savingBundleItem.LevyingStatus = e.EntriesExtracted;
-                                            savingBundleItem.QuitStatus = e.EntriesTotal;
-                                            savingBundleItem.NotifyBundleStatus();
+                                            savingUIItem.LevyingStatus = e.EntriesExtracted;
+                                            savingUIItem.QuitStatus = e.EntriesTotal;
+                                            savingUIItem.NotifyBundleStatus();
                                         };
                                         zipFile.ExtractAll(string.IsNullOrEmpty(Path.GetDirectoryName(yamlFileName)) ? Path.Combine(QwilightComponent.UIEntryPath, yamlFileName) : QwilightComponent.UIEntryPath, ExtractExistingFileAction.OverwriteSilently);
-                                        savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
-                                        savingBundleItem.Text = LanguageSystem.Instance.SavedUIContents;
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, savingBundleItem.Text);
+                                        savingUIItem.Variety = NotifySystem.NotifyVariety.Quit;
+                                        savingUIItem.Text = LanguageSystem.Instance.SavedUIContents;
+                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, savingUIItem.Text);
                                         lastYamlFileName = yamlFileName;
                                     }
                                     catch (Exception e)
                                     {
-                                        savingBundleItem.Variety = NotifySystem.NotifyVariety.Stopped;
-                                        savingBundleItem.Text = string.Format(LanguageSystem.Instance.SaveUIFault, e.Message);
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, savingBundleItem.Text);
+                                        savingUIItem.Variety = NotifySystem.NotifyVariety.Stopped;
+                                        savingUIItem.Text = string.Format(LanguageSystem.Instance.SaveUIFault, e.Message);
+                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, savingUIItem.Text);
                                     }
                                     finally
                                     {
-                                        savingBundleItem.OnStop = isTotal => true;
+                                        savingUIItem.OnStop = isTotal => true;
                                     }
                                 }
                             }
@@ -825,32 +825,24 @@ namespace Qwilight.ViewModel
         {
             if (e.Key == Key.Delete && DefaultCommentItem != null)
             {
-                WeakReferenceMessenger.Default.Send<ICC>(new()
+                if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                 {
-                    IDValue = ICC.ID.ViewAllowWindow,
-                    Contents = new object[]
+                    Text = LanguageSystem.Instance.WipeCommentNotify,
+                    Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                }) == MESSAGEBOX_RESULT.IDYES)
+                {
+                    DefaultCommentCollection.Remove(DefaultCommentItem);
+                    var defaultCommentFilePath = DefaultCommentItem.CommentID;
+                    if (string.IsNullOrEmpty(EntryItemValue.EventNoteID))
                     {
-                        LanguageSystem.Instance.WipeCommentNotify,
-                        MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                        new Action<MESSAGEBOX_RESULT>(r =>
-                        {
-                             if (r == MESSAGEBOX_RESULT.IDYES)
-                             {
-                                DefaultCommentCollection.Remove(DefaultCommentItem);
-                                var defaultCommentFilePath = DefaultCommentItem.CommentID;
-                                if (string.IsNullOrEmpty(EntryItemValue.EventNoteID))
-                                {
-                                    Utility.WipeFile(Path.Combine(QwilightComponent.CommentEntryPath, Path.ChangeExtension(defaultCommentFilePath, ".zip")));
-                                }
-                                else
-                                {
-                                    Utility.WipeFile(defaultCommentFilePath);
-                                }
-                                _ = DB.Instance.WipeComment(defaultCommentFilePath);
-                            }
-                        })
+                        Utility.WipeFile(Path.Combine(QwilightComponent.CommentEntryPath, Path.ChangeExtension(defaultCommentFilePath, ".zip")));
                     }
-                });
+                    else
+                    {
+                        Utility.WipeFile(defaultCommentFilePath);
+                    }
+                    _ = DB.Instance.WipeComment(defaultCommentFilePath);
+                }
             }
         }
 
@@ -937,7 +929,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void OnEntryViewInputLower(KeyEventArgs e)
+        public async Task OnEntryViewInputLower(KeyEventArgs e)
         {
             if (IsNoteFileMode)
             {
@@ -1022,70 +1014,46 @@ namespace Qwilight.ViewModel
                                         {
                                             if (EntryItemValue.CanWipeNoteFile && !Utility.HasInput(VirtualKey.LeftShift))
                                             {
-                                                WeakReferenceMessenger.Default.Send<ICC>(new()
+                                                if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                                                 {
-                                                    IDValue = ICC.ID.ViewAllowWindow,
-                                                    Contents = new object[]
-                                                    {
-                                                        LanguageSystem.Instance.WipeNoteFileNotify,
-                                                        MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                                                        new Action<MESSAGEBOX_RESULT>(r =>
-                                                        {
-                                                            if (r == MESSAGEBOX_RESULT.IDYES)
-                                                            {
-                                                                var targetNoteFile = EntryItemValue.NoteFile;
-                                                                Utility.WipeFile(targetNoteFile.NoteFilePath);
-                                                                LoadEntryItem(targetNoteFile.DefaultEntryItem, targetNoteFile.EntryItem.EntryPath);
-                                                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.WipeNoteFileOK);
-                                                            }
-                                                        })
-                                                    }
-                                                });
+                                                    Text = LanguageSystem.Instance.WipeNoteFileNotify,
+                                                    Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                                                }) == MESSAGEBOX_RESULT.IDYES)
+                                                {
+                                                    var targetNoteFile = EntryItemValue.NoteFile;
+                                                    Utility.WipeFile(targetNoteFile.NoteFilePath);
+                                                    LoadEntryItem(targetNoteFile.DefaultEntryItem, targetNoteFile.EntryItem.EntryPath);
+                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.WipeNoteFileOK);
+                                                }
                                             }
                                             else
                                             {
                                                 CloseAutoComputer("Default");
-                                                WeakReferenceMessenger.Default.Send<ICC>(new()
+                                                if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                                                 {
-                                                    IDValue = ICC.ID.ViewAllowWindow,
-                                                    Contents = new object[]
-                                                    {
-                                                        LanguageSystem.Instance.WipeEntryItemNotify,
-                                                        MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                                                        new Action<MESSAGEBOX_RESULT>(r =>
-                                                        {
-                                                            if (r == MESSAGEBOX_RESULT.IDYES)
-                                                            {
-                                                                Utility.WipeEntry(EntryItemValue.EntryPath);
-                                                                LoadEntryItem(EntryItemValue.DefaultEntryItem, EntryItemValue.EntryPath);
-                                                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.WipeEntryOK);
-                                                            }
-                                                        })
-                                                    }
-                                                });
+                                                    Text = LanguageSystem.Instance.WipeEntryItemNotify,
+                                                    Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                                                }) == MESSAGEBOX_RESULT.IDYES)
+                                                {
+                                                    Utility.WipeEntry(EntryItemValue.EntryPath);
+                                                    LoadEntryItem(EntryItemValue.DefaultEntryItem, EntryItemValue.EntryPath);
+                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.WipeEntryOK);
+                                                }
                                             }
                                         }
                                     }
                                     else
                                     {
-                                        WeakReferenceMessenger.Default.Send<ICC>(new()
+                                        if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                                         {
-                                            IDValue = ICC.ID.ViewAllowWindow,
-                                            Contents = new object[]
-                                            {
-                                                LanguageSystem.Instance.WipeEventNoteContents,
-                                                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                                                new Action<MESSAGEBOX_RESULT>(async r =>
-                                                {
-                                                    if (r == MESSAGEBOX_RESULT.IDYES)
-                                                    {
-                                                        await DB.Instance.WipeEventNote(eventNoteID).ConfigureAwait(false);
-                                                        LoadEventNoteEntryItems();
-                                                        Want();
-                                                    }
-                                                })
-                                            }
-                                        });
+                                            Text = LanguageSystem.Instance.WipeEventNoteNotify,
+                                            Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                                        }) == MESSAGEBOX_RESULT.IDYES)
+                                        {
+                                            await DB.Instance.WipeEventNote(eventNoteID).ConfigureAwait(false);
+                                            LoadEventNoteEntryItems();
+                                            Want();
+                                        }
                                     }
                                 }
                                 else
@@ -1094,23 +1062,15 @@ namespace Qwilight.ViewModel
                                     var defaultEntryVarietyValue = defaultEntryItem?.DefaultEntryVarietyValue;
                                     if (defaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Default || defaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite)
                                     {
-                                        WeakReferenceMessenger.Default.Send<ICC>(new()
+                                        if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                                         {
-                                            IDValue = ICC.ID.ViewAllowWindow,
-                                            Contents = new object[]
-                                            {
-                                                defaultEntryItem.WipeNotify,
-                                                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                                                new Action<MESSAGEBOX_RESULT>(r =>
-                                                {
-                                                    if (r == MESSAGEBOX_RESULT.IDYES)
-                                                    {
-                                                        Configure.Instance.DefaultEntryItems.Remove(defaultEntryItem);
-                                                        SetDefaultEntryItems();
-                                                    }
-                                                })
-                                            }
-                                        });
+                                            Text = defaultEntryItem.WipeNotify,
+                                            Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                                        }) == MESSAGEBOX_RESULT.IDYES)
+                                        {
+                                            Configure.Instance.DefaultEntryItems.Remove(defaultEntryItem);
+                                            SetDefaultEntryItems();
+                                        }
                                     }
                                 }
                                 break;
@@ -1242,24 +1202,19 @@ namespace Qwilight.ViewModel
         static void OnViewMyBundle() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.CallBundle, TwilightSystem.Instance.AvatarID);
 
         [RelayCommand]
-        static void OnNotSignIn() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static void OnNotSignIn()
         {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
+            if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                LanguageSystem.Instance.NotSignInNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        Configure.Instance.SetCipher(string.Empty);
-                        Configure.Instance.AutoSignIn = false;
-                        TwilightSystem.Instance.SendParallel<object>(Event.Types.EventID.NotSignIn, null);
-                    }
-                })
+                Text = LanguageSystem.Instance.NotSignInNotify,
+                Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+            }) == MESSAGEBOX_RESULT.IDYES)
+            {
+                Configure.Instance.SetCipher(string.Empty);
+                Configure.Instance.AutoSignIn = false;
+                TwilightSystem.Instance.SendParallel<object>(Event.Types.EventID.NotSignIn, null);
             }
-        });
+        }
 
         [RelayCommand]
         void OnViewFile()
@@ -1690,7 +1645,7 @@ namespace Qwilight.ViewModel
 
         public void HandleNoteBundle(string filePath)
         {
-            var savingBundleItem = new NotifyItem
+            var savingFileItem = new NotifyItem
             {
                 Text = LanguageSystem.Instance.SavingFileContents,
                 Variety = NotifySystem.NotifyVariety.Levying,
@@ -1698,8 +1653,8 @@ namespace Qwilight.ViewModel
             };
             try
             {
-                HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingBundleItem));
-                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingFileItem));
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingFileItem.Text);
                 var bundleEntryItem = Configure.Instance.LastDefaultEntryItem ?? DefaultEntryItem.EssentialBundle;
                 if (bundleEntryItem.DefaultEntryVarietyValue != DefaultEntryItem.DefaultEntryVariety.Default && bundleEntryItem.DefaultEntryVarietyValue != DefaultEntryItem.DefaultEntryVariety.Essential)
                 {
@@ -1734,26 +1689,26 @@ namespace Qwilight.ViewModel
                     });
                     zipFile.ExtractProgress += (sender, e) =>
                     {
-                        savingBundleItem.LevyingStatus = e.EntriesExtracted;
-                        savingBundleItem.QuitStatus = e.EntriesTotal;
-                        savingBundleItem.NotifyBundleStatus();
+                        savingFileItem.LevyingStatus = e.EntriesExtracted;
+                        savingFileItem.QuitStatus = e.EntriesTotal;
+                        savingFileItem.NotifyBundleStatus();
                     };
                     zipFile.ExtractAll(bundleEntryPath, ExtractExistingFileAction.OverwriteSilently);
                 }
                 LoadEntryItem(bundleEntryItem, bundleEntryPath);
-                savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
-                savingBundleItem.Text = LanguageSystem.Instance.SavedFileContents;
-                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, savingBundleItem.Text);
+                savingFileItem.Variety = NotifySystem.NotifyVariety.Quit;
+                savingFileItem.Text = LanguageSystem.Instance.SavedFileContents;
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, savingFileItem.Text);
             }
             catch (Exception e)
             {
-                savingBundleItem.Variety = NotifySystem.NotifyVariety.Stopped;
-                savingBundleItem.Text = string.Format(LanguageSystem.Instance.SaveFileFault, e.Message);
-                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, savingBundleItem.Text);
+                savingFileItem.Variety = NotifySystem.NotifyVariety.Stopped;
+                savingFileItem.Text = string.Format(LanguageSystem.Instance.SaveFileFault, e.Message);
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, savingFileItem.Text);
             }
             finally
             {
-                savingBundleItem.OnStop = isTotal => true;
+                savingFileItem.OnStop = isTotal => true;
             }
         }
 
@@ -2607,46 +2562,30 @@ namespace Qwilight.ViewModel
                 {
                     if (EntryItemValue != null && !EntryItemValue.IsLogical && string.IsNullOrEmpty(EntryItemValue.EventNoteID))
                     {
-                        WeakReferenceMessenger.Default.Send((ICC)new()
+                        switch (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                         {
-                            IDValue = ICC.ID.ViewAllowWindow,
-                            Contents = new object[]
-                            {
-                                string.Format(LanguageSystem.Instance.F5Notify1, lastDefaultEntryItem, Path.GetFileName(EntryItemValue.EntryPath)),
-                                MESSAGEBOX_STYLE.MB_YESNOCANCEL | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                                new Action<MESSAGEBOX_RESULT>(r =>
-                                {
-                                    switch (r)
-                                    {
-                                        case MESSAGEBOX_RESULT.IDYES:
-                                            LoadDefaultEntryItem(true);
-                                            break;
-                                        case MESSAGEBOX_RESULT.IDNO:
-                                            LoadEntryItem(EntryItemValue.DefaultEntryItem, EntryItemValue.EntryPath);
-                                            break;
-                                    }
-                                })
-                            }
-                        });
+                            Text = string.Format(LanguageSystem.Instance.F5Notify1, lastDefaultEntryItem, Path.GetFileName(EntryItemValue.EntryPath)),
+                            Data = MESSAGEBOX_STYLE.MB_YESNOCANCEL | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                        }).Response)
+                        {
+                            case MESSAGEBOX_RESULT.IDYES:
+                                LoadDefaultEntryItem(true);
+                                break;
+                            case MESSAGEBOX_RESULT.IDNO:
+                                LoadEntryItem(EntryItemValue.DefaultEntryItem, EntryItemValue.EntryPath);
+                                break;
+                        }
                     }
                     else
                     {
-                        WeakReferenceMessenger.Default.Send((ICC)new()
+                        if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                         {
-                            IDValue = ICC.ID.ViewAllowWindow,
-                            Contents = new object[]
-                            {
-                                string.Format(LanguageSystem.Instance.F5Notify0, Configure.Instance.LastDefaultEntryItem),
-                                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                                new Action<MESSAGEBOX_RESULT>(r =>
-                                {
-                                    if (r == MESSAGEBOX_RESULT.IDYES)
-                                    {
-                                        LoadDefaultEntryItem(true);
-                                    }
-                                })
-                            }
-                        });
+                            Text = string.Format(LanguageSystem.Instance.F5Notify0, Configure.Instance.LastDefaultEntryItem),
+                            Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                        }) == MESSAGEBOX_RESULT.IDYES)
+                        {
+                            LoadDefaultEntryItem(true);
+                        }
                     }
                 }
             }
@@ -3053,6 +2992,12 @@ namespace Qwilight.ViewModel
 
         public async Task GetQwilight(bool isSilent)
         {
+            var savingQwilightItem = new NotifyItem
+            {
+                Text = LanguageSystem.Instance.SavingQwilightContents,
+                Variety = NotifySystem.NotifyVariety.Levying,
+                OnStop = isTotal => false
+            };
             try
             {
                 var taehuiQwilight = await TwilightSystem.Instance.GetWwwParallel<JSON.TaehuiQwilight?>($"{QwilightComponent.TaehuiNetFE}/qwilight/qwilight.json").ConfigureAwait(false);
@@ -3062,41 +3007,27 @@ namespace Qwilight.ViewModel
                     var date = Version.Parse(taehuiQwilightValue.date);
                     if (QwilightComponent.Date < date || QwilightComponent.HashText != taehuiQwilightValue.hash)
                     {
-                        _ = SaveQwilight();
+                        await SaveQwilight();
                     }
                     else if (!isSilent)
                     {
-                        WeakReferenceMessenger.Default.Send<ICC>(new()
+                        if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                         {
-                            IDValue = ICC.ID.ViewAllowWindow,
-                            Contents = new object[]
-                            {
-                                LanguageSystem.Instance.AlreadyLatestDate,
-                                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                                new Action<MESSAGEBOX_RESULT>(r =>
-                                {
-                                    if (r == MESSAGEBOX_RESULT.IDYES)
-                                    {
-                                        _ = SaveQwilight();
-                                    }
-                                })
-                            }
-                        });
+                            Text = LanguageSystem.Instance.AlreadyLatestDate,
+                            Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                        }) == MESSAGEBOX_RESULT.IDYES)
+                        {
+                            await SaveQwilight();
+                        }
                     }
 
-                    async Task SaveQwilight()
+                    async ValueTask SaveQwilight()
                     {
                         var data = ArrayPool<byte>.Shared.Rent(QwilightComponent.SendUnit);
-                        var savingBundleItem = new NotifyItem
-                        {
-                            Text = LanguageSystem.Instance.SavingQwilightContents,
-                            Variety = NotifySystem.NotifyVariety.Levying,
-                            OnStop = isTotal => false
-                        };
                         try
                         {
-                            HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingBundleItem));
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                            HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingQwilightItem));
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingQwilightItem.Text);
                             var title = taehuiQwilightValue.title;
                             var tmpFileName = Path.GetTempFileName();
                             var target = $"{QwilightComponent.TaehuiNetFE}/qwilight/{title}";
@@ -3105,35 +3036,27 @@ namespace Qwilight.ViewModel
                                 using (var fs = File.OpenWrite(tmpFileName))
                                 using (var ts = await wwwClient.GetAsync(target).ConfigureAwait(false))
                                 {
-                                    savingBundleItem.QuitStatus = ts.Content.Headers.ContentLength ?? 0L;
+                                    savingQwilightItem.QuitStatus = ts.Content.Headers.ContentLength ?? 0L;
                                     var length = 0;
                                     while ((length = await (await ts.Content.ReadAsStreamAsync().ConfigureAwait(false)).ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
                                     {
                                         await fs.WriteAsync(data.AsMemory(0, length)).ConfigureAwait(false);
-                                        savingBundleItem.LevyingStatus += length;
-                                        savingBundleItem.NotifyBundleStatus();
+                                        savingQwilightItem.LevyingStatus += length;
+                                        savingQwilightItem.NotifyBundleStatus();
                                     }
                                 }
                             }
-                            savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
-                            savingBundleItem.Text = LanguageSystem.Instance.SavedQwilightContents;
-                            savingBundleItem.OnStop = isTotal =>
+                            savingQwilightItem.Variety = NotifySystem.NotifyVariety.Quit;
+                            savingQwilightItem.Text = LanguageSystem.Instance.SavedQwilightContents;
+                            savingQwilightItem.OnStop = isTotal =>
                             {
                                 Utility.WipeFile(_qwilightFileName);
                                 return true;
                             };
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingQwilightItem.Text);
                             var qwilightFileName = Path.ChangeExtension(tmpFileName, Path.GetExtension(title));
                             Utility.MoveFile(tmpFileName, qwilightFileName);
                             _qwilightFileName = qwilightFileName;
-                        }
-                        catch (Exception e)
-                        {
-                            if (!isSilent)
-                            {
-                                savingBundleItem.Text = string.Format(LanguageSystem.Instance.GetQwilightFault, e.Message);
-                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
-                            }
                         }
                         finally
                         {
@@ -3146,7 +3069,8 @@ namespace Qwilight.ViewModel
             {
                 if (!isSilent)
                 {
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.GetQwilightFault, e.Message));
+                    savingQwilightItem.Text = string.Format(LanguageSystem.Instance.GetQwilightFault, e.Message);
+                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.NotSave, savingQwilightItem.Text);
                 }
             }
         }

@@ -76,8 +76,8 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Style="{StaticResource StandardInput}" Command="{Binding UndoColorCommand}" Content="{Binding UndoColorText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
-                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding UndoColorContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                <Button Style="{StaticResource StandardInput}" Command="{Binding InitColorCommand}" Content="{Binding InitColorText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding InitColorContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>

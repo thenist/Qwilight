@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using System.Collections.ObjectModel;
@@ -370,26 +371,19 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         static void OnAvatarEdge() => ViewModels.Instance.AvatarEdgeValue.Open();
 
-        public void OnAvatarDrawing()
+        public async Task OnAvatarDrawing()
         {
             if (IsMe)
             {
-                WeakReferenceMessenger.Default.Send<ICC>(new()
+                var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                 {
-                    IDValue = ICC.ID.ViewFileWindow,
-                    Contents = new object[]
-                    {
-                        new[] { ".png" },
-                        new Action<string>(async fileName =>
-                        {
-                            if (await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
-                            {
-                                InitAvatarWwwValue(TwilightSystem.Instance.AvatarID);
-                                TwilightSystem.Instance.NotifyAvatarDrawing();
-                            }
-                        })
-                    }
+                    Filters = new[] { ".png" }
                 });
+                if (!string.IsNullOrEmpty(fileName) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
+                {
+                    InitAvatarWwwValue(TwilightSystem.Instance.AvatarID);
+                    TwilightSystem.Instance.NotifyAvatarDrawing();
+                }
             }
         }
 

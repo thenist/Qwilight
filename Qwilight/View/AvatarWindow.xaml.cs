@@ -7,6 +7,6 @@ namespace Qwilight.View
     {
         public AvatarWindow() => InitializeComponent();
 
-        void OnAvatarDrawing(object sender, MouseButtonEventArgs e) => (DataContext as AvatarViewModel).OnAvatarDrawing();
+        void OnAvatarDrawing(object sender, MouseButtonEventArgs e) => _ = (DataContext as AvatarViewModel).OnAvatarDrawing();
     }
 }

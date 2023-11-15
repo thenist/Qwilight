@@ -5,6 +5,7 @@ using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.UI;
 using Qwilight.Compute;
+using Qwilight.MSG;
 using Qwilight.Note;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
@@ -124,22 +125,15 @@ namespace Qwilight
         {
             CanvasDevice.GetSharedDevice().DeviceLost += (sender, args) =>
             {
+                StrongReferenceMessenger.Default.Send(new ViewAllowWindow
+                {
+                    Text = LanguageSystem.Instance.D2DSystemFault,
+                    Data = MESSAGEBOX_STYLE.MB_OK | MESSAGEBOX_STYLE.MB_ICONERROR
+                });
                 WeakReferenceMessenger.Default.Send(new ICC
                 {
-                    IDValue = ICC.ID.ViewAllowWindow,
-                    Contents = new object[]
-                    {
-                        LanguageSystem.Instance.D2DSystemFault,
-                        MESSAGEBOX_STYLE.MB_OK | MESSAGEBOX_STYLE.MB_ICONERROR,
-                        new Action<MESSAGEBOX_RESULT>(r =>
-                        {
-                            WeakReferenceMessenger.Default.Send(new ICC
-                            {
-                                IDValue = ICC.ID.Quit,
-                                Contents = false
-                            });
-                        })
-                    }
+                    IDValue = ICC.ID.Quit,
+                    Contents = false
                 });
             };
 

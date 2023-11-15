@@ -246,7 +246,7 @@ namespace Qwilight.ViewModel
             IDValue = ICC.ID.SetWindowArea
         });
 
-        public void OnDefaultDrawing()
+        public async Task OnDefaultDrawing()
         {
             if (File.Exists(Configure.Instance.DefaultDrawingFilePath))
             {
@@ -255,19 +255,15 @@ namespace Qwilight.ViewModel
             }
             else
             {
-                WeakReferenceMessenger.Default.Send<ICC>(new()
+                var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                 {
-                    IDValue = ICC.ID.ViewFileWindow,
-                    Contents = new object[]
-                    {
-                        QwilightComponent.DrawingFileFormats,
-                        new Action<string>(fileName =>
-                        {
-                            Configure.Instance.DefaultDrawingFilePath = fileName;
-                            DrawingSystem.Instance.LoadDefaultDrawing();
-                        })
-                    }
+                    Filters = QwilightComponent.DrawingFileFormats
                 });
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    Configure.Instance.DefaultDrawingFilePath = fileName;
+                    DrawingSystem.Instance.LoadDefaultDrawing();
+                }
             }
         }
         public void OnSetBaseUI()
@@ -286,7 +282,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void OnVeilDrawing()
+        public async Task OnVeilDrawing()
         {
             if (File.Exists(Configure.Instance.VeilDrawingFilePath))
             {
@@ -295,19 +291,15 @@ namespace Qwilight.ViewModel
             }
             else
             {
-                WeakReferenceMessenger.Default.Send<ICC>(new()
+                var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                 {
-                    IDValue = ICC.ID.ViewFileWindow,
-                    Contents = new object[]
-                    {
-                        QwilightComponent.DrawingFileFormats,
-                        new Action<string>(fileName =>
-                        {
-                            Configure.Instance.VeilDrawingFilePath = fileName;
-                            DrawingSystem.Instance.LoadVeilDrawing();
-                        })
-                    }
+                    Filters = QwilightComponent.DrawingFileFormats
                 });
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    Configure.Instance.VeilDrawingFilePath = fileName;
+                    DrawingSystem.Instance.LoadVeilDrawing();
+                }
             }
         }
 
@@ -519,153 +511,118 @@ namespace Qwilight.ViewModel
         static void OnLostPointAudio() => Configure.Instance.LostPointAudio = !Configure.Instance.LostPointAudio;
 
         [RelayCommand]
-        static void OnInitCompiled() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static void OnInitCompiled()
         {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
+            if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                LanguageSystem.Instance.InitCompiledNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        FastDB.Instance.Clear();
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCompiledOK);
-                    }
-                })
+                Text = LanguageSystem.Instance.InitCompiledNotify,
+                Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+            }) == MESSAGEBOX_RESULT.IDYES)
+            {
+                FastDB.Instance.Clear();
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCompiledOK);
             }
-        });
+        }
 
         [RelayCommand]
-        static void OnInitFavoriteEntry() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static async Task OnInitFavoriteEntry()
         {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
+            if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                LanguageSystem.Instance.InitFavoriteEntryNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(async r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        ViewModels.Instance.MainValue.WipeFavoriteEntry();
-                        Configure.Instance.DefaultEntryItems.RemoveWhere(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite);
-                        await DB.Instance.WipeFavoriteEntry().ConfigureAwait(false);
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitFavoriteEntryOK);
-                    }
-                })
+                Text = LanguageSystem.Instance.InitFavoriteEntryNotify,
+                Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+            }) == MESSAGEBOX_RESULT.IDYES)
+            {
+                ViewModels.Instance.MainValue.WipeFavoriteEntry();
+                Configure.Instance.DefaultEntryItems.RemoveWhere(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite);
+                await DB.Instance.WipeFavoriteEntry().ConfigureAwait(false);
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitFavoriteEntryOK);
             }
-        });
+        }
 
         [RelayCommand]
-        static void OnInitWait() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static async Task OnInitWait()
         {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
+            if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                LanguageSystem.Instance.InitWaitNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(async r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        Configure.Instance.AudioWait = 0.0;
-                        Configure.Instance.BanalAudioWait = 0.0;
-                        Configure.Instance.MediaWait = 0.0;
-                        Configure.Instance.BanalMediaWait = 0.0;
-                        Configure.Instance.NotifyModel();
-                        await DB.Instance.InitWait().ConfigureAwait(false);
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitWaitOK);
-                    }
-                })
+                Text = LanguageSystem.Instance.InitWaitNotify,
+                Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+            }) == MESSAGEBOX_RESULT.IDYES)
+            {
+                Configure.Instance.AudioWait = 0.0;
+                Configure.Instance.BanalAudioWait = 0.0;
+                Configure.Instance.MediaWait = 0.0;
+                Configure.Instance.BanalMediaWait = 0.0;
+                Configure.Instance.NotifyModel();
+                await DB.Instance.InitWait().ConfigureAwait(false);
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitWaitOK);
             }
-        });
+        }
 
         [RelayCommand]
-        static void OnUndoColor() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static void OnInitColor()
         {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
+            if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                LanguageSystem.Instance.UndoColorNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        Configure.Instance.InitColors(int.MaxValue);
-                        AvatarTitleSystem.Instance.WipeAvatarTitles();
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.UndoColorOK);
-                    }
-                })
+                Text = LanguageSystem.Instance.InitColorNotify,
+                Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+            }) == MESSAGEBOX_RESULT.IDYES)
+            {
+                Configure.Instance.InitColors(int.MaxValue);
+                AvatarTitleSystem.Instance.WipeAvatarTitles();
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitColorOK);
             }
-        });
+        }
 
         [RelayCommand]
-        static void OnInitMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static async Task OnInitMedia()
         {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
+            if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                LanguageSystem.Instance.InitMediaNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(async r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        Configure.Instance.Media = true;
-                        await DB.Instance.InitMedia().ConfigureAwait(false);
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitMediaOK);
-                    }
-                })
+                Text = LanguageSystem.Instance.InitMediaNotify,
+                Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+            }) == MESSAGEBOX_RESULT.IDYES)
+            {
+                Configure.Instance.Media = true;
+                await DB.Instance.InitMedia().ConfigureAwait(false);
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitMediaOK);
             }
-        });
+        }
 
         [RelayCommand]
-        static void OnInitComment() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static async Task OnInitComment()
         {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
+            if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                LanguageSystem.Instance.InitCommentNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(async r =>
+                Text = LanguageSystem.Instance.InitCommentNotify,
+                Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+            }) == MESSAGEBOX_RESULT.IDYES)
+            {
+                ViewModels.Instance.MainValue.DefaultCommentCollection.Clear();
+                foreach (var commentFilePath in Utility.GetFiles(QwilightComponent.CommentEntryPath))
                 {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        ViewModels.Instance.MainValue.DefaultCommentCollection.Clear();
-                        foreach (var commentFilePath in Utility.GetFiles(QwilightComponent.CommentEntryPath))
-                        {
-                            Utility.WipeFile(commentFilePath);
-                        }
-                        await DB.Instance.WipeComment().ConfigureAwait(false);
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCommentOK);
-                    }
-                })
+                    Utility.WipeFile(commentFilePath);
+                }
+                await DB.Instance.WipeComment().ConfigureAwait(false);
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCommentOK);
             }
-        });
+        }
 
         [RelayCommand]
-        void OnInitTotal() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        void OnInitTotal()
         {
-            IDValue = ICC.ID.ViewAllowWindow,
-            Contents = new object[]
+            if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                LanguageSystem.Instance.InitTotalNotify,
-                MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                new Action<MESSAGEBOX_RESULT>(r =>
-                {
-                    if (r == MESSAGEBOX_RESULT.IDYES)
-                    {
-                        Configure.Instance.Validate(true);
-                        ViewModels.Instance.MainValue.SetDefaultEntryItems();
-                        Init();
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitTotalOK);
-                    }
-                })
+                Text = LanguageSystem.Instance.InitTotalNotify,
+                Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+            }) == MESSAGEBOX_RESULT.IDYES)
+            {
+                Configure.Instance.Validate(true);
+                ViewModels.Instance.MainValue.SetDefaultEntryItems();
+                Init();
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitTotalOK);
             }
-        });
+        }
 
         [RelayCommand]
         static void OnMode(int? e)
@@ -816,55 +773,52 @@ namespace Qwilight.ViewModel
         static void OnK70() => K70System.Instance.Toggle();
 
         [RelayCommand]
-        static void OnLoadBanalAudio() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static async Task OnLoadBanalAudio()
         {
-            IDValue = ICC.ID.ViewFileWindow,
-            Contents = new object[]
+            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
-                QwilightComponent.AudioFileFormatItems,
-                new Action<string>(fileName =>
-                {
-                    Configure.Instance.BanalAudioFilePath = fileName;
-                    Configure.Instance.BanalAudio = true;
-                    AudioSystem.Instance.LoadBanalAudio();
-                })
+                Filters = QwilightComponent.AudioFileFormats
+            });
+            if (string.IsNullOrEmpty(fileName))
+            {
+                Configure.Instance.BanalAudioFilePath = fileName;
+                Configure.Instance.BanalAudio = true;
+                AudioSystem.Instance.LoadBanalAudio();
             }
-        });
+        }
 
         [RelayCommand]
-        static void OnLoadDefaultAudio() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static async Task OnLoadDefaultAudio()
         {
-            IDValue = ICC.ID.ViewFileWindow,
-            Contents = new object[]
+            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
-                QwilightComponent.AudioFileFormatItems,
-                new Action<string>(fileName =>
-                {
-                    Configure.Instance.DefaultAudioVarietyValue = Configure.DefaultAudioVariety.Favor;
-                    Configure.Instance.DefaultAudioFilePath = fileName;
-                    AudioSystem.Instance.LoadDefaultAudio();
-                })
+                Filters = QwilightComponent.AudioFileFormats
+            });
+            if (string.IsNullOrEmpty(fileName))
+            {
+                Configure.Instance.DefaultAudioVarietyValue = Configure.DefaultAudioVariety.Favor;
+                Configure.Instance.DefaultAudioFilePath = fileName;
+                AudioSystem.Instance.LoadDefaultAudio();
             }
-        });
+        }
 
         [RelayCommand]
         static void OnDefaultAudioVariety() => Configure.Instance.DefaultAudioVarietyValue = (Configure.DefaultAudioVariety)((int)(Configure.Instance.DefaultAudioVarietyValue + 1) % 3);
 
         [RelayCommand]
-        static void OnLoadBanalMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static async Task OnLoadBanalMedia()
         {
-            IDValue = ICC.ID.ViewFileWindow,
-            Contents = new object[]
+            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
-                QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats),
-                new Action<string>(fileName =>
-                {
-                    Configure.Instance.BanalMediaFilePath = fileName;
-                    Configure.Instance.BanalMedia = true;
-                    ViewModels.Instance.MainValue.HandleAutoComputer();
-                })
+                Filters = QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats)
+            });
+            if (string.IsNullOrEmpty(fileName))
+            {
+                Configure.Instance.BanalMediaFilePath = fileName;
+                Configure.Instance.BanalMedia = true;
+                ViewModels.Instance.MainValue.HandleAutoComputer();
             }
-        });
+        }
 
         [RelayCommand]
         static async Task OnDefaultNote() => await TwilightSystem.Instance.GetDefaultNoteDate(0, false).ConfigureAwait(false);
@@ -873,20 +827,19 @@ namespace Qwilight.ViewModel
         static async Task OnDefaultUI() => await TwilightSystem.Instance.GetDefaultUIDate(0, false).ConfigureAwait(false);
 
         [RelayCommand]
-        static void OnLoadBanalFailedMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static async Task OnLoadBanalFailedMedia()
         {
-            IDValue = ICC.ID.ViewFileWindow,
-            Contents = new object[]
+            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
-                QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats),
-                new Action<string>(fileName =>
-                {
-                    Configure.Instance.BanalFailedMediaFilePath = fileName;
-                    Configure.Instance.BanalFailedMedia = true;
-                    ViewModels.Instance.MainValue.HandleAutoComputer();
-                })
+                Filters = QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats)
+            });
+            if (string.IsNullOrEmpty(fileName))
+            {
+                Configure.Instance.BanalFailedMediaFilePath = fileName;
+                Configure.Instance.BanalFailedMedia = true;
+                ViewModels.Instance.MainValue.HandleAutoComputer();
             }
-        });
+        }
 
         [RelayCommand]
         static async Task OnMediaInputConfigure()

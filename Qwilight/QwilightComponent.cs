@@ -44,7 +44,7 @@ namespace Qwilight
         public static readonly string[] BMSNoteFileFormats = new[] { ".bms", ".bme", ".bml", ".pms" };
         public static readonly string[] BMSONNoteFileFormats = new[] { ".bmson" };
         public static readonly string[] NoteFileFormats = BMSNoteFileFormats.Concat(BMSONNoteFileFormats).ToArray();
-        public static readonly string[] AudioFileFormatItems = new[] { ".aif", ".aiff", ".asf", ".flac", ".m4a", ".mid", ".midi", ".mp2", ".mp3", ".ogg", ".opus", ".raw", ".wav", ".wma" };
+        public static readonly string[] AudioFileFormats = new[] { ".aif", ".aiff", ".asf", ".flac", ".m4a", ".mid", ".midi", ".mp2", ".mp3", ".ogg", ".opus", ".raw", ".wav", ".wma" };
         public static readonly string[] DrawingFileFormats = new[] { ".bmp", ".gif", ".jpeg", ".jpg", ".png" };
         public static readonly string[] MediaFileFormats = new[] { ".avi", ".flv", ".m1v", ".mkv", ".mov", ".mp4", ".mpeg", ".mpg", ".wmv" };
         public static readonly string HashText = Utility.GetID512s(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Qwilight.dll")));

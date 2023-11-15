@@ -358,7 +358,7 @@ namespace Qwilight.Utilities
 
         public static AvailableFlag GetAvailable(string filePath)
         {
-            foreach (var audioFileFormat in QwilightComponent.AudioFileFormatItems)
+            foreach (var audioFileFormat in QwilightComponent.AudioFileFormats)
             {
                 if (filePath.IsTailCaselsss(audioFileFormat))
                 {

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Google.Protobuf;
+using Qwilight.MSG;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
@@ -241,15 +242,17 @@ namespace Qwilight.ViewModel
         });
 
         [RelayCommand]
-        static void OnPostFile() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static async Task OnPostFile()
         {
-            IDValue = ICC.ID.ViewFileWindow,
-            Contents = new object[]
+            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
-                Array.Empty<string>(),
-                new Action<string>(async fileName => TwilightSystem.Instance.SendParallel(Event.Types.EventID.PostFile, Path.GetFileName(fileName), UnsafeByteOperations.UnsafeWrap(await File.ReadAllBytesAsync(fileName).ConfigureAwait(false))))
+                Filters = new[] { "*" }
+            });
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                TwilightSystem.Instance.SendParallel(Event.Types.EventID.PostFile, Path.GetFileName(fileName), UnsafeByteOperations.UnsafeWrap(await File.ReadAllBytesAsync(fileName).ConfigureAwait(false)));
             }
-        });
+        }
 
         public void OnSetFavorNoteFile() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetFavorNoteFile, SiteID);
 

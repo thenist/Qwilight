@@ -2,6 +2,7 @@
 using Google.Protobuf;
 using Ionic.Zip;
 using Qwilight.Compute;
+using Qwilight.MSG;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using Qwilight.View;
@@ -1543,22 +1544,14 @@ namespace Qwilight
                 }
                 else
                 {
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                     {
-                        IDValue = ICC.ID.ViewAllowWindow,
-                        Contents = new object[]
-                        {
-                            string.Format(LanguageSystem.Instance.SaveDefaultNoteNotify, DateTimeOffset.FromUnixTimeMilliseconds(date).LocalDateTime.ToLongDateString()),
-                            MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                            new Action<MESSAGEBOX_RESULT>(r =>
-                            {
-                                if (r == MESSAGEBOX_RESULT.IDYES)
-                                {
-                                    GetDefaultNote();
-                                }
-                            })
-                        }
-                    });
+                        Text = string.Format(LanguageSystem.Instance.SaveDefaultNoteNotify, DateTimeOffset.FromUnixTimeMilliseconds(date).LocalDateTime.ToLongDateString()),
+                        Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                    }) == MESSAGEBOX_RESULT.IDYES)
+                    {
+                        GetDefaultNote();
+                    }
                 }
 
                 void GetDefaultNote()
@@ -1582,22 +1575,14 @@ namespace Qwilight
                 }
                 else
                 {
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                     {
-                        IDValue = ICC.ID.ViewAllowWindow,
-                        Contents = new object[]
-                        {
-                            string.Format(LanguageSystem.Instance.SaveDefaultUINotify, DateTimeOffset.FromUnixTimeMilliseconds(date).LocalDateTime.ToLongDateString()),
-                            MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                            new Action<MESSAGEBOX_RESULT>(r =>
-                            {
-                                if (r == MESSAGEBOX_RESULT.IDYES)
-                                {
-                                    GetDefaultUI();
-                                }
-                            })
-                        }
-                    });
+                        Text = string.Format(LanguageSystem.Instance.SaveDefaultUINotify, DateTimeOffset.FromUnixTimeMilliseconds(date).LocalDateTime.ToLongDateString()),
+                        Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                    }) == MESSAGEBOX_RESULT.IDYES)
+                    {
+                        GetDefaultUI();
+                    }
                 }
 
                 void GetDefaultUI()

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using Qwilight.ViewModel;
@@ -94,41 +95,33 @@ namespace Qwilight
                     e.Handled = true;
                     break;
                 case Key.Delete when DefaultEntryItem != null:
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                     {
-                        IDValue = ICC.ID.ViewAllowWindow,
-                        Contents = new object[]
+                        Text = DefaultEntryItem.WipeNotify,
+                        Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                    }) == MESSAGEBOX_RESULT.IDYES)
+                    {
+                        i = DefaultEntryItemCollection.IndexOf(DefaultEntryItem);
+                        DefaultEntryItemCollection.RemoveAt(i);
+                        if (i < DefaultEntryItemCollection.Count)
                         {
-                            DefaultEntryItem.WipeNotify,
-                            MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1,
-                            new Action<MESSAGEBOX_RESULT>(r =>
-                            {
-                                if (r == MESSAGEBOX_RESULT.IDYES)
-                                {
-                                    i = DefaultEntryItemCollection.IndexOf(DefaultEntryItem);
-                                    DefaultEntryItemCollection.RemoveAt(i);
-                                    if (i < DefaultEntryItemCollection.Count)
-                                    {
-                                        DefaultEntryItem = DefaultEntryItemCollection[i];
-                                    }
-                                    WeakReferenceMessenger.Default.Send<ICC>(new()
-                                    {
-                                        IDValue = ICC.ID.MoveDefaultEntryView,
-                                        Contents = DefaultEntryItem
-                                    });
-                                }
-                            })
+                            DefaultEntryItem = DefaultEntryItemCollection[i];
                         }
-                    });
+                        WeakReferenceMessenger.Default.Send<ICC>(new()
+                        {
+                            IDValue = ICC.ID.MoveDefaultEntryView,
+                            Contents = DefaultEntryItem
+                        });
+                    }
                     break;
             }
         }
 
         [RelayCommand]
-        void OnNewDefaultEntry() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        async Task OnNewDefaultEntry()
         {
-            IDValue = ICC.ID.ViewEntryWindow,
-            Contents = new Action<string>(fileName =>
+            var fileName = await StrongReferenceMessenger.Default.Send<ViewEntryWindow>();
+            if (!string.IsNullOrEmpty(fileName))
             {
                 if (!DefaultEntryItemCollection.Any(defaultEntryItem => defaultEntryItem.DefaultEntryPath == fileName))
                 {
@@ -138,8 +131,8 @@ namespace Qwilight
                         DefaultEntryPath = fileName
                     });
                 }
-            })
-        });
+            }
+        }
 
         [RelayCommand]
         void OnNewFavoriteEntry()

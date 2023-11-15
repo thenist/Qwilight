@@ -3175,19 +3175,19 @@
     "ko-KR": "실시간 랭킹",
     "en-US": "Real-time Ranking"
   },
-  "UndoColorContents": {
+  "InitColorContents": {
     "ko-KR": "색상 설정을 기본으로 복원합니다.",
     "en-US": "Reset color settings to their default values."
   },
-  "UndoColorNotify": {
+  "InitColorNotify": {
     "ko-KR": "색상 설정을 기본으로 복원할까요?",
     "en-US": "Do you want to reset the color settings?"
   },
-  "UndoColorOK": {
+  "InitColorOK": {
     "ko-KR": "색상 설정이 성공적으로 복원됨",
     "en-US": "Color settings restored successfully"
   },
-  "UndoColorText": {
+  "InitColorText": {
     "ko-KR": "색상 설정 복원",
     "en-US": "Reset color settings"
   },
@@ -3411,7 +3411,7 @@
     "ko-KR": "폴더가 성공적으로 삭제됨",
     "en-US": "Folder deleted successfully"
   },
-  "WipeEventNoteContents": {
+  "WipeEventNoteNotify": {
     "ko-KR": "이 코스를 삭제할까요?",
     "en-US": "Delete this course?"
   },

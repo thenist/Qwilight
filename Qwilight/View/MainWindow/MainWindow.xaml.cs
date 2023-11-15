@@ -154,6 +154,24 @@ namespace Qwilight.View
                     }
                 });
             });
+            StrongReferenceMessenger.Default.Register<ViewAllowWindow>(this, (recipient, message) => message.Reply(PInvoke.MessageBox(_handle, message.Text, "Qwilight", (MESSAGEBOX_STYLE)message.Data)));
+            StrongReferenceMessenger.Default.Register<ViewEntryWindow>(this, async (recipient, message) =>
+            {
+                var fp = new FolderPicker();
+                InitializeWithWindow.Initialize(fp, _handle);
+                fp.FileTypeFilter.Add("*");
+                message.Reply((await fp.PickSingleFolderAsync())?.Path);
+            });
+            StrongReferenceMessenger.Default.Register<ViewFileWindow>(this, async (recipient, message) =>
+            {
+                var fop = new FileOpenPicker();
+                InitializeWithWindow.Initialize(fop, _handle);
+                foreach (var filter in message.Filters)
+                {
+                    fop.FileTypeFilter.Add(filter);
+                }
+                message.Reply((await fop.PickSingleFileAsync())?.Path);
+            });
 
             WeakReferenceMessenger.Default.Register<ICC>(this);
         }
@@ -173,47 +191,15 @@ namespace Qwilight.View
             _ = mainViewModel.OnLoaded(_handle);
         }
 
-        public async void Receive(ICC message)
+        public void Receive(ICC message)
         {
             switch (message.IDValue)
             {
-                case ICC.ID.ViewAllowWindow:
-                    var data = message.Contents as object[];
-                    (data[2] as Action<MESSAGEBOX_RESULT>)(PInvoke.MessageBox(_handle, data[0] as string, "Qwilight", (MESSAGEBOX_STYLE)data[1]));
-                    break;
-                case ICC.ID.ViewEntryWindow:
-                    var fp = new FolderPicker();
-                    InitializeWithWindow.Initialize(fp, _handle);
-                    fp.FileTypeFilter.Add("*");
-                    var entry = await fp.PickSingleFolderAsync();
-                    if (entry != null)
-                    {
-                        (message.Contents as Action<string>)(entry.Path);
-                    }
-                    break;
-                case ICC.ID.ViewFileWindow:
-                    data = message.Contents as object[];
-                    var fop = new FileOpenPicker();
-                    InitializeWithWindow.Initialize(fop, _handle);
-                    foreach (var dataItem in data[0] as IEnumerable<string>)
-                    {
-                        fop.FileTypeFilter.Add(dataItem);
-                    }
-                    if (fop.FileTypeFilter.Count == 0)
-                    {
-                        fop.FileTypeFilter.Add("*");
-                    }
-                    var file = await fop.PickSingleFileAsync();
-                    if (file != null)
-                    {
-                        (data[1] as Action<string>)(file.Path);
-                    }
-                    break;
                 case ICC.ID.Quit:
                     PInvoke.PostMessage(_handle, PInvoke.WM_CLOSE, (bool)message.Contents ? (WPARAM)1 : (WPARAM)0, (LPARAM)0);
                     break;
                 case ICC.ID.ViewPwWindow:
-                    data = message.Contents as object[];
+                    var data = message.Contents as object[];
                     ViewModels.Instance.InputPwValue.Text = data[0] as string;
                     ViewModels.Instance.InputPwValue.Input = data[1] as string;
                     ViewModels.Instance.InputPwValue.IsInputEditable = (bool)data[2];

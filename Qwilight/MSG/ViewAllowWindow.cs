@@ -1,6 +1,12 @@
-﻿namespace Qwilight.MSG
+﻿using CommunityToolkit.Mvvm.Messaging.Messages;
+using Windows.Win32.UI.WindowsAndMessaging;
+
+namespace Qwilight.MSG
 {
-    public sealed class ViewAllowWindow
+    internal sealed class ViewAllowWindow : RequestMessage<MESSAGEBOX_RESULT>
     {
+        public string Text { get; init; }
+
+        internal MESSAGEBOX_STYLE Data { get; init; }
     }
 }

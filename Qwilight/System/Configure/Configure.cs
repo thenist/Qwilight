@@ -2206,7 +2206,7 @@ namespace Qwilight
 
             Utility.CopyFile(_fileName, _tmp0FileName);
             Utility.MoveFile(_tmp0FileName, _tmp1FileName);
-            Utility.SaveText(_fileName, Utility.SetJSON(this, new JsonSerializerOptions
+            File.WriteAllText(_fileName, Utility.SetJSON(this, new JsonSerializerOptions
             {
                 Converters =
                 {
@@ -2216,7 +2216,7 @@ namespace Qwilight
                 IgnoreReadOnlyProperties = true,
                 IncludeFields = true,
                 WriteIndented = QwilightComponent.IsVS
-            }));
+            }), Encoding.UTF8);
             Utility.WipeFile(_tmp1FileName);
         }
 

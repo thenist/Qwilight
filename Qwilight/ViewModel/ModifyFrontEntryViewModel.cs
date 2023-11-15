@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.UIComponent;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -72,20 +73,17 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnNewFrontEntry() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        async Task OnNewFrontEntry()
         {
-            IDValue = ICC.ID.ViewEntryWindow,
-            Contents = new Action<string>(fileName =>
+            var fileName = await StrongReferenceMessenger.Default.Send<ViewEntryWindow>();
+            if (!string.IsNullOrEmpty(fileName) && !FrontEntryItemCollection.Any(frontEntryItem => frontEntryItem.FrontEntryPath == fileName))
             {
-                if (!FrontEntryItemCollection.Any(frontEntryItem => frontEntryItem.FrontEntryPath == fileName))
+                FrontEntryItemCollection.Add(new FrontEntryItem
                 {
-                    FrontEntryItemCollection.Add(new FrontEntryItem
-                    {
-                        FrontEntryPath = fileName,
-                    });
-                }
-            })
-        });
+                    FrontEntryPath = fileName,
+                });
+            }
+        }
 
         public override void OnOpened()
         {

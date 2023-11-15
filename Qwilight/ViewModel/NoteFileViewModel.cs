@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using IniParser;
 using IniParser.Model;
+using Qwilight.MSG;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
@@ -76,7 +77,7 @@ namespace Qwilight.ViewModel
         public void OnPointLower() => ViewModels.Instance.MainValue.HandleLevyNoteFile();
 
         [RelayCommand]
-        void OnEditNote()
+        async Task OnEditNote()
         {
             var noteFile = EntryItemValue?.NoteFile;
             if (noteFile?.IsLogical == false)
@@ -89,34 +90,30 @@ namespace Qwilight.ViewModel
                     {
                         if (Utility.HasInput(VirtualKey.LeftMenu) || !File.Exists(Configure.Instance.BMSEditorFilePath))
                         {
-                            WeakReferenceMessenger.Default.Send<ICC>(new()
+                            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                             {
-                                IDValue = ICC.ID.ViewFileWindow,
-                                Contents = new object[]
-                                {
-                                    new[] { ".exe" },
-                                    new Action<string>(fileName =>
-                                    {
-                                        Configure.Instance.BMSEditorFilePath = fileName;
-                                        Edit();
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.ModifyEditorContents);
-                                    })
-                                }
+                                Filters = new[] { ".exe" }
                             });
+                            if (string.IsNullOrEmpty(fileName))
+                            {
+                                Configure.Instance.BMSEditorFilePath = fileName;
+                                await Edit().ConfigureAwait(false);
+                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.ModifyEditorContents);
+                            }
                         }
                         else
                         {
-                            Edit();
+                            await Edit().ConfigureAwait(false);
                         }
 
-                        void Edit()
+                        async ValueTask Edit()
                         {
                             var bmseViewerFilePath = Path.Combine(Path.GetDirectoryName(Configure.Instance.BMSEditorFilePath), "bmse_viewer.ini");
                             var bmseFilePath = Path.Combine(Path.GetDirectoryName(Configure.Instance.BMSEditorFilePath), "bmse.ini");
                             var bmscFilePath = Path.Combine(Path.GetDirectoryName(Configure.Instance.BMSEditorFilePath), "iBMSC.Settings.xml");
                             if (File.Exists(bmseViewerFilePath) && File.Exists(bmseFilePath))
                             {
-                                var bmseViewerText = File.ReadAllText(bmseViewerFilePath, Encoding.ASCII).Trim(Environment.NewLine.ToCharArray()) + Environment.NewLine;
+                                var bmseViewerText = (await File.ReadAllTextAsync(bmseViewerFilePath, Encoding.ASCII).ConfigureAwait(false)).Trim(Environment.NewLine.ToCharArray()) + Environment.NewLine;
                                 var bmseViewerData = bmseViewerText.Split(Environment.NewLine).ToList();
                                 if (!bmseViewerData.Any(line => line == flintFilePath))
                                 {
@@ -131,7 +128,7 @@ Qwilight
 
 """;
                                     bmseViewerData.AddRange(data.Split(Environment.NewLine));
-                                    Utility.SaveText(bmseViewerFilePath, bmseViewerText + data, Encoding.UTF8);
+                                    await File.WriteAllTextAsync(bmseViewerFilePath, bmseViewerText + data, Encoding.UTF8).ConfigureAwait(false);
                                 }
 
                                 var bmseCompiler = new FileIniDataParser();
@@ -155,7 +152,7 @@ Qwilight
                             else if (File.Exists(bmscFilePath))
                             {
                                 var bmscCompiler = new XmlDocument();
-                                bmscCompiler.LoadXml(File.ReadAllText(bmscFilePath));
+                                bmscCompiler.LoadXml(await File.ReadAllTextAsync(bmscFilePath).ConfigureAwait(false));
 
                                 var nodesViewer = bmscCompiler.SelectNodes("/iBMSC/Player/Player").Cast<XmlNode>().ToList();
                                 var flintID = nodesViewer.FindIndex(node => Utility.EqualsCaseless(node.Attributes["Path"].Value, flintFilePath));
@@ -195,20 +192,16 @@ Qwilight
                     {
                         if (Utility.HasInput(VirtualKey.LeftMenu) || !File.Exists(Configure.Instance.BMSONEditorFilePath))
                         {
-                            WeakReferenceMessenger.Default.Send<ICC>(new()
+                            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                             {
-                                IDValue = ICC.ID.ViewFileWindow,
-                                Contents = new object[]
-                                {
-                                    new[] { ".exe" },
-                                    new Action<string>(fileName =>
-                                    {
-                                        Configure.Instance.BMSONEditorFilePath = fileName;
-                                        Edit();
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.ModifyEditorContents);
-                                    })
-                                }
+                                Filters = new[] { ".exe" }
                             });
+                            if (!string.IsNullOrEmpty(fileName))
+                            {
+                                Configure.Instance.BMSONEditorFilePath = fileName;
+                                Edit();
+                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.ModifyEditorContents);
+                            }
                         }
                         else
                         {

@@ -33,6 +33,7 @@ namespace Qwilight.Utilities
                 new XORFloat64Modifier()
             },
             IncludeFields = true,
+            IgnoreReadOnlyProperties = true,
             WriteIndented = QwilightComponent.IsVS
         };
 

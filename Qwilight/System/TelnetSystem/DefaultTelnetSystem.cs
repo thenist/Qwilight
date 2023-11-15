@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Qwilight.Compiler;
 using Qwilight.Compute;
+using Qwilight.MSG;
 using Qwilight.NoteFile;
 using Qwilight.Utilities;
 using Qwilight.ViewModel;
@@ -23,7 +24,7 @@ namespace Qwilight
             _handleTelnet = handleTelnet;
         }
 
-        public void HandleSystem() => Utility.HandleParallelly(() =>
+        public void HandleSystem() => Utility.HandleParallelly(async () =>
         {
             while (_isAvailable)
             {
@@ -130,55 +131,52 @@ namespace Qwilight
                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, _handleTelnet.IsAlwaysNewStand.ToString());
                             break;
                         case ConsoleKey.T:
-                            WeakReferenceMessenger.Default.Send<ICC>(new()
+                            var fileName = await StrongReferenceMessenger.Default.Send<ViewEntryWindow>();
+                            if (!string.IsNullOrEmpty(fileName))
                             {
-                                IDValue = ICC.ID.ViewEntryWindow,
-                                Contents = new Action<string>(fileName =>
+                                ViewModels.Instance.MainValue.ModeComponentValue.Salt = 0;
+                                Utility.HandleLowlyParallelly(new ConcurrentBag<BaseNoteFile>(ViewModels.Instance.MainValue.EntryItems.SelectMany(entryItem => entryItem.WellNoteFiles.Where(noteFile => !noteFile.IsLogical))), Configure.Instance.UIBin, noteFile =>
                                 {
-                                    ViewModels.Instance.MainValue.ModeComponentValue.Salt = 0;
-                                    Utility.HandleLowlyParallelly(new ConcurrentBag<BaseNoteFile>(ViewModels.Instance.MainValue.EntryItems.SelectMany(entryItem => entryItem.WellNoteFiles.Where(noteFile => !noteFile.IsLogical))), Configure.Instance.UIBin, noteFile =>
-                                    {
-                                        Console.WriteLine(noteFile.NoteFilePath);
-                                        var targetCompiler = BaseCompiler.GetCompiler(noteFile, null);
-                                        var defaultComputer = new TestCompute(noteFile);
-                                        targetCompiler.Compile(defaultComputer);
-                                        var noteID = noteFile.GetNoteID512();
-                                        noteID = noteID.Substring(0, noteID.IndexOf(':'));
-                                        File.WriteAllBytes(Path.Combine(fileName, Path.ChangeExtension(noteID, Path.GetExtension(noteFile.NoteFilePath))), noteFile.GetContents());
-                                        var builder = new StringBuilder();
-                                        builder.AppendLine(defaultComputer.IsAutoLongNote.ToString());
-                                        builder.AppendLine(defaultComputer.IsBanned.ToString());
-                                        builder.AppendLine(defaultComputer.InputMode.ToString());
-                                        builder.AppendLine(defaultComputer.Genre);
-                                        builder.AppendLine(defaultComputer.Artist);
-                                        builder.AppendLine(defaultComputer.Title);
-                                        builder.AppendLine(defaultComputer.LevelText);
-                                        builder.AppendLine(defaultComputer.LevelTextValue.ToString());
-                                        builder.AppendLine(defaultComputer.LevyingBPM.ToString());
-                                        builder.AppendLine(defaultComputer.BPM.ToString());
-                                        builder.AppendLine(defaultComputer.Length.ToString());
-                                        builder.AppendLine(defaultComputer.TotalNotes.ToString());
-                                        builder.AppendLine(defaultComputer.AutoableNotes.ToString());
-                                        builder.AppendLine(defaultComputer.TrapNotes.ToString());
-                                        builder.AppendLine(defaultComputer.LongNotes.ToString());
-                                        builder.AppendLine(defaultComputer.JudgmentStage.ToString());
-                                        builder.AppendLine(defaultComputer.HitPointsValue.ToString());
-                                        builder.AppendLine(defaultComputer.LevelValue.ToString());
-                                        builder.AppendLine(defaultComputer.NoteDrawingName);
-                                        builder.AppendLine(defaultComputer.BannerDrawingName);
-                                        builder.AppendLine(defaultComputer.TrailerAudioName);
-                                        builder.AppendLine(defaultComputer.AudioLevyingPosition.ToString());
-                                        builder.AppendLine(defaultComputer.IsSalt.ToString());
-                                        builder.AppendLine(defaultComputer.Tag);
-                                        builder.AppendLine(defaultComputer.LowestBPM.ToString());
-                                        builder.AppendLine(defaultComputer.HighestBPM.ToString());
-                                        builder.AppendLine(defaultComputer.HighestInputCount.ToString());
-                                        builder.AppendLine(defaultComputer.IsHellBPM.ToString());
-                                        File.WriteAllText(Path.Combine(fileName, Path.ChangeExtension(noteID, ".txt")), builder.ToString(), Encoding.UTF8);
-                                    });
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, "OK");
-                                })
-                            });
+                                    Console.WriteLine(noteFile.NoteFilePath);
+                                    var targetCompiler = BaseCompiler.GetCompiler(noteFile, null);
+                                    var defaultComputer = new TestCompute(noteFile);
+                                    targetCompiler.Compile(defaultComputer);
+                                    var noteID = noteFile.GetNoteID512();
+                                    noteID = noteID.Substring(0, noteID.IndexOf(':'));
+                                    File.WriteAllBytes(Path.Combine(fileName, Path.ChangeExtension(noteID, Path.GetExtension(noteFile.NoteFilePath))), noteFile.GetContents());
+                                    var builder = new StringBuilder();
+                                    builder.AppendLine(defaultComputer.IsAutoLongNote.ToString());
+                                    builder.AppendLine(defaultComputer.IsBanned.ToString());
+                                    builder.AppendLine(defaultComputer.InputMode.ToString());
+                                    builder.AppendLine(defaultComputer.Genre);
+                                    builder.AppendLine(defaultComputer.Artist);
+                                    builder.AppendLine(defaultComputer.Title);
+                                    builder.AppendLine(defaultComputer.LevelText);
+                                    builder.AppendLine(defaultComputer.LevelTextValue.ToString());
+                                    builder.AppendLine(defaultComputer.LevyingBPM.ToString());
+                                    builder.AppendLine(defaultComputer.BPM.ToString());
+                                    builder.AppendLine(defaultComputer.Length.ToString());
+                                    builder.AppendLine(defaultComputer.TotalNotes.ToString());
+                                    builder.AppendLine(defaultComputer.AutoableNotes.ToString());
+                                    builder.AppendLine(defaultComputer.TrapNotes.ToString());
+                                    builder.AppendLine(defaultComputer.LongNotes.ToString());
+                                    builder.AppendLine(defaultComputer.JudgmentStage.ToString());
+                                    builder.AppendLine(defaultComputer.HitPointsValue.ToString());
+                                    builder.AppendLine(defaultComputer.LevelValue.ToString());
+                                    builder.AppendLine(defaultComputer.NoteDrawingName);
+                                    builder.AppendLine(defaultComputer.BannerDrawingName);
+                                    builder.AppendLine(defaultComputer.TrailerAudioName);
+                                    builder.AppendLine(defaultComputer.AudioLevyingPosition.ToString());
+                                    builder.AppendLine(defaultComputer.IsSalt.ToString());
+                                    builder.AppendLine(defaultComputer.Tag);
+                                    builder.AppendLine(defaultComputer.LowestBPM.ToString());
+                                    builder.AppendLine(defaultComputer.HighestBPM.ToString());
+                                    builder.AppendLine(defaultComputer.HighestInputCount.ToString());
+                                    builder.AppendLine(defaultComputer.IsHellBPM.ToString());
+                                    File.WriteAllText(Path.Combine(fileName, Path.ChangeExtension(noteID, ".txt")), builder.ToString(), Encoding.UTF8);
+                                });
+                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, "OK");
+                            }
                             break;
                     }
                 }

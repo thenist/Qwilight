@@ -4,8 +4,6 @@
     {
         public enum ID
         {
-            ViewEntryWindow,
-            ViewFileWindow,
             Quit,
             ViewPwWindow,
             ViewInputWindow,

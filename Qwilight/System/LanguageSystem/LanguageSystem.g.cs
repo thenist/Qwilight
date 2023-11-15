@@ -796,10 +796,10 @@ namespace Qwilight
         public string UIMainDrawingPaint { get; set; }
         public string UIMainJudgmentMeter { get; set; }
         public string UINet { get; set; }
-        public string UndoColorContents { get; set; }
-        public string UndoColorNotify { get; set; }
-        public string UndoColorOK { get; set; }
-        public string UndoColorText { get; set; }
+        public string InitColorContents { get; set; }
+        public string InitColorNotify { get; set; }
+        public string InitColorOK { get; set; }
+        public string InitColorText { get; set; }
         public string UndoContents { get; set; }
         public string ValidNetMode0Text { get; set; }
         public string ValidNetMode1Text { get; set; }
@@ -855,7 +855,7 @@ namespace Qwilight
         public string WipedSiteYell { get; set; }
         public string WipeEntryItemNotify { get; set; }
         public string WipeEntryOK { get; set; }
-        public string WipeEventNoteContents { get; set; }
+        public string WipeEventNoteNotify { get; set; }
         public string WipeFavoriteEntryNotify { get; set; }
         public string WipeFavoritesF10 { get; set; }
         public string WipeHandled { get; set; }

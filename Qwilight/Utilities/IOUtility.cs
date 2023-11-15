@@ -70,24 +70,12 @@ namespace Qwilight.Utilities
             }
         }
 
-        public static void SaveText(string filePath, string text, Encoding format = null)
-        {
-            try
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                File.WriteAllText(filePath, text, format ?? Encoding.UTF8);
-            }
-            catch
-            {
-            }
-        }
-
         public static (string, string) SetFault(string faultEntryPath, Exception e)
         {
             var faultFilePath = Path.Combine(faultEntryPath, Path.GetInvalidFileNameChars().Aggregate($"{DateTime.Now:F}.log", (faultFileName, target) => faultFileName.Replace(target, ' ')));
             var faultText = Utility.GetFault(e);
             Console.WriteLine(faultText);
-            SaveText(faultFilePath, faultText);
+            File.WriteAllText(faultFilePath, faultText, Encoding.UTF8);
             return (faultFilePath, faultText);
         }
 
