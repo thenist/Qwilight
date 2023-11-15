@@ -826,7 +826,7 @@ namespace Qwilight.Compiler
             {
                 var endStatus = parallelItems.Count;
                 var status = 0;
-                Utility.HandleHMP(parallelItems, Configure.Instance.CompilingBin, parallelItem =>
+                Utility.HandleLowlyParallelly(parallelItems, Configure.Instance.CompilingBin, parallelItem =>
                 {
                     parallelItem();
                     defaultComputer.SetCompilingStatus((double)Interlocked.Increment(ref status) / endStatus);

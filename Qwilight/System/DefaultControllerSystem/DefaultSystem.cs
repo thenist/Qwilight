@@ -22,7 +22,7 @@ namespace Qwilight
 
         public DefaultSystem(IHandleInput handleInput) => _handleInput = handleInput;
 
-        public void HandleSystem() => Utility.HandleLongParallel(() =>
+        public void HandleSystem() => Utility.HandleParallelly(() =>
         {
             unsafe
             {

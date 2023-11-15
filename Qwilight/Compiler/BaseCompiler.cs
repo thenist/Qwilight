@@ -33,7 +33,7 @@ namespace Qwilight.Compiler
         {
             NoteFile = noteFile;
             SetCancelCompiler = setCancelCompiler;
-            NoteFormatID = DB.Instance.GetFormat(noteFile);
+            NoteFormatID = Utility.Await(DB.Instance.GetFormat(noteFile));
         }
 
         public abstract void CompileImpl(Computing targetComputing, byte[] noteFileContents, int salt);

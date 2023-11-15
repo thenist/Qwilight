@@ -555,7 +555,7 @@ namespace Qwilight.ViewModel
             DrawingSystem.Instance.LoadDefaultDrawing();
             DrawingSystem.Instance.LoadVeilDrawing();
 
-            LevelSystem.Instance.LoadJSON(false);
+            await LevelSystem.Instance.LoadJSON(false);
 
             await ValveSystem.Instance.Init().ConfigureAwait(false);
             await Task.Run(() =>
@@ -566,14 +566,14 @@ namespace Qwilight.ViewModel
 
             _isLoaded = true;
 
-            Utility.HandleLongParallel(TVSystem.Instance.HandleSystem, false);
-            Utility.HandleLongParallel(IlluminationSystem.Instance.HandleSystem, false);
+            Utility.HandleParallelly(TVSystem.Instance.HandleSystem, false);
+            Utility.HandleParallelly(IlluminationSystem.Instance.HandleSystem, false);
             DefaultControllerSystem.Instance.HandleSystem();
-            Utility.HandleLongParallel(DrawingSystem.Instance.HandleSystem);
-            Utility.HandleLongParallel(TwilightSystem.Instance.HandleSystem, false);
-            Utility.HandleLongParallel(PlatformSystem.Instance.HandleSystem, false);
-            Utility.HandleLongParallel(FlintSystem.Instance.HandleSystem, false);
-            Utility.HandleLongParallel(() => ControllerSystem.Instance.HandleSystem(handle));
+            Utility.HandleParallelly(DrawingSystem.Instance.HandleSystem);
+            Utility.HandleParallelly(TwilightSystem.Instance.HandleSystem, false);
+            Utility.HandleParallelly(PlatformSystem.Instance.HandleSystem, false);
+            Utility.HandleParallelly(FlintSystem.Instance.HandleSystem, false);
+            Utility.HandleParallelly(() => ControllerSystem.Instance.HandleSystem(handle));
 
             if (Configure.Instance.AudioMultiplierAtone)
             {
@@ -1290,13 +1290,13 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnViewAssistFile()
+        async Task OnViewAssistFile()
         {
             var noteFile = EntryItemValue.NoteFile;
             var assistFilePath = Path.Combine(noteFile.EntryItem.EntryPath, noteFile.AssistFileName);
             if (File.Exists(assistFilePath))
             {
-                var format = DB.Instance.GetFormat(noteFile);
+                var format = await DB.Instance.GetFormat(noteFile);
                 if (format == -1)
                 {
                     var formatComputer = CharsetDetector.DetectFromFile(assistFilePath).Detected;
@@ -1304,7 +1304,7 @@ namespace Qwilight.ViewModel
                 }
                 var assistFileViewModel = ViewModels.Instance.AssistFileValue;
                 assistFileViewModel.Title = noteFile.EntryItem.Title;
-                assistFileViewModel.Assist = File.ReadAllText(assistFilePath, Encoding.GetEncoding(format));
+                assistFileViewModel.Assist = await File.ReadAllTextAsync(assistFilePath, Encoding.GetEncoding(format));
                 assistFileViewModel.Open();
             }
         }
@@ -1883,7 +1883,7 @@ namespace Qwilight.ViewModel
                                                 FastDB.Instance.WipeEntryItem(entryPath);
                                             }
                                         }
-                                        Utility.HandleHMP(entryPaths, Configure.Instance.LoadingBin, entryPath =>
+                                        Utility.HandleLowlyParallelly(entryPaths, Configure.Instance.LoadingBin, entryPath =>
                                         {
                                             LoadEntryItem(defaultEntryItem, entryPath, _setCancelDefaultEntryItem);
                                             Status = (double)Interlocked.Increment(ref status) / endStatus;
@@ -2548,13 +2548,6 @@ namespace Qwilight.ViewModel
             if (HasNotInput())
             {
                 Configure.Instance.Media = !Configure.Instance.Media;
-                var handlingComputer = GetHandlingComputer();
-                if (handlingComputer != null)
-                {
-                    handlingComputer.SetWait();
-                    MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
-                    MediaSystem.Instance.HandleIfAvailable(handlingComputer);
-                }
             }
         }
 
@@ -3430,13 +3423,14 @@ namespace Qwilight.ViewModel
 
             void HandleImpl()
             {
-                (AutoComputer ?? Computer)?.Migrate(targetComputer);
                 var defaultComputer = Computer;
+                (AutoComputer ?? defaultComputer)?.Migrate(targetComputer);
                 Computer = targetComputer;
                 Computer.HandleCompiler();
                 ModeValue = Mode.Computing;
                 defaultComputer?.Close();
                 CloseAutoComputer();
+                _ = targetComputer.NoteFile.SetConfigure();
             }
         }
 
@@ -3537,7 +3531,7 @@ namespace Qwilight.ViewModel
                         else
                         {
                             CloseAutoComputer("Default");
-                            targetNoteFile.SetConfigure();
+                            _ = targetNoteFile.SetConfigure();
                         }
 
                         void NewAutoComputer(double levyingWait, bool doMigrate)

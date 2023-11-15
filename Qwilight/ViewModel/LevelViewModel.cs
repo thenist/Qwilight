@@ -34,11 +34,11 @@ namespace Qwilight.ViewModel
             OnPropertyChanged(nameof(IsTotalWantLevel));
         }
 
-        public void OnNewLevel()
+        public async Task OnNewLevel()
         {
             if (IsLoaded)
             {
-                LevelSystem.Instance.LoadJSON(true);
+                await LevelSystem.Instance.LoadJSON(true);
                 Configure.Instance.WantLevelIDs = LevelSystem.Instance.LevelCollection.ToArray();
                 SetLevelItemCollection();
             }
@@ -74,7 +74,7 @@ namespace Qwilight.ViewModel
                             if (!string.IsNullOrEmpty(levelInput))
                             {
                                 await LevelSystem.Instance.LoadWww(levelInput).ConfigureAwait(false);
-                                LevelSystem.Instance.LoadJSON(true);
+                                await LevelSystem.Instance.LoadJSON(true);
                             }
                         })
                     }
@@ -83,7 +83,7 @@ namespace Qwilight.ViewModel
             else
             {
                 await LevelSystem.Instance.LoadWww(www).ConfigureAwait(false);
-                LevelSystem.Instance.LoadJSON(true);
+                await LevelSystem.Instance.LoadJSON(true);
             }
         }
 
@@ -93,7 +93,7 @@ namespace Qwilight.ViewModel
             if (Configure.Instance.LevelTargetMap.TryGetValue(Configure.Instance.WantLevelName, out var target))
             {
                 await LevelSystem.Instance.LoadWww(target).ConfigureAwait(false);
-                LevelSystem.Instance.LoadJSON(true);
+                await LevelSystem.Instance.LoadJSON(true);
             }
             else
             {

@@ -936,7 +936,7 @@ namespace Qwilight
                                         var saveDataFlow = savedBundleItem.SaveDataFlow;
                                         eventItemData[0].WriteTo(saveDataFlow);
                                         saveDataFlow.Position = 0;
-                                        Utility.HandleLongParallel(() =>
+                                        Utility.HandleParallelly(() =>
                                         {
                                             var bundleVariety = (BundleItem.BundleVariety)twilightSavedBundle.bundleVariety;
                                             var isNotDefaultBundle = bundleVariety != BundleItem.BundleVariety.DefaultNotes && bundleVariety != BundleItem.BundleVariety.DefaultUI;

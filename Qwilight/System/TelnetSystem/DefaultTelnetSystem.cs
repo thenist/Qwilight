@@ -23,7 +23,7 @@ namespace Qwilight
             _handleTelnet = handleTelnet;
         }
 
-        public void HandleSystem() => Utility.HandleLongParallel(() =>
+        public void HandleSystem() => Utility.HandleParallelly(() =>
         {
             while (_isAvailable)
             {
@@ -136,7 +136,7 @@ namespace Qwilight
                                 Contents = new Action<string>(fileName =>
                                 {
                                     ViewModels.Instance.MainValue.ModeComponentValue.Salt = 0;
-                                    Utility.HandleHMP(new ConcurrentBag<BaseNoteFile>(ViewModels.Instance.MainValue.EntryItems.SelectMany(entryItem => entryItem.WellNoteFiles.Where(noteFile => !noteFile.IsLogical))), Configure.Instance.UIBin, noteFile =>
+                                    Utility.HandleLowlyParallelly(new ConcurrentBag<BaseNoteFile>(ViewModels.Instance.MainValue.EntryItems.SelectMany(entryItem => entryItem.WellNoteFiles.Where(noteFile => !noteFile.IsLogical))), Configure.Instance.UIBin, noteFile =>
                                     {
                                         Console.WriteLine(noteFile.NoteFilePath);
                                         var targetCompiler = BaseCompiler.GetCompiler(noteFile, null);

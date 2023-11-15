@@ -6,7 +6,7 @@ using System.Text.Json;
 
 var wwwClient = new HttpClient();
 
-var assetsClientJSON = JsonSerializer.Deserialize<JSON.Client>(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Assets", "Client.json")), new JsonSerializerOptions
+var assetsClientJSON = JsonSerializer.Deserialize<JSON.Client>(await File.ReadAllBytesAsync(Path.Combine(AppContext.BaseDirectory, "Assets", "Client.json")), new JsonSerializerOptions
 {
     IncludeFields = true
 });

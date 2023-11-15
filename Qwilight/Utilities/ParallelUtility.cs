@@ -4,20 +4,20 @@ namespace Qwilight.Utilities
 {
     public static partial class Utility
     {
-        public static Thread GetLongParallel(ThreadStart onHandle, bool isEssential = true) => new Thread(onHandle)
+        public static Thread GetParallelHandler(ThreadStart onHandle, bool isEssential = true) => new Thread(onHandle)
         {
             IsBackground = true,
             Priority = isEssential ? ThreadPriority.Highest : ThreadPriority.Normal
         };
 
-        public static Thread HandleLongParallel(ThreadStart onHandle, bool isEssential = true)
+        public static Thread HandleParallelly(ThreadStart onHandle, bool isEssential = true)
         {
-            var t = GetLongParallel(onHandle, isEssential);
+            var t = GetParallelHandler(onHandle, isEssential);
             t.Start();
             return t;
         }
 
-        public static void HandleHMP<T>(IProducerConsumerCollection<T> parallelItems, int onHandleBin, Action<T> onHandle, CancellationToken? setCancelParallel = null)
+        public static void HandleLowlyParallelly<T>(IProducerConsumerCollection<T> parallelItems, int onHandleBin, Action<T> onHandle, CancellationToken? setCancelParallel = null)
         {
             var longParallels = new Thread[onHandleBin];
             for (var i = longParallels.Length - 1; i >= 0; --i)

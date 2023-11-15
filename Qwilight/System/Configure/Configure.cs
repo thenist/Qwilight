@@ -1497,6 +1497,16 @@ namespace Qwilight
                 {
                     OnPropertyChanged(nameof(MediaPaint));
                     OnPropertyChanged(nameof(MediaText));
+                    if (_isLoaded)
+                    {
+                        var handlingComputer = ViewModels.Instance.MainValue.GetHandlingComputer();
+                        if (handlingComputer != null)
+                        {
+                            handlingComputer.SetWait();
+                            MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
+                            MediaSystem.Instance.HandleIfAvailable(handlingComputer);
+                        }
+                    }
                 }
             }
         }

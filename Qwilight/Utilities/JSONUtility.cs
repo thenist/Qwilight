@@ -40,7 +40,7 @@ namespace Qwilight.Utilities
 
         public static T GetJSON<T>(byte[] data) => JsonSerializer.Deserialize<T>(data, _defaultGetJSONConfigure);
 
-        public static T GetJSON<T>(Stream s) => JsonSerializer.Deserialize<T>(s, _defaultGetJSONConfigure);
+        public static async ValueTask<T> GetJSON<T>(Stream s) => await JsonSerializer.DeserializeAsync<T>(s, _defaultGetJSONConfigure);
 
         public static string SetJSON<T>(T data, JsonSerializerOptions defaultJSONConfigure = null) => JsonSerializer.Serialize(data, defaultJSONConfigure ?? _defaultSetJSONConfigure);
     }

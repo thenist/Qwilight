@@ -1542,7 +1542,7 @@ namespace Qwilight
                 {
                     MediaSystem.Instance.Stop(this);
                 }
-                Utility.HandleHMP(parallelItems, Configure.Instance.UIBin, parallelItem => parallelItem());
+                Utility.HandleLowlyParallelly(parallelItems, Configure.Instance.UIBin, parallelItem => parallelItem());
 
                 foreach (var paintPropertyValue in PaintPropertyValues)
                 {

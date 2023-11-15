@@ -38,7 +38,7 @@ namespace Qwilight
 
         public void LoadLevelFiles() => Utility.SetUICollection(LevelFileNames, Utility.GetFiles(EntryPath).Where(levelFile => !Path.GetFileName(levelFile).StartsWith('#') && levelFile.IsTailCaselsss(".json")).Select(levelFile => Path.GetFileNameWithoutExtension(levelFile)).ToArray());
 
-        public void LoadJSON(bool isNotify)
+        public async ValueTask LoadJSON(bool isNotify)
         {
             LevelID128s.Clear();
             LevelID256s.Clear();
@@ -56,13 +56,15 @@ namespace Qwilight
                         var levelTableFilePath = Path.Combine(QwilightComponent.QwilightEntryPath, "Level", $"#{levelName}.json");
                         if (File.Exists(levelTableFilePath))
                         {
-                            var levelTable = Utility.GetJSON<JSON.BMSTable?>(File.ReadAllText(levelTableFilePath));
+                            using var tfs = File.OpenRead(levelTableFilePath);
+                            var levelTable = await Utility.GetJSON<JSON.BMSTable?>(tfs);
                             if (levelTable.HasValue)
                             {
                                 var levelTableValue = levelTable.Value;
                                 var levelTexts = new List<object>();
                                 var levelTitle = levelTableValue.symbol;
-                                foreach (var levelData in Utility.GetJSON<JSON.BMSTableData[]>(File.ReadAllText(levelFilePath)))
+                                using var fs = File.OpenRead(levelFilePath);
+                                foreach (var levelData in await Utility.GetJSON<JSON.BMSTableData[]>(fs))
                                 {
                                     var level = levelData.level;
                                     var noteID128 = levelData.md5;
@@ -115,7 +117,7 @@ namespace Qwilight
                 using var s = await TwilightSystem.Instance.GetWwwParallel(WebUtility.HtmlDecode(ModifyDataValue(o.CreateNavigator().SelectSingleNode("/html/head/meta[@name='bmstable']/@content")?.ToString()
                     ?? o.CreateNavigator().SelectSingleNode("/html/body/meta[@name='bmstable']/@content")?.ToString()
                     ?? o.CreateNavigator().SelectSingleNode("/html/head/body/meta[@name='bmstable']/@content")?.ToString()))).ConfigureAwait(false);
-                var levelTable = Utility.GetJSON<JSON.BMSTable?>(s);
+                var levelTable = await Utility.GetJSON<JSON.BMSTable?>(s);
                 s.Position = 0;
                 if (levelTable.HasValue)
                 {

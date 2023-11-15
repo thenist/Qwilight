@@ -853,15 +853,15 @@ namespace Qwilight
             return rows.Read() ? (int)(long)rows["Note_Position"] : 0;
         }
 
-        public (double, double, bool?) GetWait(BaseNoteFile noteFile)
+        public async ValueTask<(double, double, bool?)> GetWait(BaseNoteFile noteFile)
         {
             using var dbStatement = new SQLiteCommand(@"SELECT Audio_Wait, Media_Wait, Media
                 FROM wait
                 WHERE Note_ID = @noteID", _db);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
-            using var rows = dbStatement.ExecuteReader();
+            using var rows = await dbStatement.ExecuteReaderAsync().ConfigureAwait(false);
             (double, double, bool?) data = (0.0, 0.0, default);
-            if (rows.Read())
+            if (await rows.ReadAsync().ConfigureAwait(false))
             {
                 if (rows["Audio_Wait"] != DBNull.Value)
                 {
@@ -876,14 +876,14 @@ namespace Qwilight
             return data;
         }
 
-        public int GetFormat(BaseNoteFile noteFile)
+        public async Task<int> GetFormat(BaseNoteFile noteFile)
         {
             using var dbStatement = new SQLiteCommand(@"SELECT Format
                 FROM format
                 WHERE Note_ID = @noteID", _db);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
-            using var rows = dbStatement.ExecuteReader();
-            return rows.Read() ? (int)(long)rows["Format"] : -1;
+            using var rows = await dbStatement.ExecuteReaderAsync().ConfigureAwait(false);
+            return await rows.ReadAsync().ConfigureAwait(false) ? (int)(long)rows["Format"] : -1;
         }
 
         public async Task SetNotePosition(EntryItem entryItem)

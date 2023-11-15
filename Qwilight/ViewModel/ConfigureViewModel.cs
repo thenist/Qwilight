@@ -614,13 +614,6 @@ namespace Qwilight.ViewModel
                     if (r == MESSAGEBOX_RESULT.IDYES)
                     {
                         Configure.Instance.Media = true;
-                        var handlingComputer = ViewModels.Instance.MainValue.GetHandlingComputer();
-                        if (handlingComputer != null)
-                        {
-                            handlingComputer.SetWait();
-                            MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
-                            MediaSystem.Instance.HandleIfAvailable(handlingComputer);
-                        }
                         await DB.Instance.InitMedia().ConfigureAwait(false);
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitMediaOK);
                     }
@@ -795,17 +788,7 @@ namespace Qwilight.ViewModel
         static void OnGetWaveValues() => AudioInputSystem.Instance.GetWaveValues();
 
         [RelayCommand]
-        static void OnMedia()
-        {
-            Configure.Instance.Media = !Configure.Instance.Media;
-            var handlingComputer = ViewModels.Instance.MainValue.GetHandlingComputer();
-            if (handlingComputer != null)
-            {
-                handlingComputer.SetWait();
-                MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
-                MediaSystem.Instance.HandleIfAvailable(handlingComputer);
-            }
-        }
+        static void OnMedia() => Configure.Instance.Media = !Configure.Instance.Media;
 
         [RelayCommand]
         static void OnHandleInputAudio() => Configure.Instance.HandleInputAudio = !Configure.Instance.HandleInputAudio;

@@ -15,7 +15,7 @@ namespace Qwilight
 
         public DInputSystem(IHandleInput handleInput) => _handleInput = handleInput;
 
-        public void HandleSystem(nint handle) => Utility.HandleLongParallel(() =>
+        public void HandleSystem(nint handle) => Utility.HandleParallelly(() =>
         {
             while (_isAvailable)
             {

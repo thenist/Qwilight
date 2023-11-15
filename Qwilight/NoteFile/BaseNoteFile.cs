@@ -224,13 +224,13 @@ namespace Qwilight.NoteFile
             }
         }
 
-        public void SetConfigure()
+        public async Task SetConfigure()
         {
-            var (audioWait, mediaWait, media) = DB.Instance.GetWait(this);
+            var (audioWait, mediaWait, media) = await DB.Instance.GetWait(this);
             Configure.Instance.AudioWait = audioWait;
             Configure.Instance.MediaWait = mediaWait;
             Configure.Instance.Media = media != false;
-            Configure.Instance.NoteFormatID = DB.Instance.GetFormat(this);
+            Configure.Instance.NoteFormatID = await DB.Instance.GetFormat(this);
         }
 
         public virtual string GetNoteID128(byte[] data = null)
