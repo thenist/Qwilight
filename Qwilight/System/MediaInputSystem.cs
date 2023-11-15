@@ -28,8 +28,8 @@ namespace Qwilight
             {
                 if (SetProperty(ref _mediaInputItem, value, nameof(MediaInputItemValue)) && value.HasValue)
                 {
-                    InitMediaInput();
-                    async void InitMediaInput()
+                    _ = Awaitable();
+                    async Task Awaitable()
                     {
                         _mediaInputComputer = await _mediaInputSystem.CreateFrameReaderAsync(_mediaInputSystem.FrameSources[value.Value.ID], MediaEncodingSubtypes.Bgra8);
                         _mediaInputComputer.FrameArrived += OnMediaFrameAvailable;
@@ -47,11 +47,8 @@ namespace Qwilight
             {
                 if (SetProperty(ref _mediaInputQuality, value, nameof(MediaInputQualityValue)) && value.HasValue)
                 {
-                    SetMediaInputQuality();
-                    async void SetMediaInputQuality()
-                    {
-                        await _mediaInputSystem.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoRecord, value.Value.Data);
-                    }
+                    _ = Awaitable().ConfigureAwait(false);
+                    async Task Awaitable() => await _mediaInputSystem.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoRecord, value.Value.Data);
                 }
             }
         }
@@ -62,7 +59,7 @@ namespace Qwilight
 
         public CanvasBitmap MediaFrame { get; set; }
 
-        public MediaInputSystem() => GetMediaInputItems();
+        public MediaInputSystem() => _ = GetMediaInputItems();
 
         public void PaintMediaInput(CanvasDrawingSession targetSession, ref Bound r, float mediaInputFaint)
         {
@@ -74,7 +71,7 @@ namespace Qwilight
             }
         }
 
-        public async void GetMediaInputItems()
+        public async Task GetMediaInputItems()
         {
             if (Configure.Instance.MediaInput)
             {

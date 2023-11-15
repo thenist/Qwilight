@@ -78,8 +78,8 @@ namespace Qwilight
                 {
                     _wantAvatarDrawing = false;
 
-                    SetAvatarDrawing();
-                    async void SetAvatarDrawing() => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarDrawing));
+                    _ = Awaitable();
+                    async Task Awaitable() => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarDrawing));
                 }
                 return _avatarDrawing;
             }
@@ -293,8 +293,8 @@ namespace Qwilight
                                             });
                                         }
                                     }
-                                    GetDefaultNoteDate(Configure.Instance.DefaultNoteDate, Configure.Instance.AutoGetDefaultNote);
-                                    GetDefaultUIDate(Configure.Instance.DefaultUIDate, Configure.Instance.AutoGetDefaultUI);
+                                    _ = GetDefaultNoteDate(Configure.Instance.DefaultNoteDate, Configure.Instance.AutoGetDefaultNote);
+                                    _ = GetDefaultUIDate(Configure.Instance.DefaultUIDate, Configure.Instance.AutoGetDefaultUI);
                                     break;
                                 case Event.Types.EventID.UnavailableDate:
                                     if (!Configure.Instance.AutoGetQwilight)
@@ -1533,7 +1533,7 @@ namespace Qwilight
             return false;
         }
 
-        public async void GetDefaultNoteDate(long defaultNoteDate, bool isSilent)
+        public async ValueTask GetDefaultNoteDate(long defaultNoteDate, bool isSilent)
         {
             var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultNoteDate?date={defaultNoteDate}").ConfigureAwait(false);
             if (twilightWwwDefaultDate.HasValue)
@@ -1572,7 +1572,7 @@ namespace Qwilight
             }
         }
 
-        public async void GetDefaultUIDate(long defaultUIDate, bool isSilent)
+        public async ValueTask GetDefaultUIDate(long defaultUIDate, bool isSilent)
         {
             var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultUIDate?date={defaultUIDate}").ConfigureAwait(false);
             if (twilightWwwDefaultDate.HasValue && !ViewModels.Instance.MainValue.IsVital)

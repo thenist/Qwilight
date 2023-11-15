@@ -225,9 +225,8 @@ namespace Qwilight.UIComponent
             {
                 if (SetProperty(ref _wwwLevelItem, value, nameof(WwwLevelItemValue)) && value != null)
                 {
-                    GetWwwLevelItem();
-
-                    async void GetWwwLevelItem()
+                    _ = Awaitable();
+                    async Task Awaitable()
                     {
                         IsLevelItemLoading = true;
 

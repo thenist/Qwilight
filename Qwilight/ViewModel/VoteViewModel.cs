@@ -82,8 +82,8 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _voteName, value, nameof(VoteName)))
                 {
-                    GetVoteComputings();
-                    async void GetVoteComputings()
+                    _ = Awaitable();
+                    async Task Awaitable()
                     {
                         IsVoteGroupLoading = true;
 

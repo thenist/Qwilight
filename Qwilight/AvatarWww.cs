@@ -26,8 +26,8 @@ namespace Qwilight
                 {
                     _wantAvatarDrawing = false;
 
-                    SetAvatarDrawing();
-                    async void SetAvatarDrawing() => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarDrawing));
+                    _ = Awaitable().ConfigureAwait(false);
+                    async Task Awaitable() => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarDrawing));
                 }
                 return _avatarDrawing;
             }
@@ -41,8 +41,8 @@ namespace Qwilight
                 {
                     _wantAvatarTitle = false;
 
-                    SetAvatarTitle();
-                    async void SetAvatarTitle() => SetProperty(ref _avatarTitle, await AvatarTitleSystem.Instance.GetAvatarTitle(AvatarID, _allowNotAvatarTitle).ConfigureAwait(false), nameof(AvatarTitleValue));
+                    _ = Awaitable().ConfigureAwait(false);
+                    async Task Awaitable() => SetProperty(ref _avatarTitle, await AvatarTitleSystem.Instance.GetAvatarTitle(AvatarID, _allowNotAvatarTitle).ConfigureAwait(false), nameof(AvatarTitleValue));
                 }
                 return _avatarTitle;
             }
@@ -56,8 +56,8 @@ namespace Qwilight
                 {
                     _wantAvatarEdge = false;
 
-                    SetAvatarEdge();
-                    async void SetAvatarEdge() => SetProperty(ref _avatarEdge, (await AvatarEdgeSystem.Instance.GetAvatarEdge(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarEdge));
+                    _ = Awaitable().ConfigureAwait(false);
+                    async Task Awaitable() => SetProperty(ref _avatarEdge, (await AvatarEdgeSystem.Instance.GetAvatarEdge(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarEdge));
                 }
                 return _avatarEdge;
             }

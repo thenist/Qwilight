@@ -883,10 +883,10 @@ namespace Qwilight.ViewModel
         });
 
         [RelayCommand]
-        static void OnDefaultNote() => TwilightSystem.Instance.GetDefaultNoteDate(0, false);
+        static async Task OnDefaultNote() => await TwilightSystem.Instance.GetDefaultNoteDate(0, false);
 
         [RelayCommand]
-        static void OnDefaultUI() => TwilightSystem.Instance.GetDefaultUIDate(0, false);
+        static async Task OnDefaultUI() => await TwilightSystem.Instance.GetDefaultUIDate(0, false);
 
         [RelayCommand]
         static void OnLoadBanalFailedMedia() => WeakReferenceMessenger.Default.Send<ICC>(new()
@@ -905,11 +905,11 @@ namespace Qwilight.ViewModel
         });
 
         [RelayCommand]
-        static void OnMediaInputConfigure()
+        static async Task OnMediaInputConfigure()
         {
             if (Configure.Instance.MediaInput)
             {
-                MediaInputSystem.Instance.GetMediaInputItems();
+                await MediaInputSystem.Instance.GetMediaInputItems();
             }
             else
             {
@@ -918,10 +918,10 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        static void OnGetMedia() => MediaInputSystem.Instance.GetMediaInputItems();
+        static async Task OnGetMedia() => await MediaInputSystem.Instance.GetMediaInputItems();
 
         [RelayCommand]
-        static void OnGetQwilight() => ViewModels.Instance.MainValue.GetQwilight(false);
+        static async Task OnGetQwilight() => await ViewModels.Instance.MainValue.GetQwilight(false);
 
         [RelayCommand]
         static void OnAutoHighlight() => Configure.Instance.AutoHighlight = !Configure.Instance.AutoHighlight;

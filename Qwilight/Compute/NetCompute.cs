@@ -66,6 +66,10 @@ namespace Qwilight.Compute
             Configure.Instance.NotifyTutorial(Configure.TutorialID.NetQuitMode);
         }
 
+        public override void GetNetItems()
+        {
+        }
+
         public override void GetNetComments()
         {
         }

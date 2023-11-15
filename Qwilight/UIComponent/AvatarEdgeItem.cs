@@ -19,8 +19,8 @@ namespace Qwilight.UIComponent
                 {
                     _wantDrawing = false;
 
-                    SetDrawing();
-                    async void SetDrawing()
+                    _ = Awaitable();
+                    async Task Awaitable()
                     {
                         using var s = await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/edge?edgeID={EdgeID}").ConfigureAwait(false);
                         if (s.Length > 0)

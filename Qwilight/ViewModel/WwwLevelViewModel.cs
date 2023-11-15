@@ -45,8 +45,8 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _wwwLevelAvatarValue, value, nameof(WwwLevelAvatar)))
                 {
-                    GetWwwLevelGroups();
-                    async void GetWwwLevelGroups()
+                    _ = Awaitable();
+                    async Task Awaitable()
                     {
                         IsLevelGroupsLoading = true;
 
@@ -93,8 +93,8 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _wwwLevelGroupValue, value, nameof(WwwLevelGroupValue)) && value != null)
                 {
-                    GetWwwLevelItems();
-                    async void GetWwwLevelItems()
+                    _ = Awaitable();
+                    async Task Awaitable()
                     {
                         IsLevelGroupLoading = true;
 

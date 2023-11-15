@@ -563,62 +563,63 @@ namespace Qwilight.ViewModel
             {
                 BaseUI.Instance.LoadUI(null, Configure.Instance.BaseUIItemValue, false);
                 UI.Instance.LoadUI(null, Configure.Instance.UIItemValue, false);
-
-                Utility.HandleLongParallel(TVSystem.Instance.HandleSystem, false);
-                Utility.HandleLongParallel(IlluminationSystem.Instance.HandleSystem, false);
-                DefaultControllerSystem.Instance.HandleSystem();
-                Utility.HandleLongParallel(DrawingSystem.Instance.HandleSystem);
-                Utility.HandleLongParallel(TwilightSystem.Instance.HandleSystem, false);
-                Utility.HandleLongParallel(PlatformSystem.Instance.HandleSystem, false);
-                Utility.HandleLongParallel(FlintSystem.Instance.HandleSystem, false);
-                Utility.HandleLongParallel(() => ControllerSystem.Instance.HandleSystem(handle));
-
-                if (Configure.Instance.AudioMultiplierAtone)
-                {
-                    AudioSystem.Instance.SetAudioMultiplierAtone(true, ModeComponentValue.AudioMultiplier);
-                }
-
-                WeakReferenceMessenger.Default.Send<ICC>(new()
-                {
-                    IDValue = ICC.ID.FadingLoadingView
-                });
-
-                if (!string.IsNullOrEmpty(Configure.Instance.ConfigureFault))
-                {
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, Configure.Instance.ConfigureFault);
-                }
-                if (!string.IsNullOrEmpty(GPUConfigure.Instance.GPUConfigureFault))
-                {
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, GPUConfigure.Instance.GPUConfigureFault);
-                }
-                if (!string.IsNullOrEmpty(DB.Instance.DBFault))
-                {
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, DB.Instance.DBFault);
-                }
-
-                if (!Configure.Instance.IsLoaded)
-                {
-                    ViewModels.Instance.AssistValue.Open();
-                    Configure.Instance.IsLoaded = true;
-                }
-
-                SetDefaultEntryItems();
-                if (Configure.Instance.AutoGetQwilight)
-                {
-                    GetQwilight(true);
-                }
-
-                if (QwilightComponent.IsTest)
-                {
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
-                    {
-                        IDValue = ICC.ID.Quit,
-                        Contents = false
-                    });
-                }
-            }).ConfigureAwait(false);
+            });
 
             _isLoaded = true;
+
+            Utility.HandleLongParallel(TVSystem.Instance.HandleSystem, false);
+            Utility.HandleLongParallel(IlluminationSystem.Instance.HandleSystem, false);
+            DefaultControllerSystem.Instance.HandleSystem();
+            Utility.HandleLongParallel(DrawingSystem.Instance.HandleSystem);
+            Utility.HandleLongParallel(TwilightSystem.Instance.HandleSystem, false);
+            Utility.HandleLongParallel(PlatformSystem.Instance.HandleSystem, false);
+            Utility.HandleLongParallel(FlintSystem.Instance.HandleSystem, false);
+            Utility.HandleLongParallel(() => ControllerSystem.Instance.HandleSystem(handle));
+
+            if (Configure.Instance.AudioMultiplierAtone)
+            {
+                AudioSystem.Instance.SetAudioMultiplierAtone(true, ModeComponentValue.AudioMultiplier);
+            }
+
+            WeakReferenceMessenger.Default.Send<ICC>(new()
+            {
+                IDValue = ICC.ID.FadingLoadingView
+            });
+
+            if (!string.IsNullOrEmpty(Configure.Instance.ConfigureFault))
+            {
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, Configure.Instance.ConfigureFault);
+            }
+            if (!string.IsNullOrEmpty(GPUConfigure.Instance.GPUConfigureFault))
+            {
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, GPUConfigure.Instance.GPUConfigureFault);
+            }
+            if (!string.IsNullOrEmpty(DB.Instance.DBFault))
+            {
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, DB.Instance.DBFault);
+            }
+
+            if (!Configure.Instance.IsLoaded)
+            {
+                ViewModels.Instance.AssistValue.Open();
+                Configure.Instance.IsLoaded = true;
+            }
+
+            SetDefaultEntryItems();
+
+            if (QwilightComponent.IsTest)
+            {
+                WeakReferenceMessenger.Default.Send<ICC>(new()
+                {
+                    IDValue = ICC.ID.Quit,
+                    Contents = false
+                });
+            }
+
+            if (Configure.Instance.AutoGetQwilight)
+            {
+                await GetQwilight(true);
+            }
         }
 
         public void OnFileAs(DragEventArgs e)
@@ -1454,7 +1455,7 @@ namespace Qwilight.ViewModel
                                             noteFile.HandledValue = BaseNoteFile.Handled.Clear;
                                         }
                                     }
-                                    DB.Instance.SetHandled(noteFile);
+                                    await DB.Instance.SetHandled(noteFile).ConfigureAwait(false);
                                 }
                             }
                         }
@@ -3061,7 +3062,7 @@ namespace Qwilight.ViewModel
             IsWPFViewVisible = IsNoteFileMode || ViewModels.Instance.WindowViewModels.Any(windowViewModel => windowViewModel.IsOpened);
         }
 
-        public async void GetQwilight(bool isSilent)
+        public async Task GetQwilight(bool isSilent)
         {
             try
             {
@@ -3195,7 +3196,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async void LoadWowItemCollection()
+        public async Task LoadWowItemCollection()
         {
             IsWowLoading = true;
 

@@ -3999,16 +3999,16 @@ namespace Qwilight.Compute
                             }
                         }
                     }
-                    DB.Instance.SetHandled(NoteFile);
+                    _ = DB.Instance.SetHandled(NoteFile).ConfigureAwait(false);
 
-                    DB.Instance.NewDate(NoteFile, default, date);
+                    _ = DB.Instance.NewDate(NoteFile, default, date).ConfigureAwait(false);
                     NoteFile.LatestDate = date;
                     ++NoteFile.HandledCount;
                 }
                 else
                 {
 
-                    DB.Instance.NewDate(default, eventNoteID, date);
+                    _ = DB.Instance.NewDate(default, eventNoteID, date).ConfigureAwait(false);
                     EventNoteEntryItem.LatestDate = date;
                     ++EventNoteEntryItem.HandledCount;
                 }
@@ -4492,7 +4492,7 @@ namespace Qwilight.Compute
             return targetPosition;
         }
 
-        public virtual async void GetNetItems()
+        public virtual void GetNetItems()
         {
             if (!_wasNetItems)
             {
@@ -4512,40 +4512,45 @@ namespace Qwilight.Compute
                         });
                     }
                 }
-                var eventNoteID = EventNoteEntryItem?.EventNoteID;
-                var netItems = new List<NetItem>();
-                switch (!string.IsNullOrEmpty(eventNoteID) || NoteFile.IsBanned ? 0 : Configure.Instance.CommentViewTabPosition)
-                {
-                    case 0:
-                        netItems.AddRange(GetNetItemsImpl(await DB.Instance.GetCommentItems(NoteFiles[0], eventNoteID, NoteFiles.Length).ConfigureAwait(false)));
-                        break;
-                    case 1:
-                    case 2:
-                        var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&target={Configure.Instance.UbuntuNetItemTarget}").ConfigureAwait(false);
-                        if (twilightWwwComment.HasValue)
-                        {
-                            netItems.AddRange(GetNetItemsImpl(HandleTwilightNetItems(Utility.GetCommentItems(twilightWwwComment.Value.comments, NoteFile))));
-                        }
-                        break;
-                }
-                netItems.Add(netItem);
-                _netItems.AddRange(netItems);
-                lock (IsTwilightNetItemsCSX)
-                {
-                    if (!IsTwilightNetItems)
-                    {
-                        SetNetItems(netItems);
-                    }
-                }
-                _wasGetNetItems = true;
 
-                IEnumerable<NetItem> GetNetItemsImpl(ICollection<CommentItem> commentItems) => commentItems.Select(commentItem => new NetItem(commentItem.AvatarWwwValue.AvatarID, commentItem.AvatarName, commentItem.Date, commentItem.Stand, commentItem.Band, commentItem.Point, commentItem.Stand / (1000000.0 * NoteFiles.Length))
+                _ = Awaitable().ConfigureAwait(false);
+                async Task Awaitable()
                 {
-                    CommentItem = commentItem,
-                    AvatarNetStatus = Event.Types.AvatarNetStatus.Clear,
-                    QuitValue = Utility.GetQuitStatusValue(commentItem.Point, commentItem.Stand, 1.0, NoteFiles.Length),
-                    HitPointsModeValue = commentItem.ModeComponentValue.HandlingHitPointsModeValue
-                });
+                    var eventNoteID = EventNoteEntryItem?.EventNoteID;
+                    var netItems = new List<NetItem>();
+                    switch (!string.IsNullOrEmpty(eventNoteID) || NoteFile.IsBanned ? 0 : Configure.Instance.CommentViewTabPosition)
+                    {
+                        case 0:
+                            netItems.AddRange(GetNetItemsImpl(await DB.Instance.GetCommentItems(NoteFiles[0], eventNoteID, NoteFiles.Length).ConfigureAwait(false)));
+                            break;
+                        case 1:
+                        case 2:
+                            var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&target={Configure.Instance.UbuntuNetItemTarget}").ConfigureAwait(false);
+                            if (twilightWwwComment.HasValue)
+                            {
+                                netItems.AddRange(GetNetItemsImpl(HandleTwilightNetItems(Utility.GetCommentItems(twilightWwwComment.Value.comments, NoteFile))));
+                            }
+                            break;
+                    }
+                    netItems.Add(netItem);
+                    _netItems.AddRange(netItems);
+                    lock (IsTwilightNetItemsCSX)
+                    {
+                        if (!IsTwilightNetItems)
+                        {
+                            SetNetItems(netItems);
+                        }
+                    }
+                    _wasGetNetItems = true;
+
+                    IEnumerable<NetItem> GetNetItemsImpl(ICollection<CommentItem> commentItems) => commentItems.Select(commentItem => new NetItem(commentItem.AvatarWwwValue.AvatarID, commentItem.AvatarName, commentItem.Date, commentItem.Stand, commentItem.Band, commentItem.Point, commentItem.Stand / (1000000.0 * NoteFiles.Length))
+                    {
+                        CommentItem = commentItem,
+                        AvatarNetStatus = Event.Types.AvatarNetStatus.Clear,
+                        QuitValue = Utility.GetQuitStatusValue(commentItem.Point, commentItem.Stand, 1.0, NoteFiles.Length),
+                        HitPointsModeValue = commentItem.ModeComponentValue.HandlingHitPointsModeValue
+                    });
+                }
             }
         }
 

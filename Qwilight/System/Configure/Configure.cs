@@ -1057,7 +1057,7 @@ namespace Qwilight
                             mainViewModel.LoadTwilightCommentCollection();
                             break;
                         case 2:
-                            mainViewModel.LoadWowItemCollection();
+                            _ = mainViewModel.LoadWowItemCollection();
                             break;
                     }
                 }

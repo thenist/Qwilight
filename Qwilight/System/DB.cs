@@ -801,7 +801,7 @@ namespace Qwilight
             return rows.Read() ? (BaseNoteFile.Handled)(long)rows["Handled"] : BaseNoteFile.Handled.Not;
         }
 
-        public async void SetHandled(BaseNoteFile noteFile)
+        public async Task SetHandled(BaseNoteFile noteFile)
         {
             using var dbStatement = new SQLiteCommand(@"REPLACE
                 INTO handle
@@ -832,7 +832,7 @@ namespace Qwilight
             return date;
         }
 
-        public async void NewDate(BaseNoteFile noteFile, string eventNoteID, DateTime date)
+        public async Task NewDate(BaseNoteFile noteFile, string eventNoteID, DateTime date)
         {
             using var dbStatement = new SQLiteCommand(@"INSERT
                 INTO date
