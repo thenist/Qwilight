@@ -110,7 +110,7 @@
                         </WrapPanel>
                     </GroupBox>
                     <Separator Style="{StaticResource StandardHr}" />
-                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding LevelWant, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding WantLevel, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
                     <GroupBox Style="{StaticResource StandardGroupView}">
                         <GroupBox.Header>
                             <Grid>

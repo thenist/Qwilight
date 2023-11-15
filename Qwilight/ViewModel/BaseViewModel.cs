@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.Utilities;
 using System.Windows;
 using System.Windows.Media;
@@ -110,16 +111,10 @@ namespace Qwilight.ViewModel
 
         public virtual void OnOpened()
         {
-            WeakReferenceMessenger.Default.Send<ICC>(new()
-            {
-                IDValue = ICC.ID.PointZMaxView
-            });
+            StrongReferenceMessenger.Default.Send<PointZMaxView>();
             IsLoaded = true;
         }
 
-        public virtual void OnCollasped() => WeakReferenceMessenger.Default.Send<ICC>(new()
-        {
-            IDValue = ICC.ID.PointZMaxView
-        });
+        public virtual void OnCollasped() => StrongReferenceMessenger.Default.Send<PointZMaxView>();
     }
 }

@@ -49,68 +49,65 @@ namespace Qwilight
 
         public ObservableCollection<DefaultEntryItem> DefaultEntryItemCollection { get; } = new();
 
-        public DefaultEntryItem DefaultEntryItem
+        public DefaultEntryItem DefaultEntryItemValue
         {
             get => _defaultEntryItem;
 
             set
             {
-                if (SetProperty(ref _defaultEntryItem, value, nameof(DefaultEntryItem)))
+                if (SetProperty(ref _defaultEntryItem, value, nameof(DefaultEntryItemValue)))
                 {
                     OnPropertyChanged(nameof(IsFavoriteEntry));
                 }
             }
         }
 
-        public bool IsFavoriteEntry => DefaultEntryItem?.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite;
+        public bool IsFavoriteEntry => DefaultEntryItemValue?.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite;
 
         public void OnInputLower(KeyEventArgs e)
         {
             switch (e.Key)
             {
-                case Key.Up when DefaultEntryItem != null:
-                    var i = DefaultEntryItemCollection.IndexOf(DefaultEntryItem);
+                case Key.Up when DefaultEntryItemValue != null:
+                    var i = DefaultEntryItemCollection.IndexOf(DefaultEntryItemValue);
                     if (i > 0)
                     {
                         DefaultEntryItemCollection.Move(i, i - 1);
                     }
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    StrongReferenceMessenger.Default.Send(new MoveDefaultEntryView()
                     {
-                        IDValue = ICC.ID.MoveDefaultEntryView,
-                        Contents = DefaultEntryItem
+                        Target = DefaultEntryItemValue
                     });
                     e.Handled = true;
                     break;
-                case Key.Down when DefaultEntryItem != null:
-                    i = DefaultEntryItemCollection.IndexOf(DefaultEntryItem);
+                case Key.Down when DefaultEntryItemValue != null:
+                    i = DefaultEntryItemCollection.IndexOf(DefaultEntryItemValue);
                     if (i < DefaultEntryItemCollection.Count - 1)
                     {
                         DefaultEntryItemCollection.Move(i, i + 1);
                     }
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    StrongReferenceMessenger.Default.Send(new MoveDefaultEntryView()
                     {
-                        IDValue = ICC.ID.MoveDefaultEntryView,
-                        Contents = DefaultEntryItem
+                        Target = DefaultEntryItemValue
                     });
                     e.Handled = true;
                     break;
-                case Key.Delete when DefaultEntryItem != null:
+                case Key.Delete when DefaultEntryItemValue != null:
                     if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                     {
-                        Text = DefaultEntryItem.WipeNotify,
+                        Text = DefaultEntryItemValue.WipeNotify,
                         Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
                     }) == MESSAGEBOX_RESULT.IDYES)
                     {
-                        i = DefaultEntryItemCollection.IndexOf(DefaultEntryItem);
+                        i = DefaultEntryItemCollection.IndexOf(DefaultEntryItemValue);
                         DefaultEntryItemCollection.RemoveAt(i);
                         if (i < DefaultEntryItemCollection.Count)
                         {
-                            DefaultEntryItem = DefaultEntryItemCollection[i];
+                            DefaultEntryItemValue = DefaultEntryItemCollection[i];
                         }
-                        WeakReferenceMessenger.Default.Send<ICC>(new()
+                        StrongReferenceMessenger.Default.Send(new MoveDefaultEntryView()
                         {
-                            IDValue = ICC.ID.MoveDefaultEntryView,
-                            Contents = DefaultEntryItem
+                            Target = DefaultEntryItemValue
                         });
                     }
                     break;
@@ -160,10 +157,10 @@ namespace Qwilight
         {
             var inputTextViewModel = ViewModels.Instance.InputTextValue;
             inputTextViewModel.Text = LanguageSystem.Instance.ModifyFavoriteEntryNameContents;
-            inputTextViewModel.Input = DefaultEntryItem.FavoriteEntryName;
+            inputTextViewModel.Input = DefaultEntryItemValue.FavoriteEntryName;
             inputTextViewModel.HandleOK = new Action<string>(text =>
             {
-                DefaultEntryItem.FavoriteEntryName = text;
+                DefaultEntryItemValue.FavoriteEntryName = text;
             });
             inputTextViewModel.Open();
         }
@@ -171,7 +168,7 @@ namespace Qwilight
         [RelayCommand]
         void OnModifyFrontEntry()
         {
-            ViewModels.Instance.ModifyFrontEntryValue.FavoriteEntryItem = DefaultEntryItem;
+            ViewModels.Instance.ModifyFrontEntryValue.FavoriteEntryItem = DefaultEntryItemValue;
             ViewModels.Instance.ModifyFrontEntryValue.Open();
         }
 

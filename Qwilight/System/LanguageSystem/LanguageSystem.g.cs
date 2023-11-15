@@ -324,6 +324,10 @@ namespace Qwilight
         public string HwModeContents { get; set; }
         public string IIDXInputAudioVariety { get; set; }
         public string IIDXInputAudioVarietyAssist { get; set; }
+        public string InitColorContents { get; set; }
+        public string InitColorNotify { get; set; }
+        public string InitColorOK { get; set; }
+        public string InitColorText { get; set; }
         public string InitCommentContents { get; set; }
         public string InitCommentNotify { get; set; }
         public string InitCommentOK { get; set; }
@@ -796,10 +800,6 @@ namespace Qwilight
         public string UIMainDrawingPaint { get; set; }
         public string UIMainJudgmentMeter { get; set; }
         public string UINet { get; set; }
-        public string InitColorContents { get; set; }
-        public string InitColorNotify { get; set; }
-        public string InitColorOK { get; set; }
-        public string InitColorText { get; set; }
         public string UndoContents { get; set; }
         public string ValidNetMode0Text { get; set; }
         public string ValidNetMode1Text { get; set; }
@@ -833,6 +833,7 @@ namespace Qwilight
         public string WantBannedContents { get; set; }
         public string WantBPMContents { get; set; }
         public string WantHighestInputCountContents { get; set; }
+        public string WantLevel { get; set; }
         public string WantLevelItemContents { get; set; }
         public string WantLevelTextValueContents { get; set; }
         public string WantNotBannedText { get; set; }

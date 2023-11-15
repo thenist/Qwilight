@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.NoteFile;
 using Qwilight.Utilities;
 using System.Collections.ObjectModel;
@@ -47,10 +48,9 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _valueComputing, value, nameof(ComputingValue)) && value != null)
                 {
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    StrongReferenceMessenger.Default.Send(new SetVoteWindowEdgeView
                     {
-                        IDValue = ICC.ID.SetVoteWindowEdgeView,
-                        Contents = value.Www
+                        Www = value.Www
                     });
                 }
             }

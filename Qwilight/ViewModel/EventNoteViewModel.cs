@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.NoteFile;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
@@ -44,10 +45,9 @@ namespace Qwilight.ViewModel
                     {
                         NoteFileCollection.Move(i, i - 1);
                     }
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    StrongReferenceMessenger.Default.Send(new PointEventNoteView
                     {
-                        IDValue = ICC.ID.PointEventNoteView,
-                        Contents = NoteFile
+                        Target = NoteFile
                     });
                     e.Handled = true;
                     break;
@@ -57,10 +57,9 @@ namespace Qwilight.ViewModel
                     {
                         NoteFileCollection.Move(i, i + 1);
                     }
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    StrongReferenceMessenger.Default.Send(new PointEventNoteView
                     {
-                        IDValue = ICC.ID.PointEventNoteView,
-                        Contents = NoteFile
+                        Target = NoteFile
                     });
                     e.Handled = true;
                     break;
@@ -71,10 +70,9 @@ namespace Qwilight.ViewModel
                     {
                         NoteFile = NoteFileCollection[i];
                     }
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    StrongReferenceMessenger.Default.Send(new PointEventNoteView
                     {
-                        IDValue = ICC.ID.PointEventNoteView,
-                        Contents = NoteFile
+                        Target = NoteFile
                     });
                     break;
             }

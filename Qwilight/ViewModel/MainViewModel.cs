@@ -847,37 +847,31 @@ namespace Qwilight.ViewModel
                 var isAlt = pointInput == MouseButton.Right;
                 if (pointInput == MouseButton.Left || isAlt)
                 {
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    var wpfView = StrongReferenceMessenger.Default.Send<GetWPFView>().Response;
+                    var pointPosition = e.GetPosition(wpfView);
+                    var pointPositionX = pointPosition.X;
+                    var pointPositionY = pointPosition.Y;
+                    var statusPoint = BaseUI.Instance.StatusPoint;
+                    var inputNoteCountViewPoint = BaseUI.Instance.InputNoteCountViewPoint;
+                    if (statusPoint?.Length > 4 && Utility.IsPoint(statusPoint, pointPositionX, pointPositionY))
                     {
-                        IDValue = ICC.ID.GetWPFView,
-                        Contents = new Action<IInputElement>(view =>
+                        var statusPosition0 = statusPoint[0];
+                        var statusPosition1 = statusPoint[1];
+                        var statusLength = statusPoint[2];
+                        var statusHeight = statusPoint[3];
+                        MoveStatus(isAlt ? -Component.LevyingWait : statusPoint[4] switch
                         {
-                            var pointPosition = e.GetPosition(view);
-                            var pointPositionX = pointPosition.X;
-                            var pointPositionY = pointPosition.Y;
-                            var statusPoint = BaseUI.Instance.StatusPoint;
-                            var inputNoteCountViewPoint = BaseUI.Instance.InputNoteCountViewPoint;
-                            if (statusPoint?.Length > 4 && Utility.IsPoint(statusPoint, pointPositionX, pointPositionY))
-                            {
-                                var statusPosition0 = statusPoint[0];
-                                var statusPosition1 = statusPoint[1];
-                                var statusLength = statusPoint[2];
-                                var statusHeight = statusPoint[3];
-                                MoveStatus(isAlt ? -Component.LevyingWait : statusPoint[4] switch
-                                {
-                                    0 => 1 - (pointPositionY - statusPosition1) / statusHeight,
-                                    1 => (pointPositionY - statusPosition1) / statusHeight,
-                                    2 => 1 - (pointPositionX - statusPosition0) / statusLength,
-                                    3 => (pointPositionX - statusPosition0) / statusLength,
-                                    _ => default,
-                                }, e.ClickCount == 2);
-                            }
-                            else if (inputNoteCountViewPoint?.Length > 2 && Utility.IsPoint(inputNoteCountViewPoint, pointPositionX, pointPositionY))
-                            {
-                                MoveStatus(isAlt ? -Component.LevyingWait : (pointPositionX - inputNoteCountViewPoint[0]) / inputNoteCountViewPoint[2], e.ClickCount == 2);
-                            }
-                        })
-                    });
+                            0 => 1 - (pointPositionY - statusPosition1) / statusHeight,
+                            1 => (pointPositionY - statusPosition1) / statusHeight,
+                            2 => 1 - (pointPositionX - statusPosition0) / statusLength,
+                            3 => (pointPositionX - statusPosition0) / statusLength,
+                            _ => default,
+                        }, e.ClickCount == 2);
+                    }
+                    else if (inputNoteCountViewPoint?.Length > 2 && Utility.IsPoint(inputNoteCountViewPoint, pointPositionX, pointPositionY))
+                    {
+                        MoveStatus(isAlt ? -Component.LevyingWait : (pointPositionX - inputNoteCountViewPoint[0]) / inputNoteCountViewPoint[2], e.ClickCount == 2);
+                    }
                 }
                 if (pointInput == MouseButton.Middle)
                 {
@@ -2346,10 +2340,7 @@ namespace Qwilight.ViewModel
                             (sender as DispatcherTimer).Stop();
 
                             IsAvailable = true;
-                            WeakReferenceMessenger.Default.Send<ICC>(new()
-                            {
-                                IDValue = ICC.ID.PointZMaxView
-                            });
+                            StrongReferenceMessenger.Default.Send<PointZMaxView>();
                         }
                     }, HandlingUISystem.Instance.UIHandler);
                 }
@@ -2960,12 +2951,12 @@ namespace Qwilight.ViewModel
             }
         }
 
-        void MoveEntryView() => WeakReferenceMessenger.Default.Send(new MoveEntryView
+        void MoveEntryView() => StrongReferenceMessenger.Default.Send(new MoveEntryView
         {
             Target = EntryItemValue
         });
 
-        public void PointEntryView() => WeakReferenceMessenger.Default.Send<PointEntryView>();
+        public void PointEntryView() => StrongReferenceMessenger.Default.Send<PointEntryView>();
 
         public void SetWPFViewVisibility()
         {
@@ -3260,7 +3251,7 @@ namespace Qwilight.ViewModel
         public override void NotifyModel()
         {
             base.NotifyModel();
-            WeakReferenceMessenger.Default.Send<SetFitInputs>();
+            StrongReferenceMessenger.Default.Send<SetFitInputs>();
             DrawingSystem.Instance.OnModified();
             BaseUI.Instance.NotifyModel();
             UI.Instance.NotifyModel();

@@ -1,57 +1,47 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Qwilight.View
 {
-    public partial class WPFView : IRecipient<ICC>
+    public partial class WPFView
     {
         public WPFView()
         {
             InitializeComponent();
-            WeakReferenceMessenger.Default.Register<ICC>(this);
-        }
 
-        public void Receive(ICC message)
-        {
-            switch (message.IDValue)
+            StrongReferenceMessenger.Default.Register<PointZMaxView>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
             {
-                case ICC.ID.GetWPFView:
-                    (message.Contents as Action<IInputElement>)(this);
-                    break;
-                case ICC.ID.PointZMaxView:
-                    HandlingUISystem.Instance.HandleParallel(() =>
+                var mainViewModel = DataContext as MainViewModel;
+                if (mainViewModel.IsWPFViewVisible)
+                {
+                    var zMaxValue = int.MinValue;
+                    UIElement zMaxView = null;
+                    foreach (UIElement windowView in WindowViews.Children)
                     {
-                        var mainViewModel = DataContext as MainViewModel;
-                        if (mainViewModel.IsWPFViewVisible)
+                        var zValue = Canvas.GetZIndex(windowView);
+                        if (windowView.Visibility == Visibility.Visible && zMaxValue < zValue)
                         {
-                            var zMaxValue = int.MinValue;
-                            UIElement zMaxView = null;
-                            foreach (UIElement windowView in WindowViews.Children)
-                            {
-                                var zValue = Canvas.GetZIndex(windowView);
-                                if (windowView.Visibility == Visibility.Visible && zMaxValue < zValue)
-                                {
-                                    zMaxValue = zValue;
-                                    zMaxView = windowView;
-                                }
-                            }
-                            if (zMaxView != null)
-                            {
-                                if (mainViewModel.HasPoint)
-                                {
-                                    zMaxView.Focus();
-                                }
-                            }
-                            else
-                            {
-                                mainViewModel.PointEntryView();
-                            }
+                            zMaxValue = zValue;
+                            zMaxView = windowView;
                         }
-                    });
-                    break;
-            }
+                    }
+                    if (zMaxView != null)
+                    {
+                        if (mainViewModel.HasPoint)
+                        {
+                            zMaxView.Focus();
+                        }
+                    }
+                    else
+                    {
+                        mainViewModel.PointEntryView();
+                    }
+                }
+            }));
+            StrongReferenceMessenger.Default.Register<GetWPFView>(this, (recipient, message) => message.Reply(this));
         }
     }
 }

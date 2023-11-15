@@ -1,31 +1,24 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.ViewModel;
 using System.Windows.Input;
 
 namespace Qwilight.View
 {
-    public sealed partial class SignUpWindow : IRecipient<ICC>
+    public sealed partial class SignUpWindow
     {
         public SignUpWindow()
         {
             InitializeComponent();
-            WeakReferenceMessenger.Default.Register<ICC>(this);
-        }
 
-        public void Receive(ICC message)
-        {
-            switch (message.IDValue)
+            StrongReferenceMessenger.Default.Register<GetSignUpCipher>(this, (recipient, message) => message.Reply((InputCipher.Password, InputCipherTest.Password)));
+            StrongReferenceMessenger.Default.Register<InitSignUpCipher>(this, (recipient, message) =>
             {
-                case ICC.ID.GetSignUpCipher:
-                    (message.Contents as Action<string, string>)(InputCipher.Password ?? string.Empty, InputCipherTest.Password ?? string.Empty);
-                    break;
-                case ICC.ID.InitSignUpCipher:
-                    InputCipher.Password = string.Empty;
-                    InputCipherTest.Password = string.Empty;
-                    break;
-            }
+                InputCipher.Password = string.Empty;
+                InputCipherTest.Password = string.Empty;
+            });
         }
 
-        void OnInputLower(object sender, KeyEventArgs e) => (DataContext as SignUpViewModel).OnInputLower(e);
+        void OnInputLower(object sender, KeyEventArgs e) => _ = (DataContext as SignUpViewModel).OnInputLower(e);
     }
 }

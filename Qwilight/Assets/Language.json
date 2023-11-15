@@ -1287,6 +1287,22 @@
     "ko-KR": "마지막으로 출력한 키음을 출력합니다.",
     "en-US": "Output the previous key sound"
   },
+  "InitColorContents": {
+    "ko-KR": "색상 설정을 기본으로 복원합니다.",
+    "en-US": "Reset color settings to their default values."
+  },
+  "InitColorNotify": {
+    "ko-KR": "색상 설정을 기본으로 복원할까요?",
+    "en-US": "Do you want to reset the color settings?"
+  },
+  "InitColorOK": {
+    "ko-KR": "색상 설정이 성공적으로 복원됨",
+    "en-US": "Color settings restored successfully"
+  },
+  "InitColorText": {
+    "ko-KR": "색상 설정 복원",
+    "en-US": "Reset color settings"
+  },
   "InitCommentContents": {
     "ko-KR": "모든 오프라인 플레이 기록을 삭제합니다.",
     "en-US": "Delete all offline play history."
@@ -3175,22 +3191,6 @@
     "ko-KR": "실시간 랭킹",
     "en-US": "Real-time Ranking"
   },
-  "InitColorContents": {
-    "ko-KR": "색상 설정을 기본으로 복원합니다.",
-    "en-US": "Reset color settings to their default values."
-  },
-  "InitColorNotify": {
-    "ko-KR": "색상 설정을 기본으로 복원할까요?",
-    "en-US": "Do you want to reset the color settings?"
-  },
-  "InitColorOK": {
-    "ko-KR": "색상 설정이 성공적으로 복원됨",
-    "en-US": "Color settings restored successfully"
-  },
-  "InitColorText": {
-    "ko-KR": "색상 설정 복원",
-    "en-US": "Reset color settings"
-  },
   "UndoContents": {
     "ko-KR": "다시 시도",
     "en-US": "Retry"
@@ -3322,6 +3322,10 @@
   "WantHighestInputCountContents": {
     "ko-KR": "피크 NPS 범위를 설정합니다.",
     "en-US": "Sets the peak NPS range."
+  },
+  "WantLevel": {
+    "ko-KR": "난이도 설정",
+    "en-US": "Difficulty filter setting"
   },
   "WantLevelItemContents": {
     "ko-KR": "지정된 난이도 테이블의 난이도를 설정합니다.",

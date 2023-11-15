@@ -1,28 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using Qwilight.ViewModel;
 using System.Windows.Input;
 
 namespace Qwilight.View
 {
-    public partial class InputPwWindow : IRecipient<ICC>
+    public partial class InputPwWindow
     {
         public InputPwWindow()
         {
             InitializeComponent();
-            WeakReferenceMessenger.Default.Register<ICC>(this);
-        }
 
-        public void Receive(ICC message)
-        {
-            switch (message.IDValue)
-            {
-                case ICC.ID.GetPwWindowCipher:
-                    (message.Contents as Action<string>)(InputCipher.Password);
-                    break;
-                case ICC.ID.ClearPwWindowCipher:
-                    InputCipher.Password = string.Empty;
-                    break;
-            }
+            StrongReferenceMessenger.Default.Register<GetPwWindowCipher>(this, (recipient, message) => message.Reply(InputCipher.Password));
+            StrongReferenceMessenger.Default.Register<InitSignUpCipher>(this, (recipient, message) => InputCipher.Password = string.Empty);
         }
 
         void OnInputLower(object sender, KeyEventArgs e) => (DataContext as InputPwViewModel).OnInputLower(e);

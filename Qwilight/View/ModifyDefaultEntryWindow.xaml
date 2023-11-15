@@ -23,7 +23,7 @@
                     </StackPanel>
                 </StackPanel>
                 <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding ModifyDefaultEntryAssist0, Source={StaticResource LanguageSystem}}" />
-                <ListView Grid.Row="2" Style="{StaticResource StandardPointableItemsView}" x:Name="DefaultEntryInput" ItemsSource="{Binding DefaultEntryItemCollection}" SelectedItem="{Binding DefaultEntryItem}" PreviewKeyDown="OnInputLower">
+                <ListView Grid.Row="2" Style="{StaticResource StandardPointableItemsView}" x:Name="DefaultEntryInput" ItemsSource="{Binding DefaultEntryItemCollection}" SelectedItem="{Binding DefaultEntryItemValue}" PreviewKeyDown="OnInputLower">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

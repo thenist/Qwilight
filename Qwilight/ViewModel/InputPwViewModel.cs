@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using System.Windows.Input;
 
 namespace Qwilight.ViewModel
@@ -49,23 +50,13 @@ namespace Qwilight.ViewModel
         void OnOK()
         {
             Close();
-            WeakReferenceMessenger.Default.Send<ICC>(new()
-            {
-                IDValue = ICC.ID.GetPwWindowCipher,
-                Contents = new Action<string>(inputCipher =>
-                {
-                    HandleOK(Input, inputCipher);
-                })
-            });
+            HandleOK(Input, StrongReferenceMessenger.Default.Send<GetPwWindowCipher>().Response);
         }
 
         public override void OnOpened()
         {
             base.OnOpened();
-            WeakReferenceMessenger.Default.Send<ICC>(new()
-            {
-                IDValue = ICC.ID.ClearPwWindowCipher
-            });
+            StrongReferenceMessenger.Default.Send<InitPwWindowCipher>();
         }
     }
 }

@@ -36,10 +36,9 @@ namespace Qwilight.ViewModel
                     {
                         FrontEntryItemCollection.Move(i, i - 1);
                     }
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    StrongReferenceMessenger.Default.Send(new MoveFrontEntryView
                     {
-                        IDValue = ICC.ID.MoveFrontEntryView,
-                        Contents = FrontEntryItemValue
+                        Target = FrontEntryItemValue
                     });
                     e.Handled = true;
                     break;
@@ -49,10 +48,9 @@ namespace Qwilight.ViewModel
                     {
                         FrontEntryItemCollection.Move(i, i + 1);
                     }
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    StrongReferenceMessenger.Default.Send(new MoveFrontEntryView
                     {
-                        IDValue = ICC.ID.MoveFrontEntryView,
-                        Contents = FrontEntryItemValue
+                        Target = FrontEntryItemValue
                     });
                     e.Handled = true;
                     break;
@@ -63,10 +61,9 @@ namespace Qwilight.ViewModel
                     {
                         FrontEntryItemValue = FrontEntryItemCollection[i];
                     }
-                    WeakReferenceMessenger.Default.Send<ICC>(new()
+                    StrongReferenceMessenger.Default.Send(new MoveFrontEntryView
                     {
-                        IDValue = ICC.ID.MoveFrontEntryView,
-                        Contents = FrontEntryItemValue
+                        Target = FrontEntryItemValue
                     });
                     break;
             }

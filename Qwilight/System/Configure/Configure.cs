@@ -364,7 +364,7 @@ namespace Qwilight
         {
             if (_isLoaded)
             {
-                WeakReferenceMessenger.Default.Send<SetD2DViewArea>();
+                StrongReferenceMessenger.Default.Send<SetD2DViewArea>();
             }
         }
 

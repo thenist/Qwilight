@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
 using System.Windows;
 using System.Windows.Input;
 
@@ -24,19 +25,16 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnSignIn() => WeakReferenceMessenger.Default.Send<ICC>(new()
+        static void OnSignIn()
         {
-            IDValue = ICC.ID.GetSignInCipher,
-            Contents = new Action<string>(inputCipher =>
+            var inputCipher = StrongReferenceMessenger.Default.Send<GetSignInCipher>().Response;
+            Configure.Instance.SetCipher(inputCipher);
+            TwilightSystem.Instance.SendParallel(Event.Types.EventID.SignIn, new
             {
-                Configure.Instance.SetCipher(inputCipher);
-                TwilightSystem.Instance.SendParallel(Event.Types.EventID.SignIn, new
-                {
-                    avatarID = Configure.Instance.AvatarID,
-                    avatarCipher = inputCipher
-                });
-            })
-        });
+                avatarID = Configure.Instance.AvatarID,
+                avatarCipher = inputCipher
+            });
+        }
 
         [RelayCommand]
         void OnSignUp()
@@ -48,10 +46,9 @@ namespace Qwilight.ViewModel
         public override void OnOpened()
         {
             base.OnOpened();
-            WeakReferenceMessenger.Default.Send<ICC>(new()
+            var inputCipher = StrongReferenceMessenger.Default.Send(new SetSignInCipher
             {
-                IDValue = ICC.ID.SetSignInCipher,
-                Contents = Configure.Instance.GetCipher()
+                Cipher = Configure.Instance.GetCipher()
             });
         }
     }
