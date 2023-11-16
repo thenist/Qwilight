@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Igniter.MSG
 {
-    public sealed class ViewAllowWindow : RequestMessage<MessageBoxResult>
+    public sealed class ViewAllowWindow : AsyncRequestMessage<MessageBoxResult>
     {
         public string Text { get; set; }
 

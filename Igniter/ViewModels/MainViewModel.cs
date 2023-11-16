@@ -39,7 +39,7 @@ namespace Igniter.ViewModel
 
         public async Task OnLoaded()
         {
-            switch (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
+            switch (await StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
                 Text = LanguageSystem.Instance.Levy,
                 Input = MessageBoxButton.OKCancel,
@@ -68,11 +68,11 @@ namespace Igniter.ViewModel
                                 await Task.Run(() => zipFile.ExtractAll(Path.GetDirectoryName(IgniterComponent.QwilightFilePath), ExtractExistingFileAction.OverwriteSilently)).ConfigureAwait(false);
                             }
 
-                            OnIgnited();
+                            await OnIgnited();
                         }
                         catch (Exception e)
                         {
-                            OnIgnitingFault(e);
+                            await OnIgnitingFault(e);
                             if (IsVisible)
                             {
                                 continue;
@@ -84,16 +84,16 @@ namespace Igniter.ViewModel
                     break;
             }
 
-            void OnIgnited()
+            async ValueTask OnIgnited()
             {
                 IsVisible = false;
-                StrongReferenceMessenger.Default.Send(new ViewAllowWindow
+                await StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                 {
                     Text = LanguageSystem.Instance.Ignited,
                     Input = MessageBoxButton.OK,
                     Drawing = MessageBoxImage.Information
                 });
-                switch (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
+                switch (await StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                 {
                     Text = LanguageSystem.Instance.ExeQwilight,
                     Input = MessageBoxButton.YesNo,
@@ -107,16 +107,16 @@ namespace Igniter.ViewModel
                 Environment.Exit(0);
             }
 
-            void OnIgnitingFault(Exception e)
+            async ValueTask OnIgnitingFault(Exception e)
             {
                 IsVisible = false;
-                StrongReferenceMessenger.Default.Send(new ViewAllowWindow
+                await StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                 {
                     Text = e.Message,
                     Input = MessageBoxButton.OK,
                     Drawing = MessageBoxImage.Error
                 });
-                switch (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
+                switch (await StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                 {
                     Text = LanguageSystem.Instance.IgnitingFault,
                     Input = MessageBoxButton.YesNo,
