@@ -12,8 +12,8 @@ namespace Igniter.ViewModel
 {
     public sealed partial class MainViewModel : ObservableObject
     {
-        double _value;
-        string _text;
+        double _value = double.NaN;
+        string _text = string.Empty;
         bool _isVisible = true;
 
         public double Value
@@ -68,11 +68,11 @@ namespace Igniter.ViewModel
                                 await Task.Run(() => zipFile.ExtractAll(Path.GetDirectoryName(IgniterComponent.QwilightFilePath), ExtractExistingFileAction.OverwriteSilently)).ConfigureAwait(false);
                             }
 
-                            await OnIgnited();
+                            await OnIgnited().ConfigureAwait(false);
                         }
                         catch (Exception e)
                         {
-                            await OnIgnitingFault(e);
+                            await OnIgnitingFault(e).ConfigureAwait(false);
                             if (IsVisible)
                             {
                                 continue;

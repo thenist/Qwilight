@@ -1686,16 +1686,15 @@ namespace Qwilight.Compute
                 {
                     if (mediaNote.HasContents)
                     {
-                        var handledItem = mediaNote.MediaItem;
-                        var isLooping = handledItem.IsLooping;
-                        if (isLooping || handledItem == null || LoopingCounter < waitModified + handledItem.Length)
+                        var mediaItem = mediaNote.MediaItem;
+                        if (mediaItem != null && LoopingCounter < waitModified + mediaItem.Length)
                         {
                             lock (LoadedCSX)
                             {
                                 if (HasContents)
                                 {
                                     var mediaMode = mediaNote.MediaMode;
-                                    DrawingCollection[mediaMode] = handledItem?.Handle(this, isLooping ? TimeSpan.Zero : TimeSpan.FromMilliseconds(waitModified) - mediaNote.MediaLevyingPosition, mediaMode);
+                                    DrawingCollection[mediaMode] = mediaItem.Handle(this, mediaItem.IsLooping ? TimeSpan.Zero : TimeSpan.FromMilliseconds(waitModified) - mediaNote.MediaLevyingPosition, mediaMode);
                                     IsHandlingDrawing = true;
                                 }
                             }
