@@ -84,12 +84,12 @@
                     <Button Style="{StaticResource StandardInput}" Content="{Binding ModifyFavoriteEntry, Source={StaticResource LanguageSystem}}" PreviewMouseDown="OnViewItems" Visibility="{Binding MainValue.IsNoteFileNotLogical, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}">
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Style="{StaticResource StandardItem}" Command="{Binding ModifyFavoriteEntryCommand}" Header="{Binding SetNoteFile, Source={StaticResource LanguageSystem}}">
+                                <MenuItem Command="{Binding ModifyFavoriteEntryCommand}" Header="{Binding SetNoteFile, Source={StaticResource LanguageSystem}}">
                                     <MenuItem.CommandParameter>
                                         <system:Int32>0</system:Int32>
                                     </MenuItem.CommandParameter>
                                 </MenuItem>
-                                <MenuItem Style="{StaticResource StandardItem}" Command="{Binding ModifyFavoriteEntryCommand}" Header="{Binding SetEntryItem, Source={StaticResource LanguageSystem}}">
+                                <MenuItem Command="{Binding ModifyFavoriteEntryCommand}" Header="{Binding SetEntryItem, Source={StaticResource LanguageSystem}}">
                                     <MenuItem.CommandParameter>
                                         <system:Int32>1</system:Int32>
                                     </MenuItem.CommandParameter>
@@ -100,12 +100,12 @@
                     <Button Style="{StaticResource StandardInput}" Content="{Binding WipeHandled, Source={StaticResource LanguageSystem}}" PreviewMouseDown="OnViewItems" Visibility="{Binding MainValue.IsNoteFileNotLogical, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}">
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Style="{StaticResource StandardItem}" Command="{Binding WipeHandledCommand}" Header="{Binding SetNoteFile, Source={StaticResource LanguageSystem}}">
+                                <MenuItem Command="{Binding WipeHandledCommand}" Header="{Binding SetNoteFile, Source={StaticResource LanguageSystem}}">
                                     <MenuItem.CommandParameter>
                                         <system:Int32>0</system:Int32>
                                     </MenuItem.CommandParameter>
                                 </MenuItem>
-                                <MenuItem Style="{StaticResource StandardItem}" Command="{Binding WipeHandledCommand}" Header="{Binding SetEntryItem, Source={StaticResource LanguageSystem}}">
+                                <MenuItem Command="{Binding WipeHandledCommand}" Header="{Binding SetEntryItem, Source={StaticResource LanguageSystem}}">
                                     <MenuItem.CommandParameter>
                                         <system:Int32>1</system:Int32>
                                     </MenuItem.CommandParameter>
@@ -119,7 +119,7 @@
                     <Button Style="{StaticResource StandardInput}" Content="{Binding NoteFormat, Source={StaticResource LanguageSystem}}" PreviewMouseDown="OnViewItems" Visibility="{Binding MainValue.IsNoteFileNotLogical, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}">
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding SetNoteFile, Source={StaticResource LanguageSystem}}">
+                                <MenuItem Header="{Binding SetNoteFile, Source={StaticResource LanguageSystem}}">
                                     <CheckBox Style="{StaticResource StandardVInput}" Command="{Binding NoteFileFormatIDCommand}" Content="{Binding AutoText, Source={StaticResource LanguageSystem}}">
                                         <CheckBox.IsChecked>
                                             <Binding Path="NoteFormatID" Source="{StaticResource Configure}" Converter="{StaticResource BoolModifier}" Mode="OneWay">
@@ -181,28 +181,28 @@
                                         </CheckBox.CommandParameter>
                                     </CheckBox>
                                 </MenuItem>
-                                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding SetEntryItem, Source={StaticResource LanguageSystem}}">
-                                    <MenuItem Style="{StaticResource StandardItem}" Command="{Binding EntryItemFormatIDCommand}" Header="{Binding AutoText, Source={StaticResource LanguageSystem}}">
+                                <MenuItem Header="{Binding SetEntryItem, Source={StaticResource LanguageSystem}}">
+                                    <MenuItem Command="{Binding EntryItemFormatIDCommand}" Header="{Binding AutoText, Source={StaticResource LanguageSystem}}">
                                         <MenuItem.CommandParameter>
                                             <system:Int32>-1</system:Int32>
                                         </MenuItem.CommandParameter>
                                     </MenuItem>
-                                    <MenuItem Style="{StaticResource StandardItem}" Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText932, Source={StaticResource LanguageSystem}}">
+                                    <MenuItem Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText932, Source={StaticResource LanguageSystem}}">
                                         <MenuItem.CommandParameter>
                                             <system:Int32>932</system:Int32>
                                         </MenuItem.CommandParameter>
                                     </MenuItem>
-                                    <MenuItem Style="{StaticResource StandardItem}" Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText936, Source={StaticResource LanguageSystem}}">
+                                    <MenuItem Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText936, Source={StaticResource LanguageSystem}}">
                                         <MenuItem.CommandParameter>
                                             <system:Int32>936</system:Int32>
                                         </MenuItem.CommandParameter>
                                     </MenuItem>
-                                    <MenuItem Style="{StaticResource StandardItem}" Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText949, Source={StaticResource LanguageSystem}}">
+                                    <MenuItem Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText949, Source={StaticResource LanguageSystem}}">
                                         <MenuItem.CommandParameter>
                                             <system:Int32>949</system:Int32>
                                         </MenuItem.CommandParameter>
                                     </MenuItem>
-                                    <MenuItem Style="{StaticResource StandardItem}" Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText65001, Source={StaticResource LanguageSystem}}">
+                                    <MenuItem Command="{Binding EntryItemFormatIDCommand}" Header="{Binding NoteFormatIDText65001, Source={StaticResource LanguageSystem}}">
                                         <MenuItem.CommandParameter>
                                             <system:Int32>65001</system:Int32>
                                         </MenuItem.CommandParameter>

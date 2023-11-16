@@ -234,7 +234,7 @@
     </Style>
 
     <!-- MenuItem -->
-    <Style x:Key="StandardItem" TargetType="MenuItem" BasedOn="{StaticResource MaterialDesignMenuItem}">
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MaterialDesignMenuItem}">
         <Setter Property="FontFamily" Value="{Binding FontFamilyValue, Source={StaticResource Configure}}" />
         <Setter Property="FontSize" Value="{StaticResource FontLevel0}" />
 

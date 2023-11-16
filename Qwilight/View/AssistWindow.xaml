@@ -31,8 +31,8 @@
                                 <Button Style="{StaticResource StandardInput}" Content="{Binding Tutorial20, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" PreviewMouseDown="OnViewItems">
                                     <Button.ContextMenu>
                                         <ContextMenu>
-                                            <MenuItem Style="{StaticResource StandardItem}" Header="{Binding Tutorial200, Source={StaticResource LanguageSystem}}" Command="{Binding NewBMSCommand}" />
-                                            <MenuItem Style="{StaticResource StandardItem}" Header="{Binding Tutorial201, Source={StaticResource LanguageSystem}}" Command="{Binding LoadBMSCommand}" />
+                                            <MenuItem Header="{Binding Tutorial200, Source={StaticResource LanguageSystem}}" Command="{Binding NewBMSCommand}" />
+                                            <MenuItem Header="{Binding Tutorial201, Source={StaticResource LanguageSystem}}" Command="{Binding LoadBMSCommand}" />
                                         </ContextMenu>
                                     </Button.ContextMenu>
                                 </Button>

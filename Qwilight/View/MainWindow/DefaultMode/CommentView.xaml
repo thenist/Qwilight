@@ -8,9 +8,9 @@
     <TabControl Style="{StaticResource StandardPageView}" SelectedIndex="{Binding CommentViewTabPosition, Source={StaticResource Configure}}">
         <TabControl.Resources>
             <ContextMenu x:Key="ViewItems">
-                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewAvatarCommand}" />
-                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewBundleCommand}" />
-                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+                <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewAvatarCommand}" />
+                <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewBundleCommand}" />
+                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
             </ContextMenu>
         </TabControl.Resources>
         <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding DefaultComment, Source={StaticResource LanguageSystem}}">

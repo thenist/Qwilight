@@ -12,9 +12,9 @@
     <Button PreviewMouseDown="OnViewItems" Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding SignInPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding SignInPoint[1], Source={StaticResource BaseUI}}" Width="{Binding SignInPoint[2], Source={StaticResource BaseUI}}" Height="{Binding SignInPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding SignInPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding SignInPoint[5], Source={StaticResource BaseUI}}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
         <Button.ContextMenu>
             <ContextMenu>
-                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding ViewMyAvatarCommand}" />
-                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding ViewMyBundleCommand}" />
-                <MenuItem Style="{StaticResource StandardItem}" Header="{Binding NotSignInText, Source={StaticResource LanguageSystem}}" Command="{Binding NotSignInCommand}" />
+                <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding ViewMyAvatarCommand}" />
+                <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding ViewMyBundleCommand}" />
+                <MenuItem Header="{Binding NotSignInText, Source={StaticResource LanguageSystem}}" Command="{Binding NotSignInCommand}" />
             </ContextMenu>
         </Button.ContextMenu>
         <Border Style="{StaticResource StandardPanelMargin0}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">

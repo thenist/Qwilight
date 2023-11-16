@@ -980,18 +980,21 @@ namespace Qwilight.Compute
                     _targetHandler.Join();
                 }
             }
-            lock (LoadedCSX)
+            Task.Run(() =>
             {
-                if (HasContents)
+                lock (LoadedCSX)
                 {
-                    AudioSystem.Instance.Stop(this);
-                    AudioSystem.Instance.Close(this, this);
-                    MediaSystem.Instance.Stop(this);
-                    MediaSystem.Instance.Close(this, this);
-                    DrawingSystem.Instance.Close(this);
-                    HasContents = false;
+                    if (HasContents)
+                    {
+                        AudioSystem.Instance.Stop(this);
+                        AudioSystem.Instance.Close(this, this);
+                        MediaSystem.Instance.Stop(this);
+                        MediaSystem.Instance.Close(this, this);
+                        DrawingSystem.Instance.Close(this);
+                        HasContents = false;
+                    }
                 }
-            }
+            });
         }
 
         public void LowerMultiplier()

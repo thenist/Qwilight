@@ -1743,7 +1743,6 @@ namespace Qwilight.ViewModel
                     {
                         try
                         {
-                            var lastDefaultEntryPath = lastDefaultEntryItem.DefaultEntryPath;
                             switch (lastDefaultEntryItem.DefaultEntryVarietyValue)
                             {
                                 case DefaultEntryItem.DefaultEntryVariety.Total:
