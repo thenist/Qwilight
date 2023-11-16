@@ -107,7 +107,7 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="Euphoria Guru" HorizontalAlignment="Right" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/code02251">Twitter</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/code02251">X</Button>
                                         </StackPanel>
                                     </Grid>
                                     <Grid>
@@ -117,7 +117,7 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="qfeileadh" HorizontalAlignment="Right" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/qfeileadh">Twitter</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/qfeileadh">X</Button>
                                         </StackPanel>
                                     </Grid>
                                     <Grid>
@@ -128,7 +128,7 @@
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="RiraN" HorizontalAlignment="Right" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                             <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/riranofficial">SoundCloud</Button>
-                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/riranofficial">Twitter</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/riranofficial">X</Button>
                                         </StackPanel>
                                     </Grid>
                                     <Grid>
@@ -139,7 +139,7 @@
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="SCTL" HorizontalAlignment="Right" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                             <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/sctl_shin">SoundCloud</Button>
-                                            <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/sctl_clean">Twitter</Button>
+                                            <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/sctl_clean">X</Button>
                                         </StackPanel>
                                     </Grid>
                                     <Grid>
@@ -150,8 +150,7 @@
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="Sobrem" HorizontalAlignment="Right" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                             <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/Sobrem">SoundCloud</Button>
-                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://sobrem.tistory.com">Tistory</Button>
-                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/SobremMusic">Twitter</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/SobremMusic">X</Button>
                                         </StackPanel>
                                     </Grid>
                                     <Grid>
@@ -162,7 +161,7 @@
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="Sound Souler" HorizontalAlignment="Right" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                             <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/sound_souler">SoundCloud</Button>
-                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/sound_souler">Twitter</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/sound_souler">X</Button>
                                         </StackPanel>
                                     </Grid>
                                     <Grid>
@@ -181,7 +180,7 @@
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="sak" HorizontalAlignment="Right" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                             <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/sakofsuken">SoundCloud</Button>
-                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/sakofsuken">Twitter</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/sakofsuken">X</Button>
                                         </StackPanel>
                                     </Grid>
                                     <Grid>
@@ -192,7 +191,7 @@
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="tkqn14" HorizontalAlignment="Right" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                             <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/tkqn14-official">SoundCloud</Button>
-                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/tkqn14">Twitter</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/tkqn14">X</Button>
                                         </StackPanel>
                                     </Grid>
                                     <Grid>
@@ -203,7 +202,7 @@
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="ああああ" HorizontalAlignment="Right" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                             <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/ricora">SoundCloud</Button>
-                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/q07a_">Twitter</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/q07a_">X</Button>
                                         </StackPanel>
                                     </Grid>
                                     <Grid>
@@ -214,7 +213,7 @@
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="わかどり" HorizontalAlignment="Right" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                             <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/wakadori">SoundCloud</Button>
-                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/wakadoori">Twitter</Button>
+                                            <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/wakadoori">X</Button>
                                         </StackPanel>
                                     </Grid>
                                 </StackPanel>
@@ -226,7 +225,7 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="CoolRyong" HorizontalAlignment="Right" />
-                                    <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/coolish_kor" HorizontalAlignment="Left">Twitter</Button>
+                                    <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/coolish_kor" HorizontalAlignment="Left">X</Button>
                                 </Grid>
                                 <TextBlock Style="{StaticResource StandardTextView}" Text="카인드맨" />
                                 <Separator Style="{StaticResource StandardHr}" />
@@ -250,7 +249,7 @@
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="KOTDARI" HorizontalAlignment="Right" />
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/kot-dari">SoundCloud</Button>
-                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/kotdari_forward">Twitter</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/kotdari_forward">X</Button>
                                     </StackPanel>
                                 </Grid>
                                 <Grid>
@@ -366,7 +365,7 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="Microsoft.Data.Sqlite" HorizontalAlignment="Right" />
-                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://docs.microsoft.com/dotnet/standard/data/sqlite" HorizontalAlignment="Left">GitHub</Button>
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://docs.microsoft.com/dotnet/standard/data/sqlite" HorizontalAlignment="Left">MSDN</Button>
                                     </Grid>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
