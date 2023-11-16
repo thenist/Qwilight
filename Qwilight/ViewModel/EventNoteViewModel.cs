@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Data.Sqlite;
 using Qwilight.MSG;
 using Qwilight.NoteFile;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Input;
 
@@ -94,7 +94,7 @@ namespace Qwilight.ViewModel
                     mainViewModel.LoadEventNoteEntryItems();
                     mainViewModel.Want();
                 }
-                catch (SQLiteException)
+                catch (SqliteException)
                 {
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.BeforeEventNoteContents);
                 }

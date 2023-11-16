@@ -1,8 +1,8 @@
 ﻿/** 쓰레기 코드임 */
 
 using Ionic.Zip;
+using Microsoft.Data.Sqlite;
 using System.Data;
-using System.Data.SQLite;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -38,64 +38,45 @@ namespace Compatible
             }
         }
 
-        public static void DB(SQLiteConnection fastDB)
+        public static void DB(SqliteConnection fastDB)
         {
             if (HasTable("comment"))
             {
-                using (var dbStatement = new SQLiteCommand(@"UPDATE comment
-                    SET Comment = REPLACE(Comment, '.pb', '')", fastDB))
-                {
-                    dbStatement.ExecuteNonQuery();
-                }
+                var dbStatement = new SqliteCommand(@"UPDATE comment
+                    SET Comment = REPLACE(Comment, '.pb', '')", fastDB);
+                dbStatement.ExecuteNonQuery();
             }
             if (HasTable("component"))
             {
                 try
                 {
                     var date = string.Empty;
-                    using (var dbStatement = new SQLiteCommand(@"SELECT Date
-                        FROM component", fastDB))
+                    var dbStatement = new SqliteCommand(@"SELECT Date
+                        FROM component", fastDB);
+                    using (var rows = dbStatement.ExecuteReader())
                     {
-                        using var rows = dbStatement.ExecuteReader();
                         if (rows.Read())
                         {
-                            date = rows["Date"] as string;
+                            date = rows.GetString("Date");
                         }
                     }
-                    using (var db = new SQLiteCommand(@"CREATE TABLE IF NOT EXISTS db_file (
+
+                    dbStatement = new SqliteCommand(@"CREATE TABLE IF NOT EXISTS db_file (
 					    ID TEXT,
 					    Value TEXT,
 					    PRIMARY KEY (ID)
-				    )", fastDB))
-                    {
-                        db.ExecuteNonQuery();
-                    }
-                    using (var dbStatement = new SQLiteCommand("""
+				    )", fastDB);
+                    dbStatement.ExecuteNonQuery();
+
+                    dbStatement = new SqliteCommand("""
                         REPLACE INTO db_file
                         VALUES("date", @value)
-                    """, fastDB))
-                    {
-                        dbStatement.Parameters.AddWithValue("value", date);
-                        dbStatement.ExecuteNonQuery();
-                    }
-                    using (var db = new SQLiteCommand(@"DROP TABLE component", fastDB))
-                    {
-                        db.ExecuteNonQuery();
-                    }
-                }
-                catch
-                {
-                }
-            }
+                    """, fastDB);
+                    dbStatement.Parameters.AddWithValue("value", date);
+                    dbStatement.ExecuteNonQuery();
 
-            if (HasTable("composition"))
-            {
-                try
-                {
-                    using (var db = new SQLiteCommand(@"DROP TABLE composition", fastDB))
-                    {
-                        db.ExecuteNonQuery();
-                    }
+                    dbStatement = new SqliteCommand(@"DROP TABLE component", fastDB);
+                    dbStatement.ExecuteNonQuery();
                 }
                 catch
                 {
@@ -106,18 +87,18 @@ namespace Compatible
             {
                 try
                 {
-                    using var dbModifyCommand = new SQLiteCommand(@"ALTER TABLE event_note_data
+                    var dbStatement = new SqliteCommand(@"ALTER TABLE event_note_data
                         RENAME COLUMN Composer TO Artist", fastDB);
-                    dbModifyCommand.ExecuteNonQuery();
+                    dbStatement.ExecuteNonQuery();
                 }
                 catch
                 {
                 }
                 try
                 {
-                    using var dbModifyCommand = new SQLiteCommand(@"ALTER TABLE event_note_data
+                    var dbStatement = new SqliteCommand(@"ALTER TABLE event_note_data
                         RENAME COLUMN Level_Contents TO Level_Text", fastDB);
-                    dbModifyCommand.ExecuteNonQuery();
+                    dbStatement.ExecuteNonQuery();
                 }
                 catch
                 {
@@ -126,12 +107,12 @@ namespace Compatible
 
             bool HasTable(string tableName)
             {
-                using var db = new SQLiteCommand(@"SELECT name
+                var dbStatement = new SqliteCommand(@"SELECT name
                     FROM sqlite_master
                     WHERE type = 'table' AND name = @tableName", fastDB);
-                db.Parameters.AddWithValue("tableName", tableName);
-                using var dbr = db.ExecuteReader();
-                return dbr.Read();
+                dbStatement.Parameters.AddWithValue("tableName", tableName);
+                using var rows = dbStatement.ExecuteReader();
+                return rows.Read();
             }
         }
 

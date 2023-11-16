@@ -365,6 +365,14 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="Microsoft.Data.Sqlite" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://docs.microsoft.com/dotnet/standard/data/sqlite" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="Microsoft.Graphics.Win2D" HorizontalAlignment="Right" />
                                         <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/microsoft/Win2D" HorizontalAlignment="Left">GitHub</Button>
                                     </Grid>
@@ -423,14 +431,6 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="SharpCompress" HorizontalAlignment="Right" />
                                         <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/adamhathcock/sharpcompress" HorizontalAlignment="Left">GitHub</Button>
-                                    </Grid>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Style="{StaticResource StandardTextView}" Text="System.Data.SQLite" HorizontalAlignment="Right" />
-                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://system.data.sqlite.org" HorizontalAlignment="Left">Home</Button>
                                     </Grid>
                                     <Grid>
                                         <Grid.ColumnDefinitions>

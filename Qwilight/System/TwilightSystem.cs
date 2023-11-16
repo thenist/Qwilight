@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Google.Protobuf;
 using Ionic.Zip;
+using Microsoft.Data.Sqlite;
 using Qwilight.Compute;
 using Qwilight.MSG;
 using Qwilight.UIComponent;
@@ -9,7 +10,6 @@ using Qwilight.View;
 using Qwilight.ViewModel;
 using System.Buffers;
 using System.Collections.Concurrent;
-using System.Data.SQLite;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -1033,7 +1033,7 @@ namespace Qwilight
                                                             mainViewModel.LoadEventNoteEntryItems();
                                                             mainViewModel.Want();
                                                         }
-                                                        catch (SQLiteException)
+                                                        catch (SqliteException)
                                                         {
                                                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.BeforeEventNoteContents);
                                                         }
