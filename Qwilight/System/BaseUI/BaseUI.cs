@@ -703,88 +703,85 @@ namespace Qwilight
             Compatible.Compatible.BaseUI(QwilightComponent.UIEntryPath, target.GetYamlFilePath(), target.YamlName, target.UIEntry);
             #endregion
 
-            var mainViewModel = ViewModels.Instance.MainValue;
-            try
+            Init();
+            string zipName;
+
+            var lsCaller = new Script();
+
+            var parallelItems = new ConcurrentBag<Action>();
+
+            var ys = new YamlStream();
+            using (var sr = File.OpenText(target.GetYamlFilePath()))
             {
-                Init();
-                string zipName;
+                ys.Load(sr);
 
-                var lsCaller = new Script();
+                var valueNode = ys.Documents[0].RootNode;
+                var formatNode = valueNode[new YamlScalarNode("format")];
+                var paintNode = valueNode[new YamlScalarNode("paint")];
+                var pointNode = valueNode[new YamlScalarNode("point")];
+                var fontNode = valueNode[new YamlScalarNode("font")];
+                (valueNode as YamlMappingNode).Children.TryGetValue(new YamlScalarNode("func"), out var funcNode);
 
-                var parallelItems = new ConcurrentBag<Action>();
+                zipName = $"@{Utility.GetText(formatNode, "zip")}";
 
-                var ys = new YamlStream();
-                using (var sr = File.OpenText(target.GetYamlFilePath()))
+                XamlBaseUIConfigures = Enumerable.Range(0, HighestBaseUIConfigure).Select(i =>
                 {
-                    ys.Load(sr);
-
-                    var valueNode = ys.Documents[0].RootNode;
-                    var formatNode = valueNode[new YamlScalarNode("format")];
-                    var paintNode = valueNode[new YamlScalarNode("paint")];
-                    var pointNode = valueNode[new YamlScalarNode("point")];
-                    var fontNode = valueNode[new YamlScalarNode("font")];
-                    (valueNode as YamlMappingNode).Children.TryGetValue(new YamlScalarNode("func"), out var funcNode);
-
-                    zipName = $"@{Utility.GetText(formatNode, "zip")}";
-
-                    XamlBaseUIConfigures = Enumerable.Range(0, HighestBaseUIConfigure).Select(i =>
+                    var configures = (Utility.GetText(funcNode, $"configure-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(funcNode, $"configure-{i}"))?.Split(',')?.Select(configure => configure.Trim())?.ToArray();
+                    if (configures != null)
                     {
-                        var configures = (Utility.GetText(funcNode, $"configure-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(funcNode, $"configure-{i}"))?.Split(',')?.Select(configure => configure.Trim())?.ToArray();
-                        if (configures != null)
+                        LoadedConfigures[i] = Configure.Instance.BaseUIConfigureValue.UIConfigures[i] ??= configures.FirstOrDefault();
+                        return new XamlBaseUIConfigure
                         {
-                            LoadedConfigures[i] = Configure.Instance.BaseUIConfigureValue.UIConfigures[i] ??= configures.FirstOrDefault();
-                            return new XamlBaseUIConfigure
-                            {
-                                Position = i,
-                                Configures = configures,
-                                ConfigureComment = Utility.GetText(funcNode, $"configure-comment-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(funcNode, $"configure-comment-{i}")
-                            };
-                        }
-                        else
-                        {
-                            return null;
-                        }
-                    }).Where(value => value != null).ToArray();
-                    SetConfigures(lsCaller);
-
-                    var luaFilePath = Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, Path.ChangeExtension($"@{Utility.GetText(formatNode, "lua")}", "lua"));
-                    if (File.Exists(luaFilePath))
-                    {
-                        lsCaller.DoString(File.ReadAllText(luaFilePath, Encoding.UTF8));
+                            Position = i,
+                            Configures = configures,
+                            ConfigureComment = Utility.GetText(funcNode, $"configure-comment-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(funcNode, $"configure-comment-{i}")
+                        };
                     }
+                    else
+                    {
+                        return null;
+                    }
+                }).Where(value => value != null).ToArray();
+                SetConfigures(lsCaller);
 
-                    DefaultLength = GetCalledValue(formatNode, "defaultLength", "1280.0");
-                    DefaultHeight = GetCalledValue(formatNode, "defaultHeight", "720.0");
+                var luaFilePath = Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, Path.ChangeExtension($"@{Utility.GetText(formatNode, "lua")}", "lua"));
+                if (File.Exists(luaFilePath))
+                {
+                    lsCaller.DoString(File.ReadAllText(luaFilePath, Encoding.UTF8));
+                }
 
-                    SiteDateColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteDate", nameof(Colors.White))).GetColor());
-                    SiteEnterColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteEnter", nameof(Colors.White))).GetColor());
-                    SiteQuitColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteQuit", nameof(Colors.White))).GetColor());
-                    SiteHrefColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteHref", nameof(Colors.White))).GetColor());
-                    SiteTitleColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteTitle", nameof(Colors.White))).GetColor());
-                    SiteArtistColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteArtist", nameof(Colors.White))).GetColor());
-                    SiteGenreColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteGenre", nameof(Colors.White))).GetColor());
-                    SiteStandColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteStand", nameof(Colors.White))).GetColor());
+                DefaultLength = GetCalledValue(formatNode, "defaultLength", "1280.0");
+                DefaultHeight = GetCalledValue(formatNode, "defaultHeight", "720.0");
 
-                    EventNoteNameColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "eventNoteName", nameof(Colors.White))).GetColor());
-                    TitleColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "title", nameof(Colors.White))).GetColor());
-                    ArtistColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "artist", nameof(Colors.White))).GetColor());
-                    GenreColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "genre", nameof(Colors.White))).GetColor());
-                    WantLevelIDColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "wantLevelID", nameof(Colors.White))).GetColor());
-                    FittedTextColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "fittedText", nameof(Colors.White))).GetColor());
+                SiteDateColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteDate", nameof(Colors.White))).GetColor());
+                SiteEnterColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteEnter", nameof(Colors.White))).GetColor());
+                SiteQuitColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteQuit", nameof(Colors.White))).GetColor());
+                SiteHrefColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteHref", nameof(Colors.White))).GetColor());
+                SiteTitleColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteTitle", nameof(Colors.White))).GetColor());
+                SiteArtistColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteArtist", nameof(Colors.White))).GetColor());
+                SiteGenreColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteGenre", nameof(Colors.White))).GetColor());
+                SiteStandColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteStand", nameof(Colors.White))).GetColor());
 
-                    FileColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "file", nameof(Colors.White))).GetColor());
-                    JudgmentStageColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "judgmentStage", nameof(Colors.White))).GetColor());
-                    TotalNotesColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "totalNotes", nameof(Colors.White))).GetColor());
-                    HighestInputCountColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "highestInputCount", nameof(Colors.White))).GetColor());
-                    LengthColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "length", nameof(Colors.White))).GetColor());
-                    BPMColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "bpm", nameof(Colors.White))).GetColor());
+                EventNoteNameColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "eventNoteName", nameof(Colors.White))).GetColor());
+                TitleColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "title", nameof(Colors.White))).GetColor());
+                ArtistColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "artist", nameof(Colors.White))).GetColor());
+                GenreColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "genre", nameof(Colors.White))).GetColor());
+                WantLevelIDColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "wantLevelID", nameof(Colors.White))).GetColor());
+                FittedTextColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "fittedText", nameof(Colors.White))).GetColor());
 
-                    CommentDateColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentDate", nameof(Colors.White))).GetColor());
-                    CommentNameColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentName", nameof(Colors.White))).GetColor());
-                    CommentPointColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentPoint", nameof(Colors.White))).GetColor());
-                    CommentStandColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentStand", nameof(Colors.White))).GetColor());
+                FileColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "file", nameof(Colors.White))).GetColor());
+                JudgmentStageColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "judgmentStage", nameof(Colors.White))).GetColor());
+                TotalNotesColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "totalNotes", nameof(Colors.White))).GetColor());
+                HighestInputCountColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "highestInputCount", nameof(Colors.White))).GetColor());
+                LengthColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "length", nameof(Colors.White))).GetColor());
+                BPMColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "bpm", nameof(Colors.White))).GetColor());
 
-                    foreach (var pair in new[] {
+                CommentDateColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentDate", nameof(Colors.White))).GetColor());
+                CommentNameColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentName", nameof(Colors.White))).GetColor());
+                CommentPointColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentPoint", nameof(Colors.White))).GetColor());
+                CommentStandColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentStand", nameof(Colors.White))).GetColor());
+
+                foreach (var pair in new[] {
                         ("level0", (int)BaseNoteFile.Level.Level0),
                         ("level1", (int)BaseNoteFile.Level.Level1),
                         ("level2", (int)BaseNoteFile.Level.Level2),
@@ -792,26 +789,26 @@ namespace Qwilight
                         ("level4", (int)BaseNoteFile.Level.Level4),
                         ("level5", (int)BaseNoteFile.Level.Level5)
                     })
-                    {
-                        LevelColors[pair.Item2] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor());
-                        LevelPaints[pair.Item2] = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(LevelColors[pair.Item2]));
-                        D2DLevelColors[pair.Item2] = Utility.ModifyColor(LevelColors[pair.Item2]);
-                    }
+                {
+                    LevelColors[pair.Item2] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor());
+                    LevelPaints[pair.Item2] = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(LevelColors[pair.Item2]));
+                    D2DLevelColors[pair.Item2] = Utility.ModifyColor(LevelColors[pair.Item2]);
+                }
 
-                    TitleQuitColor = GetCalledText(Utility.GetText(paintNode, "titleQuit", nameof(Colors.White))).GetColor();
-                    ArtistQuitColor = GetCalledText(Utility.GetText(paintNode, "artistQuit", nameof(Colors.White))).GetColor();
-                    GenreQuitColor = GetCalledText(Utility.GetText(paintNode, "genreQuit", nameof(Colors.White))).GetColor();
-                    WantLevelIDQuitColor = GetCalledText(Utility.GetText(paintNode, "wantLevelIDQuit", nameof(Colors.White))).GetColor();
-                    JudgmentStageQuitColor = GetCalledText(Utility.GetText(paintNode, "judgmentStageQuit", nameof(Colors.White))).GetColor();
-                    HighestInputCountQuitColor = GetCalledText(Utility.GetText(paintNode, "highestInputCountQuit", nameof(Colors.White))).GetColor();
-                    LengthQuitColor = GetCalledText(Utility.GetText(paintNode, "lengthQuit", nameof(Colors.White))).GetColor();
-                    BPMQuitColor = GetCalledText(Utility.GetText(paintNode, "bpmQuit", nameof(Colors.White))).GetColor();
-                    StandQuitColor = GetCalledText(Utility.GetText(paintNode, "standQuit", nameof(Colors.White))).GetColor();
-                    PointQuitColor = GetCalledText(Utility.GetText(paintNode, "pointQuit", nameof(Colors.White))).GetColor();
-                    BandQuitColor = GetCalledText(Utility.GetText(paintNode, "bandQuit", nameof(Colors.White))).GetColor();
-                    CommentPlaceColor = GetCalledText(Utility.GetText(paintNode, "commentPlace", nameof(Colors.White))).GetColor();
+                TitleQuitColor = GetCalledText(Utility.GetText(paintNode, "titleQuit", nameof(Colors.White))).GetColor();
+                ArtistQuitColor = GetCalledText(Utility.GetText(paintNode, "artistQuit", nameof(Colors.White))).GetColor();
+                GenreQuitColor = GetCalledText(Utility.GetText(paintNode, "genreQuit", nameof(Colors.White))).GetColor();
+                WantLevelIDQuitColor = GetCalledText(Utility.GetText(paintNode, "wantLevelIDQuit", nameof(Colors.White))).GetColor();
+                JudgmentStageQuitColor = GetCalledText(Utility.GetText(paintNode, "judgmentStageQuit", nameof(Colors.White))).GetColor();
+                HighestInputCountQuitColor = GetCalledText(Utility.GetText(paintNode, "highestInputCountQuit", nameof(Colors.White))).GetColor();
+                LengthQuitColor = GetCalledText(Utility.GetText(paintNode, "lengthQuit", nameof(Colors.White))).GetColor();
+                BPMQuitColor = GetCalledText(Utility.GetText(paintNode, "bpmQuit", nameof(Colors.White))).GetColor();
+                StandQuitColor = GetCalledText(Utility.GetText(paintNode, "standQuit", nameof(Colors.White))).GetColor();
+                PointQuitColor = GetCalledText(Utility.GetText(paintNode, "pointQuit", nameof(Colors.White))).GetColor();
+                BandQuitColor = GetCalledText(Utility.GetText(paintNode, "bandQuit", nameof(Colors.White))).GetColor();
+                CommentPlaceColor = GetCalledText(Utility.GetText(paintNode, "commentPlace", nameof(Colors.White))).GetColor();
 
-                    foreach (var pair in new[] {
+                foreach (var pair in new[] {
                         ("lowestHitPoints", ModeComponent.HitPointsMode.Lowest),
                         ("lowerHitPoints", ModeComponent.HitPointsMode.Lower),
                         ("defaultHitPoints", ModeComponent.HitPointsMode.Default),
@@ -821,21 +818,21 @@ namespace Qwilight
                         ("favorHitPoints", ModeComponent.HitPointsMode.Favor),
                         ("testHitPoints", ModeComponent.HitPointsMode.Test)
                     })
+                {
+                    parallelItems.Add(() =>
                     {
-                        parallelItems.Add(() =>
-                        {
-                            HitPointsColor[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.Red))).GetColor();
-                            HitPointsPaints[(int)pair.Item2] = DrawingSystem.Instance.GetDefaultPaint(HitPointsColor[(int)pair.Item2]);
-                            DrawingSystem.Instance.SetFaintPaints(this, D2DHitPointsPaints[(int)pair.Item2], HitPointsColor[(int)pair.Item2]);
-                        });
-                    }
+                        HitPointsColor[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.Red))).GetColor();
+                        HitPointsPaints[(int)pair.Item2] = DrawingSystem.Instance.GetDefaultPaint(HitPointsColor[(int)pair.Item2]);
+                        DrawingSystem.Instance.SetFaintPaints(this, D2DHitPointsPaints[(int)pair.Item2], HitPointsColor[(int)pair.Item2]);
+                    });
+                }
 
-                    StandStatusViewColor = GetCalledText(Utility.GetText(paintNode, "standStatusView", nameof(Colors.White))).GetColor();
-                    PointStatusViewColor = GetCalledText(Utility.GetText(paintNode, "pointStatusView", nameof(Colors.White))).GetColor();
-                    BandStatusViewColor = GetCalledText(Utility.GetText(paintNode, "bandStatusView", nameof(Colors.White))).GetColor();
-                    HitPointsStatusViewColor = GetCalledText(Utility.GetText(paintNode, "hitPointsStatusView", nameof(Colors.White))).GetColor();
+                StandStatusViewColor = GetCalledText(Utility.GetText(paintNode, "standStatusView", nameof(Colors.White))).GetColor();
+                PointStatusViewColor = GetCalledText(Utility.GetText(paintNode, "pointStatusView", nameof(Colors.White))).GetColor();
+                BandStatusViewColor = GetCalledText(Utility.GetText(paintNode, "bandStatusView", nameof(Colors.White))).GetColor();
+                HitPointsStatusViewColor = GetCalledText(Utility.GetText(paintNode, "hitPointsStatusView", nameof(Colors.White))).GetColor();
 
-                    foreach (var pair in new[] {
+                foreach (var pair in new[] {
                         ("highestJudgmentV2", Component.Judged.Highest),
                         ("higherJudgmentV2", Component.Judged.Higher),
                         ("highJudgmentV2", Component.Judged.High),
@@ -843,15 +840,15 @@ namespace Qwilight
                         ("lowerJudgmentV2", Component.Judged.Lower),
                         ("lowestJudgmentV2", Component.Judged.Lowest)
                     })
-                    {
-                        var inputMode = (int)(Component.InputMode)pair.Item2;
-                        JudgmentColors[(int)inputMode] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor();
-                        JudgmentPaints[(int)inputMode] = DrawingSystem.Instance.GetDefaultPaint(JudgmentColors[(int)inputMode]);
-                        parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, D2DJudgmentPaints[(int)inputMode], JudgmentColors[(int)inputMode]));
-                    }
+                {
+                    var inputMode = (int)(Component.InputMode)pair.Item2;
+                    JudgmentColors[(int)inputMode] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor();
+                    JudgmentPaints[(int)inputMode] = DrawingSystem.Instance.GetDefaultPaint(JudgmentColors[(int)inputMode]);
+                    parallelItems.Add(() => DrawingSystem.Instance.SetFaintPaints(this, D2DJudgmentPaints[(int)inputMode], JudgmentColors[(int)inputMode]));
+                }
 
-                    TotalNotesJudgmentQuitColor = GetCalledText(Utility.GetText(paintNode, "totalNotesJudgmentQuit", nameof(Colors.White))).GetColor();
-                    foreach (var pair in new[] {
+                TotalNotesJudgmentQuitColor = GetCalledText(Utility.GetText(paintNode, "totalNotesJudgmentQuit", nameof(Colors.White))).GetColor();
+                foreach (var pair in new[] {
                         ("highestJudgmentQuit", Component.Judged.Highest),
                         ("higherJudgmentQuit", Component.Judged.Higher),
                         ("highJudgmentQuit", Component.Judged.High),
@@ -859,1108 +856,259 @@ namespace Qwilight
                         ("lowerJudgmentQuit", Component.Judged.Lower),
                         ("lowestJudgmentQuit", Component.Judged.Lowest)
                     })
-                    {
-                        JudgmentQuitColors[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor();
-                    }
-
-                    StatusHandlingColor = GetCalledText(Utility.GetText(paintNode, "statusHandling", "#7F008000")).GetColor();
-                    StatusHandlingPaint = DrawingSystem.Instance.GetDefaultPaint(StatusHandlingColor);
-
-                    StatusPausedColor = GetCalledText(Utility.GetText(paintNode, "statusPaused", "#7FFFFF00")).GetColor();
-                    StatusPausedPaint = DrawingSystem.Instance.GetDefaultPaint(StatusPausedColor);
-
-                    StatusLoadingNoteFileColor = GetCalledText(Utility.GetText(paintNode, "statusLoadingNoteFile", "#7FFF0000")).GetColor();
-                    StatusLoadingNoteFilePaint = DrawingSystem.Instance.GetDefaultPaint(StatusLoadingNoteFileColor);
-
-                    StatusLoadingDefaultEntryColor = GetCalledText(Utility.GetText(paintNode, "statusLoadingDefaultEntry", "#7F0000FF")).GetColor();
-                    StatusLoadingDefaultEntryPaint = DrawingSystem.Instance.GetDefaultPaint(StatusLoadingDefaultEntryColor);
-
-                    QuitColors[(int)DefaultCompute.QuitStatus.SPlus] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit0")).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.S] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit1")).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.APlus] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit2")).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.A] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit3")).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.B] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit4")).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.C] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit5")).GetColor());
-                    QuitColors[(int)DefaultCompute.QuitStatus.D] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit6")).GetColor());
-
-                    for (var i = (int)DefaultCompute.QuitStatus.D; i >= (int)DefaultCompute.QuitStatus.SPlus; --i)
-                    {
-                        CommentViewPaints[i] = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(QuitColors[i]));
-                    }
-
-                    NoteFileMargin = new(GetCalledValue(pointNode, "noteFileMargin", "31.5"), 1.0, 0.0, 1.0);
-                    var entryViewTitleMargin = GetLayerPoint(pointNode, "entryViewTitleMargin", new[] { 58.0, 0.0, 0.0, 0.0 });
-                    EntryViewTitleMargin = new(entryViewTitleMargin[0], entryViewTitleMargin[1], entryViewTitleMargin[2], entryViewTitleMargin[3]);
-
-                    SignInPoint = GetDrawingPoint(pointNode, "signIn");
-                    ConfigurePoint = GetDrawingPoint(pointNode, "configure");
-                    CommentPoint = GetDrawingPoint(pointNode, "comment", new object[] { 0.0, 0.0, 0.0, 0.0, HorizontalAlignment.Center, VerticalAlignment.Center, Stretch.Uniform });
-                    HasCommentPoint = (double)CommentPoint[2] > 0.0 && (double)CommentPoint[3] > 0.0;
-
-                    SaltAutoPoint = GetDrawingPoint(pointNode, "saltAuto");
-                    StopAutoPoint = GetDrawingPoint(pointNode, "stopAuto");
-
-                    HandledWallLength = GetCalledValue(pointNode, "handledWallLength", "10");
-                    EntryItemHeight = GetCalledValue(pointNode, "entryItemHeight", "60");
-                    CommentItemHeight = GetCalledValue(pointNode, "commentItemHeight", "48");
-                    CommentItemAvatarHeight = CommentItemHeight + 2 * CommentItemHeight * Levels.EdgeXY + 2 * 1.0;
-
-                    CommentViewPoint = GetLayerPoint(pointNode, "commentView");
-                    EntryViewPoint = GetLayerPoint(pointNode, "entryView");
-                    InputNoteCountViewPoint = GetLayerPoint(pointNode, "inputNoteCountView", new double[] { 0.0, 0.0, 0.0, 0.0 });
-                    AssistViewPoint = GetPanelPoint(pointNode, "assistView", new object[] { 0.0, 0.0, 0.0, 0.0, HorizontalAlignment.Stretch, VerticalAlignment.Stretch, Colors.Transparent, Colors.Transparent });
-
-                    AutoModePoint = GetDrawingPoint(pointNode, "autoMode");
-                    NoteSaltModePoint = GetDrawingPoint(pointNode, "noteSaltMode");
-                    FaintNoteModePoint = GetDrawingPoint(pointNode, "faintNoteMode");
-                    JudgmentModePoint = GetDrawingPoint(pointNode, "judgmentMode");
-                    HitPointsModePoint = GetDrawingPoint(pointNode, "hitPointsMode");
-                    NoteMobilityModePoint = GetDrawingPoint(pointNode, "noteMobilityMode");
-                    InputFavorModePoint = GetDrawingPoint(pointNode, "inputFavorMode");
-                    LongNoteModePoint = GetDrawingPoint(pointNode, "longNoteMode");
-                    NoteModifyModePoint = GetDrawingPoint(pointNode, "noteModifyMode");
-                    BPMModePoint = GetDrawingPoint(pointNode, "bpmMode");
-                    WaveModePoint = GetDrawingPoint(pointNode, "waveMode");
-                    SetNoteModePoint = GetDrawingPoint(pointNode, "setNoteMode");
-                    LowestJudgmentConditionModePoint = GetDrawingPoint(pointNode, "lowestJudgmentConditionMode");
-
-                    FilePoint = GetDrawingPoint(pointNode, "file");
-                    FileContentsPoint = GetTextPoint(pointNode, "fileContents");
-                    FileViewerPoint = GetDrawingPoint(pointNode, "fileViewer");
-                    AssistFileViewerPoint = GetDrawingPoint(pointNode, "assistFileViewer");
-                    JudgmentStagePoint = GetDrawingPoint(pointNode, "judgmentStage");
-                    JudgmentStageContentsPoint = GetTextPoint(pointNode, "judgmentStageContents");
-                    JudgmentStagePoint = GetDrawingPoint(pointNode, "judgmentStage");
-                    JudgmentStageContentsPoint = GetTextPoint(pointNode, "judgmentStageContents");
-                    TotalNotesPoint = GetDrawingPoint(pointNode, "totalNotes");
-                    TotalNotesContentsPoint = GetTextPoint(pointNode, "totalNotesContents");
-                    HighestInputCountPoint = GetDrawingPoint(pointNode, "highestInputCount");
-                    HighestInputCountContentsPoint = GetTextPoint(pointNode, "highestInputCountContents");
-                    LengthPoint = GetDrawingPoint(pointNode, "length");
-                    LengthContentsPoint = GetTextPoint(pointNode, "lengthContents");
-                    BPMPoint = GetDrawingPoint(pointNode, "bpm");
-                    BPMContentsPoint = GetTextPoint(pointNode, "bpmContents");
-                    InputModePoint = GetDrawingPoint(pointNode, "inputMode");
-                    InputModeContentsPoint = GetDrawingPoint(pointNode, "inputModeContents");
-                    StatusPoint = GetLayerPoint(pointNode, "status");
-                    StatusDefaultEntryPoint = GetLayerPoint(pointNode, "statusDefaultEntry");
-
-                    EventNoteNameFontLevel = GetCalledValue(fontNode, "eventNoteNameLevel", Levels.FontLevel1.ToString());
-                    TitleFontLevel = GetCalledValue(fontNode, "titleLevel", Levels.FontLevel1.ToString());
-                    ArtistFontLevel = GetCalledValue(fontNode, "artistLevel", Levels.FontLevel0.ToString());
-                    FittedTextFontLevel = GetCalledValue(fontNode, "fittedTextLevel", Levels.FontLevel0.ToString());
-                    GenreFontLevel = GetCalledValue(fontNode, "genreLevel", Levels.FontLevel0.ToString());
-                    LevelFontLevel = GetCalledValue(fontNode, "levelLevel", Levels.FontLevel1.ToString());
-                    WantLevelIDFontLevel = GetCalledValue(fontNode, "wantLevelIDLevel", Levels.FontLevel1.ToString());
-                    EntryItemPositionFontLevel = GetCalledValue(fontNode, "entryItemPositionLevel", Levels.FontLevel0.ToString());
-
-                    CommentDateFontLevel = GetCalledValue(fontNode, "commentDateLevel", Levels.FontLevel0.ToString());
-                    CommentViewPointFontLevel = GetCalledValue(fontNode, "commentPointLevel", Levels.FontLevel0.ToString());
-                    CommentAvatarNameFontLevel = GetCalledValue(fontNode, "commentAvatarNameLevel", Levels.FontLevel1.ToString());
-                    CommentStandFontLevel = GetCalledValue(fontNode, "commentStandLevel", Levels.FontLevel1.ToString());
-
-                    TitleQuitPoint = GetQuitPoint(pointNode, "titleQuit");
-                    ArtistQuitPoint = GetQuitPoint(pointNode, "artistQuit");
-                    GenreQuitPoint = GetQuitPoint(pointNode, "genreQuit");
-                    LevelQuitPoint = GetQuitPoint(pointNode, "levelQuit");
-                    WantLevelIDQuitPoint = GetQuitPoint(pointNode, "wantLevelIDQuit");
-
-                    TotalNotesJudgmentQuitPoint = GetQuitPoint(pointNode, "totalNotesJudgmentQuit");
-                    TotalNotesJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "totalNotesJudgmentContentsQuit");
-                    HighestJudgmentQuitPoint = GetQuitPoint(pointNode, "highestJudgmentQuit");
-                    HighestJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "highestJudgmentContentsQuit");
-                    HigherJudgmentQuitPoint = GetQuitPoint(pointNode, "higherJudgmentQuit");
-                    HigherJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "higherJudgmentContentsQuit");
-                    HighJudgmentQuitPoint = GetQuitPoint(pointNode, "highJudgmentQuit");
-                    HighJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "highJudgmentContentsQuit");
-                    LowJudgmentQuitPoint = GetQuitPoint(pointNode, "lowJudgmentQuit");
-                    LowJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "lowJudgmentContentsQuit");
-                    LowerJudgmentQuitPoint = GetQuitPoint(pointNode, "lowerJudgmentQuit");
-                    LowerJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "lowerJudgmentContentsQuit");
-                    LowestJudgmentQuitPoint = GetQuitPoint(pointNode, "lowestJudgmentQuit");
-                    LowestJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "lowestJudgmentContentsQuit");
-
-                    AutoModeQuitPoint = GetQuitPoint(pointNode, "autoModeQuit");
-                    NoteSaltModeQuitPoint = GetQuitPoint(pointNode, "noteSaltModeQuit");
-                    FaintNoteModeQuitPoint = GetQuitPoint(pointNode, "faintNoteModeQuit");
-                    JudgmentModeQuitPoint = GetQuitPoint(pointNode, "judgmentModeQuit");
-                    HitPointsModeQuitPoint = GetQuitPoint(pointNode, "hitPointsModeQuit");
-                    NoteMobilityModeQuitPoint = GetQuitPoint(pointNode, "noteMobilityModeQuit");
-                    InputFavorModeQuitPoint = GetQuitPoint(pointNode, "inputFavorModeQuit");
-                    LongNoteModeQuitPoint = GetQuitPoint(pointNode, "longNoteModeQuit");
-                    NoteModifyModeQuitPoint = GetQuitPoint(pointNode, "noteModifyModeQuit");
-                    BPMModeQuitPoint = GetQuitPoint(pointNode, "bpmModeQuit");
-                    WaveModeQuitPoint = GetQuitPoint(pointNode, "waveModeQuit");
-                    SetNoteModeQuitPoint = GetQuitPoint(pointNode, "setNoteModeQuit");
-                    LowestJudgmentConditionModeQuitPoint = GetQuitPoint(pointNode, "lowestJudgmentConditionModeQuit");
-
-                    JudgmentStageQuitPoint = GetQuitPoint(pointNode, "judgmentStageQuit");
-                    JudgmentStageContentsQuitPoint = GetQuitPoint(pointNode, "judgmentStageContentsQuit");
-                    HighestInputCountQuitPoint = GetQuitPoint(pointNode, "highestInputCountQuit");
-                    HighestInputCountContentsQuitPoint = GetQuitPoint(pointNode, "highestInputCountContentsQuit");
-                    LengthQuitPoint = GetQuitPoint(pointNode, "lengthQuit");
-                    LengthContentsQuitPoint = GetQuitPoint(pointNode, "lengthContentsQuit");
-                    BPMQuitPoint = GetQuitPoint(pointNode, "bpmQuit");
-                    BPMContentsQuitPoint = GetQuitPoint(pointNode, "bpmContentsQuit");
-                    InputModeQuitPoint = GetQuitPoint(pointNode, "inputModeQuit");
-                    InputModeContentsQuitPoint = GetQuitPoint(pointNode, "inputModeContentsQuit");
-
-                    QuitDrawingPoint = GetQuitPoint(pointNode, "quitDrawingV2");
-                    JudgmentMeterViewPoint = GetQuitPoint(pointNode, "judgmentMeterView");
-                    StatusViewPoint = GetQuitPoint(pointNode, "statusView");
-
-                    ViewCommentPoint = GetQuitPoint(pointNode, "viewComment");
-                    HandleUndoPoint = GetQuitPoint(pointNode, "handleUndo");
-
-                    QuitMove0Point = GetQuitPoint(pointNode, "quitMove0");
-                    QuitMove1Point = GetQuitPoint(pointNode, "quitMove1");
-
-                    StandQuitPoint = GetQuitPoint(pointNode, "standQuit");
-                    PointQuitPoint = GetQuitPoint(pointNode, "pointQuit");
-                    BandQuitPoint = GetQuitPoint(pointNode, "bandQuit");
-                    StandContentsQuitPoint = GetQuitPoint(pointNode, "standContentsQuit");
-                    PointContentsQuitPoint = GetQuitPoint(pointNode, "pointContentsQuit");
-                    BandContentsQuitPoint = GetQuitPoint(pointNode, "bandContentsQuit");
-
-                    var commentPlacePoint = GetQuitPoint(pointNode, "commentPlace", new float[] { 0F, 0F, 0F, 0F, Levels.FontLevel1Float32 });
-                    CommentPlace0Point[0] = commentPlacePoint[0];
-                    CommentPlace0Point[1] = commentPlacePoint[1];
-                    CommentPlace0Point[2] = commentPlacePoint[2] / 2;
-                    CommentPlace0Point[3] = commentPlacePoint[3];
-                    DrawingSystem.Instance.SetFontLevel(CommentPlace0Font, (float)commentPlacePoint[4]);
-                    DrawingSystem.Instance.SetFontSystem(CommentPlace0Font, (int)CanvasHorizontalAlignment.Left, (int)CanvasVerticalAlignment.Bottom);
-                    CommentPlace1Point[0] = CommentPlace0Point[0] + CommentPlace0Point[2];
-                    CommentPlace1Point[1] = CommentPlace0Point[1];
-                    CommentPlace1Point[2] = CommentPlace0Point[2];
-                    CommentPlace1Point[3] = CommentPlace0Point[3];
-                    DrawingSystem.Instance.SetFontLevel(CommentPlace1Font, (float)commentPlacePoint[4] / 2);
-                    DrawingSystem.Instance.SetFontSystem(CommentPlace1Font, (int)CanvasHorizontalAlignment.Right, (int)CanvasVerticalAlignment.Bottom);
-
-                    SetQuitFont(TitleQuitPoint, TitleQuitFont);
-                    SetQuitFont(ArtistQuitPoint, ArtistQuitFont);
-                    SetQuitFont(GenreQuitPoint, GenreQuitFont);
-                    SetQuitFont(LevelQuitPoint, LevelQuitFont);
-                    SetQuitFont(WantLevelIDQuitPoint, WantLevelIDQuitFont);
-
-                    SetQuitFont(JudgmentStageContentsQuitPoint, JudgmentStageQuitFont);
-                    SetQuitFont(HighestInputCountContentsQuitPoint, HighestInputCountQuitFont);
-                    SetQuitFont(LengthContentsQuitPoint, LengthQuitFont);
-                    SetQuitFont(BPMContentsQuitPoint, BPMQuitFont);
-
-                    SetQuitFont(TotalNotesJudgmentContentsQuitPoint, TotalNotesQuitFont);
-                    SetQuitFont(HighestJudgmentContentsQuitPoint, HighestJudgmentQuitFont);
-                    SetQuitFont(HigherJudgmentContentsQuitPoint, HigherJudgmentQuitFont);
-                    SetQuitFont(HighJudgmentContentsQuitPoint, HighJudgmentQuitFont);
-                    SetQuitFont(LowJudgmentContentsQuitPoint, LowJudgmentQuitFont);
-                    SetQuitFont(LowerJudgmentContentsQuitPoint, LowerJudgmentQuitFont);
-                    SetQuitFont(LowestJudgmentContentsQuitPoint, LowestJudgmentQuitFont);
-
-                    SetQuitFont(StandContentsQuitPoint, StandQuitFont);
-                    SetQuitFont(PointContentsQuitPoint, PointQuitFont);
-                    SetQuitFont(BandContentsQuitPoint, BandQuitFont);
-
-                    static void SetQuitFont(float[] point, CanvasTextFormat font)
-                    {
-                        DrawingSystem.Instance.SetFontLevel(font, (float)point[4]);
-                        DrawingSystem.Instance.SetFontSystem(font, (int)point[5], (int)point[6]);
-                    }
-
-                    for (var i = PaintPropertyValues.Length - 1; i >= 0; --i)
-                    {
-                        PaintPropertyValues[i]?.Dispose();
-                        var text = Utility.GetText(pointNode, $"paintProperty{i}");
-                        if (!string.IsNullOrEmpty(text))
-                        {
-                            var data = text.Split(",").Select(value => GetCalledText(value.Trim())).ToArray();
-                            var frame = Utility.ToInt32(data[4]);
-                            var drawingVariety = Utility.ToInt32(data[7]);
-                            var paintPropertyValue = new BasePaintProperty
-                            {
-                                PaintBound = new(Utility.ToFloat64(data[0]), Utility.ToFloat64(data[1]), Utility.ToFloat64(data[2]), Utility.ToFloat64(data[3])),
-                                HandledDrawingItems = new HandledDrawingItem?[frame],
-                                Frame = frame,
-                                Framerate = Utility.ToFloat64(data[5]),
-                                Layer = Utility.ToInt32(data[6]),
-                                DrawingVariety = drawingVariety,
-                                Etc = data.ElementAtOrDefault(8),
-                                Mode = Utility.ToInt32(data.ElementAtOrDefault(9) ?? "0")
-                            };
-                            switch (paintPropertyValue.DrawingVariety)
-                            {
-                                case 3:
-                                case 4:
-                                case 5:
-                                case 7:
-                                case 13:
-                                    var etcColor = paintPropertyValue.Etc.GetColor();
-                                    paintPropertyValue.EtcPaint = DrawingSystem.Instance.GetDefaultPaint(etcColor);
-                                    paintPropertyValue.EtcColor = etcColor;
-                                    break;
-                            }
-                            switch (paintPropertyValue.DrawingVariety)
-                            {
-                                case 7:
-                                case 12:
-                                    paintPropertyValue.Font = DrawingSystem.Instance.GetFont();
-                                    DrawingSystem.Instance.SetFontFamily(paintPropertyValue.Font);
-                                    DrawingSystem.Instance.SetFontLevel(paintPropertyValue.Font, (float)paintPropertyValue.Framerate);
-                                    break;
-                            }
-                            if (drawingVariety >= 100)
-                            {
-                                paintPropertyValue.DrawingFrame = -1;
-                                EventItems.Into((EventItem)drawingVariety, paintPropertyValue);
-                            }
-                            PaintPropertyValues[i] = paintPropertyValue;
-                        }
-                    }
-
-                    for (var i = FadingPropertyValues.Length - 1; i >= 0; --i)
-                    {
-                        for (var j = FadingPropertyValues[i].Length - 1; j >= 0; --j)
-                        {
-                            var text = Utility.GetText(pointNode, $"fadingProperty{i}{j}");
-                            if (!string.IsNullOrEmpty(text))
-                            {
-                                var data = text.Split(",").Select(value => GetCalledText(value.Trim())).ToArray();
-                                var frame = Utility.ToInt32(data[0]);
-                                var framerate = Utility.ToFloat64(data[1]);
-                                FadingPropertyValues[i][j] = new()
-                                {
-                                    HandledDrawingItems = new HandledDrawingItem?[frame],
-                                    Frame = frame,
-                                    Framerate = framerate,
-                                    Millis = 1000.0 * frame / framerate,
-                                    DrawingStatus = Utility.ToFloat64(data[2])
-                                };
-                            }
-                        }
-                    }
-
-                    object[] GetDrawingPoint(YamlNode yamlNode, string target, object[] defaultValues = null)
-                    {
-                        var text = Utility.GetText(yamlNode, target);
-                        if (string.IsNullOrEmpty(text))
-                        {
-                            return defaultValues;
-                        }
-                        else
-                        {
-                            return text.Split(",").Select(value => GetCalledText(value.Trim())).Select((data, i) => i switch
-                            {
-                                4 => Utility.ToInt32(data) switch
-                                {
-                                    0 => HorizontalAlignment.Left,
-                                    1 => HorizontalAlignment.Center,
-                                    2 => HorizontalAlignment.Right,
-                                    _ => throw new ArgumentException(target),
-                                },
-                                5 => Utility.ToInt32(data) switch
-                                {
-                                    0 => VerticalAlignment.Top,
-                                    1 => VerticalAlignment.Center,
-                                    2 => VerticalAlignment.Bottom,
-                                    _ => throw new ArgumentException(target),
-                                },
-                                6 => Utility.ToInt32(data) switch
-                                {
-                                    0 => Stretch.Uniform,
-                                    1 => Stretch.Fill,
-                                    _ => throw new ArgumentException(target),
-                                },
-                                _ => Utility.ToFloat64(data) as object,
-                            }).ToArray();
-                        }
-                    }
-
-                    object[] GetPanelPoint(YamlNode yamlNode, string target, object[] defaultValues = null)
-                    {
-                        var text = Utility.GetText(yamlNode, target);
-                        if (string.IsNullOrEmpty(text))
-                        {
-                            return defaultValues;
-                        }
-                        else
-                        {
-                            return text.Split(",").Select(value => GetCalledText(value.Trim())).Select((data, i) => i switch
-                            {
-                                4 => Utility.ToInt32(data) switch
-                                {
-                                    0 => HorizontalAlignment.Left,
-                                    1 => HorizontalAlignment.Center,
-                                    2 => HorizontalAlignment.Right,
-                                    _ => throw new ArgumentException(target),
-                                },
-                                5 => Utility.ToInt32(data) switch
-                                {
-                                    0 => VerticalAlignment.Top,
-                                    1 => VerticalAlignment.Center,
-                                    2 => VerticalAlignment.Bottom,
-                                    _ => throw new ArgumentException(target),
-                                },
-                                6 => DrawingSystem.Instance.GetDefaultPaint(data.GetColor(), 100),
-                                7 => DrawingSystem.Instance.GetDefaultPaint(data.GetColor(), 100),
-                                _ => Utility.ToFloat64(data) as object,
-                            }).ToArray();
-                        }
-                    }
-
-                    double[] GetLayerPoint(YamlNode yamlNode, string target, double[] defaultValues = null)
-                    {
-                        var text = Utility.GetText(yamlNode, target);
-                        if (string.IsNullOrEmpty(text))
-                        {
-                            return defaultValues;
-                        }
-                        else
-                        {
-                            return text.Split(",").Select(value => GetCalledText(value.Trim())).Select(data => Utility.ToFloat64(data)).ToArray();
-                        }
-                    }
-
-                    float[] GetQuitPoint(YamlNode yamlNode, string target, float[] defaultValues = null)
-                    {
-                        var text = Utility.GetText(yamlNode, target);
-                        if (string.IsNullOrEmpty(text))
-                        {
-                            return defaultValues;
-                        }
-                        else
-                        {
-                            return text.Split(",").Select(value => GetCalledText(value.Trim())).Select(data => Utility.ToFloat32(data)).ToArray();
-                        }
-                    }
-
-                    object[] GetTextPoint(YamlNode yamlNode, string target, object[] defaultValues = null)
-                    {
-                        var text = Utility.GetText(yamlNode, target);
-                        if (string.IsNullOrEmpty(text))
-                        {
-                            return defaultValues;
-                        }
-                        else
-                        {
-                            return text.Split(",").Select(value => GetCalledText(value.Trim())).Select((data, i) => i switch
-                            {
-                                4 => Utility.ToInt32(data) switch
-                                {
-                                    0 => HorizontalAlignment.Left,
-                                    1 => HorizontalAlignment.Center,
-                                    2 => HorizontalAlignment.Right,
-                                    _ => throw new ArgumentException(target),
-                                },
-                                5 => Utility.ToInt32(data) switch
-                                {
-                                    0 => VerticalAlignment.Top,
-                                    1 => VerticalAlignment.Center,
-                                    2 => VerticalAlignment.Bottom,
-                                    _ => throw new ArgumentException(target),
-                                },
-                                _ => Utility.ToFloat64(data) as object,
-                            }).ToArray();
-                        }
-                    }
-
-                    double GetCalledValue(YamlNode yamlNode, string target, string defaultValue = null)
-                    {
-                        var text = Utility.GetText(yamlNode, target, defaultValue);
-                        if (Utility.ToFloat64(text, out var r))
-                        {
-                            return r;
-                        }
-                        else if (QwilightComponent.GetCallComputer().IsMatch(text))
-                        {
-                            var values = text.Split("(").Select(value => value.Trim()).ToArray();
-                            return lsCaller.Call(lsCaller.Globals[values[0]], values[1][0..^1].Split(',').Where(value => !string.IsNullOrEmpty(value)).Select(value => Utility.ToFloat64(value) as object).ToArray()).Number;
-                        }
-                        else
-                        {
-                            throw new ArgumentException(target.ToString());
-                        }
-                    }
-
-                    string GetCalledText(string text)
-                    {
-                        if (!string.IsNullOrEmpty(text) && QwilightComponent.GetCallComputer().IsMatch(text))
-                        {
-                            var values = text.Split("(").Select(value => value.Trim()).ToArray();
-                            return lsCaller.Call(lsCaller.Globals[values[0]], values[1][0..^1].Split(',').Where(value => !string.IsNullOrEmpty(value)).Select(value => Utility.ToFloat64(value) as object).ToArray()).ToObject().ToString();
-                        }
-                        else
-                        {
-                            return text;
-                        }
-                    }
+                {
+                    JudgmentQuitColors[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor();
                 }
 
-                var getPaintProperty = new Func<int[], string>(args => "P");
-                var getTransition = new Func<int[], string>(args => "T");
+                StatusHandlingColor = GetCalledText(Utility.GetText(paintNode, "statusHandling", "#7F008000")).GetColor();
+                StatusHandlingPaint = DrawingSystem.Instance.GetDefaultPaint(StatusHandlingColor);
 
-                SetFunc("_GetPaintProperty", ref getPaintProperty);
-                SetFunc("_GetTransition", ref getTransition);
+                StatusPausedColor = GetCalledText(Utility.GetText(paintNode, "statusPaused", "#7FFFFF00")).GetColor();
+                StatusPausedPaint = DrawingSystem.Instance.GetDefaultPaint(StatusPausedColor);
 
-                void SetFunc(string funcName, ref Func<int[], string> value)
+                StatusLoadingNoteFileColor = GetCalledText(Utility.GetText(paintNode, "statusLoadingNoteFile", "#7FFF0000")).GetColor();
+                StatusLoadingNoteFilePaint = DrawingSystem.Instance.GetDefaultPaint(StatusLoadingNoteFileColor);
+
+                StatusLoadingDefaultEntryColor = GetCalledText(Utility.GetText(paintNode, "statusLoadingDefaultEntry", "#7F0000FF")).GetColor();
+                StatusLoadingDefaultEntryPaint = DrawingSystem.Instance.GetDefaultPaint(StatusLoadingDefaultEntryColor);
+
+                QuitColors[(int)DefaultCompute.QuitStatus.SPlus] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit0")).GetColor());
+                QuitColors[(int)DefaultCompute.QuitStatus.S] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit1")).GetColor());
+                QuitColors[(int)DefaultCompute.QuitStatus.APlus] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit2")).GetColor());
+                QuitColors[(int)DefaultCompute.QuitStatus.A] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit3")).GetColor());
+                QuitColors[(int)DefaultCompute.QuitStatus.B] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit4")).GetColor());
+                QuitColors[(int)DefaultCompute.QuitStatus.C] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit5")).GetColor());
+                QuitColors[(int)DefaultCompute.QuitStatus.D] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "quit6")).GetColor());
+
+                for (var i = (int)DefaultCompute.QuitStatus.D; i >= (int)DefaultCompute.QuitStatus.SPlus; --i)
                 {
-                    var funcValue = lsCaller.Globals[funcName];
-                    if (funcValue != null)
-                    {
-                        value = new Func<int[], string>(args =>
-                        {
-                            try
-                            {
-                                return lsCaller.Call(funcValue, args).String;
-                            }
-                            catch
-                            {
-                                throw new ArgumentException($"{funcName}([{string.Join(", ", args)}])");
-                            }
-                        });
-                    }
-                }
-
-                var handledMediaValues = new ConcurrentDictionary<string, HandledMediaItem>();
-                var defaultDrawingValues = new ConcurrentDictionary<string, ImageSource>();
-                var drawingValues = new ConcurrentDictionary<string, DrawingItem>();
-                var handledDrawingValues = new ConcurrentDictionary<string, HandledDrawingItem>();
-                var zipFilePath = Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, Path.ChangeExtension(zipName, "zip"));
-                if (File.Exists(zipFilePath))
-                {
-                    using var zipFile = ZipFile.Read(zipFilePath);
-                    foreach (var zipEntry in zipFile)
-                    {
-                        if (!zipEntry.IsDirectory)
-                        {
-                            var rms = PoolSystem.Instance.GetDataFlow((int)zipEntry.UncompressedSize);
-                            zipEntry.Extract(rms);
-                            var fileName = zipEntry.FileName;
-                            var justFileName = Path.GetFileNameWithoutExtension(fileName);
-                            switch (Path.GetDirectoryName(fileName))
-                            {
-                                case "Audio":
-                                    parallelItems.Add(() =>
-                                    {
-                                        try
-                                        {
-                                            using (rms)
-                                            {
-                                                _audioItemMap[justFileName] = AudioSystem.Instance.Load(rms, this, 1F, null, QwilightComponent.GetLoopingAudioComputer().IsMatch(justFileName));
-                                            }
-                                        }
-                                        catch
-                                        {
-                                        }
-                                    });
-                                    break;
-                                case "Media":
-                                    parallelItems.Add(() =>
-                                    {
-                                        try
-                                        {
-                                            using (rms)
-                                            {
-                                                var hash = Utility.GetID128s(rms);
-                                                var hashMediaFilePath = Path.Combine(QwilightComponent.MediaEntryPath, $"{hash}{Path.GetExtension(fileName)}");
-                                                if (!File.Exists(hashMediaFilePath))
-                                                {
-                                                    using var fs = File.OpenWrite(hashMediaFilePath);
-                                                    rms.WriteTo(fs);
-                                                }
-                                                handledMediaValues[Path.GetFileName(fileName)] = MediaSystem.Instance.Load(hashMediaFilePath, this, true);
-                                            }
-                                        }
-                                        catch
-                                        {
-                                        }
-                                    });
-                                    break;
-                                case "Drawing":
-                                    var fileNameContents = justFileName.Split(' ');
-                                    Utility.ToInt32(fileNameContents.ElementAtOrDefault(1), out var value1);
-                                    Utility.ToInt32(fileNameContents.ElementAtOrDefault(2), out var value2);
-                                    if (fileNameContents[0] == getPaintProperty(new[] { value1, value2 }))
-                                    {
-                                        NewHandledDrawing(rms);
-                                    }
-                                    else if (fileNameContents[0] == getTransition(new[] { value1, value2 }))
-                                    {
-                                        NewHandledDrawing(rms);
-                                    }
-                                    break;
-                                case "Input":
-                                    fileNameContents = justFileName.Split(" ");
-                                    if (fileNameContents[0] == "I")
-                                    {
-                                        NewHandledDrawing(rms);
-                                    }
-                                    break;
-                                case "Judgment":
-                                    if (justFileName == "Total Notes")
-                                    {
-                                        NewDrawing(rms);
-                                    }
-                                    else
-                                    {
-                                        fileNameContents = justFileName.Split(" ");
-                                        if (fileNameContents[0] == "J")
-                                        {
-                                            NewHandledDrawing(rms);
-                                        }
-                                    }
-                                    break;
-                                case "Mode":
-                                    fileNameContents = justFileName.Split(" ");
-                                    if (fileNameContents[0] == "M")
-                                    {
-                                        NewHandledDrawing(rms);
-                                    }
-                                    break;
-                                case "Net Position":
-                                    fileNameContents = justFileName.Split(" ");
-                                    if (fileNameContents[0] == "NP")
-                                    {
-                                        NewDrawing(rms);
-                                    }
-                                    break;
-                                case "Notify":
-                                    fileNameContents = justFileName.Split(" ");
-                                    if (fileNameContents[0] == "N")
-                                    {
-                                        NewHandledDrawing(rms);
-                                    }
-                                    break;
-                                case "Quit v2":
-                                    switch (justFileName)
-                                    {
-                                        case "S+":
-                                        case "S":
-                                        case "S FC":
-                                        case "A+":
-                                        case "A+ FC":
-                                        case "A":
-                                        case "A FC":
-                                        case "B":
-                                        case "B FC":
-                                        case "C":
-                                        case "C FC":
-                                        case "D":
-                                        case "D FC":
-                                        case "F":
-                                            NewHandledDrawing(rms);
-                                            break;
-                                    }
-                                    break;
-                                case "Quit Mode":
-                                    NewDrawing(rms);
-                                    break;
-                                case "":
-                                    switch (justFileName)
-                                    {
-                                        case "File":
-                                        case "Total Notes":
-                                        case "BPM!":
-                                        case "File Viewer":
-                                        case "Assist File Viewer":
-                                        case "Configure":
-                                        case "Comment":
-                                        case "Audio Input":
-                                        case "Want":
-                                        case "Salt":
-                                        case "Default Entry Configure":
-                                        case "Judgment Stage":
-                                        case "Highest Input Count":
-                                        case "Length":
-                                        case "BPM":
-                                        case "Input Mode":
-                                            NewDefaultDrawing(rms);
-                                            break;
-                                        case "Default":
-                                            NewHandledDrawing(rms);
-                                            break;
-                                    }
-                                    break;
-                                default:
-                                    NewDefaultDrawing(rms);
-                                    break;
-                            }
-                            void NewDrawing(Stream s) => parallelItems.Add(() =>
-                            {
-                                try
-                                {
-                                    using (s)
-                                    {
-                                        drawingValues[fileName] = DrawingSystem.Instance.Load(s, this);
-                                    }
-                                }
-                                catch
-                                {
-                                }
-                            });
-                            void NewDefaultDrawing(Stream s) => parallelItems.Add(() =>
-                            {
-                                try
-                                {
-                                    using (s)
-                                    {
-                                        defaultDrawingValues[fileName] = DrawingSystem.Instance.LoadDefault(s, this);
-                                    }
-                                }
-                                catch
-                                {
-                                }
-                            });
-                            void NewHandledDrawing(Stream s)
-                            {
-                                parallelItems.Add(() =>
-                                {
-                                    using (s)
-                                    {
-                                        try
-                                        {
-                                            handledDrawingValues[fileName] = new()
-                                            {
-                                                Drawing = DrawingSystem.Instance.Load(s, this),
-                                                DefaultDrawing = DrawingSystem.Instance.LoadDefault(s, this)
-                                            };
-                                        }
-                                        catch
-                                        {
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    }
+                    CommentViewPaints[i] = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(QuitColors[i]));
                 }
 
-                if (src != target)
-                {
-                    AudioSystem.Instance.Close(this);
-                    DrawingSystem.Instance.Close(this);
-                    MediaSystem.Instance.Close(this, this);
-                }
-                else
-                {
-                    MediaSystem.Instance.Stop(this);
-                }
-                Utility.HandleLowlyParallelly(parallelItems, Configure.Instance.UIBin, parallelItem => parallelItem());
+                NoteFileMargin = new(GetCalledValue(pointNode, "noteFileMargin", "31.5"), 1.0, 0.0, 1.0);
+                var entryViewTitleMargin = GetLayerPoint(pointNode, "entryViewTitleMargin", new[] { 58.0, 0.0, 0.0, 0.0 });
+                EntryViewTitleMargin = new(entryViewTitleMargin[0], entryViewTitleMargin[1], entryViewTitleMargin[2], entryViewTitleMargin[3]);
 
-                foreach (var paintPropertyValue in PaintPropertyValues)
-                {
-                    if (paintPropertyValue?.DrawingVariety == 11)
-                    {
-                        var mode = paintPropertyValue.Mode;
-                        var isAvailable = mode == 1;
-                        var isDefaultAvailable = mode == 0;
-                        if (handledMediaValues.TryGetValue(paintPropertyValue.Etc, out var handledMediaItem))
-                        {
-                            paintPropertyValue.HandledMediaItemValue = handledMediaItem;
-                        }
-                        else
-                        {
-                            try
-                            {
-                                paintPropertyValue.HandledMediaItemValue = MediaSystem.Instance.Load(Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, paintPropertyValue.Etc), this, true);
-                            }
-                            catch
-                            {
-                            }
-                        }
-                    }
-                }
-                foreach (var (fileName, drawingItem) in drawingValues)
-                {
-                    var justFileName = Path.GetFileNameWithoutExtension(fileName);
-                    switch (Path.GetDirectoryName(fileName))
-                    {
-                        case "Judgment":
-                            if (justFileName == "Total Notes")
-                            {
-                                TotalNotesJudgmentDrawing = drawingItem;
-                            }
-                            break;
-                        case "Net Position":
-                            var fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "NP")
-                            {
-                                NetPositionDrawings[Utility.ToInt32(fileNameContents[1])] = drawingItem;
-                            }
-                            break;
-                        case "Quit Mode":
-                            switch (justFileName)
-                            {
-                                case "Stand":
-                                    StandDrawing = drawingItem;
-                                    break;
-                                case "Highest Band":
-                                    HighestBandDrawing = drawingItem;
-                                    break;
-                                case "Point":
-                                    PointDrawing = drawingItem;
-                                    break;
-                                case "New Stand":
-                                    NewStandDrawing = drawingItem;
-                                    break;
-                                case "View Comment":
-                                    ViewCommentDrawing = drawingItem;
-                                    break;
-                                case "Handle Undo":
-                                    HandleUndoDrawing = drawingItem;
-                                    break;
-                                case "Move 0":
-                                    QuitMove0Drawing = drawingItem;
-                                    break;
-                                case "Move 1":
-                                    QuitMove1Drawing = drawingItem;
-                                    break;
-                                case "Judgment Stage":
-                                    JudgmentStageQuitDrawing = drawingItem;
-                                    break;
-                                case "Highest Input Count":
-                                    HighestInputCountQuitDrawing = drawingItem;
-                                    break;
-                                case "Length":
-                                    LengthQuitDrawing = drawingItem;
-                                    break;
-                                case "BPM":
-                                    BPMQuitDrawing = drawingItem;
-                                    break;
-                                case "Input Mode":
-                                    InputModeQuitDrawing = drawingItem;
-                                    break;
-                            }
-                            break;
-                    }
-                }
-                foreach (var (fileName, defaultDrawing) in defaultDrawingValues)
-                {
-                    var justFileName = Path.GetFileNameWithoutExtension(fileName);
-                    switch (Path.GetDirectoryName(fileName))
-                    {
-                        case "Default Entry":
-                            var fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "DE")
-                            {
-                                DefaultEntryDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Salt Auto":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "SA")
-                            {
-                                SaltAutoDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Site Situation":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "SS")
-                            {
-                                SiteSituationDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Input Window":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "IW")
-                            {
-                                InputModeWindowDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Handled":
-                            fileNameContents = justFileName.Split(" ");
-                            switch (fileNameContents[0])
-                            {
-                                case "W":
-                                    HandledWallDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                                    break;
-                            }
-                            break;
-                        case "Avatar Configure":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "AC")
-                            {
-                                AvatarConfigureDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Net Site":
-                            switch (justFileName)
-                            {
-                                case "BPM":
-                                    BPMNetSiteDrawing = defaultDrawing;
-                                    break;
-                                case "BPM!":
-                                    BPM1NetSiteDrawing = defaultDrawing;
-                                    break;
-                                case "Total Notes":
-                                    TotalNotesNetSiteDrawing = defaultDrawing;
-                                    break;
-                                case "Highest Input Count":
-                                    HighestInputCountNetSiteDrawing = defaultDrawing;
-                                    break;
-                                case "Length":
-                                    LengthNetSiteDrawing = defaultDrawing;
-                                    break;
-                                case "Judgment Stage":
-                                    JudgmentStageNetSiteDrawing = defaultDrawing;
-                                    break;
-                            }
-                            break;
-                        case "Sign in":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "S")
-                            {
-                                SignInDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Site Cipher":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "SC")
-                            {
-                                SiteCipherDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Site Configure":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "SC")
-                            {
-                                SiteConfigureDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Stop Auto":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "SA")
-                            {
-                                StopAutoDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Site Media":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "SM")
-                            {
-                                SiteMediaDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Site Audio":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "SA")
-                            {
-                                SiteAudioDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                            }
-                            break;
-                        case "Fit":
-                            switch (justFileName)
-                            {
-                                case "Title":
-                                    TitleFitDrawing = defaultDrawing;
-                                    break;
-                                case "Artist":
-                                    ArtistFitDrawing = defaultDrawing;
-                                    break;
-                                case "Level Text Value":
-                                    LevelTextValueFitDrawing = defaultDrawing;
-                                    break;
-                                case "Modified Date":
-                                    ModifiedDateFitDrawing = defaultDrawing;
-                                    break;
-                                case "Handled Count":
-                                    HandledCountFitDrawing = defaultDrawing;
-                                    break;
-                                case "Latest Date":
-                                    LatestDateFitDrawing = defaultDrawing;
-                                    break;
-                                case "BPM":
-                                    BPMFitDrawing = defaultDrawing;
-                                    break;
-                                case "Total Notes":
-                                    TotalNotesFitDrawing = defaultDrawing;
-                                    break;
-                                case "Highest Input Count":
-                                    HighestInputCountFitDrawing = defaultDrawing;
-                                    break;
-                                case "Average Input Count":
-                                    AverageInputCountFitDrawing = defaultDrawing;
-                                    break;
-                                case "Length":
-                                    LengthFitDrawing = defaultDrawing;
-                                    break;
-                                case "Entry Path":
-                                    EntryPathFitDrawing = defaultDrawing;
-                                    break;
-                            }
-                            break;
-                        case "":
-                            switch (justFileName)
-                            {
-                                case "File":
-                                    FileDrawing = defaultDrawing;
-                                    break;
-                                case "Total Notes":
-                                    TotalNotesDrawing = defaultDrawing;
-                                    break;
-                                case "File Viewer":
-                                    FileViewerDrawing = defaultDrawing;
-                                    break;
-                                case "Assist File Viewer":
-                                    AssistFileViewerDrawing = defaultDrawing;
-                                    break;
-                                case "Comment":
-                                    CommentDrawing = defaultDrawing;
-                                    break;
-                                case "Configure":
-                                    ConfigureDrawing = defaultDrawing;
-                                    break;
-                                case "Audio Input":
-                                    AudioInputDrawing = defaultDrawing;
-                                    break;
-                                case "Salt":
-                                    SaltDrawing = defaultDrawing;
-                                    break;
-                                case "Default Entry Configure":
-                                    DefaultEntryConfigureDrawing = defaultDrawing;
-                                    break;
-                                case "Judgment Stage":
-                                    JudgmentStageDrawing = defaultDrawing;
-                                    break;
-                                case "Highest Input Count":
-                                    HighestInputCountDrawing = defaultDrawing;
-                                    break;
-                                case "Length":
-                                    LengthDrawing = defaultDrawing;
-                                    break;
-                                case "BPM":
-                                    BPMDrawing = defaultDrawing;
-                                    break;
-                                case "BPM!":
-                                    BPM1Drawing = defaultDrawing;
-                                    break;
-                                case "Input Mode":
-                                    InputModeDrawing = defaultDrawing;
-                                    break;
-                            }
-                            break;
-                    }
-                }
-                foreach (var (fileName, handledDrawingItem) in handledDrawingValues)
-                {
-                    var justFileName = Path.GetFileNameWithoutExtension(fileName);
-                    switch (Path.GetDirectoryName(fileName))
-                    {
-                        case "Drawing":
-                            var fileNameContents = justFileName.Split(' ');
-                            Utility.ToInt32(fileNameContents.ElementAtOrDefault(1), out var value1);
-                            Utility.ToInt32(fileNameContents.ElementAtOrDefault(2), out var value2);
-                            if (fileNameContents[0] == getPaintProperty(new[] { value1, value2 }))
-                            {
-                                PaintPropertyValues[value1].HandledDrawingItems.SetValue(value2, handledDrawingItem);
-                            }
-                            else if (fileNameContents[0] == getTransition(new[] { value1, value2 }))
-                            {
-                                FadingPropertyValues[value1][value2].HandledDrawingItems.SetValue(Utility.ToInt32(fileNameContents[3]), handledDrawingItem);
-                            }
-                            break;
-                        case "Input":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "I")
-                            {
-                                InputModeDrawings[Utility.ToInt32(fileNameContents[1])] = handledDrawingItem;
-                            }
-                            break;
-                        case "Judgment":
-                            if (justFileName != "Total Notes")
-                            {
-                                fileNameContents = justFileName.Split(" ");
-                                if (fileNameContents[0] == "J")
-                                {
-                                    JudgmentDrawings[Utility.ToInt32(justFileName.Split(" ")[1])] = handledDrawingItem;
-                                }
-                            }
-                            break;
-                        case "Mode":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "M")
-                            {
-                                ModeComponentDrawings[Utility.ToInt32(fileNameContents[1])][Utility.ToInt32(fileNameContents[2])] = handledDrawingItem;
-                            }
-                            break;
-                        case "Notify":
-                            fileNameContents = justFileName.Split(" ");
-                            if (fileNameContents[0] == "N")
-                            {
-                                NotifyDrawings[Utility.ToInt32(fileNameContents[1])] = handledDrawingItem;
-                            }
-                            break;
-                        case "Quit v2":
-                            switch (justFileName)
-                            {
-                                case "S+":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.SPlus][0] = handledDrawingItem;
-                                    break;
-                                case "S":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.S][0] = handledDrawingItem;
-                                    break;
-                                case "S FC":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.S][1] = handledDrawingItem;
-                                    break;
-                                case "A+":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.APlus][0] = handledDrawingItem;
-                                    break;
-                                case "A+ FC":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.APlus][1] = handledDrawingItem;
-                                    break;
-                                case "A":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.A][0] = handledDrawingItem;
-                                    break;
-                                case "A FC":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.A][1] = handledDrawingItem;
-                                    break;
-                                case "B":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.B][0] = handledDrawingItem;
-                                    break;
-                                case "B FC":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.B][1] = handledDrawingItem;
-                                    break;
-                                case "C":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.C][0] = handledDrawingItem;
-                                    break;
-                                case "C FC":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.C][1] = handledDrawingItem;
-                                    break;
-                                case "D":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.D][0] = handledDrawingItem;
-                                    break;
-                                case "D FC":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.D][1] = handledDrawingItem;
-                                    break;
-                                case "F":
-                                    QuitDrawings[(int)DefaultCompute.QuitStatus.F][0] = handledDrawingItem;
-                                    break;
-                            }
-                            break;
-                        case "":
-                            switch (justFileName)
-                            {
-                                case "Default":
-                                    DefaultDrawing = handledDrawingItem;
-                                    break;
-                            }
-                            break;
-                    }
-                }
+                SignInPoint = GetDrawingPoint(pointNode, "signIn");
+                ConfigurePoint = GetDrawingPoint(pointNode, "configure");
+                CommentPoint = GetDrawingPoint(pointNode, "comment", new object[] { 0.0, 0.0, 0.0, 0.0, HorizontalAlignment.Center, VerticalAlignment.Center, Stretch.Uniform });
+                HasCommentPoint = (double)CommentPoint[2] > 0.0 && (double)CommentPoint[3] > 0.0;
 
-                for (var i = (int)Component.InputMode.InputMode484; i >= (int)Component.InputMode.InputMode4; --i)
-                {
-                    InputModeWindowDrawings[i] ??= InputModeDrawings[i]?.DefaultDrawing;
-                }
+                SaltAutoPoint = GetDrawingPoint(pointNode, "saltAuto");
+                StopAutoPoint = GetDrawingPoint(pointNode, "stopAuto");
 
-                for (var i = (int)DefaultCompute.QuitStatus.F; i >= (int)DefaultCompute.QuitStatus.SPlus; --i)
+                HandledWallLength = GetCalledValue(pointNode, "handledWallLength", "10");
+                EntryItemHeight = GetCalledValue(pointNode, "entryItemHeight", "60");
+                CommentItemHeight = GetCalledValue(pointNode, "commentItemHeight", "48");
+                CommentItemAvatarHeight = CommentItemHeight + 2 * CommentItemHeight * Levels.EdgeXY + 2 * 1.0;
+
+                CommentViewPoint = GetLayerPoint(pointNode, "commentView");
+                EntryViewPoint = GetLayerPoint(pointNode, "entryView");
+                InputNoteCountViewPoint = GetLayerPoint(pointNode, "inputNoteCountView", new double[] { 0.0, 0.0, 0.0, 0.0 });
+                AssistViewPoint = GetPanelPoint(pointNode, "assistView", new object[] { 0.0, 0.0, 0.0, 0.0, HorizontalAlignment.Stretch, VerticalAlignment.Stretch, Colors.Transparent, Colors.Transparent });
+
+                AutoModePoint = GetDrawingPoint(pointNode, "autoMode");
+                NoteSaltModePoint = GetDrawingPoint(pointNode, "noteSaltMode");
+                FaintNoteModePoint = GetDrawingPoint(pointNode, "faintNoteMode");
+                JudgmentModePoint = GetDrawingPoint(pointNode, "judgmentMode");
+                HitPointsModePoint = GetDrawingPoint(pointNode, "hitPointsMode");
+                NoteMobilityModePoint = GetDrawingPoint(pointNode, "noteMobilityMode");
+                InputFavorModePoint = GetDrawingPoint(pointNode, "inputFavorMode");
+                LongNoteModePoint = GetDrawingPoint(pointNode, "longNoteMode");
+                NoteModifyModePoint = GetDrawingPoint(pointNode, "noteModifyMode");
+                BPMModePoint = GetDrawingPoint(pointNode, "bpmMode");
+                WaveModePoint = GetDrawingPoint(pointNode, "waveMode");
+                SetNoteModePoint = GetDrawingPoint(pointNode, "setNoteMode");
+                LowestJudgmentConditionModePoint = GetDrawingPoint(pointNode, "lowestJudgmentConditionMode");
+
+                FilePoint = GetDrawingPoint(pointNode, "file");
+                FileContentsPoint = GetTextPoint(pointNode, "fileContents");
+                FileViewerPoint = GetDrawingPoint(pointNode, "fileViewer");
+                AssistFileViewerPoint = GetDrawingPoint(pointNode, "assistFileViewer");
+                JudgmentStagePoint = GetDrawingPoint(pointNode, "judgmentStage");
+                JudgmentStageContentsPoint = GetTextPoint(pointNode, "judgmentStageContents");
+                JudgmentStagePoint = GetDrawingPoint(pointNode, "judgmentStage");
+                JudgmentStageContentsPoint = GetTextPoint(pointNode, "judgmentStageContents");
+                TotalNotesPoint = GetDrawingPoint(pointNode, "totalNotes");
+                TotalNotesContentsPoint = GetTextPoint(pointNode, "totalNotesContents");
+                HighestInputCountPoint = GetDrawingPoint(pointNode, "highestInputCount");
+                HighestInputCountContentsPoint = GetTextPoint(pointNode, "highestInputCountContents");
+                LengthPoint = GetDrawingPoint(pointNode, "length");
+                LengthContentsPoint = GetTextPoint(pointNode, "lengthContents");
+                BPMPoint = GetDrawingPoint(pointNode, "bpm");
+                BPMContentsPoint = GetTextPoint(pointNode, "bpmContents");
+                InputModePoint = GetDrawingPoint(pointNode, "inputMode");
+                InputModeContentsPoint = GetDrawingPoint(pointNode, "inputModeContents");
+                StatusPoint = GetLayerPoint(pointNode, "status");
+                StatusDefaultEntryPoint = GetLayerPoint(pointNode, "statusDefaultEntry");
+
+                EventNoteNameFontLevel = GetCalledValue(fontNode, "eventNoteNameLevel", Levels.FontLevel1.ToString());
+                TitleFontLevel = GetCalledValue(fontNode, "titleLevel", Levels.FontLevel1.ToString());
+                ArtistFontLevel = GetCalledValue(fontNode, "artistLevel", Levels.FontLevel0.ToString());
+                FittedTextFontLevel = GetCalledValue(fontNode, "fittedTextLevel", Levels.FontLevel0.ToString());
+                GenreFontLevel = GetCalledValue(fontNode, "genreLevel", Levels.FontLevel0.ToString());
+                LevelFontLevel = GetCalledValue(fontNode, "levelLevel", Levels.FontLevel1.ToString());
+                WantLevelIDFontLevel = GetCalledValue(fontNode, "wantLevelIDLevel", Levels.FontLevel1.ToString());
+                EntryItemPositionFontLevel = GetCalledValue(fontNode, "entryItemPositionLevel", Levels.FontLevel0.ToString());
+
+                CommentDateFontLevel = GetCalledValue(fontNode, "commentDateLevel", Levels.FontLevel0.ToString());
+                CommentViewPointFontLevel = GetCalledValue(fontNode, "commentPointLevel", Levels.FontLevel0.ToString());
+                CommentAvatarNameFontLevel = GetCalledValue(fontNode, "commentAvatarNameLevel", Levels.FontLevel1.ToString());
+                CommentStandFontLevel = GetCalledValue(fontNode, "commentStandLevel", Levels.FontLevel1.ToString());
+
+                TitleQuitPoint = GetQuitPoint(pointNode, "titleQuit");
+                ArtistQuitPoint = GetQuitPoint(pointNode, "artistQuit");
+                GenreQuitPoint = GetQuitPoint(pointNode, "genreQuit");
+                LevelQuitPoint = GetQuitPoint(pointNode, "levelQuit");
+                WantLevelIDQuitPoint = GetQuitPoint(pointNode, "wantLevelIDQuit");
+
+                TotalNotesJudgmentQuitPoint = GetQuitPoint(pointNode, "totalNotesJudgmentQuit");
+                TotalNotesJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "totalNotesJudgmentContentsQuit");
+                HighestJudgmentQuitPoint = GetQuitPoint(pointNode, "highestJudgmentQuit");
+                HighestJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "highestJudgmentContentsQuit");
+                HigherJudgmentQuitPoint = GetQuitPoint(pointNode, "higherJudgmentQuit");
+                HigherJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "higherJudgmentContentsQuit");
+                HighJudgmentQuitPoint = GetQuitPoint(pointNode, "highJudgmentQuit");
+                HighJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "highJudgmentContentsQuit");
+                LowJudgmentQuitPoint = GetQuitPoint(pointNode, "lowJudgmentQuit");
+                LowJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "lowJudgmentContentsQuit");
+                LowerJudgmentQuitPoint = GetQuitPoint(pointNode, "lowerJudgmentQuit");
+                LowerJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "lowerJudgmentContentsQuit");
+                LowestJudgmentQuitPoint = GetQuitPoint(pointNode, "lowestJudgmentQuit");
+                LowestJudgmentContentsQuitPoint = GetQuitPoint(pointNode, "lowestJudgmentContentsQuit");
+
+                AutoModeQuitPoint = GetQuitPoint(pointNode, "autoModeQuit");
+                NoteSaltModeQuitPoint = GetQuitPoint(pointNode, "noteSaltModeQuit");
+                FaintNoteModeQuitPoint = GetQuitPoint(pointNode, "faintNoteModeQuit");
+                JudgmentModeQuitPoint = GetQuitPoint(pointNode, "judgmentModeQuit");
+                HitPointsModeQuitPoint = GetQuitPoint(pointNode, "hitPointsModeQuit");
+                NoteMobilityModeQuitPoint = GetQuitPoint(pointNode, "noteMobilityModeQuit");
+                InputFavorModeQuitPoint = GetQuitPoint(pointNode, "inputFavorModeQuit");
+                LongNoteModeQuitPoint = GetQuitPoint(pointNode, "longNoteModeQuit");
+                NoteModifyModeQuitPoint = GetQuitPoint(pointNode, "noteModifyModeQuit");
+                BPMModeQuitPoint = GetQuitPoint(pointNode, "bpmModeQuit");
+                WaveModeQuitPoint = GetQuitPoint(pointNode, "waveModeQuit");
+                SetNoteModeQuitPoint = GetQuitPoint(pointNode, "setNoteModeQuit");
+                LowestJudgmentConditionModeQuitPoint = GetQuitPoint(pointNode, "lowestJudgmentConditionModeQuit");
+
+                JudgmentStageQuitPoint = GetQuitPoint(pointNode, "judgmentStageQuit");
+                JudgmentStageContentsQuitPoint = GetQuitPoint(pointNode, "judgmentStageContentsQuit");
+                HighestInputCountQuitPoint = GetQuitPoint(pointNode, "highestInputCountQuit");
+                HighestInputCountContentsQuitPoint = GetQuitPoint(pointNode, "highestInputCountContentsQuit");
+                LengthQuitPoint = GetQuitPoint(pointNode, "lengthQuit");
+                LengthContentsQuitPoint = GetQuitPoint(pointNode, "lengthContentsQuit");
+                BPMQuitPoint = GetQuitPoint(pointNode, "bpmQuit");
+                BPMContentsQuitPoint = GetQuitPoint(pointNode, "bpmContentsQuit");
+                InputModeQuitPoint = GetQuitPoint(pointNode, "inputModeQuit");
+                InputModeContentsQuitPoint = GetQuitPoint(pointNode, "inputModeContentsQuit");
+
+                QuitDrawingPoint = GetQuitPoint(pointNode, "quitDrawingV2");
+                JudgmentMeterViewPoint = GetQuitPoint(pointNode, "judgmentMeterView");
+                StatusViewPoint = GetQuitPoint(pointNode, "statusView");
+
+                ViewCommentPoint = GetQuitPoint(pointNode, "viewComment");
+                HandleUndoPoint = GetQuitPoint(pointNode, "handleUndo");
+
+                QuitMove0Point = GetQuitPoint(pointNode, "quitMove0");
+                QuitMove1Point = GetQuitPoint(pointNode, "quitMove1");
+
+                StandQuitPoint = GetQuitPoint(pointNode, "standQuit");
+                PointQuitPoint = GetQuitPoint(pointNode, "pointQuit");
+                BandQuitPoint = GetQuitPoint(pointNode, "bandQuit");
+                StandContentsQuitPoint = GetQuitPoint(pointNode, "standContentsQuit");
+                PointContentsQuitPoint = GetQuitPoint(pointNode, "pointContentsQuit");
+                BandContentsQuitPoint = GetQuitPoint(pointNode, "bandContentsQuit");
+
+                var commentPlacePoint = GetQuitPoint(pointNode, "commentPlace", new float[] { 0F, 0F, 0F, 0F, Levels.FontLevel1Float32 });
+                CommentPlace0Point[0] = commentPlacePoint[0];
+                CommentPlace0Point[1] = commentPlacePoint[1];
+                CommentPlace0Point[2] = commentPlacePoint[2] / 2;
+                CommentPlace0Point[3] = commentPlacePoint[3];
+                DrawingSystem.Instance.SetFontLevel(CommentPlace0Font, (float)commentPlacePoint[4]);
+                DrawingSystem.Instance.SetFontSystem(CommentPlace0Font, (int)CanvasHorizontalAlignment.Left, (int)CanvasVerticalAlignment.Bottom);
+                CommentPlace1Point[0] = CommentPlace0Point[0] + CommentPlace0Point[2];
+                CommentPlace1Point[1] = CommentPlace0Point[1];
+                CommentPlace1Point[2] = CommentPlace0Point[2];
+                CommentPlace1Point[3] = CommentPlace0Point[3];
+                DrawingSystem.Instance.SetFontLevel(CommentPlace1Font, (float)commentPlacePoint[4] / 2);
+                DrawingSystem.Instance.SetFontSystem(CommentPlace1Font, (int)CanvasHorizontalAlignment.Right, (int)CanvasVerticalAlignment.Bottom);
+
+                SetQuitFont(TitleQuitPoint, TitleQuitFont);
+                SetQuitFont(ArtistQuitPoint, ArtistQuitFont);
+                SetQuitFont(GenreQuitPoint, GenreQuitFont);
+                SetQuitFont(LevelQuitPoint, LevelQuitFont);
+                SetQuitFont(WantLevelIDQuitPoint, WantLevelIDQuitFont);
+
+                SetQuitFont(JudgmentStageContentsQuitPoint, JudgmentStageQuitFont);
+                SetQuitFont(HighestInputCountContentsQuitPoint, HighestInputCountQuitFont);
+                SetQuitFont(LengthContentsQuitPoint, LengthQuitFont);
+                SetQuitFont(BPMContentsQuitPoint, BPMQuitFont);
+
+                SetQuitFont(TotalNotesJudgmentContentsQuitPoint, TotalNotesQuitFont);
+                SetQuitFont(HighestJudgmentContentsQuitPoint, HighestJudgmentQuitFont);
+                SetQuitFont(HigherJudgmentContentsQuitPoint, HigherJudgmentQuitFont);
+                SetQuitFont(HighJudgmentContentsQuitPoint, HighJudgmentQuitFont);
+                SetQuitFont(LowJudgmentContentsQuitPoint, LowJudgmentQuitFont);
+                SetQuitFont(LowerJudgmentContentsQuitPoint, LowerJudgmentQuitFont);
+                SetQuitFont(LowestJudgmentContentsQuitPoint, LowestJudgmentQuitFont);
+
+                SetQuitFont(StandContentsQuitPoint, StandQuitFont);
+                SetQuitFont(PointContentsQuitPoint, PointQuitFont);
+                SetQuitFont(BandContentsQuitPoint, BandQuitFont);
+
+                static void SetQuitFont(float[] point, CanvasTextFormat font)
                 {
-                    QuitDrawings[i][1] ??= QuitDrawings[i][0];
+                    DrawingSystem.Instance.SetFontLevel(font, (float)point[4]);
+                    DrawingSystem.Instance.SetFontSystem(font, (int)point[5], (int)point[6]);
                 }
 
                 for (var i = PaintPropertyValues.Length - 1; i >= 0; --i)
                 {
-                    var frame = PaintPropertyValues[i]?.Frame ?? 0;
-                    for (var j = 1; j < frame; ++j)
+                    PaintPropertyValues[i]?.Dispose();
+                    var text = Utility.GetText(pointNode, $"paintProperty{i}");
+                    if (!string.IsNullOrEmpty(text))
                     {
-                        PaintPropertyValues[i].HandledDrawingItems[j] ??= PaintPropertyValues[i].HandledDrawingItems[j - 1];
+                        var data = text.Split(",").Select(value => GetCalledText(value.Trim())).ToArray();
+                        var frame = Utility.ToInt32(data[4]);
+                        var drawingVariety = Utility.ToInt32(data[7]);
+                        var paintPropertyValue = new BasePaintProperty
+                        {
+                            PaintBound = new(Utility.ToFloat64(data[0]), Utility.ToFloat64(data[1]), Utility.ToFloat64(data[2]), Utility.ToFloat64(data[3])),
+                            HandledDrawingItems = new HandledDrawingItem?[frame],
+                            Frame = frame,
+                            Framerate = Utility.ToFloat64(data[5]),
+                            Layer = Utility.ToInt32(data[6]),
+                            DrawingVariety = drawingVariety,
+                            Etc = data.ElementAtOrDefault(8),
+                            Mode = Utility.ToInt32(data.ElementAtOrDefault(9) ?? "0")
+                        };
+                        switch (paintPropertyValue.DrawingVariety)
+                        {
+                            case 3:
+                            case 4:
+                            case 5:
+                            case 7:
+                            case 13:
+                                var etcColor = paintPropertyValue.Etc.GetColor();
+                                paintPropertyValue.EtcPaint = DrawingSystem.Instance.GetDefaultPaint(etcColor);
+                                paintPropertyValue.EtcColor = etcColor;
+                                break;
+                        }
+                        switch (paintPropertyValue.DrawingVariety)
+                        {
+                            case 7:
+                            case 12:
+                                paintPropertyValue.Font = DrawingSystem.Instance.GetFont();
+                                DrawingSystem.Instance.SetFontFamily(paintPropertyValue.Font);
+                                DrawingSystem.Instance.SetFontLevel(paintPropertyValue.Font, (float)paintPropertyValue.Framerate);
+                                break;
+                        }
+                        if (drawingVariety >= 100)
+                        {
+                            paintPropertyValue.DrawingFrame = -1;
+                            EventItems.Into((EventItem)drawingVariety, paintPropertyValue);
+                        }
+                        PaintPropertyValues[i] = paintPropertyValue;
                     }
                 }
 
@@ -1968,46 +1116,879 @@ namespace Qwilight
                 {
                     for (var j = FadingPropertyValues[i].Length - 1; j >= 0; --j)
                     {
-                        var frame = FadingPropertyValues[i][j]?.Frame ?? 0;
-                        for (var m = 1; m < frame; ++m)
+                        var text = Utility.GetText(pointNode, $"fadingProperty{i}{j}");
+                        if (!string.IsNullOrEmpty(text))
                         {
-                            FadingPropertyValues[i][j].HandledDrawingItems[m] ??= FadingPropertyValues[i][j].HandledDrawingItems[m - 1];
-                        }
-                    }
-                    for (var j = FadingPropertyValues[i].Length - 1; j >= 2; --j)
-                    {
-                        FadingPropertyValues[i][j] ??= FadingPropertyValues[i][1];
-                    }
-                    for (var m = (FadingPropertyValues[i][1]?.Frame ?? 0) - 1; m >= 0; --m)
-                    {
-                        FadingPropertyValues[i][1].HandledDrawingItems[m] ??= FadingPropertyValues[i][0].HandledDrawingItems.ElementAtOrDefault(m);
-                    }
-                    for (var j = FadingPropertyValues[i].Length - 1; j >= 2; --j)
-                    {
-                        for (var m = (FadingPropertyValues[i][j]?.Frame ?? 0) - 1; m >= 1; --m)
-                        {
-                            FadingPropertyValues[i][j].HandledDrawingItems[m] ??= FadingPropertyValues[i][1].HandledDrawingItems.ElementAtOrDefault(m);
+                            var data = text.Split(",").Select(value => GetCalledText(value.Trim())).ToArray();
+                            var frame = Utility.ToInt32(data[0]);
+                            var framerate = Utility.ToFloat64(data[1]);
+                            FadingPropertyValues[i][j] = new()
+                            {
+                                HandledDrawingItems = new HandledDrawingItem?[frame],
+                                Frame = frame,
+                                Framerate = framerate,
+                                Millis = 1000.0 * frame / framerate,
+                                DrawingStatus = Utility.ToFloat64(data[2])
+                            };
                         }
                     }
                 }
 
-                FaultText = null;
-            }
-            finally
-            {
-                DrawingSystem.Instance.LoadDefaultDrawing();
-                ViewModels.Instance.NotifyWindowViewModels();
-                mainViewModel.NotifyModel();
-                mainViewModel.IsUILoading = false;
-                Task.Run(() =>
+                object[] GetDrawingPoint(YamlNode yamlNode, string target, object[] defaultValues = null)
                 {
-                    foreach (var paintPropertyValue in PaintPropertyValues.Where(paintVarietyValue => paintVarietyValue?.DrawingVariety == 11))
+                    var text = Utility.GetText(yamlNode, target);
+                    if (string.IsNullOrEmpty(text))
                     {
-                        var mode = paintPropertyValue.Mode;
-                        paintPropertyValue.MediaHandlerItemValue = MediaSystem.Instance.Handle(paintPropertyValue.HandledMediaItemValue, this, mode == 1, mode == 0);
+                        return defaultValues;
                     }
-                });
+                    else
+                    {
+                        return text.Split(",").Select(value => GetCalledText(value.Trim())).Select((data, i) => i switch
+                        {
+                            4 => Utility.ToInt32(data) switch
+                            {
+                                0 => HorizontalAlignment.Left,
+                                1 => HorizontalAlignment.Center,
+                                2 => HorizontalAlignment.Right,
+                                _ => throw new ArgumentException(target),
+                            },
+                            5 => Utility.ToInt32(data) switch
+                            {
+                                0 => VerticalAlignment.Top,
+                                1 => VerticalAlignment.Center,
+                                2 => VerticalAlignment.Bottom,
+                                _ => throw new ArgumentException(target),
+                            },
+                            6 => Utility.ToInt32(data) switch
+                            {
+                                0 => Stretch.Uniform,
+                                1 => Stretch.Fill,
+                                _ => throw new ArgumentException(target),
+                            },
+                            _ => Utility.ToFloat64(data) as object,
+                        }).ToArray();
+                    }
+                }
+
+                object[] GetPanelPoint(YamlNode yamlNode, string target, object[] defaultValues = null)
+                {
+                    var text = Utility.GetText(yamlNode, target);
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        return defaultValues;
+                    }
+                    else
+                    {
+                        return text.Split(",").Select(value => GetCalledText(value.Trim())).Select((data, i) => i switch
+                        {
+                            4 => Utility.ToInt32(data) switch
+                            {
+                                0 => HorizontalAlignment.Left,
+                                1 => HorizontalAlignment.Center,
+                                2 => HorizontalAlignment.Right,
+                                _ => throw new ArgumentException(target),
+                            },
+                            5 => Utility.ToInt32(data) switch
+                            {
+                                0 => VerticalAlignment.Top,
+                                1 => VerticalAlignment.Center,
+                                2 => VerticalAlignment.Bottom,
+                                _ => throw new ArgumentException(target),
+                            },
+                            6 => DrawingSystem.Instance.GetDefaultPaint(data.GetColor(), 100),
+                            7 => DrawingSystem.Instance.GetDefaultPaint(data.GetColor(), 100),
+                            _ => Utility.ToFloat64(data) as object,
+                        }).ToArray();
+                    }
+                }
+
+                double[] GetLayerPoint(YamlNode yamlNode, string target, double[] defaultValues = null)
+                {
+                    var text = Utility.GetText(yamlNode, target);
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        return defaultValues;
+                    }
+                    else
+                    {
+                        return text.Split(",").Select(value => GetCalledText(value.Trim())).Select(data => Utility.ToFloat64(data)).ToArray();
+                    }
+                }
+
+                float[] GetQuitPoint(YamlNode yamlNode, string target, float[] defaultValues = null)
+                {
+                    var text = Utility.GetText(yamlNode, target);
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        return defaultValues;
+                    }
+                    else
+                    {
+                        return text.Split(",").Select(value => GetCalledText(value.Trim())).Select(data => Utility.ToFloat32(data)).ToArray();
+                    }
+                }
+
+                object[] GetTextPoint(YamlNode yamlNode, string target, object[] defaultValues = null)
+                {
+                    var text = Utility.GetText(yamlNode, target);
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        return defaultValues;
+                    }
+                    else
+                    {
+                        return text.Split(",").Select(value => GetCalledText(value.Trim())).Select((data, i) => i switch
+                        {
+                            4 => Utility.ToInt32(data) switch
+                            {
+                                0 => HorizontalAlignment.Left,
+                                1 => HorizontalAlignment.Center,
+                                2 => HorizontalAlignment.Right,
+                                _ => throw new ArgumentException(target),
+                            },
+                            5 => Utility.ToInt32(data) switch
+                            {
+                                0 => VerticalAlignment.Top,
+                                1 => VerticalAlignment.Center,
+                                2 => VerticalAlignment.Bottom,
+                                _ => throw new ArgumentException(target),
+                            },
+                            _ => Utility.ToFloat64(data) as object,
+                        }).ToArray();
+                    }
+                }
+
+                double GetCalledValue(YamlNode yamlNode, string target, string defaultValue = null)
+                {
+                    var text = Utility.GetText(yamlNode, target, defaultValue);
+                    if (Utility.ToFloat64(text, out var r))
+                    {
+                        return r;
+                    }
+                    else if (QwilightComponent.GetCallComputer().IsMatch(text))
+                    {
+                        var values = text.Split("(").Select(value => value.Trim()).ToArray();
+                        return lsCaller.Call(lsCaller.Globals[values[0]], values[1][0..^1].Split(',').Where(value => !string.IsNullOrEmpty(value)).Select(value => Utility.ToFloat64(value) as object).ToArray()).Number;
+                    }
+                    else
+                    {
+                        throw new ArgumentException(target.ToString());
+                    }
+                }
+
+                string GetCalledText(string text)
+                {
+                    if (!string.IsNullOrEmpty(text) && QwilightComponent.GetCallComputer().IsMatch(text))
+                    {
+                        var values = text.Split("(").Select(value => value.Trim()).ToArray();
+                        return lsCaller.Call(lsCaller.Globals[values[0]], values[1][0..^1].Split(',').Where(value => !string.IsNullOrEmpty(value)).Select(value => Utility.ToFloat64(value) as object).ToArray()).ToObject().ToString();
+                    }
+                    else
+                    {
+                        return text;
+                    }
+                }
             }
+
+            var getPaintProperty = new Func<int[], string>(args => "P");
+            var getTransition = new Func<int[], string>(args => "T");
+
+            SetFunc("_GetPaintProperty", ref getPaintProperty);
+            SetFunc("_GetTransition", ref getTransition);
+
+            void SetFunc(string funcName, ref Func<int[], string> value)
+            {
+                var funcValue = lsCaller.Globals[funcName];
+                if (funcValue != null)
+                {
+                    value = new Func<int[], string>(args =>
+                    {
+                        try
+                        {
+                            return lsCaller.Call(funcValue, args).String;
+                        }
+                        catch
+                        {
+                            throw new ArgumentException($"{funcName}([{string.Join(", ", args)}])");
+                        }
+                    });
+                }
+            }
+
+            var handledMediaValues = new ConcurrentDictionary<string, HandledMediaItem>();
+            var defaultDrawingValues = new ConcurrentDictionary<string, ImageSource>();
+            var drawingValues = new ConcurrentDictionary<string, DrawingItem>();
+            var handledDrawingValues = new ConcurrentDictionary<string, HandledDrawingItem>();
+            var zipFilePath = Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, Path.ChangeExtension(zipName, "zip"));
+            if (File.Exists(zipFilePath))
+            {
+                using var zipFile = ZipFile.Read(zipFilePath);
+                foreach (var zipEntry in zipFile)
+                {
+                    if (!zipEntry.IsDirectory)
+                    {
+                        var rms = PoolSystem.Instance.GetDataFlow((int)zipEntry.UncompressedSize);
+                        zipEntry.Extract(rms);
+                        var fileName = zipEntry.FileName;
+                        var justFileName = Path.GetFileNameWithoutExtension(fileName);
+                        switch (Path.GetDirectoryName(fileName))
+                        {
+                            case "Audio":
+                                parallelItems.Add(() =>
+                                {
+                                    try
+                                    {
+                                        using (rms)
+                                        {
+                                            _audioItemMap[justFileName] = AudioSystem.Instance.Load(rms, this, 1F, null, QwilightComponent.GetLoopingAudioComputer().IsMatch(justFileName));
+                                        }
+                                    }
+                                    catch
+                                    {
+                                    }
+                                });
+                                break;
+                            case "Media":
+                                parallelItems.Add(() =>
+                                {
+                                    try
+                                    {
+                                        using (rms)
+                                        {
+                                            var hash = Utility.GetID128s(rms);
+                                            var hashMediaFilePath = Path.Combine(QwilightComponent.MediaEntryPath, $"{hash}{Path.GetExtension(fileName)}");
+                                            if (!File.Exists(hashMediaFilePath))
+                                            {
+                                                using var fs = File.OpenWrite(hashMediaFilePath);
+                                                rms.WriteTo(fs);
+                                            }
+                                            handledMediaValues[Path.GetFileName(fileName)] = MediaSystem.Instance.Load(hashMediaFilePath, this, true);
+                                        }
+                                    }
+                                    catch
+                                    {
+                                    }
+                                });
+                                break;
+                            case "Drawing":
+                                var fileNameContents = justFileName.Split(' ');
+                                Utility.ToInt32(fileNameContents.ElementAtOrDefault(1), out var value1);
+                                Utility.ToInt32(fileNameContents.ElementAtOrDefault(2), out var value2);
+                                if (fileNameContents[0] == getPaintProperty(new[] { value1, value2 }))
+                                {
+                                    NewHandledDrawing(rms);
+                                }
+                                else if (fileNameContents[0] == getTransition(new[] { value1, value2 }))
+                                {
+                                    NewHandledDrawing(rms);
+                                }
+                                break;
+                            case "Input":
+                                fileNameContents = justFileName.Split(" ");
+                                if (fileNameContents[0] == "I")
+                                {
+                                    NewHandledDrawing(rms);
+                                }
+                                break;
+                            case "Judgment":
+                                if (justFileName == "Total Notes")
+                                {
+                                    NewDrawing(rms);
+                                }
+                                else
+                                {
+                                    fileNameContents = justFileName.Split(" ");
+                                    if (fileNameContents[0] == "J")
+                                    {
+                                        NewHandledDrawing(rms);
+                                    }
+                                }
+                                break;
+                            case "Mode":
+                                fileNameContents = justFileName.Split(" ");
+                                if (fileNameContents[0] == "M")
+                                {
+                                    NewHandledDrawing(rms);
+                                }
+                                break;
+                            case "Net Position":
+                                fileNameContents = justFileName.Split(" ");
+                                if (fileNameContents[0] == "NP")
+                                {
+                                    NewDrawing(rms);
+                                }
+                                break;
+                            case "Notify":
+                                fileNameContents = justFileName.Split(" ");
+                                if (fileNameContents[0] == "N")
+                                {
+                                    NewHandledDrawing(rms);
+                                }
+                                break;
+                            case "Quit v2":
+                                switch (justFileName)
+                                {
+                                    case "S+":
+                                    case "S":
+                                    case "S FC":
+                                    case "A+":
+                                    case "A+ FC":
+                                    case "A":
+                                    case "A FC":
+                                    case "B":
+                                    case "B FC":
+                                    case "C":
+                                    case "C FC":
+                                    case "D":
+                                    case "D FC":
+                                    case "F":
+                                        NewHandledDrawing(rms);
+                                        break;
+                                }
+                                break;
+                            case "Quit Mode":
+                                NewDrawing(rms);
+                                break;
+                            case "":
+                                switch (justFileName)
+                                {
+                                    case "File":
+                                    case "Total Notes":
+                                    case "BPM!":
+                                    case "File Viewer":
+                                    case "Assist File Viewer":
+                                    case "Configure":
+                                    case "Comment":
+                                    case "Audio Input":
+                                    case "Want":
+                                    case "Salt":
+                                    case "Default Entry Configure":
+                                    case "Judgment Stage":
+                                    case "Highest Input Count":
+                                    case "Length":
+                                    case "BPM":
+                                    case "Input Mode":
+                                        NewDefaultDrawing(rms);
+                                        break;
+                                    case "Default":
+                                        NewHandledDrawing(rms);
+                                        break;
+                                }
+                                break;
+                            default:
+                                NewDefaultDrawing(rms);
+                                break;
+                        }
+                        void NewDrawing(Stream s) => parallelItems.Add(() =>
+                        {
+                            try
+                            {
+                                using (s)
+                                {
+                                    drawingValues[fileName] = DrawingSystem.Instance.Load(s, this);
+                                }
+                            }
+                            catch
+                            {
+                            }
+                        });
+                        void NewDefaultDrawing(Stream s) => parallelItems.Add(() =>
+                        {
+                            try
+                            {
+                                using (s)
+                                {
+                                    defaultDrawingValues[fileName] = DrawingSystem.Instance.LoadDefault(s, this);
+                                }
+                            }
+                            catch
+                            {
+                            }
+                        });
+                        void NewHandledDrawing(Stream s)
+                        {
+                            parallelItems.Add(() =>
+                            {
+                                using (s)
+                                {
+                                    try
+                                    {
+                                        handledDrawingValues[fileName] = new()
+                                        {
+                                            Drawing = DrawingSystem.Instance.Load(s, this),
+                                            DefaultDrawing = DrawingSystem.Instance.LoadDefault(s, this)
+                                        };
+                                    }
+                                    catch
+                                    {
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            if (src != target)
+            {
+                AudioSystem.Instance.Close(this);
+                DrawingSystem.Instance.Close(this);
+                MediaSystem.Instance.Close(this, this);
+            }
+            else
+            {
+                MediaSystem.Instance.Stop(this);
+            }
+            Utility.HandleLowlyParallelly(parallelItems, Configure.Instance.UIBin, parallelItem => parallelItem());
+
+            foreach (var paintPropertyValue in PaintPropertyValues)
+            {
+                if (paintPropertyValue?.DrawingVariety == 11)
+                {
+                    var mode = paintPropertyValue.Mode;
+                    var isAvailable = mode == 1;
+                    var isDefaultAvailable = mode == 0;
+                    if (handledMediaValues.TryGetValue(paintPropertyValue.Etc, out var handledMediaItem))
+                    {
+                        paintPropertyValue.HandledMediaItemValue = handledMediaItem;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            paintPropertyValue.HandledMediaItemValue = MediaSystem.Instance.Load(Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, paintPropertyValue.Etc), this, true);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+            }
+            foreach (var (fileName, drawingItem) in drawingValues)
+            {
+                var justFileName = Path.GetFileNameWithoutExtension(fileName);
+                switch (Path.GetDirectoryName(fileName))
+                {
+                    case "Judgment":
+                        if (justFileName == "Total Notes")
+                        {
+                            TotalNotesJudgmentDrawing = drawingItem;
+                        }
+                        break;
+                    case "Net Position":
+                        var fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "NP")
+                        {
+                            NetPositionDrawings[Utility.ToInt32(fileNameContents[1])] = drawingItem;
+                        }
+                        break;
+                    case "Quit Mode":
+                        switch (justFileName)
+                        {
+                            case "Stand":
+                                StandDrawing = drawingItem;
+                                break;
+                            case "Highest Band":
+                                HighestBandDrawing = drawingItem;
+                                break;
+                            case "Point":
+                                PointDrawing = drawingItem;
+                                break;
+                            case "New Stand":
+                                NewStandDrawing = drawingItem;
+                                break;
+                            case "View Comment":
+                                ViewCommentDrawing = drawingItem;
+                                break;
+                            case "Handle Undo":
+                                HandleUndoDrawing = drawingItem;
+                                break;
+                            case "Move 0":
+                                QuitMove0Drawing = drawingItem;
+                                break;
+                            case "Move 1":
+                                QuitMove1Drawing = drawingItem;
+                                break;
+                            case "Judgment Stage":
+                                JudgmentStageQuitDrawing = drawingItem;
+                                break;
+                            case "Highest Input Count":
+                                HighestInputCountQuitDrawing = drawingItem;
+                                break;
+                            case "Length":
+                                LengthQuitDrawing = drawingItem;
+                                break;
+                            case "BPM":
+                                BPMQuitDrawing = drawingItem;
+                                break;
+                            case "Input Mode":
+                                InputModeQuitDrawing = drawingItem;
+                                break;
+                        }
+                        break;
+                }
+            }
+            foreach (var (fileName, defaultDrawing) in defaultDrawingValues)
+            {
+                var justFileName = Path.GetFileNameWithoutExtension(fileName);
+                switch (Path.GetDirectoryName(fileName))
+                {
+                    case "Default Entry":
+                        var fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "DE")
+                        {
+                            DefaultEntryDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Salt Auto":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "SA")
+                        {
+                            SaltAutoDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Site Situation":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "SS")
+                        {
+                            SiteSituationDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Input Window":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "IW")
+                        {
+                            InputModeWindowDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Handled":
+                        fileNameContents = justFileName.Split(" ");
+                        switch (fileNameContents[0])
+                        {
+                            case "W":
+                                HandledWallDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                                break;
+                        }
+                        break;
+                    case "Avatar Configure":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "AC")
+                        {
+                            AvatarConfigureDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Net Site":
+                        switch (justFileName)
+                        {
+                            case "BPM":
+                                BPMNetSiteDrawing = defaultDrawing;
+                                break;
+                            case "BPM!":
+                                BPM1NetSiteDrawing = defaultDrawing;
+                                break;
+                            case "Total Notes":
+                                TotalNotesNetSiteDrawing = defaultDrawing;
+                                break;
+                            case "Highest Input Count":
+                                HighestInputCountNetSiteDrawing = defaultDrawing;
+                                break;
+                            case "Length":
+                                LengthNetSiteDrawing = defaultDrawing;
+                                break;
+                            case "Judgment Stage":
+                                JudgmentStageNetSiteDrawing = defaultDrawing;
+                                break;
+                        }
+                        break;
+                    case "Sign in":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "S")
+                        {
+                            SignInDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Site Cipher":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "SC")
+                        {
+                            SiteCipherDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Site Configure":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "SC")
+                        {
+                            SiteConfigureDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Stop Auto":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "SA")
+                        {
+                            StopAutoDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Site Media":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "SM")
+                        {
+                            SiteMediaDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Site Audio":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "SA")
+                        {
+                            SiteAudioDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                        }
+                        break;
+                    case "Fit":
+                        switch (justFileName)
+                        {
+                            case "Title":
+                                TitleFitDrawing = defaultDrawing;
+                                break;
+                            case "Artist":
+                                ArtistFitDrawing = defaultDrawing;
+                                break;
+                            case "Level Text Value":
+                                LevelTextValueFitDrawing = defaultDrawing;
+                                break;
+                            case "Modified Date":
+                                ModifiedDateFitDrawing = defaultDrawing;
+                                break;
+                            case "Handled Count":
+                                HandledCountFitDrawing = defaultDrawing;
+                                break;
+                            case "Latest Date":
+                                LatestDateFitDrawing = defaultDrawing;
+                                break;
+                            case "BPM":
+                                BPMFitDrawing = defaultDrawing;
+                                break;
+                            case "Total Notes":
+                                TotalNotesFitDrawing = defaultDrawing;
+                                break;
+                            case "Highest Input Count":
+                                HighestInputCountFitDrawing = defaultDrawing;
+                                break;
+                            case "Average Input Count":
+                                AverageInputCountFitDrawing = defaultDrawing;
+                                break;
+                            case "Length":
+                                LengthFitDrawing = defaultDrawing;
+                                break;
+                            case "Entry Path":
+                                EntryPathFitDrawing = defaultDrawing;
+                                break;
+                        }
+                        break;
+                    case "":
+                        switch (justFileName)
+                        {
+                            case "File":
+                                FileDrawing = defaultDrawing;
+                                break;
+                            case "Total Notes":
+                                TotalNotesDrawing = defaultDrawing;
+                                break;
+                            case "File Viewer":
+                                FileViewerDrawing = defaultDrawing;
+                                break;
+                            case "Assist File Viewer":
+                                AssistFileViewerDrawing = defaultDrawing;
+                                break;
+                            case "Comment":
+                                CommentDrawing = defaultDrawing;
+                                break;
+                            case "Configure":
+                                ConfigureDrawing = defaultDrawing;
+                                break;
+                            case "Audio Input":
+                                AudioInputDrawing = defaultDrawing;
+                                break;
+                            case "Salt":
+                                SaltDrawing = defaultDrawing;
+                                break;
+                            case "Default Entry Configure":
+                                DefaultEntryConfigureDrawing = defaultDrawing;
+                                break;
+                            case "Judgment Stage":
+                                JudgmentStageDrawing = defaultDrawing;
+                                break;
+                            case "Highest Input Count":
+                                HighestInputCountDrawing = defaultDrawing;
+                                break;
+                            case "Length":
+                                LengthDrawing = defaultDrawing;
+                                break;
+                            case "BPM":
+                                BPMDrawing = defaultDrawing;
+                                break;
+                            case "BPM!":
+                                BPM1Drawing = defaultDrawing;
+                                break;
+                            case "Input Mode":
+                                InputModeDrawing = defaultDrawing;
+                                break;
+                        }
+                        break;
+                }
+            }
+            foreach (var (fileName, handledDrawingItem) in handledDrawingValues)
+            {
+                var justFileName = Path.GetFileNameWithoutExtension(fileName);
+                switch (Path.GetDirectoryName(fileName))
+                {
+                    case "Drawing":
+                        var fileNameContents = justFileName.Split(' ');
+                        Utility.ToInt32(fileNameContents.ElementAtOrDefault(1), out var value1);
+                        Utility.ToInt32(fileNameContents.ElementAtOrDefault(2), out var value2);
+                        if (fileNameContents[0] == getPaintProperty(new[] { value1, value2 }))
+                        {
+                            PaintPropertyValues[value1].HandledDrawingItems.SetValue(value2, handledDrawingItem);
+                        }
+                        else if (fileNameContents[0] == getTransition(new[] { value1, value2 }))
+                        {
+                            FadingPropertyValues[value1][value2].HandledDrawingItems.SetValue(Utility.ToInt32(fileNameContents[3]), handledDrawingItem);
+                        }
+                        break;
+                    case "Input":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "I")
+                        {
+                            InputModeDrawings[Utility.ToInt32(fileNameContents[1])] = handledDrawingItem;
+                        }
+                        break;
+                    case "Judgment":
+                        if (justFileName != "Total Notes")
+                        {
+                            fileNameContents = justFileName.Split(" ");
+                            if (fileNameContents[0] == "J")
+                            {
+                                JudgmentDrawings[Utility.ToInt32(justFileName.Split(" ")[1])] = handledDrawingItem;
+                            }
+                        }
+                        break;
+                    case "Mode":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "M")
+                        {
+                            ModeComponentDrawings[Utility.ToInt32(fileNameContents[1])][Utility.ToInt32(fileNameContents[2])] = handledDrawingItem;
+                        }
+                        break;
+                    case "Notify":
+                        fileNameContents = justFileName.Split(" ");
+                        if (fileNameContents[0] == "N")
+                        {
+                            NotifyDrawings[Utility.ToInt32(fileNameContents[1])] = handledDrawingItem;
+                        }
+                        break;
+                    case "Quit v2":
+                        switch (justFileName)
+                        {
+                            case "S+":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.SPlus][0] = handledDrawingItem;
+                                break;
+                            case "S":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.S][0] = handledDrawingItem;
+                                break;
+                            case "S FC":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.S][1] = handledDrawingItem;
+                                break;
+                            case "A+":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.APlus][0] = handledDrawingItem;
+                                break;
+                            case "A+ FC":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.APlus][1] = handledDrawingItem;
+                                break;
+                            case "A":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.A][0] = handledDrawingItem;
+                                break;
+                            case "A FC":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.A][1] = handledDrawingItem;
+                                break;
+                            case "B":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.B][0] = handledDrawingItem;
+                                break;
+                            case "B FC":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.B][1] = handledDrawingItem;
+                                break;
+                            case "C":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.C][0] = handledDrawingItem;
+                                break;
+                            case "C FC":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.C][1] = handledDrawingItem;
+                                break;
+                            case "D":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.D][0] = handledDrawingItem;
+                                break;
+                            case "D FC":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.D][1] = handledDrawingItem;
+                                break;
+                            case "F":
+                                QuitDrawings[(int)DefaultCompute.QuitStatus.F][0] = handledDrawingItem;
+                                break;
+                        }
+                        break;
+                    case "":
+                        switch (justFileName)
+                        {
+                            case "Default":
+                                DefaultDrawing = handledDrawingItem;
+                                break;
+                        }
+                        break;
+                }
+            }
+
+            for (var i = (int)Component.InputMode.InputMode484; i >= (int)Component.InputMode.InputMode4; --i)
+            {
+                InputModeWindowDrawings[i] ??= InputModeDrawings[i]?.DefaultDrawing;
+            }
+
+            for (var i = (int)DefaultCompute.QuitStatus.F; i >= (int)DefaultCompute.QuitStatus.SPlus; --i)
+            {
+                QuitDrawings[i][1] ??= QuitDrawings[i][0];
+            }
+
+            for (var i = PaintPropertyValues.Length - 1; i >= 0; --i)
+            {
+                var frame = PaintPropertyValues[i]?.Frame ?? 0;
+                for (var j = 1; j < frame; ++j)
+                {
+                    PaintPropertyValues[i].HandledDrawingItems[j] ??= PaintPropertyValues[i].HandledDrawingItems[j - 1];
+                }
+            }
+
+            for (var i = FadingPropertyValues.Length - 1; i >= 0; --i)
+            {
+                for (var j = FadingPropertyValues[i].Length - 1; j >= 0; --j)
+                {
+                    var frame = FadingPropertyValues[i][j]?.Frame ?? 0;
+                    for (var m = 1; m < frame; ++m)
+                    {
+                        FadingPropertyValues[i][j].HandledDrawingItems[m] ??= FadingPropertyValues[i][j].HandledDrawingItems[m - 1];
+                    }
+                }
+                for (var j = FadingPropertyValues[i].Length - 1; j >= 2; --j)
+                {
+                    FadingPropertyValues[i][j] ??= FadingPropertyValues[i][1];
+                }
+                for (var m = (FadingPropertyValues[i][1]?.Frame ?? 0) - 1; m >= 0; --m)
+                {
+                    FadingPropertyValues[i][1].HandledDrawingItems[m] ??= FadingPropertyValues[i][0].HandledDrawingItems.ElementAtOrDefault(m);
+                }
+                for (var j = FadingPropertyValues[i].Length - 1; j >= 2; --j)
+                {
+                    for (var m = (FadingPropertyValues[i][j]?.Frame ?? 0) - 1; m >= 1; --m)
+                    {
+                        FadingPropertyValues[i][j].HandledDrawingItems[m] ??= FadingPropertyValues[i][1].HandledDrawingItems.ElementAtOrDefault(m);
+                    }
+                }
+            }
+
+            FaultText = null;
         }
 
         void SetConfigures(Script lsCaller)
@@ -2107,49 +2088,49 @@ namespace Qwilight
                             {
                                 FaultText = string.Format(LanguageSystem.Instance.YAMLCompileFault, e.Message);
                                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, FaultText);
-                                LoadDefaultBaseUI();
                             }
                             catch (Exception e)
                             {
                                 FaultText = string.Format(LanguageSystem.Instance.UIFaultText, e.Message);
                                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, FaultText);
-                                LoadDefaultBaseUI();
                             }
                         }
                     });
                 }
                 else
                 {
-                    lock (UI.Instance.LoadedCSX)
+                    try
                     {
-                        try
+                        lock (UI.Instance.LoadedCSX)
                         {
                             LoadBaseUIImpl(src, target);
                         }
-                        catch (YamlException e)
-                        {
-                            FaultText = string.Format(LanguageSystem.Instance.YAMLCompileFault, e.Message, true);
-                            LoadDefaultBaseUI();
-                        }
-                        catch (Exception e)
-                        {
-                            FaultText = string.Format(LanguageSystem.Instance.UIFaultText, e.Message, true);
-                            LoadDefaultBaseUI();
-                        }
+                    }
+                    catch (YamlException e)
+                    {
+                        FaultText = string.Format(LanguageSystem.Instance.YAMLCompileFault, e.Message, true);
+                    }
+                    catch (Exception e)
+                    {
+                        FaultText = string.Format(LanguageSystem.Instance.UIFaultText, e.Message, true);
+                    }
+                    finally
+                    {
+                        OnLoaded();
                     }
                 }
 
-                void LoadDefaultBaseUI()
+                void OnLoaded()
                 {
-                    var defaultUIItem = new UIItem
+                    foreach (var paintPropertyValue in PaintPropertyValues.Where(paintVarietyValue => paintVarietyValue?.DrawingVariety == 11))
                     {
-                        UIEntry = "@Default",
-                        YamlName = "@Default"
-                    };
-                    if (target != defaultUIItem)
-                    {
-                        LoadUI(null, defaultUIItem, isParallel);
+                        var mode = paintPropertyValue.Mode;
+                        paintPropertyValue.MediaHandlerItemValue = MediaSystem.Instance.Handle(paintPropertyValue.HandledMediaItemValue, this, mode == 1, mode == 0);
                     }
+                    DrawingSystem.Instance.LoadDefaultDrawing();
+                    ViewModels.Instance.NotifyWindowViewModels();
+                    mainViewModel.NotifyModel();
+                    mainViewModel.IsUILoading = false;
                 }
             }
         }
