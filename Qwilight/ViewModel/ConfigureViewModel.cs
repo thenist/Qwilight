@@ -254,7 +254,7 @@ namespace Qwilight.ViewModel
                 {
                     Filters = QwilightComponent.DrawingFileFormats
                 });
-                if (string.IsNullOrEmpty(fileName))
+                if (!string.IsNullOrEmpty(fileName))
                 {
                     Configure.Instance.DefaultDrawingFilePath = fileName;
                     DrawingSystem.Instance.LoadDefaultDrawing();
@@ -290,7 +290,7 @@ namespace Qwilight.ViewModel
                 {
                     Filters = QwilightComponent.DrawingFileFormats
                 });
-                if (string.IsNullOrEmpty(fileName))
+                if (!string.IsNullOrEmpty(fileName))
                 {
                     Configure.Instance.VeilDrawingFilePath = fileName;
                     DrawingSystem.Instance.LoadVeilDrawing();
@@ -761,7 +761,7 @@ namespace Qwilight.ViewModel
             {
                 Filters = QwilightComponent.AudioFileFormats
             });
-            if (string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(fileName))
             {
                 Configure.Instance.BanalAudioFilePath = fileName;
                 Configure.Instance.BanalAudio = true;
@@ -776,7 +776,7 @@ namespace Qwilight.ViewModel
             {
                 Filters = QwilightComponent.AudioFileFormats
             });
-            if (string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(fileName))
             {
                 Configure.Instance.DefaultAudioVarietyValue = Configure.DefaultAudioVariety.Favor;
                 Configure.Instance.DefaultAudioFilePath = fileName;
@@ -794,7 +794,7 @@ namespace Qwilight.ViewModel
             {
                 Filters = QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats)
             });
-            if (string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(fileName))
             {
                 Configure.Instance.BanalMediaFilePath = fileName;
                 Configure.Instance.BanalMedia = true;
@@ -815,7 +815,7 @@ namespace Qwilight.ViewModel
             {
                 Filters = QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats)
             });
-            if (string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(fileName))
             {
                 Configure.Instance.BanalFailedMediaFilePath = fileName;
                 Configure.Instance.BanalFailedMedia = true;

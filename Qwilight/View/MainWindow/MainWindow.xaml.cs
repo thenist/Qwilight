@@ -154,22 +154,22 @@ namespace Qwilight.View
                 });
             });
             StrongReferenceMessenger.Default.Register<ViewAllowWindow>(this, (recipient, message) => message.Reply(PInvoke.MessageBox(_handle, message.Text, "Qwilight", (MESSAGEBOX_STYLE)message.Data)));
-            StrongReferenceMessenger.Default.Register<ViewEntryWindow>(this, async (recipient, message) =>
+            StrongReferenceMessenger.Default.Register<ViewEntryWindow>(this, (recipient, message) =>
             {
-                var fp = new FolderPicker();
-                InitializeWithWindow.Initialize(fp, _handle);
-                fp.FileTypeFilter.Add("*");
-                message.Reply((await fp.PickSingleFolderAsync())?.Path);
+                var entryWindow = new FolderPicker();
+                InitializeWithWindow.Initialize(entryWindow, _handle);
+                entryWindow.FileTypeFilter.Add("*");
+                message.Reply(entryWindow.PickSingleFolderAsync().AsTask().ContinueWith<string>(entry => entry.Result?.Path));
             });
-            StrongReferenceMessenger.Default.Register<ViewFileWindow>(this, async (recipient, message) =>
+            StrongReferenceMessenger.Default.Register<ViewFileWindow>(this, (recipient, message) =>
             {
-                var fop = new FileOpenPicker();
-                InitializeWithWindow.Initialize(fop, _handle);
+                var fileWindow = new FileOpenPicker();
+                InitializeWithWindow.Initialize(fileWindow, _handle);
                 foreach (var filter in message.Filters)
                 {
-                    fop.FileTypeFilter.Add(filter);
+                    fileWindow.FileTypeFilter.Add(filter);
                 }
-                message.Reply((await fop.PickSingleFileAsync())?.Path);
+                message.Reply(fileWindow.PickSingleFileAsync().AsTask().ContinueWith<string>(file => file.Result?.Path));
             });
             StrongReferenceMessenger.Default.Register<Quit>(this, (recipient, message) => PInvoke.PostMessage(_handle, PInvoke.WM_CLOSE, message.ViewAllowWindow ? (WPARAM)1 : (WPARAM)0, (LPARAM)0));
             StrongReferenceMessenger.Default.Register<SetWindowArea>(this, (recipient, message) =>

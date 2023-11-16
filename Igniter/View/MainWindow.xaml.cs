@@ -11,7 +11,7 @@ namespace Igniter.View
         {
             InitializeComponent();
 
-            StrongReferenceMessenger.Default.Register<ViewAllowWindow>(this, async (recipient, message) => message.Reply(await Dispatcher.InvokeAsync(() => MessageBox.Show(this, message.Text, "Qwilight", message.Input, message.Drawing))));
+            StrongReferenceMessenger.Default.Register<ViewAllowWindow>(this, (recipient, message) => message.Reply(Dispatcher.InvokeAsync(() => MessageBox.Show(this, message.Text, "Qwilight", message.Input, message.Drawing)).Task));
         }
 
         void OnLoaded(object sender, RoutedEventArgs e) => _ = (DataContext as MainViewModel).OnLoaded();

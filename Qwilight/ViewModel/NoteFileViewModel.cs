@@ -94,7 +94,7 @@ namespace Qwilight.ViewModel
                             {
                                 Filters = new[] { ".exe" }
                             });
-                            if (string.IsNullOrEmpty(fileName))
+                            if (!string.IsNullOrEmpty(fileName))
                             {
                                 Configure.Instance.BMSEditorFilePath = fileName;
                                 await Edit().ConfigureAwait(false);
