@@ -2077,23 +2077,27 @@ namespace Qwilight
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpeningUIFileContents);
                     Task.Run(() =>
                     {
-                        lock (UI.Instance.LoadedCSX)
+                        try
                         {
-                            try
+                            lock (UI.Instance.LoadedCSX)
                             {
                                 LoadBaseUIImpl(src, target);
                                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedUIFileContents);
                             }
-                            catch (YamlException e)
-                            {
-                                FaultText = string.Format(LanguageSystem.Instance.YAMLCompileFault, e.Message);
-                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, FaultText);
-                            }
-                            catch (Exception e)
-                            {
-                                FaultText = string.Format(LanguageSystem.Instance.UIFaultText, e.Message);
-                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, FaultText);
-                            }
+                        }
+                        catch (YamlException e)
+                        {
+                            FaultText = string.Format(LanguageSystem.Instance.YAMLCompileFault, e.Message);
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, FaultText);
+                        }
+                        catch (Exception e)
+                        {
+                            FaultText = string.Format(LanguageSystem.Instance.UIFaultText, e.Message);
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, FaultText);
+                        }
+                        finally
+                        {
+                            OnLoaded();
                         }
                     });
                 }
