@@ -1597,7 +1597,7 @@ namespace Qwilight.ViewModel
         public void LoadEventNoteEntryItems()
         {
             WipeEntryItems(entryItem => !string.IsNullOrEmpty(entryItem.EventNoteID), null, true);
-            foreach (var (eventNoteID, eventNoteName, eventNoteDate, eventNoteVariety) in DB.Instance.GetEventNote())
+            foreach (var (eventNoteID, eventNoteName, eventNoteDate, eventNoteVariety) in DB.Instance.GetEventNotes())
             {
                 try
                 {

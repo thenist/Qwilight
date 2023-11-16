@@ -2,6 +2,7 @@
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
+using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Security.Cryptography;
@@ -59,7 +60,7 @@ namespace Qwilight
                 _fileDB.BackupDatabase(_fastDB, "main", "main", -1, null, -1);
 
                 #region COMPATIBLE
-                Compatible.Compatible.DB(_fastDB);
+                //Compatible.Compatible.DB(_fastDB);
                 #endregion
 
                 #region 데이터베이스 정보
@@ -83,7 +84,7 @@ namespace Qwilight
                     using var rows = dbStatement.ExecuteReader();
                     if (rows.Read())
                     {
-                        date = Version.Parse(rows["Value"] as string);
+                        date = Version.Parse(rows.GetString("Value"));
                     }
                 }
 
@@ -401,18 +402,18 @@ namespace Qwilight
                         using var rows = dbStatement.ExecuteReader();
                         while (rows.Read())
                         {
-                            var handledValue = comments.GetValueOrDefault(rows["Note_ID"] as string, BaseNoteFile.Handled.Not);
+                            var handledValue = comments.GetValueOrDefault(rows.GetString("Note_ID"), BaseNoteFile.Handled.Not);
                             if (handledValue != BaseNoteFile.Handled.Band1)
                             {
-                                if ((long)rows["Is_P"] > 0)
+                                if (rows.GetBoolean("Is_P"))
                                 {
                                     handledValue = BaseNoteFile.Handled.Band1;
                                 }
-                                else if ((ModeComponent.HitPointsMode)(int)(long)rows["Hit_Points_Mode"] == ModeComponent.HitPointsMode.Highest)
+                                else if ((ModeComponent.HitPointsMode)rows.GetInt32("Hit_Points_Mode") == ModeComponent.HitPointsMode.Highest)
                                 {
                                     handledValue = BaseNoteFile.Handled.HighestClear;
                                 }
-                                else if ((ModeComponent.HitPointsMode)(int)(long)rows["Hit_Points_Mode"] == ModeComponent.HitPointsMode.Higher && handledValue != BaseNoteFile.Handled.HighestClear)
+                                else if ((ModeComponent.HitPointsMode)rows.GetInt32("Hit_Points_Mode") == ModeComponent.HitPointsMode.Higher && handledValue != BaseNoteFile.Handled.HighestClear)
                                 {
                                     handledValue = BaseNoteFile.Handled.HigherClear;
                                 }
@@ -421,7 +422,7 @@ namespace Qwilight
                                     handledValue = BaseNoteFile.Handled.Clear;
                                 }
                             }
-                            comments[rows["Note_ID"] as string] = handledValue;
+                            comments[rows.GetString("Note_ID")] = handledValue;
                         }
                     }
                     foreach (var comment in comments)
@@ -477,7 +478,7 @@ namespace Qwilight
                         using var rows = dbStatement.ExecuteReader();
                         while (rows.Read())
                         {
-                            comments.Add((rows["Note_ID"] as string, rows["Event_Note_ID"] as string, (DateTime)rows["Date"]));
+                            comments.Add((rows.GetString("Note_ID"), rows.GetString("Event_Note_ID"), rows.GetDateTime("Date")));
                         }
                     }
                     foreach (var comment in comments)
@@ -635,16 +636,16 @@ namespace Qwilight
             using var rows = dbStatement.ExecuteReader();
             while (rows.Read())
             {
-                var date = (DateTime)rows["Date"];
-                var sentMultiplier = (double)rows["Multiplier"];
-                var audioMultiplier = Math.Round((double)rows["Audio_Multiplier"], 2);
-                data.Add(new(string.Empty, (DefaultCompute.InputFlag)(long)rows["Input_Flags"])
+                var date = rows.GetDateTime("Date");
+                var sentMultiplier = rows.GetDouble("Multiplier");
+                var audioMultiplier = Math.Round(rows.GetDouble("Audio_Multiplier"), 2);
+                data.Add(new(string.Empty, (DefaultCompute.InputFlag)rows.GetInt32("Input_Flags"))
                 {
                     NoteFileCount = noteFileCount,
                     Date = date,
                     DateText = date.ToString("yyyy-MM-dd HH:mm:ss"),
-                    CommentID = rows["Comment"] as string,
-                    AvatarName = rows["Name"] as string,
+                    CommentID = rows.GetString("Comment"),
+                    AvatarName = rows.GetString("Name"),
                     ModeComponentValue = new()
                     {
                         CanModifyMultiplier = false,
@@ -652,55 +653,55 @@ namespace Qwilight
                         ComputingValue = noteFile,
                         SentMultiplier = sentMultiplier,
                         MultiplierValue = noteFile.BPM * audioMultiplier * sentMultiplier,
-                        AutoModeValue = (ModeComponent.AutoMode)(long)rows["Auto_Mode"],
-                        NoteSaltModeValue = (ModeComponent.NoteSaltMode)(long)rows["Note_Salt_Mode"],
+                        AutoModeValue = (ModeComponent.AutoMode)rows.GetInt32("Auto_Mode"),
+                        NoteSaltModeValue = (ModeComponent.NoteSaltMode)rows.GetInt32("Note_Salt_Mode"),
                         AudioMultiplier = audioMultiplier,
-                        FaintNoteModeValue = (ModeComponent.FaintNoteMode)(long)rows["Faint_Note_Mode"],
-                        JudgmentModeValue = (ModeComponent.JudgmentMode)(long)rows["Judgment_Mode"],
-                        HitPointsModeValue = (ModeComponent.HitPointsMode)(long)rows["Hit_Points_Mode"],
-                        NoteMobilityModeValue = (ModeComponent.NoteMobilityMode)(long)rows["Note_Mobility_Mode"],
-                        LongNoteModeValue = (ModeComponent.LongNoteMode)(long)rows["Long_Note_Mode"],
-                        InputFavorModeValue = (ModeComponent.InputFavorMode)(long)rows["Input_Favor_Mode"],
-                        NoteModifyModeValue = (ModeComponent.NoteModifyMode)(long)rows["Note_Modify_Mode"],
-                        BPMModeValue = (ModeComponent.BPMMode)(long)rows["BPM_Mode"],
-                        WaveModeValue = (ModeComponent.WaveMode)(long)rows["Wave_Mode"],
-                        SetNoteModeValue = (ModeComponent.SetNoteMode)(long)rows["Set_Note_Mode"],
-                        LowestJudgmentConditionModeValue = (ModeComponent.LowestJudgmentConditionMode)(long)rows["Lowest_Judgment_Condition_Mode"],
-                        Salt = (int)(long)rows["Salt"],
-                        HighestJudgment0 = (double)rows["Highest_Judgment_0"],
-                        HigherJudgment0 = (double)rows["Higher_Judgment_0"],
-                        HighJudgment0 = (double)rows["High_Judgment_0"],
-                        LowJudgment0 = (double)rows["Low_Judgment_0"],
-                        LowerJudgment0 = (double)rows["Lower_Judgment_0"],
-                        LowestJudgment0 = (double)rows["Lowest_Judgment_0"],
-                        HighestJudgment1 = (double)rows["Highest_Judgment_1"],
-                        HigherJudgment1 = (double)rows["Higher_Judgment_1"],
-                        HighJudgment1 = (double)rows["High_Judgment_1"],
-                        LowJudgment1 = (double)rows["Low_Judgment_1"],
-                        LowerJudgment1 = (double)rows["Lower_Judgment_1"],
-                        LowestJudgment1 = (double)rows["Lowest_Judgment_1"],
-                        LowestLongNoteModify = (double)rows["Lowest_Long_Note_Modify"],
-                        HighestLongNoteModify = (double)rows["Highest_Long_Note_Modify"],
-                        PutNoteSet = (int)(long)rows["Put_Note_Set"],
-                        PutNoteSetMillis = (double)rows["Put_Note_Set_Millis"],
-                        HighestHitPoints0 = 100.0 * (double)rows["Highest_Hit_Points_0"],
-                        HigherHitPoints0 = 100.0 * (double)rows["Higher_Hit_Points_0"],
-                        HighHitPoints0 = 100.0 * (double)rows["High_Hit_Points_0"],
-                        LowHitPoints0 = 100.0 * (double)rows["Low_Hit_Points_0"],
-                        LowerHitPoints0 = 100.0 * (double)rows["Lower_Hit_Points_0"],
-                        LowestHitPoints0 = 100.0 * (double)rows["Lowest_Hit_Points_0"],
-                        HighestHitPoints1 = 100.0 * (double)rows["Highest_Hit_Points_1"],
-                        HigherHitPoints1 = 100.0 * (double)rows["Higher_Hit_Points_1"],
-                        HighHitPoints1 = 100.0 * (double)rows["High_Hit_Points_1"],
-                        LowHitPoints1 = 100.0 * (double)rows["Low_Hit_Points_1"],
-                        LowerHitPoints1 = 100.0 * (double)rows["Lower_Hit_Points_1"],
-                        LowestHitPoints1 = 100.0 * (double)rows["Lowest_Hit_Points_1"],
+                        FaintNoteModeValue = (ModeComponent.FaintNoteMode)rows.GetInt32("Faint_Note_Mode"),
+                        JudgmentModeValue = (ModeComponent.JudgmentMode)rows.GetInt32("Judgment_Mode"),
+                        HitPointsModeValue = (ModeComponent.HitPointsMode)rows.GetInt32("Hit_Points_Mode"),
+                        NoteMobilityModeValue = (ModeComponent.NoteMobilityMode)rows.GetInt32("Note_Mobility_Mode"),
+                        LongNoteModeValue = (ModeComponent.LongNoteMode)rows.GetInt32("Long_Note_Mode"),
+                        InputFavorModeValue = (ModeComponent.InputFavorMode)rows.GetInt32("Input_Favor_Mode"),
+                        NoteModifyModeValue = (ModeComponent.NoteModifyMode)rows.GetInt32("Note_Modify_Mode"),
+                        BPMModeValue = (ModeComponent.BPMMode)rows.GetInt32("BPM_Mode"),
+                        WaveModeValue = (ModeComponent.WaveMode)rows.GetInt32("Wave_Mode"),
+                        SetNoteModeValue = (ModeComponent.SetNoteMode)rows.GetInt32("Set_Note_Mode"),
+                        LowestJudgmentConditionModeValue = (ModeComponent.LowestJudgmentConditionMode)rows.GetInt32("Lowest_Judgment_Condition_Mode"),
+                        Salt = rows.GetInt32("Salt"),
+                        HighestJudgment0 = rows.GetDouble("Highest_Judgment_0"),
+                        HigherJudgment0 = rows.GetDouble("Higher_Judgment_0"),
+                        HighJudgment0 = rows.GetDouble("High_Judgment_0"),
+                        LowJudgment0 = rows.GetDouble("Low_Judgment_0"),
+                        LowerJudgment0 = rows.GetDouble("Lower_Judgment_0"),
+                        LowestJudgment0 = rows.GetDouble("Lowest_Judgment_0"),
+                        HighestJudgment1 = rows.GetDouble("Highest_Judgment_1"),
+                        HigherJudgment1 = rows.GetDouble("Higher_Judgment_1"),
+                        HighJudgment1 = rows.GetDouble("High_Judgment_1"),
+                        LowJudgment1 = rows.GetDouble("Low_Judgment_1"),
+                        LowerJudgment1 = rows.GetDouble("Lower_Judgment_1"),
+                        LowestJudgment1 = rows.GetDouble("Lowest_Judgment_1"),
+                        LowestLongNoteModify = rows.GetDouble("Lowest_Long_Note_Modify"),
+                        HighestLongNoteModify = rows.GetDouble("Highest_Long_Note_Modify"),
+                        PutNoteSet = rows.GetInt32("Put_Note_Set"),
+                        PutNoteSetMillis = rows.GetDouble("Put_Note_Set_Millis"),
+                        HighestHitPoints0 = 100.0 * rows.GetDouble("Highest_Hit_Points_0"),
+                        HigherHitPoints0 = 100.0 * rows.GetDouble("Higher_Hit_Points_0"),
+                        HighHitPoints0 = 100.0 * rows.GetDouble("High_Hit_Points_0"),
+                        LowHitPoints0 = 100.0 * rows.GetDouble("Low_Hit_Points_0"),
+                        LowerHitPoints0 = 100.0 * rows.GetDouble("Lower_Hit_Points_0"),
+                        LowestHitPoints0 = 100.0 * rows.GetDouble("Lowest_Hit_Points_0"),
+                        HighestHitPoints1 = 100.0 * rows.GetDouble("Highest_Hit_Points_1"),
+                        HigherHitPoints1 = 100.0 * rows.GetDouble("Higher_Hit_Points_1"),
+                        HighHitPoints1 = 100.0 * rows.GetDouble("High_Hit_Points_1"),
+                        LowHitPoints1 = 100.0 * rows.GetDouble("Low_Hit_Points_1"),
+                        LowerHitPoints1 = 100.0 * rows.GetDouble("Lower_Hit_Points_1"),
+                        LowestHitPoints1 = 100.0 * rows.GetDouble("Lowest_Hit_Points_1"),
                     },
-                    Stand = (int)(long)rows["Stand"],
-                    Band = (int)(long)rows["Band"],
-                    IsP = (long)rows["Is_P"] > 0,
-                    Point = (double)rows["Point"],
-                    IsPaused = (long)rows["Is_Paused"] > 0
+                    Stand = rows.GetInt32("Stand"),
+                    Band = rows.GetInt32("Band"),
+                    IsP = rows.GetBoolean("Is_P"),
+                    Point = rows.GetDouble("Point"),
+                    IsPaused = rows.GetBoolean("Is_Paused")
                 });
             }
             for (var i = data.Count - 1; i >= 0; --i)
@@ -742,23 +743,23 @@ namespace Qwilight
             using var rows = dbStatement.ExecuteReader();
             if (rows.Read())
             {
-                noteFile.NotAvailableNoteVarietyValue = (BaseNoteFile.NoteVariety)(long)rows["Note_Variety"];
-                if (rows["Title"] != DBNull.Value)
+                noteFile.NotAvailableNoteVarietyValue = (BaseNoteFile.NoteVariety)rows.GetInt32("Note_Variety");
+                if (!rows.IsDBNull("Title"))
                 {
-                    noteFile.Title = rows["Title"] as string;
+                    noteFile.Title = rows.GetString("Title");
                 }
-                if (rows["Artist"] != DBNull.Value)
+                if (!rows.IsDBNull("Artist"))
                 {
-                    noteFile.Artist = rows["Artist"] as string;
+                    noteFile.Artist = rows.GetString("Artist");
                 }
-                noteFile.LevelValue = (BaseNoteFile.Level)(long)rows["Level"];
-                if (rows["Level_Text"] != DBNull.Value)
+                noteFile.LevelValue = (BaseNoteFile.Level)rows.GetInt32("Level");
+                if (!rows.IsDBNull("Level_Text"))
                 {
-                    noteFile.LevelText = rows["Level_Text"] as string;
+                    noteFile.LevelText = rows.GetString("Level_Text");
                 }
-                if (rows["Genre"] != DBNull.Value)
+                if (!rows.IsDBNull("Genre"))
                 {
-                    noteFile.Genre = rows["Genre"] as string;
+                    noteFile.Genre = rows.GetString("Genre");
                 }
             }
             else
@@ -784,23 +785,23 @@ namespace Qwilight
                 favoriteEntryItems.Add(new DefaultEntryItem
                 {
                     DefaultEntryVarietyValue = DefaultEntryItem.DefaultEntryVariety.Favorite,
-                    DefaultEntryPath = rows["Favorite_Entry"] as string
+                    DefaultEntryPath = rows.GetString("Favorite_Entry")
                 });
             }
             return favoriteEntryItems;
         }
 
-        public ICollection<(string, string, DateTime, EventNoteVariety)> GetEventNote()
+        public ICollection<(string, string, DateTime, EventNoteVariety)> GetEventNotes()
         {
             using var dbStatement = new SQLiteCommand(@"SELECT Event_Note_ID, Name, Date, Variety
                 FROM event_note", _fastDB);
             using var rows = dbStatement.ExecuteReader();
-            var eventNote = new List<(string, string, DateTime, EventNoteVariety)>();
+            var eventNotes = new List<(string, string, DateTime, EventNoteVariety)>();
             while (rows.Read())
             {
-                eventNote.Add((rows["Event_Note_ID"] as string, rows["Name"] as string, (DateTime)rows["Date"], (EventNoteVariety)(long)rows["Variety"]));
+                eventNotes.Add((rows.GetString("Event_Note_ID"), rows.GetString("Name"), rows.GetDateTime("Date"), (EventNoteVariety)rows.GetInt32("Variety")));
             }
-            return eventNote;
+            return eventNotes;
         }
 
         public BaseNoteFile.Handled GetHandled(BaseNoteFile noteFile)
@@ -810,7 +811,7 @@ namespace Qwilight
                 WHERE Note_ID = @noteID", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
             using var rows = dbStatement.ExecuteReader();
-            return rows.Read() ? (BaseNoteFile.Handled)(long)rows["Handled"] : BaseNoteFile.Handled.Not;
+            return rows.Read() ? (BaseNoteFile.Handled)rows.GetInt32("Handled") : BaseNoteFile.Handled.Not;
         }
 
         public void SetHandled(BaseNoteFile noteFile)
@@ -828,18 +829,18 @@ namespace Qwilight
             using var dbStatement = new SQLiteCommand(@"SELECT MAX(Date) AS Latest, COUNT(Date) AS Count
                 FROM date
                 WHERE Note_ID = @noteID OR Event_Note_ID = @eventNoteID", _fastDB);
-            dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512());
-            dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
+            dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512() ?? DBNull.Value as object);
+            dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID ?? DBNull.Value as object);
             using var rows = dbStatement.ExecuteReader();
             rows.Read();
             var date = (null as DateTime?, 0);
-            if (rows["Latest"] != DBNull.Value)
+            if (!rows.IsDBNull("Latest"))
             {
-                date.Item1 = DateTime.Parse((string)rows["Latest"]);
+                date.Item1 = rows.GetDateTime("Latest");
             }
-            if (rows["Count"] != DBNull.Value)
+            if (!rows.IsDBNull("Count"))
             {
-                date.Item2 = (int)(long)rows["Count"];
+                date.Item2 = rows.GetInt32("Count");
             }
             return date;
         }
@@ -849,8 +850,8 @@ namespace Qwilight
             using var dbStatement = new SQLiteCommand(@"INSERT
                 INTO date
                 VALUES(@noteID, @eventNoteID, @date)", _fastDB);
-            dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512());
-            dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
+            dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512() ?? DBNull.Value as object);
+            dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID ?? DBNull.Value as object);
             dbStatement.Parameters.AddWithValue("date", date);
             dbStatement.ExecuteNonQuery();
         }
@@ -862,7 +863,7 @@ namespace Qwilight
                 WHERE Entry_Path = @entryPath", _fastDB);
             dbStatement.Parameters.AddWithValue("entryPath", entryPath);
             using var rows = dbStatement.ExecuteReader();
-            return rows.Read() ? (int)(long)rows["Note_Position"] : 0;
+            return rows.Read() ? rows.GetInt32("Note_Position") : 0;
         }
 
         public (double, double, bool?) GetWait(BaseNoteFile noteFile)
@@ -875,14 +876,14 @@ namespace Qwilight
             (double, double, bool?) data = (0.0, 0.0, default);
             if (rows.Read())
             {
-                if (rows["Audio_Wait"] != DBNull.Value)
+                if (!rows.IsDBNull("Audio_Wait"))
                 {
-                    data.Item1 = (double)rows["Audio_Wait"];
+                    data.Item1 = rows.GetDouble("Audio_Wait");
                 }
-                data.Item2 = (double)rows["Media_Wait"];
-                if (rows["Media"] != DBNull.Value)
+                data.Item2 = rows.GetDouble("Media_Wait");
+                if (!rows.IsDBNull("Media"))
                 {
-                    data.Item3 = (long)rows["Media"] > 0;
+                    data.Item3 = rows.GetInt32("Media") > 0;
                 }
             }
             return data;
@@ -895,7 +896,7 @@ namespace Qwilight
                 WHERE Note_ID = @noteID", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
             using var rows = dbStatement.ExecuteReader();
-            return rows.Read() ? (int)(long)rows["Format"] : -1;
+            return rows.Read() ? rows.GetInt32("Format") : -1;
         }
 
         public void SetNotePosition(EntryItem entryItem)
@@ -969,7 +970,7 @@ namespace Qwilight
                 INTO comment
                 VALUES(@date, @eventNoteID, @comment, @avatar, @multiplier, @autoMode, @noteSaltMode, @audioMultiplier, @faintNoteMode, @judgmentMode, @hitPointsMode, @noteMobilityMode, @longNoteMode, @inputFavorMode, @noteModifyMode, @bpmMode, @waveMode, @setNoteMode, @lowestJudgmentConditionMode, @stand, @band, @isP, @point, @salt, @highestJudgment0, @higherJudgment0, @highJudgment0, @lowJudgment0, @lowerJudgment0, @lowestJudgment0, @highestJudgment1, @higherJudgment1, @highJudgment1, @lowJudgment1, @lowerJudgment1, @lowestJudgment1, @lowestLongNoteModify, @highestLongNoteModify, @putNoteSet, @putNoteSetMillis, @highestHitPoints0, @higherHitPoints0, @highHitPoints0, @lowHitPoints0, @lowerHitPoints0, @lowestHitPoints0, @highestHitPoints1, @higherHitPoints1, @highHitPoints1, @lowHitPoints1, @lowerHitPoints1, @lowestHitPoints1, @noteID, @isPaused, @inputFlags)", _fastDB);
             dbStatement.Parameters.AddWithValue("date", date);
-            dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
+            dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID ?? DBNull.Value as object);
             dbStatement.Parameters.AddWithValue("comment", comment);
             dbStatement.Parameters.AddWithValue("avatar", avatar);
             dbStatement.Parameters.AddWithValue("multiplier", multiplier);
@@ -1020,7 +1021,7 @@ namespace Qwilight
             dbStatement.Parameters.AddWithValue("lowHitPoints1", modeComponentValue.LowHitPoints1 / 100.0);
             dbStatement.Parameters.AddWithValue("lowerHitPoints1", modeComponentValue.LowerHitPoints1 / 100.0);
             dbStatement.Parameters.AddWithValue("lowestHitPoints1", modeComponentValue.LowestHitPoints1 / 100.0);
-            dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512());
+            dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512() ?? DBNull.Value as object);
             dbStatement.Parameters.AddWithValue("isPaused", isPaused);
             dbStatement.Parameters.AddWithValue("inputFlags", inputFlags);
             dbStatement.ExecuteNonQuery();
