@@ -129,7 +129,6 @@ namespace Qwilight.View
                 Directory.CreateDirectory(QwilightComponent.BundleEntryPath);
                 Directory.CreateDirectory(QwilightComponent.CommentEntryPath);
                 Directory.CreateDirectory(QwilightComponent.EdgeEntryPath);
-                Directory.CreateDirectory(QwilightComponent.FaultEntryPath);
                 Directory.CreateDirectory(QwilightComponent.MediaEntryPath);
                 Directory.CreateDirectory(LevelSystem.EntryPath);
             }

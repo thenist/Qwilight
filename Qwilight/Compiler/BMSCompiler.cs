@@ -789,7 +789,7 @@ namespace Qwilight.Compiler
                                                     },
                                                     Utility.AvailableFlag.Media => MediaSystem.Instance.Load(Utility.GetFiles(Path.GetDirectoryName(mediaFilePath), $"{Path.GetFileNameWithoutExtension(mediaFilePath)}.*")
                                                         .Where(targetFile => targetFile.IsTailCaselsss(".mp4"))
-                                                        .FirstOrDefault() ?? mediaFilePath, defaultComputer),
+                                                        .FirstOrDefault() ?? mediaFilePath, defaultComputer, false),
                                                     _ => null as IHandledItem,
                                                 };
                                             }

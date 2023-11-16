@@ -607,7 +607,7 @@ namespace Qwilight.Compute
                         switch (handler)
                         {
                             case DrawingHandlerItem drawingHandlerItem:
-                                HandleDrawing(ref r, drawingHandlerItem.DrawingComputingValue);
+                                HandleDrawing(ref r, drawingHandlerItem.HandledDrawingItem);
                                 break;
                             case MediaHandlerItem mediaHandlerItem:
                                 var defaultMedia = mediaHandlerItem.HandledMediaItem.DefaultMedia;
@@ -673,7 +673,7 @@ namespace Qwilight.Compute
                                     switch (handler)
                                     {
                                         case DrawingHandlerItem drawingHandlerItem:
-                                            HandleDrawing(ref r, drawingHandlerItem.DrawingComputingValue);
+                                            HandleDrawing(ref r, drawingHandlerItem.HandledDrawingItem);
                                             break;
                                         case MediaHandlerItem mediaHandlerItem:
                                             var mediaFrame = mediaHandlerItem.MediaFrame;
@@ -934,7 +934,7 @@ namespace Qwilight.Compute
             }
         }
 
-        public void HandleComputer() => Task.Run(() =>
+        public void HandleComputer()
         {
             lock (_targetHandlerCSX)
             {
@@ -947,7 +947,7 @@ namespace Qwilight.Compute
                 _targetHandler = Utility.HandleParallelly(HandleNotes);
             }
             SendSituation();
-        });
+        }
 
         public object LoadedCSX { get; } = new();
 
@@ -959,42 +959,39 @@ namespace Qwilight.Compute
             SetStop = true;
             SendNotCompiled();
             TrailerAudioHandler.Stop();
-            Task.Run(() =>
+            if (_targetCompiler != null)
             {
-                if (_targetCompiler != null)
+                lock (_targetCompiler)
                 {
-                    lock (_targetCompiler)
+                    if (_targetCompilerStatus == CompilerStatus.Compiling)
                     {
-                        if (_targetCompilerStatus == CompilerStatus.Compiling)
-                        {
-                            _setCancelCompiler.Cancel();
-                            _setCancelCompiler.Dispose();
-                            MediaModifierValue.StopModifyMedia();
-                            _targetCompilerHandler.Join();
-                            _targetCompilerStatus = CompilerStatus.Close;
-                        }
+                        _setCancelCompiler.Cancel();
+                        _setCancelCompiler.Dispose();
+                        MediaModifierValue.StopModifyMedia();
+                        _targetCompilerHandler.Join();
+                        _targetCompilerStatus = CompilerStatus.Close;
                     }
                 }
-                lock (_targetHandlerCSX)
+            }
+            lock (_targetHandlerCSX)
+            {
+                if (IsHandling)
                 {
-                    if (IsHandling)
-                    {
-                        _targetHandler.Join();
-                    }
+                    _targetHandler.Join();
                 }
-                lock (LoadedCSX)
+            }
+            lock (LoadedCSX)
+            {
+                if (HasContents)
                 {
-                    if (HasContents)
-                    {
-                        AudioSystem.Instance.Stop(this);
-                        AudioSystem.Instance.Close(this, this);
-                        MediaSystem.Instance.Stop(this);
-                        MediaSystem.Instance.Close(this, this);
-                        DrawingSystem.Instance.Close(this);
-                        HasContents = false;
-                    }
+                    AudioSystem.Instance.Stop(this);
+                    AudioSystem.Instance.Close(this, this);
+                    MediaSystem.Instance.Stop(this);
+                    MediaSystem.Instance.Close(this, this);
+                    DrawingSystem.Instance.Close(this);
+                    HasContents = false;
                 }
-            });
+            }
         }
 
         public void LowerMultiplier()
@@ -1578,7 +1575,7 @@ namespace Qwilight.Compute
                                     };
                                     break;
                                 case Utility.AvailableFlag.Media:
-                                    LoopingBanalMedia = MediaSystem.Instance.Load(BanalMediaFilePath, this);
+                                    LoopingBanalMedia = MediaSystem.Instance.Load(BanalMediaFilePath, this, true);
                                     break;
                             }
                         }
@@ -1603,7 +1600,7 @@ namespace Qwilight.Compute
                                     };
                                     break;
                                 case Utility.AvailableFlag.Media:
-                                    LoopingBanalFailedMedia = MediaSystem.Instance.Load(BanalFailedMediaFilePath, this);
+                                    LoopingBanalFailedMedia = MediaSystem.Instance.Load(BanalFailedMediaFilePath, this, true);
                                     break;
                             }
                         }
@@ -1689,16 +1686,16 @@ namespace Qwilight.Compute
                 {
                     if (mediaNote.HasContents)
                     {
-                        var mediaItem = mediaNote.MediaItem;
-                        var isLooping = mediaNote.IsLooping;
-                        if (isLooping || mediaItem == null || LoopingCounter < waitModified + mediaItem.Length)
+                        var handledItem = mediaNote.MediaItem;
+                        var isLooping = handledItem.IsLooping;
+                        if (isLooping || handledItem == null || LoopingCounter < waitModified + handledItem.Length)
                         {
                             lock (LoadedCSX)
                             {
                                 if (HasContents)
                                 {
                                     var mediaMode = mediaNote.MediaMode;
-                                    DrawingCollection[mediaMode] = mediaItem?.Handle(this, isLooping ? TimeSpan.Zero : TimeSpan.FromMilliseconds(waitModified) - mediaNote.MediaLevyingPosition, mediaMode, isLooping);
+                                    DrawingCollection[mediaMode] = handledItem?.Handle(this, isLooping ? TimeSpan.Zero : TimeSpan.FromMilliseconds(waitModified) - mediaNote.MediaLevyingPosition, mediaMode);
                                     IsHandlingDrawing = true;
                                 }
                             }
@@ -3599,7 +3596,7 @@ namespace Qwilight.Compute
                         _pendingIOAvatarIDs.AddRange(_sentIOAvatarIDs);
                         _sentIOAvatarIDs.Clear();
                     }
-                    HandleComputer();
+                    _targetHandler = Utility.HandleParallelly(HandleNotes);
                 }
                 else
                 {
@@ -3612,8 +3609,8 @@ namespace Qwilight.Compute
                             isBanned = false
                         });
                     }
+                    IsHandling = false;
                 }
-                IsHandling = false;
             }
 
             void SetNoteJudged(BaseNote note, Component.Judged judged)
@@ -4075,7 +4072,7 @@ namespace Qwilight.Compute
                                 {
                                     for (var i = _comments.Count - 1; i >= 0; --i)
                                     {
-                                        using var rms = PoolSystem.Instance.GetDataFlow();
+                                        using var rms = PoolSystem.Instance.GetDataFlow(_comments[i].CalculateSize());
                                         _comments[i].WriteTo(rms);
                                         rms.Position = 0;
                                         zipFile.AddEntry(i.ToString(), rms);
@@ -4680,13 +4677,10 @@ namespace Qwilight.Compute
         {
             if (!IsInEvents)
             {
-                Task.Run(() =>
+                if (!UI.Instance.HandleAudio(audioFileName, null, null, 0.0))
                 {
-                    if (!UI.Instance.HandleAudio(audioFileName, null, null, 0.0))
-                    {
-                        BaseUI.Instance.HandleAudio(audioFileName, null, null, 0.0);
-                    }
-                });
+                    BaseUI.Instance.HandleAudio(audioFileName, null, null, 0.0);
+                }
             }
         }
 

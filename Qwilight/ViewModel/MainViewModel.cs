@@ -219,13 +219,17 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _isWPFViewVisible, value, nameof(IsWPFViewVisible)))
                 {
+                    if (!value)
+                    {
+                        DrawingSystem.Instance.OnModified();
+                    }
+                    PoolSystem.Instance.Wipe(value);
                     StrongReferenceMessenger.Default.Send(new SetD2DViewVisibility
                     {
                         IsVisible = !value
                     });
                     IsVital = IsComputingMode && !value;
                     ViewModels.Instance.NotifyWindowViewModels();
-                    DrawingSystem.Instance.OnModified();
                     var handlingComputer = GetHandlingComputer();
                     if (handlingComputer != null)
                     {
@@ -235,7 +239,6 @@ namespace Qwilight.ViewModel
                     MediaSystem.Instance.HandleDefaultIfAvailable(BaseUI.Instance);
                     MediaSystem.Instance.HandleIfAvailable(BaseUI.Instance);
                     TVSystem.Instance.HandleSystemIfAvailable();
-                    PoolSystem.Instance.Wipe(value);
                 }
             }
         }
@@ -777,7 +780,10 @@ namespace Qwilight.ViewModel
                 Configure.Instance.WindowLengthV2 = (int)(windowAreaLength / WindowDPI);
                 Configure.Instance.WindowHeightV2 = (int)(windowAreaHeight / WindowDPI);
             }
-            DrawingSystem.Instance.OnModified();
+            if (!IsWPFViewVisible)
+            {
+                DrawingSystem.Instance.OnModified();
+            }
         }
 
         public void OnMove()

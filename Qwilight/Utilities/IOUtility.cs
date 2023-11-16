@@ -75,6 +75,7 @@ namespace Qwilight.Utilities
             var faultFilePath = Path.Combine(faultEntryPath, Path.GetInvalidFileNameChars().Aggregate($"{DateTime.Now:F}.log", (faultFileName, target) => faultFileName.Replace(target, ' ')));
             var faultText = Utility.GetFault(e);
             Console.WriteLine(faultText);
+            Directory.CreateDirectory(Path.GetDirectoryName(faultFilePath));
             File.WriteAllText(faultFilePath, faultText, Encoding.UTF8);
             return (faultFilePath, faultText);
         }

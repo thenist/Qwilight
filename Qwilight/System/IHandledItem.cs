@@ -4,6 +4,8 @@
     {
         double Length { get; }
 
-        IHandlerItem Handle(IMediaHandler mediaHandler, TimeSpan levyingWait, MediaNote.Mode mode, bool isLooping = false);
+        bool IsLooping { get; }
+
+        IHandlerItem Handle(IMediaHandler mediaHandler, TimeSpan levyingWait, MediaNote.Mode mode);
     }
 }

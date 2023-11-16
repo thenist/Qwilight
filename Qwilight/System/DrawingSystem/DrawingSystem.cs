@@ -73,6 +73,10 @@ namespace Qwilight
 
         static readonly string FaultEntryPath = Path.Combine(QwilightComponent.FaultEntryPath, nameof(DrawingSystem));
 
+        /// <summary>
+        /// Direct2D™ 싱글 스레드 제어용 락
+        /// </summary>
+        readonly object d2D1CSX = new();
         readonly ConcurrentDictionary<IDrawingContainer, ConcurrentDictionary<string, DrawingItem>> _drawingMap = new();
         readonly ConcurrentDictionary<IDrawingContainer, ConcurrentDictionary<string, ImageSource>> _defaultDrawingMap = new();
         readonly ConcurrentDictionary<IDrawingContainer, ConcurrentBag<IDisposable>> _toCloseValues = new();
@@ -100,14 +104,9 @@ namespace Qwilight
 
         public bool CanNVLL { get; set; }
 
-        public WriteableBitmap D3D9Drawing { get; set; }
+        public ImageSource D3D9Drawing { get; set; }
 
         public HandledDrawingItem ClearedDrawing { get; set; }
-
-        /// <summary>
-        /// 다이렉트 2D 싱글 스레드 제어용 락
-        /// </summary>
-        public object D2D1CSX { get; } = new();
 
         public ICanvasBrush[] FaintFilledPaints { get; } = new ICanvasBrush[101];
 
@@ -406,7 +405,6 @@ namespace Qwilight
                     var wasLastMoved = LastMovedQueue.TryDequeue(out var lastMoved);
                     var wasLastNotPointed = LastNotPointedQueue.TryDequeue(out var lastNotPointed);
 
-                    var isWPFViewVisible = mainViewModel.IsWPFViewVisible;
                     var isNVLL = Configure.Instance.IsNVLL;
                     var allowFramerate = TelnetSystem.Instance.IsAvailable;
                     var mode = mainViewModel.ModeValue;
@@ -424,7 +422,7 @@ namespace Qwilight
                         switch (mode)
                         {
                             case MainViewModel.Mode.NoteFile:
-                                lock (D2D1CSX)
+                                lock (d2D1CSX)
                                 {
                                     using (targetSession = _rawTargetSystem.CreateDrawingSession(Colors.Black))
                                     {
@@ -442,7 +440,7 @@ namespace Qwilight
                             case MainViewModel.Mode.Computing:
                                 defaultComputer = mainViewModel.Computer;
                                 modeComponentValue = defaultComputer.ModeComponentValue;
-                                lock (D2D1CSX)
+                                lock (d2D1CSX)
                                 {
                                     using (targetSession = _targetSystem.CreateDrawingSession())
                                     {
@@ -2343,7 +2341,7 @@ namespace Qwilight
                                 defaultComputer = mainViewModel.Computer;
                                 modeComponentValue = defaultComputer.ModeComponentValue;
                                 var handlingComputer = mainViewModel.GetHandlingComputer();
-                                lock (D2D1CSX)
+                                lock (d2D1CSX)
                                 {
                                     using (targetSession = _targetSystem.CreateDrawingSession())
                                     {
@@ -2888,13 +2886,13 @@ namespace Qwilight
 
                     void CopyD3D9Drawing()
                     {
-                        if (isWPFViewVisible)
+                        if (mainViewModel.IsWPFViewVisible)
                         {
                             _targetSystem.GetPixelBytes(_targetSystemData);
-                            var w = new WriteableBitmap((int)_targetSystem.SizeInPixels.Width, (int)_targetSystem.SizeInPixels.Height, _targetSystem.Dpi, _targetSystem.Dpi, PixelFormats.Bgra32, null);
-                            w.WritePixels(new(0, 0, w.PixelWidth, w.PixelHeight), _rawTargetSystemData, w.Format.BitsPerPixel / 8 * w.PixelWidth, 0);
-                            w.Freeze();
-                            D3D9Drawing = w;
+                            var d3D9Drawing = new WriteableBitmap((int)_targetSystem.SizeInPixels.Width, (int)_targetSystem.SizeInPixels.Height, _targetSystem.Dpi, _targetSystem.Dpi, PixelFormats.Bgra32, null);
+                            d3D9Drawing.WritePixels(new(0, 0, d3D9Drawing.PixelWidth, d3D9Drawing.PixelHeight), _rawTargetSystemData, d3D9Drawing.Format.BitsPerPixel / 8 * d3D9Drawing.PixelWidth, 0);
+                            d3D9Drawing.Freeze();
+                            D3D9Drawing = d3D9Drawing;
                         }
                     }
 
@@ -3076,38 +3074,32 @@ namespace Qwilight
             var dataCount = Configure.Instance.DataCount;
             if (_rawTargetSystem == null)
             {
-                Task.Run(() =>
+                lock (d2D1CSX)
                 {
-                    lock (D2D1CSX)
-                    {
-                        _targetSystem?.Dispose();
-                        _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
-                        _rawTargetSystemData = new byte[_targetSystem.SizeInPixels.Width * _targetSystem.SizeInPixels.Height * 4];
-                        _targetSystemData = _rawTargetSystemData.AsBuffer();
-                        _rawTargetSystem?.Dispose();
-                        _rawTargetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount, CanvasAlphaMode.Ignore);
-                    }
-                    StrongReferenceMessenger.Default.Send(new SetD2DView
-                    {
-                        D2DView = _rawTargetSystem
-                    });
-                    StrongReferenceMessenger.Default.Send<SetD2DViewArea>();
+                    _targetSystem?.Dispose();
+                    _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
+                    _rawTargetSystemData = new byte[_targetSystem.SizeInPixels.Width * _targetSystem.SizeInPixels.Height * 4];
+                    _targetSystemData = _rawTargetSystemData.AsBuffer();
+                    _rawTargetSystem?.Dispose();
+                    _rawTargetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount, CanvasAlphaMode.Ignore);
+                }
+                StrongReferenceMessenger.Default.Send(new SetD2DView
+                {
+                    D2DView = _rawTargetSystem
                 });
+                StrongReferenceMessenger.Default.Send<SetD2DViewArea>();
             }
             else if (_rawTargetSystem.Size.Width != defaultLength || _rawTargetSystem.Size.Height != defaultHeight || _drawingQuality != drawingQuality || _rawTargetSystem.BufferCount != dataCount)
             {
-                Task.Run(() =>
+                lock (d2D1CSX)
                 {
-                    lock (D2D1CSX)
-                    {
-                        _targetSystem?.Dispose();
-                        _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
-                        _rawTargetSystemData = new byte[_targetSystem.SizeInPixels.Width * _targetSystem.SizeInPixels.Height * 4];
-                        _targetSystemData = _rawTargetSystemData.AsBuffer();
-                        _rawTargetSystem.ResizeBuffers(defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount);
-                    }
-                    StrongReferenceMessenger.Default.Send<SetD2DViewArea>();
-                });
+                    _targetSystem?.Dispose();
+                    _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
+                    _rawTargetSystemData = new byte[_targetSystem.SizeInPixels.Width * _targetSystem.SizeInPixels.Height * 4];
+                    _targetSystemData = _rawTargetSystemData.AsBuffer();
+                    _rawTargetSystem.ResizeBuffers(defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount);
+                }
+                StrongReferenceMessenger.Default.Send<SetD2DViewArea>();
             }
             _drawingQuality = drawingQuality;
         }
@@ -3555,6 +3547,6 @@ namespace Qwilight
             };
         }
 
-        public virtual void SetFontFamily(CanvasTextFormat font) => font.FontFamily = Configure.Instance.GetFontFamily();
+        public virtual void SetFontFamily(CanvasTextFormat font) => font.FontFamily = Configure.Instance.FontFamilyValues[3].ToString();
     }
 }

@@ -1365,7 +1365,7 @@ namespace Qwilight
                                                     using var fs = File.OpenWrite(hashMediaFilePath);
                                                     rms.WriteTo(fs);
                                                 }
-                                                handledMediaValues[Path.GetFileName(fileName)] = MediaSystem.Instance.Load(hashMediaFilePath, this);
+                                                handledMediaValues[Path.GetFileName(fileName)] = MediaSystem.Instance.Load(hashMediaFilePath, this, true);
                                             }
                                         }
                                         catch
@@ -1553,13 +1553,13 @@ namespace Qwilight
                         var isDefaultAvailable = mode == 0;
                         if (handledMediaValues.TryGetValue(paintPropertyValue.Etc, out var handledMediaItem))
                         {
-                            paintPropertyValue.MediaHandlerItemValue = MediaSystem.Instance.Handle(handledMediaItem, this, isAvailable, isDefaultAvailable);
+                            paintPropertyValue.HandledMediaItemValue = handledMediaItem;
                         }
                         else
                         {
                             try
                             {
-                                paintPropertyValue.MediaHandlerItemValue = MediaSystem.Instance.Handle(MediaSystem.Instance.Load(Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, paintPropertyValue.Etc), this), this, isAvailable, isDefaultAvailable);
+                                paintPropertyValue.HandledMediaItemValue = MediaSystem.Instance.Load(Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, paintPropertyValue.Etc), this, true);
                             }
                             catch
                             {
@@ -1999,6 +1999,14 @@ namespace Qwilight
                 ViewModels.Instance.NotifyWindowViewModels();
                 mainViewModel.NotifyModel();
                 mainViewModel.IsUILoading = false;
+                Task.Run(() =>
+                {
+                    foreach (var paintPropertyValue in PaintPropertyValues.Where(paintVarietyValue => paintVarietyValue?.DrawingVariety == 11))
+                    {
+                        var mode = paintPropertyValue.Mode;
+                        paintPropertyValue.MediaHandlerItemValue = MediaSystem.Instance.Handle(paintPropertyValue.HandledMediaItemValue, this, mode == 1, mode == 0);
+                    }
+                });
             }
         }
 

@@ -6,13 +6,15 @@ namespace Qwilight
     {
         public double Length => double.PositiveInfinity;
 
+        public bool IsLooping => true;
+
         public DrawingItem? Drawing { get; init; }
 
         public ImageSource DefaultDrawing { get; init; }
 
-        public IHandlerItem Handle(IMediaHandler mediaHandler, TimeSpan levyingWait, MediaNote.Mode mode, bool isLooping) => new DrawingHandlerItem
+        public IHandlerItem Handle(IMediaHandler mediaHandler, TimeSpan levyingWait, MediaNote.Mode mode) => new DrawingHandlerItem
         {
-            DrawingComputingValue = this
+            HandledDrawingItem = this
         };
 
         public void Dispose()

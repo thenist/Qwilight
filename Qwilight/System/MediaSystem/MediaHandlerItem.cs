@@ -18,8 +18,6 @@ namespace Qwilight
 
         public bool IsDefaultAvailable { get; set; }
 
-        public bool IsLooping { get; set; }
-
         public bool IsHandling { get; set; }
 
         public bool IsDefaultHandling { get; set; }
@@ -28,9 +26,7 @@ namespace Qwilight
 
         public CanvasBitmap MediaFrame { get; set; }
 
-        public IHandledItem Value => HandledMediaItem;
-
-        public double GetMediaPosition(IMediaHandler mediaHandler) => (mediaHandler.LoopingCounter - LevyingPosition.TotalMilliseconds) % (IsLooping ? HandledMediaItem.Length : double.PositiveInfinity);
+        public double GetMediaPosition(IMediaHandler mediaHandler) => (mediaHandler.LoopingCounter - LevyingPosition.TotalMilliseconds) % (HandledMediaItem.IsLooping ? HandledMediaItem.Length : double.PositiveInfinity);
 
         public void Handle(IMediaHandler mediaHandler, double mediaPosition)
         {
@@ -97,9 +93,23 @@ namespace Qwilight
             {
                 HandlingUISystem.Instance.HandleParallel(() =>
                 {
-                    HandledMediaItem.DefaultMedia.Position = TimeSpan.FromMilliseconds(mediaPosition);
-                    HandledMediaItem.DefaultMedia.SpeedRatio = mediaHandler.AudioMultiplier;
-                    HandledMediaItem.DefaultMedia.Play();
+                    var defaultMedia = new System.Windows.Media.MediaPlayer
+                    {
+                        IsMuted = true
+                    };
+                    if (HandledMediaItem.IsLooping)
+                    {
+                        defaultMedia.MediaEnded += (sender, e) =>
+                        {
+                            defaultMedia.Position = TimeSpan.Zero;
+                            defaultMedia.Play();
+                        };
+                    }
+                    defaultMedia.Open(new(HandledMediaItem.MediaFilePath));
+                    defaultMedia.Position = TimeSpan.FromMilliseconds(mediaPosition);
+                    defaultMedia.SpeedRatio = mediaHandler.AudioMultiplier;
+                    defaultMedia.Play();
+                    HandledMediaItem.DefaultMedia = defaultMedia;
                 });
                 IsDefaultHandling = true;
             }
@@ -107,7 +117,7 @@ namespace Qwilight
 
         public void StopDefault()
         {
-            HandlingUISystem.Instance.HandleParallel(HandledMediaItem.DefaultMedia.Stop);
+            HandlingUISystem.Instance.HandleParallel(() => HandledMediaItem.DefaultMedia?.Stop());
             IsDefaultHandling = false;
         }
 
@@ -115,23 +125,27 @@ namespace Qwilight
         {
             if (isPaused)
             {
-                HandlingUISystem.Instance.HandleParallel(HandledMediaItem.DefaultMedia.Pause);
+                HandlingUISystem.Instance.HandleParallel(() => HandledMediaItem.DefaultMedia?.Pause());
             }
             else
             {
-                HandlingUISystem.Instance.HandleParallel(HandledMediaItem.DefaultMedia.Play);
+                HandlingUISystem.Instance.HandleParallel(() => HandledMediaItem.DefaultMedia?.Play());
             }
         }
 
         public void SetDefaultMediaPosition(double mediaPosition)
         {
-            HandlingUISystem.Instance.HandleParallel(() =>
+            var defaultMedia = HandledMediaItem.DefaultMedia;
+            if (defaultMedia != null)
             {
-                if (Math.Abs(HandledMediaItem.DefaultMedia.Position.TotalMilliseconds - mediaPosition) >= 500.0)
+                HandlingUISystem.Instance.HandleParallel(() =>
                 {
-                    HandledMediaItem.DefaultMedia.Position = TimeSpan.FromMilliseconds(mediaPosition);
-                }
-            });
+                    if (Math.Abs(defaultMedia.Position.TotalMilliseconds - mediaPosition) >= 500.0)
+                    {
+                        defaultMedia.Position = TimeSpan.FromMilliseconds(mediaPosition);
+                    }
+                });
+            }
         }
 
         public void Dispose()

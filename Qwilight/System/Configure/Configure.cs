@@ -1026,7 +1026,7 @@ namespace Qwilight
 
         public void SetFontFamily()
         {
-            FontFamilyValue = new(string.Join(',', FontFamilyValues.Select(fontFamily => fontFamily?.ToString() ?? string.Empty)));
+            FontFamilyValue = new(string.Join(',', FontFamilyValues.SkipLast(1).Select(fontFamily => fontFamily?.ToString() ?? string.Empty)));
             OnPropertyChanged(nameof(FontFamilyValue));
             OnPropertyChanged(nameof(FontFamilyValues));
             FontFace = new(FontFamilyValue, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
@@ -1034,8 +1034,6 @@ namespace Qwilight
             BaseUI.Instance.SetFontFamily();
             UI.Instance.SetFontFamily();
         }
-
-        public string GetFontFamily() => (FontFamilyValues.FirstOrDefault() ?? QwilightComponent.GetBuiltInData<FontFamily>("DefaultFontFamily")).ToString();
 
         public int CommentViewTabPosition
         {
@@ -2379,11 +2377,6 @@ namespace Qwilight
                 LowestWantLevelTextValue = 1;
                 HighestWantLevelTextValue = 12;
             }
-            if (isInit || Utility.IsLowerDate(Date, 1, 11, 10))
-            {
-                FontFamilyValues = new FontFamily[3];
-                Array.Fill(FontFamilyValues, QwilightComponent.GetBuiltInData<FontFamily>("DefaultFontFamily"));
-            }
             if (isInit || Utility.IsLowerDate(Date, 1, 11, 36))
             {
                 GroupEntry = true;
@@ -3287,6 +3280,11 @@ namespace Qwilight
                 LastInputWants = new();
                 InputWantInputMode = new bool[17];
                 Array.Fill(InputWantInputMode, true);
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 9))
+            {
+                FontFamilyValues = new FontFamily[4];
+                Array.Fill(FontFamilyValues, QwilightComponent.GetBuiltInData<FontFamily>("DefaultFontFamily"));
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

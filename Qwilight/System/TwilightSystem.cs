@@ -417,13 +417,16 @@ namespace Qwilight
                                         toEnterSiteViewModel.SetAllowedPostableItems(twilightEnterSite);
                                         toEnterSiteViewModel.ModeComponentValue.CopyAsJSON(twilightEnterSite.modeComponentData);
                                     }
-                                    var toEnterSite = HandlingUISystem.Instance.Handle(() => new Site
+                                    HandlingUISystem.Instance.HandleParallel(() =>
                                     {
-                                        DataContext = toEnterSiteViewModel
+                                        var toEnterSite = new Site
+                                        {
+                                            DataContext = toEnterSiteViewModel
+                                        };
+                                        toEnterSiteViewModel.View = toEnterSite;
+                                        siteContainerViewModel.SiteCollection.Add(toEnterSite);
+                                        siteContainerViewModel.SiteView = toEnterSite;
                                     });
-                                    toEnterSiteViewModel.View = toEnterSite;
-                                    HandlingUISystem.Instance.HandleParallel(() => siteContainerViewModel.SiteCollection.Add(toEnterSite));
-                                    siteContainerViewModel.SiteView = toEnterSite;
                                     break;
                                 case Event.Types.EventID.CallBundle:
                                     var twilightCallBundle = Utility.GetJSON<JSON.TwilightCallBundle>(eventItemText);

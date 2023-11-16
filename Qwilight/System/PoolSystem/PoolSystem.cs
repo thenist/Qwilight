@@ -36,6 +36,13 @@ namespace Qwilight
         {
             if (isWPFViewVisible)
             {
+                foreach (var (defaultTextID, defaultTextItem) in _defaultTextItems)
+                {
+                    _defaultTextItems.TryRemove(defaultTextID, out _);
+                }
+            }
+            else
+            {
                 foreach (var (textID, textItem) in _textItems)
                 {
                     using (textItem)
@@ -49,13 +56,6 @@ namespace Qwilight
                     {
                         _targetItems.TryRemove(targetID, out _);
                     }
-                }
-            }
-            else
-            {
-                foreach (var (defaultTextID, defaultTextItem) in _defaultTextItems)
-                {
-                    _defaultTextItems.TryRemove(defaultTextID, out _);
                 }
             }
             foreach (var (valueTextID, text) in _valueIntTexts)

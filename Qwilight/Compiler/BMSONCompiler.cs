@@ -560,7 +560,7 @@ namespace Qwilight.Compiler
                                         Drawing = DrawingSystem.Instance.Load(mediaFilePath, defaultComputer),
                                         DefaultDrawing = DrawingSystem.Instance.LoadDefault(mediaFilePath, defaultComputer)
                                     },
-                                    Utility.AvailableFlag.Media => MediaSystem.Instance.Load(mediaFilePath, defaultComputer),
+                                    Utility.AvailableFlag.Media => MediaSystem.Instance.Load(mediaFilePath, defaultComputer, false),
                                     _ => null,
                                 };
                             }

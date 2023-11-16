@@ -3,8 +3,6 @@
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<Platforms>x64;ARM64</Platforms>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 </Project>

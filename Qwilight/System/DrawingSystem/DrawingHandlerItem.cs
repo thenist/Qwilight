@@ -2,10 +2,6 @@
 {
     public struct DrawingHandlerItem : IHandlerItem
     {
-        public HandledDrawingItem DrawingComputingValue { get; set; }
-
-        public bool WasDefaultMediaHandled { get; set; }
-
-        public IHandledItem Value => DrawingComputingValue;
+        public HandledDrawingItem HandledDrawingItem { get; set; }
     }
 }

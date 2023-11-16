@@ -14,7 +14,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Grid>
+                <Grid Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityNotModifier}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -36,6 +36,11 @@
                         </Button.CommandParameter>
                     </Button>
                 </Grid>
+                <Button Style="{StaticResource StandardInput}" Content="{Binding FontFamilyValues[3], Source={StaticResource Configure}}" Command="{Binding FontFamilyCommand}" HorizontalAlignment="Right">
+                    <Button.CommandParameter>
+                        <system:Int32>3</system:Int32>
+                    </Button.CommandParameter>
+                </Button>
                 <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding ConfigureFontFamilyContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
             <Grid>

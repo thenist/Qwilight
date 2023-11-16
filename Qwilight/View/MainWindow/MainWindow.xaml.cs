@@ -239,15 +239,21 @@ namespace Qwilight.View
         {
             if (isVisible)
             {
-                _siteView.Enable();
-                _siteView.Show();
-                _windowXamlView.NavigateFocus(new(XamlSourceFocusNavigationReason.Programmatic));
-                _d2DView.Focus(FocusState.Programmatic);
+                HandlingUISystem.Instance.HandleParallel(() =>
+                {
+                    _siteView.Enable();
+                    _siteView.Show();
+                    _windowXamlView.NavigateFocus(new(XamlSourceFocusNavigationReason.Programmatic));
+                    _d2DView.Focus(FocusState.Programmatic);
+                });
             }
             else
             {
-                _siteView.Hide();
-                _siteView.Disable();
+                HandlingUISystem.Instance.HandleParallel(() =>
+                {
+                    _siteView.Hide();
+                    _siteView.Disable();
+                });
             }
         }
 

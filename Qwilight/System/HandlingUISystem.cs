@@ -29,17 +29,5 @@ namespace Qwilight
                 UIHandler.InvokeAsync(onHandle);
             }
         }
-
-        public T Handle<T>(Func<T> onHandle)
-        {
-            if (UIHandler.CheckAccess())
-            {
-                return onHandle();
-            }
-            else
-            {
-                return UIHandler.Invoke(onHandle);
-            }
-        }
     }
 }

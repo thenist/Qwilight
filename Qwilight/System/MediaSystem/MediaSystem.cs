@@ -3,7 +3,6 @@ using Qwilight.Utilities;
 using Qwilight.ViewModel;
 using System.Collections.Concurrent;
 using System.IO;
-using MediaPlayer = System.Windows.Media.MediaPlayer;
 
 namespace Qwilight
 {
@@ -28,10 +27,9 @@ namespace Qwilight
         {
             if (Configure.Instance.Media && _mediaHandlerMap.TryGetValue(mediaHandler, out var mediaHandlerItems))
             {
-                var isNoteFileMode = ViewModels.Instance.MainValue.IsNoteFileMode;
                 foreach (var mediaHandlerItem in mediaHandlerItems)
                 {
-                    if (isNoteFileMode)
+                    if (ViewModels.Instance.MainValue.IsWPFViewVisible)
                     {
                         mediaHandlerItem.PauseDefault(isPaused);
                     }
@@ -67,7 +65,7 @@ namespace Qwilight
             {
                 foreach (var mediaHandlerItem in mediaHandlerItems)
                 {
-                    if (mediaHandlerItem.IsVisible && !mediaHandlerItem.IsLooping)
+                    if (mediaHandlerItem.IsVisible && !mediaHandlerItem.HandledMediaItem.IsLooping)
                     {
                         if (ViewModels.Instance.MainValue.IsWPFViewVisible)
                         {
@@ -88,7 +86,7 @@ namespace Qwilight
             }
         }
 
-        public HandledMediaItem Load(string mediaFilePath, IMediaContainer mediaContainer)
+        public HandledMediaItem Load(string mediaFilePath, IMediaContainer mediaContainer, bool isLooping)
         {
             var isCounterWave = mediaContainer.IsCounterWave;
             var hash = $"{(isCounterWave ? '@' : string.Empty)}{Utility.GetID128s(File.ReadAllBytes(mediaFilePath))}";
@@ -133,19 +131,12 @@ namespace Qwilight
                 {
                     Source = mediaSrc.CreateMediaPlaybackItem(),
                     IsMuted = true,
-                    IsVideoFrameServerEnabled = true
+                    IsVideoFrameServerEnabled = true,
+                    IsLoopingEnabled = isLooping
                 },
-                DefaultMedia = HandlingUISystem.Instance.Handle(() =>
-                {
-                    var defaultMedia = new MediaPlayer
-                    {
-                        IsMuted = true
-                    };
-                    defaultMedia.Open(new(mediaFilePath));
-                    defaultMedia.Stop();
-                    return defaultMedia;
-                }),
-                Length = mediaLength.TotalMilliseconds
+                MediaFilePath = mediaFilePath,
+                Length = mediaLength.TotalMilliseconds,
+                IsLooping = isLooping
             };
             handledMediaItem.Media.CommandManager.IsEnabled = false;
             handledMediaItem.Media.SystemMediaTransportControls.IsEnabled = false;
@@ -169,30 +160,17 @@ namespace Qwilight
             }
         }
 
-        public MediaHandlerItem Handle(HandledMediaItem handledMediaItem, IMediaHandler mediaHandler, TimeSpan levyingWait, MediaNote.Mode mode, bool isLooping)
+        public MediaHandlerItem Handle(HandledMediaItem handledMediaItem, IMediaHandler mediaHandler, TimeSpan levyingWait, MediaNote.Mode mode)
         {
-            handledMediaItem.Media.IsLoopingEnabled = isLooping;
             var mediaHandlerItem = new MediaHandlerItem
             {
                 HandledMediaItem = handledMediaItem,
                 LevyingPosition = levyingWait,
                 Mode = mode,
-                IsLooping = isLooping,
                 IsHandling = false,
                 IsDefaultHandling = false,
                 IsVisible = false
             };
-            if (isLooping)
-            {
-                HandlingUISystem.Instance.HandleParallel(() =>
-                {
-                    handledMediaItem.DefaultMedia.MediaEnded += (sender, e) =>
-                    {
-                        handledMediaItem.DefaultMedia.Stop();
-                        handledMediaItem.DefaultMedia.Play();
-                    };
-                });
-            }
             _mediaHandlerMap.AddOrUpdate(mediaHandler, (mediaHandler, t) => new()
             {
                 t.mediaHandlerItem
@@ -240,24 +218,14 @@ namespace Qwilight
 
         public MediaHandlerItem Handle(HandledMediaItem handledMediaItem, IMediaHandler mediaHandler, bool isAvailable, bool isDefaultAvailable)
         {
-            handledMediaItem.Media.IsLoopingEnabled = true;
             var mediaHandlerItem = new MediaHandlerItem
             {
                 HandledMediaItem = handledMediaItem,
                 LevyingPosition = TimeSpan.Zero,
                 Mode = MediaNote.Mode.Default,
-                IsLooping = true,
                 IsAvailable = isAvailable,
                 IsDefaultAvailable = isDefaultAvailable
             };
-            HandlingUISystem.Instance.HandleParallel(() =>
-            {
-                handledMediaItem.DefaultMedia.MediaEnded += (sender, e) =>
-                {
-                    handledMediaItem.DefaultMedia.Stop();
-                    handledMediaItem.DefaultMedia.Play();
-                };
-            });
             _mediaHandlerMap.AddOrUpdate(mediaHandler, (mediaHandler, mediaHandlerItem) => new()
             {
                 mediaHandlerItem
@@ -292,7 +260,7 @@ namespace Qwilight
                 {
                     if (mediaHandlerItem.IsVisible)
                     {
-                        if (mediaHandler == BaseUI.Instance ? isQuitMode && mediaHandlerItem.IsAvailable : !isNoteFileMode && Configure.Instance.Media)
+                        if (!isNoteFileMode && (mediaHandler == BaseUI.Instance ? isQuitMode && mediaHandlerItem.IsAvailable : Configure.Instance.Media))
                         {
                             if (!mediaHandlerItem.IsHandling)
                             {

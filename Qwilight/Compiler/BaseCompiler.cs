@@ -239,7 +239,6 @@ namespace Qwilight.Compiler
                 defaultComputer.WaitMediaNoteMap.Into(0.0, new()
                 {
                     MediaMode = MediaNote.Mode.Default,
-                    IsLooping = true,
                     MediaItem = defaultComputer.LoopingBanalMedia,
                     HasContents = true
                 });
@@ -249,7 +248,6 @@ namespace Qwilight.Compiler
                 defaultComputer.WaitMediaNoteMap.Into(0.0, new()
                 {
                     MediaMode = MediaNote.Mode.Failed,
-                    IsLooping = true,
                     MediaItem = defaultComputer.LoopingBanalFailedMedia,
                     HasContents = true
                 });
@@ -737,7 +735,6 @@ namespace Qwilight.Compiler
                     var mediaNoteModified = new MediaNote
                     {
                         MediaMode = mediaNote.MediaMode,
-                        IsLooping = mediaNote.IsLooping,
                         MediaItem = mediaItem,
                         HasContents = mediaNote.HasContents,
                         MediaLevyingPosition = mediaNote.MediaLevyingPosition,

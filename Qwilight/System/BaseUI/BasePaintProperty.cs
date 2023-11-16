@@ -31,6 +31,8 @@ namespace Qwilight
 
         public HandledDrawingItem?[] HandledDrawingItems { get; set; }
 
+        public HandledMediaItem HandledMediaItemValue { get; set; }
+
         public MediaHandlerItem MediaHandlerItemValue { get; set; }
 
         public int DrawingVariety { get; set; }
