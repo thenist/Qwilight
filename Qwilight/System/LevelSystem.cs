@@ -126,7 +126,7 @@ namespace Qwilight
                     {
                         Text = LanguageSystem.Instance.SavingLevelContents,
                         Variety = NotifySystem.NotifyVariety.Levying,
-                        OnStop = isTotal => false
+                        OnStop = wipeTotal => false
                     };
                     HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingLevelItem));
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingLevelItem.Text);
@@ -158,7 +158,7 @@ namespace Qwilight
                     }
                     savingLevelItem.Variety = NotifySystem.NotifyVariety.Quit;
                     savingLevelItem.Text = LanguageSystem.Instance.SavedLevelContents;
-                    savingLevelItem.OnStop = isTotal => true;
+                    savingLevelItem.OnStop = wipeTotal => true;
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedLevelContents);
                     Configure.Instance.LevelTargetMap[levelTableFileName] = www;
                     LoadLevelFiles();

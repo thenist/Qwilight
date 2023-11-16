@@ -750,7 +750,7 @@ namespace Qwilight.Compiler
             }
             var isBanalMedia = (!_hasMedia || defaultComputer.AlwaysBanalMedia) && defaultComputer.BanalMedia;
             var isBanalFailedMedia = (!_hasFailedMedia || defaultComputer.AlwaysBanalFailedMedia) && defaultComputer.BanalFailedMedia;
-            defaultComputer.LoadStandardContents(isBanalMedia, isBanalFailedMedia, parallelItems);
+            defaultComputer.LoadBanalMedia(isBanalMedia, isBanalFailedMedia, parallelItems);
             foreach (var line in _lines)
             {
                 SetCancelCompiler?.Token.ThrowIfCancellationRequested();

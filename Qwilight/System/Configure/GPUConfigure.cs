@@ -1,6 +1,7 @@
 ﻿using Qwilight.Utilities;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Qwilight
@@ -63,7 +64,12 @@ namespace Qwilight
         {
             Utility.CopyFile(_fileName, _tmp0FileName);
             Utility.MoveFile(_tmp0FileName, _tmp1FileName);
-            File.WriteAllText(_fileName, Utility.SetJSON(this), Encoding.UTF8);
+            File.WriteAllText(_fileName, Utility.SetJSON(this, new JsonSerializerOptions
+            {
+                IgnoreReadOnlyProperties = true,
+                IncludeFields = true,
+                WriteIndented = QwilightComponent.IsVS
+            }), Encoding.UTF8);
             Utility.WipeFile(_tmp1FileName);
         }
 

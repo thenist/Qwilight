@@ -1558,7 +1558,7 @@ namespace Qwilight.Compute
             }
         }
 
-        public void LoadStandardContents(bool isBanalMedia, bool isBanalFailedMedia, IProducerConsumerCollection<Action> parallelItems)
+        public void LoadBanalMedia(bool isBanalMedia, bool isBanalFailedMedia, IProducerConsumerCollection<Action> parallelItems)
         {
             if (LoadedMedia)
             {
@@ -3961,7 +3961,6 @@ namespace Qwilight.Compute
 
             if (!IsPostableItemMode)
             {
-
                 var date = DateTime.Now;
                 var eventNoteID = EventNoteEntryItem?.EventNoteID;
                 if (string.IsNullOrEmpty(eventNoteID))
@@ -3998,16 +3997,15 @@ namespace Qwilight.Compute
                             }
                         }
                     }
-                    _ = DB.Instance.SetHandled(NoteFile);
+                    DB.Instance.SetHandled(NoteFile);
 
-                    _ = DB.Instance.NewDate(NoteFile, default, date);
+                    DB.Instance.NewDate(NoteFile, default, date);
                     NoteFile.LatestDate = date;
                     ++NoteFile.HandledCount;
                 }
                 else
                 {
-
-                    _ = DB.Instance.NewDate(default, eventNoteID, date);
+                    DB.Instance.NewDate(default, eventNoteID, date);
                     EventNoteEntryItem.LatestDate = date;
                     ++EventNoteEntryItem.HandledCount;
                 }
@@ -4021,7 +4019,7 @@ namespace Qwilight.Compute
                         {
                             try
                             {
-                                _ = DB.Instance.SaveComment(date, NoteFile, string.Empty, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
+                                DB.Instance.SaveComment(date, NoteFile, string.Empty, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
                                 using var fs = File.OpenWrite(Path.Combine(QwilightComponent.CommentEntryPath, commentID));
                                 _comments.Single().WriteTo(fs);
                             }
@@ -4072,7 +4070,7 @@ namespace Qwilight.Compute
                         {
                             try
                             {
-                                _ = DB.Instance.SaveComment(date, default, eventNoteID, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
+                                DB.Instance.SaveComment(date, default, eventNoteID, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
                                 using (var zipFile = new ZipFile(Path.Combine(QwilightComponent.CommentEntryPath, Path.ChangeExtension(commentID, ".zip"))))
                                 {
                                     for (var i = _comments.Count - 1; i >= 0; --i)
@@ -4173,7 +4171,7 @@ namespace Qwilight.Compute
             }
         }
 
-        public void HandleCompiler() => Task.Run(() =>
+        public void HandleCompiler()
         {
             try
             {
@@ -4190,9 +4188,9 @@ namespace Qwilight.Compute
                     _targetCompilerHandler.Start();
                 }
             }
-        });
+        }
 
-        public void SetWait() => _ = DB.Instance.SetWait(NoteFile, Math.Clamp(Configure.Instance.AudioWait, -1000.0, 1000.0), Math.Clamp(Configure.Instance.MediaWait, -1000.0, 1000.0), Configure.Instance.Media);
+        public void SetWait() => DB.Instance.SetWait(NoteFile, Math.Clamp(Configure.Instance.AudioWait, -1000.0, 1000.0), Math.Clamp(Configure.Instance.MediaWait, -1000.0, 1000.0), Configure.Instance.Media);
 
         IHandlerItem GetHandlerItem(MediaNote.Mode mode) => ViewFailedDrawing && _failedDrawingMillis > 0.0 && DrawingCollection.TryGetValue(MediaNote.Mode.Failed, out var failedHandler) ? failedHandler : DrawingCollection.TryGetValue(mode, out var handler) ? handler : null;
 
@@ -4520,7 +4518,7 @@ namespace Qwilight.Compute
                     switch (!string.IsNullOrEmpty(eventNoteID) || NoteFile.IsBanned ? 0 : Configure.Instance.CommentViewTabPosition)
                     {
                         case 0:
-                            netItems.AddRange(GetNetItemsImpl(await DB.Instance.GetCommentItems(NoteFiles[0], eventNoteID, NoteFiles.Length).ConfigureAwait(false)));
+                            netItems.AddRange(GetNetItemsImpl(DB.Instance.GetCommentItems(NoteFiles[0], eventNoteID, NoteFiles.Length)));
                             break;
                         case 1:
                         case 2:

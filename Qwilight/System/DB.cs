@@ -17,16 +17,25 @@ namespace Qwilight
 
         static readonly string _fileName = Path.Combine(QwilightComponent.QwilightEntryPath, "DB.db");
         static readonly string _faultFileName = Path.ChangeExtension(_fileName, ".db.$");
+        static readonly string _tmp0FileName = Path.ChangeExtension(_fileName, ".db.tmp.0");
+        static readonly string _tmp1FileName = Path.ChangeExtension(_fileName, ".db.tmp.1");
 
         public static readonly DB Instance = QwilightComponent.GetBuiltInData<DB>(nameof(DB));
 
-        SQLiteConnection _db;
+        SQLiteConnection _fastDB;
+        SQLiteConnection _fileDB;
 
         public string DBFault { get; set; }
 
         public void Load()
         {
-            _db = new(new SQLiteConnectionStringBuilder
+            Utility.WipeFile(_tmp0FileName);
+            Utility.MoveFile(_tmp1FileName, _fileName);
+            _fastDB = new SQLiteConnection(new SQLiteConnectionStringBuilder
+            {
+                DataSource = ":memory:"
+            }.ToString());
+            _fileDB = new(new SQLiteConnectionStringBuilder
             {
                 DataSource = _fileName
             }.ToString());
@@ -37,17 +46,20 @@ namespace Qwilight
             catch (SQLiteException e)
             {
                 DBFault = $"Failed to Validate DB ({e.Message})";
-                _db.Close();
+                _fastDB.Close();
+                _fastDB.Close();
                 Utility.MoveFile(_fileName, _faultFileName);
                 LoadImpl();
             }
 
             void LoadImpl()
             {
-                _db.Open();
+                _fastDB.Open();
+                _fileDB.Open();
+                _fileDB.BackupDatabase(_fastDB, "main", "main", -1, null, -1);
 
                 #region COMPATIBLE
-                Compatible.Compatible.DB(_db);
+                Compatible.Compatible.DB(_fastDB);
                 #endregion
 
                 #region 데이터베이스 정보
@@ -55,7 +67,7 @@ namespace Qwilight
 					ID VARCHAR(137),
 					Value TEXT,
 					PRIMARY KEY (ID)
-				)", _db))
+				)", _fastDB))
                 {
                     dbStatement.ExecuteNonQuery();
                 }
@@ -66,7 +78,7 @@ namespace Qwilight
                     SELECT Value
                     FROM db_file
                     WHERE ID = "date"
-                """, _db))
+                """, _fastDB))
                 {
                     using var rows = dbStatement.ExecuteReader();
                     if (rows.Read())
@@ -161,7 +173,7 @@ namespace Qwilight
 					        CHECK (Put_Note_Set_Millis >= 0.0 AND Put_Note_Set_Millis <= 1000.0)
 					        CHECK (Is_Paused IN (0, 1))
 					        CHECK (Input_Flags >= 0 AND Input_Flags <= 15)
-				        )", _db))
+				        )", _fastDB))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -172,11 +184,11 @@ namespace Qwilight
                                 using (var dbStatement = new SQLiteCommand(@"INSERT
                                     INTO tmp_comment
                                     SELECT *
-                                    FROM comment", _db))
+                                    FROM comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
-                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _db))
+                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
@@ -189,15 +201,15 @@ namespace Qwilight
                                 using (var dbStatement = new SQLiteCommand(@"INSERT
                                     INTO tmp_comment(Date, Event_Note_ID, Comment, Name, Multiplier, Auto_Mode, Note_Salt_Mode, Audio_Multiplier, Faint_Note_Mode, Judgment_Mode, Hit_Points_Mode, Note_Mobility_Mode, Long_Note_Mode, Input_Favor_Mode, Note_Modify_Mode, BPM_Mode, Wave_Mode, Set_Note_Mode, Lowest_Judgment_Condition_Mode, Stand, Band, Is_P, Point, Salt, Highest_Judgment_0, Higher_Judgment_0, High_Judgment_0, Low_Judgment_0, Lower_Judgment_0, Lowest_Judgment_0, Highest_Judgment_1, Higher_Judgment_1, High_Judgment_1, Low_Judgment_1, Lower_Judgment_1, Lowest_Judgment_1, Lowest_Long_Note_Modify, Put_Note_Set, Put_Note_Set_Millis, Highest_Hit_Points_0, Higher_Hit_Points_0, High_Hit_Points_0, Low_Hit_Points_0, Lower_Hit_Points_0, Lowest_Hit_Points_0, Highest_Hit_Points_1, Higher_Hit_Points_1, High_Hit_Points_1, Low_Hit_Points_1, Lower_Hit_Points_1, Lowest_Hit_Points_1, Note_ID)
                                         SELECT *
-                                        FROM comment", _db))
+                                        FROM comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
-                                using (var dbStatement = new SQLiteCommand(@"UPDATE tmp_comment SET Highest_Long_Note_Modify = Lowest_Long_Note_Modify", _db))
+                                using (var dbStatement = new SQLiteCommand(@"UPDATE tmp_comment SET Highest_Long_Note_Modify = Lowest_Long_Note_Modify", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
-                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _db))
+                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
@@ -210,11 +222,11 @@ namespace Qwilight
                                 using (var dbStatement = new SQLiteCommand(@"INSERT
                                     INTO tmp_comment
                                     SELECT *
-                                    FROM comment", _db))
+                                    FROM comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
-                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _db))
+                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
@@ -226,18 +238,18 @@ namespace Qwilight
                             {
                                 using (var dbStatement = new SQLiteCommand(@"DELETE
                                     FROM comment
-                                    WHERE Note_Salt_Mode = 3 OR Note_Salt_Mode = 5 OR Note_Salt_Mode = 9 OR Note_Salt_Mode = 10 OR Note_Mobility_Mode = 2 OR Set_Note_Mode = 4 OR Set_Note_Mode = 5 OR Input_Favor_Mode = 1 OR Input_Favor_Mode = 2 OR Input_Favor_Mode = 3 OR Input_Favor_Mode = 17 OR Input_Favor_Mode = 18 OR Input_Favor_Mode = 19", _db))
+                                    WHERE Note_Salt_Mode = 3 OR Note_Salt_Mode = 5 OR Note_Salt_Mode = 9 OR Note_Salt_Mode = 10 OR Note_Mobility_Mode = 2 OR Set_Note_Mode = 4 OR Set_Note_Mode = 5 OR Input_Favor_Mode = 1 OR Input_Favor_Mode = 2 OR Input_Favor_Mode = 3 OR Input_Favor_Mode = 17 OR Input_Favor_Mode = 18 OR Input_Favor_Mode = 19", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
                                 using (var dbStatement = new SQLiteCommand(@"INSERT
                                     INTO tmp_comment
                                         SELECT *
-                                        FROM comment", _db))
+                                        FROM comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
-                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _db))
+                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
@@ -250,11 +262,11 @@ namespace Qwilight
                                 using (var dbStatement = new SQLiteCommand(@"INSERT
                                     INTO tmp_comment(Date, Event_Note_ID, Comment, Name, Multiplier, Auto_Mode, Note_Salt_Mode, Audio_Multiplier, Faint_Note_Mode, Judgment_Mode, Hit_Points_Mode, Note_Mobility_Mode, Long_Note_Mode, Input_Favor_Mode, Note_Modify_Mode, BPM_Mode, Wave_Mode, Set_Note_Mode, Lowest_Judgment_Condition_Mode, Stand, Band, Is_P, Point, Salt, Highest_Judgment_0, Higher_Judgment_0, High_Judgment_0, Low_Judgment_0, Lower_Judgment_0, Lowest_Judgment_0, Highest_Judgment_1, Higher_Judgment_1, High_Judgment_1, Low_Judgment_1, Lower_Judgment_1, Lowest_Judgment_1, Lowest_Long_Note_Modify, Highest_Long_Note_Modify, Put_Note_Set, Put_Note_Set_Millis, Highest_Hit_Points_0, Higher_Hit_Points_0, High_Hit_Points_0, Low_Hit_Points_0, Lower_Hit_Points_0, Lowest_Hit_Points_0, Highest_Hit_Points_1, Higher_Hit_Points_1, High_Hit_Points_1, Low_Hit_Points_1, Lower_Hit_Points_1, Lowest_Hit_Points_1, Note_ID)
                                         SELECT *
-                                        FROM comment", _db))
+                                        FROM comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
-                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _db))
+                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
@@ -267,11 +279,11 @@ namespace Qwilight
                                 using (var dbStatement = new SQLiteCommand(@"INSERT
                                     INTO tmp_comment(Date, Event_Note_ID, Comment, Name, Multiplier, Auto_Mode, Note_Salt_Mode, Audio_Multiplier, Faint_Note_Mode, Judgment_Mode, Hit_Points_Mode, Note_Mobility_Mode, Long_Note_Mode, Input_Favor_Mode, Note_Modify_Mode, BPM_Mode, Wave_Mode, Set_Note_Mode, Lowest_Judgment_Condition_Mode, Stand, Band, Is_P, Point, Salt, Highest_Judgment_0, Higher_Judgment_0, High_Judgment_0, Low_Judgment_0, Lower_Judgment_0, Lowest_Judgment_0, Highest_Judgment_1, Higher_Judgment_1, High_Judgment_1, Low_Judgment_1, Lower_Judgment_1, Lowest_Judgment_1, Lowest_Long_Note_Modify, Highest_Long_Note_Modify, Put_Note_Set, Put_Note_Set_Millis, Highest_Hit_Points_0, Higher_Hit_Points_0, High_Hit_Points_0, Low_Hit_Points_0, Lower_Hit_Points_0, Lowest_Hit_Points_0, Highest_Hit_Points_1, Higher_Hit_Points_1, High_Hit_Points_1, Low_Hit_Points_1, Lower_Hit_Points_1, Lowest_Hit_Points_1, Note_ID, Is_Paused)
                                         SELECT *
-                                        FROM comment", _db))
+                                        FROM comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
-                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _db))
+                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
@@ -283,32 +295,32 @@ namespace Qwilight
                             {
                                 using (var dbStatement = new SQLiteCommand(@"DELETE
                                     FROM comment
-                                    WHERE Note_Salt_Mode = 6 OR Note_Salt_Mode = 7 OR Note_Salt_Mode = 8 OR Note_Salt_Mode = 12 OR Note_Salt_Mode = 14 OR Set_Note_Mode = 2", _db))
+                                    WHERE Note_Salt_Mode = 6 OR Note_Salt_Mode = 7 OR Note_Salt_Mode = 8 OR Note_Salt_Mode = 12 OR Note_Salt_Mode = 14 OR Set_Note_Mode = 2", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
                                 using (var dbStatement = new SQLiteCommand(@"INSERT
                                     INTO tmp_comment
                                         SELECT *
-                                        FROM comment", _db))
+                                        FROM comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
-                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _db))
+                                using (var dbStatement = new SQLiteCommand("DROP TABLE comment", _fastDB))
                                 {
                                     dbStatement.ExecuteNonQuery();
                                 }
                             }
                         }
                         using (var dbStatement = new SQLiteCommand(@"ALTER TABLE tmp_comment
-                            RENAME TO comment", _db))
+                            RENAME TO comment", _fastDB))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
                         using (var dbStatement = new SQLiteCommand(@"CREATE INDEX IF NOT EXISTS _comment ON comment (
 					        Note_ID,
                             Event_Note_ID
-                        )", _db))
+                        )", _fastDB))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -321,7 +333,7 @@ namespace Qwilight
 					Entry_Path VARCHAR(260),
 					Note_Position INTEGER,
 					PRIMARY KEY (Entry_Path)
-				)", _db))
+				)", _fastDB))
                 {
                     dbStatement.ExecuteNonQuery();
                 }
@@ -334,7 +346,7 @@ namespace Qwilight
                     {
                         if (HasTable("note"))
                         {
-                            using (var dbStatement = new SQLiteCommand("DROP TABLE note", _db))
+                            using (var dbStatement = new SQLiteCommand("DROP TABLE note", _fastDB))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -342,13 +354,13 @@ namespace Qwilight
                         using (var dbStatement = new SQLiteCommand(@"CREATE TABLE IF NOT EXISTS note (
 				            Note_ID VARCHAR(139),
 					        Favorite_Entry TEXT
-                        )", _db))
+                        )", _fastDB))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
                         using (var dbStatement = new SQLiteCommand(@"CREATE INDEX IF NOT EXISTS _note ON note (
 					        Note_ID
-                        )", _db))
+                        )", _fastDB))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -363,7 +375,7 @@ namespace Qwilight
                     {
                         if (HasTable("handle"))
                         {
-                            using (var dbStatement = new SQLiteCommand("DROP TABLE handle", _db))
+                            using (var dbStatement = new SQLiteCommand("DROP TABLE handle", _fastDB))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -372,7 +384,7 @@ namespace Qwilight
 				            Note_ID VARCHAR(137),
                             Handled INTEGER,
                             PRIMARY KEY (Note_ID)
-                        )", _db))
+                        )", _fastDB))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -384,7 +396,7 @@ namespace Qwilight
                 {
                     var comments = new Dictionary<string, BaseNoteFile.Handled>();
                     using (var dbStatement = new SQLiteCommand(@"SELECT Note_ID, Is_P, Hit_Points_Mode
-				        FROM comment", _db))
+				        FROM comment", _fastDB))
                     {
                         using var rows = dbStatement.ExecuteReader();
                         while (rows.Read())
@@ -416,7 +428,7 @@ namespace Qwilight
                     {
                         using (var dbStatement = new SQLiteCommand(@"REPLACE
                             INTO handle
-				            VALUES(@noteID, @handled)", _db))
+				            VALUES(@noteID, @handled)", _fastDB))
                         {
                             dbStatement.Parameters.AddWithValue("noteID", comment.Key);
                             dbStatement.Parameters.AddWithValue("handled", comment.Value);
@@ -432,7 +444,7 @@ namespace Qwilight
                     {
                         if (HasTable("date"))
                         {
-                            using (var dbStatement = new SQLiteCommand("DROP TABLE date", _db))
+                            using (var dbStatement = new SQLiteCommand("DROP TABLE date", _fastDB))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -441,14 +453,14 @@ namespace Qwilight
 				            Note_ID VARCHAR(139),
 					        Event_Note_ID TEXT,
 				            Date DATE
-                        )", _db))
+                        )", _fastDB))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
                         using (var dbStatement = new SQLiteCommand(@"CREATE INDEX IF NOT EXISTS _date ON date (
 					        Note_ID,
                             Event_Note_ID
-                        )", _db))
+                        )", _fastDB))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -460,7 +472,7 @@ namespace Qwilight
                 {
                     var comments = new List<(string, string, DateTime)>();
                     using (var dbStatement = new SQLiteCommand(@"SELECT Note_ID, Event_Note_ID, Date
-				        FROM comment", _db))
+				        FROM comment", _fastDB))
                     {
                         using var rows = dbStatement.ExecuteReader();
                         while (rows.Read())
@@ -472,7 +484,7 @@ namespace Qwilight
                     {
                         using (var dbStatement = new SQLiteCommand(@"INSERT
                             INTO date
-				            VALUES(@noteID, @eventNoteID, @date)", _db))
+				            VALUES(@noteID, @eventNoteID, @date)", _fastDB))
                         {
                             dbStatement.Parameters.AddWithValue("noteID", comment.Item1);
                             dbStatement.Parameters.AddWithValue("eventNoteID", comment.Item2);
@@ -489,7 +501,7 @@ namespace Qwilight
                     {
                         if (HasTable("wait"))
                         {
-                            using (var dbStatement = new SQLiteCommand("DROP TABLE wait", _db))
+                            using (var dbStatement = new SQLiteCommand("DROP TABLE wait", _fastDB))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -503,7 +515,7 @@ namespace Qwilight
 						    CHECK (Media_Wait >= -1000.0 AND Media_Wait <= 1000.0)
 					        CHECK (Media IN (0, 1))
 					        PRIMARY KEY (Note_ID)
-				        )", _db))
+				        )", _fastDB))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -518,7 +530,7 @@ namespace Qwilight
                     {
                         if (HasTable("format"))
                         {
-                            using (var dbStatement = new SQLiteCommand("DROP TABLE format", _db))
+                            using (var dbStatement = new SQLiteCommand("DROP TABLE format", _fastDB))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -527,7 +539,7 @@ namespace Qwilight
 				            Note_ID VARCHAR(139),
                             Format LONG DEFAULT -1,
                             PRIMARY KEY (Note_ID)
-                        )", _db))
+                        )", _fastDB))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -544,7 +556,7 @@ namespace Qwilight
                     PRIMARY KEY (Event_Note_ID, Variety)
 					CHECK (length(Event_Note_ID) > 0)
 					CHECK (Variety IN (0, 1))
-                )", _db))
+                )", _fastDB))
                 {
                     dbStatement.ExecuteNonQuery();
                 }
@@ -560,7 +572,7 @@ namespace Qwilight
                     Level_Text TEXT,
                     Genre TEXT,
                     PRIMARY KEY (Note_ID)
-                    )", _db))
+                    )", _fastDB))
                 {
                     dbStatement.ExecuteNonQuery();
                 }
@@ -570,7 +582,7 @@ namespace Qwilight
                     REPLACE
                     INTO db_file
                     VALUES("date", @value)
-                """, _db))
+                """, _fastDB))
                 {
                     dbStatement.Parameters.AddWithValue("value", QwilightComponent.DateText);
                     dbStatement.ExecuteNonQuery();
@@ -580,7 +592,7 @@ namespace Qwilight
                 {
                     using var dbStatement = new SQLiteCommand(@"SELECT name
                         FROM sqlite_master
-                        WHERE type = 'table' AND name = @tableName", _db);
+                        WHERE type = 'table' AND name = @tableName", _fastDB);
                     dbStatement.Parameters.AddWithValue("tableName", tableName);
                     using var rows = dbStatement.ExecuteReader();
                     return rows.Read();
@@ -588,7 +600,7 @@ namespace Qwilight
 
                 void Ta(Action onHandle)
                 {
-                    using var t = _db.BeginTransaction();
+                    using var t = _fastDB.BeginTransaction();
                     try
                     {
                         onHandle();
@@ -603,7 +615,7 @@ namespace Qwilight
             }
         }
 
-        public async ValueTask<ICollection<CommentItem>> GetCommentItems(BaseNoteFile noteFile, string eventNoteID, int noteFileCount)
+        public ICollection<CommentItem> GetCommentItems(BaseNoteFile noteFile, string eventNoteID, int noteFileCount)
         {
             var data = new List<CommentItem>();
             using var dbStatement = new SQLiteCommand($"""
@@ -611,7 +623,7 @@ namespace Qwilight
                 FROM comment
                 WHERE {(string.IsNullOrEmpty(eventNoteID) ? "Note_ID = @noteID" : "Event_Note_ID = @eventNoteID")}
                 ORDER BY Stand DESC
-            """, _db);
+            """, _fastDB);
             if (string.IsNullOrEmpty(eventNoteID))
             {
                 dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
@@ -620,8 +632,8 @@ namespace Qwilight
             {
                 dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
             }
-            using var rows = await dbStatement.ExecuteReaderAsync().ConfigureAwait(false);
-            while (await rows.ReadAsync().ConfigureAwait(false))
+            using var rows = dbStatement.ExecuteReader();
+            while (rows.Read())
             {
                 var date = (DateTime)rows["Date"];
                 var sentMultiplier = (double)rows["Multiplier"];
@@ -699,7 +711,7 @@ namespace Qwilight
             return data;
         }
 
-        public async ValueTask SetEventNoteData(ICollection<WwwLevelGroup.WwwLevelComputing> wwwLevelComputingValues)
+        public void SetEventNoteData(ICollection<WwwLevelGroup.WwwLevelComputing> wwwLevelComputingValues)
         {
             foreach (var wwwLevelComputingValue in wwwLevelComputingValues)
             {
@@ -708,7 +720,7 @@ namespace Qwilight
                 {
                     using var dbStatement = new SQLiteCommand(@"REPLACE
                         INTO event_note_data
-                        VALUES(@noteID, @noteVariety, @title, @artist, @level, @levelText, @genre)", _db);
+                        VALUES(@noteID, @noteVariety, @title, @artist, @level, @levelText, @genre)", _fastDB);
                     dbStatement.Parameters.AddWithValue("noteID", wwwLevelComputingValue.NoteID);
                     dbStatement.Parameters.AddWithValue("noteVariety", noteVariety);
                     dbStatement.Parameters.AddWithValue("title", wwwLevelComputingValue.Title);
@@ -716,7 +728,7 @@ namespace Qwilight
                     dbStatement.Parameters.AddWithValue("level", wwwLevelComputingValue.LevelValue);
                     dbStatement.Parameters.AddWithValue("levelText", wwwLevelComputingValue.LevelText);
                     dbStatement.Parameters.AddWithValue("genre", wwwLevelComputingValue.Genre);
-                    await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+                    dbStatement.ExecuteNonQuery();
                 }
             }
         }
@@ -725,7 +737,7 @@ namespace Qwilight
         {
             using var dbStatement = new SQLiteCommand(@"SELECT Note_Variety, Title, Artist, Level, Level_Text, Genre
                 FROM event_note_data
-                WHERE Note_ID = @noteID", _db);
+                WHERE Note_ID = @noteID", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteID);
             using var rows = dbStatement.ExecuteReader();
             if (rows.Read())
@@ -763,7 +775,7 @@ namespace Qwilight
         {
             using var dbStatement = new SQLiteCommand(@"SELECT Favorite_Entry
                 FROM note
-                WHERE Note_ID = @noteID", _db);
+                WHERE Note_ID = @noteID", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
             using var rows = dbStatement.ExecuteReader();
             var favoriteEntryItems = new List<DefaultEntryItem>();
@@ -781,7 +793,7 @@ namespace Qwilight
         public ICollection<(string, string, DateTime, EventNoteVariety)> GetEventNote()
         {
             using var dbStatement = new SQLiteCommand(@"SELECT Event_Note_ID, Name, Date, Variety
-                FROM event_note", _db);
+                FROM event_note", _fastDB);
             using var rows = dbStatement.ExecuteReader();
             var eventNote = new List<(string, string, DateTime, EventNoteVariety)>();
             while (rows.Read())
@@ -795,27 +807,27 @@ namespace Qwilight
         {
             using var dbStatement = new SQLiteCommand(@"SELECT Handled
                 FROM handle
-                WHERE Note_ID = @noteID", _db);
+                WHERE Note_ID = @noteID", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
             using var rows = dbStatement.ExecuteReader();
             return rows.Read() ? (BaseNoteFile.Handled)(long)rows["Handled"] : BaseNoteFile.Handled.Not;
         }
 
-        public async Task SetHandled(BaseNoteFile noteFile)
+        public void SetHandled(BaseNoteFile noteFile)
         {
             using var dbStatement = new SQLiteCommand(@"REPLACE
                 INTO handle
-                VALUES(@noteID, @handled)", _db);
+                VALUES(@noteID, @handled)", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
             dbStatement.Parameters.AddWithValue("handled", noteFile.HandledValue);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
         public (DateTime?, int) GetDate(BaseNoteFile noteFile, string eventNoteID)
         {
             using var dbStatement = new SQLiteCommand(@"SELECT MAX(Date) AS Latest, COUNT(Date) AS Count
                 FROM date
-                WHERE Note_ID = @noteID OR Event_Note_ID = @eventNoteID", _db);
+                WHERE Note_ID = @noteID OR Event_Note_ID = @eventNoteID", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512());
             dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
             using var rows = dbStatement.ExecuteReader();
@@ -832,36 +844,36 @@ namespace Qwilight
             return date;
         }
 
-        public async Task NewDate(BaseNoteFile noteFile, string eventNoteID, DateTime date)
+        public void NewDate(BaseNoteFile noteFile, string eventNoteID, DateTime date)
         {
             using var dbStatement = new SQLiteCommand(@"INSERT
                 INTO date
-                VALUES(@noteID, @eventNoteID, @date)", _db);
+                VALUES(@noteID, @eventNoteID, @date)", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512());
             dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
             dbStatement.Parameters.AddWithValue("date", date);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
         public int GetNotePosition(string entryPath)
         {
             using var dbStatement = new SQLiteCommand(@"SELECT Note_Position
                 FROM entry
-                WHERE Entry_Path = @entryPath", _db);
+                WHERE Entry_Path = @entryPath", _fastDB);
             dbStatement.Parameters.AddWithValue("entryPath", entryPath);
             using var rows = dbStatement.ExecuteReader();
             return rows.Read() ? (int)(long)rows["Note_Position"] : 0;
         }
 
-        public async ValueTask<(double, double, bool?)> GetWait(BaseNoteFile noteFile)
+        public (double, double, bool?) GetWait(BaseNoteFile noteFile)
         {
             using var dbStatement = new SQLiteCommand(@"SELECT Audio_Wait, Media_Wait, Media
                 FROM wait
-                WHERE Note_ID = @noteID", _db);
+                WHERE Note_ID = @noteID", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
-            using var rows = await dbStatement.ExecuteReaderAsync().ConfigureAwait(false);
+            using var rows = dbStatement.ExecuteReader();
             (double, double, bool?) data = (0.0, 0.0, default);
-            if (await rows.ReadAsync().ConfigureAwait(false))
+            if (rows.Read())
             {
                 if (rows["Audio_Wait"] != DBNull.Value)
                 {
@@ -876,86 +888,86 @@ namespace Qwilight
             return data;
         }
 
-        public async Task<int> GetFormat(BaseNoteFile noteFile)
+        public int GetFormat(BaseNoteFile noteFile)
         {
             using var dbStatement = new SQLiteCommand(@"SELECT Format
                 FROM format
-                WHERE Note_ID = @noteID", _db);
+                WHERE Note_ID = @noteID", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
-            using var rows = await dbStatement.ExecuteReaderAsync().ConfigureAwait(false);
-            return await rows.ReadAsync().ConfigureAwait(false) ? (int)(long)rows["Format"] : -1;
+            using var rows = dbStatement.ExecuteReader();
+            return rows.Read() ? (int)(long)rows["Format"] : -1;
         }
 
-        public async Task SetNotePosition(EntryItem entryItem)
+        public void SetNotePosition(EntryItem entryItem)
         {
             using var dbStatement = new SQLiteCommand(@"REPLACE
                 INTO entry
-                VALUES(@entryPath, @notePosition)", _db);
+                VALUES(@entryPath, @notePosition)", _fastDB);
             dbStatement.Parameters.AddWithValue("entryPath", entryItem.EntryPath);
             dbStatement.Parameters.AddWithValue("notePosition", entryItem.NotePosition);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async Task SetFavoriteEntry(BaseNoteFile noteFile)
+        public void SetFavoriteEntry(BaseNoteFile noteFile)
         {
-            await Ta(async () =>
+            Ta(() =>
             {
                 using (var dbStatement = new SQLiteCommand(@"DELETE
                     FROM note
-                    WHERE Note_ID = @noteID", _db))
+                    WHERE Note_ID = @noteID", _fastDB))
                 {
                     dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
-                    await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+                    dbStatement.ExecuteNonQuery();
                 }
                 using (var dbStatement = new SQLiteCommand(@"REPLACE
                     INTO note
-                    VALUES(@noteID, @favoriteEntry)", _db))
+                    VALUES(@noteID, @favoriteEntry)", _fastDB))
                 {
                     foreach (var favoriteEntryItem in noteFile.FavoriteEntryItems)
                     {
                         dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
                         dbStatement.Parameters.AddWithValue("favoriteEntry", favoriteEntryItem.DefaultEntryPath);
-                        await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        dbStatement.ExecuteNonQuery();
                     }
                 }
-            }).ConfigureAwait(false);
+            });
         }
 
-        public async Task SetEventNote(string eventNoteID, string eventNoteName, DateTime date, EventNoteVariety eventNoteVariety)
+        public void SetEventNote(string eventNoteID, string eventNoteName, DateTime date, EventNoteVariety eventNoteVariety)
         {
             using var dbStatement = new SQLiteCommand(@"INSERT INTO event_note
-                VALUES(@eventNoteID, @eventNoteName, @date, @eventNoteVariety)", _db);
+                VALUES(@eventNoteID, @eventNoteName, @date, @eventNoteVariety)", _fastDB);
             dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
             dbStatement.Parameters.AddWithValue("eventNoteName", eventNoteName);
             dbStatement.Parameters.AddWithValue("date", date);
             dbStatement.Parameters.AddWithValue("eventNoteVariety", eventNoteVariety);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async ValueTask WipeEventNote(string eventNoteID)
+        public void WipeEventNote(string eventNoteID)
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
                 FROM event_note
-                WHERE Event_Note_ID = @eventNoteID", _db);
+                WHERE Event_Note_ID = @eventNoteID", _fastDB);
             dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async Task ModifyEventNoteName(string eventNoteID, string eventNoteName)
+        public void ModifyEventNoteName(string eventNoteID, string eventNoteName)
         {
             using var dbStatement = new SQLiteCommand(@"UPDATE event_note
                 SET Name = @eventNoteName
-                WHERE Event_Note_ID = @eventNoteID", _db);
+                WHERE Event_Note_ID = @eventNoteID", _fastDB);
             dbStatement.Parameters.AddWithValue("eventNoteName", eventNoteName);
             dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async Task SaveComment(DateTime date, BaseNoteFile noteFile, string eventNoteID, string comment, string avatar, double multiplier, double audioMultiplier, ModeComponent modeComponentValue, int stand, int band, bool isP, double point, bool isPaused, DefaultCompute.InputFlag inputFlags)
+        public void SaveComment(DateTime date, BaseNoteFile noteFile, string eventNoteID, string comment, string avatar, double multiplier, double audioMultiplier, ModeComponent modeComponentValue, int stand, int band, bool isP, double point, bool isPaused, DefaultCompute.InputFlag inputFlags)
         {
             using var dbStatement = new SQLiteCommand(@"INSERT
                 INTO comment
-                VALUES(@date, @eventNoteID, @comment, @avatar, @multiplier, @autoMode, @noteSaltMode, @audioMultiplier, @faintNoteMode, @judgmentMode, @hitPointsMode, @noteMobilityMode, @longNoteMode, @inputFavorMode, @noteModifyMode, @bpmMode, @waveMode, @setNoteMode, @lowestJudgmentConditionMode, @stand, @band, @isP, @point, @salt, @highestJudgment0, @higherJudgment0, @highJudgment0, @lowJudgment0, @lowerJudgment0, @lowestJudgment0, @highestJudgment1, @higherJudgment1, @highJudgment1, @lowJudgment1, @lowerJudgment1, @lowestJudgment1, @lowestLongNoteModify, @highestLongNoteModify, @putNoteSet, @putNoteSetMillis, @highestHitPoints0, @higherHitPoints0, @highHitPoints0, @lowHitPoints0, @lowerHitPoints0, @lowestHitPoints0, @highestHitPoints1, @higherHitPoints1, @highHitPoints1, @lowHitPoints1, @lowerHitPoints1, @lowestHitPoints1, @noteID, @isPaused, @inputFlags)", _db);
+                VALUES(@date, @eventNoteID, @comment, @avatar, @multiplier, @autoMode, @noteSaltMode, @audioMultiplier, @faintNoteMode, @judgmentMode, @hitPointsMode, @noteMobilityMode, @longNoteMode, @inputFavorMode, @noteModifyMode, @bpmMode, @waveMode, @setNoteMode, @lowestJudgmentConditionMode, @stand, @band, @isP, @point, @salt, @highestJudgment0, @higherJudgment0, @highJudgment0, @lowJudgment0, @lowerJudgment0, @lowestJudgment0, @highestJudgment1, @higherJudgment1, @highJudgment1, @lowJudgment1, @lowerJudgment1, @lowestJudgment1, @lowestLongNoteModify, @highestLongNoteModify, @putNoteSet, @putNoteSetMillis, @highestHitPoints0, @higherHitPoints0, @highHitPoints0, @lowHitPoints0, @lowerHitPoints0, @lowestHitPoints0, @highestHitPoints1, @higherHitPoints1, @highHitPoints1, @lowHitPoints1, @lowerHitPoints1, @lowestHitPoints1, @noteID, @isPaused, @inputFlags)", _fastDB);
             dbStatement.Parameters.AddWithValue("date", date);
             dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID);
             dbStatement.Parameters.AddWithValue("comment", comment);
@@ -1011,90 +1023,98 @@ namespace Qwilight
             dbStatement.Parameters.AddWithValue("noteID", noteFile?.GetNoteID512());
             dbStatement.Parameters.AddWithValue("isPaused", isPaused);
             dbStatement.Parameters.AddWithValue("inputFlags", inputFlags);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async Task SetWait(BaseNoteFile noteFile, double audioWait, double mediaWait, bool media)
+        public void SetWait(BaseNoteFile noteFile, double audioWait, double mediaWait, bool media)
         {
             using var dbStatement = new SQLiteCommand(@"REPLACE
                 INTO wait
-                VALUES(@noteID, @audioWait, @mediaWait, @media)", _db);
+                VALUES(@noteID, @audioWait, @mediaWait, @media)", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
             dbStatement.Parameters.AddWithValue("audioWait", audioWait);
             dbStatement.Parameters.AddWithValue("mediaWait", mediaWait);
             dbStatement.Parameters.AddWithValue("media", media);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async ValueTask SetNoteFormat(BaseNoteFile noteFile, int format)
+        public void SetNoteFormat(BaseNoteFile noteFile, int format)
         {
             using var dbStatement = new SQLiteCommand(@"REPLACE
                 INTO format
-                VALUES(@noteID, @format)", _db);
+                VALUES(@noteID, @format)", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
             dbStatement.Parameters.AddWithValue("format", format);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async ValueTask WipeFavoriteEntry()
+        public void WipeFavoriteEntry()
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
-                FROM note", _db);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+                FROM note", _fastDB);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async ValueTask WipeHandled(BaseNoteFile noteFile)
+        public void WipeHandled(BaseNoteFile noteFile)
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
                 FROM handle
-                WHERE Note_ID = @noteID", _db);
+                WHERE Note_ID = @noteID", _fastDB);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async ValueTask InitWait()
+        public void InitWait()
         {
             using var dbStatement = new SQLiteCommand(@"UPDATE wait
-                SET Audio_Wait = NULL, Media_Wait = 0.0", _db);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+                SET Audio_Wait = NULL, Media_Wait = 0.0", _fastDB);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async ValueTask InitMedia()
+        public void InitMedia()
         {
             using var dbStatement = new SQLiteCommand(@"UPDATE wait
-                SET Media = NULL", _db);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+                SET Media = NULL", _fastDB);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async Task WipeComment(string comment)
+        public void WipeComment(string comment)
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
                 FROM comment
-                WHERE Comment = @comment", _db);
+                WHERE Comment = @comment", _fastDB);
             dbStatement.Parameters.AddWithValue("comment", comment);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+            dbStatement.ExecuteNonQuery();
         }
 
-        public async ValueTask WipeComment()
+        public void WipeComment()
         {
             using var dbStatement = new SQLiteCommand(@"DELETE
-                FROM comment", _db);
-            await dbStatement.ExecuteNonQueryAsync().ConfigureAwait(false);
+                FROM comment", _fastDB);
+            dbStatement.ExecuteNonQuery();
         }
 
-        async ValueTask Ta(Action onHandle)
+        void Ta(Action onHandle)
         {
-            using var t = await _db.BeginTransactionAsync().ConfigureAwait(false);
+            using var t = _fastDB.BeginTransaction();
             try
             {
                 onHandle();
-                await t.CommitAsync().ConfigureAwait(false);
+                t.Commit();
             }
             catch
             {
-                await t.RollbackAsync().ConfigureAwait(false);
+                t.Rollback();
                 throw;
             }
+        }
+
+        public void Save()
+        {
+            Utility.CopyFile(_fileName, _tmp0FileName);
+            Utility.MoveFile(_tmp0FileName, _tmp1FileName);
+            _fastDB.BackupDatabase(_fileDB, "main", "main", -1, null, -1);
+            Utility.WipeFile(_tmp1FileName);
         }
     }
 }

@@ -4,13 +4,9 @@ namespace Qwilight.Utilities
 {
     public static partial class Utility
     {
-        public static T Await<T>(IAsyncOperation<T> t)
+        public static T Await<T>(this IAsyncOperation<T> awaitable)
         {
-            return Await(t.AsTask());
-        }
-
-        public static T Await<T>(Task<T> t)
-        {
+            using var t = awaitable.AsTask();
             t.Wait();
             return t.Result;
         }

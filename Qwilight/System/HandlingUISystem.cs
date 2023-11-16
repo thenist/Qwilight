@@ -38,32 +38,7 @@ namespace Qwilight
             }
             else
             {
-                var handleCSX = new object();
-                var isHandling = true;
-                T value = default;
-                UIHandler.InvokeAsync(() =>
-                {
-                    try
-                    {
-                        value = onHandle();
-                    }
-                    finally
-                    {
-                        lock (handleCSX)
-                        {
-                            isHandling = false;
-                            Monitor.Pulse(handleCSX);
-                        }
-                    }
-                });
-                lock (handleCSX)
-                {
-                    if (isHandling)
-                    {
-                        Monitor.Wait(handleCSX);
-                    }
-                }
-                return value;
+                return UIHandler.Invoke(onHandle);
             }
         }
     }

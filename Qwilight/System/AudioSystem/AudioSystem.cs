@@ -236,14 +236,14 @@ namespace Qwilight
             {
                 _targetSystem.getNumDrivers(out var audioValueCount);
                 var audioValues = Enumerable.Range(0, audioValueCount).Select(i =>
-                 {
-                     _targetSystem.getDriverInfo(i, out var audioValueName, 128, out _, out _, out _, out _);
-                     return new AudioValue
-                     {
-                         ID = i,
-                         Name = audioValueName
-                     };
-                 }).ToArray();
+                {
+                    _targetSystem.getDriverInfo(i, out var audioValueName, 128, out _, out _, out _, out _);
+                    return new AudioValue
+                    {
+                        ID = i,
+                        Name = audioValueName
+                    };
+                }).ToArray();
                 HandlingUISystem.Instance.HandleParallel(() =>
                 {
                     AudioValues.Clear();

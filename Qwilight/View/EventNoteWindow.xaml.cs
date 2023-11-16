@@ -22,6 +22,6 @@ namespace Qwilight.View
 
         void OnNoteFileView(object sender, KeyEventArgs e) => (DataContext as EventNoteViewModel).OnNoteFileView(e);
 
-        void OnInputLower(object sender, KeyEventArgs e) => _ = (DataContext as EventNoteViewModel).OnInputLower(e);
+        void OnInputLower(object sender, KeyEventArgs e) => (DataContext as EventNoteViewModel).OnInputLower(e);
     }
 }

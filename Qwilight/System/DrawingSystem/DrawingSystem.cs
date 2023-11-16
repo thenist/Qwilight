@@ -3191,7 +3191,7 @@ namespace Qwilight
         static DrawingItem Load(Stream s, bool setAverage = false)
         {
             s.Position = 0;
-            var drawing = Utility.Await(CanvasBitmap.LoadAsync(CanvasDevice.GetSharedDevice(), s.AsRandomAccessStream()));
+            var drawing = CanvasBitmap.LoadAsync(CanvasDevice.GetSharedDevice(), s.AsRandomAccessStream()).Await();
             var averageColor = 0U;
             var averageHeight = 0.0;
             if (setAverage)
@@ -3320,9 +3320,8 @@ namespace Qwilight
 
             BitmapSource LoadImpl()
             {
-                BitmapSource defaultDrawing;
-
                 fs.Position = 0;
+                BitmapSource defaultDrawing;
                 var drawing = new BitmapImage();
                 drawing.BeginInit();
                 drawing.CacheOption = BitmapCacheOption.OnLoad;
@@ -3417,7 +3416,6 @@ namespace Qwilight
                 {
                     ArrayPool<byte>.Shared.Return(data);
                 }
-
                 return defaultDrawing;
             }
         }

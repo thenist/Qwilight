@@ -79,8 +79,7 @@ namespace Qwilight
                 {
                     _wantAvatarDrawing = false;
 
-                    _ = Awaitable();
-                    async Task Awaitable() => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarDrawing));
+                    Task.Run(async () => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarDrawing)));
                 }
                 return _avatarDrawing;
             }
@@ -719,9 +718,9 @@ namespace Qwilight
                                         Text = LanguageSystem.Instance.SaveAsBundleContents,
                                         Variety = NotifySystem.NotifyVariety.Levying,
                                         SaveAsDataStore = ArrayPool<byte>.Shared.Rent(QwilightComponent.SendUnit),
-                                        OnStop = isTotal =>
+                                        OnStop = wipeTotal =>
                                         {
-                                            if (isTotal)
+                                            if (wipeTotal)
                                             {
                                                 return !_saveAsBundleMap.ContainsKey(saveAsBundleID);
                                             }
@@ -875,7 +874,7 @@ namespace Qwilight
                                         savedAsBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                         savedAsBundleItem.Text = LanguageSystem.Instance.SavedAsBundleContents;
                                         savedAsBundleItem.Dispose();
-                                        savedAsBundleItem.OnStop = isTotal => true;
+                                        savedAsBundleItem.OnStop = wipeTotal => true;
                                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savedAsBundleItem.Text);
                                     }
                                     break;
@@ -888,9 +887,9 @@ namespace Qwilight
                                         Text = LanguageSystem.Instance.SaveBundleContents,
                                         Variety = NotifySystem.NotifyVariety.Levying,
                                         SaveDataFlow = PoolSystem.Instance.GetDataFlow(bundleLength),
-                                        OnStop = isTotal =>
+                                        OnStop = wipeTotal =>
                                         {
-                                            if (isTotal)
+                                            if (wipeTotal)
                                             {
                                                 return !_saveBundleMap.ContainsKey(saveBundleID);
                                             }
@@ -1024,7 +1023,7 @@ namespace Qwilight
                                                                 _ => default
                                                             };
                                                             var date = DateTime.Now;
-                                                            DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety).Wait();
+                                                            DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
                                                             savedBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                                             savedBundleItem.Text = LanguageSystem.Instance.SavedBundleContents;
                                                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savedBundleItem.Text);
@@ -1077,7 +1076,7 @@ namespace Qwilight
                                             finally
                                             {
                                                 savedBundleItem.Dispose();
-                                                savedBundleItem.OnStop = isTotal => true;
+                                                savedBundleItem.OnStop = wipeTotal => true;
                                             }
                                         }, false);
                                     }

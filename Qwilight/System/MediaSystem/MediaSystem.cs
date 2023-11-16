@@ -97,7 +97,7 @@ namespace Qwilight
                 return handledMediaItem;
             }
 
-            var mediaSrc = Utility.Await(FFmpegMediaSource.CreateFromFileAsync(mediaFilePath));
+            var mediaSrc = FFmpegMediaSource.CreateFromFileAsync(mediaFilePath).Await();
             var mediaLength = mediaSrc.Duration;
             var mediaModifierValue = mediaContainer.MediaModifierValue;
             if (mediaModifierValue != null)
@@ -124,7 +124,7 @@ namespace Qwilight
                     }
                 }
             }
-            mediaSrc ??= Utility.Await(FFmpegMediaSource.CreateFromFileAsync(mediaFilePath));
+            mediaSrc ??= FFmpegMediaSource.CreateFromFileAsync(mediaFilePath).Await();
             mediaLength = mediaSrc.Duration;
             handledMediaItem = new()
             {

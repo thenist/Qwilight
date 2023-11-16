@@ -47,13 +47,13 @@ namespace Qwilight.Utilities
             return (titlePosition >= 0 ? title.Substring(0, titlePosition) : title).Trim();
         }
 
-        public static void HandleUIAudio(string audioFileName, string defaultFileName = null, PausableAudioHandler pausableAudioHandler = null, double fadeInLength = 0.0) => Task.Run(() =>
+        public static void HandleUIAudio(string audioFileName, string defaultFileName = null, PausableAudioHandler pausableAudioHandler = null, double fadeInLength = 0.0)
         {
             if (!BaseUI.Instance.HandleAudio(audioFileName, defaultFileName, pausableAudioHandler, fadeInLength))
             {
                 UI.Instance.HandleAudio(audioFileName, defaultFileName, pausableAudioHandler, fadeInLength);
             }
-        });
+        }
 
         public static bool IsPoint(double[] point, double position0, double position1) => IsPoint(point[0], point[1], point[2], point[3], position0, position1);
 
@@ -295,9 +295,9 @@ namespace Qwilight.Utilities
             var dataSet = new Dictionary<T, int>();
             foreach (var dataItem in data)
             {
-                if (dataSet.ContainsKey(dataItem))
+                if (dataSet.TryGetValue(dataItem, out int value))
                 {
-                    dataSet[dataItem]++;
+                    dataSet[dataItem] = ++value;
                 }
                 else
                 {

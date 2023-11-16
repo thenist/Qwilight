@@ -47,8 +47,7 @@ namespace Qwilight
             {
                 if (SetProperty(ref _mediaInputQuality, value, nameof(MediaInputQualityValue)) && value.HasValue)
                 {
-                    _ = Awaitable();
-                    async Task Awaitable() => await _mediaInputSystem.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoRecord, value.Value.Data);
+                    Task.Run(async () => await _mediaInputSystem.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoRecord, value.Value.Data));
                 }
             }
         }

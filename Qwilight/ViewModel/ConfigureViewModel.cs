@@ -517,7 +517,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        static async Task OnInitFavoriteEntry()
+        static void OnInitFavoriteEntry()
         {
             if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
@@ -527,13 +527,13 @@ namespace Qwilight.ViewModel
             {
                 ViewModels.Instance.MainValue.WipeFavoriteEntry();
                 Configure.Instance.DefaultEntryItems.RemoveWhere(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite);
-                await DB.Instance.WipeFavoriteEntry().ConfigureAwait(false);
+                DB.Instance.WipeFavoriteEntry();
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitFavoriteEntryOK);
             }
         }
 
         [RelayCommand]
-        static async Task OnInitWait()
+        static void OnInitWait()
         {
             if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
@@ -546,7 +546,7 @@ namespace Qwilight.ViewModel
                 Configure.Instance.MediaWait = 0.0;
                 Configure.Instance.BanalMediaWait = 0.0;
                 Configure.Instance.NotifyModel();
-                await DB.Instance.InitWait().ConfigureAwait(false);
+                DB.Instance.InitWait();
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitWaitOK);
             }
         }
@@ -567,7 +567,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        static async Task OnInitMedia()
+        static void OnInitMedia()
         {
             if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
@@ -576,13 +576,13 @@ namespace Qwilight.ViewModel
             }) == MESSAGEBOX_RESULT.IDYES)
             {
                 Configure.Instance.Media = true;
-                await DB.Instance.InitMedia().ConfigureAwait(false);
+                DB.Instance.InitMedia();
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitMediaOK);
             }
         }
 
         [RelayCommand]
-        static async Task OnInitComment()
+        static void OnInitComment()
         {
             if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
@@ -595,7 +595,7 @@ namespace Qwilight.ViewModel
                 {
                     Utility.WipeFile(commentFilePath);
                 }
-                await DB.Instance.WipeComment().ConfigureAwait(false);
+                DB.Instance.WipeComment();
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitCommentOK);
             }
         }
@@ -1408,7 +1408,7 @@ namespace Qwilight.ViewModel
             var handlingComputer = ViewModels.Instance.MainValue.GetHandlingComputer();
             if (handlingComputer != null)
             {
-                Task.Run(handlingComputer.SetUIMap);
+                handlingComputer.SetUIMap();
                 if (_defaultHunterVariety != Configure.Instance.HunterVarietyV2Value || _defaultNetCommentFollow != Configure.Instance.NetCommentFollow)
                 {
                     handlingComputer.InitNetComments();

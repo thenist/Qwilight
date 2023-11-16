@@ -524,7 +524,7 @@ namespace Qwilight.Compiler
                 }
             }
             var isBanalMedia = (!_hasMedia || defaultComputer.AlwaysBanalMedia) && defaultComputer.BanalMedia;
-            defaultComputer.LoadStandardContents(isBanalMedia, defaultComputer.BanalFailedMedia, parallelItems);
+            defaultComputer.LoadBanalMedia(isBanalMedia, defaultComputer.BanalFailedMedia, parallelItems);
             foreach (var audioFileName in _text.sound_channels.Select(audioChannel => audioChannel.name).Concat(_text.mine_channels.Select(traoChannel => traoChannel.name)))
             {
                 parallelItems.Add(() =>
