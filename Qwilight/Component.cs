@@ -22,6 +22,7 @@
             Not = -1, Highest, Higher, High, Low, Lower, Lowest, Band1 = 9, Last = 10
         }
 
+        public const double StandardLength = 1280.0;
         public const double StandardHeight = 720.0;
         public const double StandardBPM = 130.0;
         public const int StandardMeter = 192;

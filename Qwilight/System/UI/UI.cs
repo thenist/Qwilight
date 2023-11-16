@@ -366,8 +366,8 @@ namespace Qwilight
                 Script.RunString(UILS);
                 lsCaller.DoString(UILS);
 
-                DefaultLength = GetCalledValue(formatNode, "defaultLength", "1280.0");
-                DefaultHeight = GetCalledValue(formatNode, "defaultHeight", "720.0");
+                DefaultLength = GetCalledValue(formatNode, "defaultLength", Component.StandardLength.ToString());
+                DefaultHeight = GetCalledValue(formatNode, "defaultHeight", Component.StandardHeight.ToString());
 
                 var setPaintPipelines = Utility.ToBool(Utility.GetText(funcNode, "set-paint-pinelines", bool.FalseString));
                 foreach (var pipeline in GetCalledText(Utility.GetText(funcNode, "pipeline")).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var pipeline) ? pipeline : 0))
@@ -432,8 +432,8 @@ namespace Qwilight
 
                 SaveValueMap(pointNode, "mediaPosition0", 0.0);
                 SaveValueMap(pointNode, "mediaPosition1", 0.0);
-                SaveValueMap(pointNode, "mediaLength", 1280.0);
-                SaveValueMap(pointNode, "mediaHeight", 720.0);
+                SaveValueMap(pointNode, "mediaLength", Component.StandardLength);
+                SaveValueMap(pointNode, "mediaHeight", Component.StandardHeight);
                 SaveAltMap("alt-media", 0);
 
                 SaveValueMap(pointNode, "titlePosition0");
@@ -478,8 +478,8 @@ namespace Qwilight
 
                 SaveValueMap(pointNode, "audioVisualizerPosition0", 0.0);
                 SaveValueMap(pointNode, "audioVisualizerPosition1", 0.0);
-                SaveValueMap(pointNode, "audioVisualizerLength", 1280.0);
-                SaveValueMap(pointNode, "audioVisualizerHeight", 720.0);
+                SaveValueMap(pointNode, "audioVisualizerLength", Component.StandardLength);
+                SaveValueMap(pointNode, "audioVisualizerHeight", Component.StandardHeight);
 
                 DrawingSystem.Instance.SetFontLevel(TitleFont, Utility.ToFloat32(Utility.GetText(fontNode, "titleLevel", QwilightComponent.GetBuiltInFloat64As("FontLevel0"))));
                 DrawingSystem.Instance.SetFontLevel(ArtistFont, Utility.ToFloat32(Utility.GetText(fontNode, "artistLevel", QwilightComponent.GetBuiltInFloat64As("FontLevel0"))));
@@ -2181,8 +2181,8 @@ namespace Qwilight
                     Array.Clear(data, 0, data.Length);
                 }
             }
-            DefaultLength = 1280.0;
-            DefaultHeight = 720.0;
+            DefaultLength = Component.StandardLength;
+            DefaultHeight = Component.StandardHeight;
             _audioItemMap.Clear();
             ValueCallMap.Clear();
             ValueMap.Clear();

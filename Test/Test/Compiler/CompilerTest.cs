@@ -25,8 +25,11 @@ namespace Test.Compiler
             }, -1)).ToArray(), noteFile =>
             {
                 var targetCompiler = BaseCompiler.GetCompiler(noteFile, null);
-                var defaultComputer = new TestCompute(noteFile);
-                targetCompiler.Compile(defaultComputer);
+                var defaultComputer = new DefaultCompute(new[] { noteFile }, null, null, string.Empty, string.Empty)
+                {
+                    IsSilent = true
+                };
+                targetCompiler.Compile(defaultComputer, true);
                 var lines = File.ReadAllLines(Path.ChangeExtension(noteFile.NoteFilePath, ".txt"), Encoding.UTF8);
                 Assert.Equal(defaultComputer.IsAutoLongNote.ToString(), lines[0]);
                 Assert.Equal(defaultComputer.IsBanned.ToString(), lines[1]);

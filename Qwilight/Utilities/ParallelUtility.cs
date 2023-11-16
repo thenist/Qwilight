@@ -19,10 +19,10 @@ namespace Qwilight.Utilities
 
         public static void HandleLowlyParallelly<T>(IProducerConsumerCollection<T> parallelItems, int onHandleBin, Action<T> onHandle, CancellationToken? setCancelParallel = null)
         {
-            var longParallels = new Thread[onHandleBin];
-            for (var i = longParallels.Length - 1; i >= 0; --i)
+            var ts = new Thread[onHandleBin];
+            for (var i = ts.Length - 1; i >= 0; --i)
             {
-                var longParallel = new Thread(() =>
+                var t = new Thread(() =>
                 {
                     while (setCancelParallel?.IsCancellationRequested != true && parallelItems.TryTake(out var parallelItem))
                     {
@@ -33,10 +33,10 @@ namespace Qwilight.Utilities
                     IsBackground = true,
                     Priority = ThreadPriority.Lowest
                 };
-                longParallel.Start();
-                longParallels[i] = longParallel;
+                t.Start();
+                ts[i] = t;
             }
-            foreach (var longParallel in longParallels)
+            foreach (var longParallel in ts)
             {
                 longParallel.Join();
             }

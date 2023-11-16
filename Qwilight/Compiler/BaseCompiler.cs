@@ -38,7 +38,7 @@ namespace Qwilight.Compiler
 
         public abstract void CompileImpl(Computing targetComputing, byte[] noteFileContents, int salt);
 
-        public abstract void CompileImpl(DefaultCompute defaultComputer, byte[] noteFileContents);
+        public abstract void CompileImpl(DefaultCompute defaultComputer, byte[] noteFileContents, bool loadParallelItems);
 
         public Dictionary<double, double> WaitBPMMap { get; } = new();
 
@@ -187,7 +187,7 @@ namespace Qwilight.Compiler
             targetComputing.AssistFileName = Path.GetFileName(Utility.GetFiles(NoteFile.EntryItem.EntryPath).FirstOrDefault(filePath => filePath.IsTailCaselsss(".txt") && filePath.ContainsCaselsss("README")));
         }
 
-        public void Compile(DefaultCompute defaultComputer)
+        public void Compile(DefaultCompute defaultComputer, bool loadParallelItems)
         {
             try
             {
@@ -195,7 +195,7 @@ namespace Qwilight.Compiler
                 {
                     defaultComputer.NoteFileContents = NoteFile.GetContents();
                     HandleCompile(defaultComputer, defaultComputer.NoteFileContents, defaultComputer.ModeComponentValue.Salt);
-                    HandleCompile(defaultComputer, defaultComputer.NoteFileContents);
+                    HandleCompile(defaultComputer, defaultComputer.NoteFileContents, loadParallelItems);
                     OnCompiled(defaultComputer);
                     defaultComputer.OnCompiled();
                 }
@@ -222,9 +222,9 @@ namespace Qwilight.Compiler
             }
         }
 
-        void HandleCompile(DefaultCompute defaultComputer, byte[] noteFileContents)
+        void HandleCompile(DefaultCompute defaultComputer, byte[] noteFileContents, bool loadParallelItems)
         {
-            CompileImpl(defaultComputer, noteFileContents);
+            CompileImpl(defaultComputer, noteFileContents, loadParallelItems);
             if (defaultComputer.IsLongNoteStand1)
             {
                 defaultComputer.TotalNotes = Notes.Sum(note => note.HasStand ? 1 : 0);

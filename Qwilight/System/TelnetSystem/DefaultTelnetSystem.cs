@@ -139,8 +139,11 @@ namespace Qwilight
                                 {
                                     Console.WriteLine(noteFile.NoteFilePath);
                                     var targetCompiler = BaseCompiler.GetCompiler(noteFile, null);
-                                    var defaultComputer = new TestCompute(noteFile);
-                                    targetCompiler.Compile(defaultComputer);
+                                    var defaultComputer = new DefaultCompute(new[] { noteFile }, null, null, string.Empty, string.Empty)
+                                    {
+                                        IsSilent = true
+                                    };
+                                    targetCompiler.Compile(defaultComputer, false);
                                     var noteID = noteFile.GetNoteID512();
                                     noteID = noteID.Substring(0, noteID.IndexOf(':'));
                                     File.WriteAllBytes(Path.Combine(fileName, Path.ChangeExtension(noteID, Path.GetExtension(noteFile.NoteFilePath))), noteFile.GetContents());

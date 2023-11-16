@@ -3036,7 +3036,7 @@ namespace Qwilight
             }
         }
 
-        public virtual void SetFaintPaints(IDrawingContainer drawingContainer, ICanvasBrush[] faintPaints, Color faintColor)
+        public void SetFaintPaints(IDrawingContainer drawingContainer, ICanvasBrush[] faintPaints, Color faintColor)
         {
             for (var i = faintPaints.Length - 1; i >= 0; --i)
             {
@@ -3254,7 +3254,7 @@ namespace Qwilight
                 Drawing = drawing,
                 DrawingBound = drawing.Bounds,
                 AverageColor = averageColor,
-                StandardHeight = averageHeight
+                AverageHeight = averageHeight
             };
         }
 
@@ -3522,14 +3522,14 @@ namespace Qwilight
             SetFontLevel(StatusViewFont, Levels.FontLevel0Float32);
         }
 
-        public virtual CanvasTextFormat GetFont() => new()
+        public CanvasTextFormat GetFont() => new()
         {
             WordWrapping = CanvasWordWrapping.NoWrap
         };
 
-        public virtual void SetFontLevel(CanvasTextFormat font, float fontLevel) => font.FontSize = fontLevel;
+        public void SetFontLevel(CanvasTextFormat font, float fontLevel) => font.FontSize = fontLevel;
 
-        public virtual void SetFontSystem(CanvasTextFormat font, int fontSystem0, int fontSystem1)
+        public void SetFontSystem(CanvasTextFormat font, int fontSystem0, int fontSystem1)
         {
             font.HorizontalAlignment = fontSystem0 switch
             {
@@ -3547,6 +3547,6 @@ namespace Qwilight
             };
         }
 
-        public virtual void SetFontFamily(CanvasTextFormat font) => font.FontFamily = Configure.Instance.FontFamilyValues[3].ToString();
+        public void SetFontFamily(CanvasTextFormat font) => font.FontFamily = Configure.Instance.FontFamilyValues[3].ToString();
     }
 }

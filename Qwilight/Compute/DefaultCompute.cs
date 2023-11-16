@@ -395,8 +395,6 @@ namespace Qwilight.Compute
 
         public Event.Types.DrawingComponent NetDrawingComponentValue { get; set; }
 
-        public virtual bool LoadContents => true;
-
         public virtual bool CanPause => WwwLevelDataValue?.AllowPause != false;
 
         public virtual bool CanUndo => WwwLevelDataValue?.AllowPause != false;
@@ -1545,7 +1543,7 @@ namespace Qwilight.Compute
             _standModeDate = Utility.IsLowerDate(date, 1, 6, 7) ? Component.StandMode100 : Utility.IsLowerDate(date, 1, 14, 118) ? Component.StandMode167 : Component.StandMode114118;
             _tooLongLongNoteDate = Utility.IsLowerDate(date, 1, 13, 107) ? Component.TooLongLongNote100 : Utility.IsLowerDate(date, 1, 14, 20) ? Component.TooLongLongNote113107 : Utility.IsLowerDate(date, 1, 14, 29) ? Component.TooLongLongNote11420 : Component.TooLongLongNote11429;
             _targetCompiler = BaseCompiler.GetCompiler(NoteFile, _setCancelCompiler);
-            _targetCompilerHandler = Utility.GetParallelHandler(() => _targetCompiler.Compile(this));
+            _targetCompilerHandler = Utility.GetParallelHandler(() => _targetCompiler.Compile(this, true));
             CommentWaitDate = Utility.IsLowerDate(date, 1, 3, 11) ? Component.CommentWaitDate100 : Utility.IsLowerDate(date, 1, 6, 4) ? Component.CommentWaitDate1311 : Component.CommentWaitDate164;
             HandleWarning();
         }

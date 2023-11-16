@@ -10,7 +10,7 @@ namespace Qwilight
 
         public uint AverageColor { get; set; }
 
-        public double StandardHeight { get; set; }
+        public double AverageHeight { get; set; }
 
         public void Dispose() => Drawing.Dispose();
     }

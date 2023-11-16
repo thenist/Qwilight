@@ -725,28 +725,25 @@ namespace Qwilight.Compiler
             targetComputing.IsHellBPM = targetComputing.TrapNotes > 0;
         }
 
-        public override void CompileImpl(DefaultCompute defaultComputer, byte[] noteFileContents)
+        public override void CompileImpl(DefaultCompute defaultComputer, byte[] noteFileContents, bool loadParallelItems)
         {
             var bmsIDAudioItemMap = new ConcurrentDictionary<string, AudioItem?>();
             var bmsIDHandledItemMap = new ConcurrentDictionary<string, IHandledItem>();
             var parallelItems = new ConcurrentBag<Action>();
-            if (defaultComputer.LoadContents)
+            try
             {
-                try
+                var noteDrawingPath = Utility.GetAvailable(defaultComputer.NoteDrawingPath, Utility.AvailableFlag.Drawing);
+                if (!string.IsNullOrEmpty(noteDrawingPath))
                 {
-                    var noteDrawingPath = Utility.GetAvailable(defaultComputer.NoteDrawingPath, Utility.AvailableFlag.Drawing);
-                    if (!string.IsNullOrEmpty(noteDrawingPath))
+                    defaultComputer.NoteHandledDrawingItem = new HandledDrawingItem
                     {
-                        defaultComputer.NoteHandledDrawingItem = new HandledDrawingItem
-                        {
-                            Drawing = DrawingSystem.Instance.Load(noteDrawingPath, defaultComputer),
-                            DefaultDrawing = DrawingSystem.Instance.LoadDefault(noteDrawingPath, defaultComputer)
-                        };
-                    }
+                        Drawing = DrawingSystem.Instance.Load(noteDrawingPath, defaultComputer),
+                        DefaultDrawing = DrawingSystem.Instance.LoadDefault(noteDrawingPath, defaultComputer)
+                    };
                 }
-                catch
-                {
-                }
+            }
+            catch
+            {
             }
             var isBanalMedia = (!_hasMedia || defaultComputer.AlwaysBanalMedia) && defaultComputer.BanalMedia;
             var isBanalFailedMedia = (!_hasFailedMedia || defaultComputer.AlwaysBanalFailedMedia) && defaultComputer.BanalFailedMedia;
@@ -822,7 +819,7 @@ namespace Qwilight.Compiler
                 }
             }
 
-            if (defaultComputer.LoadContents)
+            if (loadParallelItems)
             {
                 var endStatus = parallelItems.Count;
                 var status = 0;

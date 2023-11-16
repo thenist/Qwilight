@@ -67,7 +67,7 @@ namespace Qwilight.Note
                 if (trapNoteDrawing.HasValue)
                 {
                     targetSession.PaintDrawing(ref r, trapNoteDrawing, GetFaint(modeComponentValue, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
-                    defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Note, trapNoteDrawing.Value.AverageColor, r.Position0 - drawingComponentValue.mainPosition, r.Position1, r.Length, r.Height * trapNoteDrawing.Value.StandardHeight);
+                    defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Note, trapNoteDrawing.Value.AverageColor, r.Position0 - drawingComponentValue.mainPosition, r.Position1, r.Length, r.Height * trapNoteDrawing.Value.AverageHeight);
                 }
             }
         }

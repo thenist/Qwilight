@@ -750,8 +750,8 @@ namespace Qwilight
                     lsCaller.DoString(File.ReadAllText(luaFilePath, Encoding.UTF8));
                 }
 
-                DefaultLength = GetCalledValue(formatNode, "defaultLength", "1280.0");
-                DefaultHeight = GetCalledValue(formatNode, "defaultHeight", "720.0");
+                DefaultLength = GetCalledValue(formatNode, "defaultLength", Component.StandardLength.ToString());
+                DefaultHeight = GetCalledValue(formatNode, "defaultHeight", Component.StandardHeight.ToString());
 
                 SiteDateColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteDate", nameof(Colors.White))).GetColor());
                 SiteEnterColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "siteEnter", nameof(Colors.White))).GetColor());
@@ -2050,8 +2050,8 @@ namespace Qwilight
             ModeComponentDrawings[ModifyModeComponentViewModel.WaveModeVariety] = new HandledDrawingItem?[2];
             ModeComponentDrawings[ModifyModeComponentViewModel.SetNoteModeVariety] = new HandledDrawingItem?[4];
             ModeComponentDrawings[ModifyModeComponentViewModel.LowestJudgmentConditionModeVariety] = new HandledDrawingItem?[2];
-            DefaultLength = 1280.0;
-            DefaultHeight = 720.0;
+            DefaultLength = Component.StandardLength;
+            DefaultHeight = Component.StandardHeight;
             EventNoteNameFontLevel = Levels.FontLevel0;
             TitleFontLevel = Levels.FontLevel0;
             ArtistFontLevel = Levels.FontLevel0;

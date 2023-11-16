@@ -119,7 +119,7 @@ namespace Qwilight.Note
                 if (inputNoteDrawing.HasValue)
                 {
                     targetSession.PaintDrawing(ref r, inputNoteDrawing, GetFaint(modeComponentValue, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
-                    defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Note, inputNoteDrawing.Value.AverageColor, r.Position0 - drawingComponentValue.mainPosition, r.Position1, r.Length, r.Height * inputNoteDrawing.Value.StandardHeight);
+                    defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Note, inputNoteDrawing.Value.AverageColor, r.Position0 - drawingComponentValue.mainPosition, r.Position1, r.Length, r.Height * inputNoteDrawing.Value.AverageHeight);
                 }
                 if (PostableItemValue != null)
                 {
