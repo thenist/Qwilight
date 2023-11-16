@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Messaging;
 using FMOD;
 using Ionic.Zip;
-using Qwilight.Compute;
 using Qwilight.MSG;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
@@ -31,7 +30,6 @@ namespace Qwilight.ViewModel
         readonly bool[] _inputAudioVarietyInputs = new bool[2];
         readonly DispatcherTimer _detailedHandler;
         DispatcherTimer _fadingComputingHandler;
-        Timer _setComputingHandler;
         GPUConfigure.GPUMode _defaultGPUMode;
         uint _defaultAudioDataLength;
         int _detailedAudioInputValue;
@@ -334,15 +332,7 @@ namespace Qwilight.ViewModel
 
         public void OnComputingModified()
         {
-            var targetComputer = ViewModels.Instance.MainValue.Computer;
-            if (targetComputer != null)
-            {
-                _setComputingHandler?.Dispose();
-                _setComputingHandler = new(state =>
-                {
-                    (state as DefaultCompute).SetUIMap();
-                }, targetComputer, QwilightComponent.StandardFrametime, Timeout.InfiniteTimeSpan);
-            }
+            ViewModels.Instance.MainValue.Computer?.SetUIMap();
         }
 
         [RelayCommand]
