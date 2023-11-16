@@ -236,8 +236,6 @@ namespace Qwilight.ViewModel
                         MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
                         MediaSystem.Instance.HandleIfAvailable(handlingComputer);
                     }
-                    MediaSystem.Instance.HandleDefaultIfAvailable(BaseUI.Instance);
-                    MediaSystem.Instance.HandleIfAvailable(BaseUI.Instance);
                     TVSystem.Instance.HandleSystemIfAvailable();
                 }
             }
@@ -437,6 +435,8 @@ namespace Qwilight.ViewModel
                     OnPropertyChanged(nameof(DefaultLength));
                     OnPropertyChanged(nameof(DefaultHeight));
                     SetWPFViewVisibility();
+                    MediaSystem.Instance.HandleDefaultIfAvailable(BaseUI.Instance);
+                    MediaSystem.Instance.HandleIfAvailable(BaseUI.Instance);
                     ViewModels.Instance.NotifyWindowViewModels();
                     BaseUI.Instance.InitEvents();
                     Configure.Instance.UIConfigureValue.NotifyInputMode();
