@@ -342,8 +342,8 @@ healthchecksdb
 !/ChromaSDK/Assets/ARM64
 !/ChromaSDK/Assets/x64
 
-!/FMODAPI/Assets/ARM64
-!/FMODAPI/Assets/x64
+!/FMODCoreAPI/Assets/ARM64
+!/FMODCoreAPI/Assets/x64
 
 !/Qwilight/Assets/ARM64
 /Qwilight/Assets/ARM64/Flint.exe
