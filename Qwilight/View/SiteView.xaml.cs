@@ -1,4 +1,6 @@
-﻿using Qwilight.ViewModel;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Qwilight.MSG;
+using Qwilight.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -7,7 +9,21 @@ namespace Qwilight.View
 {
     public sealed partial class SiteView
     {
-        public SiteView() => InitializeComponent();
+        public string SiteID { get; init; }
+
+        public SiteView()
+        {
+            InitializeComponent();
+
+            StrongReferenceMessenger.Default.Register<GetSiteView>(this, (recipient, message) =>
+            {
+                var siteView = recipient as SiteView;
+                if (message.SiteID == siteView.SiteID)
+                {
+                    message.Reply(siteView);
+                }
+            });
+        }
 
         void OnInputLower(object sender, KeyEventArgs e) => (DataContext as SiteViewModel).OnInputLower(e);
 

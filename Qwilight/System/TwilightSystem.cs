@@ -233,7 +233,7 @@ namespace Qwilight
                 string textClose = null;
                 try
                 {
-                    using (var tc = new TcpClient(QwilightComponent.TaehuiNetHost, 6101))
+                    using (var tc = new TcpClient(QwilightComponent.TaehuiNetDDNS, 6101))
                     using (_ss = QwilightComponent.IsVS ? new(tc.GetStream(), false, (sender, certificate, chain, sslPolicyErrors) => true) : new(tc.GetStream()))
                     {
                         _ss.AuthenticateAsClient("taehui.ddns.net");
@@ -325,10 +325,10 @@ namespace Qwilight
                                     AutoEnter(autoEnter => autoEnter == AutoEnterSite.AutoEnter);
                                     break;
                                 case Event.Types.EventID.QuitSite:
-                                    var toQuitSiteView = ViewModels.Instance.WipeSiteViewModel(eventItemText)?.View;
-                                    if (toQuitSiteView != null)
+                                    var siteView = ViewModels.Instance.WipeSiteView(eventItemText);
+                                    if (siteView != null)
                                     {
-                                        UIHandler.Instance.HandleParallel(() => siteContainerViewModel.SiteViewCollection.Remove(toQuitSiteView));
+                                        UIHandler.Instance.HandleParallel(() => siteContainerViewModel.SiteViewCollection.Remove(siteView));
                                     }
                                     break;
                                 case Event.Types.EventID.Warning:
@@ -421,9 +421,9 @@ namespace Qwilight
                                     {
                                         var toEnterSiteView = new SiteView
                                         {
-                                            DataContext = toEnterSiteViewModel
+                                            DataContext = toEnterSiteViewModel,
+                                            SiteID = toEnterSiteID
                                         };
-                                        toEnterSiteViewModel.View = toEnterSiteView;
                                         siteContainerViewModel.SiteViewCollection.Add(toEnterSiteView);
                                         siteContainerViewModel.SiteViewValue = toEnterSiteView;
                                     });

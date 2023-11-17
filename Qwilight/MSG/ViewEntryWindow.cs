@@ -2,7 +2,7 @@
 
 namespace Qwilight.MSG
 {
-    internal sealed class ViewEntryWindow : AsyncRequestMessage<string>
+    public sealed class ViewEntryWindow : AsyncRequestMessage<string>
     {
     }
 }

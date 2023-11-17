@@ -2,7 +2,7 @@
 
 namespace Qwilight.MSG
 {
-    internal sealed class ViewFileWindow : AsyncRequestMessage<string>
+    public sealed class ViewFileWindow : AsyncRequestMessage<string>
     {
         public IEnumerable<string> Filters { get; init; }
     }

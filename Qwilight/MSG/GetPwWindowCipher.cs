@@ -2,7 +2,7 @@
 
 namespace Qwilight.MSG
 {
-    internal sealed class GetPwWindowCipher : RequestMessage<string>
+    public sealed class GetPwWindowCipher : RequestMessage<string>
     {
     }
 }

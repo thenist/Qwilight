@@ -13,7 +13,7 @@
 		</Grid.RowDefinitions>
 		<GridSplitter Grid.Row="1" Width="{Binding MainValue.DefaultLength, Source={StaticResource ViewModels}}" Height="5" Style="{StaticResource StandardSplitter}" ResizeDirection="Rows" />
 		<Border Grid.Row="2" Style="{StaticResource WindowStandardPanel}">
-			<TabControl Style="{StaticResource StandardPageView}" SelectedItem="{Binding SiteView}" ItemsSource="{Binding SiteViewCollection}" SelectionChanged="OnSiteView" />
+            <TabControl Style="{StaticResource StandardPageView}" SelectedItem="{Binding SiteViewValue}" ItemsSource="{Binding SiteViewCollection}" SelectionChanged="OnSiteView" />
 		</Border>
 	</Grid>
 </Grid>

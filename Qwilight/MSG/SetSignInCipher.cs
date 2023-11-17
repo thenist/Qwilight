@@ -1,6 +1,6 @@
 ﻿namespace Qwilight.MSG
 {
-    internal sealed class SetSignInCipher
+    public sealed class SetSignInCipher
     {
         public string Cipher { get; init; }
     }

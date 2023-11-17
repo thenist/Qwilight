@@ -40,7 +40,7 @@ namespace Qwilight.ViewModel
         public override void OnOpened()
         {
             base.OnOpened();
-            UIHandler.Instance.HandleParallel(() =>
+            UIHandler.Instance.HandleParallel(async () =>
             {
                 IsAvatarTitleLoading = true;
                 var twilightWwwTitles = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwTitles[]>($"{QwilightComponent.QwilightAPI}/titles?avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}");

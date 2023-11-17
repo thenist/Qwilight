@@ -102,7 +102,10 @@ namespace Qwilight.View
                 var (logFilePath, faultText) = Utility.SetFault(QwilightComponent.FaultEntryPath, e);
                 PInvoke.MessageBox(HWND.Null, e.Message, "Qwilight", MESSAGEBOX_STYLE.MB_OK | MESSAGEBOX_STYLE.MB_ICONERROR);
                 Utility.OpenAs(logFilePath);
-                _ = TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/fault", faultText);
+                if (!QwilightComponent.IsVS)
+                {
+                    _ = TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/fault", faultText);
+                }
             }
         }
 

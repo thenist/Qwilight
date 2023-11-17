@@ -34,7 +34,7 @@ namespace Qwilight
 #if DEBUG
                     Console.WriteLine($"D: {Debugger.IsAttached}");
 #endif
-                    Console.WriteLine($"H: {QwilightComponent.TaehuiNetHost}");
+                    Console.WriteLine($"H: {QwilightComponent.TaehuiNetDDNS}");
                     Console.WriteLine($"S: {_handleTelnet.IsAlwaysNewStand}");
                     switch (Console.ReadKey(true).Key)
                     {
@@ -85,22 +85,13 @@ namespace Qwilight
                             switch (Console.ReadKey(true).Key)
                             {
                                 case ConsoleKey.D1:
-                                    QwilightComponent.TaehuiNetHost = "taehui.ddns.net";
-                                    QwilightComponent.TaehuiNetFE = "https://taehui.ddns.net";
-                                    QwilightComponent.TaehuiNetAPI = "https://taehui.ddns.net/www";
-                                    QwilightComponent.QwilightAPI = "https://taehui.ddns.net/qwilight/www";
+                                    QwilightComponent.SetDDNS("taehui.ddns.net");
                                     break;
                                 case ConsoleKey.D2:
-                                    QwilightComponent.TaehuiNetHost = "taehui";
-                                    QwilightComponent.TaehuiNetFE = "http://taehui";
-                                    QwilightComponent.TaehuiNetAPI = "http://taehui:10100/www";
-                                    QwilightComponent.QwilightAPI = "http://taehui:7301/qwilight/www";
+                                    QwilightComponent.SetDDNS("taehui");
                                     break;
                                 case ConsoleKey.D3:
-                                    QwilightComponent.TaehuiNetHost = "localhost";
-                                    QwilightComponent.TaehuiNetFE = "http://localhost";
-                                    QwilightComponent.TaehuiNetAPI = "http://localhost:10100/www";
-                                    QwilightComponent.QwilightAPI = "http://localhost:7301/qwilight/www";
+                                    QwilightComponent.SetDDNS("localhost");
                                     break;
                                 default:
                                     continue;

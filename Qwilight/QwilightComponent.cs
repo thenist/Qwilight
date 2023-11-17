@@ -1,6 +1,9 @@
 ﻿using CommandLine;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
+#if DEBUG
+using System.Diagnostics;
+#endif
 using System.Globalization;
 using System.IO;
 using System.Management;
@@ -76,7 +79,7 @@ namespace Qwilight
         public static readonly string TVName = string.Empty;
         public static readonly string LANName = string.Empty;
 
-        public static string TaehuiNetHost { get; set; }
+        public static string TaehuiNetDDNS { get; set; }
 
         public static string TaehuiNetFE { get; set; }
 
@@ -107,6 +110,29 @@ namespace Qwilight
 
         public static string GetBuiltInFloat64As(string data) => GetBuiltInData<double>(data).ToString(CultureInfo.InvariantCulture);
 
+        public static void SetDDNS(string taehuiNetDDNS)
+        {
+            QwilightComponent.TaehuiNetDDNS = taehuiNetDDNS;
+            switch (taehuiNetDDNS)
+            {
+                case "taehui.ddns.net":
+                    QwilightComponent.TaehuiNetFE = "https://taehui.ddns.net";
+                    QwilightComponent.TaehuiNetAPI = "https://taehui.ddns.net/www";
+                    QwilightComponent.QwilightAPI = "https://taehui.ddns.net/qwilight/www";
+                    break;
+                case "taehui":
+                    QwilightComponent.TaehuiNetFE = "http://taehui";
+                    QwilightComponent.TaehuiNetAPI = "http://taehui:10100/www";
+                    QwilightComponent.QwilightAPI = "http://taehui:7301/qwilight/www";
+                    break;
+                case "localhost":
+                    QwilightComponent.TaehuiNetFE = "http://localhost";
+                    QwilightComponent.TaehuiNetAPI = "http://localhost:10100/www";
+                    QwilightComponent.QwilightAPI = "http://localhost:7301/qwilight/www";
+                    break;
+            }
+        }
+
         static QwilightComponent()
         {
             AssetsClientJSON = Utility.GetJSON<JSON.AssetClient>(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Assets", "Client.json")));
@@ -122,15 +148,9 @@ namespace Qwilight
             });
 
 #if DEBUG
-            TaehuiNetHost = "localhost";
-            TaehuiNetFE = "http://localhost";
-            TaehuiNetAPI = "http://localhost:10100/www";
-            QwilightAPI = "http://localhost:7301/qwilight/www";
+            SetDDNS(Process.GetProcessesByName("java").Length > 0 ? "localhost" : "taehui");
 #else
-            TaehuiNetHost = IsVS ? "taehui" : "taehui.ddns.net";
-            TaehuiNetFE = IsVS ? "http://taehui" : "https://taehui.ddns.net";
-            TaehuiNetAPI = IsVS ? "http://taehui:10100/www" : "https://taehui.ddns.net/www";
-            QwilightAPI = IsVS ? "http://taehui:7301/qwilight/www" : "https://taehui.ddns.net/qwilight/www";
+            SetDDNS(IsVS ? "taehui" : "taehui.ddns.net");
 #endif
 
             AssetsEntryPath = Path.Combine(AppContext.BaseDirectory, "Assets");
