@@ -197,7 +197,7 @@ namespace Qwilight
             _defaultGroupEntry = Configure.Instance.GroupEntry;
             _defaultEntryItemCollection.Clear();
             _defaultEntryItemCollection.AddRange(Configure.Instance.DefaultEntryItems);
-            HandlingUISystem.Instance.HandleParallel(() =>
+            UIHandler.Instance.HandleParallel(() =>
             {
                 DefaultEntryItemCollection.Clear();
                 foreach (var defaultEntryItem in _defaultEntryItemCollection)

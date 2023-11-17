@@ -46,7 +46,7 @@ namespace Qwilight.Compute
         public override void OnHandled()
         {
             var mainViewModel = ViewModels.Instance.MainValue;
-            HandlingUISystem.Instance.HandleParallel(() =>
+            UIHandler.Instance.HandleParallel(() =>
             {
                 if (!mainViewModel.IsQuitMode && Configure.Instance.SaltAuto && mainViewModel.EntryItems.Count(entryItem => !entryItem.IsLogical) > 1)
                 {

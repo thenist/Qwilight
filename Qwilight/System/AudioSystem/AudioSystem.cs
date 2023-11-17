@@ -244,7 +244,7 @@ namespace Qwilight
                         Name = audioValueName
                     };
                 }).ToArray();
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     AudioValues.Clear();
                     foreach (var audioValue in audioValues)

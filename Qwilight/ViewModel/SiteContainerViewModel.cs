@@ -52,7 +52,7 @@ namespace Qwilight.ViewModel
             base.OnOpened();
             if (ViewModels.Instance.HasSiteViewModel())
             {
-                HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.HandleSiteViewModels(siteViewModel => siteViewModel.OnOpened()));
+                UIHandler.Instance.HandleParallel(() => ViewModels.Instance.HandleSiteViewModels(siteViewModel => siteViewModel.OnOpened()));
             }
             else
             {

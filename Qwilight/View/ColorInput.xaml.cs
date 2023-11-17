@@ -29,7 +29,7 @@ namespace Qwilight.View
         protected override void OnClick()
         {
             ViewModels.Instance.ColorValue.SetColor(ColorValue);
-            ViewModels.Instance.ColorValue.OnLazyCollasped = value => HandlingUISystem.Instance.HandleParallel(() => ColorValue = value);
+            ViewModels.Instance.ColorValue.OnLazyCollasped = value => UIHandler.Instance.HandleParallel(() => ColorValue = value);
             ViewModels.Instance.ColorValue.Open();
         }
     }

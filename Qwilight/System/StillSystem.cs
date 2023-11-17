@@ -37,11 +37,11 @@ namespace Qwilight
         {
             if (_window != null)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     GraphicsCaptureSession session = null;
                     var framePool = Direct3D11CaptureFramePool.Create(_targetSystem, DirectXPixelFormat.B8G8R8A8UIntNormalized, 2, _window.Size);
-                    framePool.FrameArrived += (sender, args) => HandlingUISystem.Instance.HandleParallel(async () =>
+                    framePool.FrameArrived += (sender, args) => UIHandler.Instance.HandleParallel(async () =>
                     {
                         CanvasBitmap drawing;
                         try

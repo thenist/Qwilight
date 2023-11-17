@@ -36,21 +36,22 @@ namespace Qwilight.ViewModel
 
         public void OnPointLower() => Close();
 
-        public override async void OnOpened()
+        public override void OnOpened()
         {
             base.OnOpened();
-            IsAvatarEdgeLoading = true;
-
-            var edgeIDs = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/edges?avatarID={TwilightSystem.Instance.AvatarID}").ConfigureAwait(false);
-            if (edgeIDs != null)
+            UIHandler.Instance.HandleParallel(async () =>
             {
-                Utility.SetUICollection(AvatarEdgeItemCollection, edgeIDs.Select(edgeID => new AvatarEdgeItem
+                IsAvatarEdgeLoading = true;
+                var edgeIDs = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/edges?avatarID={TwilightSystem.Instance.AvatarID}");
+                if (edgeIDs != null)
                 {
-                    EdgeID = edgeID,
-                }).ToArray());
-            }
-
-            IsAvatarEdgeLoading = false;
+                    Utility.SetUICollection(AvatarEdgeItemCollection, edgeIDs.Select(edgeID => new AvatarEdgeItem
+                    {
+                        EdgeID = edgeID,
+                    }).ToArray());
+                }
+                IsAvatarEdgeLoading = false;
+            });
         }
 
         public override void OnCollasped()

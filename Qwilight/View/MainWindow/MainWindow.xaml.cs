@@ -137,7 +137,7 @@ namespace Qwilight.View
 
             StrongReferenceMessenger.Default.Register<SetWindowedMode>(this, (recipient, message) =>
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     if (Configure.Instance.WindowedMode)
                     {
@@ -188,8 +188,8 @@ namespace Qwilight.View
             });
             StrongReferenceMessenger.Default.Register<GetWindowArea>(this, (recipient, message) => message.Reply(GetWindowArea()));
             StrongReferenceMessenger.Default.Register<GetWindowHandle>(this, (recipient, message) => message.Reply(_handle));
-            StrongReferenceMessenger.Default.Register<SetD2DView>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() => _d2DView.SwapChain = message.D2DView));
-            StrongReferenceMessenger.Default.Register<SetD2DViewArea>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
+            StrongReferenceMessenger.Default.Register<SetD2DView>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() => _d2DView.SwapChain = message.D2DView));
+            StrongReferenceMessenger.Default.Register<SetD2DViewArea>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() =>
             {
                 var windowArea = GetWindowArea();
                 var windowAreaLength = windowArea.Width;
@@ -239,7 +239,7 @@ namespace Qwilight.View
         {
             if (isVisible)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     _siteView.Enable();
                     _siteView.Show();
@@ -249,7 +249,7 @@ namespace Qwilight.View
             }
             else
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     _siteView.Hide();
                     _siteView.Disable();

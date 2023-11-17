@@ -54,19 +54,19 @@ namespace Qwilight.ViewModel
         readonly PausableAudioHandler _pausableAudioHandler = new();
         readonly ConcurrentDictionary<int, EntryItem> _entryItems = new();
         readonly HashSet<DefaultEntryItem> _alreadyLoadedDefaultEntryItems = new();
-        readonly DispatcherTimer _loadDefaultCommentHandler = new(DispatcherPriority.Input, HandlingUISystem.Instance.UIHandler)
+        readonly DispatcherTimer _loadDefaultCommentHandler = new(DispatcherPriority.Input, UIHandler.Instance.MainHandler)
         {
             Interval = TimeSpan.FromMilliseconds(QwilightComponent.StandardUILoopMillis)
         };
-        readonly DispatcherTimer _loadTwilightCommentHandler = new(DispatcherPriority.Input, HandlingUISystem.Instance.UIHandler)
+        readonly DispatcherTimer _loadTwilightCommentHandler = new(DispatcherPriority.Input, UIHandler.Instance.MainHandler)
         {
             Interval = TimeSpan.FromMilliseconds(QwilightComponent.StandardUILoopMillis)
         };
-        readonly DispatcherTimer _autoComputerHandler = new(DispatcherPriority.Input, HandlingUISystem.Instance.UIHandler)
+        readonly DispatcherTimer _autoComputerHandler = new(DispatcherPriority.Input, UIHandler.Instance.MainHandler)
         {
             Interval = TimeSpan.FromMilliseconds(QwilightComponent.StandardWaitMillis)
         };
-        readonly DispatcherTimer _wantHandler = new(DispatcherPriority.Input, HandlingUISystem.Instance.UIHandler)
+        readonly DispatcherTimer _wantHandler = new(DispatcherPriority.Input, UIHandler.Instance.MainHandler)
         {
             Interval = TimeSpan.FromMilliseconds(QwilightComponent.StandardWaitMillis)
         };
@@ -228,7 +228,7 @@ namespace Qwilight.ViewModel
                     {
                         IsVisible = !value
                     });
-                    IsVital = IsComputingMode && !value;
+                    IsHPCMode = IsComputingMode && !value;
                     ViewModels.Instance.NotifyWindowViewModels();
                     var handlingComputer = GetHandlingComputer();
                     if (handlingComputer != null)
@@ -241,7 +241,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public bool IsVital { get; set; }
+        public bool IsHPCMode { get; set; }
 
         public bool HasPoint { get; set; }
 
@@ -649,7 +649,7 @@ namespace Qwilight.ViewModel
                                     };
                                     try
                                     {
-                                        HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingUIItem));
+                                        UIHandler.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingUIItem));
                                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingUIItem.Text);
                                         zipFile.ExtractProgress += (sender, e) =>
                                         {
@@ -712,7 +712,7 @@ namespace Qwilight.ViewModel
                                 DefaultEntryPath = filePath,
                                 Layer = Configure.Instance.DefaultEntryItems.Count
                             };
-                            HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.ModifyDefaultEntryValue.DefaultEntryItemCollection.Add(defaultEntryItem));
+                            UIHandler.Instance.HandleParallel(() => ViewModels.Instance.ModifyDefaultEntryValue.DefaultEntryItemCollection.Add(defaultEntryItem));
                             Configure.Instance.DefaultEntryItems.Add(defaultEntryItem);
                             lastDefaultEntryItem = defaultEntryItem;
                         }
@@ -732,7 +732,7 @@ namespace Qwilight.ViewModel
                     }
                     if (lastDefaultEntryItem != null)
                     {
-                        HandlingUISystem.Instance.HandleParallel(() =>
+                        UIHandler.Instance.HandleParallel(() =>
                         {
                             if (!IsDefaultEntryLoading)
                             {
@@ -1327,7 +1327,6 @@ namespace Qwilight.ViewModel
                 {
                     var targetNoteFiles = EntryItemValue.NoteFiles;
                     var commentItems = (IsEntryItemEventNote ? DB.Instance.GetCommentItems(targetNoteFiles[0], EntryItemValue.EventNoteID, targetNoteFiles.Length) : DB.Instance.GetCommentItems(EntryItemValue.NoteFile, EntryItemValue.EventNoteID, 1));
-
                     DefaultCommentCollection.Clear();
                     foreach (var commentItem in commentItems)
                     {
@@ -1343,7 +1342,7 @@ namespace Qwilight.ViewModel
                 if (noteFile != null)
                 {
                     var noteID = noteFile.GetNoteID512();
-                    var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}&target={Configure.Instance.UbuntuNetItemTarget}").ConfigureAwait(false);
+                    var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}&target={Configure.Instance.UbuntuNetItemTarget}");
                     if (twilightWwwComment.HasValue)
                     {
                         var twilightWwwCommentValue = twilightWwwComment.Value;
@@ -1361,14 +1360,11 @@ namespace Qwilight.ViewModel
                                 var commentItems = Utility.GetCommentItems(comments, noteFile);
                                 TwilightCommentTotalFavor = twilightWwwCommentValue.totalFavor.ToString("👍 #,##0");
                                 TwilightCommentFavor = twilightWwwCommentValue.favor;
-                                HandlingUISystem.Instance.HandleParallel(() =>
+                                TwilightCommentCollection.Clear();
+                                foreach (var commentItem in commentItems)
                                 {
-                                    TwilightCommentCollection.Clear();
-                                    foreach (var commentItem in commentItems)
-                                    {
-                                        TwilightCommentCollection.Add(commentItem);
-                                    }
-                                });
+                                    TwilightCommentCollection.Add(commentItem);
+                                }
                                 var targetComment = commentItems.Where(comment => comment.AvatarWwwValue.AvatarID == TwilightSystem.Instance.AvatarID).SingleOrDefault();
                                 if (targetComment != null)
                                 {
@@ -1641,7 +1637,7 @@ namespace Qwilight.ViewModel
             };
             try
             {
-                HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingFileItem));
+                UIHandler.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingFileItem));
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingFileItem.Text);
                 var bundleEntryItem = Configure.Instance.LastDefaultEntryItem ?? DefaultEntryItem.EssentialBundle;
                 if (bundleEntryItem.DefaultEntryVarietyValue != DefaultEntryItem.DefaultEntryVariety.Default && bundleEntryItem.DefaultEntryVarietyValue != DefaultEntryItem.DefaultEntryVariety.Essential)
@@ -2033,7 +2029,7 @@ namespace Qwilight.ViewModel
             NotifyHighestInputCountText();
             OnJudgmentMeterMillisModified();
             ViewModels.Instance.SiteContainerValue.CallSetModeComponent();
-            ViewModels.Instance.WwwLevelValue.WwwLevelGroupValue?.NotifyIsCompatible();
+            ViewModels.Instance.WwwLevelValue.NotifyIsCompatible();
             HandleAutoComputer();
         }
 
@@ -2052,7 +2048,7 @@ namespace Qwilight.ViewModel
             _wantHandler.Stop();
             if (IsNoteFileMode && !IsDefaultEntryLoading)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     var inputWant = Configure.Instance.InputWant;
                     var isNotWantInput = string.IsNullOrEmpty(inputWant);
@@ -2348,9 +2344,9 @@ namespace Qwilight.ViewModel
                             IsAvailable = true;
                             StrongReferenceMessenger.Default.Send<PointZMaxView>();
                         }
-                    }, HandlingUISystem.Instance.UIHandler);
+                    }, UIHandler.Instance.MainHandler);
                 }
-            }, HandlingUISystem.Instance.UIHandler);
+            }, UIHandler.Instance.MainHandler);
         }
 
         public void UndoUnitMultiplier()
@@ -2654,7 +2650,7 @@ namespace Qwilight.ViewModel
                         }
                         break;
                     default:
-                        HandlingUISystem.Instance.HandleParallel(() =>
+                        UIHandler.Instance.HandleParallel(() =>
                         {
                             var favoriteEntryViewModel = ViewModels.Instance.FavoriteEntryValue;
                             if (!favoriteEntryViewModel.IsOpened)
@@ -3005,7 +3001,7 @@ namespace Qwilight.ViewModel
                         var data = ArrayPool<byte>.Shared.Rent(QwilightComponent.SendUnit);
                         try
                         {
-                            HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingQwilightItem));
+                            UIHandler.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingQwilightItem));
                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingQwilightItem.Text);
                             var title = taehuiQwilightValue.title;
                             var tmpFileName = Path.GetTempFileName();
@@ -3067,7 +3063,7 @@ namespace Qwilight.ViewModel
 
         public void LoadDefaultCommentCollection()
         {
-            HandlingUISystem.Instance.HandleParallel(DefaultCommentCollection.Clear);
+            UIHandler.Instance.HandleParallel(DefaultCommentCollection.Clear);
             IsDefaultCommentLoading = IsNoteFileNotLogical;
             if (IsDefaultCommentLoading)
             {
@@ -3078,7 +3074,7 @@ namespace Qwilight.ViewModel
 
         public void LoadTwilightCommentCollection()
         {
-            HandlingUISystem.Instance.HandleParallel(TwilightCommentCollection.Clear);
+            UIHandler.Instance.HandleParallel(TwilightCommentCollection.Clear);
             TwilightCommentTotalFavor = "👍";
             TwilightCommentFavor = null;
             TwilightCommentText0 = string.Empty;
@@ -3094,8 +3090,7 @@ namespace Qwilight.ViewModel
         public async Task LoadWowItemCollection()
         {
             IsWowLoading = true;
-
-            var twilightWwwWow = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwWow?>($"{QwilightComponent.QwilightAPI}/wow").ConfigureAwait(false);
+            var twilightWwwWow = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwWow?>($"{QwilightComponent.QwilightAPI}/wow");
             if (twilightWwwWow.HasValue)
             {
                 var twilightWwwWowValue = twilightWwwWow.Value;
@@ -3161,7 +3156,6 @@ namespace Qwilight.ViewModel
                     LevelWowItemCollection.Add(new(data, value => $"LV. {value}"));
                 }
             }
-
             IsWowLoading = false;
         }
 

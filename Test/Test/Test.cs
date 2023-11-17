@@ -24,7 +24,7 @@ namespace Test
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            HandlingUISystem.Instance.Init(e => { });
+            UIHandler.Instance.Init(e => { });
 
             var audioSystem = new Mock<AudioSystem>();
             audioSystem.Setup(arg => arg.Init());

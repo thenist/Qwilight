@@ -66,7 +66,7 @@ namespace Qwilight.View.SiteYell
                 {
                     AudioPosition = 100.0 * AudioView.Position / AudioView.NaturalDuration.TimeSpan;
                 }
-            }, HandlingUISystem.Instance.UIHandler)
+            }, UIHandler.Instance.MainHandler)
             {
                 IsEnabled = false
             };

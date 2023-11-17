@@ -717,7 +717,7 @@ namespace Qwilight.ViewModel
                     ModeComponentValue.ComputingValue = _defaultNetSiteComputing;
                 }
                 _defaultNetSiteComputing.NotHaveIt = !mainViewModel.NoteID512s.ContainsKey(_defaultNetSiteComputing.NoteID);
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     var noteID = ComputingValue?.NoteID;
                     ComputingValues.Clear();
@@ -782,7 +782,7 @@ namespace Qwilight.ViewModel
             }
             else
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     var lastComputingValues = ComputingValues.ToArray();
                     SetComputingValues(pendingTwilightCallSiteNetData);
@@ -929,7 +929,7 @@ namespace Qwilight.ViewModel
             }));
             if (siteContainerViewModel.IsOpened && IsOpened)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     if (isGetSiteYell)
                     {
@@ -1009,7 +1009,7 @@ namespace Qwilight.ViewModel
             {
                 if (_siteYellsMap.TryGetValue(twilightWipeSiteYell.siteYellID, out var siteYell))
                 {
-                    HandlingUISystem.Instance.HandleParallel(() =>
+                    UIHandler.Instance.HandleParallel(() =>
                     {
                         var i = SiteYellCollection.IndexOf(siteYell);
                         SiteYellCollection.Remove(siteYell);

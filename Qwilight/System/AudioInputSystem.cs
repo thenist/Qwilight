@@ -94,7 +94,7 @@ namespace Qwilight
             var waveInSystem = WaveInValue?.System;
             if (waveInSystem != null)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     try
                     {
@@ -194,7 +194,7 @@ namespace Qwilight
             var waveSystem = WaveValue?.System;
             if (waveSystem != null)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     try
                     {
@@ -226,7 +226,7 @@ namespace Qwilight
         {
             if (Configure.Instance.AudioInput && Configure.Instance.WaveIn)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     var waveInValues = new List<WaveValue>();
                     foreach (var targetSystem in new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
@@ -251,7 +251,7 @@ namespace Qwilight
         {
             if (Configure.Instance.AudioInput && Configure.Instance.Wave)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     var waveValues = new List<WaveValue>();
                     foreach (var targetSystem in new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))

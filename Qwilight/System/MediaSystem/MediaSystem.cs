@@ -49,7 +49,7 @@ namespace Qwilight
                 {
                     if (ViewModels.Instance.MainValue.IsWPFViewVisible)
                     {
-                        HandlingUISystem.Instance.HandleParallel(() => mediaHandlerItem.HandledMediaItem.DefaultMedia.SpeedRatio = mediaHandler.AudioMultiplier);
+                        UIHandler.Instance.HandleParallel(() => mediaHandlerItem.HandledMediaItem.DefaultMedia.SpeedRatio = mediaHandler.AudioMultiplier);
                     }
                     else
                     {

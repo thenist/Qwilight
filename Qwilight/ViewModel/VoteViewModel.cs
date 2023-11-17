@@ -72,7 +72,7 @@ namespace Qwilight.ViewModel
 
         public override bool OpeningCondition => ViewModels.Instance.MainValue.IsNoteFileMode;
 
-        public ObservableCollection<string> VoteNames { get; } = new();
+        public ObservableCollection<string> VoteNameCollection { get; } = new();
 
         public string VoteName
         {
@@ -86,8 +86,7 @@ namespace Qwilight.ViewModel
                     async Task Awaitable()
                     {
                         IsVoteGroupLoading = true;
-
-                        var twilightWwwVotes = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwVote[]>($"{QwilightComponent.QwilightAPI}/vote?voteName={value}").ConfigureAwait(false);
+                        var twilightWwwVotes = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwVote[]>($"{QwilightComponent.QwilightAPI}/vote?voteName={value}");
                         if (twilightWwwVotes != null && VoteName == value)
                         {
                             Utility.SetUICollection(ComputingValues, twilightWwwVotes.Select(data => new VoteComputing
@@ -100,7 +99,6 @@ namespace Qwilight.ViewModel
                                 VoteNoteVariety = data.noteVariety
                             }).ToArray());
                         }
-
                         IsVoteGroupLoading = false;
                     }
                 }
@@ -125,21 +123,22 @@ namespace Qwilight.ViewModel
             ViewModels.Instance.MainValue.HandleAutoComputer();
         }
 
-        public override async void OnOpened()
+        public override void OnOpened()
         {
             base.OnOpened();
             ViewModels.Instance.MainValue.CloseAutoComputer();
 
-            IsVoteGroupsLoading = true;
-
-            var voteNames = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/vote").ConfigureAwait(false);
-            if (voteNames != null)
+            UIHandler.Instance.HandleParallel(async () =>
             {
-                Utility.SetUICollection(VoteNames, voteNames);
-                HandlingUISystem.Instance.HandleParallel(() => VoteName ??= VoteNames.FirstOrDefault());
-            }
-
-            IsVoteGroupsLoading = false;
+                IsVoteGroupsLoading = true;
+                var voteNames = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/vote");
+                if (voteNames != null)
+                {
+                    Utility.SetUICollection(VoteNameCollection, voteNames);
+                    VoteName ??= VoteNameCollection.FirstOrDefault();
+                }
+                IsVoteGroupsLoading = false;
+            });
         }
     }
 }

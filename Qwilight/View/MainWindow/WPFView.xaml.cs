@@ -12,7 +12,7 @@ namespace Qwilight.View
         {
             InitializeComponent();
 
-            StrongReferenceMessenger.Default.Register<PointZMaxView>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
+            StrongReferenceMessenger.Default.Register<PointZMaxView>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() =>
             {
                 var mainViewModel = DataContext as MainViewModel;
                 if (mainViewModel.IsWPFViewVisible)

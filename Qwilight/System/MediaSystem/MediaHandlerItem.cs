@@ -91,7 +91,7 @@ namespace Qwilight
         {
             if (mediaPosition < HandledMediaItem.Length)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     var defaultMedia = new System.Windows.Media.MediaPlayer
                     {
@@ -117,7 +117,7 @@ namespace Qwilight
 
         public void StopDefault()
         {
-            HandlingUISystem.Instance.HandleParallel(() => HandledMediaItem.DefaultMedia?.Stop());
+            UIHandler.Instance.HandleParallel(() => HandledMediaItem.DefaultMedia?.Stop());
             IsDefaultHandling = false;
         }
 
@@ -125,11 +125,11 @@ namespace Qwilight
         {
             if (isPaused)
             {
-                HandlingUISystem.Instance.HandleParallel(() => HandledMediaItem.DefaultMedia?.Pause());
+                UIHandler.Instance.HandleParallel(() => HandledMediaItem.DefaultMedia?.Pause());
             }
             else
             {
-                HandlingUISystem.Instance.HandleParallel(() => HandledMediaItem.DefaultMedia?.Play());
+                UIHandler.Instance.HandleParallel(() => HandledMediaItem.DefaultMedia?.Play());
             }
         }
 
@@ -138,7 +138,7 @@ namespace Qwilight
             var defaultMedia = HandledMediaItem.DefaultMedia;
             if (defaultMedia != null)
             {
-                HandlingUISystem.Instance.HandleParallel(() =>
+                UIHandler.Instance.HandleParallel(() =>
                 {
                     if (Math.Abs(defaultMedia.Position.TotalMilliseconds - mediaPosition) >= 500.0)
                     {

@@ -2,6 +2,7 @@
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
+using Qwilight.ViewModel;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -659,7 +660,7 @@ namespace Qwilight
             return commentItems;
         }
 
-        public void SetEventNoteData(ICollection<WwwLevelGroup.WwwLevelComputing> wwwLevelComputingValues)
+        public void SetEventNoteData(ICollection<WwwLevelViewModel.WwwLevelComputing> wwwLevelComputingValues)
         {
             foreach (var wwwLevelComputingValue in wwwLevelComputingValues)
             {

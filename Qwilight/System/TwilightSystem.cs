@@ -325,10 +325,10 @@ namespace Qwilight
                                     AutoEnter(autoEnter => autoEnter == AutoEnterSite.AutoEnter);
                                     break;
                                 case Event.Types.EventID.QuitSite:
-                                    var toWipeSiteViewModel = ViewModels.Instance.WipeSiteViewModel(eventItemText);
-                                    if (toWipeSiteViewModel != null)
+                                    var toQuitSiteView = ViewModels.Instance.WipeSiteViewModel(eventItemText)?.View;
+                                    if (toQuitSiteView != null)
                                     {
-                                        HandlingUISystem.Instance.HandleParallel(() => siteContainerViewModel.SiteViewCollection.Remove(toWipeSiteViewModel.View));
+                                        UIHandler.Instance.HandleParallel(() => siteContainerViewModel.SiteViewCollection.Remove(toQuitSiteView));
                                     }
                                     break;
                                 case Event.Types.EventID.Warning:
@@ -417,15 +417,15 @@ namespace Qwilight
                                         toEnterSiteViewModel.SetAllowedPostableItems(twilightEnterSite);
                                         toEnterSiteViewModel.ModeComponentValue.CopyAsJSON(twilightEnterSite.modeComponentData);
                                     }
-                                    HandlingUISystem.Instance.HandleParallel(() =>
+                                    UIHandler.Instance.HandleParallel(() =>
                                     {
-                                        var toEnterSite = new SiteView
+                                        var toEnterSiteView = new SiteView
                                         {
                                             DataContext = toEnterSiteViewModel
                                         };
-                                        toEnterSiteViewModel.View = toEnterSite;
-                                        siteContainerViewModel.SiteViewCollection.Add(toEnterSite);
-                                        siteContainerViewModel.SiteViewValue = toEnterSite;
+                                        toEnterSiteViewModel.View = toEnterSiteView;
+                                        siteContainerViewModel.SiteViewCollection.Add(toEnterSiteView);
+                                        siteContainerViewModel.SiteViewValue = toEnterSiteView;
                                     });
                                     break;
                                 case Event.Types.EventID.CallBundle:
@@ -463,7 +463,7 @@ namespace Qwilight
                                         var valueUIBundleCollection = bundleViewModel.UIBundleCollection;
                                         var qwilightBundleCollection = bundleViewModel.QwilightBundleCollection;
                                         var eventNoteBundleCollection = bundleViewModel.EventNoteBundleCollection;
-                                        HandlingUISystem.Instance.HandleParallel(() =>
+                                        UIHandler.Instance.HandleParallel(() =>
                                         {
                                             noteFileBundleCollection.Clear();
                                             foreach (var noteFileBundleItem in noteFileBundleItems)
@@ -700,7 +700,7 @@ namespace Qwilight
                                             netSIteCommentItemCollection[date] = netSiteCommentItems;
                                         }
                                         var netSiteCommentItemsCollection = netSiteCommentViewModel.NetSiteCommentItemsCollection;
-                                        HandlingUISystem.Instance.HandleParallel(() =>
+                                        UIHandler.Instance.HandleParallel(() =>
                                         {
                                             netSiteCommentItemsCollection.Clear();
                                             foreach (var date in netSIteCommentItemCollection.Values)
@@ -747,7 +747,7 @@ namespace Qwilight
                                     };
                                     _saveAsBundleMap[saveAsBundleID] = saveAsBundleItem;
                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, saveAsBundleItem.Text);
-                                    HandlingUISystem.Instance.HandleParallel(() => toNotifyViewModel.NotifyItemCollection.Insert(0, saveAsBundleItem));
+                                    UIHandler.Instance.HandleParallel(() => toNotifyViewModel.NotifyItemCollection.Insert(0, saveAsBundleItem));
                                     var onZipSaving = new EventHandler<SaveProgressEventArgs>((sender, e) =>
                                     {
                                         e.Cancel = saveAsBundleItem.IsStopped;
@@ -917,7 +917,7 @@ namespace Qwilight
                                         QuitStatus = bundleLength
                                     };
                                     _saveBundleMap[saveBundleID] = saveBundleItem;
-                                    HandlingUISystem.Instance.HandleParallel(() => toNotifyViewModel.NotifyItemCollection.Insert(0, saveBundleItem));
+                                    UIHandler.Instance.HandleParallel(() => toNotifyViewModel.NotifyItemCollection.Insert(0, saveBundleItem));
                                     var bundleVariety = (BundleItem.BundleVariety)twilightSaveBundle.bundleVariety;
                                     if (bundleVariety != BundleItem.BundleVariety.DefaultNotes && bundleVariety != BundleItem.BundleVariety.DefaultUI)
                                     {
@@ -1352,7 +1352,7 @@ namespace Qwilight
                 {
                     if (IsEstablished)
                     {
-                        HandlingUISystem.Instance.HandleParallel(siteContainerViewModel.SiteViewCollection.Clear);
+                        UIHandler.Instance.HandleParallel(siteContainerViewModel.SiteViewCollection.Clear);
                         ViewModels.Instance.WipeSiteViewModels();
                         foreach (var bundleID in _saveBundleMap.Keys)
                         {
@@ -1568,7 +1568,7 @@ namespace Qwilight
         public async Task GetDefaultUIDate(long defaultUIDate, bool isSilent)
         {
             var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultUIDate?date={defaultUIDate}").ConfigureAwait(false);
-            if (twilightWwwDefaultDate.HasValue && !ViewModels.Instance.MainValue.IsVital)
+            if (twilightWwwDefaultDate.HasValue && !ViewModels.Instance.MainValue.IsHPCMode)
             {
                 var date = twilightWwwDefaultDate.Value.date;
                 Configure.Instance.DefaultUIDate = date;

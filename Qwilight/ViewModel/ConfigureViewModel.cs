@@ -197,14 +197,14 @@ namespace Qwilight.ViewModel
             switch (TabPositionUI)
             {
                 case 0:
-                    HandlingUISystem.Instance.HandleParallel(() =>
+                    UIHandler.Instance.HandleParallel(() =>
                     {
                         BaseUI.Instance.LoadUIFiles();
                         BaseUIItemValue = BaseUI.Instance.UIItems.Contains(Configure.Instance.BaseUIItemValue) ? Configure.Instance.BaseUIItemValue : null;
                     });
                     break;
                 case 1:
-                    HandlingUISystem.Instance.HandleParallel(() =>
+                    UIHandler.Instance.HandleParallel(() =>
                     {
                         UI.Instance.LoadUIFiles();
                         UIItemValue = UI.Instance.UIItems.Contains(Configure.Instance.UIItemValue) ? Configure.Instance.UIItemValue : null;
@@ -311,7 +311,7 @@ namespace Qwilight.ViewModel
                 {
                     (sender as DispatcherTimer).Stop();
                 }
-            }, HandlingUISystem.Instance.UIHandler);
+            }, UIHandler.Instance.MainHandler);
         }
 
         public void OnComputingNotPointed()
@@ -327,7 +327,7 @@ namespace Qwilight.ViewModel
                 {
                     (sender as DispatcherTimer).Stop();
                 }
-            }, HandlingUISystem.Instance.UIHandler);
+            }, UIHandler.Instance.MainHandler);
         }
 
         public void OnComputingModified()
@@ -1254,7 +1254,7 @@ namespace Qwilight.ViewModel
 
         public ConfigureViewModel()
         {
-            _detailedHandler = new(DispatcherPriority.Background, HandlingUISystem.Instance.UIHandler)
+            _detailedHandler = new(DispatcherPriority.Background, UIHandler.Instance.MainHandler)
             {
                 Interval = TimeSpan.FromSeconds(1)
             };

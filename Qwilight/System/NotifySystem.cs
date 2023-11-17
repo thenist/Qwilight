@@ -21,7 +21,7 @@ namespace Qwilight
 
         int _toNotifyID = 1;
 
-        public void NotifyPending() => HandlingUISystem.Instance.HandleParallel(() =>
+        public void NotifyPending() => UIHandler.Instance.HandleParallel(() =>
         {
             var toNotifyCount = ViewModels.Instance.NotifyValue.NotifyItemCollection.Count(toNotifyItem =>
             {
@@ -37,7 +37,7 @@ namespace Qwilight
 
         public void Notify(NotifyVariety toNotifyVariety, NotifyConfigure toNotifyConfigure, string toNotify, bool allowComputingMode = true, string audioAlt = null, Action onHandle = null, int toNotifyID = -1)
         {
-            HandlingUISystem.Instance.HandleParallel(() =>
+            UIHandler.Instance.HandleParallel(() =>
             {
                 switch (toNotifyConfigure)
                 {

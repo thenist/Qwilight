@@ -10,7 +10,7 @@ namespace Qwilight.View
         public LoadingView()
         {
             InitializeComponent();
-            StrongReferenceMessenger.Default.Register<FadeLoadingView>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
+            StrongReferenceMessenger.Default.Register<FadeLoadingView>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() =>
             {
                 var fadingElement = new DoubleAnimation
                 {

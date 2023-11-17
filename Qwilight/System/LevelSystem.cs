@@ -128,7 +128,7 @@ namespace Qwilight
                         Variety = NotifySystem.NotifyVariety.Levying,
                         OnStop = wipeTotal => false
                     };
-                    HandlingUISystem.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingLevelItem));
+                    UIHandler.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingLevelItem));
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingLevelItem.Text);
                     var target = ModifyDataValue(levelTableValue.data_url);
                     var levelTableFileName = levelTableValue.name;

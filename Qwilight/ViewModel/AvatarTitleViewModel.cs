@@ -37,29 +37,30 @@ namespace Qwilight.ViewModel
 
         public void OnPointLower() => Close();
 
-        public override async void OnOpened()
+        public override void OnOpened()
         {
             base.OnOpened();
-            IsAvatarTitleLoading = true;
-
-            var twilightWwwTitles = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwTitles[]>($"{QwilightComponent.QwilightAPI}/titles?avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}").ConfigureAwait(false);
-            if (twilightWwwTitles != null)
+            UIHandler.Instance.HandleParallel(() =>
             {
-                Utility.SetUICollection(AvatarTitleItemCollection, twilightWwwTitles.Prepend(new JSON.TwilightWwwTitles
+                IsAvatarTitleLoading = true;
+                var twilightWwwTitles = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwTitles[]>($"{QwilightComponent.QwilightAPI}/titles?avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}");
+                if (twilightWwwTitles != null)
                 {
-                    titleID = string.Empty,
-                    title = LanguageSystem.Instance.NotAvatarTitle,
-                    titleColor = nameof(Colors.White)
-                }).Select(data => new AvatarTitleItem
-                {
-                    Title = data.title,
-                    TitleID = data.titleID,
-                    TitlePaint = Utility.GetTitlePaint(data.titleColor),
-                    TitleColor = Utility.GetTitleColor(data.titleColor)
-                }).ToArray());
-            }
-
-            IsAvatarTitleLoading = false;
+                    Utility.SetUICollection(AvatarTitleItemCollection, twilightWwwTitles.Prepend(new JSON.TwilightWwwTitles
+                    {
+                        titleID = string.Empty,
+                        title = LanguageSystem.Instance.NotAvatarTitle,
+                        titleColor = nameof(Colors.White)
+                    }).Select(data => new AvatarTitleItem
+                    {
+                        Title = data.title,
+                        TitleID = data.titleID,
+                        TitlePaint = Utility.GetTitlePaint(data.titleColor),
+                        TitleColor = Utility.GetTitleColor(data.titleColor)
+                    }).ToArray());
+                }
+                IsAvatarTitleLoading = false;
+            });
         }
 
         public override void OnCollasped()

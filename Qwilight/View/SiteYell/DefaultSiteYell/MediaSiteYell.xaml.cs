@@ -70,7 +70,7 @@ namespace Qwilight.View.SiteYell
                 {
                     MediaPosition = 100.0 * MediaView.Position / MediaView.NaturalDuration.TimeSpan;
                 }
-            }, HandlingUISystem.Instance.UIHandler)
+            }, UIHandler.Instance.MainHandler)
             {
                 IsEnabled = false
             };

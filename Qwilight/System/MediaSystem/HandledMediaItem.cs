@@ -22,7 +22,7 @@ namespace Qwilight
         public void Dispose()
         {
             Media.Dispose();
-            HandlingUISystem.Instance.HandleParallel(() => DefaultMedia?.Close());
+            UIHandler.Instance.HandleParallel(() => DefaultMedia?.Close());
         }
     }
 }

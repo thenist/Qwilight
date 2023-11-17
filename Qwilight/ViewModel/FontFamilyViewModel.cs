@@ -55,7 +55,7 @@ namespace Qwilight.ViewModel
                     FontFamilyValue = fontFamily
                 });
             }
-            _wantHandler = new(DispatcherPriority.Input, HandlingUISystem.Instance.UIHandler)
+            _wantHandler = new(DispatcherPriority.Input, UIHandler.Instance.MainHandler)
             {
                 Interval = TimeSpan.FromMilliseconds(QwilightComponent.StandardWaitMillis)
             };

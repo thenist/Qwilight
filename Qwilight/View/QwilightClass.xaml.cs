@@ -120,7 +120,7 @@ namespace Qwilight.View
                     OnUnhandledFault(fault);
                 }
             };
-            HandlingUISystem.Instance.Init(OnUnhandledFault);
+            UIHandler.Instance.Init(OnUnhandledFault);
 
             QwilightComponent.OnGetBuiltInData = data => TryFindResource(data);
 

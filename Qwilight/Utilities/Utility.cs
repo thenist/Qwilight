@@ -229,7 +229,7 @@ namespace Qwilight.Utilities
             onEqual ??= EqualityComparer<T>.Default;
             if (target is INotifyCollectionChanged)
             {
-                HandlingUISystem.Instance.HandleParallel(Hande);
+                UIHandler.Instance.HandleParallel(Hande);
             }
             else
             {

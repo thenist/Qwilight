@@ -46,21 +46,21 @@
                     </Border>
                     <Border Style="{StaticResource StandardPanel}" Grid.Column="1">
                         <Grid>
-                            <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsLevelGroupsLoading, Converter={StaticResource VisibilityModifier}}" />
-                            <Grid Visibility="{Binding IsLevelGroupsLoading, Converter={StaticResource VisibilityNotModifier}}">
+                            <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsLevelNamesLoading, Converter={StaticResource VisibilityModifier}}" />
+                            <Grid Visibility="{Binding IsLevelNamesLoading, Converter={StaticResource VisibilityNotModifier}}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding WwwLevelGroupCollection}" SelectedItem="{Binding WwwLevelGroupValue}" Visibility="{Binding IsLevelGroupsLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding WwwLevelNameCollection}" SelectedItem="{Binding WwwLevelName}" Visibility="{Binding IsLevelNamesLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                 <Grid Grid.Row="1">
-                                    <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsLevelGroupLoading, Converter={StaticResource VisibilityModifier}}" />
-                                    <Grid Visibility="{Binding IsLevelGroupLoading, Converter={StaticResource VisibilityNotModifier}}">
+                                    <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsLevelNameLoading, Converter={StaticResource VisibilityModifier}}" />
+                                    <Grid Visibility="{Binding IsLevelNameLoading, Converter={StaticResource VisibilityNotModifier}}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding WwwLevelGroupValue.WwwLevelItemCollection}" SelectedItem="{Binding WwwLevelGroupValue.WwwLevelItemValue}">
+                                        <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding WwwLevelItemCollection}" SelectedItem="{Binding WwwLevelItemValue}">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid>
@@ -78,17 +78,17 @@
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>
-                                        <ProgressBar Grid.Column="1" Style="{StaticResource WaitingStatusView}" Visibility="{Binding WwwLevelGroupValue.IsLevelItemLoading, Converter={StaticResource VisibilityModifier}}" />
-                                        <Grid Grid.Column="1" Visibility="{Binding WwwLevelGroupValue.IsLevelItemLoading, Converter={StaticResource VisibilityNotModifier}}">
+                                        <ProgressBar Grid.Column="1" Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsLevelItemLoading, Converter={StaticResource VisibilityModifier}}" />
+                                        <Grid Grid.Column="1" Visibility="{Binding IsLevelItemLoading, Converter={StaticResource VisibilityNotModifier}}">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition />
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
                                             <ScrollViewer>
-                                                <StackPanel Visibility="{Binding WwwLevelGroupValue.IsLevelItemLoading, Converter={StaticResource VisibilityNotModifier}}">
-                                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.Title}" />
-                                                    <TextBlock Style="{StaticResource LFTextView}" Text="{Binding WwwLevelGroupValue.Comment}" />
-                                                    <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding WwwLevelGroupValue.WwwLevelComputingCollection}">
+                                                <StackPanel Visibility="{Binding IsLevelItemLoading, Converter={StaticResource VisibilityNotModifier}}">
+                                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Title}" />
+                                                    <TextBlock Style="{StaticResource LFTextView}" Text="{Binding Comment}" />
+                                                    <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding WwwLevelComputingCollection}">
                                                         <ListView.ItemTemplate>
                                                             <DataTemplate>
                                                                 <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}">
@@ -111,58 +111,58 @@
                                                             </DataTemplate>
                                                         </ListView.ItemTemplate>
                                                     </ListView>
-                                                    <Button Style="{StaticResource StandardInput}" Content="{Binding GetWwwLevel, Source={StaticResource LanguageSystem}}" Command="{Binding WwwLevelGroupValue.GetWwwLevelCommand}" Visibility="{Binding WwwLevelGroupValue.HasEventNote, Converter={StaticResource VisibilityNotModifier}}" />
-                                                    <Button Style="{StaticResource StandardInput}" Content="{Binding LevyWwwLevel, Source={StaticResource LanguageSystem}}" Command="{Binding WwwLevelGroupValue.LevyWwwLevelCommand}" Visibility="{Binding WwwLevelGroupValue.HasEventNote, Converter={StaticResource VisibilityModifier}}" />
+                                                    <Button Style="{StaticResource StandardInput}" Content="{Binding GetWwwLevel, Source={StaticResource LanguageSystem}}" Command="{Binding GetWwwLevelCommand}" Visibility="{Binding HasEventNote, Converter={StaticResource VisibilityNotModifier}}" />
+                                                    <Button Style="{StaticResource StandardInput}" Content="{Binding LevyWwwLevel, Source={StaticResource LanguageSystem}}" Command="{Binding LevyWwwLevelCommand}" Visibility="{Binding HasEventNote, Converter={StaticResource VisibilityModifier}}" />
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.StandContents[0]}" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.StandContents[1]}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding StandContents[0]}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding StandContents[1]}" />
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.PointContents[0]}" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.PointContents[1]}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding PointContents[0]}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding PointContents[1]}" />
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.BandContents[0]}" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.BandContents[1]}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding BandContents[0]}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding BandContents[1]}" />
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.AudioMultiplierContents[0]}" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.AudioMultiplierContents[1]}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AudioMultiplierContents[0]}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AudioMultiplierContents[1]}" />
                                                     </StackPanel>
-                                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding NotAllowPauseText, Source={StaticResource LanguageSystem}}" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.AllowPause, Converter={StaticResource VisibilityNotModifier}}" />
-                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding WwwLevelGroupValue.JudgmentContents[0], Converter={StaticResource VisibilityModifier}}">
+                                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding NotAllowPauseText, Source={StaticResource LanguageSystem}}" Foreground="Red" Visibility="{Binding AllowPause, Converter={StaticResource VisibilityNotModifier}}" />
+                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding JudgmentContents[0], Converter={StaticResource VisibilityModifier}}">
                                                         <Image Style="{StaticResource StandardView}" Source="{Binding JudgmentDrawings[0].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[0][0]}" Foreground="{Binding JudgmentPaints[0], Source={StaticResource BaseUI}}" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[0][1]}" Foreground="{Binding JudgmentPaints[0], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[0][0]}" Foreground="{Binding JudgmentPaints[0], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[0][1]}" Foreground="{Binding JudgmentPaints[0], Source={StaticResource BaseUI}}" />
                                                     </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding WwwLevelGroupValue.JudgmentContents[1], Converter={StaticResource VisibilityModifier}}">
+                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding JudgmentContents[1], Converter={StaticResource VisibilityModifier}}">
                                                         <Image Style="{StaticResource StandardView}" Source="{Binding JudgmentDrawings[1].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[1][0]}" Foreground="{Binding JudgmentPaints[1], Source={StaticResource BaseUI}}" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[1][1]}" Foreground="{Binding JudgmentPaints[1], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[1][0]}" Foreground="{Binding JudgmentPaints[1], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[1][1]}" Foreground="{Binding JudgmentPaints[1], Source={StaticResource BaseUI}}" />
                                                     </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding WwwLevelGroupValue.JudgmentContents[2], Converter={StaticResource VisibilityModifier}}">
+                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding JudgmentContents[2], Converter={StaticResource VisibilityModifier}}">
                                                         <Image Style="{StaticResource StandardView}" Source="{Binding JudgmentDrawings[2].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[2][0]}" Foreground="{Binding JudgmentPaints[2], Source={StaticResource BaseUI}}" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[2][1]}" Foreground="{Binding JudgmentPaints[2], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[2][0]}" Foreground="{Binding JudgmentPaints[2], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[2][1]}" Foreground="{Binding JudgmentPaints[2], Source={StaticResource BaseUI}}" />
                                                     </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding WwwLevelGroupValue.JudgmentContents[3], Converter={StaticResource VisibilityModifier}}">
+                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding JudgmentContents[3], Converter={StaticResource VisibilityModifier}}">
                                                         <Image Style="{StaticResource StandardView}" Source="{Binding JudgmentDrawings[3].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[3][0]}" Foreground="{Binding JudgmentPaints[3], Source={StaticResource BaseUI}}" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[3][1]}" Foreground="{Binding JudgmentPaints[3], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[3][0]}" Foreground="{Binding JudgmentPaints[3], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[3][1]}" Foreground="{Binding JudgmentPaints[3], Source={StaticResource BaseUI}}" />
                                                     </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding WwwLevelGroupValue.JudgmentContents[4], Converter={StaticResource VisibilityModifier}}">
+                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding JudgmentContents[4], Converter={StaticResource VisibilityModifier}}">
                                                         <Image Style="{StaticResource StandardView}" Source="{Binding JudgmentDrawings[4].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[4][0]}" Foreground="{Binding JudgmentPaints[4], Source={StaticResource BaseUI}}" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[4][1]}" Foreground="{Binding JudgmentPaints[4], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[4][0]}" Foreground="{Binding JudgmentPaints[4], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[4][1]}" Foreground="{Binding JudgmentPaints[4], Source={StaticResource BaseUI}}" />
                                                     </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding WwwLevelGroupValue.JudgmentContents[5], Converter={StaticResource VisibilityModifier}}">
+                                                    <StackPanel Orientation="Horizontal" Visibility="{Binding JudgmentContents[5], Converter={StaticResource VisibilityModifier}}">
                                                         <Image Style="{StaticResource StandardView}" Source="{Binding JudgmentDrawings[5].DefaultDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[5][0]}" Foreground="{Binding JudgmentPaints[5], Source={StaticResource BaseUI}}" />
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelGroupValue.JudgmentContents[5][1]}" Foreground="{Binding JudgmentPaints[5], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[5][0]}" Foreground="{Binding JudgmentPaints[5], Source={StaticResource BaseUI}}" />
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding JudgmentContents[5][1]}" Foreground="{Binding JudgmentPaints[5], Source={StaticResource BaseUI}}" />
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsAutoModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.AutoModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsAutoModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding AutoModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -178,8 +178,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsNoteSaltModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.NoteSaltModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsNoteSaltModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding NoteSaltModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -195,8 +195,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsFaintNoteModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.FaintNoteModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsFaintNoteModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding FaintNoteModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -212,8 +212,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsJudgmentModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.JudgmentModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsJudgmentModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding JudgmentModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -229,8 +229,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsHitPointsModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.HitPointsModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsHitPointsModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding HitPointsModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -246,8 +246,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsNoteMobilityModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.NoteMobilityModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsNoteMobilityModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding NoteMobilityModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -263,8 +263,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsLongNoteModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.LongNoteModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsLongNoteModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding LongNoteModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -280,8 +280,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsInputFavorModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.InputFavorModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsInputFavorModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding InputFavorModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -297,8 +297,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsNoteModifyModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.NoteModifyModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsNoteModifyModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding NoteModifyModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -314,8 +314,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsBPMModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.BPMModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsBPMModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding BPMModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -331,8 +331,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsWaveModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.WaveModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsWaveModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding WaveModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -348,8 +348,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsSetNoteModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.SetNoteModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsSetNoteModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding SetNoteModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -365,8 +365,8 @@
                                                         </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding WwwLevelGroupValue.IsLowestJudgmentConditionModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
-                                                        <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.LowestJudgmentConditionModes}">
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding IsLowestJudgmentConditionModeCompatible, Converter={StaticResource VisibilityNotModifier}}" />
+                                                        <ItemsControl ItemsSource="{Binding LowestJudgmentConditionModes}">
                                                             <ItemsControl.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <WrapPanel />
@@ -385,9 +385,9 @@
                                             </ScrollViewer>
                                             <StackPanel Grid.Row="1">
                                                 <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClearItem, Source={StaticResource LanguageSystem}}" FontSize="{StaticResource FontLevel1}" />
-                                                <StackPanel Orientation="Horizontal" Visibility="{Binding WwwLevelGroupValue.HasClearedTitleItem, Converter={StaticResource VisibilityModifier}}">
+                                                <StackPanel Orientation="Horizontal" Visibility="{Binding HasClearedTitleItem, Converter={StaticResource VisibilityModifier}}">
                                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClearItemTitle, Source={StaticResource LanguageSystem}}" VerticalAlignment="Top" />
-                                                    <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.ClearedTitleItemCollection}">
+                                                    <ItemsControl ItemsSource="{Binding ClearedTitleItemCollection}">
                                                         <ItemsControl.ItemsPanel>
                                                             <ItemsPanelTemplate>
                                                                 <WrapPanel />
@@ -400,9 +400,9 @@
                                                         </ItemsControl.ItemTemplate>
                                                     </ItemsControl>
                                                 </StackPanel>
-                                                <StackPanel Orientation="Horizontal" Visibility="{Binding WwwLevelGroupValue.HasClearedEdgeItem, Converter={StaticResource VisibilityModifier}}">
+                                                <StackPanel Orientation="Horizontal" Visibility="{Binding HasClearedEdgeItem, Converter={StaticResource VisibilityModifier}}">
                                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClearItemEdge, Source={StaticResource LanguageSystem}}" VerticalAlignment="Top" />
-                                                    <ItemsControl ItemsSource="{Binding WwwLevelGroupValue.ClearedEdgeItemCollection}">
+                                                    <ItemsControl ItemsSource="{Binding ClearedEdgeItemCollection}">
                                                         <ItemsControl.ItemsPanel>
                                                             <ItemsPanelTemplate>
                                                                 <WrapPanel />

@@ -13,21 +13,21 @@ namespace Qwilight.View
         {
             InitializeComponent();
 
-            StrongReferenceMessenger.Default.Register<MoveEntryView>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
+            StrongReferenceMessenger.Default.Register<MoveEntryView>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() =>
             {
                 if ((DataContext as MainViewModel).IsNoteFileMode)
                 {
                     EntryItemsView.ScrollIntoView(message.Target);
                 }
             }));
-            StrongReferenceMessenger.Default.Register<PointEntryView>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
+            StrongReferenceMessenger.Default.Register<PointEntryView>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() =>
             {
                 if ((DataContext as MainViewModel).IsNoteFileMode)
                 {
                     EntryItemsView.Focus();
                 }
             }));
-            StrongReferenceMessenger.Default.Register<SetFitInputs>(this, (recipient, message) => HandlingUISystem.Instance.HandleParallel(() =>
+            StrongReferenceMessenger.Default.Register<SetFitInputs>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() =>
             {
                 var i = FitInput.SelectedIndex;
                 FitInput.Items.Refresh();

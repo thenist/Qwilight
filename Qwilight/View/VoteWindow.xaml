@@ -38,7 +38,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding VoteNames}" SelectedItem="{Binding VoteName}" />
+                                    <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding VoteNameCollection}" SelectedItem="{Binding VoteName}" />
                                     <Grid Grid.Row="1">
                                         <Grid Visibility="{Binding IsVoteGroupLoading, Converter={StaticResource VisibilityNotModifier}}">
                                             <Grid.ColumnDefinitions>
