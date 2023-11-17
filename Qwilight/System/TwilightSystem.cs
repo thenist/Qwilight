@@ -325,11 +325,14 @@ namespace Qwilight
                                     AutoEnter(autoEnter => autoEnter == AutoEnterSite.AutoEnter);
                                     break;
                                 case Event.Types.EventID.QuitSite:
-                                    var siteView = ViewModels.Instance.WipeSiteView(eventItemText);
-                                    if (siteView != null)
+                                    UIHandler.Instance.HandleParallel(() =>
                                     {
-                                        UIHandler.Instance.HandleParallel(() => siteContainerViewModel.SiteViewCollection.Remove(siteView));
-                                    }
+                                        var siteView = ViewModels.Instance.WipeSiteView(eventItemText);
+                                        if (siteView != null)
+                                        {
+                                            siteContainerViewModel.SiteViewCollection.Remove(siteView);
+                                        }
+                                    });
                                     break;
                                 case Event.Types.EventID.Warning:
                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, eventItemText);
