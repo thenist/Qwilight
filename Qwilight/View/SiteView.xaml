@@ -315,7 +315,6 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
-                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <ComboBox IsEnabled="{Binding CanSetTwilightConfigures}" Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding ValidNetModeCollection}" SelectedItem="{Binding ValidNetModeValue}">
                                 <ComboBox.ItemTemplate>
@@ -324,27 +323,31 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <ScrollViewer Grid.Row="1">
-                                <ItemsControl ItemsSource="{Binding PostableUIItemCollection}" IsEnabled="{Binding CanSetPostableItems}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding IsWanted, UpdateSourceTrigger=PropertyChanged}" Content="{Binding PostableItemValue}" Click="OnInputPostableItem" Foreground="{Binding PostableItemValue.ItemPaint}" />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Style="{StaticResource StandardInput}" IsEnabled="{Binding CanSetPostableItems}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityNotModifier}}">
-                                    <Button.CommandParameter>
-                                        <system:Boolean>true</system:Boolean>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Style="{StaticResource StandardInput}" IsEnabled="{Binding CanSetPostableItems}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityModifier}}">
-                                    <Button.CommandParameter>
-                                        <system:Boolean>false</system:Boolean>
-                                    </Button.CommandParameter>
-                                </Button>
-                            </StackPanel>
+                            <GroupBox Grid.Row="1" Style="{StaticResource StandardGroupView}">
+                                <GroupBox.Header>
+                                    <Grid>
+                                        <Button Style="{StaticResource GroupInput}" IsEnabled="{Binding CanSetPostableItems}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityNotModifier}}">
+                                            <Button.CommandParameter>
+                                                <system:Boolean>true</system:Boolean>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                        <Button Style="{StaticResource GroupInput}" IsEnabled="{Binding CanSetPostableItems}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityModifier}}">
+                                            <Button.CommandParameter>
+                                                <system:Boolean>false</system:Boolean>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                    </Grid>
+                                </GroupBox.Header>
+                                <ScrollViewer>
+                                    <ItemsControl ItemsSource="{Binding PostableUIItemCollection}" IsEnabled="{Binding CanSetPostableItems}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding IsWanted, UpdateSourceTrigger=PropertyChanged}" Content="{Binding PostableItemValue}" Click="OnInputPostableItem" Foreground="{Binding PostableItemValue.ItemPaint}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </GroupBox>
                         </Grid>
                     </TabItem>
                 </TabControl>
