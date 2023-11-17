@@ -5,6 +5,7 @@ using Qwilight.MSG;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
+using Qwilight.View;
 using Qwilight.View.SiteYell;
 using System.Buffers;
 using System.Collections.Concurrent;
@@ -50,6 +51,8 @@ namespace Qwilight.ViewModel
 
             public override int GetHashCode() => NoteID.GetHashCode();
         }
+
+        public SiteView View { get; set; }
 
         public enum SiteSituation
         {
@@ -316,32 +319,25 @@ namespace Qwilight.ViewModel
 
         public void OnSiteYellsViewerMove(ScrollChangedEventArgs e)
         {
-            var r = StrongReferenceMessenger.Default.Send(new GetSiteView
+            var siteYellsViewer = View.SiteYellsViewer;
+            if (_lastPosition1BeforeCall > 0.0)
             {
-                SiteID = SiteID
-            });
-            if (r.HasReceivedResponse)
-            {
-                var siteYellsViewer = r.Response.SiteYellsViewer;
-                if (_lastPosition1BeforeCall > 0.0)
-                {
-                    siteYellsViewer.ScrollToVerticalOffset(siteYellsViewer.ExtentHeight - siteYellsViewer.ActualHeight - _lastPosition1BeforeCall);
-                    _lastPosition1BeforeCall = 0.0;
-                }
-                else
-                {
-                    var siteYellID = (SiteYellCollection.FirstOrDefault() as ISiteYell)?.SiteYellID;
-                    if (siteYellID.HasValue && siteYellID.Value > 0 && siteYellsViewer.VerticalOffset == 0.0)
-                    {
-                        TwilightSystem.Instance.SendParallel(Event.Types.EventID.GetSiteYells, new
-                        {
-                            siteID = SiteID,
-                            siteYellID = siteYellID.Value
-                        });
-                    }
-                }
-                _isSiteYellsViewerLowest = siteYellsViewer.VerticalOffset + siteYellsViewer.ActualHeight >= siteYellsViewer.ExtentHeight;
+                siteYellsViewer.ScrollToVerticalOffset(siteYellsViewer.ExtentHeight - siteYellsViewer.ActualHeight - _lastPosition1BeforeCall);
+                _lastPosition1BeforeCall = 0.0;
             }
+            else
+            {
+                var siteYellID = (SiteYellCollection.FirstOrDefault() as ISiteYell)?.SiteYellID;
+                if (siteYellID.HasValue && siteYellID.Value > 0 && siteYellsViewer.VerticalOffset == 0.0)
+                {
+                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.GetSiteYells, new
+                    {
+                        siteID = SiteID,
+                        siteYellID = siteYellID.Value
+                    });
+                }
+            }
+            _isSiteYellsViewerLowest = siteYellsViewer.VerticalOffset + siteYellsViewer.ActualHeight >= siteYellsViewer.ExtentHeight;
         }
 
         public ModeComponent ModeComponentValue { get; } = new();
@@ -950,21 +946,14 @@ namespace Qwilight.ViewModel
                             SiteYellCollection.Add(PutPlatformSiteYell(pendingNewSiteYell()));
                         }
                     }
-                    var r = StrongReferenceMessenger.Default.Send(new GetSiteView
+                    var siteYellsViewer = View.SiteYellsViewer;
+                    if (isGetSiteYell)
                     {
-                        SiteID = SiteID
-                    });
-                    if (r.HasReceivedResponse)
+                        _lastPosition1BeforeCall = siteYellsViewer.ExtentHeight - siteYellsViewer.ActualHeight;
+                    }
+                    else if (isMySiteYell || _isSiteYellsViewerLowest)
                     {
-                        var siteYellsViewer = r.Response.SiteYellsViewer;
-                        if (isGetSiteYell)
-                        {
-                            _lastPosition1BeforeCall = siteYellsViewer.ExtentHeight - siteYellsViewer.ActualHeight;
-                        }
-                        else if (isMySiteYell || _isSiteYellsViewerLowest)
-                        {
-                            siteYellsViewer.ScrollToEnd();
-                        }
+                        siteYellsViewer.ScrollToEnd();
                     }
                 });
             }
@@ -1105,14 +1094,7 @@ namespace Qwilight.ViewModel
                 }
                 if (_isSiteYellsViewerLowest)
                 {
-                    var r = StrongReferenceMessenger.Default.Send(new GetSiteView
-                    {
-                        SiteID = SiteID
-                    });
-                    if (r.HasReceivedResponse)
-                    {
-                        r.Response.SiteYellsViewer.ScrollToEnd();
-                    }
+                    View.SiteYellsViewer.ScrollToEnd();
                 }
                 if (IsNew)
                 {

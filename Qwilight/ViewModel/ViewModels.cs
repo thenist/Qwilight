@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using Qwilight.MSG;
-using Qwilight.View;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 
 namespace Qwilight.ViewModel
 {
@@ -166,32 +163,16 @@ namespace Qwilight.ViewModel
             return siteViewModel;
         }
 
-        public SiteView WipeSiteView(string siteID)
+        public SiteViewModel WipeSiteViewModel(string siteID)
         {
-            if (_siteViewModels.TryRemove(siteID, out _))
-            {
-                var r = StrongReferenceMessenger.Default.Send(new GetSiteView
-                {
-                    SiteID = siteID
-                });
-                if (r.HasReceivedResponse)
-                {
-                    var siteView = r.Response;
-                    StrongReferenceMessenger.Default.Unregister<GetSiteView>(siteView);
-                    return siteView;
-                }
-            }
-            return null;
+            return _siteViewModels.TryRemove(siteID, out var siteViewModel) ? siteViewModel : null;
         }
 
         public bool HasSiteViewModel(Func<SiteViewModel, bool> onCondition = null) => onCondition != null ? _siteViewModels.Values.Any(onCondition) : _siteViewModels.Count > 0;
 
         public void WipeSiteViewModels()
         {
-            foreach (var siteID in _siteViewModels.Keys)
-            {
-                WipeSiteView(siteID);
-            }
+            _siteViewModels.Clear();
         }
     }
 }
