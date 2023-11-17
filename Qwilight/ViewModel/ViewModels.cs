@@ -168,11 +168,11 @@ namespace Qwilight.ViewModel
 
         public SiteView WipeSiteView(string siteID)
         {
-            if (_siteViewModels.TryRemove(siteID, out var siteViewModel))
+            if (_siteViewModels.TryRemove(siteID, out _))
             {
                 var r = StrongReferenceMessenger.Default.Send(new GetSiteView
                 {
-                    SiteID = siteViewModel.SiteID
+                    SiteID = siteID
                 });
                 if (r.HasReceivedResponse)
                 {
@@ -186,6 +186,12 @@ namespace Qwilight.ViewModel
 
         public bool HasSiteViewModel(Func<SiteViewModel, bool> onCondition = null) => onCondition != null ? _siteViewModels.Values.Any(onCondition) : _siteViewModels.Count > 0;
 
-        public void WipeSiteViewModels() => _siteViewModels.Clear();
+        public void WipeSiteViewModels()
+        {
+            foreach (var siteID in _siteViewModels.Keys)
+            {
+                WipeSiteView(siteID);
+            }
+        }
     }
 }
