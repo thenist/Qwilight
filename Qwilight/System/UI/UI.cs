@@ -334,7 +334,7 @@ namespace Qwilight
 
                 var valueNode = ys.Documents[0].RootNode;
                 var formatNode = valueNode[new YamlScalarNode("format")];
-                var funcNode = valueNode[new YamlScalarNode("func")];
+                var lambdaNode = valueNode[new YamlScalarNode("lambda")];
                 var frameNode = valueNode[new YamlScalarNode("frame")];
                 var pointNode = valueNode[new YamlScalarNode("point")];
                 (valueNode as YamlMappingNode).Children.TryGetValue(new YamlScalarNode("paint"), out var paintNode);
@@ -344,7 +344,7 @@ namespace Qwilight
 
                 XamlUIConfigures = Enumerable.Range(0, HighestUIConfigure).Select(i =>
                 {
-                    var configures = (Utility.GetText(funcNode, $"configure-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(funcNode, $"configure-{i}"))?.Split(',')?.Select(configure => configure.Trim())?.ToArray();
+                    var configures = (Utility.GetText(lambdaNode, $"configure-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(lambdaNode, $"configure-{i}"))?.Split(',')?.Select(configure => configure.Trim())?.ToArray();
                     if (configures != null)
                     {
                         LoadedConfigures[i] = Configure.Instance.UIConfigureValue.UIConfiguresV2[i] ??= configures.FirstOrDefault();
@@ -352,7 +352,7 @@ namespace Qwilight
                         {
                             Position = i,
                             Configures = configures,
-                            ConfigureComment = Utility.GetText(funcNode, $"configure-comment-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(funcNode, $"configure-comment-{i}")
+                            ConfigureComment = Utility.GetText(lambdaNode, $"configure-comment-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(lambdaNode, $"configure-comment-{i}")
                         };
                     }
                     else
@@ -369,8 +369,8 @@ namespace Qwilight
                 DefaultLength = GetCalledValue(formatNode, "defaultLength", Component.StandardLength.ToString());
                 DefaultHeight = GetCalledValue(formatNode, "defaultHeight", Component.StandardHeight.ToString());
 
-                var setPaintPipelines = Utility.ToBool(Utility.GetText(funcNode, "set-paint-pinelines", bool.FalseString));
-                foreach (var pipeline in GetCalledText(Utility.GetText(funcNode, "pipeline")).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var pipeline) ? pipeline : 0))
+                var setPaintPipelines = Utility.ToBool(Utility.GetText(lambdaNode, "set-paint-pinelines", bool.FalseString));
+                foreach (var pipeline in GetCalledText(Utility.GetText(lambdaNode, "pipeline")).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var pipeline) ? pipeline : 0))
                 {
                     var paintPipeline = (PaintPipelineID)pipeline;
                     PaintPipelineValues.Add(paintPipeline);
@@ -408,7 +408,7 @@ namespace Qwilight
                     }
                 }
                 PaintPipelineValues.Add(PaintPipelineID.MediaInput);
-                SaveInt(funcNode, "drawingInputModeSystem", 0);
+                SaveInt(lambdaNode, "drawingInputModeSystem", 0);
 
                 TitleColor = Utility.GetText(paintNode, "title", nameof(Colors.White)).GetColor();
                 ArtistColor = Utility.GetText(paintNode, "artist", nameof(Colors.White)).GetColor();
@@ -522,20 +522,20 @@ namespace Qwilight
                 SaveSplitValueMap("longNoteFrontEdgePosition");
                 SaveSplitValueMap("longNoteTailContentsHeight");
                 SaveSplitValueMap("longNoteFrontContentsHeight");
-                MaintainLongNoteFrontEdge = Utility.ToBool(Utility.GetText(funcNode, "maintainLongNoteFrontEdge", bool.FalseString));
-                MaintainAutoInput = Utility.ToBool(Utility.GetText(funcNode, "maintainAutoInput", bool.TrueString));
-                LoopingMain = Utility.ToInt32(Utility.GetText(funcNode, "loopingMain", 0.ToString()));
-                LoopingInput = Utility.ToInt32(Utility.GetText(funcNode, "loopingInput", 0.ToString()));
-                SetJudgmentMainPosition = Utility.ToBool(Utility.GetText(funcNode, "setJudgmentMainPosition", bool.FalseString));
-                SetMainPosition = Utility.ToBool(Utility.GetText(funcNode, "setMainPosition", bool.FalseString));
-                SetNoteLength = Utility.ToBool(Utility.GetText(funcNode, "setNoteLength", bool.FalseString));
-                SetNoteHeight = Utility.ToBool(Utility.GetText(funcNode, "setNoteHeight", bool.FalseString));
-                SetBandPosition = Utility.ToBool(Utility.GetText(funcNode, "setBandPosition", bool.FalseString));
-                SetJudgmentPaintPosition = Utility.ToBool(Utility.GetText(funcNode, "setJudgmentPaintPosition", bool.FalseString));
-                SetHitNotePaintArea = Utility.ToBool(Utility.GetText(funcNode, "setHitNotePaintArea", bool.FalseString));
+                MaintainLongNoteFrontEdge = Utility.ToBool(Utility.GetText(lambdaNode, "maintainLongNoteFrontEdge", bool.FalseString));
+                MaintainAutoInput = Utility.ToBool(Utility.GetText(lambdaNode, "maintainAutoInput", bool.TrueString));
+                LoopingMain = Utility.ToInt32(Utility.GetText(lambdaNode, "loopingMain", 0.ToString()));
+                LoopingInput = Utility.ToInt32(Utility.GetText(lambdaNode, "loopingInput", 0.ToString()));
+                SetJudgmentMainPosition = Utility.ToBool(Utility.GetText(lambdaNode, "setJudgmentMainPosition", bool.FalseString));
+                SetMainPosition = Utility.ToBool(Utility.GetText(lambdaNode, "setMainPosition", bool.FalseString));
+                SetNoteLength = Utility.ToBool(Utility.GetText(lambdaNode, "setNoteLength", bool.FalseString));
+                SetNoteHeight = Utility.ToBool(Utility.GetText(lambdaNode, "setNoteHeight", bool.FalseString));
+                SetBandPosition = Utility.ToBool(Utility.GetText(lambdaNode, "setBandPosition", bool.FalseString));
+                SetJudgmentPaintPosition = Utility.ToBool(Utility.GetText(lambdaNode, "setJudgmentPaintPosition", bool.FalseString));
+                SetHitNotePaintArea = Utility.ToBool(Utility.GetText(lambdaNode, "setHitNotePaintArea", bool.FalseString));
 
-                SaveIntMap(funcNode, "judgmentPaintComposition");
-                SaveIntMap(funcNode, "hitNotePaintComposition", (int)CanvasComposite.Add);
+                SaveIntMap(lambdaNode, "judgmentPaintComposition");
+                SaveIntMap(lambdaNode, "hitNotePaintComposition", (int)CanvasComposite.Add);
 
                 SaveIntMap(frameNode, "input-frame");
                 SaveValueMap(frameNode, "input-framerate");
@@ -860,7 +860,7 @@ namespace Qwilight
 
                 for (var i = HighestNoteID; i > 0; --i)
                 {
-                    drawingMap[i] = GetCalledText(Utility.GetText(funcNode, $"drawing{i}", i.ToString())).Split(',').Select(value => Utility.ToInt32(value, out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < HighestNoteID).ToArray();
+                    drawingMap[i] = GetCalledText(Utility.GetText(lambdaNode, $"drawing{i}", i.ToString())).Split(',').Select(value => Utility.ToInt32(value, out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < HighestNoteID).ToArray();
                 }
 
                 DrawingInputModeMap[(int)Component.InputMode.InputMode4] = GetDrawingInputMode((int)Component.InputMode.InputMode4, "2, 3, 3, 2");
@@ -881,11 +881,11 @@ namespace Qwilight
                     DrawingInputModeMap[(int)Component.InputMode.InputMode484] = new int[] { default }.Append(DrawingInputModeMap[(int)Component.InputMode.InputMode484][1]).Concat(DrawingInputModeMap[(int)Component.InputMode.InputMode484].Skip(1)).Append(DrawingInputModeMap[(int)Component.InputMode.InputMode484][50]).ToArray();
                 }
 
-                DrawingPipeline.AddRange(GetCalledText(Utility.GetText(funcNode, "drawingPipeline", string.Join(", ", Enumerable.Range(0, HighestNoteID)))).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => drawingPipeline < HighestNoteID));
+                DrawingPipeline.AddRange(GetCalledText(Utility.GetText(lambdaNode, "drawingPipeline", string.Join(", ", Enumerable.Range(0, HighestNoteID)))).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => drawingPipeline < HighestNoteID));
 
                 int[] GetDrawingInputMode(int mode, string defaultValue)
                 {
-                    return new int[] { default }.Concat(GetCalledText(Utility.GetText(funcNode, $"drawingInputMode{mode}", defaultValue)).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < HighestNoteID)).ToArray();
+                    return new int[] { default }.Concat(GetCalledText(Utility.GetText(lambdaNode, $"drawingInputMode{mode}", defaultValue)).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < HighestNoteID)).ToArray();
                 }
 
                 int[] GetDrawingInputMode2P(int mode, string defaultValue)
@@ -1041,7 +1041,7 @@ namespace Qwilight
                 }
                 void SaveAltMap(string target, int defaultValue = default)
                 {
-                    var text = Utility.GetText(funcNode, target);
+                    var text = Utility.GetText(lambdaNode, target);
                     if (string.IsNullOrEmpty(text))
                     {
                         AltMap[target] = defaultValue;
@@ -1203,36 +1203,36 @@ namespace Qwilight
             var getStandBin = new Func<int[], string>(args => "S");
             var getBandBin = new Func<int[], string>(args => "C");
 
-            SetFunc("_GetNote", ref getNote);
-            SetFunc("_GetHitNotePaint", ref getHitNotePaint);
-            SetFunc("_GetHitLongNotePaint", ref getHitLongNotePaint);
-            SetFunc("_GetJudgmentPaint", ref getJudgmentPaint);
-            SetFunc("_GetMain", ref getMain);
-            SetFunc("_GetWall", ref getWall);
-            SetFunc("_GetAutoInput", ref getAutoInput);
-            SetFunc("_GetAutoMain", ref getAutoMain);
-            SetFunc("_GetJudgmentMain", ref getJudgmentMain);
-            SetFunc("_GetMainJudgmentMeter", ref getMainJudgmentMeter);
-            SetFunc("_GetInput", ref getInput);
-            SetFunc("_GetPaintProperty", ref getPaintProperty);
-            SetFunc("_GetHighestBandBin", ref getHighestBandBin);
-            SetFunc("_GetStandBin", ref getStandBin);
-            SetFunc("_GetBandBin", ref getBandBin);
+            SetLambda("_GetNote", ref getNote);
+            SetLambda("_GetHitNotePaint", ref getHitNotePaint);
+            SetLambda("_GetHitLongNotePaint", ref getHitLongNotePaint);
+            SetLambda("_GetJudgmentPaint", ref getJudgmentPaint);
+            SetLambda("_GetMain", ref getMain);
+            SetLambda("_GetWall", ref getWall);
+            SetLambda("_GetAutoInput", ref getAutoInput);
+            SetLambda("_GetAutoMain", ref getAutoMain);
+            SetLambda("_GetJudgmentMain", ref getJudgmentMain);
+            SetLambda("_GetMainJudgmentMeter", ref getMainJudgmentMeter);
+            SetLambda("_GetInput", ref getInput);
+            SetLambda("_GetPaintProperty", ref getPaintProperty);
+            SetLambda("_GetHighestBandBin", ref getHighestBandBin);
+            SetLambda("_GetStandBin", ref getStandBin);
+            SetLambda("_GetBandBin", ref getBandBin);
 
-            void SetFunc(string funcName, ref Func<int[], string> value)
+            void SetLambda(string lambdaName, ref Func<int[], string> lambda)
             {
-                var funcValue = lsCaller.Globals[funcName];
-                if (funcValue != null)
+                var value = lsCaller.Globals[lambdaName];
+                if (value != null)
                 {
-                    value = new Func<int[], string>(args =>
+                    lambda = new Func<int[], string>(args =>
                     {
                         try
                         {
-                            return lsCaller.Call(funcValue, args).String;
+                            return lsCaller.Call(value, args).String;
                         }
                         catch
                         {
-                            throw new ArgumentException($"{funcName}([{string.Join(", ", args)}])");
+                            throw new ArgumentException($"{lambdaName}([{string.Join(", ", args)}])");
                         }
                     });
                 }
@@ -1242,13 +1242,13 @@ namespace Qwilight
             {
                 if (!IntMap.ContainsKey(toCallID))
                 {
-                    var funcName = values[0];
-                    var funcValue = lsCaller.Globals[funcName];
-                    if (funcValue != null)
+                    var lambdaName = values[0];
+                    var value = lsCaller.Globals[lambdaName];
+                    if (value != null)
                     {
                         try
                         {
-                            IntMap[toCallID] = (int)lsCaller.Call(funcValue, values.Skip(1).Select(value => Utility.ToFloat64(value) as object).ToArray()).Number;
+                            IntMap[toCallID] = (int)lsCaller.Call(value, values.Skip(1).Select(value => Utility.ToFloat64(value) as object).ToArray()).Number;
                         }
                         catch
                         {
@@ -1257,7 +1257,7 @@ namespace Qwilight
                     }
                     else
                     {
-                        throw new ArgumentException($"{funcName}({string.Join(", ", values.Skip(1))})");
+                        throw new ArgumentException($"{lambdaName}({string.Join(", ", values.Skip(1))})");
                     }
                 }
             }
@@ -1267,9 +1267,9 @@ namespace Qwilight
                 {
                     if (!paintPropertyValue.IntMap.ContainsKey(toCallID))
                     {
-                        var funcName = values[0];
-                        var funcValue = lsCaller.Globals[funcName];
-                        if (funcValue != null)
+                        var lambdaName = values[0];
+                        var lambdaValue = lsCaller.Globals[lambdaName];
+                        if (lambdaValue != null)
                         {
                             try
                             {
@@ -1282,7 +1282,7 @@ namespace Qwilight
                         }
                         else
                         {
-                            throw new ArgumentException($"{funcName}({string.Join(", ", values.Skip(1))})");
+                            throw new ArgumentException($"{lambdaName}({string.Join(", ", values.Skip(1))})");
                         }
                     }
                 }

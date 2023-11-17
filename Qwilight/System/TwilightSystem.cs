@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Google.Protobuf;
 using Ionic.Zip;
-using Microsoft.Data.Sqlite;
 using Qwilight.Compute;
 using Qwilight.MSG;
 using Qwilight.UIComponent;
@@ -10,6 +9,7 @@ using Qwilight.View;
 using Qwilight.ViewModel;
 using System.Buffers;
 using System.Collections.Concurrent;
+using System.Data.SQLite;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -796,6 +796,7 @@ namespace Qwilight
                                                     case BundleItem.BundleVariety.Qwilight:
                                                         Configure.Instance.Save();
                                                         GPUConfigure.Instance.Save();
+                                                        DB.Instance.Save();
                                                         if (Directory.Exists(QwilightComponent.CommentEntryPath))
                                                         {
                                                             zipFile.AddDirectory(QwilightComponent.CommentEntryPath, "Comment");
@@ -1033,7 +1034,7 @@ namespace Qwilight
                                                             mainViewModel.LoadEventNoteEntryItems();
                                                             mainViewModel.Want();
                                                         }
-                                                        catch (SqliteException)
+                                                        catch (SQLiteException)
                                                         {
                                                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.BeforeEventNoteContents);
                                                         }

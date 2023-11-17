@@ -4,7 +4,7 @@ namespace Igniter.Utilities
 {
     public static partial class Utility
     {
-        public static bool EraseFile(string filePath)
+        public static bool WipeFile(string filePath)
         {
             try
             {

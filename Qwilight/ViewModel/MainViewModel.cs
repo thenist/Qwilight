@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Ionic.Zip;
-using Microsoft.Data.Sqlite;
 using Qwilight.Compute;
 using Qwilight.MSG;
 using Qwilight.NoteFile;
@@ -15,6 +14,7 @@ using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -698,7 +698,7 @@ namespace Qwilight.ViewModel
                                         DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
                                         lastEventNoteID = eventNoteID;
                                     }
-                                    catch (SqliteException)
+                                    catch (SQLiteException)
                                     {
                                     }
                                 }

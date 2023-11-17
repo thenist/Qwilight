@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Igniter</RootNamespace>
     <AssemblyName>Igniter</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -110,7 +110,6 @@
     <Compile Include="System\LanguageSystem\LanguageSystem.g.cs" />
     <Compile Include="Utilities\IOUtility.cs" />
     <Compile Include="Utilities\LanguageUtility.cs" />
-    <Compile Include="Utilities\ToUtility.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModels.cs" />
     <Compile Include="View\IgniterClass.xaml.cs">

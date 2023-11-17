@@ -50,6 +50,7 @@ namespace Qwilight
         public static readonly Brush PaintWarning = DrawingSystem.Instance.GetDefaultPaint(Colors.DarkGoldenrod);
         public static readonly Pen Pen0 = DrawingSystem.Instance.GetPen(Paint0);
         public static readonly Pen Pen4 = DrawingSystem.Instance.GetPen(Paint4);
-        public static Brush DefaultPointedPaint = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(QwilightComponent.GetBuiltInData<System.Windows.Media.Color>("PointedColor")));
+
+        public static Brush DefaultPointedPaint { get; } = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(QwilightComponent.GetBuiltInData<System.Windows.Media.Color>("PointedColor")));
     }
 }

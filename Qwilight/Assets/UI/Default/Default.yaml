@@ -63,7 +63,7 @@ frame:
     main-judgment-meter-frame: 50
     main-judgment-meter-framerate: 60
 
-func:
+lambda:
     maintainLongNoteFrontEdge: false
     setJudgmentMainPosition: true
     setMainPosition: true

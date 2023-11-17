@@ -36,7 +36,7 @@
                         </Button.CommandParameter>
                     </Button>
                 </Grid>
-                <Button Style="{StaticResource StandardInput}" Content="{Binding FontFamilyValues[3], Source={StaticResource Configure}}" Command="{Binding FontFamilyCommand}" HorizontalAlignment="Right">
+                <Button Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" Style="{StaticResource StandardInput}" Content="{Binding FontFamilyValues[3], Source={StaticResource Configure}}" Command="{Binding FontFamilyCommand}" HorizontalAlignment="Right">
                     <Button.CommandParameter>
                         <system:Int32>3</system:Int32>
                     </Button.CommandParameter>

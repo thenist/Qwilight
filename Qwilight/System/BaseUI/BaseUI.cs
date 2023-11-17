@@ -720,13 +720,13 @@ namespace Qwilight
                 var paintNode = valueNode[new YamlScalarNode("paint")];
                 var pointNode = valueNode[new YamlScalarNode("point")];
                 var fontNode = valueNode[new YamlScalarNode("font")];
-                (valueNode as YamlMappingNode).Children.TryGetValue(new YamlScalarNode("func"), out var funcNode);
+                (valueNode as YamlMappingNode).Children.TryGetValue(new YamlScalarNode("lambda"), out var lambdaNode);
 
                 zipName = $"@{Utility.GetText(formatNode, "zip")}";
 
                 XamlBaseUIConfigures = Enumerable.Range(0, HighestBaseUIConfigure).Select(i =>
                 {
-                    var configures = (Utility.GetText(funcNode, $"configure-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(funcNode, $"configure-{i}"))?.Split(',')?.Select(configure => configure.Trim())?.ToArray();
+                    var configures = (Utility.GetText(lambdaNode, $"configure-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(lambdaNode, $"configure-{i}"))?.Split(',')?.Select(configure => configure.Trim())?.ToArray();
                     if (configures != null)
                     {
                         LoadedConfigures[i] = Configure.Instance.BaseUIConfigureValue.UIConfigures[i] ??= configures.FirstOrDefault();
@@ -734,7 +734,7 @@ namespace Qwilight
                         {
                             Position = i,
                             Configures = configures,
-                            ConfigureComment = Utility.GetText(funcNode, $"configure-comment-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(funcNode, $"configure-comment-{i}")
+                            ConfigureComment = Utility.GetText(lambdaNode, $"configure-comment-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(lambdaNode, $"configure-comment-{i}")
                         };
                     }
                     else
@@ -925,8 +925,6 @@ namespace Qwilight
                 FileContentsPoint = GetTextPoint(pointNode, "fileContents");
                 FileViewerPoint = GetDrawingPoint(pointNode, "fileViewer");
                 AssistFileViewerPoint = GetDrawingPoint(pointNode, "assistFileViewer");
-                JudgmentStagePoint = GetDrawingPoint(pointNode, "judgmentStage");
-                JudgmentStageContentsPoint = GetTextPoint(pointNode, "judgmentStageContents");
                 JudgmentStagePoint = GetDrawingPoint(pointNode, "judgmentStage");
                 JudgmentStageContentsPoint = GetTextPoint(pointNode, "judgmentStageContents");
                 TotalNotesPoint = GetDrawingPoint(pointNode, "totalNotes");
@@ -1293,23 +1291,23 @@ namespace Qwilight
             var getPaintProperty = new Func<int[], string>(args => "P");
             var getTransition = new Func<int[], string>(args => "T");
 
-            SetFunc("_GetPaintProperty", ref getPaintProperty);
-            SetFunc("_GetTransition", ref getTransition);
+            SetLambda("_GetPaintProperty", ref getPaintProperty);
+            SetLambda("_GetTransition", ref getTransition);
 
-            void SetFunc(string funcName, ref Func<int[], string> value)
+            void SetLambda(string lambdaName, ref Func<int[], string> value)
             {
-                var funcValue = lsCaller.Globals[funcName];
-                if (funcValue != null)
+                var lambdaValue = lsCaller.Globals[lambdaName];
+                if (lambdaValue != null)
                 {
                     value = new Func<int[], string>(args =>
                     {
                         try
                         {
-                            return lsCaller.Call(funcValue, args).String;
+                            return lsCaller.Call(lambdaValue, args).String;
                         }
                         catch
                         {
-                            throw new ArgumentException($"{funcName}([{string.Join(", ", args)}])");
+                            throw new ArgumentException($"{lambdaName}([{string.Join(", ", args)}])");
                         }
                     });
                 }

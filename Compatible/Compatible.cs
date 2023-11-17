@@ -1,8 +1,8 @@
 ﻿/** 쓰레기 코드임 */
 
 using Ionic.Zip;
-using Microsoft.Data.Sqlite;
 using System.Data;
+using System.Data.SQLite;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,12 +14,6 @@ namespace Compatible
     {
         [GeneratedRegex("(\\$[a-zA-Z\\d]+)( @*[\\d.+\\-]+)*")]
         private static partial Regex GetFuncComputer();
-
-        [GeneratedRegex("Out\\(\\d+.*\\)")]
-        private static partial Regex GetWallFunc();
-
-        [GeneratedRegex("In\\(\\d+.*\\)")]
-        private static partial Regex GetContentsFunc();
 
         static int HighestNoteID = 64;
         static int Mode0 = 0;
@@ -38,48 +32,36 @@ namespace Compatible
             }
         }
 
-        public static void DB(SqliteConnection fastDB)
+        public static void DB(SQLiteConnection fastDB)
         {
             if (HasTable("comment"))
             {
-                var dbStatement = new SqliteCommand(@"UPDATE comment
-                    SET Comment = REPLACE(Comment, '.pb', '')", fastDB);
+                using var dbStatement = NewDBStatement("""
+                    UPDATE comment
+                    SET Comment = REPLACE(Comment, '.pb', '')
+                """);
                 dbStatement.ExecuteNonQuery();
             }
-            if (HasTable("component"))
+
+            if (HasTable("note"))
             {
-                try
+                using (var dbStatement = NewDBStatement("""
+                    ALTER TABLE note
+                    RENAME TO favorite_entry
+                """))
                 {
-                    var date = string.Empty;
-                    var dbStatement = new SqliteCommand(@"SELECT Date
-                        FROM component", fastDB);
-                    using (var rows = dbStatement.ExecuteReader())
-                    {
-                        if (rows.Read())
-                        {
-                            date = rows.GetString("Date");
-                        }
-                    }
-
-                    dbStatement = new SqliteCommand(@"CREATE TABLE IF NOT EXISTS db_file (
-					    ID TEXT,
-					    Value TEXT,
-					    PRIMARY KEY (ID)
-				    )", fastDB);
-                    dbStatement.ExecuteNonQuery();
-
-                    dbStatement = new SqliteCommand("""
-                        REPLACE INTO db_file
-                        VALUES("date", @value)
-                    """, fastDB);
-                    dbStatement.Parameters.AddWithValue("value", date);
-                    dbStatement.ExecuteNonQuery();
-
-                    dbStatement = new SqliteCommand(@"DROP TABLE component", fastDB);
                     dbStatement.ExecuteNonQuery();
                 }
-                catch
+            }
+
+            if (HasTable("handle"))
+            {
+                using (var dbStatement = NewDBStatement("""
+                    ALTER TABLE handle
+                    RENAME TO handled
+                """))
                 {
+                    dbStatement.ExecuteNonQuery();
                 }
             }
 
@@ -87,8 +69,10 @@ namespace Compatible
             {
                 try
                 {
-                    var dbStatement = new SqliteCommand(@"ALTER TABLE event_note_data
-                        RENAME COLUMN Composer TO Artist", fastDB);
+                    using var dbStatement = NewDBStatement("""
+                        ALTER TABLE event_note_data
+                        RENAME COLUMN Composer TO Artist
+                    """);
                     dbStatement.ExecuteNonQuery();
                 }
                 catch
@@ -96,8 +80,10 @@ namespace Compatible
                 }
                 try
                 {
-                    var dbStatement = new SqliteCommand(@"ALTER TABLE event_note_data
-                        RENAME COLUMN Level_Contents TO Level_Text", fastDB);
+                    using var dbStatement = NewDBStatement("""
+                        ALTER TABLE event_note_data
+                        RENAME COLUMN Level_Contents TO Level_Text
+                    """);
                     dbStatement.ExecuteNonQuery();
                 }
                 catch
@@ -105,14 +91,23 @@ namespace Compatible
                 }
             }
 
+            SQLiteCommand NewDBStatement(string text, SQLiteTransaction t = null)
+            {
+                var dbStatement = fastDB.CreateCommand();
+                dbStatement.CommandText = text;
+                dbStatement.Transaction = t;
+                return dbStatement;
+            }
+
             bool HasTable(string tableName)
             {
-                var dbStatement = new SqliteCommand(@"SELECT name
+                var dbStatement = NewDBStatement("""
+                    SELECT name
                     FROM sqlite_master
-                    WHERE type = 'table' AND name = @tableName", fastDB);
+                    WHERE type = 'table' AND name = @tableName
+                """);
                 dbStatement.Parameters.AddWithValue("tableName", tableName);
-                using var rows = dbStatement.ExecuteReader();
-                return rows.Read();
+                return dbStatement.ExecuteScalar() != null;
             }
         }
 
@@ -127,7 +122,8 @@ namespace Compatible
                 {
                     yamlContents0 = sr.ReadToEnd();
                     yamlContents1 = yamlContents0
-                        .Replace("function:", "func:")
+                        .Replace("function:", "lambda:")
+                        .Replace("func:", "lambda:")
                         .Replace("default-length:", "defaultLength:")
                         .Replace("default-height:", "defaultHeight:")
                         .Replace("longNoteHigherEdgeHeight:", "longNoteTailEdgeHeight:")
@@ -143,8 +139,6 @@ namespace Compatible
                         .Replace("set-note-length:", "setNoteLength:")
                         .Replace("set-band-position:", "setBandPosition:")
                         .Replace("long-note-hit-update-frame:", "long-note-hit-loop-frame:")
-                        .Replace("compound-frame:", "band-frame:")
-                        .Replace("compound-framerate:", "band-framerate:")
                         .Replace("dual-hit-points:", "alt-hit-points:")
                         .Replace("migrate-hit-points:", "alt-hit-points:")
                         .Replace("dual-status:", "alt-status:")
@@ -159,18 +153,12 @@ namespace Compatible
                         .Replace("migrate-stand:", "alt-stand:")
                         .Replace("dual-point:", "alt-point:")
                         .Replace("migrate-point:", "alt-point:")
-                        .Replace("dual-enjoy:", "alt-net:")
-                        .Replace("migrate-enjoy:", "alt-net:")
-                        .Replace("dual-mmo:", "alt-net:")
-                        .Replace("migrate-mmo:", "alt-net:")
                         .Replace("dual-net:", "alt-net:")
                         .Replace("migrate-net:", "alt-net:")
                         .Replace("dual-pause:", "alt-pause:")
                         .Replace("migrate-pause:", "alt-pause:")
                         .Replace("dual-sw:", "alt-hms:")
                         .Replace("migrate-sw:", "alt-hms:")
-                        .Replace("dual-now:", "alt-hms:")
-                        .Replace("migrate-now:", "alt-hms:")
                         .Replace("alt-sec:", "alt-hms:")
                         .Replace("dual-judgment-meter:", "alt-judgment-meter:")
                         .Replace("migrate-judgment-meter:", "alt-judgment-meter:")
@@ -197,23 +185,12 @@ namespace Compatible
                         .Replace("judgmentCount:", "judgmentMainPosition:")
                         .Replace("mainWall0:", "mainWall0Length:")
                         .Replace("mainWall1:", "mainWall1Length:")
-                        .Replace("numLength:", "binLength:")
-                        .Replace("numHeight:", "binHeight:")
                         .Replace("standAlignment:", "standSystem:")
                         .Replace("standWave:", "standSystem:")
                         .Replace("pointAlignment:", "pointSystem:")
                         .Replace("pointWave:", "pointSystem:")
-                        .Replace("unionAlignment:", "bandSystem:")
-                        .Replace("comboAlignment:", "bandSystem:")
-                        .Replace("compoundAlignment:", "bandSystem:")
                         .Replace("bandAlignment:", "bandSystem:")
                         .Replace("bandWave:", "bandSystem:")
-                        .Replace("comboPosition0:", "bandPosition0:")
-                        .Replace("unionPosition0:", "bandPosition0:")
-                        .Replace("compoundPosition0:", "bandPosition0:")
-                        .Replace("comboPosition1:", "bandPosition1:")
-                        .Replace("unionPosition1:", "bandPosition1:")
-                        .Replace("compoundPosition1:", "bandPosition1:")
                         .Replace("judgmentAlignment:", "judgmentSystem:")
                         .Replace("judgmentWave:", "judgmentSystem:")
                         .Replace("bpmAlignment:", "bpmSystem:")
@@ -224,27 +201,10 @@ namespace Compatible
                         .Replace("hitPointsWave:", "hitPointsSystem:")
                         .Replace("multiplierAlignment:", "multiplierSystem:")
                         .Replace("multiplierWave:", "multiplierSystem:")
-                        .Replace("enjoyPosition0:", "netPosition0:")
-                        .Replace("enjoyPosition1:", "netPosition1:")
-                        .Replace("enjoyLength:", "netLength:")
-                        .Replace("enjoyHeight0:", "netHeight0:")
-                        .Replace("enjoyHeight1:", "netHeight1:")
-                        .Replace("mmoPosition0:", "netPosition0:")
-                        .Replace("mmoPosition1:", "netPosition1:")
-                        .Replace("mmoLength:", "netLength:")
-                        .Replace("mmoHeight0:", "netHeight0:")
-                        .Replace("mmoHeight1:", "netHeight1:")
                         .Replace("pauseAlignment:", "pauseSystem:")
                         .Replace("pauseWave:", "pauseSystem:")
                         .Replace("statusAlignment:", "statusSystem:")
                         .Replace("statusWave:", "statusSystem:")
-                        .Replace("numComboLength:", "binBandLength:")
-                        .Replace("binCompoundLength:", "binBandLength:")
-                        .Replace("numComboHeight:", "binBandHeight:")
-                        .Replace("binCompoundHeight:", "binBandHeight:")
-                        .Replace("newCompound:", "enlargeBand:")
-                        .Replace("enjoy-font", "net-font")
-                        .Replace("mmo-font", "net-font")
                         .Replace("lastAlignment:", "lastSystem:")
                         .Replace("lastWave:", "lastSystem:")
                         .Replace("ac-frame:", "band!-frame:")
@@ -256,22 +216,6 @@ namespace Compatible
                         .Replace("acPosition1:", "band!Position1:")
                         .Replace("acLength:", "band!Length:")
                         .Replace("acHeight:", "band!Height:")
-                        .Replace("swAlignment:", "hmsSystem:")
-                        .Replace("swAlignment:", "hmsSystem:")
-                        .Replace("nowAlignment:", "hmsSystem:")
-                        .Replace("nowWave:", "hmsSystem:")
-                        .Replace("nowSystem:", "hmsSystem:")
-                        .Replace("secSystem:", "hmsSystem:")
-                        .Replace("swPosition0:", "hmsPosition0:")
-                        .Replace("nowPosition0:", "hmsPosition0:")
-                        .Replace("secPosition0:", "hmsPosition0:")
-                        .Replace("swPosition1:", "hmsPosition1:")
-                        .Replace("nowPosition1:", "hmsPosition1:")
-                        .Replace("secPosition1:", "hmsPosition1:")
-                        .Replace("binNowLength:", "binHmsLength:")
-                        .Replace("binSecLength:", "binHmsLength:")
-                        .Replace("binNowHeight:", "binHmsHeight:")
-                        .Replace("binSecHeight:", "binHmsHeight:")
                         .Replace("autoPosition1:", "autoInputPosition1:")
                         .Replace("autoHeight:", "autoInputHeight:")
                         .Replace("judgmentPointsAlignment:", "judgmentPointsSystem:")
@@ -296,7 +240,6 @@ namespace Compatible
                         .Replace("stDrawingLength:", "stopPointDrawingLength:")
                         .Replace("dotDotImageLength:", "hmsColonDrawingLength:")
                         .Replace("dotDotDrawingLength:", "hmsColonDrawingLength:")
-                        .Replace("nowDelimiterDrawingLength:", "hmsColonDrawingLength:")
                         .Replace("secColonDrawingLength:", "hmsColonDrawingLength:")
                         .Replace("slashImageLength:", "hmsSlashDrawingLength:")
                         .Replace("slashDrawingLength:", "hmsSlashDrawingLength:")
@@ -368,7 +311,7 @@ namespace Compatible
                         .Replace("levelContentsPosition0:", "levelTextPosition0:")
                         .Replace("levelContentsPosition1:", "levelTextPosition1:")
                         .Replace("levelContentsLength:", "levelTextLength:")
-                        .Replace("levelContenteHeight:", "levelTextHeight:")
+                        .Replace("levelContentsHeight:", "levelTextHeight:")
                         .Replace("levelContentsSystem0:", "levelTextSystem0:")
                         .Replace("levelContentsSystem1:", "levelTextSystem1:")
                         .Replace("judgmentSystem:", "judgmentPaintSystem:")
@@ -379,9 +322,7 @@ namespace Compatible
                         .Replace("title-level:", "titleLevel:")
                         .Replace("composer-level:", "artistLevel:")
                         .Replace("composerLevel:", "artistLevel:")
-                        .Replace("levelContentsLevel:", "levelTextLevel:")
-                        .Replace("$In", "$Contents")
-                        .Replace("$Out", "$Wall");
+                        .Replace("levelContentsLevel:", "levelTextLevel:");
                     for (var i = HighestNoteID; i > 0; --i)
                     {
                         yamlContents1 = yamlContents1
@@ -413,7 +354,7 @@ namespace Compatible
                                 var length = values.Length;
                                 var builder = new StringBuilder(values[0][1..]);
                                 builder.Append('(');
-                                builder.Append(string.Join(", ", values.Select(value => value[(value.IndexOf("@") + 1)..]).ToArray(), 1, length - 1));
+                                builder.Append(string.Join(", ", values.Select(value => value[(value.IndexOf('@') + 1)..]).ToArray(), 1, length - 1));
                                 builder.Append(')');
                                 delimitedCommaData[i] = delimitedCommaData[i].Replace(m.Value, builder.ToString());
                             }
@@ -450,10 +391,6 @@ namespace Compatible
                         {
                             switch (zipEntry.FileName)
                             {
-                                case "Num/":
-                                    zipEntry.FileName = "Bin/";
-                                    wasModified = true;
-                                    break;
                                 case "Image/":
                                     zipEntry.FileName = "Drawing/";
                                     wasModified = true;
@@ -488,10 +425,6 @@ namespace Compatible
                             }
                             switch (Path.GetDirectoryName(zipEntry.FileName))
                             {
-                                case "Num":
-                                    zipEntry.FileName = $"Bin/{Path.GetFileName(zipEntry.FileName)}";
-                                    wasModified = true;
-                                    break;
                                 case "Image":
                                     zipEntry.FileName = $"Drawing/{Path.GetFileName(zipEntry.FileName)}";
                                     wasModified = true;
@@ -524,20 +457,9 @@ namespace Compatible
                     {
                         luaContents0 = sr.ReadToEnd();
                         luaContents1 = luaContents0
-                            .Replace("inputSemiCount", "autoableInputCount")
-                            .Replace("etudeInputCount", "autoableInputCount")
-                            .Replace("inputDefaultCount", "defaultInputCount")
                             .Replace("_GetAuto(", "_GetAutoInput(")
                             .Replace("_GetNotePaint(", "_GetHitNotePaint(")
                             .Replace("_GetLongNotePaint(", "_GetHitLongNotePaint(");
-                        foreach (Match m in GetWallFunc().Matches(luaContents1))
-                        {
-                            luaContents1 = luaContents1.Replace(m.Value, "Wall(" + m.Value[4..]);
-                        }
-                        foreach (Match m in GetContentsFunc().Matches(luaContents1))
-                        {
-                            luaContents1 = luaContents1.Replace(m.Value, "Contents(" + m.Value[3..]);
-                        }
                     }
                     if (luaContents0 != luaContents1)
                     {
@@ -562,6 +484,7 @@ namespace Compatible
                 {
                     yamlContents0 = sr.ReadToEnd();
                     yamlContents1 = yamlContents0
+                        .Replace("func:", "lambda:")
                         .Replace("uniteModeContents:", "fittedContents:")
                         .Replace("uniteModeContentsLevel:", "fittedContentsLevel:")
                         .Replace("siteViewer:", "siteHref:")
@@ -1007,7 +930,8 @@ namespace Compatible
             {
             }
         }
-        static void EraseFile(string filePath)
+
+        static void WipeFile(string filePath)
         {
             try
             {
@@ -1021,7 +945,7 @@ namespace Compatible
             }
         }
 
-        static void EraseEntry(string entryPath)
+        static void WipeEntry(string entryPath)
         {
             try
             {
@@ -1053,8 +977,8 @@ namespace Compatible
             {
                 if (File.Exists(src))
                 {
-                    EraseFile(target);
-                    EraseEntry(target);
+                    WipeFile(target);
+                    WipeEntry(target);
                     Directory.CreateDirectory(Path.GetDirectoryName(target));
                     File.Move(src, target);
                 }

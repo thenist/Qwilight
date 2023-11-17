@@ -11,7 +11,7 @@ format:
     defaultLength: DefaultLength()
     defaultHeight: DefaultHeight()
 
-func:
+lambda:
     configure-0: 16：9, 16：10, 21：9, 32：9
     configure-comment-0: Select the screen ratio.
     configure-comment-0-1042: 화면 비율을 선택합니다.
