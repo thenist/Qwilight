@@ -94,7 +94,7 @@ namespace Qwilight.ViewModel
         bool _isDefaultEntryLoading;
         bool _isInputWantPointed;
         bool _isTwilightCommentaryPointed;
-        bool _wasSiteContainerOpened;
+        bool _wasSiteContainerWindowOpened;
         bool _wasCommentOpened;
         bool _isDefaultCommentLoading;
         bool _isTwilightCommentLoading;
@@ -443,10 +443,10 @@ namespace Qwilight.ViewModel
                     switch (value)
                     {
                         case Mode.NoteFile:
-                            if (_wasSiteContainerOpened)
+                            if (_wasSiteContainerWindowOpened)
                             {
                                 ViewModels.Instance.SiteContainerValue.Open(false);
-                                _wasSiteContainerOpened = false;
+                                _wasSiteContainerWindowOpened = false;
                             }
                             if (_wasCommentOpened)
                             {
@@ -456,7 +456,7 @@ namespace Qwilight.ViewModel
                             NotifySystem.Instance.NotifyPending();
                             break;
                         case Mode.Computing:
-                            _wasSiteContainerOpened = ViewModels.Instance.SiteContainerValue.IsOpened;
+                            _wasSiteContainerWindowOpened = ViewModels.Instance.SiteContainerValue.IsOpened;
                             ViewModels.Instance.SiteContainerValue.Close(false);
                             ViewModels.Instance.NoteFileValue.Close(false);
                             break;

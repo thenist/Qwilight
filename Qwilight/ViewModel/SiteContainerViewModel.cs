@@ -5,17 +5,17 @@ namespace Qwilight.ViewModel
 {
     public sealed class SiteContainerViewModel : BaseViewModel
     {
-        Site _siteView;
+        SiteView _siteView;
 
-        public ObservableCollection<Site> SiteCollection { get; } = new();
+        public ObservableCollection<SiteView> SiteViewCollection { get; } = new();
 
         public bool IsInputPointed => IsOpened && SiteValue?.IsInputPointed == true;
 
-        public Site SiteView
+        public SiteView SiteViewValue
         {
             get => _siteView;
 
-            set => SetProperty(ref _siteView, value, nameof(SiteView));
+            set => SetProperty(ref _siteView, value, nameof(SiteViewValue));
         }
 
         public SiteViewModel SiteValue { get; set; }
@@ -24,7 +24,7 @@ namespace Qwilight.ViewModel
 
         public void OnSiteView()
         {
-            SiteValue = SiteView?.DataContext as SiteViewModel;
+            SiteValue = SiteViewValue?.DataContext as SiteViewModel;
             ViewModels.Instance.HandleSiteViewModels(siteViewModel => siteViewModel.IsOpened = SiteValue == siteViewModel);
             if (IsOpened)
             {

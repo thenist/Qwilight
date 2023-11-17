@@ -4,9 +4,9 @@ using System.Windows.Input;
 
 namespace Qwilight.View
 {
-    public sealed partial class SiteContainer
+    public sealed partial class SiteContainerWindow
     {
-        public SiteContainer() => InitializeComponent();
+        public SiteContainerWindow() => InitializeComponent();
 
         void OnSiteView(object sender, SelectionChangedEventArgs e) => (DataContext as SiteContainerViewModel).OnSiteView();
 

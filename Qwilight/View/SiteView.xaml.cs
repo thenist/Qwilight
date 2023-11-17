@@ -5,9 +5,9 @@ using System.Windows.Input;
 
 namespace Qwilight.View
 {
-    public sealed partial class Site
+    public sealed partial class SiteView
     {
-        public Site() => InitializeComponent();
+        public SiteView() => InitializeComponent();
 
         void OnInputLower(object sender, KeyEventArgs e) => (DataContext as SiteViewModel).OnInputLower(e);
 

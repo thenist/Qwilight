@@ -328,7 +328,7 @@ namespace Qwilight
                                     var toWipeSiteViewModel = ViewModels.Instance.WipeSiteViewModel(eventItemText);
                                     if (toWipeSiteViewModel != null)
                                     {
-                                        HandlingUISystem.Instance.HandleParallel(() => siteContainerViewModel.SiteCollection.Remove(toWipeSiteViewModel.View));
+                                        HandlingUISystem.Instance.HandleParallel(() => siteContainerViewModel.SiteViewCollection.Remove(toWipeSiteViewModel.View));
                                     }
                                     break;
                                 case Event.Types.EventID.Warning:
@@ -419,13 +419,13 @@ namespace Qwilight
                                     }
                                     HandlingUISystem.Instance.HandleParallel(() =>
                                     {
-                                        var toEnterSite = new Site
+                                        var toEnterSite = new SiteView
                                         {
                                             DataContext = toEnterSiteViewModel
                                         };
                                         toEnterSiteViewModel.View = toEnterSite;
-                                        siteContainerViewModel.SiteCollection.Add(toEnterSite);
-                                        siteContainerViewModel.SiteView = toEnterSite;
+                                        siteContainerViewModel.SiteViewCollection.Add(toEnterSite);
+                                        siteContainerViewModel.SiteViewValue = toEnterSite;
                                     });
                                     break;
                                 case Event.Types.EventID.CallBundle:
@@ -1352,7 +1352,7 @@ namespace Qwilight
                 {
                     if (IsEstablished)
                     {
-                        HandlingUISystem.Instance.HandleParallel(siteContainerViewModel.SiteCollection.Clear);
+                        HandlingUISystem.Instance.HandleParallel(siteContainerViewModel.SiteViewCollection.Clear);
                         ViewModels.Instance.WipeSiteViewModels();
                         foreach (var bundleID in _saveBundleMap.Keys)
                         {

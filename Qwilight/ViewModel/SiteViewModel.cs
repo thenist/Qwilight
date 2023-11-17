@@ -527,7 +527,7 @@ namespace Qwilight.ViewModel
 
         public bool CanAudioInput { get; set; }
 
-        public Site View { get; set; }
+        public SiteView View { get; set; }
 
         public string HighestInputCountText => Utility.GetHighestInputCountText(ComputingValue?.AverageInputCount ?? 0.0, ComputingValue?.HighestInputCount ?? 0, IsFavorAudioMultiplier ? 1.0 : ModeComponentValue.AudioMultiplier);
 

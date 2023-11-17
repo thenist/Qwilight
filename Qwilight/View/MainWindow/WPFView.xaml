@@ -40,7 +40,7 @@
             <view:FontFamilyWindow />
             <view:LevelWindow />
             <view:PutNoteSetWindow />
-            <view:SiteContainer />
+            <view:SiteContainerWindow />
             <view:InputTextWindow />
             <view:InputPwWindow />
             <view:VoteWindow />
