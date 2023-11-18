@@ -80,7 +80,7 @@ namespace Qwilight.NoteFile
                     _wantNoteDrawing = false;
                     Task.Run(() =>
                     {
-                        var noteDrawingPath = Utility.GetAvailable(NoteDrawingPath, Utility.AvailableFlag.Drawing);
+                        var noteDrawingPath = Utility.GetFilePath(NoteDrawingPath, Utility.FileFormatFlag.Drawing);
                         if (!string.IsNullOrEmpty(noteDrawingPath))
                         {
                             try
@@ -106,7 +106,7 @@ namespace Qwilight.NoteFile
                     _wantBannerDrawing = false;
                     Task.Run(() =>
                     {
-                        var bannerDrawingPath = Utility.GetAvailable(BannerDrawingPath, Utility.AvailableFlag.Drawing);
+                        var bannerDrawingPath = Utility.GetFilePath(BannerDrawingPath, Utility.FileFormatFlag.Drawing);
                         if (!string.IsNullOrEmpty(bannerDrawingPath))
                         {
                             try

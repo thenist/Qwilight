@@ -1,14 +1,11 @@
-﻿using Microsoft.Graphics.Canvas;
-using Qwilight.Compute;
+﻿using Qwilight.Compute;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using SharpGen.Runtime;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.IO;
 using System.Numerics;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,7 +15,6 @@ using Windows.System;
 using Windows.Win32;
 using Windows.Win32.Graphics.Gdi;
 using YamlDotNet.RepresentationModel;
-using DrawingContext = System.Windows.Media.DrawingContext;
 using IDirectInputDevice8 = Vortice.DirectInput.IDirectInputDevice8;
 using IStateUpdate = Vortice.DirectInput.IStateUpdate;
 using Point = System.Windows.Point;
@@ -30,16 +26,9 @@ namespace Qwilight.Utilities
         [GeneratedRegex("(http|https|mailto):\\/\\/[^ ]+", RegexOptions.IgnoreCase)]
         private static partial Regex GetSiteYellsComputer();
 
-        [Flags]
-        public enum AvailableFlag
-        {
-            Not = 0,
-            Audio = 1,
-            Drawing = 2,
-            Media = 4
-        }
-
         static readonly char[] _delimiters = { '[', '(' };
+
+        public static int GetDigit(int value) => value > 0 ? (int)(Math.Log10(value) + 1) : 1;
 
         public static string GetTitle(string title)
         {
@@ -143,37 +132,6 @@ namespace Qwilight.Utilities
                 }
             }
             return true;
-        }
-
-        public static float GetMove(float target, float src, double framerate = 60.0)
-        {
-            var distance = target - src;
-            if (distance != 0.0)
-            {
-                if (distance > 0.0)
-                {
-                    if (distance > 0.01)
-                    {
-                        return (float)(distance / framerate);
-                    }
-                    else
-                    {
-                        return distance;
-                    }
-                }
-                else
-                {
-                    if (distance < -0.01)
-                    {
-                        return (float)(distance / framerate);
-                    }
-                    else
-                    {
-                        return distance;
-                    }
-                }
-            }
-            return 0F;
         }
 
         public static double GetMove(double target, double src, double framerate = 60.0)
@@ -356,76 +314,10 @@ namespace Qwilight.Utilities
             return stand < noteFileCount * 900000 ? DefaultCompute.QuitStatus.APlus : point < 1.0 ? DefaultCompute.QuitStatus.S : DefaultCompute.QuitStatus.SPlus;
         }
 
-        public static AvailableFlag GetAvailable(string filePath)
-        {
-            foreach (var audioFileFormat in QwilightComponent.AudioFileFormats)
-            {
-                if (filePath.IsTailCaselsss(audioFileFormat))
-                {
-                    return AvailableFlag.Audio;
-                }
-            }
-            foreach (var mediaFileFormat in QwilightComponent.MediaFileFormats)
-            {
-                if (filePath.IsTailCaselsss(mediaFileFormat))
-                {
-                    return AvailableFlag.Media;
-                }
-            }
-            foreach (var drawingFileFormat in QwilightComponent.DrawingFileFormats)
-            {
-                if (filePath.IsTailCaselsss(drawingFileFormat))
-                {
-                    return AvailableFlag.Drawing;
-                }
-            }
-            return AvailableFlag.Not;
-        }
-
-        public static string GetAvailable(string filePath, AvailableFlag availableFlags)
-        {
-            if (File.Exists(filePath))
-            {
-                return filePath;
-            }
-            return Utility.GetFiles(Path.GetDirectoryName(filePath), $"{Path.GetFileNameWithoutExtension(filePath)}.*").Order().FirstOrDefault(targetFilePath =>
-            {
-                if (File.Exists(targetFilePath))
-                {
-                    if ((availableFlags & AvailableFlag.Audio) == AvailableFlag.Audio && GetAvailable(targetFilePath) == AvailableFlag.Audio)
-                    {
-                        return true;
-                    }
-                    if ((availableFlags & AvailableFlag.Drawing) == AvailableFlag.Drawing && GetAvailable(targetFilePath) == AvailableFlag.Drawing)
-                    {
-                        return true;
-                    }
-                    if ((availableFlags & AvailableFlag.Media) == AvailableFlag.Media && GetAvailable(targetFilePath) == AvailableFlag.Media)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            });
-        }
-
         public static string CompileSiteYells(string siteYells)
         {
             var m = GetSiteYellsComputer().Matches(siteYells);
             return m.Count < 2 ? m.SingleOrDefault()?.Value ?? string.Empty : string.Empty;
-        }
-
-        public static string GetFault(Exception e)
-        {
-            var builder = new StringBuilder();
-            var fault = e;
-            builder.AppendLine(fault.ToString());
-            while ((fault = fault.InnerException) != null)
-            {
-                builder.AppendLine();
-                builder.AppendLine(fault.ToString());
-            }
-            return builder.ToString();
         }
 
         public static double GetDistance(Component value, Queue<KeyValuePair<double, double>> waitBPMMap, double loopingCounter, double targetLoopingCounter, out double lastBPM)
@@ -451,23 +343,7 @@ namespace Qwilight.Utilities
             return distance + value.LogicalYMillis * (targetLoopingCounter - loopingCounter);
         }
 
-        public static void Into<TKey, TValue>(this IDictionary<TKey, List<TValue>> valueMap, TKey i, TValue value)
-        {
-            if (valueMap.TryGetValue(i, out var values))
-            {
-                values.Add(value);
-                valueMap[i] = values;
-            }
-            else
-            {
-                valueMap[i] = new()
-                {
-                    value
-                };
-            }
-        }
-
-        public static void Into<TKey, TValue>(this IDictionary<TKey, SortedSet<TValue>> valueMap, TKey i, TValue value)
+        public static void NewValue<TKey, TValue, U>(this IDictionary<TKey, U> valueMap, TKey i, TValue value) where U : ICollection<TValue>, new()
         {
             if (valueMap.TryGetValue(i, out var values))
             {
@@ -580,79 +456,6 @@ namespace Qwilight.Utilities
             return data;
         }
 
-        public static void SetFilledMediaDrawing(ref Bound r, bool isMediaFill, double mediaSoftwareLength, double mediaSoftwareHeight, double mediaPosition0, double mediaPosition1, double mediaLength, double mediaHeight)
-        {
-            if (isMediaFill)
-            {
-                r.Set(mediaPosition0, mediaPosition1, mediaLength, mediaHeight);
-            }
-            else
-            {
-                if (mediaLength / mediaSoftwareLength > mediaHeight / mediaSoftwareHeight)
-                {
-                    mediaSoftwareLength = mediaHeight * mediaSoftwareLength / mediaSoftwareHeight;
-                    r.Set(mediaPosition0 + (mediaLength - mediaSoftwareLength) / 2, mediaPosition1, mediaSoftwareLength, mediaHeight);
-                }
-                else
-                {
-                    mediaSoftwareHeight = mediaLength * mediaSoftwareHeight / mediaSoftwareLength;
-                    r.Set(mediaPosition0, mediaPosition1 + (mediaHeight - mediaSoftwareHeight) / 2, mediaLength, mediaSoftwareHeight);
-                }
-            }
-        }
-
-        public static void PaintAudioVisualizer(CanvasDrawingSession targetSession, ref Bound r, int audioVisualizerFaint, double audioVisualizerPosition0, double audioVisualizerPosition1, double audioVisualizerLength, double audioVisualizerHeight)
-        {
-            if (Configure.Instance.AudioVisualizer && audioVisualizerFaint > 0)
-            {
-                var audioMainVisualizerPaint = DrawingSystem.Instance.AudioVisualizerMainPaints[audioVisualizerFaint];
-                var audioInputVisualizerPaint = DrawingSystem.Instance.AudioVisualizerInputPaints[audioVisualizerFaint];
-                var audioVisualizerCount = Configure.Instance.AudioVisualizerCount;
-                var audioVisualizerUnitLength = audioVisualizerLength / audioVisualizerCount;
-                for (var i = audioVisualizerCount - 1; i >= 0; --i)
-                {
-                    var mainAudioVisualizerValue = audioVisualizerHeight * AudioSystem.Instance.GetAudioVisualizerValue(AudioSystem.MainAudio, i);
-                    var inputAudioVisualizerValue = audioVisualizerHeight * AudioSystem.Instance.GetAudioVisualizerValue(AudioSystem.InputAudio, i);
-                    if (mainAudioVisualizerValue > 0.0)
-                    {
-                        r.Set(audioVisualizerPosition0 + audioVisualizerUnitLength * i, audioVisualizerPosition1 + Configure.Instance.GetAudioVisualizerModifier(audioVisualizerHeight, mainAudioVisualizerValue), audioVisualizerUnitLength, mainAudioVisualizerValue);
-                        targetSession.FillRectangle(r, audioMainVisualizerPaint);
-                    }
-                    if (inputAudioVisualizerValue > 0.0)
-                    {
-                        r.Set(audioVisualizerPosition0 + audioVisualizerUnitLength * i, audioVisualizerPosition1 + Configure.Instance.GetAudioVisualizerModifier(audioVisualizerHeight, inputAudioVisualizerValue), audioVisualizerUnitLength, inputAudioVisualizerValue);
-                        targetSession.FillRectangle(r, audioInputVisualizerPaint);
-                    }
-                }
-            }
-        }
-
-        public static void PaintAudioVisualizer(DrawingContext targetSession, ref Bound r, int audioVisualizerFaint, double audioVisualizerPosition0, double audioVisualizerPosition1, double audioVisualizerLength, double audioVisualizerHeight)
-        {
-            if (Configure.Instance.AudioVisualizer && audioVisualizerFaint > 0)
-            {
-                var audioMainVisualizerPaint = Configure.Instance.AudioVisualizerMainPaints[audioVisualizerFaint];
-                var audioInputVisualizerPaint = Configure.Instance.AudioVisualizerInputPaints[audioVisualizerFaint];
-                var audioVisualizerCount = Configure.Instance.AudioVisualizerCount;
-                var audioVisualizerUnitLength = audioVisualizerLength / audioVisualizerCount;
-                for (var i = audioVisualizerCount - 1; i >= 0; --i)
-                {
-                    var mainAudioVisualizerValue = audioVisualizerHeight * AudioSystem.Instance.GetAudioVisualizerValue(AudioSystem.MainAudio, i);
-                    var inputAudioVisualizerValue = audioVisualizerHeight * AudioSystem.Instance.GetAudioVisualizerValue(AudioSystem.InputAudio, i);
-                    if (mainAudioVisualizerValue > 0.0)
-                    {
-                        r.Set(audioVisualizerPosition0 + audioVisualizerUnitLength * i, audioVisualizerPosition1 + Configure.Instance.GetAudioVisualizerModifier(audioVisualizerHeight, mainAudioVisualizerValue), audioVisualizerUnitLength, mainAudioVisualizerValue);
-                        targetSession.DrawRectangle(audioMainVisualizerPaint, null, r);
-                    }
-                    if (inputAudioVisualizerValue > 0.0)
-                    {
-                        r.Set(audioVisualizerPosition0 + audioVisualizerUnitLength * i, audioVisualizerPosition1 + Configure.Instance.GetAudioVisualizerModifier(audioVisualizerHeight, inputAudioVisualizerValue), audioVisualizerUnitLength, inputAudioVisualizerValue);
-                        targetSession.DrawRectangle(audioInputVisualizerPaint, null, r);
-                    }
-                }
-            }
-        }
-
         public static bool? IsItemsEqual<T>(ICollection<T> values, ICollection<T> lastValues, IEqualityComparer<T> onEqual = null)
         {
             if (values.Count != lastValues.Count)
@@ -723,7 +526,7 @@ namespace Qwilight.Utilities
             }
         }
 
-        public static T[] GetInputData<T>(IDirectInputDevice8 dInputController) where T : unmanaged, IStateUpdate
+        public static T[] GetDInputData<T>(IDirectInputDevice8 dInputController) where T : unmanaged, IStateUpdate
         {
             var data = Array.Empty<T>();
             try
@@ -752,14 +555,6 @@ namespace Qwilight.Utilities
             }
             return value;
         }
-
-        public static string GetSiteName(string siteName) => siteName switch
-        {
-            "@Comment" => LanguageSystem.Instance.CommentSiteName,
-            "@Default" => LanguageSystem.Instance.DefaultSiteName,
-            "@Platform" => LanguageSystem.Instance.PlatformSiteName,
-            _ => siteName
-        };
 
         public static string GetPlatformText(string title, string artist, string genre, string levelText) => $"{levelText} {artist} - {title} {GetGenreText(genre)}";
 

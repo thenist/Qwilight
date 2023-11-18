@@ -1,6 +1,6 @@
 ﻿namespace Qwilight
 {
-    public struct MediaNote
+    public sealed class MediaNote
     {
         public enum Mode
         {

@@ -143,7 +143,7 @@ namespace Qwilight.ViewModel
                         Utility.SetUICollection(SiteItemCollection, twilightWwwSites.Select(data => new SiteItem
                         {
                             SiteID = data.siteID,
-                            SiteName = Utility.GetSiteName(data.siteName),
+                            SiteName = LanguageSystem.Instance.GetSiteName(data.siteName),
                             SiteConfigure = data.siteConfigure,
                             HasCipher = data.hasCipher,
                             AvatarCountText = data.avatarCount.ToString(LanguageSystem.Instance.AvatarCountContents)

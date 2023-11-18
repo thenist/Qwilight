@@ -731,7 +731,7 @@ namespace Qwilight
                                                                         var altBand = drawingComponentValue.altBand;
                                                                         var bandDrawingMap = defaultComputer.BandEnlargedMap;
                                                                         var bandDrawingFrames = defaultComputer.BandDrawingFrames;
-                                                                        var bandDigit = QwilightComponent.GetDigit(band);
+                                                                        var bandDigit = Utility.GetDigit(band);
                                                                         for (var i = altBand >> 1; i >= altBand % 2; --i)
                                                                         {
                                                                             var distanceBand = i == 1 && has2P ? distance2P : 0F;
@@ -779,7 +779,7 @@ namespace Qwilight
                                                                         if (absJudgmentMeter >= Configure.Instance.JudgmentMeterMillis)
                                                                         {
                                                                             var distanceJudgmentMeter = i == 1 && has2P ? distance2P : 0F;
-                                                                            var judgmentMeterDigit = QwilightComponent.GetDigit(absJudgmentMeter);
+                                                                            var judgmentMeterDigit = Utility.GetDigit(absJudgmentMeter);
                                                                             switch (judgmentMeterSystem)
                                                                             {
                                                                                 case 0:
@@ -810,7 +810,7 @@ namespace Qwilight
                                                                     break;
                                                                 case PaintPipelineID.Stand:
                                                                     var stand = defaultComputer.Stand.Value;
-                                                                    var standDigit = QwilightComponent.GetDigit(stand);
+                                                                    var standDigit = Utility.GetDigit(stand);
                                                                     var standCommaDrawing = UI.Instance.CommaDrawing;
                                                                     var standCommaDrawingLength = drawingComponentValue.standCommaDrawingLength;
                                                                     var standCommaCount = (standDigit - 1) / 3;
@@ -890,7 +890,7 @@ namespace Qwilight
                                                                     var binPointMap = UI.Instance.BinPointMap;
                                                                     var pointUnitDrawing = UI.Instance.PointUnitDrawing;
                                                                     var pointStopPointDrawing = UI.Instance.PointStopPointDrawing;
-                                                                    var pointDigit = pointInt < 100 ? 3 : QwilightComponent.GetDigit(pointInt);
+                                                                    var pointDigit = pointInt < 100 ? 3 : Utility.GetDigit(pointInt);
                                                                     for (var i = altPoint >> 1; i >= altPoint % 2; --i)
                                                                     {
                                                                         var distancePoint = i == 1 && has2P ? distance2P : 0F;
@@ -948,7 +948,7 @@ namespace Qwilight
                                                                     var binBPMHeight = drawingComponentValue.binBPMHeight;
                                                                     var bpmUnitDrawingLength = drawingComponentValue.bpmUnitDrawingLength;
                                                                     var bpmSystem = drawingComponentValue.bpmSystem;
-                                                                    var bpmDigit = QwilightComponent.GetDigit(bpmInt);
+                                                                    var bpmDigit = Utility.GetDigit(bpmInt);
                                                                     var altBPM = drawingComponentValue.altBPM;
                                                                     var binBPMMap = UI.Instance.BinBPMMap;
                                                                     var bpmUnitDrawing = UI.Instance.BPMUnitDrawing;
@@ -984,7 +984,7 @@ namespace Qwilight
                                                                     var binMultiplierHeight = drawingComponentValue.binMultiplierHeight;
                                                                     var multiplierStopPointDrawingLength = drawingComponentValue.multiplierStopPointDrawingLength;
                                                                     var multiplierUnitDrawingLength = drawingComponentValue.multiplierUnitDrawingLength;
-                                                                    var multiplierDigit = multiplierInt < 10 ? 2 : QwilightComponent.GetDigit(multiplierInt);
+                                                                    var multiplierDigit = multiplierInt < 10 ? 2 : Utility.GetDigit(multiplierInt);
                                                                     var multiplierSystem = drawingComponentValue.multiplierSystem;
                                                                     var altMultiplier = drawingComponentValue.altMultiplier;
                                                                     var binMultiplierMap = UI.Instance.BinMultiplierMap;
@@ -1320,8 +1320,8 @@ namespace Qwilight
                                                                     var hmsPosition1 = drawingComponentValue.hmsPosition1;
                                                                     var binHmsLength = drawingComponentValue.binHmsLength;
                                                                     var binHmsHeight = drawingComponentValue.binHmsHeight;
-                                                                    var mWaitDigit = QwilightComponent.GetDigit(mWait);
-                                                                    var mLengthDigit = QwilightComponent.GetDigit(mLength);
+                                                                    var mWaitDigit = Utility.GetDigit(mWait);
+                                                                    var mLengthDigit = Utility.GetDigit(mLength);
                                                                     var hmsSystem = drawingComponentValue.hmsSystem;
                                                                     var binHmsMap = UI.Instance.BinHmsMap;
                                                                     var altHms = drawingComponentValue.altHms;
@@ -1512,7 +1512,7 @@ namespace Qwilight
                                                                     var altHitPointsVisualizer = drawingComponentValue.altHitPointsVisualizer;
                                                                     var binHitPointsVisualizerMap = UI.Instance.BinHitPointsVisualizerMap;
                                                                     var hitPointsVisualizerUnitDrawing = UI.Instance.HitPointsVisualizerUnitDrawing;
-                                                                    var hitPointsDigit = QwilightComponent.GetDigit(hitPointsInt);
+                                                                    var hitPointsDigit = Utility.GetDigit(hitPointsInt);
                                                                     for (var i = altHitPointsVisualizer >> 1; i >= altHitPointsVisualizer % 2; --i)
                                                                     {
                                                                         var distanceHitPointsVisualizer = i == 1 && has2P ? distance2P : 0F;
@@ -1677,7 +1677,7 @@ namespace Qwilight
                                                                         var drawingHunterLower = UI.Instance.HunterLowerDrawing;
                                                                         var hunterValue = hunter.Value;
                                                                         var absHunter = Math.Abs(hunterValue);
-                                                                        var hunterDigit = QwilightComponent.GetDigit(absHunter);
+                                                                        var hunterDigit = Utility.GetDigit(absHunter);
                                                                         for (var i = altHunter >> 1; i >= altHunter % 2; --i)
                                                                         {
                                                                             var distanceHunter = i == 1 && has2P ? distance2P : 0F;
@@ -1876,7 +1876,7 @@ namespace Qwilight
                                                                         var altJudgmentVSVisualizer = drawingComponentValue.altJudgmentVSVisualizer;
                                                                         var binJudgmentVSVisualizerMap = UI.Instance.BinJudgmentVSVisualizerMap;
                                                                         var judgmentVSVisualizerStopPointDrawing = UI.Instance.JudgmentVSVisualizerStopPointDrawing;
-                                                                        var judgmentVSVisualizerDigit = judgmentVSVisualizerInt < 100 ? 3 : QwilightComponent.GetDigit(judgmentVSVisualizerInt);
+                                                                        var judgmentVSVisualizerDigit = judgmentVSVisualizerInt < 100 ? 3 : Utility.GetDigit(judgmentVSVisualizerInt);
                                                                         for (var i = altJudgmentVSVisualizer >> 1; i >= altJudgmentVSVisualizer % 2; --i)
                                                                         {
                                                                             var distancePoint = i == 1 && has2P ? distance2P : 0F;
@@ -2017,7 +2017,7 @@ namespace Qwilight
 
                                                             void PaintInt(int value, int system, double position0, double position1, double length, double height, int alt, DrawingItem?[] drawingItems)
                                                             {
-                                                                var digit = QwilightComponent.GetDigit(value);
+                                                                var digit = Utility.GetDigit(value);
                                                                 for (var i = alt >> 1; i >= alt % 2; --i)
                                                                 {
                                                                     var distance = i == 1 && has2P ? distance2P : 0F;
@@ -3026,7 +3026,7 @@ namespace Qwilight
                 }
                 catch (Exception e)
                 {
-                    Utility.SetFault(FaultEntryPath, e);
+                    Utility.SaveFaultFile(FaultEntryPath, e);
                 }
                 finally
                 {

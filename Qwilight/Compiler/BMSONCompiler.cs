@@ -507,7 +507,7 @@ namespace Qwilight.Compiler
             var parallelItems = new ConcurrentBag<Action>();
             try
             {
-                var noteDrawingPath = Utility.GetAvailable(defaultComputer.NoteDrawingPath, Utility.AvailableFlag.Drawing);
+                var noteDrawingPath = Utility.GetFilePath(defaultComputer.NoteDrawingPath, Utility.FileFormatFlag.Drawing);
                 if (!string.IsNullOrEmpty(noteDrawingPath))
                 {
                     defaultComputer.NoteHandledDrawingItem = new HandledDrawingItem
@@ -528,7 +528,7 @@ namespace Qwilight.Compiler
                 {
                     try
                     {
-                        var audioFilePath = Path.IsPathFullyQualified(audioFileName) ? audioFileName : Utility.GetAvailable(Path.Combine(NoteFile.EntryItem.EntryPath, audioFileName), Utility.AvailableFlag.Audio);
+                        var audioFilePath = Path.IsPathFullyQualified(audioFileName) ? audioFileName : Utility.GetFilePath(Path.Combine(NoteFile.EntryItem.EntryPath, audioFileName), Utility.FileFormatFlag.Audio);
                         if (!string.IsNullOrEmpty(audioFilePath))
                         {
                             audioFileNameAudioItemMap[audioFileName] = AudioSystem.Instance.Load(audioFilePath, defaultComputer, 1F);
@@ -547,17 +547,17 @@ namespace Qwilight.Compiler
                     {
                         try
                         {
-                            var mediaFilePath = Path.IsPathFullyQualified(paint.name) ? paint.name : Utility.GetAvailable(Path.Combine(NoteFile.EntryItem.EntryPath, paint.name), Utility.AvailableFlag.Drawing | Utility.AvailableFlag.Media);
+                            var mediaFilePath = Path.IsPathFullyQualified(paint.name) ? paint.name : Utility.GetFilePath(Path.Combine(NoteFile.EntryItem.EntryPath, paint.name), Utility.FileFormatFlag.Drawing | Utility.FileFormatFlag.Media);
                             if (!string.IsNullOrEmpty(mediaFilePath))
                             {
-                                mediaIDHandledItemMap[Utility.ToInt64(paint.id.ToString())] = (Utility.GetAvailable(mediaFilePath)) switch
+                                mediaIDHandledItemMap[Utility.ToInt64(paint.id.ToString())] = (Utility.GetFileFormat(mediaFilePath)) switch
                                 {
-                                    Utility.AvailableFlag.Drawing => new HandledDrawingItem
+                                    Utility.FileFormatFlag.Drawing => new HandledDrawingItem
                                     {
                                         Drawing = DrawingSystem.Instance.Load(mediaFilePath, defaultComputer),
                                         DefaultDrawing = DrawingSystem.Instance.LoadDefault(mediaFilePath, defaultComputer)
                                     },
-                                    Utility.AvailableFlag.Media => MediaSystem.Instance.Load(mediaFilePath, defaultComputer, false),
+                                    Utility.FileFormatFlag.Media => MediaSystem.Instance.Load(mediaFilePath, defaultComputer, false),
                                     _ => null,
                                 };
                             }
@@ -587,7 +587,7 @@ namespace Qwilight.Compiler
                 foreach (var mediaEvent in _text.bga.bga_events)
                 {
                     var bmsonPosition = mediaEvent.y;
-                    defaultComputer.WaitMediaNoteMap.Into(_bmsonPositionWaitMap[bmsonPosition], new MediaNote
+                    defaultComputer.WaitMediaNoteMap.NewValue(_bmsonPositionWaitMap[bmsonPosition], new MediaNote
                     {
                         MediaMode = MediaNote.Mode.Default,
                         MediaItem = mediaIDHandledItemMap.GetValueOrDefault(Utility.ToInt64(mediaEvent.id.ToString())),
@@ -597,7 +597,7 @@ namespace Qwilight.Compiler
                 foreach (var mediaEvent in _text.bga.layer_events)
                 {
                     var bmsonPosition = mediaEvent.y;
-                    defaultComputer.WaitMediaNoteMap.Into(_bmsonPositionWaitMap[bmsonPosition], new MediaNote
+                    defaultComputer.WaitMediaNoteMap.NewValue(_bmsonPositionWaitMap[bmsonPosition], new MediaNote
                     {
                         MediaMode = MediaNote.Mode.Layer,
                         MediaItem = mediaIDHandledItemMap.GetValueOrDefault(Utility.ToInt64(mediaEvent.id.ToString())),
@@ -607,7 +607,7 @@ namespace Qwilight.Compiler
                 foreach (var mediaEvent in _text.bga.poor_events)
                 {
                     var bmsonPosition = mediaEvent.y;
-                    defaultComputer.WaitMediaNoteMap.Into(_bmsonPositionWaitMap[bmsonPosition], new MediaNote
+                    defaultComputer.WaitMediaNoteMap.NewValue(_bmsonPositionWaitMap[bmsonPosition], new MediaNote
                     {
                         MediaMode = MediaNote.Mode.Failed,
                         MediaItem = mediaIDHandledItemMap.GetValueOrDefault(Utility.ToInt64(mediaEvent.id.ToString())),
@@ -664,7 +664,7 @@ namespace Qwilight.Compiler
                     }
                     else if (audioItem != null)
                     {
-                        defaultComputer.WaitAudioNoteMap.Into(wait, audioNote);
+                        defaultComputer.WaitAudioNoteMap.NewValue(wait, audioNote);
                     }
                     if (!isContinuous)
                     {

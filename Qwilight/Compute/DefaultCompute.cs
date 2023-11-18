@@ -1107,11 +1107,9 @@ namespace Qwilight.Compute
 
         public void AutoPause()
         {
-            if (IsHandling && CanPause && !CanSetPosition && ValidatedTotalNotes > 0 && LastStatusValue == LastStatus.Not)
+            if (IsHandling && CanPause && !CanSetPosition && ValidatedTotalNotes > 0 && LastStatusValue == LastStatus.Not && !QwilightComponent.IsVS)
             {
-#if !DEBUG
                 Pause();
-#endif
             }
         }
 
@@ -1566,16 +1564,16 @@ namespace Qwilight.Compute
                     {
                         try
                         {
-                            switch (Utility.GetAvailable(BanalMediaFilePath))
+                            switch (Utility.GetFileFormat(BanalMediaFilePath))
                             {
-                                case Utility.AvailableFlag.Drawing:
+                                case Utility.FileFormatFlag.Drawing:
                                     LoopingBanalMedia = new HandledDrawingItem
                                     {
                                         Drawing = DrawingSystem.Instance.Load(BanalMediaFilePath, this),
                                         DefaultDrawing = DrawingSystem.Instance.LoadDefault(BanalMediaFilePath, this)
                                     };
                                     break;
-                                case Utility.AvailableFlag.Media:
+                                case Utility.FileFormatFlag.Media:
                                     LoopingBanalMedia = MediaSystem.Instance.Load(BanalMediaFilePath, this, true);
                                     break;
                             }
@@ -1591,16 +1589,16 @@ namespace Qwilight.Compute
                     {
                         try
                         {
-                            switch (Utility.GetAvailable(BanalFailedMediaFilePath))
+                            switch (Utility.GetFileFormat(BanalFailedMediaFilePath))
                             {
-                                case Utility.AvailableFlag.Drawing:
+                                case Utility.FileFormatFlag.Drawing:
                                     LoopingBanalFailedMedia = new HandledDrawingItem
                                     {
                                         Drawing = DrawingSystem.Instance.Load(BanalFailedMediaFilePath, this),
                                         DefaultDrawing = DrawingSystem.Instance.LoadDefault(BanalFailedMediaFilePath, this)
                                     };
                                     break;
-                                case Utility.AvailableFlag.Media:
+                                case Utility.FileFormatFlag.Media:
                                     LoopingBanalFailedMedia = MediaSystem.Instance.Load(BanalFailedMediaFilePath, this, true);
                                     break;
                             }
@@ -3129,7 +3127,7 @@ namespace Qwilight.Compute
                             if (bandFrame > 0)
                             {
                                 var enlargeBand = DrawingComponentValue.enlargeBand;
-                                var digit = QwilightComponent.GetDigit(band) - 1;
+                                var digit = Utility.GetDigit(band) - 1;
                                 for (var i = digit; i >= 0; --i)
                                 {
                                     var j = (int)Math.Pow(10, i);
@@ -3584,7 +3582,7 @@ namespace Qwilight.Compute
             }
             catch (Exception e)
             {
-                var (faultFilePath, _) = Utility.SetFault(FaultEntryPath, e);
+                var (faultFilePath, _) = Utility.SaveFaultFile(FaultEntryPath, e);
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, e.Message, true, string.Empty, () => Utility.OpenAs(faultFilePath));
             }
             finally

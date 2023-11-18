@@ -643,7 +643,7 @@ namespace Qwilight.ViewModel
         public void SetCallSiteAvatarData(JSON.TwilightCallSiteAvatar pendingCallSiteAvatarData)
         {
             var siteHand = pendingCallSiteAvatarData.siteHand;
-            SiteName = Utility.GetSiteName(pendingCallSiteAvatarData.siteName);
+            SiteName = LanguageSystem.Instance.GetSiteName(pendingCallSiteAvatarData.siteName);
             SiteHand = siteHand;
             SiteSituationValue = (SiteSituation)pendingCallSiteAvatarData.situationValue;
             Utility.SetUICollection(AvatarItemCollection, pendingCallSiteAvatarData.data.Select(data =>
@@ -915,13 +915,13 @@ namespace Qwilight.ViewModel
                     default:
                         var href = Utility.CompileSiteYells(siteYell);
                         var position = href.IndexOf('?');
-                        switch (Utility.GetAvailable(position != -1 ? href.Substring(0, position) : href))
+                        switch (Utility.GetFileFormat(position != -1 ? href.Substring(0, position) : href))
                         {
-                            case Utility.AvailableFlag.Audio:
+                            case Utility.FileFormatFlag.Audio:
                                 return new AudioSiteYell(avatarID, avatarName, date, siteYell, href, siteYellID);
-                            case Utility.AvailableFlag.Media:
+                            case Utility.FileFormatFlag.Media:
                                 return new MediaSiteYell(avatarID, avatarName, date, siteYell, href, siteYellID);
-                            case Utility.AvailableFlag.Drawing:
+                            case Utility.FileFormatFlag.Drawing:
                                 return new DrawingSiteYell(avatarID, avatarName, date, siteYell, href, siteYellID);
                             default:
                                 return new DefaultSiteYell(avatarID, avatarName, date, siteYell, href, siteYellID);

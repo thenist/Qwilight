@@ -22,6 +22,14 @@ namespace Qwilight
         public string[] SetNoteModeTexts { get; } = new string[6];
         public string[] LowestJudgmentConditionModeTexts { get; } = new string[2];
 
+        public string GetSiteName(string siteName) => siteName switch
+        {
+            "@Comment" => CommentSiteName,
+            "@Default" => DefaultSiteName,
+            "@Platform" => PlatformSiteName,
+            _ => siteName
+        };
+
         public void Init(string language)
         {
             var languageSystem = typeof(LanguageSystem);

@@ -59,37 +59,37 @@ namespace Test.Utilities
         }
 
         [Fact]
-        public void Into()
+        public void NewValue()
         {
             var valueMap = new Dictionary<int, List<int>>();
 
-            Utility.Into(valueMap, 0, 0);
+            Utility.NewValue(valueMap, 0, 0);
             Assert.Single(valueMap);
             Assert.Single(valueMap[0]);
-            Utility.Into(valueMap, 0, 1);
+            Utility.NewValue(valueMap, 0, 1);
             Assert.Single(valueMap);
             Assert.Equal(2, valueMap[0].Count);
-            Utility.Into(valueMap, 0, 2);
+            Utility.NewValue(valueMap, 0, 2);
             Assert.Single(valueMap);
             Assert.Equal(3, valueMap[0].Count);
 
-            Utility.Into(valueMap, 1, 0);
+            Utility.NewValue(valueMap, 1, 0);
             Assert.Equal(2, valueMap.Count);
             Assert.Single(valueMap[1]);
-            Utility.Into(valueMap, 1, 1);
+            Utility.NewValue(valueMap, 1, 1);
             Assert.Equal(2, valueMap.Count);
             Assert.Equal(2, valueMap[1].Count);
-            Utility.Into(valueMap, 1, 2);
+            Utility.NewValue(valueMap, 1, 2);
             Assert.Equal(2, valueMap.Count);
             Assert.Equal(3, valueMap[1].Count);
 
-            Utility.Into(valueMap, 2, 0);
+            Utility.NewValue(valueMap, 2, 0);
             Assert.Equal(3, valueMap.Count);
             Assert.Single(valueMap[2]);
-            Utility.Into(valueMap, 2, 1);
+            Utility.NewValue(valueMap, 2, 1);
             Assert.Equal(3, valueMap.Count);
             Assert.Equal(2, valueMap[2].Count);
-            Utility.Into(valueMap, 2, 2);
+            Utility.NewValue(valueMap, 2, 2);
             Assert.Equal(3, valueMap.Count);
             Assert.Equal(3, valueMap[2].Count);
         }

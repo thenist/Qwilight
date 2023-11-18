@@ -108,5 +108,78 @@ namespace Qwilight.Utilities
                 targetSession.DrawImage(drawing, r);
             }
         }
+
+        public static void SetFilledMediaDrawing(ref Bound r, bool isMediaFill, double mediaSoftwareLength, double mediaSoftwareHeight, double mediaPosition0, double mediaPosition1, double mediaLength, double mediaHeight)
+        {
+            if (isMediaFill)
+            {
+                r.Set(mediaPosition0, mediaPosition1, mediaLength, mediaHeight);
+            }
+            else
+            {
+                if (mediaLength / mediaSoftwareLength > mediaHeight / mediaSoftwareHeight)
+                {
+                    mediaSoftwareLength = mediaHeight * mediaSoftwareLength / mediaSoftwareHeight;
+                    r.Set(mediaPosition0 + (mediaLength - mediaSoftwareLength) / 2, mediaPosition1, mediaSoftwareLength, mediaHeight);
+                }
+                else
+                {
+                    mediaSoftwareHeight = mediaLength * mediaSoftwareHeight / mediaSoftwareLength;
+                    r.Set(mediaPosition0, mediaPosition1 + (mediaHeight - mediaSoftwareHeight) / 2, mediaLength, mediaSoftwareHeight);
+                }
+            }
+        }
+
+        public static void PaintAudioVisualizer(CanvasDrawingSession targetSession, ref Bound r, int audioVisualizerFaint, double audioVisualizerPosition0, double audioVisualizerPosition1, double audioVisualizerLength, double audioVisualizerHeight)
+        {
+            if (Configure.Instance.AudioVisualizer && audioVisualizerFaint > 0)
+            {
+                var audioMainVisualizerPaint = DrawingSystem.Instance.AudioVisualizerMainPaints[audioVisualizerFaint];
+                var audioInputVisualizerPaint = DrawingSystem.Instance.AudioVisualizerInputPaints[audioVisualizerFaint];
+                var audioVisualizerCount = Configure.Instance.AudioVisualizerCount;
+                var audioVisualizerUnitLength = audioVisualizerLength / audioVisualizerCount;
+                for (var i = audioVisualizerCount - 1; i >= 0; --i)
+                {
+                    var mainAudioVisualizerValue = audioVisualizerHeight * AudioSystem.Instance.GetAudioVisualizerValue(AudioSystem.MainAudio, i);
+                    var inputAudioVisualizerValue = audioVisualizerHeight * AudioSystem.Instance.GetAudioVisualizerValue(AudioSystem.InputAudio, i);
+                    if (mainAudioVisualizerValue > 0.0)
+                    {
+                        r.Set(audioVisualizerPosition0 + audioVisualizerUnitLength * i, audioVisualizerPosition1 + Configure.Instance.GetAudioVisualizerModifier(audioVisualizerHeight, mainAudioVisualizerValue), audioVisualizerUnitLength, mainAudioVisualizerValue);
+                        targetSession.FillRectangle(r, audioMainVisualizerPaint);
+                    }
+                    if (inputAudioVisualizerValue > 0.0)
+                    {
+                        r.Set(audioVisualizerPosition0 + audioVisualizerUnitLength * i, audioVisualizerPosition1 + Configure.Instance.GetAudioVisualizerModifier(audioVisualizerHeight, inputAudioVisualizerValue), audioVisualizerUnitLength, inputAudioVisualizerValue);
+                        targetSession.FillRectangle(r, audioInputVisualizerPaint);
+                    }
+                }
+            }
+        }
+
+        public static void PaintAudioVisualizer(DrawingContext targetSession, ref Bound r, int audioVisualizerFaint, double audioVisualizerPosition0, double audioVisualizerPosition1, double audioVisualizerLength, double audioVisualizerHeight)
+        {
+            if (Configure.Instance.AudioVisualizer && audioVisualizerFaint > 0)
+            {
+                var audioMainVisualizerPaint = Configure.Instance.AudioVisualizerMainPaints[audioVisualizerFaint];
+                var audioInputVisualizerPaint = Configure.Instance.AudioVisualizerInputPaints[audioVisualizerFaint];
+                var audioVisualizerCount = Configure.Instance.AudioVisualizerCount;
+                var audioVisualizerUnitLength = audioVisualizerLength / audioVisualizerCount;
+                for (var i = audioVisualizerCount - 1; i >= 0; --i)
+                {
+                    var mainAudioVisualizerValue = audioVisualizerHeight * AudioSystem.Instance.GetAudioVisualizerValue(AudioSystem.MainAudio, i);
+                    var inputAudioVisualizerValue = audioVisualizerHeight * AudioSystem.Instance.GetAudioVisualizerValue(AudioSystem.InputAudio, i);
+                    if (mainAudioVisualizerValue > 0.0)
+                    {
+                        r.Set(audioVisualizerPosition0 + audioVisualizerUnitLength * i, audioVisualizerPosition1 + Configure.Instance.GetAudioVisualizerModifier(audioVisualizerHeight, mainAudioVisualizerValue), audioVisualizerUnitLength, mainAudioVisualizerValue);
+                        targetSession.DrawRectangle(audioMainVisualizerPaint, null, r);
+                    }
+                    if (inputAudioVisualizerValue > 0.0)
+                    {
+                        r.Set(audioVisualizerPosition0 + audioVisualizerUnitLength * i, audioVisualizerPosition1 + Configure.Instance.GetAudioVisualizerModifier(audioVisualizerHeight, inputAudioVisualizerValue), audioVisualizerUnitLength, inputAudioVisualizerValue);
+                        targetSession.DrawRectangle(audioInputVisualizerPaint, null, r);
+                    }
+                }
+            }
+        }
     }
 }

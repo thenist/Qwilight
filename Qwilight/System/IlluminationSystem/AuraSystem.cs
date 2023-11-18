@@ -152,7 +152,7 @@ namespace Qwilight
                             {
                                 if (_inputMap.TryGetValue(ledItem.Code, out var input))
                                 {
-                                    Utility.Into(_inputItems, input, auraInput.Key[ledItem.Code]);
+                                    Utility.NewValue(_inputItems, input, auraInput.Key[ledItem.Code]);
                                 }
                             }
                         }
@@ -162,7 +162,7 @@ namespace Qwilight
                             {
                                 for (var i = auraItem.Lights.Count - 1; i >= 0; --i)
                                 {
-                                    Utility.Into(_statusItems, i, auraItem.Lights[i]);
+                                    Utility.NewValue(_statusItems, i, auraItem.Lights[i]);
                                 }
                             }
                             else

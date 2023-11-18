@@ -2222,8 +2222,9 @@ namespace Qwilight
                             lock (LoadedCSX)
                             {
                                 LoadUIImpl(src, target);
-                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedUIFileContents);
                             }
+                            OnLoaded();
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedUIFileContents);
                         }
                         catch (YamlException e)
                         {
@@ -2242,7 +2243,7 @@ namespace Qwilight
                         }
                         finally
                         {
-                            OnLoaded();
+                            mainViewModel.IsUILoading = false;
                         }
                     });
                 }
@@ -2254,6 +2255,7 @@ namespace Qwilight
                         {
                             LoadUIImpl(src, target);
                         }
+                        OnLoaded();
                     }
                     catch (YamlException e)
                     {
@@ -2269,7 +2271,7 @@ namespace Qwilight
                     }
                     finally
                     {
-                        OnLoaded();
+                        mainViewModel.IsUILoading = false;
                     }
                 }
 
@@ -2279,7 +2281,6 @@ namespace Qwilight
                     DrawingSystem.Instance.LoadVeilDrawing();
                     ViewModels.Instance.NotifyWindowViewModels();
                     mainViewModel.NotifyModel();
-                    mainViewModel.IsUILoading = false;
                 }
             }
         }

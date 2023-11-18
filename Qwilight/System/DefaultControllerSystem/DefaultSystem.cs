@@ -60,7 +60,7 @@ namespace Qwilight
                 }
                 catch (Exception e)
                 {
-                    Utility.SetFault(FaultEntryPath, e);
+                    Utility.SaveFaultFile(FaultEntryPath, e);
                 }
             }
         });

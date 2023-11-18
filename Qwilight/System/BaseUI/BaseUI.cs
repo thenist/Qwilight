@@ -1104,7 +1104,7 @@ namespace Qwilight
                         if (drawingVariety >= 100)
                         {
                             paintPropertyValue.DrawingFrame = -1;
-                            EventItems.Into((EventItem)drawingVariety, paintPropertyValue);
+                            EventItems.NewValue((EventItem)drawingVariety, paintPropertyValue);
                         }
                         PaintPropertyValues[i] = paintPropertyValue;
                     }
@@ -2082,6 +2082,7 @@ namespace Qwilight
                                 LoadBaseUIImpl(src, target);
                                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedUIFileContents);
                             }
+                            OnLoaded();
                         }
                         catch (YamlException e)
                         {
@@ -2095,7 +2096,7 @@ namespace Qwilight
                         }
                         finally
                         {
-                            OnLoaded();
+                            mainViewModel.IsUILoading = false;
                         }
                     });
                 }
@@ -2107,6 +2108,7 @@ namespace Qwilight
                         {
                             LoadBaseUIImpl(src, target);
                         }
+                        OnLoaded();
                     }
                     catch (YamlException e)
                     {
@@ -2118,7 +2120,7 @@ namespace Qwilight
                     }
                     finally
                     {
-                        OnLoaded();
+                        mainViewModel.IsUILoading = false;
                     }
                 }
 
@@ -2132,7 +2134,6 @@ namespace Qwilight
                     DrawingSystem.Instance.LoadDefaultDrawing();
                     ViewModels.Instance.NotifyWindowViewModels();
                     mainViewModel.NotifyModel();
-                    mainViewModel.IsUILoading = false;
                 }
             }
         }

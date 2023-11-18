@@ -3438,7 +3438,7 @@ namespace Qwilight.ViewModel
                             {
                                 AutoComputer.Migrate(targetComputer);
                             }
-                            var trailerAudioFilePath = Utility.GetAvailable(targetNoteFile.TrailerAudioPath, Utility.AvailableFlag.Audio);
+                            var trailerAudioFilePath = Utility.GetFilePath(targetNoteFile.TrailerAudioPath, Utility.FileFormatFlag.Audio);
                             if (doTrailerAudio && !string.IsNullOrEmpty(trailerAudioFilePath) && AutoComputer?.TrailerAudioHandler?.IsHandling != false)
                             {
                                 CloseAutoComputer(null);

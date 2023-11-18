@@ -70,15 +70,15 @@ namespace Qwilight
                 Compatible.Compatible.DB(_fastDB);
                 #endregion
 
-                Ta(t =>
+                Ta(ta =>
                 {
                     #region 데이터베이스 정보
                     Date date;
-                    using (var dbStatement = NewDBStatement("PRAGMA user_version", t))
+                    using (var dbStatement = NewDBStatement("PRAGMA user_version", ta))
                     {
                         date = (Date)dbStatement.ExecuteScalar();
                     }
-                    using (var dbStatement = NewDBStatement($"PRAGMA user_version = {((long)LatestDBDate)}", t))
+                    using (var dbStatement = NewDBStatement($"PRAGMA user_version = {((long)LatestDBDate)}", ta))
                     {
                         dbStatement.ExecuteNonQuery();
                     }
@@ -170,22 +170,22 @@ namespace Qwilight
                                 CHECK (Is_Paused IN (0, 1))
                                 CHECK (Input_Flags >= 0 AND Input_Flags <= 15)
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
-                        if (HasTable("comment", t))
+                        if (HasTable("comment", ta))
                         {
                             using (var dbStatement = NewDBStatement("""
                                 INSERT
                                 INTO tmp_comment
                                     SELECT *
                                     FROM comment
-                            """, t))
+                            """, ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
-                            using (var dbStatement = NewDBStatement("DROP TABLE comment", t))
+                            using (var dbStatement = NewDBStatement("DROP TABLE comment", ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -193,7 +193,7 @@ namespace Qwilight
                         using (var dbStatement = NewDBStatement("""
                             ALTER TABLE tmp_comment
                             RENAME TO comment
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -202,7 +202,7 @@ namespace Qwilight
                                 Note_ID,
                                 Event_Note_ID
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -218,22 +218,22 @@ namespace Qwilight
                                 Note_Position INTEGER,
                                 PRIMARY KEY (Entry_Path)
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
-                        if (HasTable("entry", t))
+                        if (HasTable("entry", ta))
                         {
                             using (var dbStatement = NewDBStatement("""
                                 INSERT
                                 INTO tmp_entry
                                     SELECT *
                                     FROM entry
-                            """, t))
+                            """, ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
-                            using (var dbStatement = NewDBStatement("DROP TABLE entry", t))
+                            using (var dbStatement = NewDBStatement("DROP TABLE entry", ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -241,7 +241,7 @@ namespace Qwilight
                         using (var dbStatement = NewDBStatement("""
                             ALTER TABLE tmp_entry
                             RENAME TO entry
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -256,22 +256,22 @@ namespace Qwilight
                                 Note_ID VARCHAR(139),
                                 Favorite_Entry TEXT
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
-                        if (HasTable("favorite_entry", t))
+                        if (HasTable("favorite_entry", ta))
                         {
                             using (var dbStatement = NewDBStatement("""
                                 INSERT
                                 INTO tmp_favorite_entry
                                     SELECT *
                                     FROM favorite_entry
-                            """, t))
+                            """, ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
-                            using (var dbStatement = NewDBStatement("DROP TABLE favorite_entry", t))
+                            using (var dbStatement = NewDBStatement("DROP TABLE favorite_entry", ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -279,7 +279,7 @@ namespace Qwilight
                         using (var dbStatement = NewDBStatement("""
                             ALTER TABLE tmp_favorite_entry
                             RENAME TO favorite_entry
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -287,7 +287,7 @@ namespace Qwilight
                             CREATE INDEX IF NOT EXISTS _favorite_entry ON favorite_entry (
                                 Note_ID
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -303,22 +303,22 @@ namespace Qwilight
                                 Handled INTEGER,
                                 PRIMARY KEY (Note_ID)
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
-                        if (HasTable("handled", t))
+                        if (HasTable("handled", ta))
                         {
                             using (var dbStatement = NewDBStatement("""
                                 INSERT
                                 INTO tmp_handled
                                     SELECT *
                                     FROM handled
-                            """, t))
+                            """, ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
-                            using (var dbStatement = NewDBStatement("DROP TABLE handled", t))
+                            using (var dbStatement = NewDBStatement("DROP TABLE handled", ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -326,7 +326,7 @@ namespace Qwilight
                         using (var dbStatement = NewDBStatement("""
                             ALTER TABLE tmp_handled
                             RENAME TO handled
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -342,22 +342,22 @@ namespace Qwilight
                                 Event_Note_ID TEXT,
                                 Date DATE
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
-                        if (HasTable("date", t))
+                        if (HasTable("date", ta))
                         {
                             using (var dbStatement = NewDBStatement("""
                                 INSERT
                                 INTO tmp_date
                                     SELECT *
                                     FROM date
-                            """, t))
+                            """, ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
-                            using (var dbStatement = NewDBStatement("DROP TABLE date", t))
+                            using (var dbStatement = NewDBStatement("DROP TABLE date", ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -365,7 +365,7 @@ namespace Qwilight
                         using (var dbStatement = NewDBStatement("""
                             ALTER TABLE tmp_date
                             RENAME TO date
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -374,7 +374,7 @@ namespace Qwilight
                                 Note_ID,
                                 Event_Note_ID
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -395,22 +395,22 @@ namespace Qwilight
                                 CHECK (Media IN (0, 1))
                                 PRIMARY KEY (Note_ID)
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
-                        if (HasTable("wait", t))
+                        if (HasTable("wait", ta))
                         {
                             using (var dbStatement = NewDBStatement("""
                                 INSERT
                                 INTO tmp_wait
                                     SELECT *
                                     FROM wait
-                            """, t))
+                            """, ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
-                            using (var dbStatement = NewDBStatement("DROP TABLE wait", t))
+                            using (var dbStatement = NewDBStatement("DROP TABLE wait", ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -418,7 +418,7 @@ namespace Qwilight
                         using (var dbStatement = NewDBStatement("""
                             ALTER TABLE tmp_wait
                             RENAME TO wait
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -434,22 +434,22 @@ namespace Qwilight
                                 Format LONG DEFAULT -1,
                                 PRIMARY KEY (Note_ID)
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
-                        if (HasTable("format", t))
+                        if (HasTable("format", ta))
                         {
                             using (var dbStatement = NewDBStatement("""
                                 INSERT
                                 INTO tmp_format
                                     SELECT *
                                     FROM format
-                            """, t))
+                            """, ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
-                            using (var dbStatement = NewDBStatement("DROP TABLE format", t))
+                            using (var dbStatement = NewDBStatement("DROP TABLE format", ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -457,7 +457,7 @@ namespace Qwilight
                         using (var dbStatement = NewDBStatement("""
                             ALTER TABLE tmp_format
                             RENAME TO format
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -476,22 +476,22 @@ namespace Qwilight
                                 PRIMARY KEY (Event_Note_ID, Variety)
                                 CHECK (Variety IN (0, 1))
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
-                        if (HasTable("event_note", t))
+                        if (HasTable("event_note", ta))
                         {
                             using (var dbStatement = NewDBStatement("""
                                 INSERT
                                 INTO tmp_event_note
                                     SELECT *
                                     FROM event_note
-                            """, t))
+                            """, ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
-                            using (var dbStatement = NewDBStatement("DROP TABLE event_note", t))
+                            using (var dbStatement = NewDBStatement("DROP TABLE event_note", ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -499,7 +499,7 @@ namespace Qwilight
                         using (var dbStatement = NewDBStatement("""
                             ALTER TABLE tmp_event_note
                             RENAME TO event_note
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -520,22 +520,22 @@ namespace Qwilight
                                 Genre TEXT,
                                 PRIMARY KEY (Note_ID)
                             )
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
-                        if (HasTable("event_note_data", t))
+                        if (HasTable("event_note_data", ta))
                         {
                             using (var dbStatement = NewDBStatement("""
                                 INSERT
                                 INTO tmp_event_note_data
                                     SELECT *
                                     FROM event_note_data
-                            """, t))
+                            """, ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
-                            using (var dbStatement = NewDBStatement("DROP TABLE event_note_data", t))
+                            using (var dbStatement = NewDBStatement("DROP TABLE event_note_data", ta))
                             {
                                 dbStatement.ExecuteNonQuery();
                             }
@@ -543,7 +543,7 @@ namespace Qwilight
                         using (var dbStatement = NewDBStatement("""
                             ALTER TABLE tmp_event_note_data
                             RENAME TO event_note_data
-                        """, t))
+                        """, ta))
                         {
                             dbStatement.ExecuteNonQuery();
                         }
@@ -891,13 +891,13 @@ namespace Qwilight
 
         public void SetFavoriteEntry(BaseNoteFile noteFile)
         {
-            Ta(t =>
+            Ta(ta =>
             {
                 using (var dbStatement = NewDBStatement("""
                     DELETE
                     FROM favorite_entry
                     WHERE Note_ID = @noteID
-                """, t))
+                """, ta))
                 {
                     dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
                     dbStatement.ExecuteNonQuery();
@@ -906,7 +906,7 @@ namespace Qwilight
                     REPLACE
                     INTO favorite_entry
                     VALUES(@noteID, @favoriteEntry)
-                """, t))
+                """, ta))
                 {
                     foreach (var favoriteEntryItem in noteFile.FavoriteEntryItems)
                     {
@@ -1105,22 +1105,22 @@ namespace Qwilight
 
         void Ta(Action<SQLiteTransaction> onHandle)
         {
-            using var t = _fastDB.BeginTransaction();
+            using var ta = _fastDB.BeginTransaction();
             try
             {
-                onHandle(t);
-                t.Commit();
+                onHandle(ta);
+                ta.Commit();
             }
             catch
             {
-                t.Rollback();
+                ta.Rollback();
                 throw;
             }
         }
 
-        SQLiteCommand NewDBStatement(string text, SQLiteTransaction t = null)
+        SQLiteCommand NewDBStatement(string text, SQLiteTransaction ta = null)
         {
-            return new(text, _fastDB, t);
+            return new(text, _fastDB, ta);
         }
 
         public void Save()

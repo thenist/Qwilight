@@ -102,7 +102,7 @@ namespace Qwilight
             {
                 lock (_exeCSX)
                 {
-                    var hashFilePath = Utility.GetAvailable(Path.Combine(QwilightComponent.MediaEntryPath, hash), Utility.AvailableFlag.Media);
+                    var hashFilePath = Utility.GetFilePath(Path.Combine(QwilightComponent.MediaEntryPath, hash), Utility.FileFormatFlag.Media);
                     if (File.Exists(hashFilePath))
                     {
                         mediaFilePath = hashFilePath;

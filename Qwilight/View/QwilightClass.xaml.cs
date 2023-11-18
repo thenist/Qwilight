@@ -99,17 +99,17 @@ namespace Qwilight.View
         {
             if (_handledFaultMap.TryAdd(e, null))
             {
-                var (logFilePath, faultText) = Utility.SetFault(QwilightComponent.FaultEntryPath, e);
-                PInvoke.MessageBox(HWND.Null, e.Message, "Qwilight", MESSAGEBOX_STYLE.MB_OK | MESSAGEBOX_STYLE.MB_ICONERROR);
-                Utility.OpenAs(logFilePath);
+                var (logFilePath, faultText) = Utility.SaveFaultFile(QwilightComponent.FaultEntryPath, e);
                 if (!QwilightComponent.IsVS)
                 {
                     _ = TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/fault", faultText);
                 }
+                PInvoke.MessageBox(HWND.Null, e.Message, "Qwilight", MESSAGEBOX_STYLE.MB_OK | MESSAGEBOX_STYLE.MB_ICONERROR);
+                Utility.OpenAs(logFilePath);
             }
         }
 
-        public QwilightClass() => InitializeComponent();
+        QwilightClass() => InitializeComponent();
 
         protected override void OnStartup(StartupEventArgs e)
         {

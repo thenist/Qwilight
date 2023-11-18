@@ -236,7 +236,7 @@ namespace Qwilight.Compiler
 
             if (defaultComputer.LoopingBanalMedia != null)
             {
-                defaultComputer.WaitMediaNoteMap.Into(0.0, new()
+                defaultComputer.WaitMediaNoteMap.NewValue(0.0, new MediaNote
                 {
                     MediaMode = MediaNote.Mode.Default,
                     MediaItem = defaultComputer.LoopingBanalMedia,
@@ -245,7 +245,7 @@ namespace Qwilight.Compiler
             }
             if (defaultComputer.LoopingBanalFailedMedia != null)
             {
-                defaultComputer.WaitMediaNoteMap.Into(0.0, new()
+                defaultComputer.WaitMediaNoteMap.NewValue(0.0, new MediaNote
                 {
                     MediaMode = MediaNote.Mode.Failed,
                     MediaItem = defaultComputer.LoopingBanalFailedMedia,
@@ -428,7 +428,7 @@ namespace Qwilight.Compiler
                             Notes.RemoveAt(i);
                             foreach (var audioNote in note.AudioNotes)
                             {
-                                defaultComputer.WaitAudioNoteMap.Into(note.Wait, audioNote);
+                                defaultComputer.WaitAudioNoteMap.NewValue(note.Wait, audioNote);
                             }
                         }
                     }
@@ -727,22 +727,14 @@ namespace Qwilight.Compiler
             {
                 lastLevyingPositions[i] = lastLevyingPosition;
             }
-            foreach (var (wait, mediaNotes) in defaultComputer.WaitMediaNoteMap.ToArray())
+            foreach (var (wait, mediaNotes) in defaultComputer.WaitMediaNoteMap)
             {
-                defaultComputer.WaitMediaNoteMap[wait] = mediaNotes.Select(mediaNote =>
+                foreach (var mediaNote in defaultComputer.WaitMediaNoteMap[wait])
                 {
                     var mediaItem = mediaNote.MediaItem;
-                    var mediaNoteModified = new MediaNote
-                    {
-                        MediaMode = mediaNote.MediaMode,
-                        MediaItem = mediaItem,
-                        HasContents = mediaNote.HasContents,
-                        MediaLevyingPosition = mediaNote.MediaLevyingPosition,
-                        Length = mediaItem == null || double.IsInfinity(mediaItem.Length) ? lastLevyingPositions[(int)mediaNote.MediaMode] - wait : mediaItem.Length
-                    };
-                    lastLevyingPositions[(int)mediaNoteModified.MediaMode] = wait;
-                    return mediaNoteModified;
-                }).ToList();
+                    mediaNote.Length = mediaItem == null || double.IsInfinity(mediaItem.Length) ? lastLevyingPositions[(int)mediaNote.MediaMode] - wait : mediaItem.Length;
+                    lastLevyingPositions[(int)mediaNote.MediaMode] = wait;
+                }
             }
 
             defaultComputer.AudioLength = Utility.Max(notes.Select(note =>
@@ -776,7 +768,7 @@ namespace Qwilight.Compiler
                     var audioNotes = waitAudioNoteMap[wait];
                     foreach (var audioNote in audioNotes)
                     {
-                        Utility.Into(defaultComputer.WaitAudioNoteMap, defaultComputer.Length + Component.QuitWait - wait + Component.QuitWait - (audioNote.AudioItem?.Length ?? 0.0), audioNote);
+                        Utility.NewValue(defaultComputer.WaitAudioNoteMap, defaultComputer.Length + Component.QuitWait - wait + Component.QuitWait - (audioNote.AudioItem?.Length ?? 0.0), audioNote);
                     }
                 }
 
@@ -787,7 +779,7 @@ namespace Qwilight.Compiler
                     var mediaNotes = waitMediaNoteMap[wait];
                     foreach (var mediaNote in mediaNotes)
                     {
-                        Utility.Into(defaultComputer.WaitMediaNoteMap, defaultComputer.Length + Component.QuitWait - wait + Component.QuitWait - mediaNote.Length, mediaNote);
+                        Utility.NewValue(defaultComputer.WaitMediaNoteMap, defaultComputer.Length + Component.QuitWait - wait + Component.QuitWait - mediaNote.Length, mediaNote);
                     }
                 }
 
@@ -1100,7 +1092,7 @@ namespace Qwilight.Compiler
                 {
                     foreach (var audioNote in note.AudioNotes)
                     {
-                        defaultComputer.WaitInputAudioMap.Into(note.Wait, audioNote);
+                        defaultComputer.WaitInputAudioMap.NewValue(note.Wait, audioNote);
                     }
                 }
             }

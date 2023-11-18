@@ -332,7 +332,7 @@ namespace Qwilight
                     _audioCSX.ExitWriteLock();
                 }
 
-                _audioInputVolume += Utility.GetMove(LastHandledAudioInputMillis + QwilightComponent.StandardWaitMillis >= Environment.TickCount64 ? (float)(Configure.Instance.WaveFadeVolume / 100.0) : 1F, _audioInputVolume);
+                _audioInputVolume += (float)Utility.GetMove(LastHandledAudioInputMillis + QwilightComponent.StandardWaitMillis >= Environment.TickCount64 ? (float)(Configure.Instance.WaveFadeVolume / 100.0) : 1F, _audioInputVolume);
                 var totalAudioVolume = _audioVolumes[TotalAudio] * _audioInputVolume * (!Configure.Instance.LostPointAudio && !ViewModels.Instance.MainValue.HasPoint ? 0F : 1F);
 
                 for (var audioVariety = SEAudio; audioVariety >= MainAudio; --audioVariety)
@@ -406,14 +406,14 @@ namespace Qwilight
             {
                 var postableItem = PostableItem.Values[i];
                 PostableItemAudioMap.GetValueOrDefault(postableItem).Dispose();
-                var audioFilePath = Utility.GetAvailable(Path.Combine(QwilightComponent.AssetsEntryPath, "Audio", "Postable Item", postableItem.VarietyValue.ToString()), Utility.AvailableFlag.Audio);
+                var audioFilePath = Utility.GetFilePath(Path.Combine(QwilightComponent.AssetsEntryPath, "Audio", "Postable Item", postableItem.VarietyValue.ToString()), Utility.FileFormatFlag.Audio);
                 if (File.Exists(audioFilePath))
                 {
                     PostableItemAudioMap[postableItem] = Load(audioFilePath, null, 1F);
                 }
             }
-            PostableItemAudio = Load(Utility.GetAvailable(Path.Combine(QwilightComponent.AssetsEntryPath, "Audio", "Postable Item", "Postable"), Utility.AvailableFlag.Audio), null, 1F);
-            PostedItemAudio = Load(Utility.GetAvailable(Path.Combine(QwilightComponent.AssetsEntryPath, "Audio", "Postable Item", "Posted"), Utility.AvailableFlag.Audio), null, 1F);
+            PostableItemAudio = Load(Utility.GetFilePath(Path.Combine(QwilightComponent.AssetsEntryPath, "Audio", "Postable Item", "Postable"), Utility.FileFormatFlag.Audio), null, 1F);
+            PostedItemAudio = Load(Utility.GetFilePath(Path.Combine(QwilightComponent.AssetsEntryPath, "Audio", "Postable Item", "Posted"), Utility.FileFormatFlag.Audio), null, 1F);
 
             SetAudioVariety(Configure.Instance.AudioVariety);
             SetVolume(MainAudio, (float)Configure.Instance.MainAudioVolume);

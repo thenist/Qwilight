@@ -95,11 +95,6 @@ namespace Qwilight
 
         public static bool IsVS { get; set; }
 
-        public static int GetDigit(int value)
-        {
-            return value > 0 ? (int)(Math.Log10(value) + 1) : 1;
-        }
-
         public static Func<string, object> OnGetBuiltInData { get; set; }
 
         public static T GetBuiltInData<T>(string data)
@@ -144,7 +139,11 @@ namespace Qwilight
                     TestLanguage = Utility.GetLanguage(o.Language);
                 }
                 IsTest = o.IsTest;
+#if DEBUG
+                IsVS = true;
+#else
                 IsVS = o.IsVS;
+#endif
             });
 
 #if DEBUG

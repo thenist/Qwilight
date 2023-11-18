@@ -30,7 +30,7 @@ namespace Qwilight
                     defaultController.Properties.BufferSize = 16;
                     while (_isAvailable)
                     {
-                        foreach (var data in Utility.GetInputData<KeyboardUpdate>(defaultController))
+                        foreach (var data in Utility.GetDInputData<KeyboardUpdate>(defaultController))
                         {
                             _handleInput.HandleInput(data.Key switch
                             {
@@ -174,7 +174,7 @@ namespace Qwilight
                 }
                 catch (Exception e)
                 {
-                    Utility.SetFault(FaultEntryPath, e);
+                    Utility.SaveFaultFile(FaultEntryPath, e);
                 }
             }
         });

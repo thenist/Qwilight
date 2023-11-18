@@ -321,7 +321,7 @@ namespace Qwilight.Compiler
                                         }
                                         else
                                         {
-                                            earlyBMSLongInputItemSet.Into(rawInput, new EarlyBMSLongInputItem
+                                            earlyBMSLongInputItemSet.NewValue(rawInput, new EarlyBMSLongInputItem
                                             {
                                                 BMSPosition = bmsPosition,
                                                 BMSID = bmsID
@@ -342,7 +342,7 @@ namespace Qwilight.Compiler
                                     {
                                         if (!string.IsNullOrEmpty(_longNoteBMSID) && _longNoteBMSID.EqualsCaseless(bmsID))
                                         {
-                                            earlyBMSLongInputItemSet.Into(rawInput, new EarlyBMSLongInputItem
+                                            earlyBMSLongInputItemSet.NewValue(rawInput, new EarlyBMSLongInputItem
                                             {
                                                 BMSPosition = bmsPosition,
                                                 BMSID = bmsID
@@ -350,7 +350,7 @@ namespace Qwilight.Compiler
                                         }
                                         else
                                         {
-                                            earlyBMSInputItemSet.Into(rawInput, new EarlyBMSInputItem
+                                            earlyBMSInputItemSet.NewValue(rawInput, new EarlyBMSInputItem
                                             {
                                                 BMSPosition = bmsPosition
                                             });
@@ -732,7 +732,7 @@ namespace Qwilight.Compiler
             var parallelItems = new ConcurrentBag<Action>();
             try
             {
-                var noteDrawingPath = Utility.GetAvailable(defaultComputer.NoteDrawingPath, Utility.AvailableFlag.Drawing);
+                var noteDrawingPath = Utility.GetFilePath(defaultComputer.NoteDrawingPath, Utility.FileFormatFlag.Drawing);
                 if (!string.IsNullOrEmpty(noteDrawingPath))
                 {
                     defaultComputer.NoteHandledDrawingItem = new HandledDrawingItem
@@ -774,17 +774,17 @@ namespace Qwilight.Compiler
                                             {
                                                 data = media;
                                             }
-                                            var mediaFilePath = Utility.GetAvailable(Path.Combine(NoteFile.EntryItem.EntryPath, data), Utility.AvailableFlag.Drawing | Utility.AvailableFlag.Media);
+                                            var mediaFilePath = Utility.GetFilePath(Path.Combine(NoteFile.EntryItem.EntryPath, data), Utility.FileFormatFlag.Drawing | Utility.FileFormatFlag.Media);
                                             if (!string.IsNullOrEmpty(mediaFilePath))
                                             {
-                                                bmsIDHandledItemMap[property] = Utility.GetAvailable(mediaFilePath) switch
+                                                bmsIDHandledItemMap[property] = Utility.GetFileFormat(mediaFilePath) switch
                                                 {
-                                                    Utility.AvailableFlag.Drawing => new HandledDrawingItem
+                                                    Utility.FileFormatFlag.Drawing => new HandledDrawingItem
                                                     {
                                                         Drawing = DrawingSystem.Instance.LoadBMS(mediaFilePath, defaultComputer),
                                                         DefaultDrawing = DrawingSystem.Instance.LoadDefaultBMS(mediaFilePath, defaultComputer)
                                                     },
-                                                    Utility.AvailableFlag.Media => MediaSystem.Instance.Load(Utility.GetFiles(Path.GetDirectoryName(mediaFilePath), $"{Path.GetFileNameWithoutExtension(mediaFilePath)}.*")
+                                                    Utility.FileFormatFlag.Media => MediaSystem.Instance.Load(Utility.GetFiles(Path.GetDirectoryName(mediaFilePath), $"{Path.GetFileNameWithoutExtension(mediaFilePath)}.*")
                                                         .Where(targetFile => targetFile.IsTailCaselsss(".mp4"))
                                                         .FirstOrDefault() ?? mediaFilePath, defaultComputer, false),
                                                     _ => null as IHandledItem,
@@ -804,7 +804,7 @@ namespace Qwilight.Compiler
                             {
                                 try
                                 {
-                                    var audioFilePath = Utility.GetAvailable(Path.Combine(NoteFile.EntryItem.EntryPath, data), Utility.AvailableFlag.Audio);
+                                    var audioFilePath = Utility.GetFilePath(Path.Combine(NoteFile.EntryItem.EntryPath, data), Utility.FileFormatFlag.Audio);
                                     if (!string.IsNullOrEmpty(audioFilePath))
                                     {
                                         bmsIDAudioItemMap[property.Substring(3, 2)] = AudioSystem.Instance.Load(audioFilePath, defaultComputer, 1F, data);
@@ -832,7 +832,7 @@ namespace Qwilight.Compiler
 
             if (bmsIDHandledItemMap.TryGetValue("00", out var mediaItem))
             {
-                defaultComputer.WaitMediaNoteMap.Into(0.0, new MediaNote
+                defaultComputer.WaitMediaNoteMap.NewValue(0.0, new MediaNote
                 {
                     MediaMode = MediaNote.Mode.Failed,
                     HasContents = defaultComputer.LoadedMedia,
@@ -894,7 +894,7 @@ namespace Qwilight.Compiler
                                         switch (noteVariety1)
                                         {
                                             case '1':
-                                                defaultComputer.WaitAudioNoteMap.Into(wait, audioNote);
+                                                defaultComputer.WaitAudioNoteMap.NewValue(wait, audioNote);
                                                 break;
                                             case '3':
                                             case '8':
@@ -904,7 +904,7 @@ namespace Qwilight.Compiler
                                                 }
                                                 break;
                                             case '4' when !isBanalMedia:
-                                                defaultComputer.WaitMediaNoteMap.Into(wait, new MediaNote
+                                                defaultComputer.WaitMediaNoteMap.NewValue(wait, new MediaNote
                                                 {
                                                     MediaMode = MediaNote.Mode.Default,
                                                     MediaItem = mediaItem,
@@ -912,7 +912,7 @@ namespace Qwilight.Compiler
                                                 });
                                                 break;
                                             case '6' when !isBanalMedia && !isBanalFailedMedia:
-                                                defaultComputer.WaitMediaNoteMap.Into(wait, new MediaNote
+                                                defaultComputer.WaitMediaNoteMap.NewValue(wait, new MediaNote
                                                 {
                                                     MediaMode = MediaNote.Mode.Failed,
                                                     MediaItem = mediaItem,
@@ -920,7 +920,7 @@ namespace Qwilight.Compiler
                                                 });
                                                 break;
                                             case '7' when !isBanalMedia:
-                                                defaultComputer.WaitMediaNoteMap.Into(wait, new MediaNote
+                                                defaultComputer.WaitMediaNoteMap.NewValue(wait, new MediaNote
                                                 {
                                                     MediaMode = MediaNote.Mode.Layer,
                                                     MediaItem = mediaItem,

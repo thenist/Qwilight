@@ -1335,7 +1335,7 @@ namespace Qwilight
                     {
                         if (textClose == null)
                         {
-                            var (faultFilePath, _) = Utility.SetFault(FaultEntryPath, e);
+                            var (faultFilePath, _) = Utility.SaveFaultFile(FaultEntryPath, e);
                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, e.Message, false, null, () => Utility.OpenAs(faultFilePath));
                         }
                         else if (textClose.Length > 0)

@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 namespace Qwilight.Utilities
 {
@@ -68,16 +67,6 @@ namespace Qwilight.Utilities
             catch
             {
             }
-        }
-
-        public static (string, string) SetFault(string faultEntryPath, Exception e)
-        {
-            var faultFilePath = Path.Combine(faultEntryPath, Path.GetInvalidFileNameChars().Aggregate($"{DateTime.Now:F}.log", (faultFileName, target) => faultFileName.Replace(target, ' ')));
-            var faultText = Utility.GetFault(e);
-            Console.WriteLine(faultText);
-            Directory.CreateDirectory(Path.GetDirectoryName(faultFilePath));
-            File.WriteAllText(faultFilePath, faultText, Encoding.UTF8);
-            return (faultFilePath, faultText);
         }
 
         public static void WipeFile(string filePath)

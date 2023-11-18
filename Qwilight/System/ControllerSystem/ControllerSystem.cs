@@ -134,7 +134,7 @@ namespace Qwilight
                                 lastXyzHwDInputs[dInputController].Clear();
                             }
                         }
-                        foreach (var data in Utility.GetInputData<JoystickUpdate>(dInputController))
+                        foreach (var data in Utility.GetDInputData<JoystickUpdate>(dInputController))
                         {
                             if (ViewModels.Instance.ConfigureValue.IsOpened)
                             {
@@ -1303,7 +1303,7 @@ namespace Qwilight
                 }
                 catch (Exception e)
                 {
-                    Utility.SetFault(FaultEntryPath, e);
+                    Utility.SaveFaultFile(FaultEntryPath, e);
                 }
                 finally
                 {
