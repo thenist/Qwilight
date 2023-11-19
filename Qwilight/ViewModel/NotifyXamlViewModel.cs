@@ -47,7 +47,7 @@ namespace Qwilight.ViewModel
             {
                 (sender as DispatcherTimer).Stop();
                 WipeNotify(targetNotifyXamlItem);
-            }, UIHandler.Instance.MainHandler);
+            }, UIHandler.Instance.Handler);
         }
 
         public void WipeNotify(NotifyXamlItem toNotifyXamlItem)

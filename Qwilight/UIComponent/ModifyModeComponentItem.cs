@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using System.Windows;
 using System.Windows.Media;
 
 namespace Qwilight.UIComponent
@@ -14,13 +13,29 @@ namespace Qwilight.UIComponent
 
         public int PointedPaintID { get; set; }
 
-        public Visibility IsConfigureVisible => OnConfigure != null ? Visibility.Visible : Visibility.Collapsed;
+        public bool IsConfigureVisible => OnConfigure != null;
+
+        public bool IsVConfigureVisible => OnVConfigure != null;
 
         public string Data { get; init; }
 
         public ImageSource Drawing { get; init; }
 
         public RelayCommand OnConfigure { get; init; }
+
+        public Action OnVConfigure { get; init; }
+
+        public Func<bool> GetIsVConfigure { get; init; }
+
+        public bool IsVConfigure => GetIsVConfigure();
+
+        public void NotifyIsVConfigure()
+        {
+            if (GetIsVConfigure != null)
+            {
+                OnPropertyChanged(nameof(IsVConfigure));
+            }
+        }
 
         public override bool Equals(object obj) => obj is ModifyModeComponentItem modeComponentItem && Value == modeComponentItem.Value;
 

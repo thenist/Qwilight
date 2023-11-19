@@ -1192,8 +1192,8 @@
     "en-US": "Next folder ({0})"
   },
   "HigherHitPointsModeContents": {
-    "ko-KR": "라이프 게이지가 빡빡해집니다. (GAS 적용)",
-    "en-US": "Hard gauge mode (with GAS)"
+    "ko-KR": "라이프 게이지가 빡빡해집니다.",
+    "en-US": "Hard gauge mode"
   },
   "HigherJudgmentModeContents": {
     "ko-KR": "판정 난이도가 어려워집니다.",
@@ -1212,8 +1212,8 @@
     "en-US": "Next chart ({0})"
   },
   "HighestHitPointsModeContents": {
-    "ko-KR": "라이프 게이지가 매우 빡빡해집니다. (GAS 적용)",
-    "en-US": "Very Hard gauge mode (with GAS)"
+    "ko-KR": "라이프 게이지가 매우 빡빡해집니다.",
+    "en-US": "Very Hard gauge mode"
   },
   "HighestJudgmentModeContents": {
     "ko-KR": "판정 난이도가 매우 어려워집니다.",

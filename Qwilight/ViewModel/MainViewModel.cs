@@ -54,19 +54,19 @@ namespace Qwilight.ViewModel
         readonly PausableAudioHandler _pausableAudioHandler = new();
         readonly ConcurrentDictionary<int, EntryItem> _entryItems = new();
         readonly HashSet<DefaultEntryItem> _alreadyLoadedDefaultEntryItems = new();
-        readonly DispatcherTimer _loadDefaultCommentHandler = new(DispatcherPriority.Input, UIHandler.Instance.MainHandler)
+        readonly DispatcherTimer _loadDefaultCommentHandler = new(DispatcherPriority.Input, UIHandler.Instance.Handler)
         {
             Interval = TimeSpan.FromMilliseconds(QwilightComponent.StandardUILoopMillis)
         };
-        readonly DispatcherTimer _loadTwilightCommentHandler = new(DispatcherPriority.Input, UIHandler.Instance.MainHandler)
+        readonly DispatcherTimer _loadTwilightCommentHandler = new(DispatcherPriority.Input, UIHandler.Instance.Handler)
         {
             Interval = TimeSpan.FromMilliseconds(QwilightComponent.StandardUILoopMillis)
         };
-        readonly DispatcherTimer _autoComputerHandler = new(DispatcherPriority.Input, UIHandler.Instance.MainHandler)
+        readonly DispatcherTimer _autoComputerHandler = new(DispatcherPriority.Input, UIHandler.Instance.Handler)
         {
             Interval = TimeSpan.FromMilliseconds(QwilightComponent.StandardWaitMillis)
         };
-        readonly DispatcherTimer _wantHandler = new(DispatcherPriority.Input, UIHandler.Instance.MainHandler)
+        readonly DispatcherTimer _wantHandler = new(DispatcherPriority.Input, UIHandler.Instance.Handler)
         {
             Interval = TimeSpan.FromMilliseconds(QwilightComponent.StandardWaitMillis)
         };
@@ -2432,9 +2432,9 @@ namespace Qwilight.ViewModel
                             IsAvailable = true;
                             StrongReferenceMessenger.Default.Send<PointZMaxView>();
                         }
-                    }, UIHandler.Instance.MainHandler);
+                    }, UIHandler.Instance.Handler);
                 }
-            }, UIHandler.Instance.MainHandler);
+            }, UIHandler.Instance.Handler);
         }
 
         public void InitMultiplierUnit()

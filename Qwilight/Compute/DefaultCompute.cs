@@ -484,7 +484,7 @@ namespace Qwilight.Compute
 
         public Primitive<bool> IsF => IsFs[LevyingComputingPosition];
 
-        public bool CanGAS => !IsPostableItemMode && ModeComponentValue.CanGAS && WwwLevelDataValue == null;
+        bool CanGAS => !IsPostableItemMode && ModeComponentValue.CanGAS && WwwLevelDataValue == null;
 
         public double DefaultHitPoints => CanGAS ? _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] : HitPoints.TargetValue;
 

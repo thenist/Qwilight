@@ -290,6 +290,23 @@ namespace Qwilight
         bool _flowNetItem;
         bool _ubuntuNetItemTarget;
         DefaultAudioVariety _defaultAudioVariety;
+        int _valueGASLevel;
+
+        public int GASLevel
+        {
+            get => _valueGASLevel;
+
+            set
+            {
+                if (SetProperty(ref _valueGASLevel, value, nameof(GASLevel)) && _isLoaded)
+                {
+                    foreach (var modeComponentItem in ViewModels.Instance.ModifyModeComponentValue.ModifyModeComponentItems[ModifyModeComponentViewModel.HitPointsModeVariety])
+                    {
+                        modeComponentItem.NotifyIsVConfigure();
+                    }
+                }
+            }
+        }
 
         public bool TVAssistConfigure { get; set; }
 
@@ -3330,6 +3347,10 @@ namespace Qwilight
             {
                 FontFamilyValues = new FontFamily[4];
                 Array.Fill(FontFamilyValues, QwilightComponent.GetBuiltInData<FontFamily>("DefaultFontFamily"));
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 10))
+            {
+                GASLevel = 2;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

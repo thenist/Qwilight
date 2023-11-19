@@ -1,4 +1,6 @@
-﻿using Qwilight.ViewModel;
+﻿using Qwilight.UIComponent;
+using Qwilight.ViewModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Qwilight.View
@@ -8,5 +10,11 @@ namespace Qwilight.View
         public ModifyModeComponentWindow() => InitializeComponent();
 
         void OnPointLower(object sender, MouseButtonEventArgs e) => (DataContext as ModifyModeComponentViewModel).OnPointLower();
+
+        void OnVConfigure(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            ((sender as FrameworkElement).DataContext as ModifyModeComponentItem).OnVConfigure();
+        }
     }
 }

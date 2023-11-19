@@ -311,7 +311,7 @@ namespace Qwilight.ViewModel
                 {
                     (sender as DispatcherTimer).Stop();
                 }
-            }, UIHandler.Instance.MainHandler);
+            }, UIHandler.Instance.Handler);
         }
 
         public void OnComputingNotPointed()
@@ -327,7 +327,7 @@ namespace Qwilight.ViewModel
                 {
                     (sender as DispatcherTimer).Stop();
                 }
-            }, UIHandler.Instance.MainHandler);
+            }, UIHandler.Instance.Handler);
         }
 
         public void OnComputingModified()
@@ -1254,7 +1254,7 @@ namespace Qwilight.ViewModel
 
         public ConfigureViewModel()
         {
-            _detailedHandler = new(DispatcherPriority.Background, UIHandler.Instance.MainHandler)
+            _detailedHandler = new(DispatcherPriority.Background, UIHandler.Instance.Handler)
             {
                 Interval = TimeSpan.FromSeconds(1)
             };

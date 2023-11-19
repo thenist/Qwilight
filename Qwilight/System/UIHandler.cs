@@ -6,12 +6,12 @@ namespace Qwilight
     {
         public static readonly UIHandler Instance = new();
 
-        public Dispatcher MainHandler { get; set; }
+        public Dispatcher Handler { get; set; }
 
         public void Init(Action<Exception> onUnhandledFault)
         {
-            MainHandler = Dispatcher.CurrentDispatcher;
-            MainHandler.UnhandledException += (sender, e) =>
+            Handler = Dispatcher.CurrentDispatcher;
+            Handler.UnhandledException += (sender, e) =>
             {
                 e.Handled = true;
                 onUnhandledFault(e.Exception);
@@ -20,13 +20,13 @@ namespace Qwilight
 
         public void HandleParallel(Action onHandle)
         {
-            if (MainHandler.CheckAccess())
+            if (Handler.CheckAccess())
             {
                 onHandle();
             }
             else
             {
-                MainHandler.InvokeAsync(onHandle);
+                Handler.InvokeAsync(onHandle);
             }
         }
     }

@@ -25,11 +25,13 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding Drawing}" />
                                 <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding Data}" />
-                                <Button Grid.Column="2" Style="{StaticResource StandardInput}" Visibility="{Binding IsConfigureVisible}" Command="{Binding OnConfigure}">…</Button>
-                                <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding LowerStandText}" Foreground="{Binding PointedPaint}" />
+                                <CheckBox Grid.Column="2" Style="{StaticResource StandardVInput}" Visibility="{Binding IsVConfigureVisible, Converter={StaticResource VisibilityModifier}}" PreviewMouseDown="OnVConfigure" IsChecked="{Binding IsVConfigure, Mode=OneWay}">GAS</CheckBox>
+                                <Button Grid.Column="3" Style="{StaticResource StandardInput}" Visibility="{Binding IsConfigureVisible, Converter={StaticResource VisibilityModifier}}" Command="{Binding OnConfigure}">…</Button>
+                                <TextBlock Grid.Column="4" Style="{StaticResource StandardTextView}" Text="{Binding LowerStandText}" Foreground="{Binding PointedPaint}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

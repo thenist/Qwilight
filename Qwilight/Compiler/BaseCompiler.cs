@@ -566,24 +566,26 @@ namespace Qwilight.Compiler
                             var levyingMeterWait = defaultComputer.MeterWaitMap[0];
                             for (var i = 1; i < meterWaitCount; ++i)
                             {
-                                var asMeterWait = defaultComputer.MeterWaitMap[i];
+                                var endMeterWait = defaultComputer.MeterWaitMap[i];
                                 var inputNoteInMeters = inputNotes.Where(note =>
                                 {
                                     var wait = note.Wait;
-                                    return levyingMeterWait <= wait && wait < asMeterWait;
+                                    return levyingMeterWait <= wait && wait < endMeterWait;
                                 }).ToArray();
-                                if (inputNoteInMeters.Length > 0 && asMeterWait <= inputNoteInMeters.Max(note => note.Wait + note.LongWait))
+                                if (inputNoteInMeters.Length > 0 && endMeterWait <= inputNoteInMeters.Max(note => note.Wait + note.LongWait))
                                 {
                                     SaltInput(Array.Empty<BaseNote>());
-                                    continue;
                                 }
-                                SaltInput(inputNotes.Where(note =>
+                                else
                                 {
-                                    var wait = note.Wait;
-                                    return levyingMeterWait <= wait && wait < asMeterWait;
-                                }).ToArray());
-                                levyingMeterWait = asMeterWait;
-                                defaultComputer.SetCompilingStatus((double)i / (meterWaitCount - 1));
+                                    SaltInput(inputNotes.Where(note =>
+                                    {
+                                        var wait = note.Wait;
+                                        return levyingMeterWait <= wait && wait < endMeterWait;
+                                    }).ToArray());
+                                    levyingMeterWait = endMeterWait;
+                                    defaultComputer.SetCompilingStatus((double)i / (meterWaitCount - 1));
+                                }
                             }
                             break;
                         default:
@@ -660,6 +662,7 @@ namespace Qwilight.Compiler
                     {
                         var inputCountLength = inputCount - autoableInputCount;
                         var saltedInputs = new int[inputCountLength];
+
                         for (var i = inputCountLength - 1; i >= 0; --i)
                         {
                             switch (autoableInputCount)

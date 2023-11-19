@@ -392,7 +392,7 @@ namespace Qwilight
 
         public Color HandlingHitPointsColor => BaseUI.Instance.HitPointsColor[(int)HandlingHitPointsModeValue];
 
-        public bool CanGAS => HandlingHitPointsModeValue == HitPointsMode.Highest || HandlingHitPointsModeValue == HitPointsMode.Higher;
+        public bool CanGAS => (HandlingHitPointsModeValue == HitPointsMode.Highest && Configure.Instance.GASLevel >= 1) || (HandlingHitPointsModeValue == HitPointsMode.Higher && Configure.Instance.GASLevel >= 2);
 
         public NoteMobilityMode NoteMobilityModeValue
         {
