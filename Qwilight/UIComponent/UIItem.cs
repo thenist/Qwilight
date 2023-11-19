@@ -25,7 +25,7 @@ namespace Qwilight.UIComponent
 
         public override int GetHashCode() => HashCode.Combine(UIEntry, YamlName);
 
-        public static bool operator ==(UIItem left, UIItem right) => left.Equals(right);
+        public static bool operator ==(UIItem left, UIItem right) => ReferenceEquals(left, right);
 
         public static bool operator !=(UIItem left, UIItem right) => !(left == right);
     }
