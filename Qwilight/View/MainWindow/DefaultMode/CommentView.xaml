@@ -213,7 +213,7 @@
                     </TabControl>
                 </TabItem>
                 <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFAbilityContents, Source={StaticResource LanguageSystem}}">
-                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom">
+                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HOFViewAbilityTabPosition, Source={StaticResource Configure}}">
                         <TabItem Style="{StaticResource StandardPageItem}" Header="5K">
                             <Grid>
                                 <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability5KHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAbility5KLoading, Converter={StaticResource VisibilityNotModifier}}" />
