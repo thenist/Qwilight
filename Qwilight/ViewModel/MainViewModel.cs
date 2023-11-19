@@ -3238,7 +3238,7 @@ namespace Qwilight.ViewModel
         public async ValueTask LoadAtTotalHOFItemCollection()
         {
             IsHOFAtTotalLoading = true;
-            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalAt");
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atTotal");
             if (twilightWwwHOF != null)
             {
                 AtTotalHOFItemCollection.Clear();
@@ -3253,7 +3253,7 @@ namespace Qwilight.ViewModel
         public async ValueTask LoadAtHighestHOFItemCollection()
         {
             IsHOFAtHighestLoading = true;
-            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalHighest");
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atHighest");
             if (twilightWwwHOF != null)
             {
                 AtHighestHOFItemCollection.Clear();
@@ -3268,7 +3268,7 @@ namespace Qwilight.ViewModel
         public async ValueTask LoadAtStandHOFItemCollection()
         {
             IsHOFAtStandLoading = true;
-            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalStand");
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atStand");
             if (twilightWwwHOF != null)
             {
                 AtStandHOFItemCollection.Clear();
@@ -3283,7 +3283,7 @@ namespace Qwilight.ViewModel
         public async ValueTask LoadAtBandHOFItemCollection()
         {
             IsHOFAtBandLoading = true;
-            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalBand");
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atBand");
             if (twilightWwwHOF != null)
             {
                 AtBandHOFItemCollection.Clear();
