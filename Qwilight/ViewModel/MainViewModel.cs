@@ -100,7 +100,18 @@ namespace Qwilight.ViewModel
         bool _isTwilightCommentLoading;
         bool? _twilightCommentFavor;
         string _twilightCommentTotalFavor;
-        bool _isWowItemLoading;
+        bool _isHOFTotalTotalLoading;
+        bool _isHOFAtTotalLoading;
+        bool _isHOFTotalHighestLoading;
+        bool _isHOFAtHighestLoading;
+        bool _isHOFTotalStandLoading;
+        bool _isHOFAtStandLoading;
+        bool _isHOFTotalBandLoading;
+        bool _isHOFAtBandLoading;
+        bool _isHOFAbility5KLoading;
+        bool _isHOFAbility7KLoading;
+        bool _isHOFAbility9KLoading;
+        bool _isHOFLevelLoading;
         string _twilightCommentary = string.Empty;
         bool _isWPFViewVisible = true;
         bool _isLoaded;
@@ -148,37 +159,37 @@ namespace Qwilight.ViewModel
 
         public int NoteDrawingCount => _entryItems.Values.Sum(entryItem => entryItem.NoteFiles.Count(noteFile => noteFile.HasNoteDrawing));
 
-        public ObservableCollection<CommentItem> DefaultCommentCollection { get; } = new();
+        public ObservableCollection<CommentItem> DefaultCommentItemCollection { get; } = new();
 
-        public ObservableCollection<CommentItem> TwilightCommentCollection { get; } = new();
+        public ObservableCollection<CommentItem> TwilightCommentItemCollection { get; } = new();
 
         public double Status { get; set; }
 
         public ObservableCollection<EntryItem> EntryItems { get; set; } = new();
 
-        public ObservableCollection<WowItem> TotalWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> TotalTotalHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> HighestWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> TotalHighestHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> StandWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> TotalStandHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> BandWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> TotalBandHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> TotalAtWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> AtTotalHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> HighestAtWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> AtHighestHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> StandAtWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> AtStandHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> BandAtWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> AtBandHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> Ability5KWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> Ability5KHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> Ability7KWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> Ability7KHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> Ability9KWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> Ability9KHOFItemCollection { get; } = new();
 
-        public ObservableCollection<WowItem> LevelWowItemCollection { get; } = new();
+        public ObservableCollection<HOFItem> LevelHOFItemCollection { get; } = new();
 
         public Dictionary<string, EntryItem> LastEntryItems { get; } = new();
 
@@ -328,11 +339,88 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _twilightCommentTotalFavor, value, nameof(TwilightCommentTotalFavor));
         }
 
-        public bool IsWowLoading
+        public bool IsHOFTotalTotalLoading
         {
-            get => _isWowItemLoading;
+            get => _isHOFTotalTotalLoading;
 
-            set => SetProperty(ref _isWowItemLoading, value, nameof(IsWowLoading));
+            set => SetProperty(ref _isHOFTotalTotalLoading, value, nameof(IsHOFTotalTotalLoading));
+        }
+
+        public bool IsHOFTotalHighestLoading
+        {
+            get => _isHOFTotalHighestLoading;
+
+            set => SetProperty(ref _isHOFTotalHighestLoading, value, nameof(IsHOFTotalHighestLoading));
+        }
+
+        public bool IsHOFTotalStandLoading
+        {
+            get => _isHOFTotalStandLoading;
+
+            set => SetProperty(ref _isHOFTotalStandLoading, value, nameof(IsHOFTotalStandLoading));
+        }
+
+        public bool IsHOFTotalBandLoading
+        {
+            get => _isHOFTotalBandLoading;
+
+            set => SetProperty(ref _isHOFTotalBandLoading, value, nameof(IsHOFTotalBandLoading));
+        }
+
+        public bool IsHOFAtTotalLoading
+        {
+            get => _isHOFAtTotalLoading;
+
+            set => SetProperty(ref _isHOFAtTotalLoading, value, nameof(IsHOFAtTotalLoading));
+        }
+
+        public bool IsHOFAtHighestLoading
+        {
+            get => _isHOFAtHighestLoading;
+
+            set => SetProperty(ref _isHOFAtHighestLoading, value, nameof(IsHOFAtHighestLoading));
+        }
+
+        public bool IsHOFAtStandLoading
+        {
+            get => _isHOFAtStandLoading;
+
+            set => SetProperty(ref _isHOFAtStandLoading, value, nameof(IsHOFAtStandLoading));
+        }
+
+        public bool IsHOFAtBandLoading
+        {
+            get => _isHOFAtBandLoading;
+
+            set => SetProperty(ref _isHOFAtBandLoading, value, nameof(IsHOFAtBandLoading));
+        }
+
+        public bool IsHOFAbility5KLoading
+        {
+            get => _isHOFAbility5KLoading;
+
+            set => SetProperty(ref _isHOFAbility5KLoading, value, nameof(IsHOFAbility5KLoading));
+        }
+
+        public bool IsHOFAbility7KLoading
+        {
+            get => _isHOFAbility7KLoading;
+
+            set => SetProperty(ref _isHOFAbility7KLoading, value, nameof(IsHOFAbility7KLoading));
+        }
+
+        public bool IsHOFAbility9KLoading
+        {
+            get => _isHOFAbility9KLoading;
+
+            set => SetProperty(ref _isHOFAbility9KLoading, value, nameof(IsHOFAbility9KLoading));
+        }
+
+        public bool IsHOFLevelLoading
+        {
+            get => _isHOFLevelLoading;
+
+            set => SetProperty(ref _isHOFLevelLoading, value, nameof(IsHOFLevelLoading));
         }
 
         public void NotifyIsPausing() => OnPropertyChanged(nameof(IsPausing));
@@ -805,7 +893,7 @@ namespace Qwilight.ViewModel
                     commentary = TwilightCommentary
                 });
                 var avatarID = TwilightSystem.Instance.AvatarID;
-                var twilightCommentItem = TwilightCommentCollection.SingleOrDefault(twilightCommentItem => twilightCommentItem.AvatarWwwValue.AvatarID == avatarID);
+                var twilightCommentItem = TwilightCommentItemCollection.SingleOrDefault(twilightCommentItem => twilightCommentItem.AvatarWwwValue.AvatarID == avatarID);
                 if (twilightCommentItem != null)
                 {
                     twilightCommentItem.TwilightCommentary = string.IsNullOrEmpty(TwilightCommentary) ? string.Empty : $"💬 {TwilightCommentary}";
@@ -824,8 +912,8 @@ namespace Qwilight.ViewModel
                     Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
                 }) == MESSAGEBOX_RESULT.IDYES)
                 {
-                    DefaultCommentCollection.Remove(DefaultCommentItem);
                     var defaultCommentFilePath = DefaultCommentItem.CommentID;
+                    DefaultCommentItemCollection.Remove(DefaultCommentItem);
                     if (string.IsNullOrEmpty(EntryItemValue.EventNoteID))
                     {
                         Utility.WipeFile(Path.Combine(QwilightComponent.CommentEntryPath, Path.ChangeExtension(defaultCommentFilePath, ".zip")));
@@ -1304,7 +1392,7 @@ namespace Qwilight.ViewModel
                 noteID = EntryItemValue.NoteFile.GetNoteID512(),
                 favor = TwilightCommentFavor == false ? null : false as bool?
             });
-            LoadTwilightCommentCollection();
+            LoadTwilightCommentItemCollection();
         }
 
         [RelayCommand]
@@ -1315,7 +1403,7 @@ namespace Qwilight.ViewModel
                 noteID = EntryItemValue.NoteFile.GetNoteID512(),
                 favor = TwilightCommentFavor == true ? null : true as bool?
             });
-            LoadTwilightCommentCollection();
+            LoadTwilightCommentItemCollection();
         }
 
         public MainViewModel()
@@ -1327,10 +1415,10 @@ namespace Qwilight.ViewModel
                 {
                     var targetNoteFiles = EntryItemValue.NoteFiles;
                     var commentItems = (IsEntryItemEventNote ? DB.Instance.GetCommentItems(targetNoteFiles[0], EntryItemValue.EventNoteID, targetNoteFiles.Length) : DB.Instance.GetCommentItems(EntryItemValue.NoteFile, EntryItemValue.EventNoteID, 1));
-                    DefaultCommentCollection.Clear();
+                    DefaultCommentItemCollection.Clear();
                     foreach (var commentItem in commentItems)
                     {
-                        DefaultCommentCollection.Add(commentItem);
+                        DefaultCommentItemCollection.Add(commentItem);
                     }
                     IsDefaultCommentLoading = false;
                 }
@@ -1360,10 +1448,10 @@ namespace Qwilight.ViewModel
                                 var commentItems = Utility.GetCommentItems(comments, noteFile);
                                 TwilightCommentTotalFavor = twilightWwwCommentValue.totalFavor.ToString("👍 #,##0");
                                 TwilightCommentFavor = twilightWwwCommentValue.favor;
-                                TwilightCommentCollection.Clear();
+                                TwilightCommentItemCollection.Clear();
                                 foreach (var commentItem in commentItems)
                                 {
-                                    TwilightCommentCollection.Add(commentItem);
+                                    TwilightCommentItemCollection.Add(commentItem);
                                 }
                                 var targetComment = commentItems.Where(comment => comment.AvatarWwwValue.AvatarID == TwilightSystem.Instance.AvatarID).SingleOrDefault();
                                 if (targetComment != null)
@@ -2349,17 +2437,17 @@ namespace Qwilight.ViewModel
             }, UIHandler.Instance.MainHandler);
         }
 
-        public void UndoUnitMultiplier()
+        public void InitMultiplierUnit()
         {
             if (HasNotInput())
             {
                 switch (ModeValue)
                 {
                     case Mode.NoteFile:
-                        ModeComponentValue.UndoUnitMultiplier();
+                        ModeComponentValue.InitMultiplierUnit();
                         break;
                     case Mode.Computing:
-                        Computer.ModeComponentValue.UndoUnitMultiplier();
+                        Computer.ModeComponentValue.InitMultiplierUnit();
                         break;
                 }
             }
@@ -3061,9 +3149,9 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void LoadDefaultCommentCollection()
+        public void LoadDefaultCommentItemCollection()
         {
-            UIHandler.Instance.HandleParallel(DefaultCommentCollection.Clear);
+            UIHandler.Instance.HandleParallel(DefaultCommentItemCollection.Clear);
             IsDefaultCommentLoading = IsNoteFileNotLogical;
             if (IsDefaultCommentLoading)
             {
@@ -3072,9 +3160,9 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void LoadTwilightCommentCollection()
+        public void LoadTwilightCommentItemCollection()
         {
-            UIHandler.Instance.HandleParallel(TwilightCommentCollection.Clear);
+            UIHandler.Instance.HandleParallel(TwilightCommentItemCollection.Clear);
             TwilightCommentTotalFavor = "👍";
             TwilightCommentFavor = null;
             TwilightCommentText0 = string.Empty;
@@ -3087,83 +3175,249 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async Task LoadWowItemCollection()
+        public async ValueTask LoadTotalTotalHOFItemCollection()
         {
-            IsWowLoading = true;
-            var twilightWwwWow = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwWow?>($"{QwilightComponent.QwilightAPI}/wow");
-            if (twilightWwwWow.HasValue)
+            IsHOFTotalTotalLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalTotal");
+            if (twilightWwwHOF != null)
             {
-                var twilightWwwWowValue = twilightWwwWow.Value;
-
-                TotalWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.totalAvatars)
+                TotalTotalHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
                 {
-                    TotalWowItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
-                }
-                HighestWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.highestAvatars)
-                {
-                    HighestWowItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
-                }
-                StandWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.standAvatars)
-                {
-                    StandWowItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
-                }
-                BandWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.bandAvatars)
-                {
-                    BandWowItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
-                }
-                TotalAtWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.totalAvatarsAt)
-                {
-                    TotalAtWowItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
-                }
-                HighestAtWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.highestAvatarsAt)
-                {
-                    HighestAtWowItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
-                }
-                StandAtWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.standAvatarsAt)
-                {
-                    StandAtWowItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
-                }
-                BandAtWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.bandAvatarsAt)
-                {
-                    BandAtWowItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
-                }
-                Ability5KWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.ability5KAvatars)
-                {
-                    Ability5KWowItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
-                }
-                Ability7KWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.ability7KAvatars)
-                {
-                    Ability7KWowItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
-                }
-                Ability9KWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.ability9KAvatars)
-                {
-                    Ability9KWowItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
-                }
-                LevelWowItemCollection.Clear();
-                foreach (var data in twilightWwwWowValue.levelAvatars)
-                {
-                    LevelWowItemCollection.Add(new(data, value => $"LV. {value}"));
+                    TotalTotalHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
                 }
             }
-            IsWowLoading = false;
+            IsHOFTotalTotalLoading = false;
+        }
+
+        public async ValueTask LoadTotalHighestHOFItemCollection()
+        {
+            IsHOFTotalHighestLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalHighest");
+            if (twilightWwwHOF != null)
+            {
+                TotalHighestHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    TotalHighestHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
+                }
+            }
+            IsHOFTotalHighestLoading = false;
+        }
+
+        public async ValueTask LoadTotalStandHOFItemCollection()
+        {
+            IsHOFTotalStandLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalStand");
+            if (twilightWwwHOF != null)
+            {
+                TotalStandHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    TotalStandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
+                }
+            }
+            IsHOFTotalStandLoading = false;
+        }
+
+        public async ValueTask LoadTotalBandHOFItemCollection()
+        {
+            IsHOFTotalBandLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalBand");
+            if (twilightWwwHOF != null)
+            {
+                TotalBandHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    TotalBandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
+                }
+            }
+            IsHOFTotalBandLoading = false;
+        }
+
+        public async ValueTask LoadAtTotalHOFItemCollection()
+        {
+            IsHOFAtTotalLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalAt");
+            if (twilightWwwHOF != null)
+            {
+                AtTotalHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    AtTotalHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
+                }
+            }
+            IsHOFAtTotalLoading = false;
+        }
+
+        public async ValueTask LoadAtHighestHOFItemCollection()
+        {
+            IsHOFAtHighestLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalHighest");
+            if (twilightWwwHOF != null)
+            {
+                AtHighestHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    AtHighestHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
+                }
+            }
+            IsHOFAtHighestLoading = false;
+        }
+
+        public async ValueTask LoadAtStandHOFItemCollection()
+        {
+            IsHOFAtStandLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalStand");
+            if (twilightWwwHOF != null)
+            {
+                AtStandHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    AtStandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
+                }
+            }
+            IsHOFAtStandLoading = false;
+        }
+
+        public async ValueTask LoadAtBandHOFItemCollection()
+        {
+            IsHOFAtBandLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalBand");
+            if (twilightWwwHOF != null)
+            {
+                AtBandHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    AtBandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
+                }
+            }
+            IsHOFAtBandLoading = false;
+        }
+
+        public async ValueTask LoadAbility5KHOFItemCollection()
+        {
+            IsHOFAbility5KLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability5K");
+            if (twilightWwwHOF != null)
+            {
+                Ability5KHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    Ability5KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                }
+            }
+            IsHOFAbility5KLoading = false;
+        }
+
+        public async ValueTask LoadAbility7KHOFItemCollection()
+        {
+            IsHOFAbility7KLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability7K");
+            if (twilightWwwHOF != null)
+            {
+                Ability7KHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    Ability7KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                }
+            }
+            IsHOFAbility7KLoading = false;
+        }
+
+        public async ValueTask LoadAbility9KHOFItemCollection()
+        {
+            IsHOFAbility9KLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability9K");
+            if (twilightWwwHOF != null)
+            {
+                Ability9KHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    Ability9KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                }
+            }
+            IsHOFAbility9KLoading = false;
+        }
+
+        public async ValueTask LoadLevelHOFItemCollection()
+        {
+            IsHOFLevelLoading = true;
+            var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/level");
+            if (twilightWwwHOF != null)
+            {
+                LevelHOFItemCollection.Clear();
+                foreach (var data in twilightWwwHOF)
+                {
+                    LevelHOFItemCollection.Add(new(data, value => value.ToString("LV. 0")));
+                }
+            }
+            IsHOFLevelLoading = false;
+        }
+
+        public async Task LoadHOFItemCollection()
+        {
+            switch (Configure.Instance.HOFViewTabPosition)
+            {
+                case 0:
+                    switch (Configure.Instance.HOFViewTotalTabPosition)
+                    {
+                        case 0:
+                            await LoadTotalTotalHOFItemCollection();
+                            break;
+                        case 1:
+                            await LoadTotalHighestHOFItemCollection();
+                            break;
+                        case 2:
+                            await LoadTotalStandHOFItemCollection();
+                            break;
+                        case 3:
+                            await LoadTotalBandHOFItemCollection();
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (Configure.Instance.HOFViewAtTabPosition)
+                    {
+                        case 0:
+                            await LoadAtTotalHOFItemCollection();
+                            break;
+                        case 1:
+                            await LoadAtHighestHOFItemCollection();
+                            break;
+                        case 2:
+                            await LoadAtStandHOFItemCollection();
+                            break;
+                        case 3:
+                            await LoadAtBandHOFItemCollection();
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (Configure.Instance.HOFViewAbilityTabPosition)
+                    {
+                        case 0:
+                            await LoadAbility5KHOFItemCollection();
+                            break;
+                        case 1:
+                            await LoadAbility7KHOFItemCollection();
+                            break;
+                        case 2:
+                            await LoadAbility9KHOFItemCollection();
+                            break;
+                    }
+                    break;
+                case 3:
+                    await LoadLevelHOFItemCollection();
+                    break;
+            }
         }
 
         public void NotifyNoteFile()
         {
             IsCommentMode = false;
             VerifyNoteFile(Configure.Instance.SetSalt ? ModeComponentValue.Salt : Environment.TickCount);
-            LoadCommentCollection();
+            LoadCommentItemCollection();
             TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetSituation, new
             {
                 situationValue = (int)UbuntuItem.UbuntuSituation.NoteFileMode,
@@ -3171,17 +3425,20 @@ namespace Qwilight.ViewModel
             });
         }
 
-        public void LoadCommentCollection()
+        public void LoadCommentItemCollection()
         {
             if (!BaseUI.Instance.HasCommentPoint || ViewModels.Instance.CommentValue.IsOpened)
             {
                 switch (Configure.Instance.CommentViewTabPosition)
                 {
                     case 0:
-                        LoadDefaultCommentCollection();
+                        LoadDefaultCommentItemCollection();
                         break;
                     case 1:
-                        LoadTwilightCommentCollection();
+                        LoadTwilightCommentItemCollection();
+                        break;
+                    case 2:
+                        _ = LoadHOFItemCollection();
                         break;
                 }
             }

@@ -21,13 +21,13 @@
                 </StackPanel>
                 <TabControl Style="{StaticResource StandardPageView}" Grid.Row="1" TabStripPlacement="Left">
                     <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding NoteFileBundleText, Source={StaticResource LanguageSystem}}">
-                        <view:BundleView BundleCollection="{Binding NoteFileBundleCollection}" />
+                        <view:BundleView BundleItemCollection="{Binding NoteFileBundleItemCollection}" />
                     </TabItem>
                     <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding EventNoteBundleText, Source={StaticResource LanguageSystem}}">
-                        <view:BundleView BundleCollection="{Binding EventNoteBundleCollection}" />
+                        <view:BundleView BundleItemCollection="{Binding EventNoteBundleItemCollection}" />
                     </TabItem>
                     <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding UIBundleText, Source={StaticResource LanguageSystem}}">
-                        <view:BundleView BundleCollection="{Binding UIBundleCollection}" />
+                        <view:BundleView BundleItemCollection="{Binding UIBundleItemCollection}" />
                     </TabItem>
                     <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding QwilightBundleText, Source={StaticResource LanguageSystem}}">
                         <Grid>
@@ -36,7 +36,7 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <Button Style="{StaticResource StandardInput}" HorizontalAlignment="Left" Command="{Binding SaveAsBundleCommand}" Content="{Binding SaveAsBundle, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSignedIn,Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
-                            <view:BundleView Grid.Row="1" BundleCollection="{Binding QwilightBundleCollection}" />
+                            <view:BundleView Grid.Row="1" BundleItemCollection="{Binding QwilightBundleItemCollection}" />
                         </Grid>
                     </TabItem>
                 </TabControl>

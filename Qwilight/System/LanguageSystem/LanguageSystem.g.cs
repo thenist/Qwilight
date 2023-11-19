@@ -315,6 +315,11 @@ namespace Qwilight
         public string HitPoints { get; set; }
         public string HitPointsLegend { get; set; }
         public string HitPointsModeAssist { get; set; }
+        public string HOFAbilityContents { get; set; }
+        public string HOFAtContents { get; set; }
+        public string HOFLevelContents { get; set; }
+        public string HOFText { get; set; }
+        public string HOFTotalContents { get; set; }
         public string HunterVariety1stText { get; set; }
         public string HunterVarietyContents { get; set; }
         public string HunterVarietyFavorText { get; set; }
@@ -865,16 +870,11 @@ namespace Qwilight
         public string WipeNoteFileOK { get; set; }
         public string WipeTotalNotify { get; set; }
         public string WipeUbuntuNotify { get; set; }
-        public string WowAbilityContents { get; set; }
-        public string WowCommentAtContents { get; set; }
-        public string WowCommentContents { get; set; }
-        public string WowCommentText { get; set; }
-        public string WowLevelContents { get; set; }
         public string WrongLowestJudgmentConditionModeContents { get; set; }
-        public string WwwCommentBand { get; set; }
-        public string WwwCommentHighest { get; set; }
-        public string WwwCommentStand { get; set; }
-        public string WwwCommentTotal { get; set; }
+        public string WwwHOFBand { get; set; }
+        public string WwwHOFHighest { get; set; }
+        public string WwwHOFStand { get; set; }
+        public string WwwHOFTotal { get; set; }
         public string WwwLevelAudioMultiplierContents0 { get; set; }
         public string WwwLevelAudioMultiplierContents1 { get; set; }
         public string WwwLevelBandContents0 { get; set; }

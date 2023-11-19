@@ -1251,6 +1251,26 @@
     "ko-KR": "라이프 게이지를 설정합니다.",
     "en-US": "Set the life gauge"
   },
+  "HOFAbilityContents": {
+    "ko-KR": "레이팅",
+    "en-US": "Rating"
+  },
+  "HOFAtContents": {
+    "ko-KR": "이번 달",
+    "en-US": "Month"
+  },
+  "HOFLevelContents": {
+    "ko-KR": "레벨",
+    "en-US": "Level"
+  },
+  "HOFText": {
+    "ko-KR": "명예의 전당",
+    "en-US": "Hall of Fame"
+  },
+  "HOFTotalContents": {
+    "ko-KR": "전체",
+    "en-US": "All"
+  },
   "HunterVariety1stText": {
     "ko-KR": "1등 기록",
     "en-US": "First place record"
@@ -3451,43 +3471,23 @@
     "ko-KR": "이 친구를 삭제할까요?",
     "en-US": "Do you want to delete this friend?"
   },
-  "WowAbilityContents": {
-    "ko-KR": "레이팅",
-    "en-US": "Rating"
-  },
-  "WowCommentAtContents": {
-    "ko-KR": "이번 달",
-    "en-US": "Month"
-  },
-  "WowCommentContents": {
-    "ko-KR": "전체",
-    "en-US": "All"
-  },
-  "WowCommentText": {
-    "ko-KR": "명예의 전당",
-    "en-US": "Hall of Fame"
-  },
-  "WowLevelContents": {
-    "ko-KR": "레벨",
-    "en-US": "Level"
-  },
   "WrongLowestJudgmentConditionModeContents": {
     "ko-KR": "간접 미스를 추가합니다.",
     "en-US": "Enable indirect miss"
   },
-  "WwwCommentBand": {
+  "WwwHOFBand": {
     "ko-KR": "콤보",
     "en-US": "Combo"
   },
-  "WwwCommentHighest": {
+  "WwwHOFHighest": {
     "ko-KR": "기록",
     "en-US": "Record"
   },
-  "WwwCommentStand": {
+  "WwwHOFStand": {
     "ko-KR": "점수",
     "en-US": "Score"
   },
-  "WwwCommentTotal": {
+  "WwwHOFTotal": {
     "ko-KR": "플레이",
     "en-US": "Play"
   },

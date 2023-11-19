@@ -6,7 +6,7 @@
     xmlns:view="clr-namespace:Qwilight.View">
     <Border Style="{StaticResource StandardPanel}">
         <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding BundleCollection, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=view:BundleView}}">
+            <ItemsControl ItemsSource="{Binding BundleItemCollection, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=view:BundleView}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel />

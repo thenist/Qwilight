@@ -48,7 +48,7 @@ namespace Qwilight.UIComponent
             }
         }
 
-        public ICollection<BundleItem> BundleCollection { get; set; }
+        public ICollection<BundleItem> BundleItemCollection { get; set; }
 
         [RelayCommand]
         void OnSave() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SaveBundle, new
@@ -66,7 +66,7 @@ namespace Qwilight.UIComponent
                 Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
             }) == MESSAGEBOX_RESULT.IDYES)
             {
-                BundleCollection.Remove(this);
+                BundleItemCollection.Remove(this);
                 var bundleViewModel = ViewModels.Instance.BundleValue;
                 bundleViewModel.TargetValue -= Length;
                 bundleViewModel.NotifyUI();

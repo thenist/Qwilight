@@ -580,7 +580,7 @@ namespace Qwilight.ViewModel
                 Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
             }) == MESSAGEBOX_RESULT.IDYES)
             {
-                ViewModels.Instance.MainValue.DefaultCommentCollection.Clear();
+                ViewModels.Instance.MainValue.DefaultCommentItemCollection.Clear();
                 foreach (var commentFilePath in Utility.GetFiles(QwilightComponent.CommentEntryPath))
                 {
                     Utility.WipeFile(commentFilePath);

@@ -257,6 +257,10 @@ namespace Qwilight
         bool _wantHellBPM;
         int _noteFormatID;
         int _commentViewTabPosition;
+        int _hofViewTabPosition;
+        int _hofViewTotalTabPosition;
+        int _hofViewAtTabPosition;
+        int _hofViewAbilityTabPosition;
         bool _lowestAutoLongNoteModify;
         bool _highestAutoLongNoteModify;
         bool _autoPutNoteSetMillis;
@@ -297,7 +301,7 @@ namespace Qwilight
             {
                 if (SetProperty(ref _ubuntuNetItemTarget, value, nameof(UbuntuNetItemTarget)) & _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.LoadTwilightCommentCollection();
+                    ViewModels.Instance.MainValue.LoadTwilightCommentItemCollection();
                 }
             }
         }
@@ -1045,18 +1049,59 @@ namespace Qwilight
                 {
                     var mainViewModel = ViewModels.Instance.MainValue;
                     mainViewModel.Computer?.InitNetComments();
-                    switch (value)
-                    {
-                        case 0:
-                            mainViewModel.LoadDefaultCommentCollection();
-                            break;
-                        case 1:
-                            mainViewModel.LoadTwilightCommentCollection();
-                            break;
-                        case 2:
-                            _ = mainViewModel.LoadWowItemCollection();
-                            break;
-                    }
+                    mainViewModel.LoadCommentItemCollection();
+                }
+            }
+        }
+
+        public int HOFViewTabPosition
+        {
+            get => _hofViewTabPosition;
+
+            set
+            {
+                if (SetProperty(ref _hofViewTabPosition, value, nameof(HOFViewTabPosition)) && _isLoaded)
+                {
+                    _ = ViewModels.Instance.MainValue.LoadHOFItemCollection();
+                }
+            }
+        }
+
+        public int HOFViewTotalTabPosition
+        {
+            get => _hofViewTotalTabPosition;
+
+            set
+            {
+                if (SetProperty(ref _hofViewTotalTabPosition, value, nameof(HOFViewTotalTabPosition)) && _isLoaded)
+                {
+                    _ = ViewModels.Instance.MainValue.LoadHOFItemCollection();
+                }
+            }
+        }
+
+        public int HOFViewAtTabPosition
+        {
+            get => _hofViewAtTabPosition;
+
+            set
+            {
+                if (SetProperty(ref _hofViewAtTabPosition, value, nameof(HOFViewAtTabPosition)) && _isLoaded)
+                {
+                    _ = ViewModels.Instance.MainValue.LoadHOFItemCollection();
+                }
+            }
+        }
+
+        public int HOFViewAbilityTabPosition
+        {
+            get => _hofViewAbilityTabPosition;
+
+            set
+            {
+                if (SetProperty(ref _hofViewAbilityTabPosition, value, nameof(HOFViewAbilityTabPosition)) && _isLoaded)
+                {
+                    _ = ViewModels.Instance.MainValue.LoadHOFItemCollection();
                 }
             }
         }

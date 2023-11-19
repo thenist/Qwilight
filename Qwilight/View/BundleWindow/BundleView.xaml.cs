@@ -5,13 +5,13 @@ namespace Qwilight.View
 {
     public partial class BundleView
     {
-        public static readonly DependencyProperty BundleCollectionProperty = DependencyProperty.Register(nameof(BundleCollection), typeof(ICollection<BundleItem>), typeof(BundleView));
+        public static readonly DependencyProperty BundleItemCollectionProperty = DependencyProperty.Register(nameof(BundleItemCollection), typeof(ICollection<BundleItem>), typeof(BundleView));
 
-        public ICollection<BundleItem> BundleCollection
+        public ICollection<BundleItem> BundleItemCollection
         {
-            get => GetValue(BundleCollectionProperty) as ICollection<BundleItem>;
+            get => GetValue(BundleItemCollectionProperty) as ICollection<BundleItem>;
 
-            set => SetValue(BundleCollectionProperty, value);
+            set => SetValue(BundleItemCollectionProperty, value);
         }
 
         public BundleView() => InitializeComponent();

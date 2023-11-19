@@ -278,7 +278,7 @@ namespace Qwilight
                                     AvatarID = twilightEstablish.avatarID;
                                     AvatarName = twilightEstablish.avatarName;
                                     TwilightSituation = NotSignedIn;
-                                    mainViewModel.LoadCommentCollection();
+                                    mainViewModel.LoadCommentItemCollection();
                                     Configure.Instance.CommentViewTabPosition = Configure.Instance.CommentViewTabPosition;
                                     AutoEnter(autoEnter => autoEnter == AutoEnterSite.AutoEnter);
                                     if (Configure.Instance.AutoSignIn)
@@ -341,21 +341,33 @@ namespace Qwilight
                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, eventItemText);
                                     break;
                                 case Event.Types.EventID.LevelUp:
-                                    Utility.HandleUIAudio("Level Up");
-                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelUp);
+                                    if (mainViewModel.IsQuitMode)
+                                    {
+                                        Utility.HandleUIAudio("Level Up");
+                                        BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelUp);
+                                    }
                                     break;
                                 case Event.Types.EventID.AbilityUp:
-                                    var twilightAbilityUp = Utility.GetJSON<JSON.TwilightAbilityUp>(eventItemText);
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, twilightAbilityUp.ToString(), true, "Ability Up");
-                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.AbilityUp);
+                                    if (mainViewModel.IsQuitMode)
+                                    {
+                                        var twilightAbilityUp = Utility.GetJSON<JSON.TwilightAbilityUp>(eventItemText);
+                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, twilightAbilityUp.ToString(), true, "Ability Up");
+                                        BaseUI.Instance.HandleEvent(BaseUI.EventItem.AbilityUp);
+                                    }
                                     break;
                                 case Event.Types.EventID.WwwLevel:
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.WwwLevelClearContents, eventItemText), true, "Www Level Clear");
-                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelClear);
+                                    if (mainViewModel.IsQuitMode)
+                                    {
+                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.WwwLevelClearContents, eventItemText), true, "Www Level Clear");
+                                        BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelClear);
+                                    }
                                     break;
                                 case Event.Types.EventID.NewTitle:
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.NewTitleContents, eventItemText), true, "New Title");
-                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.NewTitle);
+                                    if (mainViewModel.IsQuitMode)
+                                    {
+                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.NewTitleContents, eventItemText), true, "New Title");
+                                        BaseUI.Instance.HandleEvent(BaseUI.EventItem.NewTitle);
+                                    }
                                     break;
                                 case Event.Types.EventID.SiteYell:
                                     var twilightSiteYell = Utility.GetJSON<JSON.TwilightSiteYell>(eventItemText);
@@ -459,35 +471,35 @@ namespace Qwilight
                                                 Variety = (BundleItem.BundleVariety)bundleDataItem.bundleVariety
                                             });
                                         }
-                                        var noteFileBundleCollection = bundleViewModel.NoteFileBundleCollection;
-                                        var valueUIBundleCollection = bundleViewModel.UIBundleCollection;
-                                        var qwilightBundleCollection = bundleViewModel.QwilightBundleCollection;
-                                        var eventNoteBundleCollection = bundleViewModel.EventNoteBundleCollection;
+                                        var noteFileBundleItemCollection = bundleViewModel.NoteFileBundleItemCollection;
+                                        var valueUIBundleItemCollection = bundleViewModel.UIBundleItemCollection;
+                                        var qwilightBundleItemCollection = bundleViewModel.QwilightBundleItemCollection;
+                                        var eventNoteBundleItemCollection = bundleViewModel.EventNoteBundleItemCollection;
                                         UIHandler.Instance.HandleParallel(() =>
                                         {
-                                            noteFileBundleCollection.Clear();
+                                            noteFileBundleItemCollection.Clear();
                                             foreach (var noteFileBundleItem in noteFileBundleItems)
                                             {
-                                                noteFileBundleItem.BundleCollection = noteFileBundleCollection;
-                                                noteFileBundleCollection.Add(noteFileBundleItem);
+                                                noteFileBundleItem.BundleItemCollection = noteFileBundleItemCollection;
+                                                noteFileBundleItemCollection.Add(noteFileBundleItem);
                                             }
-                                            valueUIBundleCollection.Clear();
+                                            valueUIBundleItemCollection.Clear();
                                             foreach (var valueUIBundleItem in valueUIBundleItems)
                                             {
-                                                valueUIBundleItem.BundleCollection = valueUIBundleCollection;
-                                                valueUIBundleCollection.Add(valueUIBundleItem);
+                                                valueUIBundleItem.BundleItemCollection = valueUIBundleItemCollection;
+                                                valueUIBundleItemCollection.Add(valueUIBundleItem);
                                             }
-                                            qwilightBundleCollection.Clear();
+                                            qwilightBundleItemCollection.Clear();
                                             foreach (var qwilightBundleItem in qwilightBundleItems)
                                             {
-                                                qwilightBundleItem.BundleCollection = qwilightBundleCollection;
-                                                qwilightBundleCollection.Add(qwilightBundleItem);
+                                                qwilightBundleItem.BundleItemCollection = qwilightBundleItemCollection;
+                                                qwilightBundleItemCollection.Add(qwilightBundleItem);
                                             }
-                                            eventNoteBundleCollection.Clear();
+                                            eventNoteBundleItemCollection.Clear();
                                             foreach (var eventNoteBundleItem in eventNoteBundleItems)
                                             {
-                                                eventNoteBundleItem.BundleCollection = eventNoteBundleCollection;
-                                                eventNoteBundleCollection.Add(eventNoteBundleItem);
+                                                eventNoteBundleItem.BundleItemCollection = eventNoteBundleItemCollection;
+                                                eventNoteBundleItemCollection.Add(eventNoteBundleItem);
                                             }
                                         });
                                         bundleViewModel.TargetBundleAvatar = targetAvatar;

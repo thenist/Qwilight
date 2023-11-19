@@ -128,22 +128,22 @@ namespace Qwilight
                     case InputStandardControllerViewModel.LowerNoteFile:
                         _lowerSpinningValueHandler?.Dispose();
                         _lowerSpinningValueHandler = null;
-                        mainViewModel.UndoUnitMultiplier();
+                        mainViewModel.InitMultiplierUnit();
                         break;
                     case InputStandardControllerViewModel.HigherNoteFile:
                         _higherSpinningValueHandler?.Dispose();
                         _higherSpinningValueHandler = null;
-                        mainViewModel.UndoUnitMultiplier();
+                        mainViewModel.InitMultiplierUnit();
                         break;
                     case InputStandardControllerViewModel.LowerMultiplier:
                         _lowerMultiplierHandler?.Dispose();
                         _lowerMultiplierHandler = null;
-                        mainViewModel.UndoUnitMultiplier();
+                        mainViewModel.InitMultiplierUnit();
                         break;
                     case InputStandardControllerViewModel.HigherMultiplier:
                         _higherMultiplierHandler?.Dispose();
                         _higherMultiplierHandler = null;
-                        mainViewModel.UndoUnitMultiplier();
+                        mainViewModel.InitMultiplierUnit();
                         break;
                 }
             }

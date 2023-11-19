@@ -15,7 +15,7 @@
         </TabControl.Resources>
         <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding DefaultComment, Source={StaticResource LanguageSystem}}">
             <Grid>
-                <ListView Style="{StaticResource StandardPointableItemsView}" SelectedItem="{Binding DefaultCommentItem}" ItemsSource="{Binding DefaultCommentCollection}" SelectionChanged="OnDefaultCommentViewModified" KeyDown="OnDefaultCommentViewInputLower">
+                <ListView Style="{StaticResource StandardPointableItemsView}" SelectedItem="{Binding DefaultCommentItem}" ItemsSource="{Binding DefaultCommentItemCollection}" SelectionChanged="OnDefaultCommentViewModified" KeyDown="OnDefaultCommentViewInputLower">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Height="{Binding CommentItemHeight, Source={StaticResource BaseUI}}" MouseDown="OnDefaultComment" Background="Transparent">
@@ -79,7 +79,7 @@
                             </Border>
                         </StackPanel>
                     </Grid>
-                    <ListView Grid.Row="1" Style="{StaticResource StandardPointableItemsView}" SelectedItem="{Binding TwilightCommentItem}" ItemsSource="{Binding TwilightCommentCollection}" SelectionChanged="OnTwilightCommentViewModified">
+                    <ListView Grid.Row="1" Style="{StaticResource StandardPointableItemsView}" SelectedItem="{Binding TwilightCommentItem}" ItemsSource="{Binding TwilightCommentItemCollection}" SelectionChanged="OnTwilightCommentViewModified">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid MouseDown="OnTwilightComment" Background="Transparent" ContextMenu="{StaticResource ViewItems}">
@@ -139,10 +139,10 @@
                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsTwilightCommentLoading, Converter={StaticResource VisibilityModifier}}" />
             </Grid>
         </TabItem>
-        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WowCommentText, Source={StaticResource LanguageSystem}}">
-            <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Left">
+        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFText, Source={StaticResource LanguageSystem}}">
+            <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Left" SelectedIndex="{Binding HOFViewTabPosition, Source={StaticResource Configure}}">
                 <TabControl.Resources>
-                    <DataTemplate x:Key="WowView">
+                    <DataTemplate x:Key="HOFView">
                         <Grid Height="{Binding CommentItemHeight, Source={StaticResource BaseUI}}" Background="Transparent" ContextMenu="{StaticResource ViewItems}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -156,88 +156,88 @@
                         </Grid>
                     </DataTemplate>
                 </TabControl.Resources>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WowCommentContents, Source={StaticResource LanguageSystem}}">
-                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom">
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwCommentTotal, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFTotalContents, Source={StaticResource LanguageSystem}}">
+                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HOFViewTotalTabPosition, Source={StaticResource Configure}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFTotal, Source={StaticResource LanguageSystem}}">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalTotalHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalTotalLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalTotalLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwCommentHighest, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFHighest, Source={StaticResource LanguageSystem}}">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding HighestWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalHighestHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalHighestLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalHighestLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwCommentStand, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFStand, Source={StaticResource LanguageSystem}}">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding StandWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalStandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalStandLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalStandLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwCommentBand, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFBand, Source={StaticResource LanguageSystem}}">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding BandWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
-                </TabItem>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WowCommentAtContents, Source={StaticResource LanguageSystem}}">
-                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom">
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwCommentTotal, Source={StaticResource LanguageSystem}}">
-                            <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalAtWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
-                            </Grid>
-                        </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwCommentHighest, Source={StaticResource LanguageSystem}}">
-                            <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding HighestAtWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
-                            </Grid>
-                        </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwCommentStand, Source={StaticResource LanguageSystem}}">
-                            <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding StandAtWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
-                            </Grid>
-                        </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwCommentBand, Source={StaticResource LanguageSystem}}">
-                            <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding BandAtWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalBandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalBandLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalBandLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WowAbilityContents, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFAtContents, Source={StaticResource LanguageSystem}}">
+                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HOFViewAtTabPosition, Source={StaticResource Configure}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFTotal, Source={StaticResource LanguageSystem}}">
+                            <Grid>
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtTotalHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtTotalLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtTotalLoading, Converter={StaticResource VisibilityModifier}}" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFHighest, Source={StaticResource LanguageSystem}}">
+                            <Grid>
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtHighestHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtHighestLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtHighestLoading, Converter={StaticResource VisibilityModifier}}" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFStand, Source={StaticResource LanguageSystem}}">
+                            <Grid>
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtStandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtStandLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtStandLoading, Converter={StaticResource VisibilityModifier}}" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFBand, Source={StaticResource LanguageSystem}}">
+                            <Grid>
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtBandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtBandLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtBandLoading, Converter={StaticResource VisibilityModifier}}" />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </TabItem>
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFAbilityContents, Source={StaticResource LanguageSystem}}">
                     <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom">
                         <TabItem Style="{StaticResource StandardPageItem}" Header="5K">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability5KWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability5KHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAbility5KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAbility5KLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
                         <TabItem Style="{StaticResource StandardPageItem}" Header="7K">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability7KWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability7KHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAbility7KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAbility7KLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
                         <TabItem Style="{StaticResource StandardPageItem}" Header="9K">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability9KWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability9KHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAbility9KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAbility9KLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WowLevelContents, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFLevelContents, Source={StaticResource LanguageSystem}}">
                     <Grid>
-                        <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding LevelWowItemCollection}" ItemTemplate="{StaticResource WowView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                        <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsWowLoading, Converter={StaticResource VisibilityModifier}}" />
+                        <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding LevelHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFLevelLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                        <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFLevelLoading, Converter={StaticResource VisibilityModifier}}" />
                     </Grid>
                 </TabItem>
             </TabControl>

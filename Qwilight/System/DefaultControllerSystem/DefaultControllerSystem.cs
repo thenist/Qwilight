@@ -224,12 +224,12 @@ namespace Qwilight
                                 case VirtualKey.Left:
                                     _lowerSpinningValueHandler?.Dispose();
                                     _lowerSpinningValueHandler = null;
-                                    mainViewModel.UndoUnitMultiplier();
+                                    mainViewModel.InitMultiplierUnit();
                                     break;
                                 case VirtualKey.Right:
                                     _higherSpinningValueHandler?.Dispose();
                                     _higherSpinningValueHandler = null;
-                                    mainViewModel.UndoUnitMultiplier();
+                                    mainViewModel.InitMultiplierUnit();
                                     break;
                                 case (VirtualKey)179:
                                     mainViewModel.Pause();
@@ -240,12 +240,12 @@ namespace Qwilight
                                 case InputStandardViewModel.LowerMultiplier:
                                     _lowerMultiplierHandler?.Dispose();
                                     _lowerMultiplierHandler = null;
-                                    mainViewModel.UndoUnitMultiplier();
+                                    mainViewModel.InitMultiplierUnit();
                                     break;
                                 case InputStandardViewModel.HigherMultiplier:
                                     _higherMultiplierHandler?.Dispose();
                                     _higherMultiplierHandler = null;
-                                    mainViewModel.UndoUnitMultiplier();
+                                    mainViewModel.InitMultiplierUnit();
                                     break;
                                 case InputStandardViewModel.LowerAudioMultiplier:
                                     _lowerAudioMultiplierHandler?.Dispose();

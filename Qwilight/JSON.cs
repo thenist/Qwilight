@@ -847,27 +847,11 @@ namespace Qwilight
             }
         }
 
-        public struct TwilightWwwWow
+        public struct TwilightWwwHOF
         {
-            public Avatar[] totalAvatars;
-            public Avatar[] totalAvatarsAt;
-            public Avatar[] highestAvatars;
-            public Avatar[] highestAvatarsAt;
-            public Avatar[] standAvatars;
-            public Avatar[] standAvatarsAt;
-            public Avatar[] bandAvatars;
-            public Avatar[] bandAvatarsAt;
-            public Avatar[] ability5KAvatars;
-            public Avatar[] ability7KAvatars;
-            public Avatar[] ability9KAvatars;
-            public Avatar[] levelAvatars;
-
-            public struct Avatar
-            {
-                public string avatarID;
-                public string avatarName;
-                public double value;
-            }
+            public string avatarID;
+            public string avatarName;
+            public double value;
         }
     }
 }

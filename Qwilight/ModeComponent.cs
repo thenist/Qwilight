@@ -98,7 +98,7 @@ namespace Qwilight
         SetNoteMode _setNoteMode;
         LowestJudgmentConditionMode _lowestJudgmentConditionMode;
         PutCopyNotes _putCopyNotes;
-        double _unitMultiplier = 0.01;
+        double _multiplierUnit = 0.01;
         double _lowestLongNoteModify = 100.0;
         double _highestLongNoteModify = 100.0;
         double _putNoteSet = 25.0;
@@ -1102,20 +1102,20 @@ namespace Qwilight
 
         public bool HigherMultiplier()
         {
-            var wasModified = SetMultiplier(MultiplierValue + BPM * AudioMultiplier * _unitMultiplier);
+            var wasModified = SetMultiplier(MultiplierValue + BPM * AudioMultiplier * _multiplierUnit);
             if (wasModified)
             {
-                _unitMultiplier += 0.01;
+                _multiplierUnit += 0.01;
             }
             return wasModified;
         }
 
         public bool LowerMultiplier()
         {
-            var wasModified = SetMultiplier(MultiplierValue - BPM * AudioMultiplier * _unitMultiplier);
+            var wasModified = SetMultiplier(MultiplierValue - BPM * AudioMultiplier * _multiplierUnit);
             if (wasModified)
             {
-                _unitMultiplier += 0.01;
+                _multiplierUnit += 0.01;
             }
             return wasModified;
         }
@@ -1189,7 +1189,7 @@ namespace Qwilight
             LowestHitPoints1 = modeComponentData.lowestHitPoints1;
         }
 
-        public void UndoUnitMultiplier() => _unitMultiplier = 0.1;
+        public void InitMultiplierUnit() => _multiplierUnit = 0.1;
 
         public bool HigherAudioMultiplier()
         {

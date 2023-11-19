@@ -9,13 +9,13 @@ namespace Qwilight.ViewModel
     {
         string _targetBundleAvatar = string.Empty;
 
-        public ObservableCollection<BundleItem> NoteFileBundleCollection { get; } = new();
+        public ObservableCollection<BundleItem> NoteFileBundleItemCollection { get; } = new();
 
-        public ObservableCollection<BundleItem> UIBundleCollection { get; } = new();
+        public ObservableCollection<BundleItem> UIBundleItemCollection { get; } = new();
 
-        public ObservableCollection<BundleItem> QwilightBundleCollection { get; } = new();
+        public ObservableCollection<BundleItem> QwilightBundleItemCollection { get; } = new();
 
-        public ObservableCollection<BundleItem> EventNoteBundleCollection { get; } = new();
+        public ObservableCollection<BundleItem> EventNoteBundleItemCollection { get; } = new();
 
         public override double TargetLength => 0.8;
 

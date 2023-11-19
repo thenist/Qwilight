@@ -11,7 +11,7 @@
         public override void OnOpened()
         {
             base.OnOpened();
-            ViewModels.Instance.MainValue.LoadCommentCollection();
+            ViewModels.Instance.MainValue.LoadCommentItemCollection();
         }
     }
 }
