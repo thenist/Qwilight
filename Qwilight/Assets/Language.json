@@ -2711,6 +2711,14 @@
     "ko-KR": "꾸러미 다운로드 완료",
     "en-US": "Package download complete"
   },
+  "SavedDefaultNoteContents": {
+    "ko-KR": "모든 기본곡을 성공적으로 받음",
+    "en-US": "Successfully received all basic songs"
+  },
+  "SavedDefaultUIContents": {
+    "ko-KR": "모든 추가 스킨을 성공적으로 받음",
+    "en-US": "Successfully received all additional skins"
+  },
   "SaveDefaultNoteContents": {
     "ko-KR": "기본곡을 서버로부터 받습니다.",
     "en-US": "Download default songs from the server."

@@ -859,6 +859,12 @@ namespace Qwilight
                                                     if (length < savingBundleItem.Data.Length)
                                                     {
                                                         Send(Event.Types.EventID.SavedAsBundle, saveAsBundleID, UnsafeByteOperations.UnsafeWrap(savingBundleItem.Data.AsMemory(0, length)));
+                                                        if (_savingBundleItems.Remove(eventItemText, out _))
+                                                        {
+                                                            savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
+                                                            savingBundleItem.Text = LanguageSystem.Instance.SavedAsBundleContents;
+                                                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                        }
                                                         break;
                                                     }
                                                     else
@@ -894,14 +900,11 @@ namespace Qwilight
                                         }
                                     });
                                     break;
-                                case Event.Types.EventID.SavedAsBundle:
+                                case Event.Types.EventID.StopSavingAsBundle:
                                     if (_savingBundleItems.TryGetValue(eventItemText, out savingBundleItem))
                                     {
-                                        savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
-                                        savingBundleItem.Text = LanguageSystem.Instance.SavedAsBundleContents;
-                                        savingBundleItem.Dispose();
-                                        savingBundleItem.OnStop = wipeTotal => true;
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                        savingBundleItem.Variety = NotifySystem.NotifyVariety.Stopped;
+                                        savingBundleItem.Text = LanguageSystem.Instance.StopSavingAsBundleContents;
                                     }
                                     break;
                                 case Event.Types.EventID.SaveBundle:
@@ -963,7 +966,7 @@ namespace Qwilight
                                     break;
                                 case Event.Types.EventID.SavedBundle:
                                     var twilightSavedBundle = Utility.GetJSON<JSON.TwilightSavedBundle>(eventItemText);
-                                    if (_savingBundleItems.TryGetValue(twilightSavedBundle.bundleID, out savingBundleItem))
+                                    if (_savingBundleItems.Remove(twilightSavedBundle.bundleID, out savingBundleItem))
                                     {
                                         if (savingBundleItem.IsStopped)
                                         {
@@ -1004,6 +1007,10 @@ namespace Qwilight
                                                                 {
                                                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
                                                                 }
+                                                                else if (twilightSavedBundle.isLastDefault)
+                                                                {
+                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedDefaultNoteContents);
+                                                                }
                                                             }
                                                             break;
                                                         case BundleItem.BundleVariety.DefaultUI:
@@ -1011,7 +1018,7 @@ namespace Qwilight
                                                             using (var zipFile = ZipFile.Read(dataFlow))
                                                             {
                                                                 savingBundleItem.Text = LanguageSystem.Instance.SavingBundleContents;
-                                                                if (bundleVariety != BundleItem.BundleVariety.DefaultUI)
+                                                                if (isNotDefaultBundle)
                                                                 {
                                                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
                                                                 }
@@ -1022,9 +1029,13 @@ namespace Qwilight
                                                             {
                                                                 savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                                                 savingBundleItem.Text = LanguageSystem.Instance.SavedBundleContents;
-                                                                if (bundleVariety != BundleItem.BundleVariety.DefaultUI)
+                                                                if (isNotDefaultBundle)
                                                                 {
                                                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                                }
+                                                                else if (twilightSavedBundle.isLastDefault)
+                                                                {
+                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedDefaultUIContents);
                                                                 }
                                                             }
                                                             break;
@@ -1093,7 +1104,6 @@ namespace Qwilight
                                                         if (savingBundleItem.IsStopped)
                                                         {
                                                             e.Cancel = true;
-                                                            savingBundleItem.Dispose();
                                                         }
                                                         else
                                                         {
@@ -1111,7 +1121,6 @@ namespace Qwilight
                                                 finally
                                                 {
                                                     savingBundleItem.Dispose();
-                                                    savingBundleItem.OnStop = wipeTotal => true;
                                                 }
                                             }, false);
                                         }

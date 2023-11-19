@@ -522,6 +522,7 @@ namespace Qwilight
             public int bundleVariety;
             public string bundleName;
             public string etc;
+            public bool isLastDefault;
         }
 
         public struct TwilightLevyNet

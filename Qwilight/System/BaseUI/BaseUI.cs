@@ -697,7 +697,7 @@ namespace Qwilight
             DrawingSystem.Instance.SetFontFamily(CommentPlace1Font);
         }
 
-        void LoadBaseUIImpl(UIItem src, UIItem target)
+        void LoadUIImpl(UIItem src, UIItem target)
         {
             #region COMPATIBLE
             Compatible.Compatible.BaseUI(QwilightComponent.UIEntryPath, target.GetYamlFilePath(), target.YamlName, target.UIEntry);
@@ -2079,10 +2079,10 @@ namespace Qwilight
                         {
                             lock (UI.Instance.LoadedCSX)
                             {
-                                LoadBaseUIImpl(src, target);
-                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedUIFileContents);
+                                LoadUIImpl(src, target);
                             }
                             OnLoaded();
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedUIFileContents);
                         }
                         catch (YamlException e)
                         {
@@ -2098,6 +2098,7 @@ namespace Qwilight
                         {
                             mainViewModel.IsUILoading = false;
                         }
+                        LoadDefaultIfAvailable();
                     });
                 }
                 else
@@ -2106,7 +2107,7 @@ namespace Qwilight
                     {
                         lock (UI.Instance.LoadedCSX)
                         {
-                            LoadBaseUIImpl(src, target);
+                            LoadUIImpl(src, target);
                         }
                         OnLoaded();
                     }
@@ -2121,6 +2122,23 @@ namespace Qwilight
                     finally
                     {
                         mainViewModel.IsUILoading = false;
+                    }
+                    LoadDefaultIfAvailable();
+                }
+
+                void LoadDefaultIfAvailable()
+                {
+                    if (!string.IsNullOrEmpty(FaultText))
+                    {
+                        var defaultUIItem = new UIItem
+                        {
+                            UIEntry = "@Default",
+                            YamlName = "@Default"
+                        };
+                        if (defaultUIItem != target)
+                        {
+                            Utility.SetBaseUIItem(null, defaultUIItem);
+                        }
                     }
                 }
 

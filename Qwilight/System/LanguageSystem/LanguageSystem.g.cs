@@ -680,6 +680,8 @@ namespace Qwilight
         public string SaveCommentFailed { get; set; }
         public string SavedAsBundleContents { get; set; }
         public string SavedBundleContents { get; set; }
+        public string SavedDefaultNoteContents { get; set; }
+        public string SavedDefaultUIContents { get; set; }
         public string SaveDefaultNoteContents { get; set; }
         public string SaveDefaultNoteNotify { get; set; }
         public string SaveDefaultNoteText { get; set; }
