@@ -9,9 +9,9 @@ namespace Qwilight.UIComponent
         NotifySystem.NotifyVariety _toNotifyVariety;
         string _text;
 
-        public byte[] SaveAsDataStore { get; set; }
+        public byte[] Data { get; set; }
 
-        public MemoryStream SaveDataFlow { get; set; }
+        public MemoryStream DataFlow { get; set; }
 
         public Brush PointedPaint => Paints.DefaultPointedPaint;
 
@@ -60,15 +60,15 @@ namespace Qwilight.UIComponent
 
         public void Dispose()
         {
-            if (SaveDataFlow != null)
+            if (DataFlow != null)
             {
-                SaveDataFlow.Dispose();
-                SaveDataFlow = null;
+                DataFlow.Dispose();
+                DataFlow = null;
             }
-            if (SaveAsDataStore != null)
+            if (Data != null)
             {
-                ArrayPool<byte>.Shared.Return(SaveAsDataStore);
-                SaveAsDataStore = null;
+                ArrayPool<byte>.Shared.Return(Data);
+                Data = null;
             }
         }
     }

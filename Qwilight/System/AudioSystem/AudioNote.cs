@@ -2,12 +2,12 @@
 {
     public struct AudioNote
     {
-        public AudioItem? AudioItem { get; set; }
+        public AudioItem? AudioItem { get; init; }
 
-        public uint? Length { get; set; }
+        public uint? Length { get; init; }
 
-        public uint AudioLevyingPosition { get; set; }
+        public uint AudioLevyingPosition { get; init; }
 
-        public int Salt { get; set; }
+        public int Salt { get; init; }
     }
 }

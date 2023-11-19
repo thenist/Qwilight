@@ -46,26 +46,26 @@ namespace Qwilight.Compiler
 
         class BMSInputItem : IComparable<BMSInputItem>
         {
-            public InputNote InputNote { get; set; }
+            public InputNote InputNote { get; init; }
 
             public int CompareTo(BMSInputItem other) => InputNote.CompareTo(other.InputNote);
         }
 
         sealed class BMSLongInputItem : BMSInputItem
         {
-            public string BMSID { get; set; } = string.Empty;
+            public string BMSID { get; init; } = string.Empty;
         }
 
         class EarlyBMSInputItem : IComparable<EarlyBMSInputItem>
         {
-            public double BMSPosition { get; set; }
+            public double BMSPosition { get; init; }
 
             public int CompareTo(EarlyBMSInputItem other) => BMSPosition.CompareTo(other.BMSPosition);
         }
 
         sealed class EarlyBMSLongInputItem : EarlyBMSInputItem
         {
-            public string BMSID { get; set; } = string.Empty;
+            public string BMSID { get; init; } = string.Empty;
         }
 
         readonly List<string> _lines = new();

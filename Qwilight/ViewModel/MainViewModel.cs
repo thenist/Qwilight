@@ -1331,7 +1331,7 @@ namespace Qwilight.ViewModel
                 }
                 var assistFileViewModel = ViewModels.Instance.AssistFileValue;
                 assistFileViewModel.Title = noteFile.EntryItem.Title;
-                assistFileViewModel.Assist = await File.ReadAllTextAsync(assistFilePath, Encoding.GetEncoding(format));
+                assistFileViewModel.Assist = await File.ReadAllTextAsync(assistFilePath, Encoding.GetEncoding(format)).ConfigureAwait(false);
                 assistFileViewModel.Open();
             }
         }
