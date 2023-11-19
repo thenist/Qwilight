@@ -403,7 +403,7 @@ namespace Qwilight
         public struct TwilightCallBundle
         {
             public string targetAvatar;
-            public bool isWindowOpen;
+            public bool isSilent;
             public long targetValue;
             public long bundleLength;
             public BundleDataItem[] data;

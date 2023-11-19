@@ -444,7 +444,7 @@ namespace Qwilight
                                 case Event.Types.EventID.CallBundle:
                                     var twilightCallBundle = Utility.GetJSON<JSON.TwilightCallBundle>(eventItemText);
                                     var targetAvatar = twilightCallBundle.targetAvatar;
-                                    if (twilightCallBundle.isWindowOpen || (bundleViewModel.IsOpened && bundleViewModel.TargetBundleAvatar == targetAvatar))
+                                    if (!twilightCallBundle.isSilent || (bundleViewModel.IsOpened && bundleViewModel.TargetBundleAvatar == targetAvatar))
                                     {
                                         var noteFilesBundleItems = new List<BundleItem>();
                                         var noteFileBundleItems = new List<BundleItem>();
@@ -859,7 +859,7 @@ namespace Qwilight
                                                     if (length < savingBundleItem.Data.Length)
                                                     {
                                                         Send(Event.Types.EventID.SavedAsBundle, saveAsBundleID, UnsafeByteOperations.UnsafeWrap(savingBundleItem.Data.AsMemory(0, length)));
-                                                        if (_savingBundleItems.Remove(eventItemText, out _))
+                                                        if (_savingBundleItems.Remove(saveAsBundleID, out _))
                                                         {
                                                             savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                                             savingBundleItem.Text = LanguageSystem.Instance.SavedAsBundleContents;

@@ -159,7 +159,7 @@ namespace Qwilight.View
                 var entryWindow = new FolderPicker();
                 InitializeWithWindow.Initialize(entryWindow, _handle);
                 entryWindow.FileTypeFilter.Add("*");
-                message.Reply(entryWindow.PickSingleFolderAsync().AsTask().ContinueWith<string>(entry => entry.Result?.Path));
+                message.Reply(entryWindow.PickSingleFolderAsync().AsTask().ContinueWith(entry => entry.Result?.Path));
             });
             StrongReferenceMessenger.Default.Register<ViewFileWindow>(this, (recipient, message) =>
             {
@@ -169,7 +169,7 @@ namespace Qwilight.View
                 {
                     fileWindow.FileTypeFilter.Add(filter);
                 }
-                message.Reply(fileWindow.PickSingleFileAsync().AsTask().ContinueWith<string>(file => file.Result?.Path));
+                message.Reply(fileWindow.PickSingleFileAsync().AsTask().ContinueWith(file => file.Result?.Path));
             });
             StrongReferenceMessenger.Default.Register<Quit>(this, (recipient, message) => PInvoke.PostMessage(_handle, PInvoke.WM_CLOSE, message.ViewAllowWindow ? (WPARAM)1 : (WPARAM)0, (LPARAM)0));
             StrongReferenceMessenger.Default.Register<SetWindowArea>(this, (recipient, message) =>
