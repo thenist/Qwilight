@@ -106,12 +106,17 @@ namespace Qwilight.Compute
         readonly BaseCompiler _targetCompiler;
         readonly Thread _targetCompilerHandler;
         readonly CancellationTokenSource _setCancelCompiler = new();
-        readonly int _hitPointsModeDate;
-        readonly int _hitPointsMapDate;
-        readonly int _pointDate;
-        readonly int _standMapDate;
-        readonly int _standModeDate;
-        readonly int _tooLongLongNoteDate;
+        readonly Component.HitPointsModeDate _hitPointsModeDate;
+        readonly Component.HitPointsMapDate _hitPointsMapDate;
+        readonly Component.PointMapDate _pointMapDate;
+        readonly Component.StandMapDate _standMapDate;
+        readonly Component.StandModeDate _standModeDate;
+        readonly Component.JudgmentModeDate _judgmentModeDate;
+        readonly Component.JudgmentMapDate _judgmentMapDate;
+        readonly Component.LongNoteAssistDate _longNoteAssistDate;
+        readonly Component.TrapNoteJudgmentDate _trapNoteJudgmentDate;
+        readonly Component.PaintEventsDate _paintEventsDate;
+        readonly Component.TooLongLongNoteDate _tooLongLongNoteDate;
         readonly List<AudioNote>[] _lastIIDXInputAudioNoteMap = new List<AudioNote>[53];
         readonly List<Comment> _comments = new();
         readonly List<NetItem> _netItems = new();
@@ -120,11 +125,6 @@ namespace Qwilight.Compute
         readonly ConcurrentQueue<(int, byte)> _rawInputQueue = new();
         readonly List<PaintEvent>[] _paintEventsGAS = new List<PaintEvent>[8];
         readonly object _targetHandlerCSX = new();
-        readonly int _judgmentModeDate;
-        readonly int _judgmentMapDate;
-        readonly int _longNoteAssistDate;
-        readonly int _trapNoteJudgmentDate;
-        readonly int _paintEventsDate;
         readonly List<BaseNote> _handlingNotes = new();
         readonly Queue<double> _eventPositions = new();
         readonly List<string> _ioAvatarIDs = new();
@@ -790,7 +790,7 @@ namespace Qwilight.Compute
                 }
             }
 
-            var paintEvents = (_paintEventsDate == Component.PaintEventsDate100 ? Comment.Paints.Select((paintEvent, i) =>
+            var paintEvents = (_paintEventsDate == Component.PaintEventsDate._1_0_0 ? Comment.Paints.Select((paintEvent, i) =>
             {
                 paintEvent.Wait = i * Length / (Comment.Paints.Count - 1);
                 return paintEvent;
@@ -1216,7 +1216,7 @@ namespace Qwilight.Compute
 
         public double AudioLength { get; set; }
 
-        public int CommentWaitDate { get; }
+        public Component.CommentWaitDate CommentWaitDate { get; }
 
         public bool BanalMedia { get; } = Configure.Instance.BanalMedia;
 
@@ -1522,27 +1522,27 @@ namespace Qwilight.Compute
                 JudgmentInputValues[i] = new double[6];
             }
             var date = Version.Parse(Comment.Date);
-            _judgmentModeDate = Utility.IsLowerDate(date, 1, 6, 7) ? Component.JudgmentMode100 : Utility.IsLowerDate(date, 1, 10, 34) ? Component.JudgmentMode167 : Utility.IsLowerDate(date, 1, 10, 35) ? Component.JudgmentMode11034 : Utility.IsLowerDate(date, 1, 14, 6) ? Component.JudgmentMode11035 : Component.JudgmentMode1146;
-            _judgmentMapDate = Utility.IsLowerDate(date, 1, 3, 0) ? Component.JudgmentMap100 : Utility.IsLowerDate(date, 1, 6, 7) ? Component.JudgmentMap130 : Utility.IsLowerDate(date, 1, 6, 8) ? Component.JudgmentMap167 : Utility.IsLowerDate(date, 1, 10, 34) ? Component.JudgmentMap168 : Utility.IsLowerDate(date, 1, 10, 35) ? Component.JudgmentMap11034 : Utility.IsLowerDate(date, 1, 11, 0) ? Component.JudgmentMap11035 : Component.JudgmentMap1110;
-            _longNoteAssistDate = Utility.IsLowerDate(date, 1, 6, 7) ? Component.LongNoteAssist100 : Utility.IsLowerDate(date, 1, 10, 34) ? Component.LongNoteAssist167 : Utility.IsLowerDate(date, 1, 10, 35) ? Component.LongNoteAssist11034 : Component.LongNoteAssist11035;
-            _trapNoteJudgmentDate = Utility.IsLowerDate(date, 1, 14, 6) ? Component.TrapNoteJudgmentDate100 : Component.TrapNoteJudgmentDate1146;
-            _paintEventsDate = Utility.IsLowerDate(date, 1, 14, 91) ? Component.PaintEventsDate100 : Component.PaintEventsDate11491;
-            LongNoteModeDate = Utility.IsLowerDate(date, 1, 14, 20) ? Component.LongNoteMode100 : Utility.IsLowerDate(date, 1, 16, 4) ? Component.LongNoteMode11420 : Component.LongNoteMode1164;
+            _judgmentModeDate = Utility.GetDate<Component.JudgmentModeDate>(date, "1.6.7", "1.10.34", "1.10.35", "1.14.6");
+            _judgmentMapDate = Utility.GetDate<Component.JudgmentMapDate>(date, "1.3.0", "1.6.7", "1.6.8", "1.10.34", "1.10.35", "1.11.0");
+            _longNoteAssistDate = Utility.GetDate<Component.LongNoteAssistDate>(date, "1.6.7", "1.10.34", "1.10.35");
+            _trapNoteJudgmentDate = Utility.GetDate<Component.TrapNoteJudgmentDate>(date, "1.14.6");
+            _paintEventsDate = Utility.GetDate<Component.PaintEventsDate>(date, "1.14.91");
+            LongNoteModeDate = Utility.GetDate<Component.LongNoteModeDate>(date, "1.14.20", "1.16.4");
+            _hitPointsModeDate = Utility.GetDate<Component.HitPointsModeDate>(date, "1.2.3", "1.10.34", "1.10.35", "1.14.62");
+            _hitPointsMapDate = Utility.GetDate<Component.HitPointsMapDate>(date, "1.6.7", "1.7.0", "1.13.2");
+            _pointMapDate = Utility.GetDate<Component.PointMapDate>(date, "1.6.7");
+            _standMapDate = Utility.GetDate<Component.StandMapDate>(date, "1.14.118");
+            _standModeDate = Utility.GetDate<Component.StandModeDate>(date, "1.6.7", "1.14.118");
+            _tooLongLongNoteDate = Utility.GetDate<Component.TooLongLongNoteDate>(date, "1.13.107", "1.14.20", "1.14.29");
+            _targetCompiler = BaseCompiler.GetCompiler(NoteFile, _setCancelCompiler);
+            _targetCompilerHandler = Utility.GetParallelHandler(() => _targetCompiler.Compile(this, true));
+            CommentWaitDate = Utility.GetDate<Component.CommentWaitDate>(date, "1.3.11", "1.6.4");
             Title = NoteFile.Title;
             Artist = NoteFile.Artist;
             Genre = NoteFile.Genre;
             LevelValue = NoteFile.LevelValue;
             LevelText = NoteFile.LevelText;
             InputMode = NoteFile.InputMode;
-            _hitPointsModeDate = Utility.IsLowerDate(date, 1, 2, 3) ? Component.HitPointsMode100 : Utility.IsLowerDate(date, 1, 10, 34) ? Component.HitPointsMode123 : Utility.IsLowerDate(date, 1, 10, 35) ? Component.HitPointsMode11034 : Utility.IsLowerDate(date, 1, 14, 62) ? Component.HitPointsMode11035 : Component.HitPointsMode11462;
-            _hitPointsMapDate = Utility.IsLowerDate(date, 1, 6, 7) ? Component.HitPointsMap100 : Utility.IsLowerDate(date, 1, 7, 0) ? Component.HitPointsMap167 : Utility.IsLowerDate(date, 1, 13, 2) ? Component.HitPointsMap170 : Component.HitPointsMap1132;
-            _pointDate = Utility.IsLowerDate(date, 1, 6, 7) ? Component.Point100 : Component.Point167;
-            _standMapDate = Utility.IsLowerDate(date, 1, 14, 118) ? Component.StandMap100 : Component.StandMap114118;
-            _standModeDate = Utility.IsLowerDate(date, 1, 6, 7) ? Component.StandMode100 : Utility.IsLowerDate(date, 1, 14, 118) ? Component.StandMode167 : Component.StandMode114118;
-            _tooLongLongNoteDate = Utility.IsLowerDate(date, 1, 13, 107) ? Component.TooLongLongNote100 : Utility.IsLowerDate(date, 1, 14, 20) ? Component.TooLongLongNote113107 : Utility.IsLowerDate(date, 1, 14, 29) ? Component.TooLongLongNote11420 : Component.TooLongLongNote11429;
-            _targetCompiler = BaseCompiler.GetCompiler(NoteFile, _setCancelCompiler);
-            _targetCompilerHandler = Utility.GetParallelHandler(() => _targetCompiler.Compile(this, true));
-            CommentWaitDate = Utility.IsLowerDate(date, 1, 3, 11) ? Component.CommentWaitDate100 : Utility.IsLowerDate(date, 1, 6, 4) ? Component.CommentWaitDate1311 : Component.CommentWaitDate164;
             HandleWarning();
         }
 
@@ -2461,7 +2461,7 @@ namespace Qwilight.Compute
                                             {
                                                 switch (LongNoteModeDate)
                                                 {
-                                                    case Component.LongNoteMode1164:
+                                                    case Component.LongNoteModeDate._1_16_4:
                                                         SetNoteJudged(handlingNote, handlingNote.Judged);
                                                         OnNoteJudged(handlingNote);
                                                         break;
@@ -2471,12 +2471,12 @@ namespace Qwilight.Compute
                                             {
                                                 switch (_tooLongLongNoteDate)
                                                 {
-                                                    case Component.TooLongLongNote100:
-                                                    case Component.TooLongLongNote11420:
+                                                    case Component.TooLongLongNoteDate._1_0_0:
+                                                    case Component.TooLongLongNoteDate._1_14_20:
                                                         SetNoteJudged(handlingNote, Component.Judged.Lowest);
                                                         break;
-                                                    case Component.TooLongLongNote113107:
-                                                    case Component.TooLongLongNote11429:
+                                                    case Component.TooLongLongNoteDate._1_13_107:
+                                                    case Component.TooLongLongNoteDate._1_14_29:
                                                         SetNoteJudged(handlingNote, Component.Judged.Lower);
                                                         break;
                                                 }
@@ -3760,54 +3760,54 @@ namespace Qwilight.Compute
                     }
                 }
                 LastJudged = judged;
-                Point.TargetValue = (SavedPoint += Component.PointMap[_pointDate, (int)judged]) / (TotalPoint += Component.PointMap[_pointDate, (int)Component.Judged.Highest]);
+                Point.TargetValue = (SavedPoint += Component.PointMap[(int)_pointMapDate, (int)judged]) / (TotalPoint += Component.PointMap[(int)_pointMapDate, (int)Component.Judged.Highest]);
                 switch (_standModeDate)
                 {
-                    case Component.StandMode100:
-                        Stand.TargetValue = LastStand + (int)(1000000 * (SavedStand += _standMultiplier * Point.TargetValue * Component.StandMap[_standMapDate, (int)judged]) / (TotalNotes * Component.StandMap[_standMapDate, (int)Component.Judged.Highest]));
+                    case Component.StandModeDate._1_0_0:
+                        Stand.TargetValue = LastStand + (int)(1000000 * (SavedStand += _standMultiplier * Point.TargetValue * Component.StandMap[(int)_standMapDate, (int)judged]) / (TotalNotes * Component.StandMap[(int)_standMapDate, (int)Component.Judged.Highest]));
                         break;
-                    case Component.StandMode167:
-                        Stand.TargetValue = LastStand + (int)(1000000 * (SavedStand += _standMultiplier * (HasFailedJudgment ? Point.TargetValue : 1.0) * Component.StandMap[_standMapDate, (int)judged]) / (TotalNotes * Component.StandMap[_standMapDate, (int)Component.Judged.Highest]));
+                    case Component.StandModeDate._1_6_7:
+                        Stand.TargetValue = LastStand + (int)(1000000 * (SavedStand += _standMultiplier * (HasFailedJudgment ? Point.TargetValue : 1.0) * Component.StandMap[(int)_standMapDate, (int)judged]) / (TotalNotes * Component.StandMap[(int)_standMapDate, (int)Component.Judged.Highest]));
                         break;
-                    case Component.StandMode114118:
-                        Stand.TargetValue = LastStand + (int)(1000000 * (SavedStand += _standMultiplier * Component.StandMap[_standMapDate, (int)judged]) / (TotalNotes * Component.StandMap[_standMapDate, (int)Component.Judged.Highest]));
+                    case Component.StandModeDate._1_14_118:
+                        Stand.TargetValue = LastStand + (int)(1000000 * (SavedStand += _standMultiplier * Component.StandMap[(int)_standMapDate, (int)judged]) / (TotalNotes * Component.StandMap[(int)_standMapDate, (int)Component.Judged.Highest]));
                         break;
                 }
                 if (!IsF)
                 {
                     switch (_hitPointsModeDate)
                     {
-                        case Component.HitPointsMode100:
+                        case Component.HitPointsModeDate._1_0_0:
                             if (judged == Component.Judged.Lowest)
                             {
-                                HitPoints.TargetValue -= 2.0 * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                HitPoints.TargetValue -= 2.0 * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                             }
                             else
                             {
-                                HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                             }
                             break;
-                        case Component.HitPointsMode123:
+                        case Component.HitPointsModeDate._1_2_3:
                             if (judged == Component.Judged.Lowest)
                             {
-                                HitPoints.TargetValue -= (1.5 * HitPoints.TargetValue + 0.5) * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                HitPoints.TargetValue -= (1.5 * HitPoints.TargetValue + 0.5) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                             }
                             else
                             {
-                                HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                             }
                             break;
-                        case Component.HitPointsMode11034:
+                        case Component.HitPointsModeDate._1_10_34:
                             if (judged == Component.Judged.Lowest)
                             {
-                                HitPoints.TargetValue -= (1.25 * HitPoints.TargetValue + 0.75) * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                HitPoints.TargetValue -= (1.25 * HitPoints.TargetValue + 0.75) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                             }
                             else
                             {
-                                HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                             }
                             break;
-                        case Component.HitPointsMode11035:
+                        case Component.HitPointsModeDate._1_10_35:
                             switch (ModeComponentValue.HandlingHitPointsModeValue)
                             {
                                 case ModeComponent.HitPointsMode.Favor:
@@ -3816,16 +3816,16 @@ namespace Qwilight.Compute
                                 default:
                                     if (judged == Component.Judged.Lowest)
                                     {
-                                        HitPoints.TargetValue -= (1.5 * HitPoints.TargetValue + 0.5) * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                        HitPoints.TargetValue -= (1.5 * HitPoints.TargetValue + 0.5) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     else
                                     {
-                                        HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                        HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     break;
                             }
                             break;
-                        case Component.HitPointsMode11462:
+                        case Component.HitPointsModeDate._1_14_62:
                             switch (ModeComponentValue.HandlingHitPointsModeValue)
                             {
                                 case ModeComponent.HitPointsMode.Favor:
@@ -3834,47 +3834,47 @@ namespace Qwilight.Compute
                                 case ModeComponent.HitPointsMode.Test:
                                     if (judged == Component.Judged.Lowest)
                                     {
-                                        HitPoints.TargetValue -= (HitPoints.TargetValue + 1.0) * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                        HitPoints.TargetValue -= (HitPoints.TargetValue + 1.0) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     else
                                     {
-                                        HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                        HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     break;
                                 case ModeComponent.HitPointsMode.Highest:
                                     if (judged == Component.Judged.Lowest)
                                     {
-                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] -= (1.5 * _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] + 0.5) * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
-                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] -= (_hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] + 1.0) * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Higher, (int)judged];
-                                        HitPoints.TargetValue -= 2.0 * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] -= (1.5 * _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] + 0.5) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] -= (_hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] + 1.0) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Higher, (int)judged];
+                                        HitPoints.TargetValue -= 2.0 * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     else
                                     {
-                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
-                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Higher, (int)judged];
-                                        HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Higher, (int)judged];
+                                        HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     break;
                                 case ModeComponent.HitPointsMode.Higher:
                                     if (judged == Component.Judged.Lowest)
                                     {
-                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] -= (1.5 * _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] + 0.5) * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
-                                        HitPoints.TargetValue -= (HitPoints.TargetValue + 1.0) * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] -= (1.5 * _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] + 0.5) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
+                                        HitPoints.TargetValue -= (HitPoints.TargetValue + 1.0) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     else
                                     {
-                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
-                                        HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
+                                        HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     break;
                                 default:
                                     if (judged == Component.Judged.Lowest)
                                     {
-                                        HitPoints.TargetValue -= (1.5 * HitPoints.TargetValue + 0.5) * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                        HitPoints.TargetValue -= (1.5 * HitPoints.TargetValue + 0.5) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     else
                                     {
-                                        HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                        HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     break;
                             }
@@ -4384,7 +4384,7 @@ namespace Qwilight.Compute
 
         public void SetAutoNoteWait()
         {
-            if (Configure.Instance.AutoNoteWait && _noteWaits.Any())
+            if (Configure.Instance.AutoNoteWait && _noteWaits.Count > 0)
             {
                 Configure.Instance.UIConfigureValue.NoteWait += _noteWaits.Average();
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SetAutoNoteWait, (int)Configure.Instance.UIConfigureValue.NoteWait));
@@ -4408,7 +4408,7 @@ namespace Qwilight.Compute
                     {
                         switch (netItem.PaintEventsDate)
                         {
-                            case Component.PaintEventsDate100:
+                            case Component.PaintEventsDate._1_0_0:
                                 switch (Status)
                                 {
                                     case 0.0:
@@ -4423,7 +4423,7 @@ namespace Qwilight.Compute
                                         break;
                                 }
                                 break;
-                            case Component.PaintEventsDate11491:
+                            case Component.PaintEventsDate._1_14_91:
                                 if (LoopingCounter < paintEvents[0].Wait)
                                 {
                                     netItem.SetValue(0, 0, 1.0, 1.0, NoteFiles.Length);

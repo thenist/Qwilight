@@ -863,22 +863,22 @@ namespace Qwilight
                     drawingMap[i] = GetCalledText(Utility.GetText(lambdaNode, $"drawing{i}", i.ToString())).Split(',').Select(value => Utility.ToInt32(value, out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < HighestNoteID).ToArray();
                 }
 
-                DrawingInputModeMap[(int)Component.InputMode.InputMode4] = GetDrawingInputMode((int)Component.InputMode.InputMode4, "2, 3, 3, 2");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode5] = GetDrawingInputMode((int)Component.InputMode.InputMode5, "2, 3, 4, 3, 2");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode6] = GetDrawingInputMode((int)Component.InputMode.InputMode6, "2, 3, 2, 2, 3, 2");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode7] = GetDrawingInputMode((int)Component.InputMode.InputMode7, "2, 3, 2, 5, 2, 3, 2");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode8] = GetDrawingInputMode((int)Component.InputMode.InputMode8, "2, 3, 2, 3, 3, 2, 3, 2");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode9] = GetDrawingInputMode((int)Component.InputMode.InputMode9, "2, 3, 2, 3, 4, 3, 2, 3, 2");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode51] = GetDrawingInputMode((int)Component.InputMode.InputMode51, "1, 2, 3, 4, 3, 2");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode71] = GetDrawingInputMode((int)Component.InputMode.InputMode71, "1, 2, 3, 2, 5, 2, 3, 2");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode102] = GetDrawingInputMode2P((int)Component.InputMode.InputMode102, "1, 2, 3, 4, 3, 2, 2, 3, 4, 3, 2, 10");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode142] = GetDrawingInputMode2P((int)Component.InputMode.InputMode142, "1, 2, 3, 2, 5, 2, 3, 2, 2, 3, 2, 5, 2, 3, 2, 10");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode10] = GetDrawingInputMode((int)Component.InputMode.InputMode10, "2, 3, 2, 3, 2, 2, 3, 2, 3, 2");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode242] = GetDrawingInputMode((int)Component.InputMode.InputMode242, "6, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 11");
-                DrawingInputModeMap[(int)Component.InputMode.InputMode484] = GetDrawingInputMode((int)Component.InputMode.InputMode484, "6, 6, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 11, 11");
-                if (DrawingInputModeMap[(int)Component.InputMode.InputMode484].Length == 51)
+                DrawingInputModeMap[(int)Component.InputMode._4] = GetDrawingInputMode((int)Component.InputMode._4, "2, 3, 3, 2");
+                DrawingInputModeMap[(int)Component.InputMode._5] = GetDrawingInputMode((int)Component.InputMode._5, "2, 3, 4, 3, 2");
+                DrawingInputModeMap[(int)Component.InputMode._6] = GetDrawingInputMode((int)Component.InputMode._6, "2, 3, 2, 2, 3, 2");
+                DrawingInputModeMap[(int)Component.InputMode._7] = GetDrawingInputMode((int)Component.InputMode._7, "2, 3, 2, 5, 2, 3, 2");
+                DrawingInputModeMap[(int)Component.InputMode._8] = GetDrawingInputMode((int)Component.InputMode._8, "2, 3, 2, 3, 3, 2, 3, 2");
+                DrawingInputModeMap[(int)Component.InputMode._9] = GetDrawingInputMode((int)Component.InputMode._9, "2, 3, 2, 3, 4, 3, 2, 3, 2");
+                DrawingInputModeMap[(int)Component.InputMode._5_1] = GetDrawingInputMode((int)Component.InputMode._5_1, "1, 2, 3, 4, 3, 2");
+                DrawingInputModeMap[(int)Component.InputMode._7_1] = GetDrawingInputMode((int)Component.InputMode._7_1, "1, 2, 3, 2, 5, 2, 3, 2");
+                DrawingInputModeMap[(int)Component.InputMode._10_2] = GetDrawingInputMode2P((int)Component.InputMode._10_2, "1, 2, 3, 4, 3, 2, 2, 3, 4, 3, 2, 10");
+                DrawingInputModeMap[(int)Component.InputMode._14_2] = GetDrawingInputMode2P((int)Component.InputMode._14_2, "1, 2, 3, 2, 5, 2, 3, 2, 2, 3, 2, 5, 2, 3, 2, 10");
+                DrawingInputModeMap[(int)Component.InputMode._10] = GetDrawingInputMode((int)Component.InputMode._10, "2, 3, 2, 3, 2, 2, 3, 2, 3, 2");
+                DrawingInputModeMap[(int)Component.InputMode._24_2] = GetDrawingInputMode((int)Component.InputMode._24_2, "6, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 11");
+                DrawingInputModeMap[(int)Component.InputMode._48_4] = GetDrawingInputMode((int)Component.InputMode._48_4, "6, 6, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 11, 11");
+                if (DrawingInputModeMap[(int)Component.InputMode._48_4].Length == 51)
                 {
-                    DrawingInputModeMap[(int)Component.InputMode.InputMode484] = new int[] { default }.Append(DrawingInputModeMap[(int)Component.InputMode.InputMode484][1]).Concat(DrawingInputModeMap[(int)Component.InputMode.InputMode484].Skip(1)).Append(DrawingInputModeMap[(int)Component.InputMode.InputMode484][50]).ToArray();
+                    DrawingInputModeMap[(int)Component.InputMode._48_4] = new int[] { default }.Append(DrawingInputModeMap[(int)Component.InputMode._48_4][1]).Concat(DrawingInputModeMap[(int)Component.InputMode._48_4].Skip(1)).Append(DrawingInputModeMap[(int)Component.InputMode._48_4][50]).ToArray();
                 }
 
                 DrawingPipeline.AddRange(GetCalledText(Utility.GetText(lambdaNode, "drawingPipeline", string.Join(", ", Enumerable.Range(0, HighestNoteID)))).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => drawingPipeline < HighestNoteID));
@@ -2125,7 +2125,7 @@ namespace Qwilight
             {
                 HitPointsDrawings[i] ??= HitPointsDrawings[(int)ModeComponent.HitPointsMode.Default];
             }
-            for (var i = (int)Component.InputMode.InputMode484; i >= (int)Component.InputMode.InputMode4; --i)
+            for (var i = (int)Component.InputMode._48_4; i >= (int)Component.InputMode._4; --i)
             {
                 var inputCount = Component.InputCounts[i];
                 AutoInputDrawings[i] = new DrawingItem?[inputCount + 1];

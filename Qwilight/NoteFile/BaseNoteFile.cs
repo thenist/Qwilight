@@ -200,7 +200,7 @@ namespace Qwilight.NoteFile
             FileName = Path.GetFileName(NoteFilePath);
             DefaultEntryItem = defaultEntryItem;
             EntryItem = entryItem;
-            LongNoteModeDate = Component.LatestLongNoteMode;
+            LongNoteModeDate = Component.LatestLongNoteModeDate;
         }
 
         public override bool Equals(object obj) => obj is BaseNoteFile noteFile && GetNoteID512() == noteFile.GetNoteID512();
@@ -218,8 +218,8 @@ namespace Qwilight.NoteFile
 
             string GetMillisText(Component.Judged judged)
             {
-                var judgment0 = Math.Round(Component.GetJudgmentMillis(judged, modeComponentValue, JudgmentStage, Component.LatestJudgmentMode, Component.LatestJudgmentMap, Component.LatestLongNoteAssist, 0), 3);
-                var judgment1 = Math.Round(Component.GetJudgmentMillis(judged, modeComponentValue, JudgmentStage, Component.LatestJudgmentMode, Component.LatestJudgmentMap, Component.LatestLongNoteAssist, 1), 3);
+                var judgment0 = Math.Round(Component.GetJudgmentMillis(judged, modeComponentValue, JudgmentStage, Component.LatestJudgmentModeDate, Component.LatestJudgmentMapDate, Component.LatestLongNoteAssistDate, 0), 3);
+                var judgment1 = Math.Round(Component.GetJudgmentMillis(judged, modeComponentValue, JudgmentStage, Component.LatestJudgmentModeDate, Component.LatestJudgmentMapDate, Component.LatestLongNoteAssistDate, 1), 3);
                 return Math.Abs(judgment0) != Math.Abs(judgment1) ? $"{judgment0} ~ {judgment1} ms" : $"{judgment1} ms";
             }
         }

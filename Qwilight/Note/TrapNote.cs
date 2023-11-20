@@ -19,11 +19,11 @@ namespace Qwilight.Note
             _isPowered = isPowered;
         }
 
-        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, int judgmentModeDate, int judgmentMapDate, int longNoteAssistDate, int trapNoteJudgmentDate, bool isAutoLongNote)
+        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote)
         {
             switch (trapNoteJudgmentDate)
             {
-                case Component.TrapNoteJudgmentDate1146:
+                case Component.TrapNoteJudgmentDate._1_14_6:
                     if (_isPowered && input > 0)
                     {
                         var judgmentMeter = (wait - Wait) / modeComponentValue.AudioMultiplier;

@@ -9,10 +9,10 @@ namespace Qwilight
     public abstract class Computing : Model
     {
         string _platformText;
-        int _longNoteModeDate;
+        Component.LongNoteModeDate _longNoteModeDate;
         string _genre;
 
-        public int LongNoteModeDate
+        public Component.LongNoteModeDate LongNoteModeDate
         {
             get => _longNoteModeDate;
 
@@ -27,7 +27,7 @@ namespace Qwilight
 
         public bool IsLongNoteStand1 => LongNoteModeDate switch
         {
-            Component.LongNoteMode11420 => IsAutoLongNote,
+            Component.LongNoteModeDate._1_14_20 => IsAutoLongNote,
             _ => false
         };
 
@@ -169,11 +169,11 @@ namespace Qwilight
         {
             switch (LongNoteModeDate)
             {
-                case Component.LongNoteMode100:
+                case Component.LongNoteModeDate._1_0_0:
                     IsAutoLongNote = false;
                     break;
-                case Component.LongNoteMode11420:
-                case Component.LongNoteMode1164:
+                case Component.LongNoteModeDate._1_14_20:
+                case Component.LongNoteModeDate._1_16_4:
                     IsAutoLongNote = true;
                     break;
             }
@@ -181,9 +181,9 @@ namespace Qwilight
 
         public void InitCompiled()
         {
-            LongNoteModeDate = Component.LatestLongNoteMode;
+            LongNoteModeDate = Component.LatestLongNoteModeDate;
             IsBanned = false;
-            InputMode = Component.InputMode.InputMode51;
+            InputMode = Component.InputMode._5_1;
             Genre = string.Empty;
             Artist = string.Empty;
             Title = string.Empty;

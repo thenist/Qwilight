@@ -1,5 +1,4 @@
-﻿using Qwilight.Utilities;
-using System.Numerics;
+﻿using System.Numerics;
 using Windows.Foundation;
 
 namespace Qwilight
@@ -17,6 +16,10 @@ namespace Qwilight
             Position1 = position1;
             Length = length;
             Height = height;
+        }
+
+        public Bound(double[] point) : this(point[0], point[1], point[2], point[3])
+        {
         }
 
         public void Set(double position0, double position1, double length, double height)
@@ -39,7 +42,9 @@ namespace Qwilight
             Height = Math.Max(0.0, point[3]);
         }
 
-        public bool IsPoint(Point lastPointed) => Utility.IsPoint(Position0, Position1, Length, Height, lastPointed.X, lastPointed.Y);
+        public bool IsPoint(System.Windows.Point point) => IsPoint(new Point(point.X, point.Y));
+
+        public bool IsPoint(Point point) => Position0 <= point.X && point.X < Position0 + Length && Position1 <= point.Y && point.Y < Position1 + Height;
 
         public bool CanPaint => Length > 0.0 && Height > 0.0;
 

@@ -86,7 +86,7 @@ namespace Qwilight.UIComponent
 
             void FitImpl<T>(Func<EntryItem, T> fromEntryItem, Func<EntryItem, BaseNoteFile, bool> onEqual, bool asc = true) where T : IComparable<T>
             {
-                var wantLevelItem = Configure.Instance.WantLevelIDs.Any();
+                var wantLevelItem = Configure.Instance.WantLevelIDs.Length > 0;
                 entryItems.Sort((x, y) =>
                 {
                     var value = wantLevelItem ? LevelSystem.Instance.WantLevelIDEquality.Compare(x.WantLevelID, y.WantLevelID) : 0;

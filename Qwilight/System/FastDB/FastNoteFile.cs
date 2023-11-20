@@ -4,7 +4,7 @@ namespace Qwilight
 {
     public struct FastNoteFile
     {
-        public Component.InputMode inputMode = Component.InputMode.InputMode51;
+        public Component.InputMode inputMode = Component.InputMode._5_1;
         public string artist = string.Empty;
         public string title = string.Empty;
         public string genre = string.Empty;

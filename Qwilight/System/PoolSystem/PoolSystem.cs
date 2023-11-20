@@ -193,7 +193,7 @@ namespace Qwilight
 
         public string GetFormattedUnitText(long value)
         {
-            return _formattedUnitTexts.GetOrAdd(value, Utility.FormatUnit);
+            return _formattedUnitTexts.GetOrAdd(value, Utility.FormatLength);
         }
     }
 }

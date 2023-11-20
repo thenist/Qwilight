@@ -1,6 +1,7 @@
 ﻿using Qwilight.Utilities;
 using System.IO;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -15,6 +16,11 @@ namespace Qwilight
 
         public static readonly GPUConfigure Instance = new();
 
+        static readonly JsonSerializerOptions _defaultJSONConfigure = Utility.GetJSONConfigure(defaultJSONConfigure =>
+        {
+            defaultJSONConfigure.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+            defaultJSONConfigure.IgnoreReadOnlyProperties = true;
+        });
         static readonly string _fileName = Path.Combine(QwilightComponent.QwilightEntryPath, "GPU Configure.json");
         static readonly string _faultFileName = Path.ChangeExtension(_fileName, ".json.$");
         static readonly string _tmp0FileName = Path.ChangeExtension(_fileName, ".json.tmp.0");
@@ -45,7 +51,7 @@ namespace Qwilight
 
             void LoadImpl()
             {
-                var textConfigure = Utility.GetJSON<GPUConfigure>(File.ReadAllText(_fileName, Encoding.UTF8));
+                var textConfigure = Utility.GetJSON<GPUConfigure>(File.ReadAllText(_fileName, Encoding.UTF8), _defaultJSONConfigure);
                 foreach (var value in typeof(GPUConfigure).GetProperties().Where(value => value.GetCustomAttributes(typeof(JsonIgnoreAttribute), false).Length == 0 && value.CanWrite))
                 {
                     value.SetValue(this, value.GetValue(textConfigure));
@@ -64,18 +70,13 @@ namespace Qwilight
         {
             Utility.CopyFile(_fileName, _tmp0FileName);
             Utility.MoveFile(_tmp0FileName, _tmp1FileName);
-            File.WriteAllText(_fileName, Utility.SetJSON(this, new JsonSerializerOptions
-            {
-                IgnoreReadOnlyProperties = true,
-                IncludeFields = true,
-                WriteIndented = QwilightComponent.IsVS
-            }), Encoding.UTF8);
+            File.WriteAllText(_fileName, Utility.SetJSON(this, _defaultJSONConfigure), Encoding.UTF8);
             Utility.WipeFile(_tmp1FileName);
         }
 
-        public void Validate(bool isUndo)
+        public void Validate(bool isInit)
         {
-            if (isUndo || Utility.IsLowerDate(Date, 1, 16, 2))
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 2))
             {
                 GPUModeValue = GPUMode.Default;
             }

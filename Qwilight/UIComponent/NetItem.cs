@@ -62,18 +62,17 @@ namespace Qwilight.UIComponent
                 _comment = value;
                 if (value != null)
                 {
-                    var date = Version.Parse(value.Date);
-                    PaintEventsDate = Utility.IsLowerDate(date, 1, 14, 91) ? Component.PaintEventsDate100 : Component.PaintEventsDate11491;
+                    PaintEventsDate = Utility.GetDate<Component.PaintEventsDate>(Version.Parse(value.Date), "1.14.91");
                 }
                 else
                 {
-                    PaintEventsDate = Component.PaintEventsDate11491;
+                    PaintEventsDate = Component.PaintEventsDate._1_14_91;
                 }
                 LastPaintEventPosition = 0;
             }
         }
 
-        public int PaintEventsDate { get; set; }
+        public Component.PaintEventsDate PaintEventsDate { get; set; }
 
         public int LastPaintEventPosition { get; set; }
 

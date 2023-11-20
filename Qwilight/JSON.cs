@@ -228,9 +228,9 @@ namespace Qwilight
             {
                 var inputModeText = inputMode switch
                 {
-                    Component.InputMode.InputMode51 => "⑤K",
-                    Component.InputMode.InputMode71 => "⑦K",
-                    Component.InputMode.InputMode9 => "9K",
+                    Component.InputMode._5_1 => "⑤K",
+                    Component.InputMode._7_1 => "⑦K",
+                    Component.InputMode._9 => "9K",
                     _ => string.Empty
                 };
                 return ability < 0.01 ? string.Format(LanguageSystem.Instance.AbilityUpMiniContents, inputModeText) : string.Format(LanguageSystem.Instance.AbilityUpContents, inputModeText, Math.Round(ability, 2));
@@ -790,7 +790,7 @@ namespace Qwilight
             public double avatarAbility9KClass;
             public int avatarAbility9KPlace;
             public int avatarAbility9KCount;
-            public AvatarLevel[] levels;
+            public WwwLevel[] wwwLevels;
             public Last[] lasts;
             public AvatarAbility[] abilities5K;
             public AvatarAbility[] abilities7K;
@@ -800,7 +800,7 @@ namespace Qwilight
             public int[] dateValues;
             public int[] quitStatusValues;
 
-            public struct AvatarLevel
+            public struct WwwLevel
             {
                 public string levelID;
                 public string title;
@@ -846,6 +846,53 @@ namespace Qwilight
                 public int stand;
                 public double ability;
             }
+        }
+
+        public struct TwilightWwwAvatarWwwLevel
+        {
+            public string levelID;
+            public string title;
+            public string comment;
+            public string levelText;
+            public BaseNoteFile.Level level;
+            public long date;
+        }
+
+        public struct TwilightWwwAvatarLast
+        {
+            public string noteID;
+            public BaseNoteFile.NoteVariety noteVariety;
+            public string artist;
+            public string title;
+            public string genre;
+            public string levelText;
+            public BaseNoteFile.Level level;
+            public long date;
+        }
+
+        public struct TwilightWwwAvatarFavorite
+        {
+            public string noteID;
+            public BaseNoteFile.NoteVariety noteVariety;
+            public string artist;
+            public string title;
+            public string genre;
+            public string levelText;
+            public BaseNoteFile.Level level;
+            public int totalCount;
+        }
+
+        public struct TwilightWwwAvatarAbility
+        {
+            public string noteID;
+            public BaseNoteFile.NoteVariety noteVariety;
+            public string artist;
+            public string title;
+            public string genre;
+            public string levelText;
+            public BaseNoteFile.Level level;
+            public int stand;
+            public double ability;
         }
 
         public struct TwilightWwwHOF

@@ -193,7 +193,7 @@ namespace Qwilight
             {
                 using var mos = new ManagementObjectSearcher("SELECT TotalPhysicalMemory FROM Win32_ComputerSystem");
                 using var moc = mos.Get();
-                RAMName = Utility.FormatUnit((long)moc.Cast<ManagementBaseObject>().Select(o => (ulong)o["TotalPhysicalMemory"]).Single());
+                RAMName = Utility.FormatLength((long)moc.Cast<ManagementBaseObject>().Select(o => (ulong)o["TotalPhysicalMemory"]).Single());
             }
             catch
             {

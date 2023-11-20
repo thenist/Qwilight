@@ -4,20 +4,16 @@ using Qwilight.UIComponent;
 using SharpGen.Runtime;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Windows.System;
 using Windows.Win32;
 using Windows.Win32.Graphics.Gdi;
-using YamlDotNet.RepresentationModel;
 using IDirectInputDevice8 = Vortice.DirectInput.IDirectInputDevice8;
 using IStateUpdate = Vortice.DirectInput.IStateUpdate;
-using Point = System.Windows.Point;
 
 namespace Qwilight.Utilities
 {
@@ -25,6 +21,12 @@ namespace Qwilight.Utilities
     {
         [GeneratedRegex("(http|https|mailto):\\/\\/[^ ]+", RegexOptions.IgnoreCase)]
         private static partial Regex GetSiteYellsComputer();
+
+        public static string CompileSiteYells(string siteYells)
+        {
+            var m = GetSiteYellsComputer().Matches(siteYells);
+            return m.Count < 2 ? m.SingleOrDefault()?.Value ?? string.Empty : string.Empty;
+        }
 
         static readonly char[] _delimiters = { '[', '(' };
 
@@ -44,17 +46,7 @@ namespace Qwilight.Utilities
             }
         }
 
-        public static bool IsPoint(double[] point, double position0, double position1) => IsPoint(point[0], point[1], point[2], point[3], position0, position1);
-
-        public static bool IsPoint(double pointPosition0, double pointPosition1, double pointLength, double pointHeight, double position0, double position1)
-        {
-            return pointPosition0 <= position0 &&
-                position0 < pointPosition0 + pointLength &&
-                pointPosition1 <= position1 &&
-                position1 < pointPosition1 + pointHeight;
-        }
-
-        public static string FormatUnit(long value)
+        public static string FormatLength(long value)
         {
             if (value < 1000)
             {
@@ -74,43 +66,12 @@ namespace Qwilight.Utilities
             }
         }
 
-        public static string GetHandledText(MediaElement view)
-        {
-            if (view.NaturalDuration.HasTimeSpan)
-            {
-                return $"{view.Position.Minutes}:{view.Position.Seconds.ToString("00")}／{view.NaturalDuration.TimeSpan.Minutes}:{view.NaturalDuration.TimeSpan.Seconds.ToString("00")}";
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-
         public static void ViewItems(FrameworkElement element)
         {
             var elements = (element as FrameworkElement).ContextMenu;
             elements.DataContext = (element as FrameworkElement).DataContext;
             elements.Placement = PlacementMode.Mouse;
             elements.IsOpen = true;
-        }
-
-        public static void SetPosition(MediaElement view, double value)
-        {
-            if (value < 100.0)
-            {
-                if (view.NaturalDuration.HasTimeSpan)
-                {
-                    var targetPosition = view.NaturalDuration.TimeSpan * value / 100.0;
-                    if (Math.Abs((view.Position - targetPosition).TotalSeconds) >= 1.0)
-                    {
-                        view.Position = view.NaturalDuration.TimeSpan * value / 100.0;
-                    }
-                }
-            }
-            else
-            {
-                view.Stop();
-            }
         }
 
         public static bool AllowInput<T>(InputBundle<T> inputBundles, T e, Component.InputMode? inputMode = null) where T : new()
@@ -217,18 +178,6 @@ namespace Qwilight.Utilities
 
         public static double GetMillis(this Stopwatch handler) => 1000.0 * handler.ElapsedTicks / Stopwatch.Frequency;
 
-        public static void Set(this ref Vector2 v, float position0, float position1)
-        {
-            v.X = position0;
-            v.Y = position1;
-        }
-
-        public static void Set(this ref Point p, double position0, double position1)
-        {
-            p.X = position0;
-            p.Y = position1;
-        }
-
         public static void OpenAs(string fileName, string parameter = null)
         {
             if (!string.IsNullOrEmpty(fileName))
@@ -276,13 +225,13 @@ namespace Qwilight.Utilities
             return favoriteItem;
         }
 
-        public static double SetCommentWait(int commentWaitDate, double audioMultiplier, double wait)
+        public static double SetCommentWait(Component.CommentWaitDate commentWaitDate, double audioMultiplier, double wait)
         {
-            if (commentWaitDate < Component.CommentWaitDate1311)
+            if (commentWaitDate < Component.CommentWaitDate._1_3_11)
             {
                 wait -= 3000.0;
             }
-            if (commentWaitDate < Component.CommentWaitDate164)
+            if (commentWaitDate < Component.CommentWaitDate._1_6_4)
             {
                 wait *= audioMultiplier;
             }
@@ -312,12 +261,6 @@ namespace Qwilight.Utilities
                 return DefaultCompute.QuitStatus.A;
             }
             return stand < noteFileCount * 900000 ? DefaultCompute.QuitStatus.APlus : point < 1.0 ? DefaultCompute.QuitStatus.S : DefaultCompute.QuitStatus.SPlus;
-        }
-
-        public static string CompileSiteYells(string siteYells)
-        {
-            var m = GetSiteYellsComputer().Matches(siteYells);
-            return m.Count < 2 ? m.SingleOrDefault()?.Value ?? string.Empty : string.Empty;
         }
 
         public static double GetDistance(Component value, Queue<KeyValuePair<double, double>> waitBPMMap, double loopingCounter, double targetLoopingCounter, out double lastBPM)
@@ -373,6 +316,8 @@ namespace Qwilight.Utilities
             return $"{((int)(sLength / 60))}：{((int)(sLength % 60)).ToString("00")}";
         }
 
+        public static string GetPlatformText(string title, string artist, string genreText, string levelText) => $"{levelText} {artist} - {title} {genreText}";
+
         public static void LoopBefore<TValue>(Queue<KeyValuePair<double, TValue>> waitMap, double loopingCounter, double delta, Action<double, TValue> onHandle)
         {
             while (waitMap.Count > 0)
@@ -388,19 +333,6 @@ namespace Qwilight.Utilities
                 {
                     break;
                 }
-            }
-        }
-
-        public static string GetText(YamlNode yamlNode, string target, string defaultValue = null)
-        {
-            if ((yamlNode as YamlMappingNode)?.Children?.TryGetValue(new YamlScalarNode(target), out var value) == true)
-            {
-                var text = value.ToString().Trim();
-                return string.IsNullOrEmpty(text) ? defaultValue : text;
-            }
-            else
-            {
-                return defaultValue;
             }
         }
 
@@ -556,8 +488,6 @@ namespace Qwilight.Utilities
             return value;
         }
 
-        public static string GetPlatformText(string title, string artist, string genre, string levelText) => $"{levelText} {artist} - {title} {GetGenreText(genre)}";
-
         public static bool HasInput(VirtualKey rawInput) => PInvoke.GetAsyncKeyState((int)rawInput) <= -32767;
 
         public static void ModifyHwMode(HwMode hwMode)
@@ -579,6 +509,18 @@ namespace Qwilight.Utilities
                     PInvoke.ChangeDisplaySettings(rawHwMode, 0);
                 }
             }
+        }
+
+        public static T GetDate<T>(Version date, params string[] dates)
+        {
+            for (var i = dates.Length - 1; i >= 0; --i)
+            {
+                if (new Version(dates[i]) <= date)
+                {
+                    return (T)(object)(i + 1);
+                }
+            }
+            return (T)(object)0;
         }
     }
 }

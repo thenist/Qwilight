@@ -35,13 +35,6 @@ namespace Qwilight
         [LibraryImport("NVIDIA")]
         private static partial void SetNVLLConfigure(ReflexMode mode, uint frameLimitUs);
 
-        public sealed class FontFamilyModifier : JsonConverter<FontFamily>
-        {
-            public override FontFamily Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new FontFamily(reader.GetString());
-
-            public override void Write(Utf8JsonWriter writer, FontFamily value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
-
         public enum TutorialID
         {
             NetQuitMode,
@@ -81,6 +74,11 @@ namespace Qwilight
 
         public static readonly Configure Instance = QwilightComponent.GetBuiltInData<Configure>(nameof(Configure));
 
+        static readonly JsonSerializerOptions _defaultJSONConfigure = Utility.GetJSONConfigure(defaultJSONConfigure =>
+        {
+            defaultJSONConfigure.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+            defaultJSONConfigure.IgnoreReadOnlyProperties = true;
+        });
         static readonly string _fileName = Path.Combine(QwilightComponent.QwilightEntryPath, "Configure.json");
         static readonly string _faultFileName = Path.ChangeExtension(_fileName, ".json.$");
         static readonly string _tmp0FileName = Path.ChangeExtension(_fileName, ".json.tmp.0");
@@ -111,15 +109,7 @@ namespace Qwilight
             {
                 if (File.Exists(_fileName))
                 {
-                    var textConfigure = Utility.GetJSON<Configure>(File.ReadAllText(_fileName, Encoding.UTF8), new JsonSerializerOptions
-                    {
-                        Converters =
-                        {
-                            new FontFamilyModifier()
-                        },
-                        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                        IncludeFields = true,
-                    });
+                    var textConfigure = Utility.GetJSON<Configure>(File.ReadAllText(_fileName, Encoding.UTF8), _defaultJSONConfigure);
                     foreach (var value in typeof(Configure).GetProperties().Where(value => value.GetCustomAttributes(typeof(JsonIgnoreAttribute), false).Length == 0 && value.CanWrite))
                     {
                         value.SetValue(this, value.GetValue(textConfigure));
@@ -2265,17 +2255,7 @@ namespace Qwilight
 
             Utility.CopyFile(_fileName, _tmp0FileName);
             Utility.MoveFile(_tmp0FileName, _tmp1FileName);
-            File.WriteAllText(_fileName, Utility.SetJSON(this, new JsonSerializerOptions
-            {
-                Converters =
-                {
-                    new FontFamilyModifier()
-                },
-                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                IgnoreReadOnlyProperties = true,
-                IncludeFields = true,
-                WriteIndented = QwilightComponent.IsVS
-            }), Encoding.UTF8);
+            File.WriteAllText(_fileName, Utility.SetJSON(this, _defaultJSONConfigure), Encoding.UTF8);
             Utility.WipeFile(_tmp1FileName);
         }
 
@@ -2813,22 +2793,22 @@ namespace Qwilight
                 DInputBundlesV4.SetStandardInputs();
                 XInputBundlesV4 = new();
                 XInputBundlesV4.SetInputs();
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode4][1][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadLeft };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode4][2][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadUp };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode4][3][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Y };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode4][4][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.B };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode5][1][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadLeft };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode5][2][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadUp };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode5][3][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadRight };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode5][3][1].Data = new() { Buttons = Vortice.XInput.GamepadButtons.X };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode5][4][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Y };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode5][5][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.B };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode6][1][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadLeft };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode6][2][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadUp };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode6][3][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadRight };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode6][4][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.X };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode6][5][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Y };
-                XInputBundlesV4.Inputs[(int)Component.InputMode.InputMode6][6][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.B };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._4][1][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadLeft };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._4][2][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadUp };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._4][3][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Y };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._4][4][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.B };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._5][1][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadLeft };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._5][2][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadUp };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._5][3][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadRight };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._5][3][1].Data = new() { Buttons = Vortice.XInput.GamepadButtons.X };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._5][4][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Y };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._5][5][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.B };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._6][1][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadLeft };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._6][2][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadUp };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._6][3][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadRight };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._6][4][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.X };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._6][5][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Y };
+                XInputBundlesV4.Inputs[(int)Component.InputMode._6][6][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.B };
                 XInputBundlesV4.SetStandardInputs();
                 XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.LowerEntry].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadUp };
                 XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.HigherEntry].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadDown };
@@ -2838,22 +2818,22 @@ namespace Qwilight
                 XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.Wait].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Back };
                 WGIBundlesV3 = new();
                 WGIBundlesV3.SetInputs();
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode4][1][0].Data = new() { Buttons = GamepadButtons.DPadLeft };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode4][2][0].Data = new() { Buttons = GamepadButtons.DPadUp };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode4][3][0].Data = new() { Buttons = GamepadButtons.Y };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode4][4][0].Data = new() { Buttons = GamepadButtons.B };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode5][1][0].Data = new() { Buttons = GamepadButtons.DPadLeft };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode5][2][0].Data = new() { Buttons = GamepadButtons.DPadUp };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode5][3][0].Data = new() { Buttons = GamepadButtons.DPadRight };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode5][3][1].Data = new() { Buttons = GamepadButtons.X };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode5][4][0].Data = new() { Buttons = GamepadButtons.Y };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode5][5][0].Data = new() { Buttons = GamepadButtons.B };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode6][1][0].Data = new() { Buttons = GamepadButtons.DPadLeft };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode6][2][0].Data = new() { Buttons = GamepadButtons.DPadUp };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode6][3][0].Data = new() { Buttons = GamepadButtons.DPadRight };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode6][4][0].Data = new() { Buttons = GamepadButtons.X };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode6][5][0].Data = new() { Buttons = GamepadButtons.Y };
-                WGIBundlesV3.Inputs[(int)Component.InputMode.InputMode6][6][0].Data = new() { Buttons = GamepadButtons.B };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._4][1][0].Data = new() { Buttons = GamepadButtons.DPadLeft };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._4][2][0].Data = new() { Buttons = GamepadButtons.DPadUp };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._4][3][0].Data = new() { Buttons = GamepadButtons.Y };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._4][4][0].Data = new() { Buttons = GamepadButtons.B };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._5][1][0].Data = new() { Buttons = GamepadButtons.DPadLeft };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._5][2][0].Data = new() { Buttons = GamepadButtons.DPadUp };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._5][3][0].Data = new() { Buttons = GamepadButtons.DPadRight };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._5][3][1].Data = new() { Buttons = GamepadButtons.X };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._5][4][0].Data = new() { Buttons = GamepadButtons.Y };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._5][5][0].Data = new() { Buttons = GamepadButtons.B };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._6][1][0].Data = new() { Buttons = GamepadButtons.DPadLeft };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._6][2][0].Data = new() { Buttons = GamepadButtons.DPadUp };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._6][3][0].Data = new() { Buttons = GamepadButtons.DPadRight };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._6][4][0].Data = new() { Buttons = GamepadButtons.X };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._6][5][0].Data = new() { Buttons = GamepadButtons.Y };
+                WGIBundlesV3.Inputs[(int)Component.InputMode._6][6][0].Data = new() { Buttons = GamepadButtons.B };
                 WGIBundlesV3.SetStandardInputs();
                 WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.LowerEntry].Data = new() { Buttons = GamepadButtons.DPadUp };
                 WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.HigherEntry].Data = new() { Buttons = GamepadButtons.DPadDown };
@@ -2893,108 +2873,108 @@ namespace Qwilight
             {
                 DefaultInputBundlesV6 = new();
                 DefaultInputBundlesV6.SetInputs();
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode4][1][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode4][2][0].Data = VirtualKey.F;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode4][3][0].Data = VirtualKey.J;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode4][4][0].Data = VirtualKey.K;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode5][1][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode5][2][0].Data = VirtualKey.F;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode5][3][0].Data = VirtualKey.Space;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode5][4][0].Data = VirtualKey.J;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode5][5][0].Data = VirtualKey.K;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode6][1][0].Data = VirtualKey.S;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode6][2][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode6][3][0].Data = VirtualKey.F;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode6][4][0].Data = VirtualKey.J;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode6][5][0].Data = VirtualKey.K;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode6][6][0].Data = VirtualKey.L;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode7][1][0].Data = VirtualKey.S;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode7][2][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode7][3][0].Data = VirtualKey.F;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode7][4][0].Data = VirtualKey.Space;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode7][5][0].Data = VirtualKey.J;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode7][6][0].Data = VirtualKey.K;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode7][7][0].Data = VirtualKey.L;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode8][1][0].Data = VirtualKey.A;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode8][2][0].Data = VirtualKey.S;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode8][3][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode8][4][0].Data = VirtualKey.F;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode8][5][0].Data = VirtualKey.J;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode8][6][0].Data = VirtualKey.K;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode8][7][0].Data = VirtualKey.L;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode8][8][0].Data = (VirtualKey)186;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][1][0].Data = VirtualKey.A;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][2][0].Data = VirtualKey.S;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][3][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][4][0].Data = VirtualKey.F;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][5][0].Data = VirtualKey.Space;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][6][0].Data = VirtualKey.J;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][7][0].Data = VirtualKey.K;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][8][0].Data = VirtualKey.L;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][9][0].Data = (VirtualKey)186;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][1][1].Data = VirtualKey.NumberPad7;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][2][1].Data = VirtualKey.NumberPad8;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][3][1].Data = VirtualKey.NumberPad9;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][4][1].Data = VirtualKey.NumberPad4;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][5][1].Data = VirtualKey.NumberPad5;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][6][1].Data = VirtualKey.NumberPad6;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][7][1].Data = VirtualKey.NumberPad1;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][8][1].Data = VirtualKey.NumberPad2;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode9][9][1].Data = VirtualKey.NumberPad3;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode51][1][0].Data = VirtualKey.LeftShift;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode51][1][1].Data = VirtualKey.RightShift;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode51][2][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode51][3][0].Data = VirtualKey.F;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode51][4][0].Data = VirtualKey.Space;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode51][5][0].Data = VirtualKey.J;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode51][6][0].Data = VirtualKey.K;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode71][1][0].Data = VirtualKey.LeftShift;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode71][1][1].Data = VirtualKey.RightShift;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode71][2][0].Data = VirtualKey.S;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode71][3][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode71][4][0].Data = VirtualKey.F;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode71][5][0].Data = VirtualKey.Space;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode71][6][0].Data = VirtualKey.J;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode71][7][0].Data = VirtualKey.K;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode71][8][0].Data = VirtualKey.L;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][1][0].Data = VirtualKey.LeftShift;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][2][0].Data = VirtualKey.Z;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][3][0].Data = VirtualKey.S;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][4][0].Data = VirtualKey.X;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][5][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][6][0].Data = VirtualKey.C;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][7][0].Data = (VirtualKey)188;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][8][0].Data = VirtualKey.L;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][9][0].Data = (VirtualKey)190;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][10][0].Data = (VirtualKey)186;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][11][0].Data = (VirtualKey)191;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode102][12][0].Data = VirtualKey.RightShift;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][1][0].Data = VirtualKey.LeftShift;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][2][0].Data = VirtualKey.Z;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][3][0].Data = VirtualKey.S;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][4][0].Data = VirtualKey.X;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][5][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][6][0].Data = VirtualKey.C;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][7][0].Data = VirtualKey.F;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][8][0].Data = VirtualKey.V;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][9][0].Data = VirtualKey.M;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][10][0].Data = VirtualKey.K;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][11][0].Data = (VirtualKey)188;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][12][0].Data = VirtualKey.L;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][13][0].Data = (VirtualKey)190;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][14][0].Data = (VirtualKey)186;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][15][0].Data = (VirtualKey)191;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode142][16][0].Data = VirtualKey.RightShift;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode10][1][0].Data = VirtualKey.A;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode10][2][0].Data = VirtualKey.S;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode10][3][0].Data = VirtualKey.D;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode10][4][0].Data = VirtualKey.F;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode10][5][0].Data = VirtualKey.G;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode10][6][0].Data = VirtualKey.H;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode10][7][0].Data = VirtualKey.J;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode10][8][0].Data = VirtualKey.K;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode10][9][0].Data = VirtualKey.L;
-                DefaultInputBundlesV6.Inputs[(int)Component.InputMode.InputMode10][10][0].Data = (VirtualKey)186;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._4][1][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._4][2][0].Data = VirtualKey.F;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._4][3][0].Data = VirtualKey.J;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._4][4][0].Data = VirtualKey.K;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5][1][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5][2][0].Data = VirtualKey.F;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5][3][0].Data = VirtualKey.Space;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5][4][0].Data = VirtualKey.J;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5][5][0].Data = VirtualKey.K;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._6][1][0].Data = VirtualKey.S;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._6][2][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._6][3][0].Data = VirtualKey.F;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._6][4][0].Data = VirtualKey.J;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._6][5][0].Data = VirtualKey.K;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._6][6][0].Data = VirtualKey.L;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7][1][0].Data = VirtualKey.S;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7][2][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7][3][0].Data = VirtualKey.F;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7][4][0].Data = VirtualKey.Space;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7][5][0].Data = VirtualKey.J;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7][6][0].Data = VirtualKey.K;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7][7][0].Data = VirtualKey.L;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._8][1][0].Data = VirtualKey.A;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._8][2][0].Data = VirtualKey.S;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._8][3][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._8][4][0].Data = VirtualKey.F;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._8][5][0].Data = VirtualKey.J;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._8][6][0].Data = VirtualKey.K;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._8][7][0].Data = VirtualKey.L;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._8][8][0].Data = (VirtualKey)186;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][1][0].Data = VirtualKey.A;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][2][0].Data = VirtualKey.S;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][3][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][4][0].Data = VirtualKey.F;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][5][0].Data = VirtualKey.Space;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][6][0].Data = VirtualKey.J;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][7][0].Data = VirtualKey.K;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][8][0].Data = VirtualKey.L;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][9][0].Data = (VirtualKey)186;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][1][1].Data = VirtualKey.NumberPad7;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][2][1].Data = VirtualKey.NumberPad8;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][3][1].Data = VirtualKey.NumberPad9;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][4][1].Data = VirtualKey.NumberPad4;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][5][1].Data = VirtualKey.NumberPad5;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][6][1].Data = VirtualKey.NumberPad6;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][7][1].Data = VirtualKey.NumberPad1;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][8][1].Data = VirtualKey.NumberPad2;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._9][9][1].Data = VirtualKey.NumberPad3;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5_1][1][0].Data = VirtualKey.LeftShift;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5_1][1][1].Data = VirtualKey.RightShift;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5_1][2][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5_1][3][0].Data = VirtualKey.F;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5_1][4][0].Data = VirtualKey.Space;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5_1][5][0].Data = VirtualKey.J;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._5_1][6][0].Data = VirtualKey.K;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7_1][1][0].Data = VirtualKey.LeftShift;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7_1][1][1].Data = VirtualKey.RightShift;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7_1][2][0].Data = VirtualKey.S;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7_1][3][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7_1][4][0].Data = VirtualKey.F;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7_1][5][0].Data = VirtualKey.Space;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7_1][6][0].Data = VirtualKey.J;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7_1][7][0].Data = VirtualKey.K;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._7_1][8][0].Data = VirtualKey.L;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][1][0].Data = VirtualKey.LeftShift;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][2][0].Data = VirtualKey.Z;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][3][0].Data = VirtualKey.S;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][4][0].Data = VirtualKey.X;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][5][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][6][0].Data = VirtualKey.C;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][7][0].Data = (VirtualKey)188;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][8][0].Data = VirtualKey.L;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][9][0].Data = (VirtualKey)190;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][10][0].Data = (VirtualKey)186;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][11][0].Data = (VirtualKey)191;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10_2][12][0].Data = VirtualKey.RightShift;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][1][0].Data = VirtualKey.LeftShift;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][2][0].Data = VirtualKey.Z;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][3][0].Data = VirtualKey.S;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][4][0].Data = VirtualKey.X;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][5][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][6][0].Data = VirtualKey.C;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][7][0].Data = VirtualKey.F;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][8][0].Data = VirtualKey.V;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][9][0].Data = VirtualKey.M;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][10][0].Data = VirtualKey.K;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][11][0].Data = (VirtualKey)188;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][12][0].Data = VirtualKey.L;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][13][0].Data = (VirtualKey)190;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][14][0].Data = (VirtualKey)186;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][15][0].Data = (VirtualKey)191;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._14_2][16][0].Data = VirtualKey.RightShift;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][1][0].Data = VirtualKey.A;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][2][0].Data = VirtualKey.S;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][3][0].Data = VirtualKey.D;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][4][0].Data = VirtualKey.F;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][5][0].Data = VirtualKey.G;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][6][0].Data = VirtualKey.H;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][7][0].Data = VirtualKey.J;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][8][0].Data = VirtualKey.K;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][9][0].Data = VirtualKey.L;
+                DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][10][0].Data = (VirtualKey)186;
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 68))
             {

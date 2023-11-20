@@ -524,7 +524,9 @@ namespace Compatible
                         .Replace("lowJudgmentView:", "lowJudgmentV2:")
                         .Replace("lowerJudgmentView:", "lowerJudgmentV2:")
                         .Replace("lowestJudgmentView:", "lowestJudgmentV2:")
-                        .Replace("entryPositionLevel:", "entryItemPositionLevel:");
+                        .Replace("entryPositionLevel:", "entryItemPositionLevel:")
+                        .Replace("fittedContents:", "fittedText:")
+                        .Replace("fittedContentsLevel:", "fittedTextLevel:");
                 }
                 if (yamlContents0 != yamlContents1)
                 {

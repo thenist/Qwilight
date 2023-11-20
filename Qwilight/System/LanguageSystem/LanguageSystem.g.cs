@@ -104,7 +104,7 @@ namespace Qwilight
         public string AvatarViewText { get; set; }
         public string AvatarViewTotalCountText { get; set; }
         public string AvatarViewTotalLengthText { get; set; }
-        public string AvatarViewWwwLevelContents { get; set; }
+        public string AvatarViewWwwLevelText { get; set; }
         public string AveragerContents { get; set; }
         public string AveragerText { get; set; }
         public string BanalAudioContents { get; set; }

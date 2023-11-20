@@ -14,7 +14,7 @@ namespace Qwilight.Note
 
         double _inputMillis;
 
-        public override bool IsFailedAsTooLate(double wait, ModeComponent modeComponentValue, double judgmentStage, int judgmentModeDate, int judgmentMapDate, int longNoteAssistDate) => (wait - Wait) / modeComponentValue.AudioMultiplier >= Component.GetJudgmentMillis(Component.Judged.Lowest, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, 1);
+        public override bool IsFailedAsTooLate(double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate) => (wait - Wait) / modeComponentValue.AudioMultiplier >= Component.GetJudgmentMillis(Component.Judged.Lowest, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, 1);
 
         public override bool HasContents => true;
 
@@ -87,7 +87,7 @@ namespace Qwilight.Note
 
         public override JudgedNoteData? AutoJudge(double wait) => null;
 
-        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, int judgmentModeDate, int judgmentMapDate, int longNoteAssistDate, int trapNoteJudgmentDate, bool isAutoLongNote)
+        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote)
         {
             if (input > 0)
             {

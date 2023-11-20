@@ -93,5 +93,19 @@ namespace Test.Utilities
             Assert.Equal(3, valueMap.Count);
             Assert.Equal(3, valueMap[2].Count);
         }
+
+        [Fact]
+        public void GetDate()
+        {
+            var dates = new[] { "1.0.1", "1.1.0", "1.1.1", "2.0.0", "2.0.1", "2.1.0", "2.1.1" };
+            Assert.Equal(7, Utility.GetDate<int>(new Version("2.1.1"), dates));
+            Assert.Equal(6, Utility.GetDate<int>(new Version("2.1.0"), dates));
+            Assert.Equal(5, Utility.GetDate<int>(new Version("2.0.1"), dates));
+            Assert.Equal(4, Utility.GetDate<int>(new Version("2.0.0"), dates));
+            Assert.Equal(3, Utility.GetDate<int>(new Version("1.1.1"), dates));
+            Assert.Equal(2, Utility.GetDate<int>(new Version("1.1.0"), dates));
+            Assert.Equal(1, Utility.GetDate<int>(new Version("1.0.1"), dates));
+            Assert.Equal(0, Utility.GetDate<int>(new Version("1.0.0"), dates));
+        }
     }
 }

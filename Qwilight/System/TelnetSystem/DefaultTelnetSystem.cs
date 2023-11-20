@@ -99,7 +99,7 @@ namespace Qwilight
                             TwilightSystem.Instance.Stop();
                             break;
                         case ConsoleKey.G:
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, $"{Utility.FormatUnit(GC.GetTotalMemory(false))} => {Utility.FormatUnit(GC.GetTotalMemory(true))}");
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, $"{Utility.FormatLength(GC.GetTotalMemory(false))} => {Utility.FormatLength(GC.GetTotalMemory(true))}");
                             break;
                         case ConsoleKey.N:
                             Console.Clear();

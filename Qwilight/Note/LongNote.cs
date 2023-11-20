@@ -28,7 +28,7 @@ namespace Qwilight.Note
             LongHeight = longHeight;
         }
 
-        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, int judgmentModeDate, int judgmentMapDate, int longNoteAssistDate, int trapNoteJudgmentDate, bool isAutoLongNote)
+        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote)
         {
             if (input > 0)
             {
@@ -88,7 +88,7 @@ namespace Qwilight.Note
             return null;
         }
 
-        public override bool IsTooLong(double wait, ModeComponent modeComponentValue, double judgmentStage, int judgmentModeDate, int judgmentMapDate, int longNoteAssistDate) => (wait - (Wait + LongWait)) / modeComponentValue.AudioMultiplier > Component.GetJudgmentMillis(Component.Judged.Lower, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, 1, Component.JudgmentAssist.LongNoteUp);
+        public override bool IsTooLong(double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate) => (wait - (Wait + LongWait)) / modeComponentValue.AudioMultiplier > Component.GetJudgmentMillis(Component.Judged.Lower, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, 1, Component.JudgmentAssist.LongNoteUp);
 
         public override void Paint(CanvasDrawingSession targetSession, bool isValidNetDrawings, DefaultCompute defaultComputer, ref Bound r)
         {

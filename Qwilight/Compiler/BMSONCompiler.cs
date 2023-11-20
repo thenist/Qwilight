@@ -17,7 +17,7 @@ namespace Qwilight.Compiler
             {
                 switch (inputMode)
                 {
-                    case Component.InputMode.InputMode4:
+                    case Component.InputMode._4:
                         switch ((int)(long)x)
                         {
                             case 1:
@@ -27,7 +27,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x;
                         }
                         break;
-                    case Component.InputMode.InputMode5:
+                    case Component.InputMode._5:
                         switch ((int)(long)x)
                         {
                             case 1:
@@ -38,7 +38,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x;
                         }
                         break;
-                    case Component.InputMode.InputMode6:
+                    case Component.InputMode._6:
                         switch ((int)(long)x)
                         {
                             case 1:
@@ -50,7 +50,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x;
                         }
                         break;
-                    case Component.InputMode.InputMode7:
+                    case Component.InputMode._7:
                         switch ((int)(long)x)
                         {
                             case 1:
@@ -63,7 +63,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x;
                         }
                         break;
-                    case Component.InputMode.InputMode8:
+                    case Component.InputMode._8:
                         switch ((int)(long)x)
                         {
                             case 1:
@@ -77,7 +77,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x;
                         }
                         break;
-                    case Component.InputMode.InputMode9:
+                    case Component.InputMode._9:
                         switch ((int)(long)x)
                         {
                             case 1:
@@ -92,7 +92,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x;
                         }
                         break;
-                    case Component.InputMode.InputMode10:
+                    case Component.InputMode._10:
                         switch ((int)(long)x)
                         {
                             case 1:
@@ -108,7 +108,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x;
                         }
                         break;
-                    case Component.InputMode.InputMode51:
+                    case Component.InputMode._5_1:
                         switch ((int)(long)x)
                         {
                             case 8:
@@ -121,7 +121,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x + 1;
                         }
                         break;
-                    case Component.InputMode.InputMode71:
+                    case Component.InputMode._7_1:
                         switch ((int)(long)x)
                         {
                             case 8:
@@ -136,7 +136,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x + 1;
                         }
                         break;
-                    case Component.InputMode.InputMode102:
+                    case Component.InputMode._10_2:
                         switch ((int)(long)x)
                         {
                             case 8:
@@ -157,7 +157,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x - 2;
                         }
                         break;
-                    case Component.InputMode.InputMode142:
+                    case Component.InputMode._14_2:
                         switch ((int)(long)x)
                         {
                             case 8:
@@ -181,7 +181,7 @@ namespace Qwilight.Compiler
                                 return (int)(long)x;
                         }
                         break;
-                    case Component.InputMode.InputMode242:
+                    case Component.InputMode._24_2:
                         switch ((int)(long)x)
                         {
                             case 1:
@@ -215,7 +215,7 @@ namespace Qwilight.Compiler
                                 return 26;
                         }
                         break;
-                    case Component.InputMode.InputMode484:
+                    case Component.InputMode._48_4:
                         switch ((int)(long)x)
                         {
                             case 1:
@@ -331,45 +331,45 @@ namespace Qwilight.Compiler
             switch (_text.info.mode_hint)
             {
                 case "generic-4keys":
-                    InputMode = Component.InputMode.InputMode4;
+                    InputMode = Component.InputMode._4;
                     break;
                 case "generic-5keys":
                 case "popn-5k":
-                    InputMode = Component.InputMode.InputMode5;
+                    InputMode = Component.InputMode._5;
                     break;
                 case "generic-6keys":
-                    InputMode = Component.InputMode.InputMode6;
+                    InputMode = Component.InputMode._6;
                     break;
                 case "generic-7keys":
-                    InputMode = Component.InputMode.InputMode7;
+                    InputMode = Component.InputMode._7;
                     break;
                 case "generic-8keys":
-                    InputMode = Component.InputMode.InputMode8;
+                    InputMode = Component.InputMode._8;
                     break;
                 case "generic-9keys":
                 case "popn-9k":
-                    InputMode = Component.InputMode.InputMode9;
+                    InputMode = Component.InputMode._9;
                     break;
                 case "generic-10keys":
-                    InputMode = Component.InputMode.InputMode10;
+                    InputMode = Component.InputMode._10;
                     break;
                 case "beat-5k":
-                    InputMode = Component.InputMode.InputMode51;
+                    InputMode = Component.InputMode._5_1;
                     break;
                 case "beat-10k":
-                    InputMode = Component.InputMode.InputMode102;
+                    InputMode = Component.InputMode._10_2;
                     break;
                 case "beat-14k":
-                    InputMode = Component.InputMode.InputMode142;
+                    InputMode = Component.InputMode._14_2;
                     break;
                 case "keyboard-24k":
-                    InputMode = Component.InputMode.InputMode242;
+                    InputMode = Component.InputMode._24_2;
                     break;
                 case "keyboard-24k-double":
-                    InputMode = Component.InputMode.InputMode484;
+                    InputMode = Component.InputMode._48_4;
                     break;
                 default:
-                    InputMode = Component.InputMode.InputMode71;
+                    InputMode = Component.InputMode._7_1;
                     break;
             }
             targetComputing.JudgmentStage = 1500 / _text.info.judge_rank - 10;
@@ -426,7 +426,7 @@ namespace Qwilight.Compiler
             }
             if (targetComputing.TotalNotes == 0)
             {
-                InputMode = Component.InputMode.InputMode51;
+                InputMode = Component.InputMode._5_1;
             }
             foreach (var trapChannel in _text.mine_channels)
             {

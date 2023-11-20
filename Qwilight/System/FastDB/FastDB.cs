@@ -23,6 +23,11 @@ namespace Qwilight
             }
         }
 
+        static readonly JsonSerializerOptions _defaultJSONConfigure = Utility.GetJSONConfigure(defaultJSONConfigure =>
+        {
+            defaultJSONConfigure.NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals;
+            defaultJSONConfigure.IgnoreReadOnlyProperties = true;
+        });
         static readonly string _fileName = Path.Combine(QwilightComponent.QwilightEntryPath, "DB.json");
 
         public static readonly FastDB Instance = new();
@@ -38,11 +43,7 @@ namespace Qwilight
             {
                 if (File.Exists(_fileName))
                 {
-                    var fastClass = Utility.GetJSON<FastClass>(File.ReadAllText(_fileName, Encoding.UTF8), new JsonSerializerOptions
-                    {
-                        IncludeFields = true,
-                        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
-                    });
+                    var fastClass = Utility.GetJSON<FastClass>(File.ReadAllText(_fileName, Encoding.UTF8), _defaultJSONConfigure);
                     foreach (var (noteID, fastNoteFile) in fastClass.noteFiles)
                     {
                         _fastNoteFiles[noteID] = fastNoteFile;
@@ -246,11 +247,7 @@ namespace Qwilight
                 entryItems = _fastEntryItems.ToDictionary(pair => pair.Key, pair => pair.Value.ToList()),
                 defaultEntryItems = _fastDefaultEntryItems.ToDictionary(pair => pair.Key, pair => pair.Value.ToList()),
                 defaultEntryItemDates = _fastDefaultEntryItemDates.ToDictionary(pair => pair.Key, pair => pair.Value),
-            }, new JsonSerializerOptions
-            {
-                IncludeFields = true,
-                NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
-            }));
+            }, _defaultJSONConfigure));
         }
     }
 }

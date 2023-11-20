@@ -1940,7 +1940,7 @@ namespace Qwilight
                 }
             }
 
-            for (var i = (int)Component.InputMode.InputMode484; i >= (int)Component.InputMode.InputMode4; --i)
+            for (var i = (int)Component.InputMode._48_4; i >= (int)Component.InputMode._4; --i)
             {
                 InputModeWindowDrawings[i] ??= InputModeDrawings[i]?.DefaultDrawing;
             }

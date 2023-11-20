@@ -210,11 +210,11 @@ namespace Qwilight.Compiler
                         {
                             switch (targetComputing.LongNoteModeDate)
                             {
-                                case Component.LongNoteMode100:
+                                case Component.LongNoteModeDate._1_0_0:
                                     targetComputing.IsAutoLongNote = false;
                                     break;
-                                case Component.LongNoteMode11420:
-                                case Component.LongNoteMode1164:
+                                case Component.LongNoteModeDate._1_14_20:
+                                case Component.LongNoteModeDate._1_16_4:
                                     switch (Utility.ToInt32(data))
                                     {
                                         case 1:
@@ -667,7 +667,7 @@ namespace Qwilight.Compiler
                                     }
                                     break;
                             }
-                            inputSet.Add(GetBMSInput(noteVariety0, noteVariety1, Component.InputMode.InputMode142));
+                            inputSet.Add(GetBMSInput(noteVariety0, noteVariety1, Component.InputMode._14_2));
                         }
                     }
                 }
@@ -1071,32 +1071,32 @@ namespace Qwilight.Compiler
         {
             if (_is4K)
             {
-                return Component.InputMode.InputMode4;
+                return Component.InputMode._4;
             }
             if (_is6K)
             {
-                return Component.InputMode.InputMode6;
+                return Component.InputMode._6;
             }
             if (inputSet.All(input => input == 0))
             {
-                return Component.InputMode.InputMode51;
+                return Component.InputMode._5_1;
             }
             var isMode71 = inputSet.Contains(7) || inputSet.Contains(8);
             var isMode102 = inputSet.Contains(9) || inputSet.Contains(10) || inputSet.Contains(11) || inputSet.Contains(12) || inputSet.Contains(13);
             var isMode142 = (isMode71 && isMode102) || inputSet.Contains(14) || inputSet.Contains(15);
             if (isMode142)
             {
-                return Component.InputMode.InputMode142;
+                return Component.InputMode._14_2;
             }
             if (isMode102)
             {
-                return Component.InputMode.InputMode102;
+                return Component.InputMode._10_2;
             }
             if (isMode71)
             {
-                return Component.InputMode.InputMode71;
+                return Component.InputMode._7_1;
             }
-            return Component.InputMode.InputMode51;
+            return Component.InputMode._5_1;
         }
 
         static bool IsMainBMSData(string lineAt1)
@@ -1123,7 +1123,7 @@ namespace Qwilight.Compiler
                 case 'D':
                     switch (inputMode)
                     {
-                        case Component.InputMode.InputMode4:
+                        case Component.InputMode._4:
                             switch (noteVariety1)
                             {
                                 case '1':
@@ -1134,8 +1134,8 @@ namespace Qwilight.Compiler
                                     return noteVariety1 - '1';
                             }
                             break;
-                        case Component.InputMode.InputMode51:
-                        case Component.InputMode.InputMode102:
+                        case Component.InputMode._5_1:
+                        case Component.InputMode._10_2:
                             switch (noteVariety1)
                             {
                                 case '1':
@@ -1148,7 +1148,7 @@ namespace Qwilight.Compiler
                                     return 1;
                             }
                             break;
-                        case Component.InputMode.InputMode6:
+                        case Component.InputMode._6:
                             switch (noteVariety1)
                             {
                                 case '1':
@@ -1162,8 +1162,8 @@ namespace Qwilight.Compiler
                                     return noteVariety1 - '3';
                             }
                             break;
-                        case Component.InputMode.InputMode71:
-                        case Component.InputMode.InputMode142:
+                        case Component.InputMode._7_1:
+                        case Component.InputMode._14_2:
                             switch (noteVariety1)
                             {
                                 case '1':
@@ -1179,7 +1179,7 @@ namespace Qwilight.Compiler
                                     return noteVariety1 - '1';
                             }
                             break;
-                        case Component.InputMode.InputMode9:
+                        case Component.InputMode._9:
                             switch (noteVariety1)
                             {
                                 case '1':
@@ -1198,7 +1198,7 @@ namespace Qwilight.Compiler
                 case 'E':
                     switch (inputMode)
                     {
-                        case Component.InputMode.InputMode102:
+                        case Component.InputMode._10_2:
                             switch (noteVariety1)
                             {
                                 case '1':
@@ -1211,7 +1211,7 @@ namespace Qwilight.Compiler
                                     return 12;
                             }
                             break;
-                        case Component.InputMode.InputMode142:
+                        case Component.InputMode._14_2:
                             switch (noteVariety1)
                             {
                                 case '1':
@@ -1227,7 +1227,7 @@ namespace Qwilight.Compiler
                                     return noteVariety1 - '2' + 8;
                             }
                             break;
-                        case Component.InputMode.InputMode9:
+                        case Component.InputMode._9:
                             switch (noteVariety1)
                             {
                                 case '2':

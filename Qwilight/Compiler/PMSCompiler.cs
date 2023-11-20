@@ -8,6 +8,6 @@ namespace Qwilight.Compiler
         {
         }
 
-        public override Component.InputMode GetInputMode(ICollection<int> inputSet) => Component.InputMode.InputMode9;
+        public override Component.InputMode GetInputMode(ICollection<int> inputSet) => Component.InputMode._9;
     }
 }

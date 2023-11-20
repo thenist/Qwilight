@@ -407,7 +407,7 @@
     "ko-KR": "플레이 시간: {0} 시간 {1} 분 {2} 초",
     "en-US": "Playtime: {0} hours {1} minutes {2} seconds"
   },
-  "AvatarViewWwwLevelContents": {
+  "AvatarViewWwwLevelText": {
     "ko-KR": "달성한 도전 과제 ({0} 개)",
     "en-US": "Achieved challenges ({0})"
   },

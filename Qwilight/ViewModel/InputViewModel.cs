@@ -49,7 +49,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _inputMode, value, nameof(InputMode)))
                 {
-                    BMSFont = new[] { Component.InputMode.InputMode4, Component.InputMode.InputMode6, Component.InputMode.InputMode9, Component.InputMode.InputMode51, Component.InputMode.InputMode71, Component.InputMode.InputMode102, Component.InputMode.InputMode142 }.Contains(InputMode) ? null : TextDecorations.Strikethrough;
+                    BMSFont = new[] { Component.InputMode._4, Component.InputMode._6, Component.InputMode._9, Component.InputMode._5_1, Component.InputMode._7_1, Component.InputMode._10_2, Component.InputMode._14_2 }.Contains(InputMode) ? null : TextDecorations.Strikethrough;
                     OnPropertyChanged(nameof(BMSFont));
                 }
             }
@@ -468,30 +468,30 @@ namespace Qwilight.ViewModel
 
         public InputViewModel()
         {
-            _inputMap[(int)Component.InputMode.InputMode4] = new[] { default, 4, 5, 6, 7 };
-            _inputMap[(int)Component.InputMode.InputMode5] = new[] { default, 4, 5, 6, 7, 8 };
-            _inputMap[(int)Component.InputMode.InputMode6] = new[] { default, 3, 4, 5, 6, 7, 8 };
-            _inputMap[(int)Component.InputMode.InputMode7] = new[] { default, 3, 4, 5, 6, 7, 8, 9 };
-            _inputMap[(int)Component.InputMode.InputMode8] = new[] { default, 2, 3, 4, 5, 6, 7, 8, 9 };
-            _inputMap[(int)Component.InputMode.InputMode9] = new[] { default, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            _inputMap[(int)Component.InputMode.InputMode10] = new[] { default, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            _inputMap[(int)Component.InputMode.InputMode51] = new[] { default, 1, 4, 5, 6, 7, 8 };
-            _inputMap[(int)Component.InputMode.InputMode71] = new[] { default, 1, 3, 4, 5, 6, 7, 8, 9 };
-            _inputMap[(int)Component.InputMode.InputMode102] = new[] { default,
+            _inputMap[(int)Component.InputMode._4] = new[] { default, 4, 5, 6, 7 };
+            _inputMap[(int)Component.InputMode._5] = new[] { default, 4, 5, 6, 7, 8 };
+            _inputMap[(int)Component.InputMode._6] = new[] { default, 3, 4, 5, 6, 7, 8 };
+            _inputMap[(int)Component.InputMode._7] = new[] { default, 3, 4, 5, 6, 7, 8, 9 };
+            _inputMap[(int)Component.InputMode._8] = new[] { default, 2, 3, 4, 5, 6, 7, 8, 9 };
+            _inputMap[(int)Component.InputMode._9] = new[] { default, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            _inputMap[(int)Component.InputMode._10] = new[] { default, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            _inputMap[(int)Component.InputMode._5_1] = new[] { default, 1, 4, 5, 6, 7, 8 };
+            _inputMap[(int)Component.InputMode._7_1] = new[] { default, 1, 3, 4, 5, 6, 7, 8, 9 };
+            _inputMap[(int)Component.InputMode._10_2] = new[] { default,
                 1, 4, 5, 6, 7, 8,
                 3, 4, 5, 6, 7, 10
             };
-            _inputMap[(int)Component.InputMode.InputMode142] = new[] { default,
+            _inputMap[(int)Component.InputMode._14_2] = new[] { default,
                 1, 3, 4, 5, 6, 7, 8, 9,
                 2, 3, 4, 5, 6, 7, 8, 10
             };
-            _inputMap[(int)Component.InputMode.InputMode242] = new[] { default,
+            _inputMap[(int)Component.InputMode._24_2] = new[] { default,
                 1, 4, 5, 6, 7, 8,
                 3, 4, 5, 6, 7, 8, 9,
                 4, 5, 6, 7, 8, 2, 3,
                 4, 5, 6, 7, 8, 10
             };
-            _inputMap[(int)Component.InputMode.InputMode484] = new[] { default,
+            _inputMap[(int)Component.InputMode._48_4] = new[] { default,
                 1, 2, 4, 5, 6, 7, 8,
                 3, 4, 5, 6, 7, 8, 9,
                 4, 5, 6, 7, 8,
@@ -501,43 +501,43 @@ namespace Qwilight.ViewModel
                 4, 5, 6, 7, 8,
                 2, 3, 4, 5, 6, 7, 8, 9, 10
             };
-            _pageMap[(int)Component.InputMode.InputMode4] = new[] { 4 };
-            _pageMap[(int)Component.InputMode.InputMode5] = new[] { 5 };
-            _pageMap[(int)Component.InputMode.InputMode6] = new[] { 6 };
-            _pageMap[(int)Component.InputMode.InputMode7] = new[] { 7 };
-            _pageMap[(int)Component.InputMode.InputMode8] = new[] { 8 };
-            _pageMap[(int)Component.InputMode.InputMode9] = new[] { 9 };
-            _pageMap[(int)Component.InputMode.InputMode10] = new[] { 10 };
-            _pageMap[(int)Component.InputMode.InputMode51] = new[] { 6 };
-            _pageMap[(int)Component.InputMode.InputMode71] = new[] { 8 };
-            _pageMap[(int)Component.InputMode.InputMode102] = new[] { 6, 12 };
-            _pageMap[(int)Component.InputMode.InputMode142] = new[] { 8, 16 };
-            _pageMap[(int)Component.InputMode.InputMode242] = new[] { 6, 13, 18, 26 };
-            _pageMap[(int)Component.InputMode.InputMode484] = new[] { 7, 14, 19, 26, 31, 38, 43, 52 };
-            _inputPositionMap[(int)Component.InputMode.InputMode4] = new[] { new[] { default, default, default, default, 1, 2, 3, 4, default, default, default } };
-            _inputPositionMap[(int)Component.InputMode.InputMode5] = new[] { new[] { default, default, default, default, 1, 2, 3, 4, 5, default, default } };
-            _inputPositionMap[(int)Component.InputMode.InputMode6] = new[] { new[] { default, default, default, 1, 2, 3, 4, 5, 6, default, default } };
-            _inputPositionMap[(int)Component.InputMode.InputMode7] = new[] { new[] { default, default, default, 1, 2, 3, 4, 5, 6, 7, default } };
-            _inputPositionMap[(int)Component.InputMode.InputMode8] = new[] { new[] { default, default, 1, 2, 3, 4, 5, 6, 7, 8, default } };
-            _inputPositionMap[(int)Component.InputMode.InputMode9] = new[] { new[] { default, default, 1, 2, 3, 4, 5, 6, 7, 8, 9 } };
-            _inputPositionMap[(int)Component.InputMode.InputMode10] = new[] { new[] { default, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } };
-            _inputPositionMap[(int)Component.InputMode.InputMode51] = new[] { new[] { default, 1, default, default, 2, 3, 4, 5, 6, default, default } };
-            _inputPositionMap[(int)Component.InputMode.InputMode71] = new[] { new[] { default, 1, default, 2, 3, 4, 5, 6, 7, 8, default } };
-            _inputPositionMap[(int)Component.InputMode.InputMode102] = new[] {
+            _pageMap[(int)Component.InputMode._4] = new[] { 4 };
+            _pageMap[(int)Component.InputMode._5] = new[] { 5 };
+            _pageMap[(int)Component.InputMode._6] = new[] { 6 };
+            _pageMap[(int)Component.InputMode._7] = new[] { 7 };
+            _pageMap[(int)Component.InputMode._8] = new[] { 8 };
+            _pageMap[(int)Component.InputMode._9] = new[] { 9 };
+            _pageMap[(int)Component.InputMode._10] = new[] { 10 };
+            _pageMap[(int)Component.InputMode._5_1] = new[] { 6 };
+            _pageMap[(int)Component.InputMode._7_1] = new[] { 8 };
+            _pageMap[(int)Component.InputMode._10_2] = new[] { 6, 12 };
+            _pageMap[(int)Component.InputMode._14_2] = new[] { 8, 16 };
+            _pageMap[(int)Component.InputMode._24_2] = new[] { 6, 13, 18, 26 };
+            _pageMap[(int)Component.InputMode._48_4] = new[] { 7, 14, 19, 26, 31, 38, 43, 52 };
+            _inputPositionMap[(int)Component.InputMode._4] = new[] { new[] { default, default, default, default, 1, 2, 3, 4, default, default, default } };
+            _inputPositionMap[(int)Component.InputMode._5] = new[] { new[] { default, default, default, default, 1, 2, 3, 4, 5, default, default } };
+            _inputPositionMap[(int)Component.InputMode._6] = new[] { new[] { default, default, default, 1, 2, 3, 4, 5, 6, default, default } };
+            _inputPositionMap[(int)Component.InputMode._7] = new[] { new[] { default, default, default, 1, 2, 3, 4, 5, 6, 7, default } };
+            _inputPositionMap[(int)Component.InputMode._8] = new[] { new[] { default, default, 1, 2, 3, 4, 5, 6, 7, 8, default } };
+            _inputPositionMap[(int)Component.InputMode._9] = new[] { new[] { default, default, 1, 2, 3, 4, 5, 6, 7, 8, 9 } };
+            _inputPositionMap[(int)Component.InputMode._10] = new[] { new[] { default, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } };
+            _inputPositionMap[(int)Component.InputMode._5_1] = new[] { new[] { default, 1, default, default, 2, 3, 4, 5, 6, default, default } };
+            _inputPositionMap[(int)Component.InputMode._7_1] = new[] { new[] { default, 1, default, 2, 3, 4, 5, 6, 7, 8, default } };
+            _inputPositionMap[(int)Component.InputMode._10_2] = new[] {
                 new[] { default, 1, default, default, 2, 3, 4, 5, 6, default, default },
                 new[] { default, default, default, 7, 8, 9, 10, 11, default, default, 12 }
             };
-            _inputPositionMap[(int)Component.InputMode.InputMode142] = new[] {
+            _inputPositionMap[(int)Component.InputMode._14_2] = new[] {
                 new[] { default, 1, default, 2, 3, 4, 5, 6, 7, 8, default },
                 new[] { default, default, 9, 10, 11, 12, 13, 14, 15, default, 16 }
             };
-            _inputPositionMap[(int)Component.InputMode.InputMode242] = new[] {
+            _inputPositionMap[(int)Component.InputMode._24_2] = new[] {
                 new[] { default, 1, default, default, 2, 3, 4, 5, 6, default, default, default },
                 new[] { default, default, default, 7, 8, 9, 10, 11, 12, 13, default, default },
                 new[] { default, default, default, default, 14, 15, 16, 17, 18, default, default },
                 new[] { default, default, 19, 20, 21, 22, 23, 24, 25, default, 26 }
             };
-            _inputPositionMap[(int)Component.InputMode.InputMode484] = new[] {
+            _inputPositionMap[(int)Component.InputMode._48_4] = new[] {
                 new[] { default, 1, 2, default, 3, 4, 5, 6, 7, default, default },
                 new[] { default, default, default, 8, 9, 10, 11, 12, 13, 14, default },
                 new[] { default, default, default, default, 15, 16, 17, 18, 19, default, default },
@@ -562,20 +562,20 @@ namespace Qwilight.ViewModel
             Array.Fill(InputNotePaints, null);
             switch (InputMode)
             {
-                case Component.InputMode.InputMode4:
+                case Component.InputMode._4:
                     InputNotePaints[4] = Paints.Paint4;
                     InputNotePaints[5] = Brushes.Cyan;
                     InputNotePaints[6] = Brushes.Cyan;
                     InputNotePaints[7] = Paints.Paint4;
                     break;
-                case Component.InputMode.InputMode5:
+                case Component.InputMode._5:
                     InputNotePaints[4] = Paints.Paint4;
                     InputNotePaints[5] = Brushes.Cyan;
                     InputNotePaints[6] = Paints.Paint4;
                     InputNotePaints[7] = Brushes.Cyan;
                     InputNotePaints[8] = Paints.Paint4;
                     break;
-                case Component.InputMode.InputMode6:
+                case Component.InputMode._6:
                     InputNotePaints[3] = Paints.Paint4;
                     InputNotePaints[4] = Brushes.Cyan;
                     InputNotePaints[5] = Paints.Paint4;
@@ -583,7 +583,7 @@ namespace Qwilight.ViewModel
                     InputNotePaints[7] = Brushes.Cyan;
                     InputNotePaints[8] = Paints.Paint4;
                     break;
-                case Component.InputMode.InputMode7:
+                case Component.InputMode._7:
                     InputNotePaints[3] = Paints.Paint4;
                     InputNotePaints[4] = Brushes.Cyan;
                     InputNotePaints[5] = Paints.Paint4;
@@ -592,7 +592,7 @@ namespace Qwilight.ViewModel
                     InputNotePaints[8] = Brushes.Cyan;
                     InputNotePaints[9] = Paints.Paint4;
                     break;
-                case Component.InputMode.InputMode8:
+                case Component.InputMode._8:
                     InputNotePaints[2] = Paints.Paint4;
                     InputNotePaints[3] = Brushes.Cyan;
                     InputNotePaints[4] = Paints.Paint4;
@@ -602,7 +602,7 @@ namespace Qwilight.ViewModel
                     InputNotePaints[8] = Brushes.Cyan;
                     InputNotePaints[9] = Paints.Paint4;
                     break;
-                case Component.InputMode.InputMode9:
+                case Component.InputMode._9:
                     InputNotePaints[2] = Paints.Paint4;
                     InputNotePaints[3] = Brushes.Cyan;
                     InputNotePaints[4] = Paints.Paint4;
@@ -613,7 +613,7 @@ namespace Qwilight.ViewModel
                     InputNotePaints[9] = Brushes.Cyan;
                     InputNotePaints[10] = Paints.Paint4;
                     break;
-                case Component.InputMode.InputMode10:
+                case Component.InputMode._10:
                     InputNotePaints[1] = Paints.Paint4;
                     InputNotePaints[2] = Brushes.Cyan;
                     InputNotePaints[3] = Paints.Paint4;
@@ -625,7 +625,7 @@ namespace Qwilight.ViewModel
                     InputNotePaints[9] = Brushes.Cyan;
                     InputNotePaints[10] = Paints.Paint4;
                     break;
-                case Component.InputMode.InputMode51:
+                case Component.InputMode._5_1:
                     InputNotePaints[1] = Paints.Paint1;
                     InputNotePaints[4] = Paints.Paint4;
                     InputNotePaints[5] = Brushes.Cyan;
@@ -633,7 +633,7 @@ namespace Qwilight.ViewModel
                     InputNotePaints[7] = Brushes.Cyan;
                     InputNotePaints[8] = Paints.Paint4;
                     break;
-                case Component.InputMode.InputMode71:
+                case Component.InputMode._7_1:
                     InputNotePaints[1] = Paints.Paint1;
                     InputNotePaints[3] = Paints.Paint4;
                     InputNotePaints[4] = Brushes.Cyan;
@@ -643,7 +643,7 @@ namespace Qwilight.ViewModel
                     InputNotePaints[8] = Brushes.Cyan;
                     InputNotePaints[9] = Paints.Paint4;
                     break;
-                case Component.InputMode.InputMode102:
+                case Component.InputMode._10_2:
                     switch (_page)
                     {
                         case 0:
@@ -664,7 +664,7 @@ namespace Qwilight.ViewModel
                             break;
                     }
                     break;
-                case Component.InputMode.InputMode142:
+                case Component.InputMode._14_2:
                     switch (_page)
                     {
                         case 0:
@@ -689,7 +689,7 @@ namespace Qwilight.ViewModel
                             break;
                     }
                     break;
-                case Component.InputMode.InputMode242:
+                case Component.InputMode._24_2:
                     switch (_page)
                     {
                         case 0:
@@ -728,7 +728,7 @@ namespace Qwilight.ViewModel
                             break;
                     }
                     break;
-                case Component.InputMode.InputMode484:
+                case Component.InputMode._48_4:
                     switch (_page)
                     {
                         case 0:

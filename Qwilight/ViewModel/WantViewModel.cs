@@ -249,31 +249,31 @@ namespace Qwilight.ViewModel
 
         public bool IsTotalWantLevel => Configure.Instance.InputWantLevel.Any(inputWantLevel => inputWantLevel);
 
-        public Brush InputMode4 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode4] ? 1 : 0];
+        public Brush InputMode4 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._4] ? 1 : 0];
 
-        public Brush InputMode5 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode5] ? 1 : 0];
+        public Brush InputMode5 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._5] ? 1 : 0];
 
-        public Brush InputMode6 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode6] ? 1 : 0];
+        public Brush InputMode6 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._6] ? 1 : 0];
 
-        public Brush InputMode7 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode7] ? 1 : 0];
+        public Brush InputMode7 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._7] ? 1 : 0];
 
-        public Brush InputMode8 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode8] ? 1 : 0];
+        public Brush InputMode8 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._8] ? 1 : 0];
 
-        public Brush InputMode9 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode9] ? 1 : 0];
+        public Brush InputMode9 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._9] ? 1 : 0];
 
-        public Brush InputMode10 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode10] ? 1 : 0];
+        public Brush InputMode10 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._10] ? 1 : 0];
 
-        public Brush InputMode51 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode51] ? 1 : 0];
+        public Brush InputMode51 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._5_1] ? 1 : 0];
 
-        public Brush InputMode71 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode71] ? 1 : 0];
+        public Brush InputMode71 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._7_1] ? 1 : 0];
 
-        public Brush InputMode102 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode102] ? 1 : 0];
+        public Brush InputMode102 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._10_2] ? 1 : 0];
 
-        public Brush InputMode142 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode142] ? 1 : 0];
+        public Brush InputMode142 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._14_2] ? 1 : 0];
 
-        public Brush InputMode242 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode242] ? 1 : 0];
+        public Brush InputMode242 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._24_2] ? 1 : 0];
 
-        public Brush InputMode484 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode.InputMode484] ? 1 : 0];
+        public Brush InputMode484 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._48_4] ? 1 : 0];
 
         public bool IsTotalWantInputMode => Configure.Instance.InputWantInputMode.Any(inputWantInputMode => inputWantInputMode);
 

@@ -38,7 +38,7 @@ namespace Qwilight.ViewModel
 
         public long BundleLength { get; set; }
 
-        public string ValueContents => $"{Utility.FormatUnit(TargetValue)}／{Utility.FormatUnit(BundleLength)}";
+        public string ValueContents => $"{Utility.FormatLength(TargetValue)}／{Utility.FormatLength(BundleLength)}";
 
         [RelayCommand]
         static void OnSaveAsBundle() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SaveAsBundle, new

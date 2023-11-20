@@ -131,15 +131,15 @@ namespace Qwilight.Note
             return 0;
         }
 
-        public virtual bool IsFailedAsTooLate(double wait, ModeComponent modeComponentValue, double judgmentStage, int judgmentModeDate, int judgmentMapDate, int longNoteAssistDate) => false;
+        public virtual bool IsFailedAsTooLate(double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate) => false;
 
-        public virtual bool IsTooLong(double wait, ModeComponent modeComponentValue, double judgmentStage, int judgmentModeDate, int judgmentMapDate, int longNoteAssistDate) => false;
+        public virtual bool IsTooLong(double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate) => false;
 
         public abstract void MoveInputMillis(double millisLoopUnit, DefaultCompute defaultComputer);
 
         public abstract void SetLayer(DefaultCompute defaultComputer);
 
-        public abstract JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, int judgmentModeDate, int judgmentMapDate, int longNoteAssistDate, int trapNoteJudgmentDate, bool isAutoLongNote);
+        public abstract JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote);
 
         public abstract JudgedNoteData? AutoJudge(double wait);
 

@@ -330,8 +330,6 @@ namespace Qwilight
             var mainViewModel = ViewModels.Instance.MainValue;
             var r = new Bound();
             var s = new Bound();
-            var v0 = new Vector2();
-            var v1 = new Vector2();
             var pauseNotify0Position0 = 0F;
             var pauseNotify0Position1 = 0F;
             var pauseNotify1Position0 = 0F;
@@ -1601,7 +1599,7 @@ namespace Qwilight
                                                                                 }
                                                                             }
                                                                         }
-                                                                        if (Configure.Instance.Limiter57Variety && (inputMode == Component.InputMode.InputMode242 || inputMode == Component.InputMode.InputMode484))
+                                                                        if (Configure.Instance.Limiter57Variety && (inputMode == Component.InputMode._24_2 || inputMode == Component.InputMode._48_4))
                                                                         {
                                                                             var limiter57Values = Component.Limiter57Map[(int)inputMode];
                                                                             for (var i = inputCount; i > 0; --i)
@@ -2434,9 +2432,9 @@ namespace Qwilight
                                                 var judgmentMeterViewHeight = BaseUI.Instance.JudgmentMeterViewPoint[3];
                                                 r.Set(judgmentMeterViewPosition0, judgmentMeterViewPosition1, judgmentMeterViewLength, judgmentMeterViewHeight);
                                                 targetSession.DrawRectangle(r, Colors.White);
-                                                v0.Set(judgmentMeterViewPosition0, judgmentMeterViewPosition1 + judgmentMeterViewHeight / 2);
-                                                v1.Set(judgmentMeterViewPosition0 + judgmentMeterViewLength, judgmentMeterViewPosition1 + judgmentMeterViewHeight / 2);
-                                                targetSession.DrawLine(v0, v1, Colors.White);
+                                                r.SetPosition(judgmentMeterViewPosition0, judgmentMeterViewPosition1 + judgmentMeterViewHeight / 2);
+                                                s.SetPosition(judgmentMeterViewPosition0 + judgmentMeterViewLength, judgmentMeterViewPosition1 + judgmentMeterViewHeight / 2);
+                                                targetSession.DrawLine(r, s, Colors.White);
                                                 var lowestJudgmentMillis = defaultComputer.LowestJudgmentMillis;
                                                 var highestJudgmentMillis = defaultComputer.HighestJudgmentMillis;
                                                 var noteFileLength = defaultComputer.NoteFile.Length;
@@ -2490,9 +2488,9 @@ namespace Qwilight
                                                         var hitPointsEventValue = hitPointsEventValues[i];
                                                         var hitPointsEventValueAs = hitPointsEventValues[i + 1];
 
-                                                        v0.Set((float)(statusViewPosition0 + hitPointsEventValue.Key * statusViewLength), (float)(statusViewPosition1 + hitPointsEventValue.Value * statusViewHeight));
-                                                        v1.Set((float)(statusViewPosition0 + hitPointsEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + hitPointsEventValueAs.Value * statusViewHeight));
-                                                        targetSession.DrawLine(v0, v1, hitPointsStatusViewColor);
+                                                        r.SetPosition((float)(statusViewPosition0 + hitPointsEventValue.Key * statusViewLength), (float)(statusViewPosition1 + hitPointsEventValue.Value * statusViewHeight));
+                                                        s.SetPosition((float)(statusViewPosition0 + hitPointsEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + hitPointsEventValueAs.Value * statusViewHeight));
+                                                        targetSession.DrawLine(r, s, hitPointsStatusViewColor);
                                                     }
 
                                                     for (var i = standEventValues.Count - 2; i >= 0; --i)
@@ -2500,9 +2498,9 @@ namespace Qwilight
                                                         var standEventValue = standEventValues[i];
                                                         var standEventValueAs = standEventValues[i + 1];
 
-                                                        v0.Set((float)(statusViewPosition0 + standEventValue.Key * statusViewLength), (float)(statusViewPosition1 + standEventValue.Value * statusViewHeight));
-                                                        v1.Set((float)(statusViewPosition0 + standEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + standEventValueAs.Value * statusViewHeight));
-                                                        targetSession.DrawLine(v0, v1, standStatusViewColor);
+                                                        r.SetPosition((float)(statusViewPosition0 + standEventValue.Key * statusViewLength), (float)(statusViewPosition1 + standEventValue.Value * statusViewHeight));
+                                                        s.SetPosition((float)(statusViewPosition0 + standEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + standEventValueAs.Value * statusViewHeight));
+                                                        targetSession.DrawLine(r, s, standStatusViewColor);
                                                     }
 
                                                     for (var i = pointEventValues.Count - 2; i >= 0; --i)
@@ -2510,9 +2508,9 @@ namespace Qwilight
                                                         var pointEventValue = pointEventValues[i];
                                                         var pointEventValueAs = pointEventValues[i + 1];
 
-                                                        v0.Set((float)(statusViewPosition0 + pointEventValue.Key * statusViewLength), (float)(statusViewPosition1 + pointEventValue.Value * statusViewHeight));
-                                                        v1.Set((float)(statusViewPosition0 + pointEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + pointEventValueAs.Value * statusViewHeight));
-                                                        targetSession.DrawLine(v0, v1, pointStatusViewColor);
+                                                        r.SetPosition((float)(statusViewPosition0 + pointEventValue.Key * statusViewLength), (float)(statusViewPosition1 + pointEventValue.Value * statusViewHeight));
+                                                        s.SetPosition((float)(statusViewPosition0 + pointEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + pointEventValueAs.Value * statusViewHeight));
+                                                        targetSession.DrawLine(r, s, pointStatusViewColor);
                                                     }
 
                                                     for (var i = bandEventValues.Count - 2; i >= 0; --i)
@@ -2520,9 +2518,9 @@ namespace Qwilight
                                                         var bandEventValue = bandEventValues[i];
                                                         var bandEventValueAs = bandEventValues[i + 1];
 
-                                                        v0.Set((float)(statusViewPosition0 + bandEventValue.Key * statusViewLength), (float)(statusViewPosition1 + bandEventValue.Value * statusViewHeight));
-                                                        v1.Set((float)(statusViewPosition0 + bandEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + bandEventValueAs.Value * statusViewHeight));
-                                                        targetSession.DrawLine(v0, v1, bandStatusViewColor);
+                                                        r.SetPosition((float)(statusViewPosition0 + bandEventValue.Key * statusViewLength), (float)(statusViewPosition1 + bandEventValue.Value * statusViewHeight));
+                                                        s.SetPosition((float)(statusViewPosition0 + bandEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + bandEventValueAs.Value * statusViewHeight));
+                                                        targetSession.DrawLine(r, s, bandStatusViewColor);
                                                     }
                                                 }
 

@@ -39,11 +39,10 @@ namespace Qwilight.View
             using (var targetSession = _target.Open())
             {
                 var r = new Bound();
+                var s = new Bound();
                 var mainViewModel = (DataContext as MainViewModel);
                 if (mainViewModel.IsNoteFileMode)
                 {
-                    var p1 = new Point();
-                    var p2 = new Point();
                     var noteFile = mainViewModel.EntryItemValue?.NoteFile;
                     var autoComputer = mainViewModel.AutoComputer;
 
@@ -155,9 +154,9 @@ namespace Qwilight.View
                             var inputCount = autoComputer.InputCountQueue.Count;
                             if (statusValue > 0.0 && statusValue < 1.0)
                             {
-                                p1.Set(inputNoteCountViewPosition0 + inputNoteCountViewLength * statusValue, inputNoteCountViewPosition1);
-                                p2.Set(p1.X, p1.Y + inputNoteCountViewHeight);
-                                targetSession.DrawLine(Paints.Pen4, p1, p2);
+                                r.SetPosition(inputNoteCountViewPosition0 + inputNoteCountViewLength * statusValue, inputNoteCountViewPosition1);
+                                s.SetPosition(r.Position0, r.Position1 + inputNoteCountViewHeight);
+                                targetSession.DrawLine(Paints.Pen4, r, s);
                             }
 
                             var inputCountText = PoolSystem.Instance.GetValueText(inputCount, "NPS: #,##0 / s");

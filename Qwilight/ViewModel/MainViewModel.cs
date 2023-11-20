@@ -947,7 +947,7 @@ namespace Qwilight.ViewModel
                     var pointPositionY = pointPosition.Y;
                     var statusPoint = BaseUI.Instance.StatusPoint;
                     var inputNoteCountViewPoint = BaseUI.Instance.InputNoteCountViewPoint;
-                    if (statusPoint?.Length > 4 && Utility.IsPoint(statusPoint, pointPositionX, pointPositionY))
+                    if (statusPoint?.Length >= 4 && new Bound(statusPoint).IsPoint(pointPosition))
                     {
                         var statusPosition0 = statusPoint[0];
                         var statusPosition1 = statusPoint[1];
@@ -962,7 +962,7 @@ namespace Qwilight.ViewModel
                             _ => default,
                         }, e.ClickCount == 2);
                     }
-                    else if (inputNoteCountViewPoint?.Length > 2 && Utility.IsPoint(inputNoteCountViewPoint, pointPositionX, pointPositionY))
+                    else if (inputNoteCountViewPoint?.Length >= 4 && new Bound(inputNoteCountViewPoint).IsPoint(pointPosition))
                     {
                         MoveStatus(isAlt ? -Component.LevyingWait : (pointPositionX - inputNoteCountViewPoint[0]) / inputNoteCountViewPoint[2], e.ClickCount == 2);
                     }
@@ -2182,7 +2182,7 @@ namespace Qwilight.ViewModel
                         var highestWantHighestInputCount = Configure.Instance.HighestWantHighestInputCount;
                         var wantLevelIDs = Configure.Instance.WantLevelIDs;
                         var isWantLevelSystem = Configure.Instance.WantLevelSystem;
-                        var isNotWantLevelItem = !Configure.Instance.WantLevelIDs.Any();
+                        var isNotWantLevelItem = wantLevelIDs.Length == 0;
                         var isNotWantHellBPM = !Configure.Instance.WantHellBPM;
                         var levelID128s = LevelSystem.Instance.LevelID128s;
                         var levelID256s = LevelSystem.Instance.LevelID256s;
@@ -3436,8 +3436,8 @@ namespace Qwilight.ViewModel
                 {
                     Configure.Instance.JudgmentMeterMillis = Math.Min
                     (
-                        Math.Abs(Component.GetJudgmentMillis(Configure.Instance.AutoJudgmentMeterMillisItemValue.Judged, ModeComponentValue, noteFile.JudgmentStage, Component.LatestJudgmentMode, Component.LatestJudgmentMap, Component.LatestLongNoteAssist, 0)),
-                        Math.Abs(Component.GetJudgmentMillis(Configure.Instance.AutoJudgmentMeterMillisItemValue.Judged, ModeComponentValue, noteFile.JudgmentStage, Component.LatestJudgmentMode, Component.LatestJudgmentMap, Component.LatestLongNoteAssist, 1))
+                        Math.Abs(Component.GetJudgmentMillis(Configure.Instance.AutoJudgmentMeterMillisItemValue.Judged, ModeComponentValue, noteFile.JudgmentStage, Component.LatestJudgmentModeDate, Component.LatestJudgmentMapDate, Component.LatestLongNoteAssistDate, 0)),
+                        Math.Abs(Component.GetJudgmentMillis(Configure.Instance.AutoJudgmentMeterMillisItemValue.Judged, ModeComponentValue, noteFile.JudgmentStage, Component.LatestJudgmentModeDate, Component.LatestJudgmentMapDate, Component.LatestLongNoteAssistDate, 1))
                     );
                 }
                 noteFile.SetJudgmentMillisTexts(ModeComponentValue);
