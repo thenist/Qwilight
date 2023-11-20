@@ -482,7 +482,7 @@ namespace Qwilight.ViewModel
 
                     Array.Copy(twilightWwwAvatarValue.dateValues, DateValues, DateValues.Length);
 
-                    await LoadAvatarCollection();
+                    _ = LoadAvatarCollection();
                 }
                 else
                 {
