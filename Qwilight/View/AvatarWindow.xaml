@@ -99,7 +99,7 @@
                                                         <ColumnDefinition />
                                                     </Grid.ColumnDefinitions>
                                                     <Image Height="24" Style="{StaticResource StandardView}" Source="{Binding QuitDrawings[0][0].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitCountTexts[0]}" HorizontalAlignment="Left" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitStatusTexts[0]}" HorizontalAlignment="Left" />
                                                 </Grid>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -107,7 +107,7 @@
                                                         <ColumnDefinition />
                                                     </Grid.ColumnDefinitions>
                                                     <Image Height="24" Style="{StaticResource StandardView}" Source="{Binding QuitDrawings[1][0].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitCountTexts[1]}" HorizontalAlignment="Left" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitStatusTexts[1]}" HorizontalAlignment="Left" />
                                                 </Grid>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -115,7 +115,7 @@
                                                         <ColumnDefinition />
                                                     </Grid.ColumnDefinitions>
                                                     <Image Height="24" Style="{StaticResource StandardView}" Source="{Binding QuitDrawings[2][0].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitCountTexts[2]}" HorizontalAlignment="Left" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitStatusTexts[2]}" HorizontalAlignment="Left" />
                                                 </Grid>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -123,7 +123,7 @@
                                                         <ColumnDefinition />
                                                     </Grid.ColumnDefinitions>
                                                     <Image Height="24" Style="{StaticResource StandardView}" Source="{Binding QuitDrawings[3][0].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitCountTexts[3]}" HorizontalAlignment="Left" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitStatusTexts[3]}" HorizontalAlignment="Left" />
                                                 </Grid>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -131,7 +131,7 @@
                                                         <ColumnDefinition />
                                                     </Grid.ColumnDefinitions>
                                                     <Image Height="24" Style="{StaticResource StandardView}" Source="{Binding QuitDrawings[4][0].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitCountTexts[4]}" HorizontalAlignment="Left" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitStatusTexts[4]}" HorizontalAlignment="Left" />
                                                 </Grid>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -139,7 +139,7 @@
                                                         <ColumnDefinition />
                                                     </Grid.ColumnDefinitions>
                                                     <Image Height="24" Style="{StaticResource StandardView}" Source="{Binding QuitDrawings[5][0].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitCountTexts[5]}" HorizontalAlignment="Left" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitStatusTexts[5]}" HorizontalAlignment="Left" />
                                                 </Grid>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -147,7 +147,7 @@
                                                         <ColumnDefinition />
                                                     </Grid.ColumnDefinitions>
                                                     <Image Height="24" Style="{StaticResource StandardView}" Source="{Binding QuitDrawings[6][0].DefaultDrawing, Source={StaticResource BaseUI}}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitCountTexts[6]}" HorizontalAlignment="Left" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding QuitStatusTexts[6]}" HorizontalAlignment="Left" />
                                                 </Grid>
                                             </StackPanel>
                                         </Grid>

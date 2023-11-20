@@ -356,7 +356,7 @@ namespace Qwilight.ViewModel
 
         public bool IsMe => _avatarID == TwilightSystem.Instance.AvatarID;
 
-        public string[] QuitCountTexts { get; } = new string[7];
+        public string[] QuitStatusTexts { get; } = new string[7];
 
         public int[] DateValues { get; } = new int[91];
 
@@ -476,9 +476,11 @@ namespace Qwilight.ViewModel
 
                     for (var i = twilightWwwAvatarValue.quitStatusValues.Length - 1; i >= 0; --i)
                     {
-                        QuitCountTexts[i] = twilightWwwAvatarValue.quitStatusValues[i].ToString(LanguageSystem.Instance.CountContents);
+                        QuitStatusTexts[i] = twilightWwwAvatarValue.quitStatusValues[i].ToString(LanguageSystem.Instance.CountContents);
                     }
-                    OnPropertyChanged(nameof(QuitCountTexts));
+                    OnPropertyChanged(nameof(QuitStatusTexts));
+
+                    Array.Copy(twilightWwwAvatarValue.dateValues, DateValues, DateValues.Length);
 
                     await LoadAvatarCollection();
                 }
