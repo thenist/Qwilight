@@ -3311,7 +3311,7 @@ namespace Qwilight.ViewModel
                     {
                         case 0:
                             IsHOFAbility5KLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability5K");
+                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/5K");
                             if (twilightWwwHOF != null)
                             {
                                 Ability5KHOFItemCollection.Clear();
@@ -3324,7 +3324,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 1:
                             IsHOFAbility7KLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability7K");
+                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/7K");
                             if (twilightWwwHOF != null)
                             {
                                 Ability7KHOFItemCollection.Clear();
@@ -3337,7 +3337,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 2:
                             IsHOFAbility9KLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability9K");
+                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/9K");
                             if (twilightWwwHOF != null)
                             {
                                 Ability9KHOFItemCollection.Clear();

@@ -19,7 +19,16 @@ namespace Qwilight.UIComponent
                 {
                     _wantDrawing = false;
 
-                    Task.Run(async () => SetProperty(ref _drawing, DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/edge?edgeID={EdgeID}").ConfigureAwait(false), null), nameof(Drawing)));
+                    Task.Run(async () =>
+                    {
+                        try
+                        {
+                            SetProperty(ref _drawing, DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/edge?edgeID={EdgeID}").ConfigureAwait(false), null), nameof(Drawing));
+                        }
+                        catch
+                        {
+                        }
+                    });
                 }
                 return _drawing;
             }
