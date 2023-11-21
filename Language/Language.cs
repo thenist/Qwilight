@@ -15,7 +15,7 @@ wwwClient.DefaultRequestHeaders.Add("X-Naver-Client-Secret", assetsClientJSON.nh
 
 var qwilightEntryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "source", "repos", "Qwilight");
 var twilightEntryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "IdeaProjects", "Twilight");
-var taehuiEntryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "source", "repos", "taehui");
+var taehuiEntryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "WebStormProjects", "taehui");
 SetCSJavaLanguage(Path.Combine(qwilightEntryPath, "Qwilight", "Assets", "Language.json"));
 SetCSLanguageSystem(Path.Combine(qwilightEntryPath, "Qwilight", "Assets", "Language.json"), Path.Combine(qwilightEntryPath, "Qwilight", "System", "LanguageSystem", "LanguageSystem.g.cs"), "Qwilight");
 SetCSJavaLanguage(Path.Combine(qwilightEntryPath, "Igniter", "Resources", "Language.json"));

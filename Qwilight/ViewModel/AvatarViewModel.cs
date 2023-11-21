@@ -5,7 +5,6 @@ using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Forms.VisualStyles;
 using System.Windows.Media;
 
 namespace Qwilight.ViewModel
