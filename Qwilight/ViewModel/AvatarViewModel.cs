@@ -567,7 +567,7 @@ namespace Qwilight.ViewModel
                             var twilightWwwAvatarAbility = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarAbility[]>($"{QwilightComponent.QwilightAPI}/avatar/ability/5K?avatarID={AvatarID}");
                             if (twilightWwwAvatarAbility != null)
                             {
-                                WwwLevelCollection.Clear();
+                                Ability5KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarAbility)
                                 {
                                     Ability5KAvatarComputingCollection.Add(new()
@@ -589,7 +589,7 @@ namespace Qwilight.ViewModel
                             twilightWwwAvatarAbility = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarAbility[]>($"{QwilightComponent.QwilightAPI}/avatar/ability/7K?avatarID={AvatarID}");
                             if (twilightWwwAvatarAbility != null)
                             {
-                                WwwLevelCollection.Clear();
+                                Ability7KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarAbility)
                                 {
                                     Ability7KAvatarComputingCollection.Add(new()
@@ -611,7 +611,7 @@ namespace Qwilight.ViewModel
                             twilightWwwAvatarAbility = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarAbility[]>($"{QwilightComponent.QwilightAPI}/avatar/ability/9K?avatarID={AvatarID}");
                             if (twilightWwwAvatarAbility != null)
                             {
-                                WwwLevelCollection.Clear();
+                                Ability9KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarAbility)
                                 {
                                     Ability9KAvatarComputingCollection.Add(new()
