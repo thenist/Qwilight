@@ -88,7 +88,7 @@ namespace Qwilight
             }
         }
 
-        public XamlBaseUIConfigure[] XamlBaseUIConfigures { get; set; } = Array.Empty<XamlBaseUIConfigure>();
+        public XamlBaseUIConfigure[] XamlBaseUIConfigures { get; set; }
 
         public string[] LoadedConfigures { get; } = new string[HighestBaseUIConfigure];
 
@@ -644,10 +644,7 @@ namespace Qwilight
 
         public double AudioMultiplier => 1.0;
 
-        public BaseUI()
-        {
-            Init();
-        }
+        public BaseUI() => Init();
 
         public void InitEvents()
         {
@@ -2050,6 +2047,7 @@ namespace Qwilight
             ModeComponentDrawings[ModifyModeComponentViewModel.LowestJudgmentConditionModeVariety] = new HandledDrawingItem?[2];
             DefaultLength = Component.StandardLength;
             DefaultHeight = Component.StandardHeight;
+            XamlBaseUIConfigures = Array.Empty<XamlBaseUIConfigure>();
             EventNoteNameFontLevel = Levels.FontLevel0;
             TitleFontLevel = Levels.FontLevel0;
             ArtistFontLevel = Levels.FontLevel0;

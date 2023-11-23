@@ -59,7 +59,7 @@ namespace Qwilight
         /// </summary>
         public object LoadedCSX { get; } = new();
 
-        public XamlUIConfigure[] XamlUIConfigures { get; set; } = Array.Empty<XamlUIConfigure>();
+        public XamlUIConfigure[] XamlUIConfigures { get; set; }
 
         public string[] LoadedConfigures { get; } = new string[8];
 
@@ -2183,6 +2183,7 @@ namespace Qwilight
             }
             DefaultLength = Component.StandardLength;
             DefaultHeight = Component.StandardHeight;
+            XamlUIConfigures = Array.Empty<XamlUIConfigure>();
             _audioItemMap.Clear();
             ValueCallMap.Clear();
             ValueMap.Clear();

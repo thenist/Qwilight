@@ -233,8 +233,8 @@
         <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
     </Style>
 
-    <!-- MenuItem -->
-    <Style TargetType="MenuItem" BasedOn="{StaticResource MaterialDesignMenuItem}">
+    <!-- ContextMenu -->
+    <Style TargetType="ContextMenu" BasedOn="{StaticResource MaterialDesignContextMenu}">
         <Setter Property="FontFamily" Value="{Binding FontFamilyValue, Source={StaticResource Configure}}" />
         <Setter Property="FontSize" Value="{StaticResource FontLevel0}" />
 

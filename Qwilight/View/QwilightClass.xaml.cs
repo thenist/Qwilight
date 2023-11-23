@@ -16,6 +16,7 @@ using Windows.Win32.Foundation;
 using Windows.Win32.UI.WindowsAndMessaging;
 using SplashScreen = System.Windows.SplashScreen;
 using StartupEventArgs = System.Windows.StartupEventArgs;
+using VirtualKey = Windows.System.VirtualKey;
 
 namespace Qwilight.View
 {
@@ -29,6 +30,11 @@ namespace Qwilight.View
             #region COMPATIBLE
             Compatible.Compatible.Qwilight(QwilightComponent.QwilightEntryPath);
             #endregion
+
+            if (Utility.HasInput(VirtualKey.LeftShift))
+            {
+                PInvoke.AllocConsole();
+            }
 
             GPUConfigure.Instance.Load();
             switch (GPUConfigure.Instance.GPUModeValue)

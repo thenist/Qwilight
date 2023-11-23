@@ -342,33 +342,21 @@ namespace Qwilight
                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, eventItemText);
                                     break;
                                 case Event.Types.EventID.LevelUp:
-                                    if (mainViewModel.IsQuitMode)
-                                    {
-                                        Utility.HandleUIAudio("Level Up");
-                                        BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelUp);
-                                    }
+                                    Utility.HandleUIAudio("Level Up");
+                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelUp);
                                     break;
                                 case Event.Types.EventID.AbilityUp:
-                                    if (mainViewModel.IsQuitMode)
-                                    {
-                                        var twilightAbilityUp = Utility.GetJSON<JSON.TwilightAbilityUp>(eventItemText);
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, twilightAbilityUp.ToString(), true, "Ability Up");
-                                        BaseUI.Instance.HandleEvent(BaseUI.EventItem.AbilityUp);
-                                    }
+                                    var twilightAbilityUp = Utility.GetJSON<JSON.TwilightAbilityUp>(eventItemText);
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, twilightAbilityUp.ToString(), true, "Ability Up");
+                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.AbilityUp);
                                     break;
                                 case Event.Types.EventID.WwwLevel:
-                                    if (mainViewModel.IsQuitMode)
-                                    {
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.WwwLevelClearContents, eventItemText), true, "Www Level Clear");
-                                        BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelClear);
-                                    }
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.WwwLevelClearContents, eventItemText), true, "Www Level Clear");
+                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelClear);
                                     break;
                                 case Event.Types.EventID.NewTitle:
-                                    if (mainViewModel.IsQuitMode)
-                                    {
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.NewTitleContents, eventItemText), true, "New Title");
-                                        BaseUI.Instance.HandleEvent(BaseUI.EventItem.NewTitle);
-                                    }
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.NewTitleContents, eventItemText), true, "New Title");
+                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.NewTitle);
                                     break;
                                 case Event.Types.EventID.SiteYell:
                                     var twilightSiteYell = Utility.GetJSON<JSON.TwilightSiteYell>(eventItemText);

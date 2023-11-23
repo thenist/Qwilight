@@ -4047,7 +4047,7 @@ namespace Qwilight.Compute
                                         salt = ModeComponentValue.Salt,
                                         isPaused = _isPaused,
                                         inputFlags = _inputFlags,
-                                        inputMode = InputMode
+                                        inputMode = NoteFile.InputMode
                                     }, UnsafeByteOperations.UnsafeWrap(NoteFileContents), Comment.ToByteString());
                                 }
                                 else if (QwilightComponent.IsValve)
