@@ -239,7 +239,7 @@ namespace Qwilight.NoteFile
             {
                 try
                 {
-                    _noteID128 = $"{Utility.GetID128(data ?? GetContents())}:{DataID}";
+                    _noteID128 = Utility.GetID128(data ?? GetContents());
                 }
                 catch
                 {
@@ -255,7 +255,7 @@ namespace Qwilight.NoteFile
             {
                 try
                 {
-                    _noteID256 = $"{Utility.GetID256(data ?? GetContents())}:{DataID}";
+                    _noteID256 = Utility.GetID256(data ?? GetContents());
                 }
                 catch
                 {

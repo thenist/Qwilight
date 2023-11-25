@@ -28,11 +28,11 @@ namespace Qwilight.NoteFile
             Tag = levelTableData.comment ?? string.Empty;
             if (!string.IsNullOrEmpty(levelTableData.md5))
             {
-                _save128 = $"{levelTableData.md5}:{DataID}";
+                _save128 = levelTableData.md5;
             }
             if (!string.IsNullOrEmpty(levelTableData.sha256))
             {
-                _save256 = $"{levelTableData.sha256}:{DataID}";
+                _save256 = levelTableData.sha256;
             }
             OnLevyNoteFile = new(() =>
             {

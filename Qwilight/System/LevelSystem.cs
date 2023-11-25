@@ -71,14 +71,14 @@ namespace Qwilight
                                     var www = levelData.url;
                                     if (!string.IsNullOrEmpty(noteID128))
                                     {
-                                        LevelID128s[$"{noteID128}:0"] = levelTitle + level;
-                                        LevelID128NoteFiles[$"{noteID128}:0"] = new LevelNoteFile(levelData, levelTitle + level);
+                                        LevelID128s[noteID128] = levelTitle + level;
+                                        LevelID128NoteFiles[noteID128] = new LevelNoteFile(levelData, levelTitle + level);
                                     }
                                     var noteID256 = levelData.sha256;
                                     if (!string.IsNullOrEmpty(noteID256))
                                     {
-                                        LevelID256s[$"{noteID256}:0"] = levelTitle + level;
-                                        LevelID256NoteFiles[$"{noteID256}:0"] = new LevelNoteFile(levelData, levelTitle + level);
+                                        LevelID256s[noteID256] = levelTitle + level;
+                                        LevelID256NoteFiles[noteID256] = new LevelNoteFile(levelData, levelTitle + level);
                                     }
                                     var levelText = level.ToString();
                                     if (!levelTexts.Contains(levelText))
