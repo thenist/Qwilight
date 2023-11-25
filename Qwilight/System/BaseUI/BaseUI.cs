@@ -2142,10 +2142,14 @@ namespace Qwilight
 
                 void OnLoaded()
                 {
-                    foreach (var paintPropertyValue in PaintPropertyValues.Where(paintVarietyValue => paintVarietyValue?.DrawingVariety == 11))
+                    foreach (var paintPropertyValue in PaintPropertyValues)
                     {
-                        var mode = paintPropertyValue.Mode;
-                        paintPropertyValue.MediaHandlerItemValue = MediaSystem.Instance.Handle(paintPropertyValue.HandledMediaItemValue, this, mode == 1, mode == 0);
+                        var handledMediaItem = paintPropertyValue?.HandledMediaItemValue;
+                        if (handledMediaItem != null && paintPropertyValue.DrawingVariety == 11)
+                        {
+                            var mode = paintPropertyValue.Mode;
+                            paintPropertyValue.MediaHandlerItemValue = MediaSystem.Instance.Handle(handledMediaItem, this, mode == 1, mode == 0);
+                        }
                     }
                     DrawingSystem.Instance.LoadDefaultDrawing();
                     ViewModels.Instance.NotifyWindowViewModels();

@@ -26,6 +26,8 @@ namespace Qwilight.ViewModel
             }
 
             public string AvatarValue { get; set; }
+
+            public string NoteID { get; set; }
         }
 
         public ObservableCollection<AvatarComputing> Favorites5KAvatarComputingCollection { get; } = new();
