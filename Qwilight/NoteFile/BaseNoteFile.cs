@@ -23,7 +23,7 @@ namespace Qwilight.NoteFile
             Level0, Level1, Level2, Level3, Level4, Level5
         }
 
-        public static IEnumerable<BaseNoteFile> GetNoteFiles(string noteFilePath, DefaultEntryItem defaultEntryItem, EntryItem entryItem, int dataID)
+        public static BaseNoteFile[] GetNoteFiles(string noteFilePath, DefaultEntryItem defaultEntryItem, EntryItem entryItem, int dataID)
         {
             if (noteFilePath.IsTailCaselsss(".bmson"))
             {
@@ -46,9 +46,11 @@ namespace Qwilight.NoteFile
         bool _wantNoteDrawing = true;
         bool _wantBannerDrawing = true;
         Handled _handledValue;
-        string _save128;
-        string _save256;
-        string _save512;
+        string _noteID128;
+        string _noteID256;
+        string _noteID512;
+
+        public virtual int DataID => 0;
 
         public string FittedText
         {
@@ -167,8 +169,6 @@ namespace Qwilight.NoteFile
             set => SetProperty(ref _judgmentMillisText[(int)Component.Judged.Lowest], value, nameof(LowestJudgmentMillisText));
         }
 
-        public int DataID { get; set; }
-
         public DateTime? LatestDate { get; set; }
 
         public int HandledCount { get; set; }
@@ -235,48 +235,48 @@ namespace Qwilight.NoteFile
 
         public virtual string GetNoteID128(byte[] data = null)
         {
-            if (_save128 == null)
+            if (_noteID128 == null)
             {
                 try
                 {
-                    _save128 = $"{Utility.GetID128s(data ?? GetContents())}:{DataID}";
+                    _noteID128 = $"{Utility.GetID128(data ?? GetContents())}:{DataID}";
                 }
                 catch
                 {
-                    _save128 = string.Empty;
+                    _noteID128 = string.Empty;
                 }
             }
-            return _save128;
+            return _noteID128;
         }
 
         public virtual string GetNoteID256(byte[] data = null)
         {
-            if (_save256 == null)
+            if (_noteID256 == null)
             {
                 try
                 {
-                    _save256 = $"{Utility.GetID256s(data ?? GetContents())}:{DataID}";
+                    _noteID256 = $"{Utility.GetID256(data ?? GetContents())}:{DataID}";
                 }
                 catch
                 {
-                    _save256 = string.Empty;
+                    _noteID256 = string.Empty;
                 }
             }
-            return _save256;
+            return _noteID256;
         }
 
         public string GetNoteID512(byte[] data = null)
         {
-            if (_save512 == null)
+            if (_noteID512 == null)
             {
                 SetNoteID512(null, data);
             }
-            return _save512;
+            return _noteID512;
         }
 
         void SetNoteID512(string noteID512 = null, byte[] data = null)
         {
-            _save512 = noteID512 ?? $"{GetNoteID512Impl(data)}:{DataID}";
+            _noteID512 = noteID512 ?? $"{GetNoteID512Impl(data)}:{DataID}";
             FavoriteEntryItems.Clear();
             foreach (var favoriteEntryItem in DB.Instance.GetFavoriteEntryItems(this))
             {
@@ -290,7 +290,7 @@ namespace Qwilight.NoteFile
         {
             try
             {
-                return Utility.GetID512s(data ?? GetContents());
+                return Utility.GetID512(data ?? GetContents());
             }
             catch
             {
@@ -312,8 +312,8 @@ namespace Qwilight.NoteFile
 
         public void SetNoteIDs(string noteID128, string noteID256, string noteID512)
         {
-            _save128 = noteID128;
-            _save256 = noteID256;
+            _noteID128 = noteID128;
+            _noteID256 = noteID256;
             SetNoteID512(noteID512);
         }
 

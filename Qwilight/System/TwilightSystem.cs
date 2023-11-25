@@ -342,7 +342,8 @@ namespace Qwilight
                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, eventItemText);
                                     break;
                                 case Event.Types.EventID.LevelUp:
-                                    Utility.HandleUIAudio("Level Up");
+                                    var twilightLevelUp = Utility.GetJSON<JSON.TwilightLevelUp>(eventItemText);
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, $"LV. {twilightLevelUp.from} → LV. {twilightLevelUp.to}", true, "Level Up");
                                     BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelUp);
                                     break;
                                 case Event.Types.EventID.AbilityUp:

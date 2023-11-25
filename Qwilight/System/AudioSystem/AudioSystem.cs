@@ -905,7 +905,7 @@ namespace Qwilight
 
         public AudioItem Load(Stream s, IAudioContainer audioContainer, float audioVolume, string bmsID = null, bool isLooping = false)
         {
-            var hash = Utility.GetID128s(s);
+            var hash = Utility.GetID128(s);
             var audioItem = new AudioItem();
             if (audioContainer != null && _audioMap.TryGetValue(audioContainer, out var audioItems) && audioItems.TryGetValue(hash, out audioItem))
             {
@@ -1246,7 +1246,7 @@ namespace Qwilight
         public void HandleImmediately(string audioFilePath, IAudioContainer audioContainer, IAudioHandler audioHandler)
         {
             var rms = PoolSystem.Instance.GetDataFlow(File.ReadAllBytes(audioFilePath));
-            var hash = Utility.GetID128s(rms);
+            var hash = Utility.GetID128(rms);
             rms.Position = 0;
             var audioInfo = new CREATESOUNDEXINFO
             {

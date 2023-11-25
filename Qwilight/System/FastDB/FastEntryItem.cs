@@ -6,6 +6,10 @@
         public string noteID128;
         public string noteID256;
         public string noteID512;
-        public int dataIDCount;
+        public IList<int> dataIDs = Array.Empty<int>();
+
+        public FastEntryItem()
+        {
+        }
     }
 }

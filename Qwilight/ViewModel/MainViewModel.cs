@@ -717,7 +717,7 @@ namespace Qwilight.ViewModel
                         {
                             if (QwilightComponent.NoteFileFormats.Any(format => filePath.IsTailCaselsss(format)))
                             {
-                                FlintNoteFile(filePath, 0);
+                                FlintNoteFile(filePath, -1, 0);
                             }
                             else if (filePath.IsTailCaselsss(".zip"))
                             {
@@ -1997,7 +1997,7 @@ namespace Qwilight.ViewModel
                     var noteID128 = fastEntryItem.noteID128;
                     var noteID256 = fastEntryItem.noteID256;
                     var noteID512 = fastEntryItem.noteID512;
-                    for (var dataID = fastEntryItem.dataIDCount - 1; dataID >= 0; --dataID)
+                    foreach (var dataID in fastEntryItem.dataIDs)
                     {
                         var entryItem = tmpEntryItem ?? NewEntryItem();
                         var noteFile = BaseNoteFile.GetNoteFiles(noteFilePath, defaultEntryItem, entryItem, dataID)?.Single();
@@ -2029,9 +2029,10 @@ namespace Qwilight.ViewModel
                 foreach (var noteFilePath in Utility.GetFiles(entryPath).Where(noteFilePath => QwilightComponent.NoteFileFormats.Any(format => noteFilePath.IsTailCaselsss(format))))
                 {
                     var entryItem = tmpEntryItem ?? NewEntryItem();
-                    var noteFiles = BaseNoteFile.GetNoteFiles(noteFilePath, defaultEntryItem, entryItem, -1)?.ToArray();
+                    var noteFiles = BaseNoteFile.GetNoteFiles(noteFilePath, defaultEntryItem, entryItem, -1);
                     if (noteFiles != null)
                     {
+                        var dataIDs = noteFiles.Select(noteFile => noteFile.DataID).ToArray();
                         foreach (var noteFile in noteFiles)
                         {
                             try
@@ -2052,14 +2053,14 @@ namespace Qwilight.ViewModel
                             }
                             finally
                             {
-                                FastDB.Instance.SetEntryItem(entryPath, noteFile, noteFiles.Length);
+                                FastDB.Instance.SetEntryItem(entryPath, noteFile, dataIDs);
                             }
                         }
                     }
                 }
                 if (targetNoteFiles.Count > 0)
                 {
-                    FastDB.Instance.SetEntryItem(entryPath, null, 0);
+                    FastDB.Instance.SetEntryItem(entryPath, null, Array.Empty<int>());
                 }
             }
             if (targetNoteFiles.Count > 0)
@@ -2361,12 +2362,12 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void FlintNoteFile(string noteFilePath, int levyingMeter)
+        public void FlintNoteFile(string noteFilePath, int dataID, int levyingMeter)
         {
             var targetNoteFile = BaseNoteFile.GetNoteFiles(noteFilePath, null, new()
             {
                 EntryPath = Path.GetDirectoryName(noteFilePath),
-            }, -1).Single();
+            }, dataID).Single();
             if (targetNoteFile != null)
             {
                 targetNoteFile.SetData(Environment.TickCount);

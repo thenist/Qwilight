@@ -7,14 +7,6 @@
     "ko-KR": "{0} 점 (+ {1} Point)",
     "en-US": "{0} Points (+ {1} Points)"
   },
-  "AbilityUpContents": {
-    "ko-KR": "{0} 레이팅 {1} Point 얻음",
-    "en-US": "{0} Rating {1} Points earned"
-  },
-  "AbilityUpMiniContents": {
-    "ko-KR": "{0} 레이팅 < 0.01 Point 얻음",
-    "en-US": "(0) Rating < 0.01 Point earned"
-  },
   "AegisPostedItemText": {
     "ko-KR": "{0}의 {1}를 방어함",
     "en-US": "Defends {1} of {0}"

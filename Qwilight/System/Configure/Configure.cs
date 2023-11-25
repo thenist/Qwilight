@@ -86,10 +86,7 @@ namespace Qwilight
 
         public Configure()
         {
-            using (var hashComputer = SHA256.Create())
-            {
-                _aesCipher = Utility.GetID256(Encoding.UTF8.GetBytes(Environment.MachineName));
-            }
+            _aesCipher = SHA256.HashData(Encoding.UTF8.GetBytes(Environment.MachineName));
             SystemEvents.DisplaySettingsChanged += (sender, e) => OnSetAutoNVLLFramerate();
         }
 

@@ -3111,7 +3111,7 @@ namespace Qwilight
         public DrawingItem Load(Stream s, IDrawingContainer drawingContainer, bool setAverage = false)
         {
             s.Position = 0;
-            var hash = Utility.GetID128s(s);
+            var hash = Utility.GetID128(s);
             if (drawingContainer != null && _drawingMap.TryGetValue(drawingContainer, out var drawingItems) && drawingItems.TryGetValue(hash, out var drawingItem))
             {
                 return drawingItem;
@@ -3131,7 +3131,7 @@ namespace Qwilight
         public DrawingItem LoadBMS(string drawingFilePath, IDrawingContainer drawingContainer)
         {
             using var fs = File.OpenRead(drawingFilePath);
-            var hash = $"@{Utility.GetID128s(fs)}";
+            var hash = $"@{Utility.GetID128(fs)}";
             if (_drawingMap.TryGetValue(drawingContainer, out var drawingItems) && drawingItems.TryGetValue(hash, out var drawingItem))
             {
                 return drawingItem;
@@ -3266,7 +3266,7 @@ namespace Qwilight
         {
             if (drawingContainer != null)
             {
-                var hash = Utility.GetID128s(s);
+                var hash = Utility.GetID128(s);
                 if (_defaultDrawingMap.TryGetValue(drawingContainer, out var defaultDrawings) && defaultDrawings.TryGetValue(hash, out var defaultDrawing))
                 {
                     return defaultDrawing;
@@ -3290,7 +3290,7 @@ namespace Qwilight
             using var fs = File.OpenRead(drawingFilePath);
             if (drawingContainer != null)
             {
-                var hash = $"@{Utility.GetID128s(fs)}";
+                var hash = $"@{Utility.GetID128(fs)}";
                 if (_defaultDrawingMap.TryGetValue(drawingContainer, out var defaultDrawings) && defaultDrawings.TryGetValue(hash, out var defaultDrawing))
                 {
                     return defaultDrawing;

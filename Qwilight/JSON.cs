@@ -219,6 +219,12 @@ namespace Qwilight
             public int avatarCount;
         }
 
+        public class TwilightLevelUp
+        {
+            public int from;
+            public int to;
+        }
+
         public class TwilightAbilityUp
         {
             public Component.InputMode inputMode;
@@ -233,7 +239,7 @@ namespace Qwilight
                     Component.InputMode._9 => "9K",
                     _ => string.Empty
                 };
-                return ability < 0.01 ? string.Format(LanguageSystem.Instance.AbilityUpMiniContents, inputModeText) : string.Format(LanguageSystem.Instance.AbilityUpContents, inputModeText, Math.Round(ability, 2));
+                return ability < 0.01 ? $"{inputModeText} < 0.01 Point ↑" : $"{inputModeText} {Math.Round(ability, 2)} Point ↑";
             }
         }
 

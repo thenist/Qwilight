@@ -51,7 +51,7 @@ namespace Qwilight.Utilities
                         using (var fs0 = File.OpenRead(src))
                         using (var fs1 = File.OpenRead(target))
                         {
-                            if (Utility.GetID128s(fs0) == Utility.GetID128s(fs1))
+                            if (Utility.GetID128(fs0) == Utility.GetID128(fs1))
                             {
                                 return;
                             }

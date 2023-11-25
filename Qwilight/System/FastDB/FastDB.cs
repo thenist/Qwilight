@@ -173,15 +173,15 @@ namespace Qwilight
             _fastEntryItems.Remove(entryPath, out _);
         }
 
-        public void SetEntryItem(string entryPath, BaseNoteFile noteFile, int dataIDCount)
+        public void SetEntryItem(string entryPath, BaseNoteFile noteFile, int[] dataIDs)
         {
-            _fastEntryItems.GetOrAdd(entryPath, New<ConcurrentBag<FastEntryItem>>).Add(new FastEntryItem
+            _fastEntryItems.GetOrAdd(entryPath, entryPath => new()).Add(new FastEntryItem
             {
                 noteFilePath = noteFile?.NoteFilePath,
                 noteID128 = noteFile?.GetNoteID128(),
                 noteID256 = noteFile?.GetNoteID256(),
                 noteID512 = noteFile?.GetNoteID512(),
-                dataIDCount = dataIDCount,
+                dataIDs = dataIDs,
             });
         }
 
@@ -209,7 +209,7 @@ namespace Qwilight
 
         public void SetDefaultEntryItem(string defaultEntryPath, string entryPath)
         {
-            _fastDefaultEntryItems.GetOrAdd(defaultEntryPath, New<ConcurrentBag<string>>).Add(entryPath);
+            _fastDefaultEntryItems.GetOrAdd(defaultEntryPath, defaultEntryPath => new()).Add(entryPath);
         }
 
         public DateTime GetDefaultEntryItemDate(string defaultEntryPath)
@@ -228,8 +228,6 @@ namespace Qwilight
         {
             _fastDefaultEntryItemDates[defaultEntryPath] = date;
         }
-
-        static T New<T>(string text) where T : new() => new T();
 
         public void Clear()
         {

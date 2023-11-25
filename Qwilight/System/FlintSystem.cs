@@ -56,7 +56,7 @@ namespace Qwilight
                             }
                             else
                             {
-                                mainViewModel.FlintNoteFile(noteFilePath, m);
+                                mainViewModel.FlintNoteFile(noteFilePath, -1, m);
                             }
                         }
                     });

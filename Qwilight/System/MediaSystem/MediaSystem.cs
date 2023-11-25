@@ -89,7 +89,7 @@ namespace Qwilight
         public HandledMediaItem Load(string mediaFilePath, IMediaContainer mediaContainer, bool isLooping)
         {
             var isCounterWave = mediaContainer.IsCounterWave;
-            var hash = $"{(isCounterWave ? '@' : string.Empty)}{Utility.GetID128s(File.ReadAllBytes(mediaFilePath))}";
+            var hash = $"{(isCounterWave ? '@' : string.Empty)}{Utility.GetID128(File.ReadAllBytes(mediaFilePath))}";
             if (_mediaMap.TryGetValue(mediaContainer, out var handledMediaItems) && handledMediaItems.TryGetValue(hash, out var handledMediaItem))
             {
                 return handledMediaItem;

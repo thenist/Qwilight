@@ -22,7 +22,7 @@ namespace Test.Compiler
             {
                 DefaultEntryItem = defaultEntryItem,
                 EntryPath = Path.GetDirectoryName(noteFilePath)
-            }, -1)).ToArray(), noteFile =>
+            }, -1)), noteFile =>
             {
                 var targetCompiler = BaseCompiler.GetCompiler(noteFile, null);
                 var defaultComputer = new DefaultCompute(new[] { noteFile }, null, null, string.Empty, string.Empty)

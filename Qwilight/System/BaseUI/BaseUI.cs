@@ -1350,7 +1350,7 @@ namespace Qwilight
                                     {
                                         using (rms)
                                         {
-                                            var hash = Utility.GetID128s(rms);
+                                            var hash = Utility.GetID128(rms);
                                             var hashMediaFilePath = Path.Combine(QwilightComponent.MediaEntryPath, $"{hash}{Path.GetExtension(fileName)}");
                                             if (!File.Exists(hashMediaFilePath))
                                             {
