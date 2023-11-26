@@ -299,7 +299,7 @@
                                 </TabItem>
                                 <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding AvatarViewWwwLevelText}">
                                     <Grid>
-                                        <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding WwwLevelCollection}" Visibility="{Binding IsAvatarWwwLevelLoading, Converter={StaticResource VisibilityNotModifier}}">
+                                        <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding WwwLevelIDCollection}" Visibility="{Binding IsAvatarWwwLevelLoading, Converter={StaticResource VisibilityNotModifier}}">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid Margin="{StaticResource StandardMargin}">

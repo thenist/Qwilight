@@ -1243,23 +1243,39 @@
     "ko-KR": "라이프 게이지를 설정합니다.",
     "en-US": "Set the life gauge"
   },
-  "HOFAbilityContents": {
+  "HOFAbilityText": {
     "ko-KR": "레이팅",
     "en-US": "Rating"
   },
-  "HOFAtContents": {
+  "HOFAtText": {
     "ko-KR": "이번 달",
     "en-US": "Month"
   },
-  "HOFLevelContents": {
+  "HOFBand": {
+    "ko-KR": "콤보",
+    "en-US": "Combo"
+  },
+  "HOFHighest": {
+    "ko-KR": "기록",
+    "en-US": "Record"
+  },
+  "HOFLevelText": {
     "ko-KR": "레벨",
     "en-US": "Level"
+  },
+  "HOFStand": {
+    "ko-KR": "점수",
+    "en-US": "Score"
   },
   "HOFText": {
     "ko-KR": "명예의 전당",
     "en-US": "Hall of Fame"
   },
-  "HOFTotalContents": {
+  "HOFTotal": {
+    "ko-KR": "플레이",
+    "en-US": "Play"
+  },
+  "HOFTotalText": {
     "ko-KR": "전체",
     "en-US": "All"
   },
@@ -3474,22 +3490,6 @@
   "WrongLowestJudgmentConditionModeContents": {
     "ko-KR": "간접 미스를 추가합니다.",
     "en-US": "Enable indirect miss"
-  },
-  "WwwHOFBand": {
-    "ko-KR": "콤보",
-    "en-US": "Combo"
-  },
-  "WwwHOFHighest": {
-    "ko-KR": "기록",
-    "en-US": "Record"
-  },
-  "WwwHOFStand": {
-    "ko-KR": "점수",
-    "en-US": "Score"
-  },
-  "WwwHOFTotal": {
-    "ko-KR": "플레이",
-    "en-US": "Play"
   },
   "WwwLevelAudioMultiplierContents0": {
     "ko-KR": "음악 속도 {0}배 이상",

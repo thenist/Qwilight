@@ -17,31 +17,25 @@ namespace Qwilight.ViewModel
 
         public override double TargetHeight => 0.6;
 
-        public void OnInput() => OnPropertyChanged(nameof(IsTotalWantLevel));
+        public void OnInput() => OnPropertyChanged(nameof(IsTotalWantLevelID));
 
-        public bool IsTotalWantLevel => LevelItemCollection.All(levelItem => levelItem.IsWanted);
-
-        void SetLevelItemCollection()
-        {
-            LevelItemCollection.Clear();
-            foreach (var levelID in LevelSystem.Instance.LevelCollection)
-            {
-                LevelItemCollection.Add(new LevelItem
-                {
-                    LevelID = levelID,
-                    IsWanted = Configure.Instance.WantLevelIDs.Contains(levelID)
-                });
-            }
-            OnPropertyChanged(nameof(IsTotalWantLevel));
-        }
+        public bool IsTotalWantLevelID => LevelItemCollection.All(levelItem => levelItem.IsWanted);
 
         public async Task OnNewLevel()
         {
             if (IsLoaded)
             {
                 await LevelSystem.Instance.LoadJSON(true);
-                Configure.Instance.WantLevelIDs = LevelSystem.Instance.LevelCollection.ToArray();
-                SetLevelItemCollection();
+                LevelItemCollection.Clear();
+                foreach (var levelID in LevelSystem.Instance.LevelIDCollection)
+                {
+                    LevelItemCollection.Add(new LevelItem
+                    {
+                        LevelID = levelID,
+                        IsWanted = Configure.Instance.WantLevelIDs.Contains(levelID)
+                    });
+                }
+                OnPropertyChanged(nameof(IsTotalWantLevelID));
             }
         }
 
@@ -54,7 +48,7 @@ namespace Qwilight.ViewModel
                 {
                     levelItem.IsWanted = e.Value;
                 }
-                OnPropertyChanged(nameof(IsTotalWantLevel));
+                OnPropertyChanged(nameof(IsTotalWantLevelID));
             }
         }
 
@@ -71,7 +65,7 @@ namespace Qwilight.ViewModel
                     if (!string.IsNullOrEmpty(text))
                     {
                         await LevelSystem.Instance.LoadWww(text).ConfigureAwait(false);
-                        await LevelSystem.Instance.LoadJSON(true);
+                        await LevelSystem.Instance.LoadJSON(true).ConfigureAwait(false);
                     }
                 });
                 inputTextViewModel.Open();
@@ -79,7 +73,7 @@ namespace Qwilight.ViewModel
             else
             {
                 await LevelSystem.Instance.LoadWww(www).ConfigureAwait(false);
-                await LevelSystem.Instance.LoadJSON(true);
+                await LevelSystem.Instance.LoadJSON(true).ConfigureAwait(false);
             }
         }
 
@@ -89,7 +83,7 @@ namespace Qwilight.ViewModel
             if (Configure.Instance.LevelTargetMap.TryGetValue(Configure.Instance.WantLevelName, out var target))
             {
                 await LevelSystem.Instance.LoadWww(target).ConfigureAwait(false);
-                await LevelSystem.Instance.LoadJSON(true);
+                await LevelSystem.Instance.LoadJSON(true).ConfigureAwait(false);
             }
             else
             {
@@ -119,7 +113,6 @@ namespace Qwilight.ViewModel
         {
             base.OnOpened();
             LevelSystem.Instance.LoadLevelFiles();
-            SetLevelItemCollection();
         }
 
         public override void OnCollasped()

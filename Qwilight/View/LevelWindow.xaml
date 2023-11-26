@@ -25,22 +25,63 @@
                         </Grid.ColumnDefinitions>
                         <ScrollViewer>
                             <StackPanel>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://hibyethere.github.io/table" HorizontalAlignment="Right">⑤LEVEL</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://classmaterma.github.io/UE/table.html" HorizontalAlignment="Right">UE</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/sl/table.html" HorizontalAlignment="Right">sl</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/st/table.html" HorizontalAlignment="Right">st</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/fr/table.html" HorizontalAlignment="Right">fr</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table.html" HorizontalAlignment="Right">▽</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_insane.html" HorizontalAlignment="Right">▼</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_overjoy.html" HorizontalAlignment="Right">★★</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://mqppppp.neocities.org/StardustTable" HorizontalAlignment="Right">ξ</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://djkuroakari.github.io/starlighttable.html" HorizontalAlignment="Right">sr</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://pmsdifficulty.xxxxxxxx.jp/PMSdifficulty.html" HorizontalAlignment="Right">PLv</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://pmsdifficulty.xxxxxxxx.jp/insane_PMSdifficulty.html" HorizontalAlignment="Right">P●</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://dpbmsdelta.web.fc2.com/table/dpdelta.html" HorizontalAlignment="Right">δ</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://dpbmsdelta.web.fc2.com/table/insane.html" HorizontalAlignment="Right">★</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://excln.github.io/table24k/table.html" HorizontalAlignment="Right">🎹</Button>
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://excln.github.io/table48k/table.html" HorizontalAlignment="Right">🎹</Button>
+                                <GroupBox Style="{StaticResource StandardGroupView}">
+                                    <GroupBox.Header>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="6K" />
+                                    </GroupBox.Header>
+                                    <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://classmaterma.github.io/UE/table.html" HorizontalAlignment="Right">UE</Button>
+                                </GroupBox>
+                                <GroupBox Style="{StaticResource StandardGroupView}">
+                                    <GroupBox.Header>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="9K" />
+                                    </GroupBox.Header>
+                                    <StackPanel>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://pmsdifficulty.xxxxxxxx.jp/PMSdifficulty.html" HorizontalAlignment="Right">PLv</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://pmsdifficulty.xxxxxxxx.jp/insane_PMSdifficulty.html" HorizontalAlignment="Right">P●</Button>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Style="{StaticResource StandardGroupView}">
+                                    <GroupBox.Header>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="⑤K" />
+                                    </GroupBox.Header>
+                                    <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://hibyethere.github.io/table" HorizontalAlignment="Right">⑤LEVEL</Button>
+                                </GroupBox>
+                                <GroupBox Style="{StaticResource StandardGroupView}">
+                                    <GroupBox.Header>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="⑦K" />
+                                    </GroupBox.Header>
+                                    <StackPanel>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/sl/table.html" HorizontalAlignment="Right">sl</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/st/table.html" HorizontalAlignment="Right">st</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/fr/table.html" HorizontalAlignment="Right">fr</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table.html" HorizontalAlignment="Right">▽</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_insane.html" HorizontalAlignment="Right">▼</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_overjoy.html" HorizontalAlignment="Right">★★</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://mqppppp.neocities.org/StardustTable" HorizontalAlignment="Right">ξ</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://djkuroakari.github.io/starlighttable.html" HorizontalAlignment="Right">sr</Button>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Style="{StaticResource StandardGroupView}">
+                                    <GroupBox.Header>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="⑩K, ⑭K" />
+                                    </GroupBox.Header>
+                                    <StackPanel>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://dpbmsdelta.web.fc2.com/table/dpdelta.html" HorizontalAlignment="Right">δ</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://dpbmsdelta.web.fc2.com/table/insane.html" HorizontalAlignment="Right">★</Button>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Style="{StaticResource StandardGroupView}">
+                                    <GroupBox.Header>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="24" />
+                                    </GroupBox.Header>
+                                    <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://excln.github.io/table24k/table.html" HorizontalAlignment="Right">🎹</Button>
+                                </GroupBox>
+                                <GroupBox Style="{StaticResource StandardGroupView}">
+                                    <GroupBox.Header>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="48" />
+                                    </GroupBox.Header>
+                                    <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://excln.github.io/table48k/table.html" HorizontalAlignment="Right">🎹</Button>
+                                </GroupBox>
                             </StackPanel>
                         </ScrollViewer>
                         <Grid Grid.Column="1">
@@ -65,12 +106,12 @@
                             <GroupBox Grid.Row="1" Style="{StaticResource StandardGroupView}">
                                 <GroupBox.Header>
                                     <Grid>
-                                        <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevel, Converter={StaticResource VisibilityNotModifier}}">
+                                        <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevelID, Converter={StaticResource VisibilityNotModifier}}">
                                             <Button.CommandParameter>
                                                 <system:Boolean>true</system:Boolean>
                                             </Button.CommandParameter>
                                         </Button>
-                                        <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevel, Converter={StaticResource VisibilityModifier}}">
+                                        <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevelID, Converter={StaticResource VisibilityModifier}}">
                                             <Button.CommandParameter>
                                                 <system:Boolean>false</system:Boolean>
                                             </Button.CommandParameter>

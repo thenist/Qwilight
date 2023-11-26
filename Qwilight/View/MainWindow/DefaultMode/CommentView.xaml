@@ -156,27 +156,27 @@
                         </Grid>
                     </DataTemplate>
                 </TabControl.Resources>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFTotalContents, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFTotalText, Source={StaticResource LanguageSystem}}">
                     <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HOFViewTotalTabPosition, Source={StaticResource Configure}}">
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFTotal, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFTotal, Source={StaticResource LanguageSystem}}">
                             <Grid>
                                 <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalTotalHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalTotalLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalTotalLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFHighest, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFHighest, Source={StaticResource LanguageSystem}}">
                             <Grid>
                                 <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalHighestHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalHighestLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalHighestLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFStand, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFStand, Source={StaticResource LanguageSystem}}">
                             <Grid>
                                 <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalStandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalStandLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalStandLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFBand, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFBand, Source={StaticResource LanguageSystem}}">
                             <Grid>
                                 <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalBandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalBandLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalBandLoading, Converter={StaticResource VisibilityModifier}}" />
@@ -184,27 +184,27 @@
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFAtContents, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFAtText, Source={StaticResource LanguageSystem}}">
                     <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HOFViewAtTabPosition, Source={StaticResource Configure}}">
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFTotal, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFTotal, Source={StaticResource LanguageSystem}}">
                             <Grid>
                                 <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtTotalHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtTotalLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtTotalLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFHighest, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFHighest, Source={StaticResource LanguageSystem}}">
                             <Grid>
                                 <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtHighestHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtHighestLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtHighestLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFStand, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFStand, Source={StaticResource LanguageSystem}}">
                             <Grid>
                                 <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtStandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtStandLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtStandLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding WwwHOFBand, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFBand, Source={StaticResource LanguageSystem}}">
                             <Grid>
                                 <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtBandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtBandLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtBandLoading, Converter={StaticResource VisibilityModifier}}" />
@@ -212,7 +212,7 @@
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFAbilityContents, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFAbilityText, Source={StaticResource LanguageSystem}}">
                     <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HOFViewAbilityTabPosition, Source={StaticResource Configure}}">
                         <TabItem Style="{StaticResource StandardPageItem}" Header="5K">
                             <Grid>
@@ -234,7 +234,7 @@
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFLevelContents, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFLevelText, Source={StaticResource LanguageSystem}}">
                     <Grid>
                         <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding LevelHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFLevelLoading, Converter={StaticResource VisibilityNotModifier}}" />
                         <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFLevelLoading, Converter={StaticResource VisibilityModifier}}" />

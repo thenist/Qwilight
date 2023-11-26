@@ -21,7 +21,7 @@ namespace Qwilight
 
         public ObservableCollection<string> LevelFileNames { get; } = new();
 
-        public ObservableCollection<string> LevelCollection { get; } = new();
+        public ObservableCollection<string> LevelIDCollection { get; } = new();
 
         public Dictionary<string, string> LevelID128s { get; } = new();
 
@@ -33,7 +33,7 @@ namespace Qwilight
 
         public LevelSystem()
         {
-            WantLevelIDEquality = Comparer<string>.Create((x, y) => LevelCollection.IndexOf(x).CompareTo(LevelCollection.IndexOf(y)));
+            WantLevelIDEquality = Comparer<string>.Create((x, y) => LevelIDCollection.IndexOf(x).CompareTo(LevelIDCollection.IndexOf(y)));
         }
 
         public void LoadLevelFiles() => Utility.SetUICollection(LevelFileNames, Utility.GetFiles(EntryPath).Where(levelFile => !Path.GetFileName(levelFile).StartsWith('#') && levelFile.IsTailCaselsss(".json")).Select(levelFile => Path.GetFileNameWithoutExtension(levelFile)).ToArray());
@@ -44,7 +44,7 @@ namespace Qwilight
             LevelID256s.Clear();
             LevelID128NoteFiles.Clear();
             LevelID256NoteFiles.Clear();
-            LevelCollection.Clear();
+            LevelIDCollection.Clear();
             var levelName = Configure.Instance.WantLevelName;
             if (!string.IsNullOrEmpty(levelName))
             {
@@ -57,14 +57,14 @@ namespace Qwilight
                         if (File.Exists(levelTableFilePath))
                         {
                             using var tfs = File.OpenRead(levelTableFilePath);
-                            var levelTable = await Utility.GetJSON<JSON.BMSTable?>(tfs);
+                            var levelTable = await Utility.GetJSON<JSON.BMSTable?>(tfs).ConfigureAwait(false);
                             if (levelTable.HasValue)
                             {
                                 var levelTableValue = levelTable.Value;
                                 var levelTexts = new List<object>();
                                 var levelTitle = levelTableValue.symbol;
                                 using var fs = File.OpenRead(levelFilePath);
-                                foreach (var levelData in await Utility.GetJSON<JSON.BMSTableData[]>(fs))
+                                foreach (var levelData in await Utility.GetJSON<JSON.BMSTableData[]>(fs).ConfigureAwait(false))
                                 {
                                     var level = levelData.level;
                                     var noteID128 = levelData.md5;
@@ -90,7 +90,7 @@ namespace Qwilight
                                 levelTexts.Sort((x, y) => Array.IndexOf(levels, x).CompareTo(Array.IndexOf(levels, y)));
                                 foreach (var levelText in levelTexts)
                                 {
-                                    LevelCollection.Add(levelTitle + levelText);
+                                    LevelIDCollection.Add(levelTitle + levelText);
                                 }
                             }
                         }
@@ -117,7 +117,7 @@ namespace Qwilight
                 using var s = await TwilightSystem.Instance.GetWwwParallel(WebUtility.HtmlDecode(ModifyDataValue(o.CreateNavigator().SelectSingleNode("/html/head/meta[@name='bmstable']/@content")?.ToString()
                     ?? o.CreateNavigator().SelectSingleNode("/html/body/meta[@name='bmstable']/@content")?.ToString()
                     ?? o.CreateNavigator().SelectSingleNode("/html/head/body/meta[@name='bmstable']/@content")?.ToString()))).ConfigureAwait(false);
-                var levelTable = await Utility.GetJSON<JSON.BMSTable?>(s);
+                var levelTable = await Utility.GetJSON<JSON.BMSTable?>(s).ConfigureAwait(false);
                 s.Position = 0;
                 if (levelTable.HasValue)
                 {

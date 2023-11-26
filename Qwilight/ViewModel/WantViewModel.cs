@@ -133,7 +133,7 @@ namespace Qwilight.ViewModel
             OnPropertyChanged(nameof(Level3));
             OnPropertyChanged(nameof(Level4));
             OnPropertyChanged(nameof(Level5));
-            OnPropertyChanged(nameof(IsTotalWantLevel));
+            OnPropertyChanged(nameof(IsTotalWantLevelID));
         }
 
         [RelayCommand]
@@ -151,7 +151,7 @@ namespace Qwilight.ViewModel
                 OnPropertyChanged(nameof(Level3));
                 OnPropertyChanged(nameof(Level4));
                 OnPropertyChanged(nameof(Level5));
-                OnPropertyChanged(nameof(IsTotalWantLevel));
+                OnPropertyChanged(nameof(IsTotalWantLevelID));
             }
         }
 
@@ -247,7 +247,7 @@ namespace Qwilight.ViewModel
 
         public Brush Level5 => Paints.PointPaints[Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level5] ? 1 : 0];
 
-        public bool IsTotalWantLevel => Configure.Instance.InputWantLevel.Any(inputWantLevel => inputWantLevel);
+        public bool IsTotalWantLevelID => Configure.Instance.InputWantLevel.Any(inputWantLevel => inputWantLevel);
 
         public Brush InputMode4 => Paints.PointPaints[Configure.Instance.InputWantInputMode[(int)Component.InputMode._4] ? 1 : 0];
 
@@ -293,7 +293,7 @@ namespace Qwilight.ViewModel
                     return false;
                 }
 
-                if (!IsTotalWantLevel)
+                if (!IsTotalWantLevelID)
                 {
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotWantLevelContents);
                     return false;

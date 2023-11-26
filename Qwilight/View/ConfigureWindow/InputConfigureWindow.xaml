@@ -12,45 +12,19 @@
             </StackPanel>
             <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding InputConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode4}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[4], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode5}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[5], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode6}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[6], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode7}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[7], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode8}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[8], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode9}" >
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[9], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode10}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[14], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode51}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[10], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode71}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[11], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode102}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[12], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode142}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[13], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode242}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[15], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode484}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[16], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode4}">4K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode5}">5K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode6}">6K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode7}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">7K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode8}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">8K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode9}">9K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode10}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">10</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode51}">⑤K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode71}">⑦K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode102}">⑩K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode142}">⑭K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode242}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">24</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ModeCommand}" CommandParameter="{StaticResource InputMode484}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">48</Button>
             </WrapPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -127,45 +101,19 @@
             <Separator Style="{StaticResource StandardHr}" />
             <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ControllerConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode4}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[4], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode5}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[5], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode6}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[6], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode7}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[7], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode8}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[8], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode9}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[9], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode10}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[14], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode51}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[10], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode71}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[11], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode102}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[12], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode142}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[13], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode242}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[15], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode484}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[16], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode4}">4K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode5}">5K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode6}">6K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode7}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">7K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode8}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">8K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode9}">9K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode10}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">10</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode51}">⑤K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode71}">⑦K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode102}">⑩K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode142}">⑭K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode242}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">24</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding ControllerModeCommand}" CommandParameter="{StaticResource InputMode484}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">48</Button>
             </WrapPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -311,45 +259,19 @@
             <Separator Style="{StaticResource StandardHr}" />
             <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding MIDIConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode4}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[4], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode5}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[5], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode6}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[6], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode7}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[7], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode8}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[8], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode9}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[9], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode10}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[14], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode51}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[10], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode71}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[11], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode102}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[12], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode142}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[13], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode242}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[15], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
-                <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode484}">
-                    <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[16], Source={StaticResource BaseUI}}"  Height="24" />
-                </Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode4}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">4K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode5}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">5K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode6}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">6K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode7}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">7K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode8}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">8K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode9}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">9K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode10}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">10</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode51}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">⑤K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode71}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">⑦K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode102}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">⑩K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode142}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">⑭K</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode242}">24</Button>
+                <Button Style="{StaticResource StandardInput}" Command="{Binding MIDIModeCommand}" CommandParameter="{StaticResource InputMode484}">48</Button>
             </WrapPanel>
             <Grid>
                 <Grid.ColumnDefinitions>

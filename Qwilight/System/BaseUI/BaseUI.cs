@@ -106,8 +106,6 @@ namespace Qwilight
 
         public HandledDrawingItem?[] InputModeDrawings { get; } = new HandledDrawingItem?[17];
 
-        public ImageSource[] InputModeWindowDrawings { get; } = new ImageSource[17];
-
         public ImageSource[] HandledWallDrawings { get; } = new ImageSource[7];
 
         public ImageSource[] DefaultEntryDrawings { get; } = new ImageSource[5];
@@ -1649,13 +1647,6 @@ namespace Qwilight
                             SiteSituationDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
                         }
                         break;
-                    case "Input Window":
-                        fileNameContents = justFileName.Split(" ");
-                        if (fileNameContents[0] == "IW")
-                        {
-                            InputModeWindowDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
-                        }
-                        break;
                     case "Handled":
                         fileNameContents = justFileName.Split(" ");
                         switch (fileNameContents[0])
@@ -1935,11 +1926,6 @@ namespace Qwilight
                         }
                         break;
                 }
-            }
-
-            for (var i = (int)Component.InputMode._48_4; i >= (int)Component.InputMode._4; --i)
-            {
-                InputModeWindowDrawings[i] ??= InputModeDrawings[i]?.DefaultDrawing;
             }
 
             for (var i = (int)DefaultCompute.QuitStatus.F; i >= (int)DefaultCompute.QuitStatus.SPlus; --i)

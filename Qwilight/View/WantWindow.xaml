@@ -127,56 +127,30 @@
                             </Grid>
                         </GroupBox.Header>
                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode4}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode4}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[4], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode5}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode5}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[5], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode6}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode6}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[6], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode7}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode7}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[7], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode8}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode8}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[8], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode9}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode9}" >
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[9], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode10}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode10}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[14], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode51}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode51}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[10], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode71}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode71}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[11], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode102}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode102}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[12], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode142}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode142}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[13], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode242}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode242}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[15], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
-                            <Button Style="{StaticResource StandardInputPadding0}" BorderBrush="{Binding InputMode484}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode484}">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding InputModeWindowDrawings[16], Source={StaticResource BaseUI}}" Height="24" />
-                            </Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode4}">4K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode5}">5K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode6}">6K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode7}">7K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode8}">8K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode9}">9K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode10}">10</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode51}">⑤K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode71}">⑦K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode102}">⑩K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode142}">⑭K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode242}">24</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode484}">48</Button>
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Style="{StaticResource StandardGroupView}">
                         <GroupBox.Header>
                             <Grid>
-                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevel, Converter={StaticResource VisibilityNotModifier}}">
+                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevelID, Converter={StaticResource VisibilityNotModifier}}">
                                     <Button.CommandParameter>
                                         <system:Boolean>true</system:Boolean>
                                     </Button.CommandParameter>
                                 </Button>
-                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevel, Converter={StaticResource VisibilityModifier}}">
+                                <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantLevelCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantLevelID, Converter={StaticResource VisibilityModifier}}">
                                     <Button.CommandParameter>
                                         <system:Boolean>false</system:Boolean>
                                     </Button.CommandParameter>

@@ -64,7 +64,7 @@ namespace Qwilight.ViewModel
 
         public ObservableCollection<AvatarComputing> Ability9KAvatarComputingCollection { get; } = new();
 
-        public ObservableCollection<AvatarLevelItem> WwwLevelCollection { get; } = new();
+        public ObservableCollection<AvatarLevelItem> WwwLevelIDCollection { get; } = new();
 
         public override double TargetHeight => 0.8;
 
@@ -637,10 +637,10 @@ namespace Qwilight.ViewModel
                     var twilightWwwWwwLevel = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarWwwLevel[]>($"{QwilightComponent.QwilightAPI}/avatar/wwwLevels?avatarID={AvatarID}");
                     if (twilightWwwWwwLevel != null)
                     {
-                        WwwLevelCollection.Clear();
+                        WwwLevelIDCollection.Clear();
                         foreach (var data in twilightWwwWwwLevel)
                         {
-                            WwwLevelCollection.Add(new()
+                            WwwLevelIDCollection.Add(new()
                             {
                                 Title = data.title,
                                 LevelValue = data.level,
@@ -809,7 +809,7 @@ namespace Qwilight.ViewModel
 
         public double AvatarViewLevelValue => _avatarLevels[2] > 0 ? 100.0 * _avatarLevels[1] / _avatarLevels[2] : 0.0;
 
-        public string AvatarViewWwwLevelText => string.Format(LanguageSystem.Instance.AvatarViewWwwLevelText, WwwLevelCollection.Count);
+        public string AvatarViewWwwLevelText => string.Format(LanguageSystem.Instance.AvatarViewWwwLevelText, WwwLevelIDCollection.Count);
 
         public string AvatarIntro { get; set; }
 
