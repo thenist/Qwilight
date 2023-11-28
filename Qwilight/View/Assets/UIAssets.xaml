@@ -459,18 +459,20 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="PointableNoteFilesViewItem" TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+    <Style x:Key="NoteFilesViewItem" TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
         <Setter Property="Background" Value="{StaticResource PanelPaint}" />
         <Setter Property="BorderBrush" Value="{Binding LevelPaint}" />
         <Setter Property="BorderThickness" Value="{StaticResource StandardEdge}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="Margin" Value="{Binding NoteFileMargin, Source={StaticResource BaseUI}}" />
+        <Setter Property="Margin" Value="1" />
         <Setter Property="Padding" Value="0" />
 
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
-
+    </Style>
+    <Style x:Key="PointableNoteFilesViewItem" TargetType="ListViewItem" BasedOn="{StaticResource NoteFilesViewItem}">
+        <Setter Property="Margin" Value="{Binding NoteFileMargin, Source={StaticResource BaseUI}}" />
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Trigger.EnterActions>
@@ -502,7 +504,10 @@
         <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
     </Style>
-    <Style x:Key="PointableNoteFilesView" TargetType="ListView" BasedOn="{StaticResource StandardPointableItemsView}">
+    <Style x:Key="NoteFilesView" TargetType="ListView" BasedOn="{StaticResource StandardPointableItemsView}">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource NoteFilesViewItem}" />
+    </Style>
+    <Style x:Key="PointableNoteFilesView" TargetType="ListView" BasedOn="{StaticResource NoteFilesView}">
         <Setter Property="ItemContainerStyle" Value="{StaticResource PointableNoteFilesViewItem}" />
     </Style>
 </ResourceDictionary>

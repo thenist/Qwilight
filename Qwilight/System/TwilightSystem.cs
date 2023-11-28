@@ -17,7 +17,6 @@ using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Text;
-using System.Windows.Media;
 using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace Qwilight
@@ -40,8 +39,6 @@ namespace Qwilight
         };
         SslStream _ss;
         int _twilightSituation;
-        ImageSource _avatarDrawing;
-        bool _wantAvatarDrawing;
         bool _isAvailable = true;
 
         string QwilightName => QwilightComponent.IsValve ? ValveSystem.Instance.ValveName : Environment.UserName;
@@ -70,19 +67,7 @@ namespace Qwilight
             };
         }
 
-        public ImageSource AvatarDrawing
-        {
-            get
-            {
-                if (_wantAvatarDrawing)
-                {
-                    _wantAvatarDrawing = false;
-
-                    Task.Run(async () => SetProperty(ref _avatarDrawing, (await AvatarDrawingSystem.Instance.GetAvatarDrawing(AvatarID).ConfigureAwait(false)).DefaultDrawing, nameof(AvatarDrawing)));
-                }
-                return _avatarDrawing;
-            }
-        }
+        public AvatarWww AvatarWwwValue { get; set; }
 
         public string Totem { get; set; } = string.Empty;
 
@@ -108,7 +93,6 @@ namespace Qwilight
                 {
                     OnPropertyChanged(nameof(IsEstablished));
                     OnPropertyChanged(nameof(IsSignedIn));
-                    NotifyAvatarDrawing();
                     ViewModels.Instance.MainValue.NotifyCanSaveAsBundle();
                     ViewModels.Instance.MainValue.NotifyCanTwilightCommentary();
                     ViewModels.Instance.MainValue.NotifyCanTwilightFavor();
@@ -132,16 +116,16 @@ namespace Qwilight
 
         public bool IsSignedIn => TwilightSituation == SignedIn;
 
-        public void NotifyAvatarDrawing()
+        public void NotifyAvatarWwwValue()
         {
-            _wantAvatarDrawing = true;
-            OnPropertyChanged(nameof(AvatarDrawing));
+            AvatarWwwValue = new AvatarWww(AvatarID);
+            OnPropertyChanged(nameof(AvatarWwwValue));
         }
 
         public override void NotifyModel()
         {
-            _wantAvatarDrawing = true;
             base.NotifyModel();
+            NotifyAvatarWwwValue();
         }
 
         static Event NewEvent<T>(Event.Types.EventID eventID, T text, ByteString[] data)
@@ -310,7 +294,7 @@ namespace Qwilight
                                     AvatarID = twilightSignIn.avatarID;
                                     AvatarName = twilightSignIn.avatarName;
                                     TwilightSituation = SignedIn;
-                                    NotifyAvatarDrawing();
+                                    NotifyAvatarWwwValue();
                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SuccessfullySignedInContents, GetAvatarName()), false, "Sign in");
                                     BaseUI.Instance.HandleEvent(BaseUI.EventItem.SignIn);
                                     AutoEnter(autoEnter => autoEnter != AutoEnterSite.WaitSite);

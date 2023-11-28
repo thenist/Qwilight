@@ -796,6 +796,7 @@ namespace Qwilight
             public double avatarAbility9KClass;
             public int avatarAbility9KPlace;
             public int avatarAbility9KCount;
+            public string[] levelNames;
             public WwwLevel[] wwwLevels;
             public Last[] lasts;
             public AvatarAbility[] abilities5K;
@@ -864,10 +865,29 @@ namespace Qwilight
             public long date;
         }
 
+        public struct TwilightWwwAvatarLevelVS
+        {
+            public int avatarLevelVSCount;
+            public int targetLevelVSCount;
+            public LevelVSItem[] avatarLevelVSItems;
+            public LevelVSItem[] targetLevelVSItems;
+
+            public struct LevelVSItem
+            {
+                public string noteID;
+                public string artist;
+                public string title;
+                public string genre;
+                public string levelText;
+                public BaseNoteFile.Level level;
+                public int stand;
+                public int levelVSStand;
+            }
+        }
+
         public struct TwilightWwwAvatarLast
         {
             public string noteID;
-            public BaseNoteFile.NoteVariety noteVariety;
             public string artist;
             public string title;
             public string genre;
@@ -879,7 +899,6 @@ namespace Qwilight
         public struct TwilightWwwAvatarFavorite
         {
             public string noteID;
-            public BaseNoteFile.NoteVariety noteVariety;
             public string artist;
             public string title;
             public string genre;
@@ -891,7 +910,6 @@ namespace Qwilight
         public struct TwilightWwwAvatarAbility
         {
             public string noteID;
-            public BaseNoteFile.NoteVariety noteVariety;
             public string artist;
             public string title;
             public string genre;

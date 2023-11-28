@@ -98,6 +98,7 @@ namespace Qwilight
         public string AvatarViewHighestCountText { get; set; }
         public string AvatarViewIntro { get; set; }
         public string AvatarViewLastsContents { get; set; }
+        public string AvatarViewLevelVSText { get; set; }
         public string AvatarViewQuitContents { get; set; }
         public string AvatarViewText { get; set; }
         public string AvatarViewTotalCountText { get; set; }
@@ -421,6 +422,7 @@ namespace Qwilight
         public string LevelInputContents { get; set; }
         public string LevelItem { get; set; }
         public string LevelSystemText { get; set; }
+        public string LevelVSStandContents { get; set; }
         public string LevyNoteFileContents { get; set; }
         public string LevyWwwLevel { get; set; }
         public string Library { get; set; }

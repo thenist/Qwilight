@@ -19,7 +19,7 @@
         </Button.ContextMenu>
         <Border Style="{StaticResource StandardPanelMargin0}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
             <Border.Background>
-                <ImageBrush Stretch="{Binding SignInPoint[6], Source={StaticResource BaseUI}}" ImageSource="{Binding AvatarDrawing, Source={StaticResource TwilightSystem}}" />
+                <ImageBrush Stretch="{Binding SignInPoint[6], Source={StaticResource BaseUI}}" ImageSource="{Binding AvatarWwwValue.AvatarDrawing, Source={StaticResource TwilightSystem}}" />
             </Border.Background>
         </Border>
     </Button>

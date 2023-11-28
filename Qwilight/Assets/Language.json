@@ -383,6 +383,10 @@
     "ko-KR": "마지막 플레이 TOP 10",
     "en-US": "Recently played 10"
   },
+  "AvatarViewLevelVSText": {
+    "ko-KR": "비교 (Beta)",
+    "en-US": "Comparison (Beta)"
+  },
   "AvatarViewQuitContents": {
     "ko-KR": "랭크",
     "en-US": "Rank"
@@ -1674,6 +1678,10 @@
   "LevelSystemText": {
     "ko-KR": "난이도 테이블 설정",
     "en-US": "Setting the difficulty table"
+  },
+  "LevelVSStandContents": {
+    "ko-KR": "{0} 점 ({1} 점)",
+    "en-US": "(0) Points ({1} Points)"
   },
   "LevyNoteFileContents": {
     "ko-KR": "게임 시작 ({0})",

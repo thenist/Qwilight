@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Qwilight.MSG;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
+using Qwilight.Utilities;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media;
@@ -13,9 +14,7 @@ namespace Qwilight.ViewModel
     {
         public sealed class AvatarComputing : Computing
         {
-            public override BaseNoteFile.NoteVariety NoteVarietyValue => AvatarNoteVarietyValue;
-
-            public BaseNoteFile.NoteVariety AvatarNoteVarietyValue { get; init; }
+            public override BaseNoteFile.NoteVariety NoteVarietyValue => default;
 
             public override void OnCompiled()
             {
@@ -66,11 +65,86 @@ namespace Qwilight.ViewModel
 
         public ObservableCollection<AvatarLevelItem> WwwLevelIDCollection { get; } = new();
 
+        public ObservableCollection<string> LevelNameCollection { get; } = new();
+
+        public ObservableCollection<LevelVSLevelIDItem> LevelVSLevelIDItemCollection { get; } = new();
+
+        public ObservableCollection<AvatarComputing> LevelVSMyAvatarComputingCollection { get; } = new();
+
+        public ObservableCollection<AvatarComputing> LevelVSTargetAvatarComputingCollection { get; } = new();
+
+        public string LevelVSLevelName
+        {
+            get => _levelVSLevelName;
+
+            set
+            {
+                if (SetProperty(ref _levelVSLevelName, value, nameof(LevelVSLevelName)))
+                {
+                    _ = LoadAvatar();
+                }
+            }
+        }
+
+        public LevelVSLevelIDItem LevelVSLevelIDItemValue
+        {
+            get => _levelVSLevelIDItem;
+
+            set
+            {
+                if (SetProperty(ref _levelVSLevelIDItem, value, nameof(LevelVSLevelIDItemValue)))
+                {
+                    LevelVSMyAvatarComputingCollection.Clear();
+                    LevelVSTargetAvatarComputingCollection.Clear();
+                    if (value != null)
+                    {
+                        var twilightWwwAvatarLevelVS = _twilightWwwAvatarLevelVSMap[value.LevelID];
+                        foreach (var data in twilightWwwAvatarLevelVS.avatarLevelVSItems)
+                        {
+                            LevelVSMyAvatarComputingCollection.Add(new()
+                            {
+                                Title = data.title,
+                                Artist = data.artist,
+                                Genre = data.genre,
+                                LevelValue = data.level,
+                                LevelText = data.levelText,
+                                AvatarValue = string.Format(LanguageSystem.Instance.LevelVSStandContents, data.stand.ToString("#,##0"), data.levelVSStand.ToString("+#,##0;-#,##0"))
+                            });
+                        }
+                        foreach (var data in twilightWwwAvatarLevelVS.targetLevelVSItems)
+                        {
+                            LevelVSTargetAvatarComputingCollection.Add(new()
+                            {
+                                Title = data.title,
+                                Artist = data.artist,
+                                Genre = data.genre,
+                                LevelValue = data.level,
+                                LevelText = data.levelText,
+                                AvatarValue = string.Format(LanguageSystem.Instance.LevelVSStandContents, data.stand.ToString("#,##0"), data.levelVSStand.ToString("+#,##0;-#,##0"))
+                            });
+                        }
+                    }
+                }
+            }
+        }
+
+        public bool IsLevelVSLoading
+        {
+            get => _isLevelVSLoading;
+
+            set => SetProperty(ref _isLevelVSLoading, value, nameof(IsLevelVSLoading));
+        }
+
+        public string AvatarLevelVSCountText { get; set; }
+
+        public string TargetLevelVSCountText { get; set; }
+
         public override double TargetHeight => 0.8;
 
         public override VerticalAlignment HeightSystem => VerticalAlignment.Top;
 
         readonly int[] _avatarLevels = new int[3];
+        Dictionary<string, JSON.TwilightWwwAvatarLevelVS> _twilightWwwAvatarLevelVSMap;
         string _avatarAbility5KPlaceText0 = string.Empty;
         string _avatarAbility5KPlaceText1 = string.Empty;
         ImageSource _abilityClass5KDrawing;
@@ -112,6 +186,9 @@ namespace Qwilight.ViewModel
         bool _isAvatarAbility7KLoading;
         bool _isAvatarAbility9KLoading;
         bool _isAvatarWwwLevelLoading;
+        string _levelVSLevelName;
+        LevelVSLevelIDItem _levelVSLevelIDItem;
+        bool _isLevelVSLoading;
 
         public bool IsAvatarFavorites5KLoading
         {
@@ -239,7 +316,7 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _isAvatarWwwLevelLoading, value, nameof(IsAvatarWwwLevelLoading));
         }
 
-        async Task LoadAvatarCollection()
+        async Task LoadAvatar()
         {
             switch (AvatarTabPosition)
             {
@@ -256,7 +333,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Favorites5KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -278,7 +354,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Favorites7KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -300,7 +375,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Favorites9KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -322,7 +396,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Favorites10KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -344,7 +417,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Favorites14KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -366,7 +438,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Favorites24KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -388,7 +459,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Favorites48KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -415,7 +485,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Lasts5KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -437,7 +506,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Lasts7KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -459,7 +527,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Lasts9KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -481,7 +548,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Lasts10KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -503,7 +569,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Lasts14KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -525,7 +590,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Lasts24KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -547,7 +611,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Lasts48KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -574,7 +637,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Ability5KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -596,7 +658,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Ability7KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -618,7 +679,6 @@ namespace Qwilight.ViewModel
                                 {
                                     Ability9KAvatarComputingCollection.Add(new()
                                     {
-                                        AvatarNoteVarietyValue = data.noteVariety,
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
@@ -652,6 +712,42 @@ namespace Qwilight.ViewModel
                     IsAvatarWwwLevelLoading = false;
                     OnPropertyChanged(nameof(AvatarViewWwwLevelText));
                     break;
+                case 4:
+                    LevelVSMyAvatarWwwValue = new(TwilightSystem.Instance.AvatarID);
+                    OnPropertyChanged(nameof(LevelVSMyAvatarWwwValue));
+                    LevelVSMyAvatarName = TwilightSystem.Instance.AvatarName;
+                    OnPropertyChanged(nameof(LevelVSMyAvatarName));
+                    LevelVSTargetAvatarWwwValue = new(_avatarID);
+                    OnPropertyChanged(nameof(LevelVSTargetAvatarWwwValue));
+                    LevelVSTargetAvatarName = _avatarName;
+                    OnPropertyChanged(nameof(LevelVSTargetAvatarName));
+                    LevelVSLevelName ??= LevelNameCollection.FirstOrDefault();
+                    IsLevelVSLoading = true;
+                    var levelVSLevelName = LevelVSLevelName;
+                    var twilightWwwAvatarLevelVSMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarLevelVS>>($"{QwilightComponent.QwilightAPI}/avatar/levelVS?avatarID={TwilightSystem.Instance.AvatarID}&targetID={AvatarID}&levelName={levelVSLevelName}");
+                    if (twilightWwwAvatarLevelVSMap != null && levelVSLevelName == LevelVSLevelName)
+                    {
+                        _twilightWwwAvatarLevelVSMap = twilightWwwAvatarLevelVSMap;
+                        LevelVSLevelIDItemCollection.Clear();
+                        foreach (var data in twilightWwwAvatarLevelVSMap)
+                        {
+                            LevelVSLevelIDItemCollection.Add(new()
+                            {
+                                LevelID = data.Key,
+                                AvatarLevelVSCount = data.Value.avatarLevelVSCount,
+                                TargetLevelVSCount = data.Value.targetLevelVSCount
+                            });
+                        }
+
+                        var avatarLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.avatarLevelVSCount);
+                        var targetLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.targetLevelVSCount);
+                        AvatarLevelVSCountText = $"{avatarLevelVSCount}{(avatarLevelVSCount > targetLevelVSCount ? " 👑" : string.Empty)}";
+                        OnPropertyChanged(nameof(AvatarLevelVSCountText));
+                        TargetLevelVSCountText = $"{targetLevelVSCount}{(targetLevelVSCount > avatarLevelVSCount ? " 👑" : string.Empty)}";
+                        OnPropertyChanged(nameof(TargetLevelVSCountText));
+                    }
+                    IsLevelVSLoading = false;
+                    break;
             }
         }
 
@@ -663,7 +759,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _avatarTabPosition, value, nameof(AvatarTabPosition)))
                 {
-                    _ = LoadAvatarCollection();
+                    _ = LoadAvatar();
                 }
             }
         }
@@ -676,7 +772,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _favoritesTabPosition, value, nameof(FavoritesTabPosition)))
                 {
-                    _ = LoadAvatarCollection();
+                    _ = LoadAvatar();
                 }
             }
         }
@@ -689,7 +785,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _lastsTabPosition, value, nameof(LastsTabPosition)))
                 {
-                    _ = LoadAvatarCollection();
+                    _ = LoadAvatar();
                 }
             }
         }
@@ -702,7 +798,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _abilityTabPosition, value, nameof(AbilityTabPosition)))
                 {
-                    _ = LoadAvatarCollection();
+                    _ = LoadAvatar();
                 }
             }
         }
@@ -813,6 +909,14 @@ namespace Qwilight.ViewModel
 
         public string AvatarIntro { get; set; }
 
+        public AvatarWww LevelVSMyAvatarWwwValue { get; set; }
+
+        public string LevelVSMyAvatarName { get; set; }
+
+        public AvatarWww LevelVSTargetAvatarWwwValue { get; set; }
+
+        public string LevelVSTargetAvatarName { get; set; }
+
         public override void OnOpened()
         {
             base.OnOpened();
@@ -916,6 +1020,8 @@ namespace Qwilight.ViewModel
                     _avatarAbility9K = twilightWwwAvatarValue.avatarAbility9K;
                     OnPropertyChanged(nameof(AvatarViewAbility9KText));
 
+                    Utility.SetUICollection(LevelNameCollection, twilightWwwAvatarValue.levelNames);
+
                     for (var i = twilightWwwAvatarValue.quitStatusValues.Length - 1; i >= 0; --i)
                     {
                         QuitStatusTexts[i] = twilightWwwAvatarValue.quitStatusValues[i].ToString(LanguageSystem.Instance.CountContents);
@@ -924,7 +1030,7 @@ namespace Qwilight.ViewModel
 
                     Array.Copy(twilightWwwAvatarValue.dateValues, DateValues, DateValues.Length);
 
-                    _ = LoadAvatarCollection();
+                    _ = LoadAvatar();
                 }
                 else
                 {
@@ -952,7 +1058,7 @@ namespace Qwilight.ViewModel
                 if (!string.IsNullOrEmpty(fileName) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
                 {
                     InitAvatarWwwValue(TwilightSystem.Instance.AvatarID);
-                    TwilightSystem.Instance.NotifyAvatarDrawing();
+                    TwilightSystem.Instance.NotifyAvatarWwwValue();
                 }
             }
         }

@@ -55,7 +55,7 @@ namespace Qwilight
             {
                 DBFault = $"Failed to Validate DB ({e.Message})";
                 _fastDB.Close();
-                _fastDB.Close();
+                _fileDB.Close();
                 Utility.MoveFile(_fileName, _faultFileName);
                 LoadImpl();
             }
