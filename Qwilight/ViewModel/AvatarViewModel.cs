@@ -25,8 +25,6 @@ namespace Qwilight.ViewModel
             }
 
             public string AvatarValue { get; set; }
-
-            public string NoteID { get; set; }
         }
 
         public ObservableCollection<AvatarComputing> Favorites5KAvatarComputingCollection { get; } = new();
@@ -86,6 +84,10 @@ namespace Qwilight.ViewModel
             }
         }
 
+        public bool IsLevelVSVisible => TwilightSystem.Instance.IsSignedIn && !IsMe;
+
+        public void NotifyIsLevelVSVisible() => OnPropertyChanged(nameof(IsLevelVSVisible));
+
         public LevelVSLevelIDItem LevelVSLevelIDItemValue
         {
             get => _levelVSLevelIDItem;
@@ -128,6 +130,34 @@ namespace Qwilight.ViewModel
             }
         }
 
+        public AvatarWww LevelVSMyAvatarWwwValue
+        {
+            get => _levelVSMyAvatarWww;
+
+            set => SetProperty(ref _levelVSMyAvatarWww, value, nameof(LevelVSMyAvatarWwwValue));
+        }
+
+        public string LevelVSMyAvatarName
+        {
+            get => _levelVSMyAvatarName;
+
+            set => SetProperty(ref _levelVSMyAvatarName, value, nameof(LevelVSMyAvatarName));
+        }
+
+        public AvatarWww LevelVSTargetAvatarWwwValue
+        {
+            get => _levelVSTargetAvatarWww;
+
+            set => SetProperty(ref _levelVSTargetAvatarWww, value, nameof(LevelVSTargetAvatarWwwValue));
+        }
+
+        public string LevelVSTargetAvatarName
+        {
+            get => _levelVSTargetAvatarName;
+
+            set => SetProperty(ref _levelVSTargetAvatarName, value, nameof(LevelVSTargetAvatarName));
+        }
+
         public bool IsLevelVSLoading
         {
             get => _isLevelVSLoading;
@@ -135,15 +165,26 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _isLevelVSLoading, value, nameof(IsLevelVSLoading));
         }
 
-        public string AvatarLevelVSCountText { get; set; }
+        public string AvatarLevelVSCountText
+        {
+            get => _avatarLevelVSCountText;
 
-        public string TargetLevelVSCountText { get; set; }
+            set => SetProperty(ref _avatarLevelVSCountText, value, nameof(AvatarLevelVSCountText));
+        }
 
-        public override double TargetHeight => 0.8;
+        public string TargetLevelVSCountText
+        {
+            get => _targetLevelVSCountText;
+
+            set => SetProperty(ref _targetLevelVSCountText, value, nameof(TargetLevelVSCountText));
+        }
+
+        public override double TargetHeight => 0.9;
 
         public override VerticalAlignment HeightSystem => VerticalAlignment.Top;
 
         readonly int[] _avatarLevels = new int[3];
+        AvatarWww _avatarWww;
         Dictionary<string, JSON.TwilightWwwAvatarLevelVS> _twilightWwwAvatarLevelVSMap;
         string _avatarAbility5KPlaceText0 = string.Empty;
         string _avatarAbility5KPlaceText1 = string.Empty;
@@ -187,8 +228,21 @@ namespace Qwilight.ViewModel
         bool _isAvatarAbility9KLoading;
         bool _isAvatarWwwLevelLoading;
         string _levelVSLevelName;
+        AvatarWww _levelVSMyAvatarWww;
+        string _levelVSMyAvatarName;
+        AvatarWww _levelVSTargetAvatarWww;
+        string _levelVSTargetAvatarName;
+        string _avatarLevelVSCountText;
+        string _targetLevelVSCountText;
         LevelVSLevelIDItem _levelVSLevelIDItem;
         bool _isLevelVSLoading;
+
+        public AvatarWww AvatarWwwValue
+        {
+            get => _avatarWww;
+
+            set => SetProperty(ref _avatarWww, value, nameof(AvatarWwwValue));
+        }
 
         public bool IsAvatarFavorites5KLoading
         {
@@ -325,7 +379,7 @@ namespace Qwilight.ViewModel
                     {
                         case 0:
                             IsAvatarFavorites5KLoading = true;
-                            var twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/5K?avatarID={AvatarID}");
+                            var twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/5K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
                             {
                                 Favorites5KAvatarComputingCollection.Clear();
@@ -346,7 +400,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 1:
                             IsAvatarFavorites7KLoading = true;
-                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/7K?avatarID={AvatarID}");
+                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/7K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
                             {
                                 Favorites7KAvatarComputingCollection.Clear();
@@ -367,7 +421,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 2:
                             IsAvatarFavorites9KLoading = true;
-                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/9K?avatarID={AvatarID}");
+                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/9K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
                             {
                                 Favorites9KAvatarComputingCollection.Clear();
@@ -388,7 +442,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 3:
                             IsAvatarFavorites10KLoading = true;
-                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/10K?avatarID={AvatarID}");
+                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/10K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
                             {
                                 Favorites10KAvatarComputingCollection.Clear();
@@ -409,7 +463,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 4:
                             IsAvatarFavorites14KLoading = true;
-                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/14K?avatarID={AvatarID}");
+                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/14K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
                             {
                                 Favorites14KAvatarComputingCollection.Clear();
@@ -430,7 +484,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 5:
                             IsAvatarFavorites24KLoading = true;
-                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/24K?avatarID={AvatarID}");
+                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/24K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
                             {
                                 Favorites24KAvatarComputingCollection.Clear();
@@ -451,7 +505,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 6:
                             IsAvatarFavorites48KLoading = true;
-                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/48K?avatarID={AvatarID}");
+                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/48K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
                             {
                                 Favorites48KAvatarComputingCollection.Clear();
@@ -477,7 +531,7 @@ namespace Qwilight.ViewModel
                     {
                         case 0:
                             IsAvatarLasts5KLoading = true;
-                            var twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/5K?avatarID={AvatarID}");
+                            var twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/5K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
                             {
                                 Lasts5KAvatarComputingCollection.Clear();
@@ -498,7 +552,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 1:
                             IsAvatarLasts7KLoading = true;
-                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/7K?avatarID={AvatarID}");
+                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/7K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
                             {
                                 Lasts7KAvatarComputingCollection.Clear();
@@ -519,7 +573,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 2:
                             IsAvatarLasts9KLoading = true;
-                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/9K?avatarID={AvatarID}");
+                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/9K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
                             {
                                 Lasts9KAvatarComputingCollection.Clear();
@@ -540,7 +594,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 3:
                             IsAvatarLasts10KLoading = true;
-                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/10K?avatarID={AvatarID}");
+                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/10K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
                             {
                                 Lasts10KAvatarComputingCollection.Clear();
@@ -561,7 +615,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 4:
                             IsAvatarLasts14KLoading = true;
-                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/14K?avatarID={AvatarID}");
+                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/14K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
                             {
                                 Lasts14KAvatarComputingCollection.Clear();
@@ -582,7 +636,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 5:
                             IsAvatarLasts24KLoading = true;
-                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/24K?avatarID={AvatarID}");
+                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/24K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
                             {
                                 Lasts24KAvatarComputingCollection.Clear();
@@ -603,7 +657,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 6:
                             IsAvatarLasts48KLoading = true;
-                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/48K?avatarID={AvatarID}");
+                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/48K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
                             {
                                 Lasts48KAvatarComputingCollection.Clear();
@@ -629,7 +683,7 @@ namespace Qwilight.ViewModel
                     {
                         case 0:
                             IsAvatarAbility5KLoading = true;
-                            var twilightWwwAvatarAbility = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarAbility[]>($"{QwilightComponent.QwilightAPI}/avatar/ability/5K?avatarID={AvatarID}");
+                            var twilightWwwAvatarAbility = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarAbility[]>($"{QwilightComponent.QwilightAPI}/avatar/ability/5K?avatarID={_avatarID}");
                             if (twilightWwwAvatarAbility != null)
                             {
                                 Ability5KAvatarComputingCollection.Clear();
@@ -650,7 +704,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 1:
                             IsAvatarAbility7KLoading = true;
-                            twilightWwwAvatarAbility = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarAbility[]>($"{QwilightComponent.QwilightAPI}/avatar/ability/7K?avatarID={AvatarID}");
+                            twilightWwwAvatarAbility = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarAbility[]>($"{QwilightComponent.QwilightAPI}/avatar/ability/7K?avatarID={_avatarID}");
                             if (twilightWwwAvatarAbility != null)
                             {
                                 Ability7KAvatarComputingCollection.Clear();
@@ -671,7 +725,7 @@ namespace Qwilight.ViewModel
                             break;
                         case 2:
                             IsAvatarAbility9KLoading = true;
-                            twilightWwwAvatarAbility = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarAbility[]>($"{QwilightComponent.QwilightAPI}/avatar/ability/9K?avatarID={AvatarID}");
+                            twilightWwwAvatarAbility = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarAbility[]>($"{QwilightComponent.QwilightAPI}/avatar/ability/9K?avatarID={_avatarID}");
                             if (twilightWwwAvatarAbility != null)
                             {
                                 Ability9KAvatarComputingCollection.Clear();
@@ -694,7 +748,7 @@ namespace Qwilight.ViewModel
                     break;
                 case 3:
                     IsAvatarWwwLevelLoading = true;
-                    var twilightWwwWwwLevel = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarWwwLevel[]>($"{QwilightComponent.QwilightAPI}/avatar/wwwLevels?avatarID={AvatarID}");
+                    var twilightWwwWwwLevel = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarWwwLevel[]>($"{QwilightComponent.QwilightAPI}/avatar/wwwLevels?avatarID={_avatarID}");
                     if (twilightWwwWwwLevel != null)
                     {
                         WwwLevelIDCollection.Clear();
@@ -714,17 +768,13 @@ namespace Qwilight.ViewModel
                     break;
                 case 4:
                     LevelVSMyAvatarWwwValue = new(TwilightSystem.Instance.AvatarID);
-                    OnPropertyChanged(nameof(LevelVSMyAvatarWwwValue));
                     LevelVSMyAvatarName = TwilightSystem.Instance.AvatarName;
-                    OnPropertyChanged(nameof(LevelVSMyAvatarName));
                     LevelVSTargetAvatarWwwValue = new(_avatarID);
-                    OnPropertyChanged(nameof(LevelVSTargetAvatarWwwValue));
                     LevelVSTargetAvatarName = _avatarName;
-                    OnPropertyChanged(nameof(LevelVSTargetAvatarName));
                     LevelVSLevelName ??= LevelNameCollection.FirstOrDefault();
                     IsLevelVSLoading = true;
                     var levelVSLevelName = LevelVSLevelName;
-                    var twilightWwwAvatarLevelVSMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarLevelVS>>($"{QwilightComponent.QwilightAPI}/avatar/levelVS?avatarID={TwilightSystem.Instance.AvatarID}&targetID={AvatarID}&levelName={levelVSLevelName}");
+                    var twilightWwwAvatarLevelVSMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarLevelVS>>($"{QwilightComponent.QwilightAPI}/avatar/levelVS?avatarID={TwilightSystem.Instance.AvatarID}&targetID={CallingAvatarID}&levelName={levelVSLevelName}");
                     if (twilightWwwAvatarLevelVSMap != null && levelVSLevelName == LevelVSLevelName)
                     {
                         _twilightWwwAvatarLevelVSMap = twilightWwwAvatarLevelVSMap;
@@ -742,9 +792,7 @@ namespace Qwilight.ViewModel
                         var avatarLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.avatarLevelVSCount);
                         var targetLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.targetLevelVSCount);
                         AvatarLevelVSCountText = $"{avatarLevelVSCount}{(avatarLevelVSCount > targetLevelVSCount ? " 👑" : string.Empty)}";
-                        OnPropertyChanged(nameof(AvatarLevelVSCountText));
                         TargetLevelVSCountText = $"{targetLevelVSCount}{(targetLevelVSCount > avatarLevelVSCount ? " 👑" : string.Empty)}";
-                        OnPropertyChanged(nameof(TargetLevelVSCountText));
                     }
                     IsLevelVSLoading = false;
                     break;
@@ -872,7 +920,7 @@ namespace Qwilight.ViewModel
 
         public string AvatarViewAbility9KText => _avatarAbility9K.ToString("#,##0.## Point");
 
-        public string AvatarID { get; set; }
+        public string CallingAvatarID { get; set; }
 
         public bool IsMe => _avatarID == TwilightSystem.Instance.AvatarID;
 
@@ -887,8 +935,6 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _isAvatarLoading, value, nameof(IsAvatarLoading));
         }
 
-        public AvatarWww AvatarWwwValue { get; set; }
-
         public string AvatarViewText => string.Format(LanguageSystem.Instance.AvatarViewText, _avatarName, _avatarID);
 
         public string AvatarViewTotalCountText => string.Format(LanguageSystem.Instance.AvatarViewTotalCountText, _totalCount.ToString("#,##0"));
@@ -899,9 +945,7 @@ namespace Qwilight.ViewModel
 
         public string AvatarViewDateText => string.Format(LanguageSystem.Instance.AvatarViewDateText, _date);
 
-        public string AvatarViewLevelText0 => $"LV. {_avatarLevels[0]}";
-
-        public string AvatarViewLevelText1 => $"XP: {_avatarLevels[1]}／{_avatarLevels[2]}";
+        public string AvatarViewLevelText => $"LV. {_avatarLevels[0]} (XP: {_avatarLevels[1]}／{_avatarLevels[2]})";
 
         public double AvatarViewLevelValue => _avatarLevels[2] > 0 ? 100.0 * _avatarLevels[1] / _avatarLevels[2] : 0.0;
 
@@ -909,28 +953,20 @@ namespace Qwilight.ViewModel
 
         public string AvatarIntro { get; set; }
 
-        public AvatarWww LevelVSMyAvatarWwwValue { get; set; }
-
-        public string LevelVSMyAvatarName { get; set; }
-
-        public AvatarWww LevelVSTargetAvatarWwwValue { get; set; }
-
-        public string LevelVSTargetAvatarName { get; set; }
-
         public override void OnOpened()
         {
             base.OnOpened();
             UIHandler.Instance.HandleParallel(async () =>
             {
-                InitAvatarWwwValue(string.Empty);
                 IsAvatarLoading = true;
-                var twilightWwwAvatar = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatar?>($"{QwilightComponent.QwilightAPI}/avatar?avatarID={AvatarID}");
+                var twilightWwwAvatar = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatar?>($"{QwilightComponent.QwilightAPI}/avatar?avatarID={CallingAvatarID}");
                 if (twilightWwwAvatar.HasValue)
                 {
                     var twilightWwwAvatarValue = twilightWwwAvatar.Value;
 
                     _avatarID = twilightWwwAvatarValue.avatarID;
                     NotifyIsMe();
+                    NotifyIsLevelVSVisible();
 
                     _avatarName = twilightWwwAvatarValue.avatarName;
                     OnPropertyChanged(nameof(AvatarViewText));
@@ -938,7 +974,7 @@ namespace Qwilight.ViewModel
                     AvatarIntro = twilightWwwAvatarValue.avatarIntro;
                     OnPropertyChanged(nameof(AvatarIntro));
 
-                    InitAvatarWwwValue(twilightWwwAvatarValue.avatarID);
+                    AvatarWwwValue = new(twilightWwwAvatarValue.avatarID, null, null, true);
 
                     _totalCount = twilightWwwAvatarValue.totalCount;
                     OnPropertyChanged(nameof(AvatarViewTotalCountText));
@@ -953,8 +989,7 @@ namespace Qwilight.ViewModel
                     OnPropertyChanged(nameof(AvatarViewDateText));
 
                     Array.Copy(twilightWwwAvatarValue.avatarLevels, _avatarLevels, _avatarLevels.Length);
-                    OnPropertyChanged(nameof(AvatarViewLevelText0));
-                    OnPropertyChanged(nameof(AvatarViewLevelText1));
+                    OnPropertyChanged(nameof(AvatarViewLevelText));
                     OnPropertyChanged(nameof(AvatarViewLevelValue));
 
                     var avatarAbility5KClass = twilightWwwAvatarValue.avatarAbility5KClass;
@@ -1057,19 +1092,13 @@ namespace Qwilight.ViewModel
                 });
                 if (!string.IsNullOrEmpty(fileName) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
                 {
-                    InitAvatarWwwValue(TwilightSystem.Instance.AvatarID);
+                    AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, null, null, true);
                     TwilightSystem.Instance.NotifyAvatarWwwValue();
                 }
             }
         }
 
         public void NotifyIsMe() => OnPropertyChanged(nameof(IsMe));
-
-        public void InitAvatarWwwValue(string avatarID, AvatarTitle? avatarTitle = null, ImageSource avatarEdge = null)
-        {
-            AvatarWwwValue = new(avatarID, avatarTitle, avatarEdge, true);
-            OnPropertyChanged(nameof(AvatarWwwValue));
-        }
 
         public override void OnCollasped()
         {

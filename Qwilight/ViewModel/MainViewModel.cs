@@ -1269,7 +1269,7 @@ namespace Qwilight.ViewModel
         static void OnViewMyAvatar()
         {
             var avatarViewModel = ViewModels.Instance.AvatarValue;
-            avatarViewModel.AvatarID = TwilightSystem.Instance.AvatarID;
+            avatarViewModel.CallingAvatarID = TwilightSystem.Instance.AvatarID;
             avatarViewModel.Open();
         }
 

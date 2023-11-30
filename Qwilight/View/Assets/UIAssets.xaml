@@ -187,17 +187,19 @@
     </Style>
 
     <!-- ProgressBar -->
-    <Style x:Key="StandardStatusView" TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+    <Style x:Key="StandardStatusView" TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignLinearProgressBar}">
         <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
 
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
     </Style>
-    <Style x:Key="WaitingStatusView" TargetType="ProgressBar" BasedOn="{StaticResource StandardStatusView}">
-        <Setter Property="Width" Value="72" />
-        <Setter Property="Height" Value="72" />
+    <Style x:Key="WaitingStatusView" TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
         <Setter Property="IsIndeterminate" Value="True" />
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
     </Style>
 
     <!-- Slider -->
@@ -363,7 +365,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <ContentControl x:Name="Contents" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                    <ContentControl x:Name="View" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
@@ -388,14 +390,14 @@
                         <ContentControl.RenderTransform>
                             <ScaleTransform>
                                 <ScaleTransform.CenterX>
-                                    <Binding ElementName="Contents" Path="Width" Converter="{StaticResource MultiplyModifier}">
+                                    <Binding ElementName="View" Path="Width" Converter="{StaticResource MultiplyModifier}">
                                         <Binding.ConverterParameter>
                                             <system:Double>0.5</system:Double>
                                         </Binding.ConverterParameter>
                                     </Binding>
                                 </ScaleTransform.CenterX>
                                 <ScaleTransform.CenterY>
-                                    <Binding ElementName="Contents" Path="Height" Converter="{StaticResource MultiplyModifier}">
+                                    <Binding ElementName="View" Path="Height" Converter="{StaticResource MultiplyModifier}">
                                         <Binding.ConverterParameter>
                                             <system:Double>0.5</system:Double>
                                         </Binding.ConverterParameter>

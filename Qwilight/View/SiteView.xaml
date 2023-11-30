@@ -41,11 +41,9 @@
                     <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding SiteNotify}" FontWeight="Bold" HorizontalAlignment="Left" />
                     <Image Grid.Column="2" Style="{StaticResource StandardView}" Source="{Binding AudioInputDrawing, Source={StaticResource BaseUI}}" Height="24" Visibility="{Binding IsSendingAudioInput, Converter={StaticResource VisibilityModifier}}" />
                 </Grid>
-                <Border Grid.Row="1" Style="{StaticResource StandardPanel}">
-                    <ScrollViewer x:Name="SiteYellsViewer" ScrollChanged="OnSiteYellsViewerMove">
-                        <ItemsControl ItemsSource="{Binding SiteYellCollection}" />
-                    </ScrollViewer>
-                </Border>
+                <ScrollViewer Grid.Row="1" x:Name="SiteYellsViewer" ScrollChanged="OnSiteYellsViewerMove">
+                    <ItemsControl ItemsSource="{Binding SiteYellCollection}" />
+                </ScrollViewer>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -57,301 +55,297 @@
                     <Button Grid.Column="2" Style="{StaticResource StandardInput}" VerticalAlignment="Stretch" Command="{Binding QuitCommand}" Content="{Binding QuitSiteAssist, Source={StaticResource LanguageSystem}}" />
                 </Grid>
             </Grid>
-            <Border Grid.Column="1" Style="{StaticResource StandardPanel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <ListView Style="{StaticResource StandardPointableItemsView}" SelectedItem="{Binding AvatarItemValue}" ItemsSource="{Binding AvatarItemCollection}">
-                        <ListView.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="{Binding SetSiteHand, Source={StaticResource LanguageSystem}}" Command="{Binding SetSiteHandCommand}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityModifier}}" />
-                                <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding ViewAvatarCommand}" />
-                                <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding ViewBundleCommand}" />
-                                <MenuItem Header="{Binding CallIO, Source={StaticResource LanguageSystem}}" Command="{Binding CallIOCommand}" />
-                                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
-                                <MenuItem Header="{Binding NewSilentSite, Source={StaticResource LanguageSystem}}" Command="{Binding NewSilentSiteCommand}" />
-                                <MenuItem Header="{Binding ExileAvatar, Source={StaticResource LanguageSystem}}" Command="{Binding ExileAvatarCommand}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityModifier}}" />
-                            </ContextMenu>
-                        </ListView.ContextMenu>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <view:AvatarDrawingView Width="24" Height="24" AvatarWwwValue="{Binding AvatarWwwValue}" />
-                                    <Image Style="{StaticResource StandardView}" Height="18" Source="{Binding AvatarConfigureValue, Converter={StaticResource AvatarConfigureDrawingModifier}}" />
-                                    <Image Style="{StaticResource StandardView}" Height="18" Source="{Binding IsSiteHand, Converter={StaticResource SiteHandDrawingModifier}}" />
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarGroupValue.Title}" Foreground="{Binding AvatarGroupValue.Paint}" />
-                                    <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" HeavyText="{Binding IsMe, Converter={StaticResource HeavyModifier}}" TextPaint="{Binding AudioInputPaint}" />
-                                    <Image Style="{StaticResource StandardView}" Height="18" Source="{StaticResource ValveDrawing}" Visibility="{Binding IsValve, Converter={StaticResource VisibilityModifier}}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <StackPanel Grid.Row="1">
-                        <Button Style="{StaticResource StandardInput}" Command="{Binding SiteCommand}" Content="{Binding CallSiteAssist, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                        <Button Style="{StaticResource StandardInput}" Command="{Binding TwilightConfigureCommand}" Content="{Binding TwilightConfigureAssist, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                        <Button Style="{StaticResource StandardInput}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" Command="{Binding UbuntuCommand}" Content="{Binding UbuntuAssist, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                    </StackPanel>
-                </Grid>
-            </Border>
-        </Grid>
-        <GridSplitter Style="{StaticResource StandardSplitter}" Grid.Column="1" Width="5" Background="White" Visibility="{Binding IsNetSite, Converter={StaticResource VisibilityModifier}}" />
-        <Border Grid.Column="2" Style="{StaticResource StandardPanel}">
-            <Grid Visibility="{Binding IsNetSite, Converter={StaticResource VisibilityModifier}}">
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TabControl Style="{StaticResource StandardPageView}">
-                    <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding NetText, Source={StaticResource LanguageSystem}}">
-                        <StackPanel Grid.Column="2">
-                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsFavorModeComponent, Converter={StaticResource VisibilityNotModifier}}">
-                                <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.AutoModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource AutoModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.AutoModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.NoteSaltModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteSaltModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.NoteSaltModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.FaintNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource FaintNoteModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.FaintNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.JudgmentModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource JudgmentModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.JudgmentModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>1</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.HitPointsModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource HitPointsModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.HitPointsModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>1</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.NoteMobilityModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteMobilityModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.NoteMobilityModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.LongNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LongNoteModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.LongNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.InputFavorModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.InputFavorModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.NoteModifyModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteModifyModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.NoteModifyModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.BPMModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource BPMModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.BPMModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.WaveModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource WaveModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.WaveModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.SetNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource SetNoteModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.SetNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                                <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.LowestJudgmentConditionModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LowestJudgmentConditionModeVariety}}">
-                                    <Image.Opacity>
-                                        <Binding Path="ModeComponentValue.LowestJudgmentConditionModeValue" Converter="{StaticResource FaintModeComponentModifier}">
-                                            <Binding.ConverterParameter>
-                                                <system:Int32>0</system:Int32>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </Image.Opacity>
-                                </Image>
-                            </StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding ComputingValues}" SelectedItem="{Binding ComputingValue}" IsEnabled="{Binding IsIdle}">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                                <Image Style="{StaticResource NarrowView}" Source="{Binding HandledWallDrawing}" Height="24" />
-                                                <Image Style="{StaticResource NarrowView}" Source="{Binding InputMode, Converter={StaticResource InputModeDrawingModifier}}" Height="24" />
-                                                <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="❌" Foreground="Red" Visibility="{Binding NotHaveIt, Converter={StaticResource VisibilityModifier}}" />
-                                                <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" />
-                                                <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="{Binding WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" />
-                                                <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                                <ComboBox Grid.Column="1" Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding AvatarGroupCollection}" SelectedItem="{Binding AvatarGroupValue}" IsEnabled="{Binding IsIdle}">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding}" Foreground="{Binding Paint}" HorizontalAlignment="Left" />
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                            </Grid>
+                <ListView Style="{StaticResource StandardPointableItemsView}" SelectedItem="{Binding AvatarItemValue}" ItemsSource="{Binding AvatarItemCollection}">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="{Binding SetSiteHand, Source={StaticResource LanguageSystem}}" Command="{Binding SetSiteHandCommand}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityModifier}}" />
+                            <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding ViewAvatarCommand}" />
+                            <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding ViewBundleCommand}" />
+                            <MenuItem Header="{Binding CallIO, Source={StaticResource LanguageSystem}}" Command="{Binding CallIOCommand}" />
+                            <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+                            <MenuItem Header="{Binding NewSilentSite, Source={StaticResource LanguageSystem}}" Command="{Binding NewSilentSiteCommand}" />
+                            <MenuItem Header="{Binding ExileAvatar, Source={StaticResource LanguageSystem}}" Command="{Binding ExileAvatarCommand}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityModifier}}" />
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding ComputingValue.Artist}" Foreground="{StaticResource ArtistPaint}" />
-                                <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding ComputingValue.GenreText}" Foreground="{StaticResource GenrePaint}" />
+                                <view:AvatarDrawingView Width="24" Height="24" AvatarWwwValue="{Binding AvatarWwwValue}" />
+                                <Image Style="{StaticResource StandardView}" Height="18" Source="{Binding AvatarConfigureValue, Converter={StaticResource AvatarConfigureDrawingModifier}}" />
+                                <Image Style="{StaticResource StandardView}" Height="18" Source="{Binding IsSiteHand, Converter={StaticResource SiteHandDrawingModifier}}" />
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarGroupValue.Title}" Foreground="{Binding AvatarGroupValue.Paint}" />
+                                <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" HeavyText="{Binding IsMe, Converter={StaticResource HeavyModifier}}" TextPaint="{Binding AudioInputPaint}" />
+                                <Image Style="{StaticResource StandardView}" Height="18" Source="{StaticResource ValveDrawing}" Visibility="{Binding IsValve, Converter={StaticResource VisibilityModifier}}" />
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding JudgmentStageNetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding ComputingValue.JudgmentStageContents}" Foreground="{StaticResource JudgmentStagePaint}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding TotalNotesNetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding ComputingValue.TotalNotesContents}" Foreground="{StaticResource TotalNotesPaint}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding HighestInputCountNetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HighestInputCountText}" Foreground="{StaticResource HighestInputCountPaint}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding LengthNetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding LengthText}" Foreground="{StaticResource LengthPaint}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Style="{StaticResource StandardView}" Source="{Binding BPMNetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" Visibility="{Binding ComputingValue.HasBPMMap, Converter={StaticResource VisibilityNotModifier}}" />
-                                <Image Style="{StaticResource StandardView}" Source="{Binding BPM1NetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" Visibility="{Binding ComputingValue.HasBPMMap, Converter={StaticResource VisibilityModifier}}">
-                                    <ToolTipService.ToolTip>
-                                        <ToolTip Background="Transparent">
-                                            <Border Style="{StaticResource WindowStandardPanel}">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Image Style="{StaticResource StandardView}" Source="{Binding BPMDrawing, Source={StaticResource BaseUI}}" Height="24" />
-                                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding ComputingValue.BPMMapValue}" Foreground="{StaticResource BPMPaint}" />
-                                                </StackPanel>
-                                            </Border>
-                                        </ToolTip>
-                                    </ToolTipService.ToolTip>
-                                </Image>
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding BPMText}" Foreground="{StaticResource BPMPaint}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LevyingCommand}" Content="{Binding SiteHandLevyingText, Source={StaticResource LanguageSystem}}" Visibility="{Binding CanSiteHandLevying, Converter={StaticResource VisibilityModifier}}" IsEnabled="{Binding AllowSiteHandLevying}" />
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding LevyingCommand}" Content="{Binding SiteLevyingText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityNotModifier}}" IsEnabled="{Binding IsIdle}" />
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding StopSiteNetCommand}" Content="{Binding StopSiteNetText, Source={StaticResource LanguageSystem}}" Visibility="{Binding CanStopSiteNet, Converter={StaticResource VisibilityModifier}}" />
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding SaveAsNetBundleCommand}" Content="{Binding SaveAsNetBundle, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityModifier}}" IsEnabled="{Binding IsIdle}" />
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding SaveNetBundleCommand}" Content="{Binding SaveNetBundle, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityNotModifier}}" IsEnabled="{Binding CanSaveNetBundle, Converter={StaticResource BoolModifier}}" />
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding NetSIteCommentsCommand}" Content="{Binding NetSiteCommentsText, Source={StaticResource LanguageSystem}}" />
-                                <Button Style="{StaticResource StandardInput}" Command="{Binding SetValidHunterModeCommand}" Content="{Binding ValidHunterModeText}" IsEnabled="{Binding CanSetTwilightConfigures}" />
-                            </StackPanel>
-                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding BundleName}" HorizontalAlignment="Left" />
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AllowTotalLevying}" Content="{Binding AllowTotalLevyingText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityModifier}}" />
-                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding IsAutoNetLevying}" Content="{Binding AutoNetLevyingText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityNotModifier}}" />
-                                <CheckBox Style="{StaticResource StandardVInput}" Click="OnSetAutoSiteHand" IsChecked="{Binding IsAutoSiteHand}" Content="{Binding AutoSiteHandText, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding IsSiteHand}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox Style="{StaticResource StandardVInput}" Click="OnSetFavorNoteFile" IsChecked="{Binding IsFavorNoteFile}" Content="{Binding FavorNoteFileText, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding CanSetTwilightConfigures}" />
-                                <CheckBox Style="{StaticResource StandardVInput}" Click="OnSetFavorModeComponent" IsChecked="{Binding IsFavorModeComponent}" Content="{Binding FavorModeComponentText, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding CanSetTwilightConfigures}" />
-                                <CheckBox Style="{StaticResource StandardVInput}" Click="OnSetFavorAudioMultiplier" IsChecked="{Binding IsFavorAudioMultiplier}" Content="{Binding FavorAudioMultiplierText, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding CanSetTwilightConfigures}" />
-                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel Grid.Row="1">
+                    <Button Style="{StaticResource StandardInput}" Command="{Binding SiteCommand}" Content="{Binding CallSiteAssist, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    <Button Style="{StaticResource StandardInput}" Command="{Binding TwilightConfigureCommand}" Content="{Binding TwilightConfigureAssist, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    <Button Style="{StaticResource StandardInput}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" Command="{Binding UbuntuCommand}" Content="{Binding UbuntuAssist, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <GridSplitter Style="{StaticResource StandardSplitter}" Grid.Column="1" Width="5" Background="White" Visibility="{Binding IsNetSite, Converter={StaticResource VisibilityModifier}}" />
+        <Grid Grid.Column="2" Visibility="{Binding IsNetSite, Converter={StaticResource VisibilityModifier}}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TabControl Style="{StaticResource StandardPageView}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding NetText, Source={StaticResource LanguageSystem}}">
+                    <StackPanel Grid.Column="2">
+                        <StackPanel Orientation="Horizontal" Visibility="{Binding IsFavorModeComponent, Converter={StaticResource VisibilityNotModifier}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.AutoModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource AutoModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.AutoModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.NoteSaltModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteSaltModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.NoteSaltModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.FaintNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource FaintNoteModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.FaintNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.JudgmentModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource JudgmentModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.JudgmentModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>1</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.HitPointsModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource HitPointsModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.HitPointsModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>1</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.NoteMobilityModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteMobilityModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.NoteMobilityModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.LongNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LongNoteModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.LongNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.InputFavorModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.InputFavorModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.NoteModifyModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteModifyModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.NoteModifyModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.BPMModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource BPMModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.BPMModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.WaveModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource WaveModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.WaveModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.SetNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource SetNoteModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.SetNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
+                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.LowestJudgmentConditionModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LowestJudgmentConditionModeVariety}}">
+                                <Image.Opacity>
+                                    <Binding Path="ModeComponentValue.LowestJudgmentConditionModeValue" Converter="{StaticResource FaintModeComponentModifier}">
+                                        <Binding.ConverterParameter>
+                                            <system:Int32>0</system:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Image.Opacity>
+                            </Image>
                         </StackPanel>
-                    </TabItem>
-                    <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding PostableItemText, Source={StaticResource LanguageSystem}}">
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <ComboBox IsEnabled="{Binding CanSetTwilightConfigures}" Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding ValidNetModeCollection}" SelectedItem="{Binding ValidNetModeValue}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding ComputingValues}" SelectedItem="{Binding ComputingValue}" IsEnabled="{Binding IsIdle}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Image Style="{StaticResource NarrowView}" Source="{Binding HandledWallDrawing}" Height="24" />
+                                            <Image Style="{StaticResource NarrowView}" Source="{Binding InputMode, Converter={StaticResource InputModeDrawingModifier}}" Height="24" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="❌" Foreground="Red" Visibility="{Binding NotHaveIt, Converter={StaticResource VisibilityModifier}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="{Binding WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox Grid.Column="1" Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding AvatarGroupCollection}" SelectedItem="{Binding AvatarGroupValue}" IsEnabled="{Binding IsIdle}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding}" Foreground="{Binding Paint}" HorizontalAlignment="Left" />
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <GroupBox Grid.Row="1" Style="{StaticResource StandardGroupView}">
-                                <GroupBox.Header>
-                                    <Grid>
-                                        <Button Style="{StaticResource GroupInput}" IsEnabled="{Binding CanSetPostableItems}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityNotModifier}}">
-                                            <Button.CommandParameter>
-                                                <system:Boolean>true</system:Boolean>
-                                            </Button.CommandParameter>
-                                        </Button>
-                                        <Button Style="{StaticResource GroupInput}" IsEnabled="{Binding CanSetPostableItems}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityModifier}}">
-                                            <Button.CommandParameter>
-                                                <system:Boolean>false</system:Boolean>
-                                            </Button.CommandParameter>
-                                        </Button>
-                                    </Grid>
-                                </GroupBox.Header>
-                                <ScrollViewer>
-                                    <ItemsControl ItemsSource="{Binding PostableUIItemCollection}" IsEnabled="{Binding CanSetPostableItems}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding IsWanted, UpdateSourceTrigger=PropertyChanged}" Content="{Binding PostableItemValue}" Click="OnInputPostableItem" Foreground="{Binding PostableItemValue.ItemPaint}" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </ScrollViewer>
-                            </GroupBox>
                         </Grid>
-                    </TabItem>
-                </TabControl>
-            </Grid>
-        </Border>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding ComputingValue.Artist}" Foreground="{StaticResource ArtistPaint}" />
+                            <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding ComputingValue.GenreText}" Foreground="{StaticResource GenrePaint}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding JudgmentStageNetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding ComputingValue.JudgmentStageContents}" Foreground="{StaticResource JudgmentStagePaint}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding TotalNotesNetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding ComputingValue.TotalNotesContents}" Foreground="{StaticResource TotalNotesPaint}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding HighestInputCountNetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HighestInputCountText}" Foreground="{StaticResource HighestInputCountPaint}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding LengthNetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding LengthText}" Foreground="{StaticResource LengthPaint}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Style="{StaticResource StandardView}" Source="{Binding BPMNetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" Visibility="{Binding ComputingValue.HasBPMMap, Converter={StaticResource VisibilityNotModifier}}" />
+                            <Image Style="{StaticResource StandardView}" Source="{Binding BPM1NetSiteDrawing, Source={StaticResource BaseUI}}" Height="24" Visibility="{Binding ComputingValue.HasBPMMap, Converter={StaticResource VisibilityModifier}}">
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Background="Transparent">
+                                        <Border Style="{StaticResource WindowStandardPanel}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Style="{StaticResource StandardView}" Source="{Binding BPMDrawing, Source={StaticResource BaseUI}}" Height="24" />
+                                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding ComputingValue.BPMMapValue}" Foreground="{StaticResource BPMPaint}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </ToolTip>
+                                </ToolTipService.ToolTip>
+                            </Image>
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding BPMText}" Foreground="{StaticResource BPMPaint}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LevyingCommand}" Content="{Binding SiteHandLevyingText, Source={StaticResource LanguageSystem}}" Visibility="{Binding CanSiteHandLevying, Converter={StaticResource VisibilityModifier}}" IsEnabled="{Binding AllowSiteHandLevying}" />
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding LevyingCommand}" Content="{Binding SiteLevyingText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityNotModifier}}" IsEnabled="{Binding IsIdle}" />
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding StopSiteNetCommand}" Content="{Binding StopSiteNetText, Source={StaticResource LanguageSystem}}" Visibility="{Binding CanStopSiteNet, Converter={StaticResource VisibilityModifier}}" />
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding SaveAsNetBundleCommand}" Content="{Binding SaveAsNetBundle, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityModifier}}" IsEnabled="{Binding IsIdle}" />
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding SaveNetBundleCommand}" Content="{Binding SaveNetBundle, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityNotModifier}}" IsEnabled="{Binding CanSaveNetBundle, Converter={StaticResource BoolModifier}}" />
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding NetSIteCommentsCommand}" Content="{Binding NetSiteCommentsText, Source={StaticResource LanguageSystem}}" />
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding SetValidHunterModeCommand}" Content="{Binding ValidHunterModeText}" IsEnabled="{Binding CanSetTwilightConfigures}" />
+                        </StackPanel>
+                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding BundleName}" HorizontalAlignment="Left" />
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AllowTotalLevying}" Content="{Binding AllowTotalLevyingText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityModifier}}" />
+                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding IsAutoNetLevying}" Content="{Binding AutoNetLevyingText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityNotModifier}}" />
+                            <CheckBox Style="{StaticResource StandardVInput}" Click="OnSetAutoSiteHand" IsChecked="{Binding IsAutoSiteHand}" Content="{Binding AutoSiteHandText, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding IsSiteHand}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Style="{StaticResource StandardVInput}" Click="OnSetFavorNoteFile" IsChecked="{Binding IsFavorNoteFile}" Content="{Binding FavorNoteFileText, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding CanSetTwilightConfigures}" />
+                            <CheckBox Style="{StaticResource StandardVInput}" Click="OnSetFavorModeComponent" IsChecked="{Binding IsFavorModeComponent}" Content="{Binding FavorModeComponentText, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding CanSetTwilightConfigures}" />
+                            <CheckBox Style="{StaticResource StandardVInput}" Click="OnSetFavorAudioMultiplier" IsChecked="{Binding IsFavorAudioMultiplier}" Content="{Binding FavorAudioMultiplierText, Source={StaticResource LanguageSystem}}" IsEnabled="{Binding CanSetTwilightConfigures}" />
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding PostableItemText, Source={StaticResource LanguageSystem}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <ComboBox IsEnabled="{Binding CanSetTwilightConfigures}" Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding ValidNetModeCollection}" SelectedItem="{Binding ValidNetModeValue}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding}" Foreground="{Binding Paint}" HorizontalAlignment="Left" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <GroupBox Grid.Row="1" Style="{StaticResource StandardGroupView}">
+                            <GroupBox.Header>
+                                <Grid>
+                                    <Button Style="{StaticResource GroupInput}" IsEnabled="{Binding CanSetPostableItems}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityNotModifier}}">
+                                        <Button.CommandParameter>
+                                            <system:Boolean>true</system:Boolean>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                    <Button Style="{StaticResource GroupInput}" IsEnabled="{Binding CanSetPostableItems}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityModifier}}">
+                                        <Button.CommandParameter>
+                                            <system:Boolean>false</system:Boolean>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                </Grid>
+                            </GroupBox.Header>
+                            <ScrollViewer>
+                                <ItemsControl ItemsSource="{Binding PostableUIItemCollection}" IsEnabled="{Binding CanSetPostableItems}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding IsWanted, UpdateSourceTrigger=PropertyChanged}" Content="{Binding PostableItemValue}" Click="OnInputPostableItem" Foreground="{Binding PostableItemValue.ItemPaint}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Grid>
 </TabItem>

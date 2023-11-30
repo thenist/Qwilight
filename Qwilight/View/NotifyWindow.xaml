@@ -20,17 +20,22 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Image Style="{StaticResource StandardView}" Height="48" Source="{Binding Variety, Converter={StaticResource NotifyDrawingModifier}}" />
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding Date, Converter={StaticResource FormatModifier}, ConverterParameter='yyyy-MM-dd tt hh:mm:ss'}" />
-                                    <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding Text}" />
-                                </StackPanel>
-                                <ProgressBar Grid.Column="2" Style="{StaticResource StandardStatusView}" Value="{Binding BundleStatus, Mode=OneWay}" />
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Style="{StaticResource StandardView}" Height="48" Source="{Binding Variety, Converter={StaticResource NotifyDrawingModifier}}" />
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding Date, Converter={StaticResource FormatModifier}, ConverterParameter='yyyy-MM-dd tt hh:mm:ss'}" />
+                                        <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding Text}" />
+                                    </StackPanel>
+                                </Grid>
+                                <ProgressBar Grid.Row="1" Style="{StaticResource StandardStatusView}" Value="{Binding BundleStatus, Mode=OneWay}" Visibility="{Binding QuitStatus, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

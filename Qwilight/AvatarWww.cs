@@ -71,7 +71,7 @@ namespace Qwilight
             {
                 var avatarViewModel = ViewModels.Instance.AvatarValue;
                 avatarViewModel.Close();
-                avatarViewModel.AvatarID = Utility.GetDefaultAvatarID(AvatarID);
+                avatarViewModel.CallingAvatarID = Utility.GetDefaultAvatarID(AvatarID);
                 avatarViewModel.Open();
             }
         }

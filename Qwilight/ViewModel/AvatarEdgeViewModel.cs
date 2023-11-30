@@ -61,7 +61,7 @@ namespace Qwilight.ViewModel
             if (avatarEdgeItemValue != null)
             {
                 TwilightSystem.Instance.SendParallel(Event.Types.EventID.AvatarEdge, avatarEdgeItemValue.EdgeID);
-                ViewModels.Instance.AvatarValue.InitAvatarWwwValue(TwilightSystem.Instance.AvatarID, null, avatarEdgeItemValue.Drawing);
+                ViewModels.Instance.AvatarValue.AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, null, avatarEdgeItemValue.Drawing, true);
             }
         }
     }

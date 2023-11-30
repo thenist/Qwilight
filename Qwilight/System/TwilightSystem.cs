@@ -100,6 +100,7 @@ namespace Qwilight
                     ViewModels.Instance.ConfigureValue.NotifyCanSaveAsBundle();
                     ViewModels.Instance.BundleValue.NotifyIsMe();
                     ViewModels.Instance.AvatarValue.NotifyIsMe();
+                    ViewModels.Instance.AvatarValue.NotifyIsLevelVSVisible();
                 }
             }
         }

@@ -18,7 +18,8 @@ namespace Qwilight.Modifier
                 case DefaultEntryItem defaultEntryItem when defaultEntryItem != null:
                 case BaseNoteFile.NoteVariety noteVariety when noteVariety.Equals(parameter):
                 case WwwLevelItem wwwLevelItemValue:
-                case int valueInt when valueInt == (int)parameter:
+                case int valueInt32 when valueInt32 == (int)parameter:
+                case long valueInt64 when valueInt64 > 0L:
                 case string text when !string.IsNullOrEmpty(text):
                 case AutoCompute autoComputer when autoComputer != null:
                 case ImageSource drawing when drawing != null:

@@ -4,22 +4,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:quic="clr-namespace:Qwilight.UIComponent"
     xmlns:view="clr-namespace:Qwilight.View">
-    <Border Style="{StaticResource StandardPanel}">
-        <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding BundleItemCollection, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=view:BundleView}}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Style="{StaticResource StandardPanel}" BorderBrush="{Binding BundleCompetence.Paint}">
-                            <StackPanel>
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Name}" HorizontalAlignment="Left" Visibility="{Binding IsNameVisible, Converter={StaticResource VisibilityModifier}}" />
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Date}" HorizontalAlignment="Left" />
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Length, Converter={StaticResource UnitModifier}}" HorizontalAlignment="Left" />
-                                <ComboBox Style="{StaticResource StandardItemsInput}" IsEnabled="{Binding BundleValue.IsMe, Source={StaticResource ViewModels}}" SelectedItem="{Binding BundleCompetence, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
+    <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding BundleItemCollection, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=view:BundleView}}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Style="{StaticResource StandardPanel}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Name}" HorizontalAlignment="Left" Visibility="{Binding IsNameVisible, Converter={StaticResource VisibilityModifier}}" />
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Date}" HorizontalAlignment="Left" />
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Length, Converter={StaticResource UnitModifier}}" HorizontalAlignment="Left" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource StandardInput}" Command="{Binding SaveCommand}" Content="{Binding SaveBundle, Source={StaticResource LanguageSystem}}" />
+                                <Button Style="{StaticResource StandardInput}" Command="{Binding WipeCommand}" Visibility="{Binding BundleValue.IsMe, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" Content="{Binding WipeBundleText, Source={StaticResource LanguageSystem}}" />
+                                <ComboBox Style="{StaticResource StandardItemsInput}" IsEnabled="{Binding BundleValue.IsMe, Source={StaticResource ViewModels}}" SelectedItem="{Binding BundleCompetence, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding BundleCompetence.Paint}" HorizontalAlignment="Left">
                                     <ComboBox.Items>
                                         <quic:BundleCompetence Data="{StaticResource BundleCallable}" />
                                         <quic:BundleCompetence Data="{StaticResource BundleAvatar}" />
@@ -27,15 +29,11 @@
                                         <quic:BundleCompetence Data="{StaticResource BundleVoid}" />
                                     </ComboBox.Items>
                                 </ComboBox>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource StandardInput}" Command="{Binding SaveCommand}" Content="{Binding SaveBundle, Source={StaticResource LanguageSystem}}" />
-                                    <Button Style="{StaticResource StandardInput}" Command="{Binding WipeCommand}" Visibility="{Binding BundleValue.IsMe, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" Content="{Binding WipeBundleText, Source={StaticResource LanguageSystem}}" />
-                                </StackPanel>
                             </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </Border>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
 </Grid>

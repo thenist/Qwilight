@@ -41,10 +41,12 @@
                     </TabItem>
                 </TabControl>
                 <Grid Grid.Row="2">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding ValueContents}" />
-                        <ProgressBar Style="{StaticResource StandardStatusView}" Value="{Binding Value, Mode=OneWay}" />
-                    </StackPanel>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding ValueContents}" />
+                    <ProgressBar Grid.Column="1" Style="{StaticResource StandardStatusView}" Value="{Binding Value, Mode=OneWay}" />
                 </Grid>
             </Grid>
         </Border>
