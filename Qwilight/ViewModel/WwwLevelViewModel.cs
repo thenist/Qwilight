@@ -14,9 +14,7 @@ namespace Qwilight.ViewModel
     {
         public sealed class WwwLevelComputing : Computing
         {
-            public override BaseNoteFile.NoteVariety NoteVarietyValue => WwwLevelNoteVariety;
-
-            public BaseNoteFile.NoteVariety WwwLevelNoteVariety { get; set; }
+            public override BaseNoteFile.NoteVariety NoteVarietyValue => default;
 
             public override void OnCompiled()
             {
@@ -366,8 +364,7 @@ namespace Qwilight.ViewModel
                                 var artist = levelNote.artist;
                                 var levelText = levelNote.levelText;
                                 var genre = levelNote.genre;
-                                var noteVariety = levelNote.noteVariety;
-                                if (noteVariety == BaseNoteFile.NoteVariety.EventNote)
+                                if (levelNote.noteVariety == BaseNoteFile.NoteVariety.EventNote)
                                 {
                                     title = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
                                     artist = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
@@ -376,7 +373,6 @@ namespace Qwilight.ViewModel
                                 }
                                 WwwLevelComputingCollection.Add(new WwwLevelComputing
                                 {
-                                    WwwLevelNoteVariety = noteVariety,
                                     NoteID = levelNote.noteID,
                                     Title = title,
                                     Artist = artist,

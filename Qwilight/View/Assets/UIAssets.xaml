@@ -480,7 +480,7 @@
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <ThicknessAnimation Duration="0:0:0.125" To="1 1 0 1" Storyboard.TargetProperty="Margin" />
+                            <ThicknessAnimation Duration="0:0:0.125" To="1" Storyboard.TargetProperty="Margin" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>

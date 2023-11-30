@@ -5,8 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Style="{StaticResource StandardPageItem}"
     Header="{Binding DetailedConfigureText, Source={StaticResource LanguageSystem}}"
-    DataContext="{Binding ConfigureValue, Source={StaticResource ViewModels}}">
-    <ScrollViewer>
+    DataContext="{Binding ConfigureValue, Source={StaticResource ViewModels}}"
+    Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+    <ScrollViewer Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
         <StackPanel>
             <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ComponentConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
             <Grid>

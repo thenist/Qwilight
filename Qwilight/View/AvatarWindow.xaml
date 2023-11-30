@@ -319,7 +319,7 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding AvatarViewLevelVSText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsLevelVSVisible, Converter={StaticResource VisibilityModifier}}">
-                                <Grid>
+                                <Grid Visibility="{Binding IsLevelVSVisible, Converter={StaticResource VisibilityModifier}}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="AUto" />
                                         <RowDefinition />

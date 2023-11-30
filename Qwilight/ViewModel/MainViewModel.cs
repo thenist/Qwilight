@@ -3176,7 +3176,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async Task LoadHOFItemCollection()
+        public async Task CallHOFAPI()
         {
             switch (Configure.Instance.HOFViewTabPosition)
             {
@@ -3379,7 +3379,7 @@ namespace Qwilight.ViewModel
                         LoadTwilightCommentItemCollection();
                         break;
                     case 2:
-                        _ = LoadHOFItemCollection();
+                        _ = CallHOFAPI();
                         break;
                 }
             }

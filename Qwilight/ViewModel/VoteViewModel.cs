@@ -19,9 +19,7 @@ namespace Qwilight.ViewModel
 
         public sealed class VoteComputing : Computing
         {
-            public override BaseNoteFile.NoteVariety NoteVarietyValue => VoteNoteVariety;
-
-            public BaseNoteFile.NoteVariety VoteNoteVariety { get; set; }
+            public override BaseNoteFile.NoteVariety NoteVarietyValue => default;
 
             public Brush PointedPaint => Paints.DefaultPointedPaint;
 
@@ -95,8 +93,7 @@ namespace Qwilight.ViewModel
                                 IsFavorite = data.isFavorite,
                                 Title = data.title,
                                 Artist = data.artist,
-                                Genre = data.genre,
-                                VoteNoteVariety = data.noteVariety
+                                Genre = data.genre
                             }).ToArray());
                         }
                         IsVoteGroupLoading = false;

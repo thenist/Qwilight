@@ -27,7 +27,7 @@
                     <view:GUIConfigureWindow />
                     <view:AudioConfigureWindow />
                     <view:DefaultConfigureWindow />
-                    <view:DetailedConfigureWindow Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}" />
+                    <view:DetailedConfigureWindow />
                 </TabControl>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>

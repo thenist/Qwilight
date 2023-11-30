@@ -880,7 +880,7 @@ namespace Qwilight
                     CommentViewPaints[i] = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(QuitColors[i]));
                 }
 
-                NoteFileMargin = new(GetCalledValue(pointNode, "noteFileMargin", "31.5"), 1.0, 0.0, 1.0);
+                NoteFileMargin = new(GetCalledValue(pointNode, "noteFileMargin", "31.5"), 1.0, 1.0, 1.0);
                 var entryViewTitleMargin = GetLayerPoint(pointNode, "entryViewTitleMargin", new[] { 58.0, 0.0, 0.0, 0.0 });
                 EntryViewTitleMargin = new(entryViewTitleMargin[0], entryViewTitleMargin[1], entryViewTitleMargin[2], entryViewTitleMargin[3]);
 

@@ -79,7 +79,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _levelVSLevelName, value, nameof(LevelVSLevelName)))
                 {
-                    _ = LoadAvatar();
+                    _ = CallAvatarAPI();
                 }
             }
         }
@@ -370,7 +370,7 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _isAvatarWwwLevelLoading, value, nameof(IsAvatarWwwLevelLoading));
         }
 
-        async Task LoadAvatar()
+        async Task CallAvatarAPI()
         {
             switch (AvatarTabPosition)
             {
@@ -762,17 +762,17 @@ namespace Qwilight.ViewModel
                                 Date = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                             });
                         }
+                        OnPropertyChanged(nameof(AvatarViewWwwLevelText));
                     }
                     IsAvatarWwwLevelLoading = false;
-                    OnPropertyChanged(nameof(AvatarViewWwwLevelText));
                     break;
-                case 4:
+                case 4 when IsLevelVSVisible:
+                    IsLevelVSLoading = true;
                     LevelVSMyAvatarWwwValue = new(TwilightSystem.Instance.AvatarID);
                     LevelVSMyAvatarName = TwilightSystem.Instance.AvatarName;
                     LevelVSTargetAvatarWwwValue = new(_avatarID);
                     LevelVSTargetAvatarName = _avatarName;
                     LevelVSLevelName ??= LevelNameCollection.FirstOrDefault();
-                    IsLevelVSLoading = true;
                     var levelVSLevelName = LevelVSLevelName;
                     var twilightWwwAvatarLevelVSMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarLevelVS>>($"{QwilightComponent.QwilightAPI}/avatar/levelVS?avatarID={TwilightSystem.Instance.AvatarID}&targetID={CallingAvatarID}&levelName={levelVSLevelName}");
                     if (twilightWwwAvatarLevelVSMap != null && levelVSLevelName == LevelVSLevelName)
@@ -788,6 +788,7 @@ namespace Qwilight.ViewModel
                                 TargetLevelVSCount = data.Value.targetLevelVSCount
                             });
                         }
+                        LevelVSLevelIDItemValue = LevelVSLevelIDItemCollection.FirstOrDefault();
 
                         var avatarLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.avatarLevelVSCount);
                         var targetLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.targetLevelVSCount);
@@ -807,7 +808,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _avatarTabPosition, value, nameof(AvatarTabPosition)))
                 {
-                    _ = LoadAvatar();
+                    _ = CallAvatarAPI();
                 }
             }
         }
@@ -820,7 +821,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _favoritesTabPosition, value, nameof(FavoritesTabPosition)))
                 {
-                    _ = LoadAvatar();
+                    _ = CallAvatarAPI();
                 }
             }
         }
@@ -833,7 +834,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _lastsTabPosition, value, nameof(LastsTabPosition)))
                 {
-                    _ = LoadAvatar();
+                    _ = CallAvatarAPI();
                 }
             }
         }
@@ -846,7 +847,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _abilityTabPosition, value, nameof(AbilityTabPosition)))
                 {
-                    _ = LoadAvatar();
+                    _ = CallAvatarAPI();
                 }
             }
         }
@@ -953,12 +954,40 @@ namespace Qwilight.ViewModel
 
         public string AvatarIntro { get; set; }
 
+        [RelayCommand]
+        static void OnAvatarTitle() => ViewModels.Instance.AvatarTitleValue.Open();
+
+        [RelayCommand]
+        static void OnAvatarEdge() => ViewModels.Instance.AvatarEdgeValue.Open();
+
+        public async Task OnAvatarDrawing()
+        {
+            if (IsMe)
+            {
+                var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
+                {
+                    Filters = new[] { ".png" }
+                });
+                if (!string.IsNullOrEmpty(fileName) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
+                {
+                    AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, null, null, true);
+                    TwilightSystem.Instance.NotifyAvatarWwwValue();
+                }
+            }
+        }
+
+        public void NotifyIsMe() => OnPropertyChanged(nameof(IsMe));
+
         public override void OnOpened()
         {
             base.OnOpened();
             UIHandler.Instance.HandleParallel(async () =>
             {
                 IsAvatarLoading = true;
+
+                WwwLevelIDCollection.Clear();
+                OnPropertyChanged(nameof(AvatarViewWwwLevelText));
+
                 var twilightWwwAvatar = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatar?>($"{QwilightComponent.QwilightAPI}/avatar?avatarID={CallingAvatarID}");
                 if (twilightWwwAvatar.HasValue)
                 {
@@ -1065,40 +1094,17 @@ namespace Qwilight.ViewModel
 
                     Array.Copy(twilightWwwAvatarValue.dateValues, DateValues, DateValues.Length);
 
-                    _ = LoadAvatar();
+                    _ = CallAvatarAPI();
                 }
                 else
                 {
                     Close();
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotAvatarViewFault);
                 }
+
                 IsAvatarLoading = false;
             });
         }
-
-        [RelayCommand]
-        static void OnAvatarTitle() => ViewModels.Instance.AvatarTitleValue.Open();
-
-        [RelayCommand]
-        static void OnAvatarEdge() => ViewModels.Instance.AvatarEdgeValue.Open();
-
-        public async Task OnAvatarDrawing()
-        {
-            if (IsMe)
-            {
-                var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
-                {
-                    Filters = new[] { ".png" }
-                });
-                if (!string.IsNullOrEmpty(fileName) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
-                {
-                    AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, null, null, true);
-                    TwilightSystem.Instance.NotifyAvatarWwwValue();
-                }
-            }
-        }
-
-        public void NotifyIsMe() => OnPropertyChanged(nameof(IsMe));
 
         public override void OnCollasped()
         {
