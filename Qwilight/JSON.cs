@@ -732,7 +732,7 @@ namespace Qwilight
 
         public struct TwilightWwwLevel
         {
-            public LevelItem[] levelNote;
+            public LevelNote[] levelNote;
             public int[] stand;
             public double[] point;
             public int[] band;
@@ -755,7 +755,7 @@ namespace Qwilight
             public Title[] titles;
             public string[] edgeIDs;
 
-            public struct LevelItem
+            public struct LevelNote
             {
                 public string noteID;
                 public BaseNoteFile.NoteVariety noteVariety;

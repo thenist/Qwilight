@@ -7,7 +7,7 @@
     Header="{Binding DetailedConfigureText, Source={StaticResource LanguageSystem}}"
     DataContext="{Binding ConfigureValue, Source={StaticResource ViewModels}}"
     Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
-    <ScrollViewer Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+    <ScrollViewer Visibility="{Binding Visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}">
         <StackPanel>
             <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ComponentConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
             <Grid>

@@ -20,8 +20,8 @@
                 <Grid Grid.Row="1">
                     <Grid Visibility="{Binding IsAvatarLoading, Converter={StaticResource VisibilityNotModifier}}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
+                            <ColumnDefinition Width="3*" />
                         </Grid.ColumnDefinitions>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -166,7 +166,7 @@
                                 <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewLevelText}" />
                                 <ProgressBar Grid.Column="1" Style="{StaticResource StandardStatusView}" Value="{Binding AvatarViewLevelValue, Mode=OneWay}" />
                             </Grid>
-                            <TextBox Grid.Row="4" AcceptsReturn="True" Style="{StaticResource StandardTextInput}" VerticalScrollBarVisibility="Auto" Text="{Binding AvatarIntro, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsMe, Converter={StaticResource NotModifier}}" materialDesign:HintAssist.Hint="{Binding AvatarViewIntro, Source={StaticResource LanguageSystem}}" />
+                            <TextBox Grid.Row="3" AcceptsReturn="True" Style="{StaticResource StandardTextInput}" VerticalScrollBarVisibility="Auto" Text="{Binding AvatarIntro, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsMe, Converter={StaticResource NotModifier}}" materialDesign:HintAssist.Hint="{Binding AvatarViewIntro, Source={StaticResource LanguageSystem}}" />
                         </Grid>
                         <TabControl Grid.Column="1" Style="{StaticResource StandardPageView}" SelectedIndex="{Binding AvatarTabPosition}">
                             <TabControl.Resources>
@@ -319,7 +319,7 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding AvatarViewLevelVSText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsLevelVSVisible, Converter={StaticResource VisibilityModifier}}">
-                                <Grid Visibility="{Binding IsLevelVSVisible, Converter={StaticResource VisibilityModifier}}">
+                                <Grid Visibility="{Binding Visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="AUto" />
                                         <RowDefinition />
