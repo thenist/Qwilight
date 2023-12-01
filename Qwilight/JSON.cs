@@ -314,19 +314,13 @@ namespace Qwilight
             public TwilightSiteYellItem[] data;
         }
 
-        public class TwilightCallSiteNet
+        public class TwilightCallSiteNet : Computing
         {
             public string bundleEntryPath;
             public string[] noteIDs;
             public string bundleName;
             public string siteID;
-            public string noteID;
-            public string title;
-            public string artist;
-            public string levelText;
-            public BaseNoteFile.Level level;
             public string wantLevelID;
-            public string genre;
             public double judgmentStage;
             public double hitPointsValue;
             public int totalNotes;
@@ -730,9 +724,20 @@ namespace Qwilight
             public double avatars;
         }
 
+        public class Computing
+        {
+            public BaseNoteFile.NoteVariety noteVariety;
+            public string noteID;
+            public string artist;
+            public string title;
+            public string genre;
+            public string levelText;
+            public BaseNoteFile.Level level;
+        }
+
         public struct TwilightWwwLevel
         {
-            public LevelNote[] levelNote;
+            public Computing[] levelNote;
             public int[] stand;
             public double[] point;
             public int[] band;
@@ -754,17 +759,6 @@ namespace Qwilight
             public bool allowPause;
             public Title[] titles;
             public string[] edgeIDs;
-
-            public struct LevelNote
-            {
-                public string noteID;
-                public BaseNoteFile.NoteVariety noteVariety;
-                public string artist;
-                public string title;
-                public string genre;
-                public string levelText;
-                public BaseNoteFile.Level level;
-            }
 
             public struct Title
             {
@@ -807,49 +801,23 @@ namespace Qwilight
             public int[] dateValues;
             public int[] quitStatusValues;
 
-            public struct WwwLevel
+            public sealed class WwwLevel : Computing
             {
-                public string levelID;
-                public string title;
-                public string comment;
-                public string levelText;
-                public BaseNoteFile.Level level;
                 public long date;
             }
 
-            public struct Last
+            public sealed class Last : Computing
             {
-                public string noteID;
-                public BaseNoteFile.NoteVariety noteVariety;
-                public string artist;
-                public string title;
-                public string genre;
-                public string levelText;
-                public BaseNoteFile.Level level;
                 public long date;
             }
 
-            public struct Favorite
+            public sealed class Favorite : Computing
             {
-                public string noteID;
-                public BaseNoteFile.NoteVariety noteVariety;
-                public string artist;
-                public string title;
-                public string genre;
-                public string levelText;
-                public BaseNoteFile.Level level;
                 public int totalCount;
             }
 
-            public struct AvatarAbility
+            public sealed class AvatarAbility : Computing
             {
-                public string noteID;
-                public BaseNoteFile.NoteVariety noteVariety;
-                public string artist;
-                public string title;
-                public string genre;
-                public string levelText;
-                public BaseNoteFile.Level level;
                 public int stand;
                 public double ability;
             }
@@ -872,49 +840,25 @@ namespace Qwilight
             public LevelVSItem[] avatarLevelVSItems;
             public LevelVSItem[] targetLevelVSItems;
 
-            public struct LevelVSItem
+            public sealed class LevelVSItem : Computing
             {
-                public string noteID;
-                public string artist;
-                public string title;
-                public string genre;
-                public string levelText;
-                public BaseNoteFile.Level level;
                 public int stand;
                 public int levelVSStand;
             }
         }
 
-        public struct TwilightWwwAvatarLast
+        public sealed class TwilightWwwAvatarLast : Computing
         {
-            public string noteID;
-            public string artist;
-            public string title;
-            public string genre;
-            public string levelText;
-            public BaseNoteFile.Level level;
             public long date;
         }
 
-        public struct TwilightWwwAvatarFavorite
+        public sealed class TwilightWwwAvatarFavorite : Computing
         {
-            public string noteID;
-            public string artist;
-            public string title;
-            public string genre;
-            public string levelText;
-            public BaseNoteFile.Level level;
             public int totalCount;
         }
 
-        public struct TwilightWwwAvatarAbility
+        public sealed class TwilightWwwAvatarAbility : Computing
         {
-            public string noteID;
-            public string artist;
-            public string title;
-            public string genre;
-            public string levelText;
-            public BaseNoteFile.Level level;
             public int stand;
             public double ability;
         }

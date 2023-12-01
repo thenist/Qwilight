@@ -46,7 +46,7 @@
         <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" x:Name="EntryItemsView" SelectedItem="{Binding EntryItemValue}" SelectedIndex="{Binding EntryItemPosition}" ItemsSource="{Binding EntryItems}" PreviewKeyDown="OnEntryViewInputLower">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid MaxHeight="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" MouseDown="OnLevyNoteFile" PreviewMouseDown="OnEntryViewPointLower" Background="Transparent">
+                    <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" MouseDown="OnLevyNoteFile" PreviewMouseDown="OnEntryViewPointLower" Background="Transparent">
                         <Grid Visibility="{Binding NoteFile.IsAltDrawing, Converter={StaticResource VisibilityNotModifier}}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -55,9 +55,9 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Border Style="{StaticResource StandardPanelSquareMargin0}" BorderBrush="{Binding NoteFile.LevelPaint}" BorderThickness="0 0 1 0">
-                                <Image Source="{Binding NoteFile.NoteDrawing}" MaxWidth="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" MaxHeight="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                <Image Source="{Binding NoteFile.NoteDrawing}" Width="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
                             </Border>
-                            <Image Grid.Column="1" Source="{Binding NoteFile.HandledWallDrawing}" Width="{Binding HandledWallLength, Source={StaticResource BaseUI}}" MaxHeight="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                            <Image Grid.Column="1" Source="{Binding NoteFile.HandledWallDrawing}" Width="{Binding HandledWallLength, Source={StaticResource BaseUI}}" Stretch="Fill" />
                             <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                 <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding NoteFile.LevelText}" Foreground="{Binding NoteFile.LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" HorizontalAlignment="Left" />
                                 <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding PositionText}" FontSize="{Binding EntryItemPositionFontLevel, Source={StaticResource BaseUI}}" HorizontalAlignment="Center" />
@@ -75,7 +75,7 @@
                                         <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.GenreText}" Foreground="{StaticResource GenrePaint}" FontSize="{Binding GenreFontLevel, Source={StaticResource BaseUI}}" />
                                     </StackPanel>
                                 </StackPanel>
-                                <Image Source="{Binding NoteFile.BannerDrawing}" Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Visibility="{Binding NoteFile.BannerDrawing, Converter={StaticResource VisibilityModifier}}" HorizontalAlignment="Right">
+                                <Image Source="{Binding NoteFile.BannerDrawing}" Visibility="{Binding NoteFile.BannerDrawing, Converter={StaticResource VisibilityModifier}}" HorizontalAlignment="Right">
                                     <Image.OpacityMask>
                                         <LinearGradientBrush StartPoint="0.0,0.0" EndPoint="1.0,0.0">
                                             <LinearGradientBrush.GradientStops>

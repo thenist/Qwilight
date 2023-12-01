@@ -171,60 +171,84 @@
                         <TabControl Grid.Column="1" Style="{StaticResource StandardPageView}" SelectedIndex="{Binding AvatarTabPosition}">
                             <TabControl.Resources>
                                 <DataTemplate x:Key="ComputingView">
-                                    <StackPanel VerticalAlignment="Center" Margin="{StaticResource StandardMargin}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{StaticResource FontLevel1}" />
-                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" FontSize="{StaticResource FontLevel1}" />
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding AvatarValue}" Foreground="{StaticResource FittedTextPaint}" />
-                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Artist}" Foreground="{StaticResource ArtistPaint}" />
-                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding GenreText}" Foreground="{StaticResource GenrePaint}" />
-                                        </StackPanel>
-                                    </StackPanel>
+                                    <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Style="{StaticResource StandardPanelSquareMargin0}" BorderBrush="{Binding LevelPaint}" BorderThickness="0 0 1 0" Visibility="{Binding HaveIt, Converter={StaticResource VisibilityModifier}}">
+                                            <Image Source="{Binding NoteDrawing}" Width="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                        </Border>
+                                        <Image Grid.Column="1" Source="{Binding HandledWallDrawing}" Width="{Binding HandledWallLength, Source={StaticResource BaseUI}}" Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" Visibility="{Binding HaveIt, Converter={StaticResource VisibilityModifier}}" />
+                                        <Grid Grid.Column="2">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" HorizontalAlignment="Left" />
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" FontSize="{Binding WantLevelIDFontLevel, Source={StaticResource BaseUI}}" />
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding FittedText}" Foreground="{StaticResource FittedTextPaint}" FontSize="{Binding FittedTextFontLevel, Source={StaticResource BaseUI}}" />
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding GenreText}" Foreground="{StaticResource GenrePaint}" FontSize="{Binding GenreFontLevel, Source={StaticResource BaseUI}}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <Image Source="{Binding BannerDrawing}" Visibility="{Binding BannerDrawing, Converter={StaticResource VisibilityModifier}}" HorizontalAlignment="Right">
+                                                <Image.OpacityMask>
+                                                    <LinearGradientBrush StartPoint="0.0,0.0" EndPoint="1.0,0.0">
+                                                        <LinearGradientBrush.GradientStops>
+                                                            <GradientStop Offset="0" Color="Transparent" />
+                                                            <GradientStop Offset="1" Color="Black" />
+                                                        </LinearGradientBrush.GradientStops>
+                                                    </LinearGradientBrush>
+                                                </Image.OpacityMask>
+                                            </Image>
+                                        </Grid>
+                                    </Grid>
                                 </DataTemplate>
                             </TabControl.Resources>
                             <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding AvatarViewFavoritesContents, Source={StaticResource LanguageSystem}}">
                                 <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Left" SelectedIndex="{Binding FavoritesTabPosition}">
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="⑤K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Favorites5KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites5KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Favorites5KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites5KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarFavorites5KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="⑦K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Favorites7KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites7KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Favorites7KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites7KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarFavorites7KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="9K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Favorites9KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites9KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Favorites9KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites9KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarFavorites9KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="⑩K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Favorites10KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites10KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Favorites10KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites10KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarFavorites10KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="⑭K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Favorites14KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites14KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Favorites14KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites14KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarFavorites14KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="24">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Favorites24KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites24KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Favorites24KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites24KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarFavorites24KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="48">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Favorites48KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites48KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Favorites48KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarFavorites48KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarFavorites48KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
@@ -234,43 +258,43 @@
                                 <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Left" SelectedIndex="{Binding LastsTabPosition}">
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="⑤K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Lasts5KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts5KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Lasts5KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts5KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarLasts5KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="⑦K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Lasts7KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts7KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Lasts7KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts7KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarLasts7KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="9K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Lasts9KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts9KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Lasts9KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts9KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarLasts9KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="⑩K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Lasts10KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts10KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Lasts10KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts10KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarLasts10KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="⑭K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Lasts14KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts14KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Lasts14KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts14KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarLasts14KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="24">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Lasts24KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts24KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Lasts24KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts24KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarLasts24KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="48">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Lasts48KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts48KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Lasts48KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarLasts48KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarLasts48KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
@@ -280,19 +304,19 @@
                                 <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Left" SelectedIndex="{Binding AbilityTabPosition}">
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="⑤K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Ability5KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarAbility5KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Ability5KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarAbility5KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarAbility5KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="⑦K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Ability7KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarAbility7KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Ability7KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarAbility7KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarAbility7KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Style="{StaticResource StandardPageItem}" Header="9K">
                                         <Grid>
-                                            <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding Ability9KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarAbility9KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                            <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding Ability9KAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" Visibility="{Binding IsAvatarAbility9KLoading, Converter={StaticResource VisibilityNotModifier}}" />
                                             <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarAbility9KLoading, Converter={StaticResource VisibilityModifier}}" />
                                         </Grid>
                                     </TabItem>
@@ -303,13 +327,13 @@
                                     <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding WwwLevelIDCollection}" Visibility="{Binding IsAvatarWwwLevelLoading, Converter={StaticResource VisibilityNotModifier}}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Margin="{StaticResource StandardMargin}">
+                                                <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}">
                                                     <StackPanel VerticalAlignment="Center">
                                                         <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{StaticResource FontLevel1}" />
-                                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" FontSize="{StaticResource FontLevel1}" />
+                                                            <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" HorizontalAlignment="Left" />
+                                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
                                                         </StackPanel>
-                                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Date}" Foreground="{StaticResource FittedTextPaint}" />
+                                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Date}" Foreground="{StaticResource FittedTextPaint}" FontSize="{Binding FittedTextLevel, Source={StaticResource BaseUI}}" />
                                                     </StackPanel>
                                                 </Grid>
                                             </DataTemplate>
@@ -321,7 +345,7 @@
                             <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding AvatarViewLevelVSText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsLevelVSVisible, Converter={StaticResource VisibilityModifier}}">
                                 <Grid Visibility="{Binding Visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="AUto" />
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding LevelNameCollection}" SelectedItem="{Binding LevelVSLevelName}">
@@ -333,9 +357,9 @@
                                     </ComboBox>
                                     <Grid Grid.Row="1" Visibility="{Binding IsLevelVSLoading, Converter={StaticResource VisibilityNotModifier}}">
                                         <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
                                             <ColumnDefinition />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="2*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid>
                                             <Grid.RowDefinitions>
@@ -357,7 +381,7 @@
                                                     <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding AvatarLevelVSCountText}" />
                                                 </Grid>
                                             </Grid>
-                                            <ListView Grid.Row="1" Style="{StaticResource NoteFilesView}" ItemsSource="{Binding LevelVSMyAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
+                                            <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding LevelVSMyAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
                                         </Grid>
                                         <Grid Grid.Column="1">
                                             <Grid.RowDefinitions>
@@ -399,7 +423,7 @@
                                                     <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding TargetLevelVSCountText}" />
                                                 </Grid>
                                             </Grid>
-                                            <ListView Grid.Row="1" Style="{StaticResource NoteFilesView}" ItemsSource="{Binding LevelVSTargetAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
+                                            <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding LevelVSTargetAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
                                         </Grid>
                                     </Grid>
                                     <ProgressBar Grid.Row="1" Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsLevelVSLoading, Converter={StaticResource VisibilityModifier}}" />

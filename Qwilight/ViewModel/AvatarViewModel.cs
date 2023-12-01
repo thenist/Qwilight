@@ -12,9 +12,9 @@ namespace Qwilight.ViewModel
 {
     public sealed partial class AvatarViewModel : BaseViewModel
     {
-        public sealed class AvatarComputing : Computing
+        public sealed class AvatarComputing : BaseNoteFile
         {
-            public override BaseNoteFile.NoteVariety NoteVarietyValue => default;
+            public override BaseNoteFile.NoteVariety NoteVarietyValue { get; }
 
             public override void OnCompiled()
             {
@@ -24,7 +24,35 @@ namespace Qwilight.ViewModel
             {
             }
 
-            public string AvatarValue { get; set; }
+            public new string FittedText { get; init; }
+
+            public bool HaveIt { get; }
+
+            public AvatarComputing(JSON.Computing data) : base(null, null, null)
+            {
+                HaveIt = ViewModels.Instance.MainValue.NoteID512s.TryGetValue(data.noteID, out var noteFile);
+                if (HaveIt)
+                {
+                    NoteVarietyValue = noteFile.NoteVarietyValue;
+                    Title = noteFile.Title;
+                    Artist = noteFile.Artist;
+                    Genre = noteFile.Genre;
+                    LevelValue = noteFile.LevelValue;
+                    LevelText = noteFile.LevelText;
+                    NoteDrawingPath = noteFile.NoteDrawingPath;
+                    HandledValue = noteFile.HandledValue;
+                    BannerDrawingPath = noteFile.BannerDrawingPath;
+                }
+                else
+                {
+                    NoteVarietyValue = data.noteVariety;
+                    Title = data.title;
+                    Artist = data.artist;
+                    Genre = data.genre;
+                    LevelValue = data.level;
+                    LevelText = data.levelText;
+                }
+            }
         }
 
         public ObservableCollection<AvatarComputing> Favorites5KAvatarComputingCollection { get; } = new();
@@ -103,26 +131,16 @@ namespace Qwilight.ViewModel
                         var twilightWwwAvatarLevelVS = _twilightWwwAvatarLevelVSMap[value.LevelID];
                         foreach (var data in twilightWwwAvatarLevelVS.avatarLevelVSItems)
                         {
-                            LevelVSMyAvatarComputingCollection.Add(new()
+                            LevelVSMyAvatarComputingCollection.Add(new(data)
                             {
-                                Title = data.title,
-                                Artist = data.artist,
-                                Genre = data.genre,
-                                LevelValue = data.level,
-                                LevelText = data.levelText,
-                                AvatarValue = string.Format(LanguageSystem.Instance.LevelVSStandContents, data.stand.ToString("#,##0"), data.levelVSStand.ToString("+#,##0;-#,##0"))
+                                FittedText = string.Format(LanguageSystem.Instance.LevelVSStandContents, data.stand.ToString("#,##0"), data.levelVSStand.ToString("+#,##0;-#,##0"))
                             });
                         }
                         foreach (var data in twilightWwwAvatarLevelVS.targetLevelVSItems)
                         {
-                            LevelVSTargetAvatarComputingCollection.Add(new()
+                            LevelVSTargetAvatarComputingCollection.Add(new(data)
                             {
-                                Title = data.title,
-                                Artist = data.artist,
-                                Genre = data.genre,
-                                LevelValue = data.level,
-                                LevelText = data.levelText,
-                                AvatarValue = string.Format(LanguageSystem.Instance.LevelVSStandContents, data.stand.ToString("#,##0"), data.levelVSStand.ToString("+#,##0;-#,##0"))
+                                FittedText = string.Format(LanguageSystem.Instance.LevelVSStandContents, data.stand.ToString("#,##0"), data.levelVSStand.ToString("+#,##0;-#,##0"))
                             });
                         }
                     }
@@ -385,14 +403,14 @@ namespace Qwilight.ViewModel
                                 Favorites5KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites5KAvatarComputingCollection.Add(new()
+                                    Favorites5KAvatarComputingCollection.Add(new(data)
                                     {
                                         Title = data.title,
                                         Artist = data.artist,
                                         Genre = data.genre,
                                         LevelValue = data.level,
                                         LevelText = data.levelText,
-                                        AvatarValue = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
+                                        FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
                                 }
                             }
@@ -406,14 +424,9 @@ namespace Qwilight.ViewModel
                                 Favorites7KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites7KAvatarComputingCollection.Add(new()
+                                    Favorites7KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
+                                        FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
                                 }
                             }
@@ -427,14 +440,9 @@ namespace Qwilight.ViewModel
                                 Favorites9KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites9KAvatarComputingCollection.Add(new()
+                                    Favorites9KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
+                                        FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
                                 }
                             }
@@ -448,14 +456,9 @@ namespace Qwilight.ViewModel
                                 Favorites10KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites10KAvatarComputingCollection.Add(new()
+                                    Favorites10KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
+                                        FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
                                 }
                             }
@@ -469,14 +472,9 @@ namespace Qwilight.ViewModel
                                 Favorites14KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites14KAvatarComputingCollection.Add(new()
+                                    Favorites14KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
+                                        FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
                                 }
                             }
@@ -490,14 +488,9 @@ namespace Qwilight.ViewModel
                                 Favorites24KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites24KAvatarComputingCollection.Add(new()
+                                    Favorites24KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
+                                        FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
                                 }
                             }
@@ -511,14 +504,9 @@ namespace Qwilight.ViewModel
                                 Favorites48KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites48KAvatarComputingCollection.Add(new()
+                                    Favorites48KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
+                                        FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
                                 }
                             }
@@ -537,14 +525,9 @@ namespace Qwilight.ViewModel
                                 Lasts5KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts5KAvatarComputingCollection.Add(new()
+                                    Lasts5KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
+                                        FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
                                 }
                             }
@@ -558,14 +541,9 @@ namespace Qwilight.ViewModel
                                 Lasts7KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts7KAvatarComputingCollection.Add(new()
+                                    Lasts7KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
+                                        FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
                                 }
                             }
@@ -579,14 +557,9 @@ namespace Qwilight.ViewModel
                                 Lasts9KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts9KAvatarComputingCollection.Add(new()
+                                    Lasts9KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
+                                        FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
                                 }
                             }
@@ -600,14 +573,9 @@ namespace Qwilight.ViewModel
                                 Lasts10KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts10KAvatarComputingCollection.Add(new()
+                                    Lasts10KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
+                                        FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
                                 }
                             }
@@ -621,14 +589,9 @@ namespace Qwilight.ViewModel
                                 Lasts14KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts14KAvatarComputingCollection.Add(new()
+                                    Lasts14KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
+                                        FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
                                 }
                             }
@@ -642,14 +605,9 @@ namespace Qwilight.ViewModel
                                 Lasts24KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts24KAvatarComputingCollection.Add(new()
+                                    Lasts24KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
+                                        FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
                                 }
                             }
@@ -663,14 +621,9 @@ namespace Qwilight.ViewModel
                                 Lasts48KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts48KAvatarComputingCollection.Add(new()
+                                    Lasts48KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
+                                        FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
                                 }
                             }
@@ -689,14 +642,9 @@ namespace Qwilight.ViewModel
                                 Ability5KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarAbility)
                                 {
-                                    Ability5KAvatarComputingCollection.Add(new()
+                                    Ability5KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
+                                        FittedText = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
                                     });
                                 }
                             }
@@ -710,14 +658,9 @@ namespace Qwilight.ViewModel
                                 Ability7KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarAbility)
                                 {
-                                    Ability7KAvatarComputingCollection.Add(new()
+                                    Ability7KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
+                                        FittedText = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
                                     });
                                 }
                             }
@@ -731,14 +674,9 @@ namespace Qwilight.ViewModel
                                 Ability9KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarAbility)
                                 {
-                                    Ability9KAvatarComputingCollection.Add(new()
+                                    Ability9KAvatarComputingCollection.Add(new(data)
                                     {
-                                        Title = data.title,
-                                        Artist = data.artist,
-                                        Genre = data.genre,
-                                        LevelValue = data.level,
-                                        LevelText = data.levelText,
-                                        AvatarValue = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
+                                        FittedText = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
                                     });
                                 }
                             }

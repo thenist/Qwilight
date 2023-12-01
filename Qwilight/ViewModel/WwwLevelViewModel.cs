@@ -12,9 +12,9 @@ namespace Qwilight.ViewModel
 {
     public sealed partial class WwwLevelViewModel : BaseViewModel
     {
-        public sealed class WwwLevelComputing : Computing
+        public sealed class WwwLevelComputing : BaseNoteFile
         {
-            public override BaseNoteFile.NoteVariety NoteVarietyValue => default;
+            public override BaseNoteFile.NoteVariety NoteVarietyValue { get; }
 
             public override void OnCompiled()
             {
@@ -24,9 +24,46 @@ namespace Qwilight.ViewModel
             {
             }
 
-            public string NoteID { get; init; }
+            public string NoteID { get; }
 
-            public bool NotHaveIt { get; init; }
+            public bool HaveIt { get; }
+
+            public WwwLevelComputing(JSON.Computing data) : base(null, null, null)
+            {
+                NoteID = data.noteID;
+                HaveIt = ViewModels.Instance.MainValue.NoteID512s.TryGetValue(NoteID, out var noteFile);
+                if (HaveIt)
+                {
+                    NoteVarietyValue = noteFile.NoteVarietyValue;
+                    Title = noteFile.Title;
+                    Artist = noteFile.Artist;
+                    Genre = noteFile.Genre;
+                    LevelValue = noteFile.LevelValue;
+                    LevelText = noteFile.LevelText;
+                    NoteDrawingPath = noteFile.NoteDrawingPath;
+                    HandledValue = noteFile.HandledValue;
+                    BannerDrawingPath = noteFile.BannerDrawingPath;
+                }
+                else
+                {
+                    NoteVarietyValue = data.noteVariety;
+                    if (NoteVarietyValue == BaseNoteFile.NoteVariety.EventNote)
+                    {
+                        Title = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                        Artist = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                        Genre = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                        LevelText = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                    }
+                    else
+                    {
+                        Title = data.title;
+                        Artist = data.artist;
+                        Genre = data.genre;
+                        LevelValue = data.level;
+                        LevelText = data.levelText;
+                    }
+                }
+            }
         }
 
         [RelayCommand]
@@ -358,29 +395,9 @@ namespace Qwilight.ViewModel
                             var toModifyModeComponentViewModel = ViewModels.Instance.ModifyModeComponentValue;
 
                             WwwLevelComputingCollection.Clear();
-                            foreach (var levelNote in twilightWwwLevelValue.levelNote)
+                            foreach (var data in twilightWwwLevelValue.levelNote)
                             {
-                                var title = levelNote.title;
-                                var artist = levelNote.artist;
-                                var levelText = levelNote.levelText;
-                                var genre = levelNote.genre;
-                                if (levelNote.noteVariety == BaseNoteFile.NoteVariety.EventNote)
-                                {
-                                    title = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                                    artist = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                                    levelText = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                                    genre = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                                }
-                                WwwLevelComputingCollection.Add(new WwwLevelComputing
-                                {
-                                    NoteID = levelNote.noteID,
-                                    Title = title,
-                                    Artist = artist,
-                                    Genre = genre,
-                                    LevelValue = levelNote.level,
-                                    LevelText = levelText,
-                                    NotHaveIt = !ViewModels.Instance.MainValue.NoteID512s.ContainsKey(levelNote.noteID)
-                                });
+                                WwwLevelComputingCollection.Add(new(data));
                             }
 
                             AutoModes.Clear();
@@ -693,7 +710,7 @@ namespace Qwilight.ViewModel
 
             set
             {
-                if (SetProperty(ref _wwwLevelAvatarValue, value, nameof(WwwLevelAvatar)))
+                if (SetProperty(ref _wwwLevelAvatarValue, value, nameof(WwwLevelAvatarValue)))
                 {
                     _ = Awaitable();
                     async Task Awaitable()

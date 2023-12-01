@@ -85,25 +85,42 @@
                                             <StackPanel Visibility="{Binding IsLevelItemLoading, Converter={StaticResource VisibilityNotModifier}}">
                                                 <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Title}" />
                                                 <TextBlock Style="{StaticResource LFTextView}" Text="{Binding Comment}" />
-                                                <ListView Style="{StaticResource NoteFilesView}" ItemsSource="{Binding WwwLevelComputingCollection}">
+                                                <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding WwwLevelComputingCollection}">
                                                     <ListView.ItemTemplate>
                                                         <DataTemplate>
                                                             <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}">
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="Auto" />
+                                                                    <ColumnDefinition Width="Auto" />
                                                                     <ColumnDefinition />
                                                                 </Grid.ColumnDefinitions>
-                                                                <TextBlock Style="{StaticResource StandardTextView}" Text="❌" Foreground="Red" Visibility="{Binding NotHaveIt, Converter={StaticResource VisibilityModifier}}" />
-                                                                <StackPanel Grid.Column="1"  VerticalAlignment="Center">
-                                                                    <StackPanel Orientation="Horizontal">
-                                                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" />
-                                                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
+                                                                <Border Style="{StaticResource StandardPanelSquareMargin0}" BorderBrush="{Binding LevelPaint}" BorderThickness="0 0 1 0" Visibility="{Binding HaveIt, Converter={StaticResource VisibilityModifier}}">
+                                                                    <Image Source="{Binding NoteDrawing}" Width="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                                                </Border>
+                                                                <Image Grid.Column="1" Source="{Binding HandledWallDrawing}" Width="{Binding HandledWallLength, Source={StaticResource BaseUI}}" Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill"  Visibility="{Binding HaveIt, Converter={StaticResource VisibilityModifier}}" />
+                                                                <Grid Grid.Column="2">
+                                                                    <StackPanel VerticalAlignment="Center">
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" HorizontalAlignment="Left" />
+                                                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" FontSize="{Binding WantLevelIDFontLevel, Source={StaticResource BaseUI}}" />
+                                                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
+                                                                        </StackPanel>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
+                                                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding GenreText}" Foreground="{StaticResource GenrePaint}" FontSize="{Binding GenreFontLevel, Source={StaticResource BaseUI}}" />
+                                                                        </StackPanel>
                                                                     </StackPanel>
-                                                                    <StackPanel Orientation="Horizontal">
-                                                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
-                                                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding GenreText}" Foreground="{StaticResource GenrePaint}" FontSize="{Binding GenreFontLevel, Source={StaticResource BaseUI}}" />
-                                                                    </StackPanel>
-                                                                </StackPanel>
+                                                                    <Image Source="{Binding BannerDrawing}" Visibility="{Binding BannerDrawing, Converter={StaticResource VisibilityModifier}}" HorizontalAlignment="Right">
+                                                                        <Image.OpacityMask>
+                                                                            <LinearGradientBrush StartPoint="0.0,0.0" EndPoint="1.0,0.0">
+                                                                                <LinearGradientBrush.GradientStops>
+                                                                                    <GradientStop Offset="0" Color="Transparent" />
+                                                                                    <GradientStop Offset="1" Color="Black" />
+                                                                                </LinearGradientBrush.GradientStops>
+                                                                            </LinearGradientBrush>
+                                                                        </Image.OpacityMask>
+                                                                    </Image>
+                                                                </Grid>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListView.ItemTemplate>
