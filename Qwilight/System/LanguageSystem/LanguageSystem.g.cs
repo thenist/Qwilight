@@ -86,6 +86,7 @@ namespace Qwilight
         public string AvatarCipher { get; set; }
         public string AvatarCipherTest { get; set; }
         public string AvatarCountContents { get; set; }
+        public string AvatarDrawingText { get; set; }
         public string AvatarEdgeText { get; set; }
         public string AvatarID { get; set; }
         public string AvatarName { get; set; }

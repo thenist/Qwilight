@@ -335,6 +335,10 @@
     "ko-KR": "#,##0 명",
     "en-US": "#,##0 people"
   },
+  "AvatarDrawingText": {
+    "ko-KR": "프로필 이미지 선택",
+    "en-US": "Select Profile Image"
+  },
   "AvatarEdgeText": {
     "ko-KR": "프레임 선택",
     "en-US": "Select Frame"

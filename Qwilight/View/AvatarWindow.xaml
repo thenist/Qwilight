@@ -39,11 +39,12 @@
                                     <view:AvatarDrawingView PreviewMouseDown="OnViewItems" Width="144" Height="144" AvatarWwwValue="{Binding AvatarWwwValue}" HorizontalAlignment="Left">
                                         <view:AvatarDrawingView.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem Header="{Binding AvatarWwwValue.AvatarTitleValue.Title}" Foreground="{Binding AvatarWwwValue.AvatarTitleValue.TitlePaint}" Command="{Binding AvatarTitleCommand}" IsEnabled="{Binding IsMe}" />
+                                                <MenuItem Header="{Binding AvatarDrawingText, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarDrawingCommand}" IsEnabled="{Binding IsMe}" />
                                                 <MenuItem Header="{Binding AvatarEdgeText, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarEdgeCommand}" IsEnabled="{Binding IsMe}" />
                                             </ContextMenu>
                                         </view:AvatarDrawingView.ContextMenu>
                                     </view:AvatarDrawingView>
+                                    <Button Style="{StaticResource StandardInput}" Content="{Binding AvatarWwwValue.AvatarTitleValue.Title}" Foreground="{Binding AvatarWwwValue.AvatarTitleValue.TitlePaint}" Command="{Binding AvatarTitleCommand}" IsEnabled="{Binding IsMe}" HorizontalAlignment="Left" />
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewText}" HorizontalAlignment="Left" />
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewTotalCountText}" HorizontalAlignment="Left" />
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewTotalLengthText}" HorizontalAlignment="Left" />

@@ -901,19 +901,17 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         static void OnAvatarEdge() => ViewModels.Instance.AvatarEdgeValue.Open();
 
-        public async Task OnAvatarDrawing()
+        [RelayCommand]
+        async Task OnAvatarDrawing()
         {
-            if (IsMe)
+            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
-                var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
-                {
-                    Filters = new[] { ".png" }
-                });
-                if (!string.IsNullOrEmpty(fileName) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
-                {
-                    AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, null, null, true);
-                    TwilightSystem.Instance.NotifyAvatarWwwValue();
-                }
+                Filters = new[] { ".png" }
+            });
+            if (!string.IsNullOrEmpty(fileName) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
+            {
+                AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, null, null, true);
+                TwilightSystem.Instance.NotifyAvatarWwwValue();
             }
         }
 
