@@ -223,6 +223,7 @@ namespace Qwilight.ViewModel
         double _totalLength;
         int _highestCount;
         DateTime _date;
+        int _wwwLevelIDCount;
         int _avatarTabPosition;
         int _abilityTabPosition;
         int _favoritesTabPosition;
@@ -700,7 +701,6 @@ namespace Qwilight.ViewModel
                                 Date = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                             });
                         }
-                        OnPropertyChanged(nameof(AvatarViewWwwLevelText));
                     }
                     IsAvatarWwwLevelLoading = false;
                     break;
@@ -888,7 +888,7 @@ namespace Qwilight.ViewModel
 
         public double AvatarViewLevelValue => _avatarLevels[2] > 0 ? 100.0 * _avatarLevels[1] / _avatarLevels[2] : 0.0;
 
-        public string AvatarViewWwwLevelText => string.Format(LanguageSystem.Instance.AvatarViewWwwLevelText, WwwLevelIDCollection.Count);
+        public string AvatarViewWwwLevelText => string.Format(LanguageSystem.Instance.AvatarViewWwwLevelText, _wwwLevelIDCount);
 
         public string AvatarIntro { get; set; }
 
@@ -922,9 +922,6 @@ namespace Qwilight.ViewModel
             UIHandler.Instance.HandleParallel(async () =>
             {
                 IsAvatarLoading = true;
-
-                WwwLevelIDCollection.Clear();
-                OnPropertyChanged(nameof(AvatarViewWwwLevelText));
 
                 var twilightWwwAvatar = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatar?>($"{QwilightComponent.QwilightAPI}/avatar?avatarID={CallingAvatarID}");
                 if (twilightWwwAvatar.HasValue)
@@ -1022,8 +1019,6 @@ namespace Qwilight.ViewModel
                     _avatarAbility9K = twilightWwwAvatarValue.avatarAbility9K;
                     OnPropertyChanged(nameof(AvatarViewAbility9KText));
 
-                    Utility.SetUICollection(LevelNameCollection, twilightWwwAvatarValue.levelNames);
-
                     for (var i = twilightWwwAvatarValue.quitStatusValues.Length - 1; i >= 0; --i)
                     {
                         QuitStatusTexts[i] = twilightWwwAvatarValue.quitStatusValues[i].ToString(LanguageSystem.Instance.CountContents);
@@ -1031,6 +1026,11 @@ namespace Qwilight.ViewModel
                     OnPropertyChanged(nameof(QuitStatusTexts));
 
                     Array.Copy(twilightWwwAvatarValue.dateValues, DateValues, DateValues.Length);
+
+                    _wwwLevelIDCount = twilightWwwAvatarValue.wwwLevelIDCount;
+                    OnPropertyChanged(nameof(AvatarViewWwwLevelText));
+
+                    Utility.SetUICollection(LevelNameCollection, twilightWwwAvatarValue.levelNames);
 
                     _ = CallAvatarAPI();
                 }

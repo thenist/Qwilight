@@ -791,36 +791,10 @@ namespace Qwilight
             public int avatarAbility9KPlace;
             public int avatarAbility9KCount;
             public string[] levelNames;
-            public WwwLevel[] wwwLevels;
-            public Last[] lasts;
-            public AvatarAbility[] abilities5K;
-            public AvatarAbility[] abilities7K;
-            public AvatarAbility[] abilities9K;
-            public Favorite[] favorites;
+            public int wwwLevelIDCount;
             public long[] dateSet;
             public int[] dateValues;
             public int[] quitStatusValues;
-
-            public sealed class WwwLevel : Computing
-            {
-                public long date;
-            }
-
-            public sealed class Last : Computing
-            {
-                public long date;
-            }
-
-            public sealed class Favorite : Computing
-            {
-                public int totalCount;
-            }
-
-            public sealed class AvatarAbility : Computing
-            {
-                public int stand;
-                public double ability;
-            }
         }
 
         public struct TwilightWwwAvatarWwwLevel

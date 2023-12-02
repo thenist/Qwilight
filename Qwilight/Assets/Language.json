@@ -368,8 +368,8 @@
     "en-US": "Last access date: {0}"
   },
   "AvatarViewFavoritesContents": {
-    "ko-KR": "가장 많이 플레이 TOP 10",
-    "en-US": "Top 10 most played"
+    "ko-KR": "가장 많이 플레이 TOP 50",
+    "en-US": "Top 50 most played"
   },
   "AvatarViewHighestCountText": {
     "ko-KR": "기록 개수: {0} 회",
@@ -380,8 +380,8 @@
     "en-US": "Introduce yourself"
   },
   "AvatarViewLastsContents": {
-    "ko-KR": "마지막 플레이 TOP 10",
-    "en-US": "Recently played 10"
+    "ko-KR": "마지막 플레이 TOP 50",
+    "en-US": "Recently played 50"
   },
   "AvatarViewLevelVSText": {
     "ko-KR": "비교 (Beta)",
