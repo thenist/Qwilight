@@ -183,20 +183,6 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _isLevelVSLoading, value, nameof(IsLevelVSLoading));
         }
 
-        public string AvatarLevelVSCountText
-        {
-            get => _avatarLevelVSCountText;
-
-            set => SetProperty(ref _avatarLevelVSCountText, value, nameof(AvatarLevelVSCountText));
-        }
-
-        public string TargetLevelVSCountText
-        {
-            get => _targetLevelVSCountText;
-
-            set => SetProperty(ref _targetLevelVSCountText, value, nameof(TargetLevelVSCountText));
-        }
-
         public override double TargetHeight => 0.9;
 
         public override VerticalAlignment HeightSystem => VerticalAlignment.Top;
@@ -251,8 +237,6 @@ namespace Qwilight.ViewModel
         string _levelVSMyAvatarName;
         AvatarWww _levelVSTargetAvatarWww;
         string _levelVSTargetAvatarName;
-        string _avatarLevelVSCountText;
-        string _targetLevelVSCountText;
         LevelVSLevelIDItem _levelVSLevelIDItem;
         bool _isLevelVSLoading;
 
@@ -729,12 +713,6 @@ namespace Qwilight.ViewModel
                                 });
                             }
                             LevelVSLevelIDItemValue = LevelVSLevelIDItemCollection.FirstOrDefault();
-
-                            var twilightWwwAvatarLevelVSs = twilightWwwAvatarLevelVSMap.Where(pair => pair.Key != "*").Select(pair => pair.Value).ToArray();
-                            var avatarLevelVSCount = twilightWwwAvatarLevelVSs.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.avatarLevelVSCount);
-                            var targetLevelVSCount = twilightWwwAvatarLevelVSs.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.targetLevelVSCount);
-                            AvatarLevelVSCountText = $"{avatarLevelVSCount}{(avatarLevelVSCount > targetLevelVSCount ? " 👑" : string.Empty)}";
-                            TargetLevelVSCountText = $"{targetLevelVSCount}{(targetLevelVSCount > avatarLevelVSCount ? " 👑" : string.Empty)}";
                         }
                         IsLevelVSLoading = false;
                     }

@@ -51,25 +51,22 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Border Style="{StaticResource StandardPanelSquareMargin0}" BorderBrush="{Binding NoteFile.LevelPaint}" BorderThickness="0 0 1 0">
                                 <Image Source="{Binding NoteFile.NoteDrawing}" Width="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
                             </Border>
                             <Image Grid.Column="1" Source="{Binding NoteFile.HandledWallDrawing}" Width="{Binding HandledWallLength, Source={StaticResource BaseUI}}" Stretch="Fill" />
-                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                                <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding NoteFile.LevelText}" Foreground="{Binding NoteFile.LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" HorizontalAlignment="Left" />
-                                <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding PositionText}" FontSize="{Binding EntryItemPositionFontLevel, Source={StaticResource BaseUI}}" HorizontalAlignment="Center" />
-                            </StackPanel>
-                            <Grid Grid.Column="3">
+                            <Grid Grid.Column="2">
                                 <StackPanel VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding NoteFile.LevelText}" Foreground="{Binding NoteFile.LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" />
                                         <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" FontSize="{Binding WantLevelIDFontLevel, Source={StaticResource BaseUI}}" />
                                         <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding EventNoteName}" Foreground="{StaticResource EventNoteNamePaint}" FontSize="{Binding EventNoteNameFontLevel, Source={StaticResource BaseUI}}" />
                                         <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding PositionText}" FontSize="{Binding EntryItemPositionFontLevel, Source={StaticResource BaseUI}}" />
                                         <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding FittedText}" Foreground="{StaticResource FittedTextPaint}" FontSize="{Binding FittedTextFontLevel, Source={StaticResource BaseUI}}" />
                                         <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
                                         <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.GenreText}" Foreground="{StaticResource GenrePaint}" FontSize="{Binding GenreFontLevel, Source={StaticResource BaseUI}}" />
@@ -91,18 +88,19 @@
                         <Grid Visibility="{Binding NoteFile.EssentialDrawing, Converter={StaticResource VisibilityModifier}}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Image Style="{StaticResource StandardView}" Source="{Binding NoteFile.EssentialDrawing}" />
-                            <TextBlock Grid.Column="1"  Style="{StaticResource StandardTextView}" Text="{Binding PositionText}" FontSize="{Binding EntryItemPositionFontLevel, Source={StaticResource BaseUI}}" HorizontalAlignment="Center" />
-                            <Grid Grid.Column="2">
+                            <Grid Grid.Column="1">
                                 <StackPanel VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" FontSize="{Binding WantLevelIDFontLevel, Source={StaticResource BaseUI}}" />
                                         <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
                                     </StackPanel>
-                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding PositionText}" FontSize="{Binding EntryItemPositionFontLevel, Source={StaticResource BaseUI}}" />
+                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
+                                    </StackPanel>
                                 </StackPanel>
                             </Grid>
                         </Grid>

@@ -378,15 +378,8 @@
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
-                                                <view:AvatarDrawingView Width="48" Height="48" AvatarWwwValue="{Binding LevelVSMyAvatarWwwValue}" />
-                                                <Grid Grid.Column="1">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition />
-                                                        <RowDefinition />
-                                                    </Grid.RowDefinitions>
-                                                    <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding LevelVSMyAvatarWwwValue}" AvatarName="{Binding LevelVSMyAvatarName}" />
-                                                    <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding AvatarLevelVSCountText}" />
-                                                </Grid>
+                                                <view:AvatarDrawingView Width="24" Height="24" AvatarWwwValue="{Binding LevelVSMyAvatarWwwValue}" />
+                                                <view:AvatarNameView Grid.Column="1" Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding LevelVSMyAvatarWwwValue}" AvatarName="{Binding LevelVSMyAvatarName}" />
                                             </Grid>
                                             <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding LevelVSMyAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
                                         </Grid>
@@ -420,15 +413,8 @@
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
-                                                <view:AvatarDrawingView Width="48" Height="48" AvatarWwwValue="{Binding LevelVSTargetAvatarWwwValue}" />
-                                                <Grid Grid.Column="1">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition />
-                                                        <RowDefinition />
-                                                    </Grid.RowDefinitions>
-                                                    <view:AvatarNameView Grid.Column="1" Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding LevelVSTargetAvatarWwwValue}" AvatarName="{Binding LevelVSTargetAvatarName}" />
-                                                    <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding TargetLevelVSCountText}" />
-                                                </Grid>
+                                                <view:AvatarDrawingView Width="24" Height="24" AvatarWwwValue="{Binding LevelVSTargetAvatarWwwValue}" />
+                                                <view:AvatarNameView Grid.Column="1" Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding LevelVSTargetAvatarWwwValue}" AvatarName="{Binding LevelVSTargetAvatarName}" />
                                             </Grid>
                                             <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding LevelVSTargetAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
                                         </Grid>
