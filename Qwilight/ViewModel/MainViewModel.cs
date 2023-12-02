@@ -1431,20 +1431,20 @@ namespace Qwilight.ViewModel
                 {
                     var noteID = noteFile.GetNoteID512();
                     var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}&target={Configure.Instance.UbuntuNetItemTarget}");
-                    if (twilightWwwComment.HasValue)
+                    if (noteFile?.GetNoteID512() == noteID)
                     {
-                        var twilightWwwCommentValue = twilightWwwComment.Value;
-                        var comments = twilightWwwCommentValue.comments;
-                        if (comments == null)
+                        if (twilightWwwComment.HasValue)
                         {
-                            noteFile.IsBanned = true;
-                            OnPropertyChanged(nameof(IsEntryItemBanned));
-                        }
-                        else
-                        {
-                            noteFile = EntryItemValue?.NoteFile;
-                            if (noteFile?.GetNoteID512() == noteID)
+                            var twilightWwwCommentValue = twilightWwwComment.Value;
+                            var comments = twilightWwwCommentValue.comments;
+                            if (comments == null)
                             {
+                                noteFile.IsBanned = true;
+                                OnPropertyChanged(nameof(IsEntryItemBanned));
+                            }
+                            else
+                            {
+                                noteFile = EntryItemValue?.NoteFile;
                                 var commentItems = Utility.GetCommentItems(comments, noteFile);
                                 TwilightCommentTotalFavor = twilightWwwCommentValue.totalFavor.ToString("👍 #,##0");
                                 TwilightCommentFavor = twilightWwwCommentValue.favor;
@@ -1481,8 +1481,8 @@ namespace Qwilight.ViewModel
                                 }
                             }
                         }
+                        IsTwilightCommentLoading = false;
                     }
-                    IsTwilightCommentLoading = false;
                 }
             };
             _autoComputerHandler.Tick += (sender, e) =>

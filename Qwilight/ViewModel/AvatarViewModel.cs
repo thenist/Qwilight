@@ -713,27 +713,30 @@ namespace Qwilight.ViewModel
                     LevelVSLevelName ??= LevelNameCollection.FirstOrDefault();
                     var levelVSLevelName = LevelVSLevelName;
                     var twilightWwwAvatarLevelVSMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarLevelVS>>($"{QwilightComponent.QwilightAPI}/avatar/levelVS?avatarID={TwilightSystem.Instance.AvatarID}&targetID={CallingAvatarID}&levelName={levelVSLevelName}");
-                    if (twilightWwwAvatarLevelVSMap != null && levelVSLevelName == LevelVSLevelName)
+                    if (levelVSLevelName == LevelVSLevelName)
                     {
-                        _twilightWwwAvatarLevelVSMap = twilightWwwAvatarLevelVSMap;
-                        LevelVSLevelIDItemCollection.Clear();
-                        foreach (var data in twilightWwwAvatarLevelVSMap)
+                        if (twilightWwwAvatarLevelVSMap != null)
                         {
-                            LevelVSLevelIDItemCollection.Add(new()
+                            _twilightWwwAvatarLevelVSMap = twilightWwwAvatarLevelVSMap;
+                            LevelVSLevelIDItemCollection.Clear();
+                            foreach (var data in twilightWwwAvatarLevelVSMap)
                             {
-                                LevelID = data.Key,
-                                AvatarLevelVSCount = data.Value.avatarLevelVSCount,
-                                TargetLevelVSCount = data.Value.targetLevelVSCount
-                            });
-                        }
-                        LevelVSLevelIDItemValue = LevelVSLevelIDItemCollection.FirstOrDefault();
+                                LevelVSLevelIDItemCollection.Add(new()
+                                {
+                                    LevelID = data.Key,
+                                    AvatarLevelVSCount = data.Value.avatarLevelVSCount,
+                                    TargetLevelVSCount = data.Value.targetLevelVSCount
+                                });
+                            }
+                            LevelVSLevelIDItemValue = LevelVSLevelIDItemCollection.FirstOrDefault();
 
-                        var avatarLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.avatarLevelVSCount);
-                        var targetLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.targetLevelVSCount);
-                        AvatarLevelVSCountText = $"{avatarLevelVSCount}{(avatarLevelVSCount > targetLevelVSCount ? " 👑" : string.Empty)}";
-                        TargetLevelVSCountText = $"{targetLevelVSCount}{(targetLevelVSCount > avatarLevelVSCount ? " 👑" : string.Empty)}";
+                            var avatarLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.avatarLevelVSCount);
+                            var targetLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.targetLevelVSCount);
+                            AvatarLevelVSCountText = $"{avatarLevelVSCount}{(avatarLevelVSCount > targetLevelVSCount ? " 👑" : string.Empty)}";
+                            TargetLevelVSCountText = $"{targetLevelVSCount}{(targetLevelVSCount > avatarLevelVSCount ? " 👑" : string.Empty)}";
+                        }
+                        IsLevelVSLoading = false;
                     }
-                    IsLevelVSLoading = false;
                     break;
             }
         }
@@ -923,124 +926,128 @@ namespace Qwilight.ViewModel
             {
                 IsAvatarLoading = true;
 
-                var twilightWwwAvatar = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatar?>($"{QwilightComponent.QwilightAPI}/avatar?avatarID={CallingAvatarID}");
-                if (twilightWwwAvatar.HasValue)
+                var avatarID = CallingAvatarID;
+                var twilightWwwAvatar = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatar?>($"{QwilightComponent.QwilightAPI}/avatar?avatarID={avatarID}");
+                if (avatarID == CallingAvatarID)
                 {
-                    var twilightWwwAvatarValue = twilightWwwAvatar.Value;
-
-                    _avatarID = twilightWwwAvatarValue.avatarID;
-                    NotifyIsMe();
-                    NotifyIsLevelVSVisible();
-
-                    _avatarName = twilightWwwAvatarValue.avatarName;
-                    OnPropertyChanged(nameof(AvatarViewText));
-
-                    AvatarIntro = twilightWwwAvatarValue.avatarIntro;
-                    OnPropertyChanged(nameof(AvatarIntro));
-
-                    AvatarWwwValue = new(twilightWwwAvatarValue.avatarID, null, null, true);
-
-                    _totalCount = twilightWwwAvatarValue.totalCount;
-                    OnPropertyChanged(nameof(AvatarViewTotalCountText));
-
-                    _totalLength = twilightWwwAvatarValue.totalLength;
-                    OnPropertyChanged(nameof(AvatarViewTotalLengthText));
-
-                    _highestCount = twilightWwwAvatarValue.highestCount;
-                    OnPropertyChanged(nameof(AvatarViewHighestCountText));
-
-                    _date = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(twilightWwwAvatarValue.date);
-                    OnPropertyChanged(nameof(AvatarViewDateText));
-
-                    Array.Copy(twilightWwwAvatarValue.avatarLevels, _avatarLevels, _avatarLevels.Length);
-                    OnPropertyChanged(nameof(AvatarViewLevelText));
-                    OnPropertyChanged(nameof(AvatarViewLevelValue));
-
-                    var avatarAbility5KClass = twilightWwwAvatarValue.avatarAbility5KClass;
-                    try
+                    if (twilightWwwAvatar.HasValue)
                     {
-                        AbilityClass5KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass5K={(avatarAbility5KClass < 0 ? avatarAbility5KClass : 100 * avatarAbility5KClass)}"), null);
-                    }
-                    catch
-                    {
-                    }
-                    if (twilightWwwAvatarValue.avatarAbility5KPlace > 0)
-                    {
-                        AvatarAbility5KPlaceText0 = twilightWwwAvatarValue.avatarAbility5KPlace.ToString("＃#,##0");
-                        AvatarAbility5KPlaceText1 = twilightWwwAvatarValue.avatarAbility5KCount.ToString("／#,##0");
+                        var twilightWwwAvatarValue = twilightWwwAvatar.Value;
+
+                        _avatarID = twilightWwwAvatarValue.avatarID;
+                        NotifyIsMe();
+                        NotifyIsLevelVSVisible();
+
+                        _avatarName = twilightWwwAvatarValue.avatarName;
+                        OnPropertyChanged(nameof(AvatarViewText));
+
+                        AvatarIntro = twilightWwwAvatarValue.avatarIntro;
+                        OnPropertyChanged(nameof(AvatarIntro));
+
+                        AvatarWwwValue = new(twilightWwwAvatarValue.avatarID, null, null, true);
+
+                        _totalCount = twilightWwwAvatarValue.totalCount;
+                        OnPropertyChanged(nameof(AvatarViewTotalCountText));
+
+                        _totalLength = twilightWwwAvatarValue.totalLength;
+                        OnPropertyChanged(nameof(AvatarViewTotalLengthText));
+
+                        _highestCount = twilightWwwAvatarValue.highestCount;
+                        OnPropertyChanged(nameof(AvatarViewHighestCountText));
+
+                        _date = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(twilightWwwAvatarValue.date);
+                        OnPropertyChanged(nameof(AvatarViewDateText));
+
+                        Array.Copy(twilightWwwAvatarValue.avatarLevels, _avatarLevels, _avatarLevels.Length);
+                        OnPropertyChanged(nameof(AvatarViewLevelText));
+                        OnPropertyChanged(nameof(AvatarViewLevelValue));
+
+                        var avatarAbility5KClass = twilightWwwAvatarValue.avatarAbility5KClass;
+                        try
+                        {
+                            AbilityClass5KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass5K={(avatarAbility5KClass < 0 ? avatarAbility5KClass : 100 * avatarAbility5KClass)}"), null);
+                        }
+                        catch
+                        {
+                        }
+                        if (twilightWwwAvatarValue.avatarAbility5KPlace > 0)
+                        {
+                            AvatarAbility5KPlaceText0 = twilightWwwAvatarValue.avatarAbility5KPlace.ToString("＃#,##0");
+                            AvatarAbility5KPlaceText1 = twilightWwwAvatarValue.avatarAbility5KCount.ToString("／#,##0");
+                        }
+                        else
+                        {
+                            AvatarAbility5KPlaceText0 = string.Empty;
+                            AvatarAbility5KPlaceText1 = string.Empty;
+                        }
+                        _avatarAbility5K = twilightWwwAvatarValue.avatarAbility5K;
+                        OnPropertyChanged(nameof(AvatarViewAbility5KText));
+
+                        var avatarAbility7KClass = twilightWwwAvatarValue.avatarAbility7KClass;
+                        try
+                        {
+                            AbilityClass7KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass7K={(avatarAbility7KClass < 0 ? avatarAbility7KClass : 100 * avatarAbility7KClass)}"), null);
+                        }
+                        catch
+                        {
+                        }
+                        if (twilightWwwAvatarValue.avatarAbility7KPlace > 0)
+                        {
+                            AvatarAbility7KPlaceText0 = twilightWwwAvatarValue.avatarAbility7KPlace.ToString("＃#,##0");
+                            AvatarAbility7KPlaceText1 = twilightWwwAvatarValue.avatarAbility7KCount.ToString("／#,##0");
+                        }
+                        else
+                        {
+                            AvatarAbility7KPlaceText0 = string.Empty;
+                            AvatarAbility7KPlaceText1 = string.Empty;
+                        }
+                        _avatarAbility7K = twilightWwwAvatarValue.avatarAbility7K;
+                        OnPropertyChanged(nameof(AvatarViewAbility7KText));
+
+                        var avatarAbility9KClass = twilightWwwAvatarValue.avatarAbility9KClass;
+                        try
+                        {
+                            AbilityClass9KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass9K={(avatarAbility9KClass < 0 ? avatarAbility9KClass : 100 * avatarAbility9KClass)}"), null);
+                        }
+                        catch
+                        {
+                        }
+                        if (twilightWwwAvatarValue.avatarAbility9KPlace > 0)
+                        {
+                            AvatarAbility9KPlaceText0 = twilightWwwAvatarValue.avatarAbility9KPlace.ToString("＃#,##0");
+                            AvatarAbility9KPlaceText1 = twilightWwwAvatarValue.avatarAbility9KCount.ToString("／#,##0");
+                        }
+                        else
+                        {
+                            AvatarAbility9KPlaceText0 = string.Empty;
+                            AvatarAbility9KPlaceText1 = string.Empty;
+                        }
+                        _avatarAbility9K = twilightWwwAvatarValue.avatarAbility9K;
+                        OnPropertyChanged(nameof(AvatarViewAbility9KText));
+
+                        for (var i = twilightWwwAvatarValue.quitStatusValues.Length - 1; i >= 0; --i)
+                        {
+                            QuitStatusTexts[i] = twilightWwwAvatarValue.quitStatusValues[i].ToString(LanguageSystem.Instance.CountContents);
+                        }
+                        OnPropertyChanged(nameof(QuitStatusTexts));
+
+                        Array.Copy(twilightWwwAvatarValue.dateValues, DateValues, DateValues.Length);
+
+                        _wwwLevelIDCount = twilightWwwAvatarValue.wwwLevelIDCount;
+                        OnPropertyChanged(nameof(AvatarViewWwwLevelText));
+
+                        Utility.SetUICollection(LevelNameCollection, twilightWwwAvatarValue.levelNames);
+
+                        _ = CallAvatarAPI();
                     }
                     else
                     {
-                        AvatarAbility5KPlaceText0 = string.Empty;
-                        AvatarAbility5KPlaceText1 = string.Empty;
+                        Close();
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotAvatarViewFault);
                     }
-                    _avatarAbility5K = twilightWwwAvatarValue.avatarAbility5K;
-                    OnPropertyChanged(nameof(AvatarViewAbility5KText));
 
-                    var avatarAbility7KClass = twilightWwwAvatarValue.avatarAbility7KClass;
-                    try
-                    {
-                        AbilityClass7KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass7K={(avatarAbility7KClass < 0 ? avatarAbility7KClass : 100 * avatarAbility7KClass)}"), null);
-                    }
-                    catch
-                    {
-                    }
-                    if (twilightWwwAvatarValue.avatarAbility7KPlace > 0)
-                    {
-                        AvatarAbility7KPlaceText0 = twilightWwwAvatarValue.avatarAbility7KPlace.ToString("＃#,##0");
-                        AvatarAbility7KPlaceText1 = twilightWwwAvatarValue.avatarAbility7KCount.ToString("／#,##0");
-                    }
-                    else
-                    {
-                        AvatarAbility7KPlaceText0 = string.Empty;
-                        AvatarAbility7KPlaceText1 = string.Empty;
-                    }
-                    _avatarAbility7K = twilightWwwAvatarValue.avatarAbility7K;
-                    OnPropertyChanged(nameof(AvatarViewAbility7KText));
-
-                    var avatarAbility9KClass = twilightWwwAvatarValue.avatarAbility9KClass;
-                    try
-                    {
-                        AbilityClass9KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass9K={(avatarAbility9KClass < 0 ? avatarAbility9KClass : 100 * avatarAbility9KClass)}"), null);
-                    }
-                    catch
-                    {
-                    }
-                    if (twilightWwwAvatarValue.avatarAbility9KPlace > 0)
-                    {
-                        AvatarAbility9KPlaceText0 = twilightWwwAvatarValue.avatarAbility9KPlace.ToString("＃#,##0");
-                        AvatarAbility9KPlaceText1 = twilightWwwAvatarValue.avatarAbility9KCount.ToString("／#,##0");
-                    }
-                    else
-                    {
-                        AvatarAbility9KPlaceText0 = string.Empty;
-                        AvatarAbility9KPlaceText1 = string.Empty;
-                    }
-                    _avatarAbility9K = twilightWwwAvatarValue.avatarAbility9K;
-                    OnPropertyChanged(nameof(AvatarViewAbility9KText));
-
-                    for (var i = twilightWwwAvatarValue.quitStatusValues.Length - 1; i >= 0; --i)
-                    {
-                        QuitStatusTexts[i] = twilightWwwAvatarValue.quitStatusValues[i].ToString(LanguageSystem.Instance.CountContents);
-                    }
-                    OnPropertyChanged(nameof(QuitStatusTexts));
-
-                    Array.Copy(twilightWwwAvatarValue.dateValues, DateValues, DateValues.Length);
-
-                    _wwwLevelIDCount = twilightWwwAvatarValue.wwwLevelIDCount;
-                    OnPropertyChanged(nameof(AvatarViewWwwLevelText));
-
-                    Utility.SetUICollection(LevelNameCollection, twilightWwwAvatarValue.levelNames);
-
-                    _ = CallAvatarAPI();
+                    IsAvatarLoading = false;
                 }
-                else
-                {
-                    Close();
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotAvatarViewFault);
-                }
-
-                IsAvatarLoading = false;
             });
         }
 

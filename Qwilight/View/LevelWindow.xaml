@@ -57,7 +57,7 @@
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table.html" HorizontalAlignment="Right">▽</Button>
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_insane.html" HorizontalAlignment="Right">▼</Button>
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_overjoy.html" HorizontalAlignment="Right">★★</Button>
-                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://mqppppp.neocities.org/StardustTable" HorizontalAlignment="Right">ξ</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://mqppppp.neocities.org/ChartView" HorizontalAlignment="Right">ξ</Button>
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://djkuroakari.github.io/starlighttable.html" HorizontalAlignment="Right">sr</Button>
                                     </StackPanel>
                                 </GroupBox>
