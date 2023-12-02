@@ -2006,9 +2006,10 @@ namespace Qwilight.ViewModel
                             try
                             {
                                 noteFile.SetNoteIDs(noteID128, noteID256, noteID512);
+                                noteFile.SetData();
                                 if (!FastDB.Instance.GetNoteFile(noteFile))
                                 {
-                                    noteFile.SetData(Environment.TickCount, setCancelDefaultEntryItem);
+                                    noteFile.Compile(Environment.TickCount, setCancelDefaultEntryItem);
                                 }
                                 targetNoteFiles.Add(noteFile);
                             }
@@ -2039,7 +2040,7 @@ namespace Qwilight.ViewModel
                             {
                                 if (!FastDB.Instance.GetNoteFile(noteFile))
                                 {
-                                    noteFile.SetData(Environment.TickCount, setCancelDefaultEntryItem);
+                                    noteFile.Compile(Environment.TickCount, setCancelDefaultEntryItem);
                                 }
                                 targetNoteFiles.Add(noteFile);
                             }
@@ -2370,7 +2371,7 @@ namespace Qwilight.ViewModel
             }, dataID).Single();
             if (targetNoteFile != null)
             {
-                targetNoteFile.SetData(Environment.TickCount);
+                targetNoteFile.Compile(Environment.TickCount);
 
                 var defaultModeComponentValue = ModeComponentValue.Clone();
                 ModeComponentValue.InitModeComponent();
@@ -3396,7 +3397,7 @@ namespace Qwilight.ViewModel
                     {
                         try
                         {
-                            targetNoteFile.SetData(salt);
+                            targetNoteFile.Compile(salt);
                         }
                         catch
                         {

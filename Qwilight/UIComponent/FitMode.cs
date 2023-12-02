@@ -212,7 +212,7 @@ namespace Qwilight.UIComponent
                     foreach (var noteFile in entryItem.WellNoteFiles)
                     {
                         var highestInputCount = noteFile.HighestInputCount;
-                        noteFile.FittedText = highestInputCount.ToString("#,##0.##");
+                        noteFile.FittedText = highestInputCount.ToString("#,##0.## / s");
                         lowestHighestInputCount = Math.Min(lowestHighestInputCount, highestInputCount);
                         highestHighestInputCount = Math.Max(highestHighestInputCount, highestInputCount);
                     }
@@ -224,7 +224,7 @@ namespace Qwilight.UIComponent
                     foreach (var noteFile in entryItem.WellNoteFiles)
                     {
                         var averageInputCount = noteFile.AverageInputCount;
-                        noteFile.FittedText = averageInputCount.ToString("#,##0.##");
+                        noteFile.FittedText = averageInputCount.ToString("#,##0.## / s");
                         lowestAverageInputCount = Math.Min(lowestAverageInputCount, averageInputCount);
                         highestAverageInputCount = Math.Max(highestAverageInputCount, averageInputCount);
                     }

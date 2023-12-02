@@ -189,7 +189,7 @@ namespace Qwilight.NoteFile
         {
             get => _handledValue;
 
-            set => SetProperty(ref _handledValue, value, nameof(HandledValue));
+            set => SetProperty(ref _handledValue, value, nameof(HandledWallDrawing));
         }
 
         public Action OnLevyNoteFile { get; init; }
@@ -269,14 +269,13 @@ namespace Qwilight.NoteFile
         {
             if (_noteID512 == null)
             {
-                SetNoteID512(null, data);
+                _noteID512 = $"{GetNoteID512Impl(data)}:{DataID}";
             }
             return _noteID512;
         }
 
-        void SetNoteID512(string noteID512 = null, byte[] data = null)
+        public void SetData()
         {
-            _noteID512 = noteID512 ?? $"{GetNoteID512Impl(data)}:{DataID}";
             FavoriteEntryItems.Clear();
             foreach (var favoriteEntryItem in DB.Instance.GetFavoriteEntryItems(this))
             {
@@ -314,10 +313,10 @@ namespace Qwilight.NoteFile
         {
             _noteID128 = noteID128;
             _noteID256 = noteID256;
-            SetNoteID512(noteID512);
+            _noteID512 = noteID512;
         }
 
-        public void SetData(int salt, CancellationTokenSource setCancelCompiler = null)
+        public void Compile(int salt, CancellationTokenSource setCancelCompiler = null)
         {
             if (!IsLogical)
             {
