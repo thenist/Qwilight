@@ -730,8 +730,9 @@ namespace Qwilight.ViewModel
                             }
                             LevelVSLevelIDItemValue = LevelVSLevelIDItemCollection.FirstOrDefault();
 
-                            var avatarLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.avatarLevelVSCount);
-                            var targetLevelVSCount = twilightWwwAvatarLevelVSMap.Values.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.targetLevelVSCount);
+                            var twilightWwwAvatarLevelVSs = twilightWwwAvatarLevelVSMap.Where(pair => pair.Key != "*").Select(pair => pair.Value).ToArray();
+                            var avatarLevelVSCount = twilightWwwAvatarLevelVSs.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.avatarLevelVSCount);
+                            var targetLevelVSCount = twilightWwwAvatarLevelVSs.Sum(twilightWwwAvatarLevelVS => twilightWwwAvatarLevelVS.targetLevelVSCount);
                             AvatarLevelVSCountText = $"{avatarLevelVSCount}{(avatarLevelVSCount > targetLevelVSCount ? " 👑" : string.Empty)}";
                             TargetLevelVSCountText = $"{targetLevelVSCount}{(targetLevelVSCount > avatarLevelVSCount ? " 👑" : string.Empty)}";
                         }
