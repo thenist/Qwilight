@@ -71,7 +71,9 @@ namespace Qwilight.ViewModel
             {
                 var avatarTitleItemValue = avatarTitleItem.Value;
                 TwilightSystem.Instance.SendParallel(Event.Types.EventID.AvatarTitle, avatarTitleItemValue.TitleID);
-                ViewModels.Instance.AvatarValue.AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, new AvatarTitle(avatarTitleItemValue.Title, avatarTitleItemValue.TitlePaint, avatarTitleItemValue.TitleColor), null, true);
+                var avatarViewModel = ViewModels.Instance.AvatarValue;
+                avatarViewModel.AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, new AvatarTitle(avatarTitleItemValue.Title, avatarTitleItemValue.TitlePaint, avatarTitleItemValue.TitleColor), avatarViewModel.AvatarWwwValue.AvatarEdge, true);
+                avatarViewModel.NotifyAvatarWwwValue();
             }
         }
     }

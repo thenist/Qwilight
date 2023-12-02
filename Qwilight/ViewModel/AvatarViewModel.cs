@@ -188,7 +188,6 @@ namespace Qwilight.ViewModel
         public override VerticalAlignment HeightSystem => VerticalAlignment.Top;
 
         readonly int[] _avatarLevels = new int[3];
-        AvatarWww _avatarWww;
         Dictionary<string, JSON.TwilightWwwAvatarLevelVS> _twilightWwwAvatarLevelVSMap;
         string _avatarAbility5KPlaceText0 = string.Empty;
         string _avatarAbility5KPlaceText1 = string.Empty;
@@ -240,12 +239,7 @@ namespace Qwilight.ViewModel
         LevelVSLevelIDItem _levelVSLevelIDItem;
         bool _isLevelVSLoading;
 
-        public AvatarWww AvatarWwwValue
-        {
-            get => _avatarWww;
-
-            set => SetProperty(ref _avatarWww, value, nameof(AvatarWwwValue));
-        }
+        public AvatarWww AvatarWwwValue { get; set; }
 
         public bool IsAvatarFavorites5KLoading
         {
@@ -889,12 +883,15 @@ namespace Qwilight.ViewModel
             });
             if (!string.IsNullOrEmpty(fileName) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
             {
-                AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, null, null, true);
+                AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, AvatarWwwValue.AvatarTitleValue, AvatarWwwValue.AvatarEdge, true);
+                NotifyAvatarWwwValue();
                 TwilightSystem.Instance.NotifyAvatarWwwValue();
             }
         }
 
         public void NotifyIsMe() => OnPropertyChanged(nameof(IsMe));
+
+        public void NotifyAvatarWwwValue() => OnPropertyChanged(nameof(AvatarWwwValue));
 
         public override void OnOpened()
         {
@@ -922,6 +919,7 @@ namespace Qwilight.ViewModel
                         OnPropertyChanged(nameof(AvatarIntro));
 
                         AvatarWwwValue = new(twilightWwwAvatarValue.avatarID, null, null, true);
+                        NotifyAvatarWwwValue();
 
                         _totalCount = twilightWwwAvatarValue.totalCount;
                         OnPropertyChanged(nameof(AvatarViewTotalCountText));
