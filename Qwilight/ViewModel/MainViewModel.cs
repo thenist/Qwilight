@@ -2186,8 +2186,8 @@ namespace Qwilight.ViewModel
                         var isWantLevelSystem = Configure.Instance.WantLevelSystem;
                         var isNotWantLevelItem = wantLevelIDs.Length == 0;
                         var isNotWantHellBPM = !Configure.Instance.WantHellBPM;
-                        var levelID128s = LevelSystem.Instance.LevelID128s;
-                        var levelID256s = LevelSystem.Instance.LevelID256s;
+                        var levelID128s = new Dictionary<string, string>(LevelSystem.Instance.LevelID128s);
+                        var levelID256s = new Dictionary<string, string>(LevelSystem.Instance.LevelID256s);
                         var levelID128NoteFiles = new Dictionary<string, LevelNoteFile>(LevelSystem.Instance.LevelID128NoteFiles);
                         var levelID256NoteFiles = new Dictionary<string, LevelNoteFile>(LevelSystem.Instance.LevelID256NoteFiles);
                         var logicalNoteFiles = new HashSet<BaseNoteFile>();

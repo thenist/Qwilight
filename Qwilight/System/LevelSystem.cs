@@ -64,21 +64,21 @@ namespace Qwilight
                                 var levelTexts = new List<object>();
                                 var levelTitle = levelTableValue.symbol;
                                 using var fs = File.OpenRead(levelFilePath);
-                                foreach (var levelData in await Utility.GetJSON<JSON.BMSTableData[]>(fs).ConfigureAwait(false))
+                                foreach (var levelTableData in await Utility.GetJSON<JSON.BMSTableData[]>(fs).ConfigureAwait(false))
                                 {
-                                    var level = levelData.level;
-                                    var noteID128 = levelData.md5;
-                                    var www = levelData.url;
+                                    var level = levelTableData.level;
+                                    var noteID128 = levelTableData.md5.ToLowerInvariant();
+                                    var www = levelTableData.url;
                                     if (!string.IsNullOrEmpty(noteID128))
                                     {
                                         LevelID128s[noteID128] = levelTitle + level;
-                                        LevelID128NoteFiles[noteID128] = new LevelNoteFile(levelData, levelTitle + level);
+                                        LevelID128NoteFiles[noteID128] = new LevelNoteFile(levelTableData, levelTitle + level);
                                     }
-                                    var noteID256 = levelData.sha256;
+                                    var noteID256 = levelTableData.sha256.ToLowerInvariant();
                                     if (!string.IsNullOrEmpty(noteID256))
                                     {
                                         LevelID256s[noteID256] = levelTitle + level;
-                                        LevelID256NoteFiles[noteID256] = new LevelNoteFile(levelData, levelTitle + level);
+                                        LevelID256NoteFiles[noteID256] = new LevelNoteFile(levelTableData, levelTitle + level);
                                     }
                                     var levelText = level.ToString();
                                     if (!levelTexts.Contains(levelText))
