@@ -324,14 +324,6 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Style="{StaticResource StandardTextView}" Text="FFmpegInteropX.Desktop" HorizontalAlignment="Right" />
-                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/ffmpeginteropx/FFmpegInteropX" HorizontalAlignment="Left">GitHub</Button>
-                                    </Grid>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="Google.Protobuf" HorizontalAlignment="Right" />
                                         <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/protocolbuffers/protobuf" HorizontalAlignment="Left">GitHub</Button>
                                     </Grid>

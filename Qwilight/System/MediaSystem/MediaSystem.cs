@@ -1,8 +1,10 @@
-﻿using FFmpegInteropX;
-using Qwilight.Utilities;
+﻿using Qwilight.Utilities;
 using Qwilight.ViewModel;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.IO;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 
 namespace Qwilight
 {
@@ -11,6 +13,10 @@ namespace Qwilight
         public static readonly MediaSystem Instance = new();
 
         static readonly object _exeCSX = new();
+        static readonly string[] _validMedia = new string[]
+        {
+            "e82d6a96a58c9a01098fa4a53f95c5ad"
+        };
         static readonly string[] _wrongMedia = new string[]
         {
             "ed7f217838d78942898e53d5dbee64ec" // Celestial Axes
@@ -95,8 +101,8 @@ namespace Qwilight
                 return handledMediaItem;
             }
 
-            var mediaSrc = FFmpegMediaSource.CreateFromFileAsync(mediaFilePath).Await();
-            var mediaLength = mediaSrc.Duration;
+            var mediaSrc = MediaSource.CreateFromUri(new Uri(mediaFilePath));
+            var mediaLength = GetMediaLength(mediaFilePath);
             var mediaModifierValue = mediaContainer.MediaModifierValue;
             if (mediaModifierValue != null)
             {
@@ -109,8 +115,8 @@ namespace Qwilight
                     }
                     else
                     {
-                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || mediaLength < TimeSpan.FromMinutes(1.0);
-                        var hasAudio = mediaSrc.AudioStreams.Count > 0;
+                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || (Array.IndexOf(_validMedia, hash) == -1 && QwilightComponent.ModifiedMediaFileFormats.Any(format => mediaFilePath.IsTailCaselsss(format)));
+                        var hasAudio = HasAudio(mediaFilePath);
                         if (isWrongMedia || hasAudio || isCounterWave)
                         {
                             mediaSrc.Dispose();
@@ -122,20 +128,19 @@ namespace Qwilight
                     }
                 }
             }
-            mediaSrc ??= FFmpegMediaSource.CreateFromFileAsync(mediaFilePath).Await();
-            mediaLength = mediaSrc.Duration;
+            mediaSrc = MediaSource.CreateFromUri(new Uri(mediaFilePath));
+            mediaLength = GetMediaLength(mediaFilePath);
             handledMediaItem = new()
             {
-                MediaSrc = mediaSrc,
                 Media = new()
                 {
-                    Source = mediaSrc.CreateMediaPlaybackItem(),
+                    Source = new MediaPlaybackItem(MediaSource.CreateFromUri(new(mediaFilePath))),
                     IsMuted = true,
                     IsVideoFrameServerEnabled = true,
                     IsLoopingEnabled = isLooping
                 },
                 MediaFilePath = mediaFilePath,
-                Length = mediaLength.TotalMilliseconds,
+                Length = mediaLength,
                 IsLooping = isLooping
             };
             handledMediaItem.Media.CommandManager.IsEnabled = false;
@@ -331,6 +336,64 @@ namespace Qwilight
             {
                 _mediaMap[target] = audioItems;
             }
+        }
+
+        static double GetMediaLength(string fileName)
+        {
+            var mediaLength = 0.0;
+            using (var exe = new Process
+            {
+                StartInfo = new(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffprobe.exe"), $"""
+                    -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "{fileName}"
+                """)
+                {
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true
+                }
+            })
+            {
+                exe.OutputDataReceived += (sender, e) =>
+                {
+                    if (!string.IsNullOrEmpty(e.Data))
+                    {
+                        Utility.ToFloat64(e.Data, out mediaLength);
+                    }
+                };
+                exe.Start();
+                exe.PriorityClass = ProcessPriorityClass.Idle;
+                exe.BeginOutputReadLine();
+                exe.WaitForExit();
+            }
+            return 1000.0 * mediaLength;
+        }
+
+        static bool HasAudio(string fileName)
+        {
+            var hasAudio = false;
+            using (var exe = new Process
+            {
+                StartInfo = new(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffprobe.exe"), $"""
+                    -v error -show_entries stream=codec_type -of default=noprint_wrappers=1:nokey=1 "{fileName}"
+                """)
+                {
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true
+                }
+            })
+            {
+                exe.OutputDataReceived += (sender, e) =>
+                {
+                    if (!string.IsNullOrEmpty(e.Data))
+                    {
+                        hasAudio |= e.Data.Contains("audio");
+                    }
+                };
+                exe.Start();
+                exe.PriorityClass = ProcessPriorityClass.Idle;
+                exe.BeginOutputReadLine();
+                exe.WaitForExit();
+            }
+            return hasAudio;
         }
     }
 }

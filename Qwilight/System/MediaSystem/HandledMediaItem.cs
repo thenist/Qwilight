@@ -1,12 +1,9 @@
-﻿using FFmpegInteropX;
-using Windows.Media.Playback;
+﻿using Windows.Media.Playback;
 
 namespace Qwilight
 {
     public sealed class HandledMediaItem : IHandledItem, IDisposable
     {
-        public FFmpegMediaSource MediaSrc { get; init; }
-
         public MediaPlayer Media { get; init; }
 
         public System.Windows.Media.MediaPlayer DefaultMedia { get; set; }
