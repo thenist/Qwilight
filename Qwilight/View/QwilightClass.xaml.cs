@@ -53,6 +53,7 @@ namespace Qwilight.View
             ProfileOptimization.SetProfileRoot(QwilightComponent.QwilightEntryPath);
             ProfileOptimization.StartProfile("Qwilight.$");
 
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Microsoft.WindowsAppRuntime.Bootstrap.dll"), Path.Combine(AppContext.BaseDirectory, "Microsoft.WindowsAppRuntime.Bootstrap.dll"));
             if (!Bootstrap.TryInitialize(65540U, out _))
             {
 #if X64
@@ -151,19 +152,6 @@ namespace Qwilight.View
 
             Utility.CopyEntry(Path.Combine(QwilightComponent.AssetsEntryPath, "UI"), Path.Combine(QwilightComponent.UIEntryPath));
 
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Igniter.exe"), Path.Combine(QwilightComponent.UtilityEntryPath, "Igniter.exe"));
-
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.common.dll"), Path.Combine(AppContext.BaseDirectory, "sl.common.dll"));
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.interposer.dll"), Path.Combine(AppContext.BaseDirectory, "sl.interposer.dll"));
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.reflex.dll"), Path.Combine(AppContext.BaseDirectory, "sl.reflex.dll"));
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "NVIDIA.dll"), Path.Combine(AppContext.BaseDirectory, "NVIDIA.dll"));
-
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "CChromaEditorLibrary64.dll"), Path.Combine(AppContext.BaseDirectory, "CChromaEditorLibrary64.dll"));
-
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "fmod.dll"), Path.Combine(AppContext.BaseDirectory, "fmod.dll"));
-
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "LogitechLedEnginesWrapper.dll"), Path.Combine(AppContext.BaseDirectory, "LogitechLedEnginesWrapper.dll"));
-
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "concrt140_app.dll"), Path.Combine(AppContext.BaseDirectory, "concrt140_app.dll"));
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "msvcp140_1_app.dll"), Path.Combine(AppContext.BaseDirectory, "msvcp140_1_app.dll"));
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "msvcp140_2_app.dll"), Path.Combine(AppContext.BaseDirectory, "msvcp140_2_app.dll"));
@@ -175,11 +163,6 @@ namespace Qwilight.View
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "vcruntime140_1_app.dll"), Path.Combine(AppContext.BaseDirectory, "vcruntime140_1_app.dll"));
 #endif
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "vcruntime140_app.dll"), Path.Combine(AppContext.BaseDirectory, "vcruntime140_app.dll"));
-
-            if (QwilightComponent.IsValve)
-            {
-                Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "steam_api64.dll"), Path.Combine(AppContext.BaseDirectory, "steam_api64.dll"));
-            }
 
             var qwilightBundleFilePath = Path.Combine(QwilightComponent.QwilightEntryPath, "Qwilight.zip");
             if (File.Exists(qwilightBundleFilePath))

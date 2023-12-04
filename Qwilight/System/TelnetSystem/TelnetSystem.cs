@@ -3,11 +3,12 @@ using Windows.Win32;
 
 namespace Qwilight
 {
-    public sealed class TelnetSystem : IHandleTelnet
+    public sealed class TelnetSystem : Model, IHandleTelnet
     {
-        public static readonly TelnetSystem Instance = new();
+        public static readonly TelnetSystem Instance = QwilightComponent.GetBuiltInData<TelnetSystem>(nameof(TelnetSystem));
 
         bool _isAlwaysNewStand;
+        bool _isAvailable;
 
         public bool IsAlwaysNewStand
         {
@@ -16,7 +17,12 @@ namespace Qwilight
             set => _isAlwaysNewStand = value;
         }
 
-        public bool IsAvailable { get; set; }
+        public bool IsAvailable
+        {
+            get => _isAvailable;
+
+            set => SetProperty(ref _isAvailable, value, nameof(IsAvailable));
+        }
 
         DefaultTelnetSystem _defaultTelnetSystem;
 

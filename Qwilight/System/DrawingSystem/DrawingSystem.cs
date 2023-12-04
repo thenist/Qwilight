@@ -122,6 +122,11 @@ namespace Qwilight
 
         public DrawingSystem()
         {
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.common.dll"), Path.Combine(AppContext.BaseDirectory, "sl.common.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.interposer.dll"), Path.Combine(AppContext.BaseDirectory, "sl.interposer.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.reflex.dll"), Path.Combine(AppContext.BaseDirectory, "sl.reflex.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "NVIDIA.dll"), Path.Combine(AppContext.BaseDirectory, "NVIDIA.dll"));
+
             CanvasDevice.GetSharedDevice().DeviceLost += (sender, args) =>
             {
                 StrongReferenceMessenger.Default.Send(new ViewAllowWindow

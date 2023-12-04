@@ -5,8 +5,8 @@ SET /P DATE=v
 SET VS2022=%PROGRAMFILES%\Microsoft Visual Studio\2022\Community
 SET MSBUILD=%VS2022%\Msbuild\Current\Bin\MSBuild.exe
 SET BANDIZIP=%PROGRAMFILES%\Bandizip\bz.exe
-SET WIN10X64=bin\x64\Release\net7.0-windows10.0.22621.0\win10-x64
-SET PUBLISH=Qwilight\%WIN10X64%\publish
+SET WINX64=bin\x64\Release\net8.0-windows10.0.22621.0\win-x64
+SET PUBLISH=Qwilight\%WINX64%\publish
 
 DEL Qwilight.zip
  
@@ -15,10 +15,10 @@ CALL CI
 CHOICE /M TEST
 SET TEST=%ERRORLEVEL%
 IF %TEST% == 1 (
-	RMDIR /S /Q Test\%WIN10X64%
-	Robocopy Test\qpdgo\Bundle Test\%WIN10X64%\qpdgo\Bundle /MIR
-	MKDIR Test\%WIN10X64%\qpdgo\UI
-	"%BANDIZIP%" x -target:auto Test\qpdgo\UI\*.zip Test\%WIN10X64%\qpdgo\UI
+	RMDIR /S /Q Test\%WINX64%
+	Robocopy Test\qpdgo\Bundle Test\%WINX64%\qpdgo\Bundle /MIR
+	MKDIR Test\%WINX64%\qpdgo\UI
+	"%BANDIZIP%" x -target:auto Test\qpdgo\UI\*.zip Test\%WINX64%\qpdgo\UI
 )
 IF %TEST% == 1 (
 	dotnet test Test\Test.csproj -c Release -p:Platform=x64

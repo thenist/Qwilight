@@ -19,6 +19,7 @@
     <local:DrawingSystem x:Key="DrawingSystem" />
     <local:ControllerSystem x:Key="ControllerSystem" />
     <local:AudioSystem x:Key="AudioSystem" />
+    <local:TelnetSystem x:Key="TelnetSystem" />
     <vm:ViewModels x:Key="ViewModels" />
 
     <system:Int32 x:Key="NotEstablished">0</system:Int32>

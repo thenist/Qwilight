@@ -83,8 +83,10 @@
                                         </Grid.RowDefinitions>
                                         <ScrollViewer>
                                             <StackPanel Visibility="{Binding IsLevelItemLoading, Converter={StaticResource VisibilityNotModifier}}">
+                                                <TextBox Style="{StaticResource StandardTextInput}" IsReadOnly="True" Text="{Binding LevelID}" Visibility="{Binding IsAvailable, Source={StaticResource TelnetSystem}, Converter={StaticResource VisibilityModifier}}" />
                                                 <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Title}" />
                                                 <TextBlock Style="{StaticResource LFTextView}" Text="{Binding Comment}" />
+                                                <Image Style="{StaticResource StandardView}" Source="{Binding Drawing}" Height="144" />
                                                 <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding WwwLevelComputingCollection}">
                                                     <ListView.ItemTemplate>
                                                         <DataTemplate>

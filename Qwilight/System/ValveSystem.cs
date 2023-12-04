@@ -5,6 +5,7 @@ using Steamworks;
 using System.Buffers;
 using System.IO;
 using Windows.Graphics.DirectX;
+using Utility = Qwilight.Utilities.Utility;
 
 namespace Qwilight
 {
@@ -22,6 +23,7 @@ namespace Qwilight
         {
             if (QwilightComponent.IsValve)
             {
+                Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "steam_api64.dll"), Path.Combine(AppContext.BaseDirectory, "steam_api64.dll"));
                 try
                 {
                     SteamClient.Init(QwilightComponent.AssetsClientJSON.valve);

@@ -239,7 +239,7 @@ namespace Qwilight.ViewModel
                     {
                         IsVisible = !value
                     });
-                    IsHPCMode = IsComputingMode && !value;
+                    IsCaffeine = IsComputingMode && !value;
                     ViewModels.Instance.NotifyWindowViewModels();
                     var handlingComputer = GetHandlingComputer();
                     if (handlingComputer != null)
@@ -252,7 +252,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public bool IsHPCMode { get; set; }
+        public bool IsCaffeine { get; set; }
 
         public bool HasPoint { get; set; }
 
@@ -1627,6 +1627,7 @@ namespace Qwilight.ViewModel
             {
                 if (_qwilightFileName.IsTailCaselsss(".zip"))
                 {
+                    Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Igniter.exe"), Path.Combine(QwilightComponent.UtilityEntryPath, "Igniter.exe"));
                     try
                     {
                         Process.Start(new ProcessStartInfo(Path.Combine(QwilightComponent.UtilityEntryPath, "Igniter.exe"), $"\"{_qwilightFileName}\"")
@@ -2006,11 +2007,11 @@ namespace Qwilight.ViewModel
                             try
                             {
                                 noteFile.SetNoteIDs(noteID128, noteID256, noteID512);
-                                noteFile.SetData();
                                 if (!FastDB.Instance.GetNoteFile(noteFile))
                                 {
                                     noteFile.Compile(Environment.TickCount, setCancelDefaultEntryItem);
                                 }
+                                noteFile.SetData();
                                 targetNoteFiles.Add(noteFile);
                             }
                             catch (OperationCanceledException)
@@ -2042,6 +2043,7 @@ namespace Qwilight.ViewModel
                                 {
                                     noteFile.Compile(Environment.TickCount, setCancelDefaultEntryItem);
                                 }
+                                noteFile.SetData();
                                 targetNoteFiles.Add(noteFile);
                             }
                             catch (OperationCanceledException)

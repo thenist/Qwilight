@@ -1,5 +1,7 @@
 ﻿using LedCSharp;
 using Microsoft.UI;
+using Qwilight.Utilities;
+using System.IO;
 using Windows.System;
 using Windows.UI;
 
@@ -110,14 +112,13 @@ namespace Qwilight
             _ => 0
         };
 
-        readonly keyboardNames[] _inputs;
+        readonly keyboardNames[] _inputs = (Enum.GetValues(typeof(keyboardNames)) as keyboardNames[]);
         readonly Dictionary<keyboardNames, uint> _illuminatedIDs = new();
 
         LSSystem()
         {
-            _inputs = (Enum.GetValues(typeof(keyboardNames)) as keyboardNames[]);
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "LogitechLedEnginesWrapper.dll"), Path.Combine(AppContext.BaseDirectory, "LogitechLedEnginesWrapper.dll"));
         }
-
 
         public override bool IsAvailable => Configure.Instance.LS;
 

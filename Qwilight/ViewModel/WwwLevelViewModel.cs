@@ -66,6 +66,21 @@ namespace Qwilight.ViewModel
             }
         }
 
+        readonly WwwLevelData _wwwLevelDataValue = new WwwLevelData();
+        readonly double[] _audioMultipliers = new double[2];
+        WwwLevelAvatar _wwwLevelAvatarValue;
+        string _wwwLevelName;
+        bool _isAvatarIDsLoading;
+        bool _isLevelNamesLoading;
+        bool _isLevelNameLoading;
+        WwwLevelItem _wwwLevelItem;
+        string _levelID;
+        string _title;
+        string _comment;
+        string _drawing;
+        bool _allowPause;
+        bool _isLevelItemLoading;
+
         [RelayCommand]
         void OnWwwLevelTest() => WwwLevelAvatarValue = null;
 
@@ -192,11 +207,40 @@ namespace Qwilight.ViewModel
 
         public bool HasClearedTitleItem => ClearedTitleItemCollection.Count > 0;
 
-        public string Title { get; set; }
+        public string LevelID
+        {
+            get => _levelID;
 
-        public string Comment { get; set; }
+            set => SetProperty(ref _levelID, value, nameof(LevelID));
+        }
 
-        public bool AllowPause { get; set; }
+        public string Title
+        {
+            get => _title;
+
+            set => SetProperty(ref _title, value, nameof(Title));
+        }
+
+        public string Comment
+        {
+            get => _comment;
+
+            set => SetProperty(ref _comment, value, nameof(Comment));
+        }
+
+        public string Drawing
+        {
+            get => _drawing;
+
+            set => SetProperty(ref _drawing, value, nameof(Drawing));
+        }
+
+        public bool AllowPause
+        {
+            get => _allowPause;
+
+            set => SetProperty(ref _allowPause, value, nameof(AllowPause));
+        }
 
         public string[] StandContents { get; } = new string[2];
 
@@ -278,11 +322,10 @@ namespace Qwilight.ViewModel
                         {
                             var twilightWwwLevelValue = twilightWwwLevel.Value;
 
+                            LevelID = value.LevelID;
                             Title = value.Title;
-                            OnPropertyChanged(nameof(Title));
-
                             Comment = value.Comment;
-                            OnPropertyChanged(nameof(Comment));
+                            Drawing = $"{QwilightComponent.QwilightAPI}/drawing?levelID={LevelID}";
 
                             Array.Fill(StandContents, null);
                             if (twilightWwwLevelValue.stand != null)
@@ -387,7 +430,6 @@ namespace Qwilight.ViewModel
                             _wwwLevelDataValue.JudgmentContents[(int)Component.Judged.Lowest] = JudgmentContents[(int)Component.Judged.Lowest] != null ? $"Failed {string.Join(" ", JudgmentContents[(int)Component.Judged.Lowest]).Trim()}" : null;
 
                             AllowPause = twilightWwwLevelValue.allowPause;
-                            OnPropertyChanged(nameof(AllowPause));
                             _wwwLevelDataValue.AllowPause = twilightWwwLevelValue.allowPause;
 
                             var mainViewModel = ViewModels.Instance.MainValue;
@@ -682,16 +724,6 @@ namespace Qwilight.ViewModel
             OnPropertyChanged(nameof(IsLowestJudgmentConditionModeCompatible));
             OnPropertyChanged(nameof(HasEventNote));
         }
-
-        readonly WwwLevelData _wwwLevelDataValue = new WwwLevelData();
-        readonly double[] _audioMultipliers = new double[2];
-        WwwLevelAvatar _wwwLevelAvatarValue;
-        string _wwwLevelName;
-        bool _isAvatarIDsLoading;
-        bool _isLevelNamesLoading;
-        bool _isLevelNameLoading;
-        WwwLevelItem _wwwLevelItem;
-        bool _isLevelItemLoading;
 
         public bool IsLevelNameLoading
         {

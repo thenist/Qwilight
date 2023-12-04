@@ -1,6 +1,7 @@
 ﻿using ChromaSDK;
 using Microsoft.UI;
 using Qwilight.Utilities;
+using System.IO;
 using Windows.System;
 using Windows.UI;
 
@@ -116,6 +117,11 @@ namespace Qwilight
         int[] _dataPoint;
         int[] _dataAudio;
         int[] _dataPanel;
+
+        BWSystem()
+        {
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "LogitechLedEnginesWrapper.dll"), Path.Combine(AppContext.BaseDirectory, "LogitechLedEnginesWrapper.dll"));
+        }
 
         public override bool IsAvailable => Configure.Instance.BW;
 
