@@ -827,8 +827,8 @@ namespace Qwilight.ViewModel
         {
             if (IsNetSite && IsSiteHand)
             {
-                var entryItemValue = ViewModels.Instance.MainValue.EntryItemValue;
-                var noteFile = entryItemValue?.NoteFile;
+                var entryItem = ViewModels.Instance.MainValue.EntryItemValue;
+                var noteFile = entryItem?.NoteFile;
                 if (noteFile?.IsLogical == false)
                 {
                     TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetNoteFile, new

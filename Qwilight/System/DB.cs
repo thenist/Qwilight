@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Qwilight
 {
@@ -30,6 +31,7 @@ namespace Qwilight
 
         public static readonly DB Instance = QwilightComponent.GetBuiltInData<DB>(nameof(DB));
 
+        readonly object _setSaveCSX = new();
         SQLiteConnection _fastDB;
         SQLiteConnection _fileDB;
 
@@ -672,7 +674,7 @@ namespace Qwilight
                         INTO event_note_data
                         VALUES(@noteID, @noteVariety, @title, @artist, @level, @levelText, @genre)
                     """);
-                    dbStatement.Parameters.AddWithValue("noteID", wwwLevelComputingValue.NoteID);
+                    dbStatement.Parameters.AddWithValue("noteID", wwwLevelComputingValue.GetNoteID512());
                     dbStatement.Parameters.AddWithValue("noteVariety", noteVariety);
                     dbStatement.Parameters.AddWithValue("title", wwwLevelComputingValue.Title);
                     dbStatement.Parameters.AddWithValue("artist", wwwLevelComputingValue.Artist);
@@ -1123,12 +1125,27 @@ namespace Qwilight
             return new(text, _fastDB, ta);
         }
 
-        public void Save()
+        public void Save(bool isParallel)
         {
-            Utility.CopyFile(_fileName, _tmp0FileName);
-            Utility.MoveFile(_tmp0FileName, _tmp1FileName);
-            _fastDB.BackupDatabase(_fileDB, _fileDB.Database, _fastDB.Database, -1, null, -1);
-            Utility.WipeFile(_tmp1FileName);
+            if (isParallel)
+            {
+                Task.Run(SaveImpl);
+            }
+            else
+            {
+                SaveImpl();
+            }
+
+            void SaveImpl()
+            {
+                lock (_setSaveCSX)
+                {
+                    Utility.CopyFile(_fileName, _tmp0FileName);
+                    Utility.MoveFile(_tmp0FileName, _tmp1FileName);
+                    _fastDB.BackupDatabase(_fileDB, _fileDB.Database, _fastDB.Database, -1, null, -1);
+                    Utility.WipeFile(_tmp1FileName);
+                }
+            }
         }
     }
 }

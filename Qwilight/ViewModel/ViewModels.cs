@@ -10,6 +10,8 @@ namespace Qwilight.ViewModel
 
         public BaseViewModel[] WindowViewModels { get; }
 
+        public BaseViewModel[] SilentlyClosableViewModels { get; }
+
         public MainViewModel MainValue { get; } = new();
 
         public SignInViewModel SignInValue { get; } = new();
@@ -135,6 +137,7 @@ namespace Qwilight.ViewModel
                 WantValue,
                 LevelVoteValue
             };
+            SilentlyClosableViewModels = WindowViewModels.Except(new[] { ConfigureValue }).ToArray();
         }
 
         public void HandleSiteViewModels(Action<SiteViewModel> onHandle)
@@ -142,6 +145,14 @@ namespace Qwilight.ViewModel
             foreach (var siteViewModel in _siteViewModels.Values)
             {
                 onHandle(siteViewModel);
+            }
+        }
+
+        public void HandleSilentlyClosableViewModels(Action<BaseViewModel> onHandle)
+        {
+            foreach (var silentlyClosableViewModel in SilentlyClosableViewModels)
+            {
+                onHandle(silentlyClosableViewModel);
             }
         }
 

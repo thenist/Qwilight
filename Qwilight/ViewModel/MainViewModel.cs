@@ -94,8 +94,6 @@ namespace Qwilight.ViewModel
         bool _isDefaultEntryLoading;
         bool _isInputWantPointed;
         bool _isTwilightCommentaryPointed;
-        bool _wasSiteContainerWindowOpened;
-        bool _wasCommentOpened;
         bool _isDefaultCommentLoading;
         bool _isTwilightCommentLoading;
         bool? _twilightCommentFavor;
@@ -239,7 +237,7 @@ namespace Qwilight.ViewModel
                     {
                         IsVisible = !value
                     });
-                    IsCaffeine = IsComputingMode && !value;
+                    IsC8H10N4O2 = IsComputingMode && !value;
                     ViewModels.Instance.NotifyWindowViewModels();
                     var handlingComputer = GetHandlingComputer();
                     if (handlingComputer != null)
@@ -252,7 +250,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public bool IsCaffeine { get; set; }
+        public bool IsC8H10N4O2 { get; set; }
 
         public bool HasPoint { get; set; }
 
@@ -528,30 +526,14 @@ namespace Qwilight.ViewModel
                     ViewModels.Instance.NotifyWindowViewModels();
                     BaseUI.Instance.InitEvents();
                     Configure.Instance.UIConfigureValue.NotifyInputMode();
-                    switch (value)
+                    if (IsNoteFileMode)
                     {
-                        case Mode.NoteFile:
-                            if (_wasSiteContainerWindowOpened)
-                            {
-                                ViewModels.Instance.SiteContainerValue.Open(false);
-                                _wasSiteContainerWindowOpened = false;
-                            }
-                            if (_wasCommentOpened)
-                            {
-                                ViewModels.Instance.CommentValue.Open(false);
-                                _wasCommentOpened = false;
-                            }
-                            NotifySystem.Instance.NotifyPending();
-                            break;
-                        case Mode.Computing:
-                            _wasSiteContainerWindowOpened = ViewModels.Instance.SiteContainerValue.IsOpened;
-                            ViewModels.Instance.SiteContainerValue.Close(false);
-                            ViewModels.Instance.NoteFileValue.Close(false);
-                            break;
-                        case Mode.Quit:
-                            _wasCommentOpened = ViewModels.Instance.CommentValue.IsOpened;
-                            ViewModels.Instance.CommentValue.Close(false);
-                            break;
+                        ViewModels.Instance.HandleSilentlyClosableViewModels(silentlyClosableViewModel => silentlyClosableViewModel.OpenSilently());
+                        NotifySystem.Instance.NotifyPending();
+                    }
+                    else
+                    {
+                        ViewModels.Instance.HandleSilentlyClosableViewModels(silentlyClosableViewModel => silentlyClosableViewModel.CloseSilently());
                     }
                 }
             }
@@ -1525,13 +1507,13 @@ namespace Qwilight.ViewModel
             };
         }
 
-        public void HandleLevyNoteFile(EntryItem entryItemValue = null, WwwLevelData wwwLevelDataValue = null, ModeComponent defaultModeComponentValue = null)
+        public void HandleLevyNoteFile(BaseNoteFile noteFile = null, WwwLevelData wwwLevelDataValue = null, ModeComponent defaultModeComponentValue = null)
         {
-            if (entryItemValue != null || HasNotInput())
+            if (noteFile != null || HasNotInput())
             {
-                entryItemValue ??= EntryItemValue;
+                noteFile ??= EntryItemValue?.NoteFile;
 
-                var onLevyNoteFile = entryItemValue?.NoteFile?.OnLevyNoteFile;
+                var onLevyNoteFile = noteFile?.OnLevyNoteFile;
                 if (onLevyNoteFile != null)
                 {
                     onLevyNoteFile();
@@ -1544,29 +1526,28 @@ namespace Qwilight.ViewModel
                     }
                     else
                     {
-                        var isSaltNoteFile = entryItemValue?.NoteFile is SaltNoteFile;
+                        var isSaltNoteFile = noteFile is SaltNoteFile;
                         if (isSaltNoteFile)
                         {
                             SaltEntryView();
-                            entryItemValue = EntryItemValue;
+                            noteFile = EntryItemValue?.NoteFile;
                         }
 
-                        if (entryItemValue != null)
+                        if (noteFile != null)
                         {
-                            var eventNoteID = entryItemValue.EventNoteID;
-                            var noteFiles = entryItemValue.NoteFiles;
-                            var targetNoteFile = string.IsNullOrEmpty(eventNoteID) ? entryItemValue.NoteFile : noteFiles.First();
-                            if (string.IsNullOrEmpty(eventNoteID))
+                            var entryItem = noteFile.EntryItem;
+                            if (string.IsNullOrEmpty(entryItem.EventNoteID))
                             {
                                 Utility.HandleUIAudio("Levy Note File");
                                 IsCommentMode = false;
-                                ModeComponentValue.ComputingValue = targetNoteFile;
+                                ModeComponentValue.ComputingValue = noteFile;
                                 ModeComponentValue.CanModifyMultiplier = true;
                                 ModeComponentValue.CanModifyAudioMultiplier = true;
-                                SetComputingMode(new(new[] { targetNoteFile }, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), wwwLevelDataValue, null, null, null));
+                                SetComputingMode(new(new[] { noteFile }, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), wwwLevelDataValue, null, null, null));
                             }
                             else
                             {
+                                var noteFiles = entryItem.NoteFiles;
                                 if (noteFiles.Any(noteFile => string.IsNullOrEmpty(noteFile.NoteFilePath)))
                                 {
                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotAvailableEventNoteFileFault);
@@ -1575,10 +1556,10 @@ namespace Qwilight.ViewModel
                                 {
                                     Utility.HandleUIAudio("Levy Note File");
                                     IsCommentMode = false;
-                                    ModeComponentValue.ComputingValue = targetNoteFile;
+                                    ModeComponentValue.ComputingValue = noteFiles.First();
                                     ModeComponentValue.CanModifyMultiplier = true;
                                     ModeComponentValue.CanModifyAudioMultiplier = true;
-                                    SetComputingMode(new(noteFiles, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), wwwLevelDataValue, null, entryItemValue, null));
+                                    SetComputingMode(new(noteFiles, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), wwwLevelDataValue, null, entryItem, null));
                                 }
                             }
                         }
@@ -1603,10 +1584,9 @@ namespace Qwilight.ViewModel
                 ModeComponentValue.CopyAs(defaultModeComponentValue);
             }
 
-            Configure.Instance.Save();
-            GPUConfigure.Instance.Save();
-            DB.Instance.Save();
-            FastDB.Instance.Save();
+            Configure.Instance.Save(false);
+            GPUConfigure.Instance.Save(false);
+            DB.Instance.Save(false);
 
             AudioSystem.Instance.Dispose();
             AudioInputSystem.Instance.Dispose();

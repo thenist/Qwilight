@@ -15,10 +15,10 @@ namespace Qwilight.Compute
         {
             Close();
             var mainViewModel = ViewModels.Instance.MainValue;
-            var entryItemValue = mainViewModel.EntryItemValue;
-            if (entryItemValue != null)
+            var entryItem = mainViewModel.EntryItemValue;
+            if (entryItem != null)
             {
-                mainViewModel.LoadEntryItem(entryItemValue.DefaultEntryItem, entryItemValue.EntryPath);
+                mainViewModel.LoadEntryItem(entryItem.DefaultEntryItem, entryItem.EntryPath);
             }
         }
     }

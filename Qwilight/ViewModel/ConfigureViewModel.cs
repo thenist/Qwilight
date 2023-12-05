@@ -1391,6 +1391,8 @@ namespace Qwilight.ViewModel
         public override void OnCollasped()
         {
             base.OnCollasped();
+            Configure.Instance.Save(true);
+            GPUConfigure.Instance.Save(true);
             var mainViewModel = ViewModels.Instance.MainValue;
             mainViewModel.OnJudgmentMeterMillisModified();
             mainViewModel.HandleAutoComputer();

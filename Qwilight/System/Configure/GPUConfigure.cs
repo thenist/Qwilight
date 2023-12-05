@@ -26,6 +26,8 @@ namespace Qwilight
         static readonly string _tmp0FileName = Path.ChangeExtension(_fileName, ".json.tmp.0");
         static readonly string _tmp1FileName = Path.ChangeExtension(_fileName, ".json.tmp.1");
 
+        readonly object _setSaveCSX = new();
+
         public void Load()
         {
             Utility.WipeFile(_tmp0FileName);
@@ -66,12 +68,27 @@ namespace Qwilight
         [JsonIgnore]
         public string GPUConfigureFault { get; set; }
 
-        public void Save()
+        public void Save(bool isParallel)
         {
-            Utility.CopyFile(_fileName, _tmp0FileName);
-            Utility.MoveFile(_tmp0FileName, _tmp1FileName);
-            File.WriteAllText(_fileName, Utility.SetJSON(this, _defaultJSONConfigure), Encoding.UTF8);
-            Utility.WipeFile(_tmp1FileName);
+            if (isParallel)
+            {
+                Task.Run(SaveImpl);
+            }
+            else
+            {
+                SaveImpl();
+            }
+
+            void SaveImpl()
+            {
+                lock (_setSaveCSX)
+                {
+                    Utility.CopyFile(_fileName, _tmp0FileName);
+                    Utility.MoveFile(_tmp0FileName, _tmp1FileName);
+                    File.WriteAllText(_fileName, Utility.SetJSON(this, _defaultJSONConfigure), Encoding.UTF8);
+                    Utility.WipeFile(_tmp1FileName);
+                }
+            }
         }
 
         public void Validate(bool isInit)

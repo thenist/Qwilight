@@ -388,8 +388,8 @@
     "en-US": "Recently played 50"
   },
   "AvatarViewLevelVSText": {
-    "ko-KR": "비교 (Beta)",
-    "en-US": "Comparison (Beta)"
+    "ko-KR": "비교",
+    "en-US": "Comparison"
   },
   "AvatarViewQuitContents": {
     "ko-KR": "랭크",
@@ -3313,7 +3313,7 @@
   },
   "ViewQwilightEntry": {
     "ko-KR": "사용자 폴더 열기",
-    "en-US": "Open a user folder"
+    "en-US": "Open user folder"
   },
   "ViewUIEntry": {
     "ko-KR": "스킨 폴더 열기",

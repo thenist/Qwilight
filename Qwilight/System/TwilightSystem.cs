@@ -774,9 +774,9 @@ namespace Qwilight
                                                         zipFile.Save(rms);
                                                         break;
                                                     case BundleItem.BundleVariety.Qwilight:
-                                                        Configure.Instance.Save();
-                                                        GPUConfigure.Instance.Save();
-                                                        DB.Instance.Save();
+                                                        Configure.Instance.Save(false);
+                                                        GPUConfigure.Instance.Save(false);
+                                                        DB.Instance.Save(false);
                                                         if (Directory.Exists(QwilightComponent.CommentEntryPath))
                                                         {
                                                             zipFile.AddDirectory(QwilightComponent.CommentEntryPath, "Comment");
@@ -1573,7 +1573,7 @@ namespace Qwilight
         public async Task GetDefaultUIDate(long defaultUIDate, bool isSilent)
         {
             var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultUIDate?date={defaultUIDate}").ConfigureAwait(false);
-            if (twilightWwwDefaultDate.HasValue && !ViewModels.Instance.MainValue.IsCaffeine)
+            if (twilightWwwDefaultDate.HasValue && !ViewModels.Instance.MainValue.IsC8H10N4O2)
             {
                 var date = twilightWwwDefaultDate.Value.date;
                 Configure.Instance.DefaultUIDate = date;

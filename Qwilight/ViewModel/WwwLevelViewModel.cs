@@ -24,14 +24,12 @@ namespace Qwilight.ViewModel
             {
             }
 
-            public string NoteID { get; }
-
             public bool HaveIt { get; }
 
-            public WwwLevelComputing(JSON.Computing data) : base(null, null, null)
+            public WwwLevelComputing(JSON.Computing data) : base(ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.NoteFilePath, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.DefaultEntryItem, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.EntryItem)
             {
-                NoteID = data.noteID;
-                HaveIt = ViewModels.Instance.MainValue.NoteID512s.TryGetValue(NoteID, out var noteFile);
+                SetNoteIDs(null, null, data.noteID);
+                HaveIt = ViewModels.Instance.MainValue.NoteID512s.TryGetValue(GetNoteID512(), out var noteFile);
                 if (HaveIt)
                 {
                     NoteVarietyValue = noteFile.NoteVarietyValue;
@@ -99,18 +97,12 @@ namespace Qwilight.ViewModel
             try
             {
                 DB.Instance.SetEventNoteData(WwwLevelComputingCollection);
-                if (WwwLevelItemValue != null)
-                {
-                    var eventNoteName = WwwLevelItemValue.Title;
-                    var date = DateTime.Now;
-                    var eventNoteVariety = DB.EventNoteVariety.Qwilight;
-                    DB.Instance.SetEventNote(GetEventNoteID(), eventNoteName, date, eventNoteVariety);
-                    var mainViewModel = ViewModels.Instance.MainValue;
-                    mainViewModel.LoadEventNoteEntryItems();
-                    mainViewModel.Want();
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedEventNotes);
-                    NotifyIsCompatible();
-                }
+                DB.Instance.SetEventNote(GetEventNoteID(), WwwLevelItemValue.Title, DateTime.Now, DB.EventNoteVariety.Qwilight);
+                var mainViewModel = ViewModels.Instance.MainValue;
+                mainViewModel.LoadEventNoteEntryItems();
+                OnPropertyChanged(nameof(HasEventNote));
+                mainViewModel.Want();
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedEventNotes);
             }
             catch (SQLiteException)
             {
@@ -179,10 +171,10 @@ namespace Qwilight.ViewModel
                 modeComponentValue.LowestJudgmentConditionModeValue = LowestJudgmentConditionModes.First().Value;
             }
             modeComponentValue.PutCopyNotesValueV2 = ModeComponent.PutCopyNotes.Default;
-            mainViewModel.HandleLevyNoteFile(mainViewModel.EventNoteEntryItems[GetEventNoteID()], _wwwLevelDataValue, defaultModeComponentValue);
+            mainViewModel.HandleLevyNoteFile(mainViewModel.EventNoteEntryItems[GetEventNoteID()].NoteFile, _wwwLevelDataValue, defaultModeComponentValue);
         }
 
-        string GetEventNoteID() => string.Join('/', WwwLevelComputingCollection.Select(wwwLevelComputing => wwwLevelComputing.NoteID));
+        string GetEventNoteID() => string.Join('/', WwwLevelComputingCollection.Select(wwwLevelComputing => wwwLevelComputing.GetNoteID512()));
 
         public bool HasEventNote => ViewModels.Instance.MainValue.EventNoteEntryItems.ContainsKey(GetEventNoteID());
 
@@ -439,6 +431,7 @@ namespace Qwilight.ViewModel
                             {
                                 WwwLevelComputingCollection.Add(new(data));
                             }
+                            OnPropertyChanged(nameof(HasEventNote));
 
                             AutoModes.Clear();
                             if (twilightWwwLevelValue.autoMode != null)
@@ -720,7 +713,6 @@ namespace Qwilight.ViewModel
             OnPropertyChanged(nameof(IsWaveModeCompatible));
             OnPropertyChanged(nameof(IsSetNoteModeCompatible));
             OnPropertyChanged(nameof(IsLowestJudgmentConditionModeCompatible));
-            OnPropertyChanged(nameof(HasEventNote));
         }
 
         public bool IsLevelNameLoading

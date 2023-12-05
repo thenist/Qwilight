@@ -119,6 +119,7 @@ namespace Qwilight.ViewModel
         {
             base.OnCollasped();
             Configure.Instance.WantLevelIDs = LevelItemCollection.Where(levelItem => levelItem.IsWanted).Select(levelItem => levelItem.LevelID).ToArray();
+            Configure.Instance.Save(true);
             ViewModels.Instance.MainValue.Want();
         }
     }

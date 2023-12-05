@@ -6,6 +6,7 @@ using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Qwilight.ViewModel
@@ -24,13 +25,24 @@ namespace Qwilight.ViewModel
             {
             }
 
-            public new string FittedText { get; init; }
+            public new void OnLevyNoteFile(MouseButtonEventArgs e)
+            {
+                if (e.ClickCount >= 2)
+                {
+                    var mainViewModel = ViewModels.Instance.MainValue;
+                    if (mainViewModel.NoteID512s.TryGetValue(GetNoteID512(), out var noteFile))
+                    {
+                        mainViewModel.HandleLevyNoteFile(noteFile);
+                    }
+                }
+            }
 
             public bool HaveIt { get; }
 
-            public AvatarComputing(JSON.Computing data) : base(null, null, null)
+            public AvatarComputing(JSON.Computing data) : base(ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.NoteFilePath, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.DefaultEntryItem, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.EntryItem)
             {
-                HaveIt = ViewModels.Instance.MainValue.NoteID512s.TryGetValue(data.noteID, out var noteFile);
+                SetNoteIDs(null, null, data.noteID);
+                HaveIt = ViewModels.Instance.MainValue.NoteID512s.TryGetValue(GetNoteID512(), out var noteFile);
                 if (HaveIt)
                 {
                     NoteVarietyValue = noteFile.NoteVarietyValue;

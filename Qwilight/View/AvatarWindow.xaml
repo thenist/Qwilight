@@ -134,32 +134,28 @@
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <StackPanel>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <StackPanel>
-                                                        <Image Style="{StaticResource StandardView}" Width="72" Height="72" HorizontalAlignment="Left" Source="{Binding AbilityClass5KDrawing}" />
-                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                                                            <TextBlock Style="{StaticResource StandardTextView}" Margin="5 5 0 5" Text="{Binding AvatarAbility5KPlaceText0}" FontSize="{StaticResource FontLevel1}" VerticalAlignment="Bottom" />
-                                                            <TextBlock Style="{StaticResource StandardTextView}" Margin="0 5 5 5" Text="{Binding AvatarAbility5KPlaceText1}" VerticalAlignment="Bottom" />
-                                                        </StackPanel>
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewAbility5KText}" />
-                                                    </StackPanel>
-                                                    <StackPanel>
-                                                        <Image Style="{StaticResource StandardView}" Width="72" Height="72" HorizontalAlignment="Left" Source="{Binding AbilityClass7KDrawing}" />
-                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                                                            <TextBlock Style="{StaticResource StandardTextView}" Margin="5 5 0 5" Text="{Binding AvatarAbility7KPlaceText0}" FontSize="{StaticResource FontLevel1}" VerticalAlignment="Bottom" />
-                                                            <TextBlock Style="{StaticResource StandardTextView}" Margin="0 5 5 5" Text="{Binding AvatarAbility7KPlaceText1}" VerticalAlignment="Bottom" />
-                                                        </StackPanel>
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewAbility7KText}" />
-                                                    </StackPanel>
-                                                    <StackPanel>
-                                                        <Image Style="{StaticResource StandardView}" Width="72" Height="72" HorizontalAlignment="Left" Source="{Binding AbilityClass9KDrawing}" />
-                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                                                            <TextBlock Style="{StaticResource StandardTextView}" Margin="5 5 0 5" Text="{Binding AvatarAbility9KPlaceText0}" FontSize="{StaticResource FontLevel1}" VerticalAlignment="Bottom" />
-                                                            <TextBlock Style="{StaticResource StandardTextView}" Margin="0 5 5 5" Text="{Binding AvatarAbility9KPlaceText1}" VerticalAlignment="Bottom" />
-                                                        </StackPanel>
-                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewAbility9KText}" />
-                                                    </StackPanel>
+                                                <Image Style="{StaticResource StandardView}" Width="72" Height="72" HorizontalAlignment="Left" Source="{Binding AbilityClass5KDrawing}" />
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <TextBlock Style="{StaticResource StandardTextView}" Margin="5 5 0 5" Text="{Binding AvatarAbility5KPlaceText0}" FontSize="{StaticResource FontLevel1}" VerticalAlignment="Bottom" />
+                                                    <TextBlock Style="{StaticResource StandardTextView}" Margin="0 5 5 5" Text="{Binding AvatarAbility5KPlaceText1}" VerticalAlignment="Bottom" />
                                                 </StackPanel>
+                                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewAbility5KText}" />
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Image Style="{StaticResource StandardView}" Width="72" Height="72" HorizontalAlignment="Left" Source="{Binding AbilityClass7KDrawing}" />
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <TextBlock Style="{StaticResource StandardTextView}" Margin="5 5 0 5" Text="{Binding AvatarAbility7KPlaceText0}" FontSize="{StaticResource FontLevel1}" VerticalAlignment="Bottom" />
+                                                    <TextBlock Style="{StaticResource StandardTextView}" Margin="0 5 5 5" Text="{Binding AvatarAbility7KPlaceText1}" VerticalAlignment="Bottom" />
+                                                </StackPanel>
+                                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewAbility7KText}" />
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Image Style="{StaticResource StandardView}" Width="72" Height="72" HorizontalAlignment="Left" Source="{Binding AbilityClass9KDrawing}" />
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <TextBlock Style="{StaticResource StandardTextView}" Margin="5 5 0 5" Text="{Binding AvatarAbility9KPlaceText0}" FontSize="{StaticResource FontLevel1}" VerticalAlignment="Bottom" />
+                                                    <TextBlock Style="{StaticResource StandardTextView}" Margin="0 5 5 5" Text="{Binding AvatarAbility9KPlaceText1}" VerticalAlignment="Bottom" />
+                                                </StackPanel>
+                                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewAbility9KText}" />
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
@@ -178,7 +174,7 @@
                         <TabControl Grid.Column="1" Style="{StaticResource StandardPageView}" SelectedIndex="{Binding AvatarTabPosition}">
                             <TabControl.Resources>
                                 <DataTemplate x:Key="ComputingView">
-                                    <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}">
+                                    <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Background="Transparent" MouseDown="OnLevyNoteFile">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />

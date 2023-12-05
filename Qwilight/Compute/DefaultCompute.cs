@@ -4117,6 +4117,8 @@ namespace Qwilight.Compute
                         }
                     }
                 }
+
+                DB.Instance.Save(true);
             }
 
             IsNewStand = Stand.TargetValue > _netItems.Where(netItem => !netItem.IsMyNetItem && netItem.AvatarID == AvatarID).DefaultIfEmpty().Max(netItem => netItem?.StandValue ?? 0);

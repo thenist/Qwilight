@@ -13,6 +13,7 @@ namespace Qwilight.ViewModel
 
         int _zValue;
         bool _isControlling;
+        bool _wasSilentlyClosed;
 
         public bool IsLoaded { get; set; }
 
@@ -86,6 +87,24 @@ namespace Qwilight.ViewModel
                 Zvalue = ++_lastZvalue;
                 IsControlling = true;
                 OnOpened();
+            }
+        }
+
+        public void CloseSilently()
+        {
+            if (IsOpened)
+            {
+                Close(false);
+                _wasSilentlyClosed = true;
+            }
+        }
+
+        public void OpenSilently()
+        {
+            if (_wasSilentlyClosed)
+            {
+                Open(false);
+                _wasSilentlyClosed = false;
             }
         }
 

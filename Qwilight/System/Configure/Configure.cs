@@ -158,6 +158,7 @@ namespace Qwilight
             }
         }
 
+        readonly object _setSaveCSX = new();
         readonly byte[] _aesCipher;
         readonly byte[] _aesIV = new byte[16];
         readonly double[] _vibrations = new double[4];
@@ -2246,14 +2247,29 @@ namespace Qwilight
 
         public int NetItemCount { get; set; }
 
-        public void Save()
+        public void Save(bool isParallel)
         {
-            ModeComponentValue = ViewModels.Instance.MainValue.ModeComponentValue;
+            if (isParallel)
+            {
+                Task.Run(SaveImpl);
+            }
+            else
+            {
+                SaveImpl();
+            }
 
-            Utility.CopyFile(_fileName, _tmp0FileName);
-            Utility.MoveFile(_tmp0FileName, _tmp1FileName);
-            File.WriteAllText(_fileName, Utility.SetJSON(this, _defaultJSONConfigure), Encoding.UTF8);
-            Utility.WipeFile(_tmp1FileName);
+            void SaveImpl()
+            {
+                lock (_setSaveCSX)
+                {
+                    ModeComponentValue = ViewModels.Instance.MainValue.ModeComponentValue;
+
+                    Utility.CopyFile(_fileName, _tmp0FileName);
+                    Utility.MoveFile(_tmp0FileName, _tmp1FileName);
+                    File.WriteAllText(_fileName, Utility.SetJSON(this, _defaultJSONConfigure), Encoding.UTF8);
+                    Utility.WipeFile(_tmp1FileName);
+                }
+            }
         }
 
         public void Validate(bool isInit)

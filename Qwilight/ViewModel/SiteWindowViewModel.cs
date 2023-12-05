@@ -30,8 +30,8 @@ namespace Qwilight.ViewModel
         static void OnNewNetSite()
         {
             var mainViewModel = ViewModels.Instance.MainValue;
-            var entryItemValue = mainViewModel.EntryItemValue;
-            var noteFile = entryItemValue?.NoteFile;
+            var entryItem = mainViewModel.EntryItemValue;
+            var noteFile = entryItem?.NoteFile;
             if (noteFile?.IsLogical == false)
             {
                 var inputPwViewModel = ViewModels.Instance.InputPwValue;
