@@ -630,8 +630,8 @@ namespace Qwilight
                         LowJudgment1 = rows.GetDouble("Low_Judgment_1"),
                         LowerJudgment1 = rows.GetDouble("Lower_Judgment_1"),
                         LowestJudgment1 = rows.GetDouble("Lowest_Judgment_1"),
-                        LowestLongNoteModify = rows.GetDouble("Lowest_Long_Note_Modify"),
-                        HighestLongNoteModify = rows.GetDouble("Highest_Long_Note_Modify"),
+                        ConfigureLowestLongNoteModify = rows.GetDouble("Lowest_Long_Note_Modify"),
+                        ConfigureHighestLongNoteModify = rows.GetDouble("Highest_Long_Note_Modify"),
                         PutNoteSet = rows.GetInt32("Put_Note_Set"),
                         PutNoteSetMillis = rows.GetDouble("Put_Note_Set_Millis"),
                         HighestHitPoints0 = 100.0 * rows.GetDouble("Highest_Hit_Points_0"),
@@ -999,8 +999,8 @@ namespace Qwilight
             dbStatement.Parameters.AddWithValue("lowJudgment1", modeComponentValue.LowJudgment1);
             dbStatement.Parameters.AddWithValue("lowerJudgment1", modeComponentValue.LowerJudgment1);
             dbStatement.Parameters.AddWithValue("lowestJudgment1", modeComponentValue.LowestJudgment1);
-            dbStatement.Parameters.AddWithValue("lowestLongNoteModify", modeComponentValue.LowestLongNoteModify);
-            dbStatement.Parameters.AddWithValue("highestLongNoteModify", modeComponentValue.HighestLongNoteModify);
+            dbStatement.Parameters.AddWithValue("lowestLongNoteModify", modeComponentValue.ConfigureLowestLongNoteModify);
+            dbStatement.Parameters.AddWithValue("highestLongNoteModify", modeComponentValue.ConfigureHighestLongNoteModify);
             dbStatement.Parameters.AddWithValue("putNoteSet", modeComponentValue.PutNoteSet);
             dbStatement.Parameters.AddWithValue("putNoteSetMillis", modeComponentValue.PutNoteSetMillis);
             dbStatement.Parameters.AddWithValue("highestHitPoints0", modeComponentValue.HighestHitPoints0 / 100.0);

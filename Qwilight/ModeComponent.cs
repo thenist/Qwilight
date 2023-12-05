@@ -104,7 +104,7 @@ namespace Qwilight
         double _putNoteSet = 25.0;
         double _putNoteSetMillis = 100.0;
 
-        public bool IsNoteSaltModeWarning(string date) => Utility.IsLowerDate(Version.Parse(date), 1, 14, 27) && (NoteSaltModeValue == NoteSaltMode.InputSalt || NoteSaltModeValue == NoteSaltMode.MeterSalt || NoteSaltModeValue == NoteSaltMode.HalfInputSalt);
+        public bool IsNoteSaltModeWarning(string date) => Utility.IsLowerDate(Version.Parse(date), 1, 16, 11) && (NoteSaltModeValue == NoteSaltMode.InputSalt || NoteSaltModeValue == NoteSaltMode.MeterSalt || NoteSaltModeValue == NoteSaltMode.HalfInputSalt);
 
         public bool IsGASWarning => HitPointsModeValue == HitPointsMode.Default || HitPointsModeValue == HitPointsMode.Higher;
 
@@ -807,7 +807,7 @@ namespace Qwilight
         {
             if (Configure.Instance.LowestAutoLongNoteModify)
             {
-                LowestLongNoteModify = 1000.0 * 240.0 / (BPM * AudioMultiplier) / Configure.Instance.LowestAutoLongNoteModifyValue;
+                ConfigureLowestLongNoteModify = 1000.0 * 240.0 / (BPM * AudioMultiplier) / Configure.Instance.LowestAutoLongNoteModifyValue;
             }
         }
 
@@ -815,7 +815,7 @@ namespace Qwilight
         {
             if (Configure.Instance.HighestAutoLongNoteModify)
             {
-                HighestLongNoteModify = 1000.0 * 240.0 / (BPM * AudioMultiplier) / Configure.Instance.HighestAutoLongNoteModifyValue;
+                ConfigureHighestLongNoteModify = 1000.0 * 240.0 / (BPM * AudioMultiplier) / Configure.Instance.HighestAutoLongNoteModifyValue;
             }
         }
 
@@ -827,18 +827,18 @@ namespace Qwilight
             }
         }
 
-        public double LowestLongNoteModify
+        public double ConfigureLowestLongNoteModify
         {
             get => _lowestLongNoteModify;
 
-            set => SetProperty(ref _lowestLongNoteModify, value, nameof(LowestLongNoteModify));
+            set => SetProperty(ref _lowestLongNoteModify, value, nameof(ConfigureLowestLongNoteModify));
         }
 
-        public double HighestLongNoteModify
+        public double ConfigureHighestLongNoteModify
         {
             get => _highestLongNoteModify;
 
-            set => SetProperty(ref _highestLongNoteModify, value, nameof(HighestLongNoteModify));
+            set => SetProperty(ref _highestLongNoteModify, value, nameof(ConfigureHighestLongNoteModify));
         }
 
         public double PutNoteSet
@@ -885,8 +885,8 @@ namespace Qwilight
             lowJudgment1 = LowJudgment1,
             lowerJudgment1 = LowerJudgment1,
             lowestJudgment1 = LowestJudgment1,
-            lowestLongNoteModify = LowestLongNoteModify,
-            highestLongNoteModify = HighestLongNoteModify,
+            lowestLongNoteModify = ConfigureLowestLongNoteModify,
+            highestLongNoteModify = ConfigureHighestLongNoteModify,
             putNoteSet = PutNoteSet,
             putNoteSetMillis = PutNoteSetMillis,
             highestHitPoints0 = HighestHitPoints0,
@@ -967,7 +967,7 @@ namespace Qwilight
             {
                 if (modeComponentValue.NoteModifyModeValue == NoteModifyMode.LongNote)
                 {
-                    if (LowestLongNoteModify != modeComponentValue.LowestLongNoteModify || HighestLongNoteModify != modeComponentValue.HighestLongNoteModify)
+                    if (ConfigureLowestLongNoteModify != modeComponentValue.ConfigureLowestLongNoteModify || ConfigureHighestLongNoteModify != modeComponentValue.ConfigureHighestLongNoteModify)
                     {
                         return false;
                     }
@@ -1084,8 +1084,8 @@ namespace Qwilight
             OnPropertyChanged(nameof(HigherHitPoints1));
             OnPropertyChanged(nameof(HighestHitPoints0));
             OnPropertyChanged(nameof(HighestHitPoints1));
-            LowestLongNoteModify = modeComponentValue.LowestLongNoteModify;
-            HighestLongNoteModify = modeComponentValue.HighestLongNoteModify;
+            ConfigureLowestLongNoteModify = modeComponentValue.ConfigureLowestLongNoteModify;
+            ConfigureHighestLongNoteModify = modeComponentValue.ConfigureHighestLongNoteModify;
             PutNoteSet = modeComponentValue.PutNoteSet;
             PutNoteSetMillis = modeComponentValue.PutNoteSetMillis;
             PutCopyNotesValueV2 = modeComponentValue.PutCopyNotesValueV2;
@@ -1171,8 +1171,8 @@ namespace Qwilight
             LowJudgment1 = modeComponentData.lowJudgment1;
             LowerJudgment1 = modeComponentData.lowerJudgment1;
             LowestJudgment1 = modeComponentData.lowestJudgment1;
-            LowestLongNoteModify = modeComponentData.lowestLongNoteModify;
-            HighestLongNoteModify = modeComponentData.highestLongNoteModify;
+            ConfigureLowestLongNoteModify = modeComponentData.lowestLongNoteModify;
+            ConfigureHighestLongNoteModify = modeComponentData.highestLongNoteModify;
             PutNoteSet = modeComponentData.putNoteSet;
             PutNoteSetMillis = modeComponentData.putNoteSetMillis;
             HighestHitPoints0 = modeComponentData.highestHitPoints0;

@@ -127,19 +127,19 @@
                             </Grid>
                         </GroupBox.Header>
                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode4}" BorderBrush="{Binding InputMode4}">4K</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode5}" BorderBrush="{Binding InputMode5}">5K</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode6}" BorderBrush="{Binding InputMode6}">6K</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode7}" BorderBrush="{Binding InputMode7}">7K</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode8}" BorderBrush="{Binding InputMode8}">8K</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode9}" BorderBrush="{Binding InputMode9}">9K</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode10}" BorderBrush="{Binding InputMode10}">10</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode51}" BorderBrush="{Binding InputMode51}">⑤K</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode71}" BorderBrush="{Binding InputMode71}">⑦K</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode102}" BorderBrush="{Binding InputMode102}">⑩K</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode142}" BorderBrush="{Binding InputMode142}">⑭K</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode242}" BorderBrush="{Binding InputMode242}">24</Button>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode484}" BorderBrush="{Binding InputMode484}">48</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode4}" Foreground="{Binding InputMode4}">4K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode5}" Foreground="{Binding InputMode5}">5K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode6}" Foreground="{Binding InputMode6}">6K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode7}" Foreground="{Binding InputMode7}">7K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode8}" Foreground="{Binding InputMode8}">8K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode9}" Foreground="{Binding InputMode9}">9K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode10}" Foreground="{Binding InputMode10}">10</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode51}" Foreground="{Binding InputMode51}">⑤K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode71}" Foreground="{Binding InputMode71}">⑦K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode102}" Foreground="{Binding InputMode102}">⑩K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode142}" Foreground="{Binding InputMode142}">⑭K</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode242}" Foreground="{Binding InputMode242}">24</Button>
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding WantInputModeCommand}" CommandParameter="{StaticResource InputMode484}" Foreground="{Binding InputMode484}">48</Button>
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Style="{StaticResource StandardGroupView}">

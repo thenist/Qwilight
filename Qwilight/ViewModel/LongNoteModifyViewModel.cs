@@ -4,7 +4,7 @@ namespace Qwilight.ViewModel
 {
     public sealed class LongNoteModifyViewModel : BaseViewModel
     {
-        public override double TargetLength => 0.2;
+        public override double TargetLength => double.NaN;
 
         public override double TargetHeight => double.NaN;
 
@@ -15,7 +15,7 @@ namespace Qwilight.ViewModel
             get
             {
                 var modeComponentValue = ViewModels.Instance.MainValue.ModeComponentValue;
-                if (modeComponentValue.LowestLongNoteModify > modeComponentValue.HighestLongNoteModify)
+                if (modeComponentValue.ConfigureLowestLongNoteModify > modeComponentValue.ConfigureHighestLongNoteModify)
                 {
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.LongNoteModifyFaultText);
                     return false;

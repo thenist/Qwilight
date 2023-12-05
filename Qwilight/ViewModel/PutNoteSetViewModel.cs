@@ -4,7 +4,7 @@ namespace Qwilight.ViewModel
 {
     public sealed class PutNoteSetViewModel : BaseViewModel
     {
-        public override double TargetLength => 0.2;
+        public override double TargetLength => double.NaN;
 
         public override double TargetHeight => double.NaN;
 

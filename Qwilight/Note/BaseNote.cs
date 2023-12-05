@@ -93,7 +93,7 @@ namespace Qwilight.Note
             _ => 1F,
         };
 
-        public bool IsClose(double wait) => Wait - wait <= Component.LevyingWait;
+        public bool IsClose(double wait) => Wait - wait <= 5000.0;
 
         public double GetMultiplierAsNoteMobility(ModeComponent modeComponentValue, double noteMobilityCosine, double noteMobilityValue) => modeComponentValue.NoteMobilityModeValue switch
         {

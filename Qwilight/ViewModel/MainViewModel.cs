@@ -1403,11 +1403,11 @@ namespace Qwilight.ViewModel
             _loadTwilightCommentHandler.Tick += async (sender, e) =>
             {
                 (sender as DispatcherTimer).Stop();
-                var noteFile = EntryItemValue?.NoteFile;
-                if (noteFile != null)
+                var noteID = EntryItemValue?.NoteFile?.GetNoteID512();
+                if (!string.IsNullOrEmpty(noteID))
                 {
-                    var noteID = noteFile.GetNoteID512();
                     var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}&target={Configure.Instance.UbuntuNetItemTarget}");
+                    var noteFile = EntryItemValue?.NoteFile;
                     if (noteFile?.GetNoteID512() == noteID)
                     {
                         if (twilightWwwComment.HasValue)

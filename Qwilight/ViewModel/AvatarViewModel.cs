@@ -866,7 +866,7 @@ namespace Qwilight.ViewModel
 
         public string AvatarViewTotalCountText => string.Format(LanguageSystem.Instance.AvatarViewTotalCountText, _totalCount.ToString("#,##0"));
 
-        public string AvatarViewTotalLengthText => string.Format(LanguageSystem.Instance.AvatarViewTotalLengthText, ((int)_totalLength / 1000 / 60 / 60).ToString("#,##0"), ((int)_totalLength / 1000 / 60 % 60).ToString(), ((int)_totalLength / 1000 % 60).ToString());
+        public string AvatarViewTotalLengthText => string.Format(LanguageSystem.Instance.AvatarViewTotalLengthText, (_totalLength / 1000.0 / 60 / 60).ToString("#,##0"), (_totalLength / 1000.0 / 60 % 60).ToString("#,##0"), (_totalLength / 1000 % 60).ToString("#,##0"));
 
         public string AvatarViewHighestCountText => string.Format(LanguageSystem.Instance.AvatarViewHighestCountText, _highestCount.ToString("#,##0"));
 

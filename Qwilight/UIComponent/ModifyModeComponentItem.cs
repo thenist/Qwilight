@@ -27,14 +27,11 @@ namespace Qwilight.UIComponent
 
         public Func<bool> GetIsVConfigure { get; init; }
 
-        public bool IsVConfigure => GetIsVConfigure();
+        public bool IsVConfigure => GetIsVConfigure?.Invoke() == true;
 
         public void NotifyIsVConfigure()
         {
-            if (GetIsVConfigure != null)
-            {
-                OnPropertyChanged(nameof(IsVConfigure));
-            }
+            OnPropertyChanged(nameof(IsVConfigure));
         }
 
         public override bool Equals(object obj) => obj is ModifyModeComponentItem modeComponentItem && Value == modeComponentItem.Value;

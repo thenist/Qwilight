@@ -5,8 +5,7 @@
     xmlns:view="clr-namespace:Qwilight.View"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     DataContext="{Binding ConfigureValue, Source={StaticResource ViewModels}}"
-    Style="{StaticResource StandardModalWindow}"
-    Opacity="{Binding Faint}">
+    Style="{StaticResource StandardModalWindow}">
     <Grid Style="{StaticResource StandardWindow}">
         <Border Style="{StaticResource WindowStandardPanel}">
             <Grid>

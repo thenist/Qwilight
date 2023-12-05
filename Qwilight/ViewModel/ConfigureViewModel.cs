@@ -6,7 +6,6 @@ using Qwilight.MSG;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Threading;
 using Windows.ApplicationModel.DataTransfer;
@@ -48,16 +47,8 @@ namespace Qwilight.ViewModel
         int _tabPositionUI;
         HunterVariety _defaultHunterVariety;
         bool _defaultNetCommentFollow;
-        double _faint = 1.0;
 
         public override double TargetLength => 0.9;
-
-        public double Faint
-        {
-            get => _faint;
-
-            set => SetProperty(ref _faint, value, nameof(Faint));
-        }
 
         public UIItem BaseUIItemValue
         {
@@ -300,30 +291,33 @@ namespace Qwilight.ViewModel
 
         public void OnComputingPointed()
         {
-            _fadingComputingHandler?.Stop();
-            var fadingCounter = Stopwatch.StartNew();
-            _fadingComputingHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
+            if (ViewModels.Instance.MainValue.IsNoteFileMode)
             {
-                var fadingStatus = Math.Min(QwilightComponent.StandardWaitMillis, fadingCounter.GetMillis()) / QwilightComponent.StandardWaitMillis;
-                Faint = -0.875 * fadingStatus + 1;
-
-                if (fadingStatus == 1.0)
+                Configure.Instance.NotifyTutorial(Configure.TutorialID.EnterAutoComputeConfigure);
+            }
+            else
+            {
+                _fadingComputingHandler?.Stop();
+                _fadingComputingHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
                 {
-                    (sender as DispatcherTimer).Stop();
-                }
-            }, UIHandler.Instance.Handler);
+                    Faint = Math.Max(0.125, Faint + Utility.GetMove(0.125, Faint, 1000.0 / 60));
+
+                    if (Faint == 0.125)
+                    {
+                        (sender as DispatcherTimer).Stop();
+                    }
+                }, UIHandler.Instance.Handler);
+            }
         }
 
         public void OnComputingNotPointed()
         {
             _fadingComputingHandler?.Stop();
-            var fadingCounter = Stopwatch.StartNew();
             _fadingComputingHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
             {
-                var fadingStatus = Math.Min(QwilightComponent.StandardWaitMillis, fadingCounter.GetMillis()) / QwilightComponent.StandardWaitMillis;
-                Faint = 0.875 * fadingStatus + 0.125;
+                Faint = Math.Min(Faint + Utility.GetMove(1.0, Faint, 1000.0 / 60), 1.0);
 
-                if (fadingStatus == 1.0)
+                if (Faint == 1.0)
                 {
                     (sender as DispatcherTimer).Stop();
                 }

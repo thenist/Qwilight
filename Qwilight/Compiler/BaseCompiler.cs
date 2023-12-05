@@ -553,8 +553,8 @@ namespace Qwilight.Compiler
                 }
                 if (defaultComputer.ModeComponentValue.NoteSaltModeValue != ModeComponent.NoteSaltMode.Default)
                 {
-                    var saltInputComputer = new Random(defaultComputer.ModeComponentValue.Salt);
-                    var isHalfSalt = defaultComputer.ModeComponentValue.NoteSaltModeValue == ModeComponent.NoteSaltMode.HalfInputSalt;
+                    var noteSaltComputer = new Random(defaultComputer.ModeComponentValue.Salt);
+                    var isHalfInputSalt = defaultComputer.ModeComponentValue.NoteSaltModeValue == ModeComponent.NoteSaltMode.HalfInputSalt;
                     switch (defaultComputer.ModeComponentValue.NoteSaltModeValue)
                     {
                         case ModeComponent.NoteSaltMode.InputSalt:
@@ -564,105 +564,80 @@ namespace Qwilight.Compiler
                         case ModeComponent.NoteSaltMode.MeterSalt:
                             var meterWaitCount = defaultComputer.MeterWaitMap.Count;
                             var levyingMeterWait = defaultComputer.MeterWaitMap[0];
-                            for (var i = 1; i < meterWaitCount; ++i)
+                            for (var i = 1; i <= meterWaitCount; ++i)
                             {
-                                var endMeterWait = defaultComputer.MeterWaitMap[i];
-                                var inputNoteInMeters = inputNotes.Where(note =>
+                                var endMeterWait = i < meterWaitCount ? defaultComputer.MeterWaitMap[i] : double.PositiveInfinity;
+                                var inputNotesInMeter = inputNotes.Where(note =>
                                 {
                                     var wait = note.Wait;
                                     return levyingMeterWait <= wait && wait < endMeterWait;
                                 }).ToArray();
-                                if (inputNoteInMeters.Length > 0 && endMeterWait <= inputNoteInMeters.Max(note => note.Wait + note.LongWait))
+                                if (inputNotesInMeter.All(note => note.Wait + note.LongWait < endMeterWait))
                                 {
-                                    SaltInput(Array.Empty<BaseNote>());
-                                }
-                                else
-                                {
-                                    SaltInput(inputNotes.Where(note =>
-                                    {
-                                        var wait = note.Wait;
-                                        return levyingMeterWait <= wait && wait < endMeterWait;
-                                    }).ToArray());
+                                    SaltInput(inputNotesInMeter);
                                     levyingMeterWait = endMeterWait;
-                                    defaultComputer.SetCompilingStatus((double)i / (meterWaitCount - 1));
+                                }
+                                defaultComputer.SetCompilingStatus((double)i / meterWaitCount);
+                            }
+                            break;
+                        case ModeComponent.NoteSaltMode.Symmetric:
+                            foreach (var inputNote in inputNotes)
+                            {
+                                var input = inputNote.LevyingInput;
+                                if (!autoableInputs.Contains(input))
+                                {
+                                    inputNote.LevyingInput = autoableInputCount switch
+                                    {
+                                        0 => inputCount + 1 - input,
+                                        1 => inputCount + 2 - input,
+                                        2 => inputCount + 1 - input,
+                                        4 => inputCount + 1 - input,
+                                        _ => default
+                                    };
                                 }
                             }
                             break;
-                        default:
+                        case ModeComponent.NoteSaltMode.Salt:
                             var endStatus = inputNotes.Length;
                             var status = 0;
                             var saltedNotes = new List<BaseNote>();
-                            foreach (var targetNote in inputNotes)
+                            foreach (var inputNote in inputNotes)
                             {
-                                var input = targetNote.LevyingInput;
-                                switch (defaultComputer.ModeComponentValue.NoteSaltModeValue)
+                                var input = inputNote.LevyingInput;
+                                if (!autoableInputs.Contains(input))
                                 {
-                                    case ModeComponent.NoteSaltMode.Symmetric:
-                                        if (!autoableInputs.Contains(input))
+                                    var inputCountLength = inputCount - autoableInputCount;
+                                    var saltedInputs = new int[inputCountLength];
+                                    for (var i = inputCountLength - 1; i >= 0; --i)
+                                    {
+                                        switch (autoableInputCount)
                                         {
-                                            targetNote.LevyingInput = autoableInputCount switch
-                                            {
-                                                0 => inputCount + 1 - input,
-                                                1 => inputCount + 2 - input,
-                                                2 => inputCount + 1 - input,
-                                                4 => inputCount + 1 - input,
-                                                _ => default
-                                            };
+                                            case 0:
+                                                saltedInputs[i] = i + 1;
+                                                break;
+                                            case 1:
+                                            case 2:
+                                                saltedInputs[i] = i + 2;
+                                                break;
+                                            case 4:
+                                                saltedInputs[i] = i + 3;
+                                                break;
                                         }
-                                        break;
-                                    case ModeComponent.NoteSaltMode.Salt:
-                                        if (!autoableInputs.Contains(input))
-                                        {
-                                            targetNote.LevyingInput = autoableInputCount switch
-                                            {
-                                                0 => SaltNote(saltedNotes, targetNote, 1, inputCount + 1),
-                                                1 => SaltNote(saltedNotes, targetNote, 2, inputCount + 1),
-                                                2 => SaltNote(saltedNotes, targetNote, 2, inputCount),
-                                                4 => SaltNote(saltedNotes, targetNote, 3, inputCount - 1),
-                                                _ => default
-                                            };
-                                        }
-                                        break;
+                                    }
+                                    saltedInputs = saltedInputs.Except(saltedNotes.Where(note => note.IsCollided(inputNote)).Select(note => note.LevyingInput)).ToArray();
+                                    noteSaltComputer.Shuffle(saltedInputs);
+                                    inputNote.LevyingInput = saltedInputs.First();
+                                    saltedNotes.Add(inputNote);
                                 }
                                 defaultComputer.SetCompilingStatus((double)++status / endStatus);
                             }
                             break;
-                    }
-                    // 랜덤
-                    int SaltNote(ICollection<BaseNote> saltedNotes, BaseNote targetNote, int levyingInput, int lastInput)
-                    {
-                        var wait = targetNote.Wait;
-                        var longWait = targetNote.LongWait;
-                        var levyingSaltInput = targetNote.Salt % (lastInput - levyingInput) + levyingInput;
-                        var saltInput = levyingSaltInput;
-                        var loopCount = lastInput - levyingInput;
-                        do
-                        {
-                            if (saltedNotes.Any(note =>
-                            {
-                                return note != targetNote && note.LevyingInput == saltInput && note.IsCollided(targetNote);
-                            }))
-                            {
-                                if (++saltInput >= lastInput)
-                                {
-                                    saltInput = levyingInput;
-                                }
-                                if (--loopCount > 0)
-                                {
-                                    continue;
-                                }
-                            }
-                            break;
-                        } while (true);
-                        saltedNotes.Add(targetNote);
-                        return saltInput;
                     }
                     // 라인 랜덤
                     void SaltInput(BaseNote[] notes)
                     {
                         var inputCountLength = inputCount - autoableInputCount;
                         var saltedInputs = new int[inputCountLength];
-
                         for (var i = inputCountLength - 1; i >= 0; --i)
                         {
                             switch (autoableInputCount)
@@ -674,30 +649,23 @@ namespace Qwilight.Compiler
                                 case 2:
                                     saltedInputs[i] = i + 2;
                                     break;
+                                case 4:
+                                    saltedInputs[i] = i + 3;
+                                    break;
                             }
                         }
-                        if (isHalfSalt)
+                        if (isHalfInputSalt)
                         {
-                            var endHalfInputCountLength = (int)Math.Ceiling(inputCountLength / 2.0);
-                            for (var i = inputCountLength - 1; i > endHalfInputCountLength; --i)
-                            {
-                                var j = endHalfInputCountLength + saltInputComputer.Next(inputCountLength - endHalfInputCountLength);
-                                (saltedInputs[i], saltedInputs[j]) = (saltedInputs[j], saltedInputs[i]);
-                            }
-                            var levyingHalfInputCountLength = inputCountLength / 2;
-                            for (var i = levyingHalfInputCountLength - 1; i > 0; --i)
-                            {
-                                var j = saltInputComputer.Next(levyingHalfInputCountLength);
-                                (saltedInputs[i], saltedInputs[j]) = (saltedInputs[j], saltedInputs[i]);
-                            }
+                            var inputCountHalfLength = inputCountLength / 2;
+                            var frontSaltedInputs = saltedInputs.Take(inputCountHalfLength).ToArray();
+                            noteSaltComputer.Shuffle(frontSaltedInputs);
+                            var tailSaltedInputs = saltedInputs.TakeLast(inputCountHalfLength).ToArray();
+                            noteSaltComputer.Shuffle(tailSaltedInputs);
+                            saltedInputs = frontSaltedInputs.Concat(saltedInputs.Skip(inputCountHalfLength).SkipLast(inputCountHalfLength)).Concat(tailSaltedInputs).ToArray();
                         }
                         else
                         {
-                            for (var i = inputCountLength - 1; i > 0; --i)
-                            {
-                                var j = saltInputComputer.Next(inputCountLength);
-                                (saltedInputs[i], saltedInputs[j]) = (saltedInputs[j], saltedInputs[i]);
-                            }
+                            noteSaltComputer.Shuffle(saltedInputs);
                         }
                         foreach (var note in notes)
                         {
@@ -709,6 +677,7 @@ namespace Qwilight.Compiler
                                     0 => saltedInputs[input - 1],
                                     1 => saltedInputs[input - 2],
                                     2 => saltedInputs[input - 2],
+                                    4 => saltedInputs[input - 3],
                                     _ => default
                                 };
                             }
@@ -949,8 +918,8 @@ namespace Qwilight.Compiler
                 // 단일 노트를 롱 노트로 만듭니다.
                 case ModeComponent.NoteModifyMode.LongNote:
                     var waitBPMMap = new Queue<KeyValuePair<double, double>>(defaultComputer.WaitBPMMap);
-                    var lowestLongNoteModify = defaultComputer.ModeComponentValue.LowestLongNoteModify;
-                    var highestLongNoteModify = defaultComputer.ModeComponentValue.HighestLongNoteModify;
+                    var lowestLongNoteModify = defaultComputer.ModeComponentValue.ConfigureLowestLongNoteModify;
+                    var highestLongNoteModify = defaultComputer.ModeComponentValue.ConfigureHighestLongNoteModify;
                     var distanceLongNoteModify = highestLongNoteModify - lowestLongNoteModify;
                     for (var i = inputCount; i > 0; --i)
                     {

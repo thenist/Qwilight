@@ -93,6 +93,7 @@
         <Setter Property="Height" Value="{Binding Height}" />
         <Setter Property="HorizontalAlignment" Value="{Binding LengthSystem}" />
         <Setter Property="VerticalAlignment" Value="{Binding HeightSystem}" />
+        <Setter Property="Opacity" Value="{Binding Faint}" />
 
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />

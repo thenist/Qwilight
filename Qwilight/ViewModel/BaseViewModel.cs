@@ -11,6 +11,7 @@ namespace Qwilight.ViewModel
     {
         static int _lastZvalue;
 
+        double _faint;
         int _zValue;
         bool _isControlling;
         bool _wasSilentlyClosed;
@@ -44,6 +45,16 @@ namespace Qwilight.ViewModel
         public virtual HorizontalAlignment LengthSystem => HorizontalAlignment.Center;
 
         public virtual VerticalAlignment HeightSystem => VerticalAlignment.Center;
+
+        public double Faint
+        {
+            get => _faint;
+
+            set
+            {
+                SetProperty(ref _faint, value, nameof(Faint));
+            }
+        }
 
         public int Zvalue
         {
@@ -84,7 +95,7 @@ namespace Qwilight.ViewModel
                 {
                     Utility.HandleUIAudio("Window 1");
                 }
-                Zvalue = ++_lastZvalue;
+                Zvalue = Interlocked.Increment(ref _lastZvalue);
                 IsControlling = true;
                 OnOpened();
             }

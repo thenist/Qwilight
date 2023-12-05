@@ -39,7 +39,8 @@ namespace Qwilight
         {
             NetQuitMode,
             F1Assist,
-            ModifyAutoMode
+            ModifyAutoMode,
+            EnterAutoComputeConfigure
         }
 
         public enum NVLLMode

@@ -611,9 +611,17 @@
     "ko-KR": "순서대로 글꼴 모양을 설정합니다.",
     "en-US": "Sets the font appearance in order."
   },
+  "ConfigureHighestLongNoteModify": {
+    "ko-KR": "끝 간격",
+    "en-US": "End interval"
+  },
   "ConfigureLevelContents": {
     "ko-KR": "사용할 난이도 테이블을 설정합니다.",
     "en-US": "Set the difficulty table to use"
+  },
+  "ConfigureLowestLongNoteModify": {
+    "ko-KR": "시작 간격",
+    "en-US": "Start interval"
   },
   "ConfigurePutNoteSetContents": {
     "ko-KR": "대상 비율",
@@ -1096,8 +1104,8 @@
     "en-US": "Graphic Settings"
   },
   "HalfInputSaltModeContents": {
-    "ko-KR": "노트 라인을 반으로 나눠서 임의 배치합니다. (하프 라인 랜덤)",
-    "en-US": "Half Line Random mode"
+    "ko-KR": "노트 라인을 반으로 나눠서 임의 배치합니다. (하프 랜덤)",
+    "en-US": "Half Random mode"
   },
   "HandledBand1": {
     "ko-KR": "풀콤보",
@@ -1218,10 +1226,6 @@
   "HighestJudgmentModeContents": {
     "ko-KR": "판정 난이도가 매우 어려워집니다.",
     "en-US": "Very hard judgment mode"
-  },
-  "HighestLongNoteModify": {
-    "ko-KR": "끝 간격",
-    "en-US": "End interval"
   },
   "HighestWantBPMContents": {
     "ko-KR": "0 BPM 까지",
@@ -1532,8 +1536,8 @@
     "en-US": "Turn long notes into single notes"
   },
   "InputSaltCommentWarning": {
-    "ko-KR": "v1.14.26 이하 랜덤 게임 모드를 적용한 플레이는 리플레이가 호환되지 않습니다.",
-    "en-US": "Replay is not compatible for plays with random game modes below v1.14.26."
+    "ko-KR": "v1.16.11 미만 랜덤 게임 모드를 적용한 플레이는 리플레이가 호환되지 않습니다.",
+    "en-US": "Play with a random game mode less than v1.16.11 is not compatible with replay."
   },
   "InputSaltModeContents": {
     "ko-KR": "노트 라인을 임의 배치합니다. (라인 랜덤)",
@@ -1747,6 +1751,10 @@
     "ko-KR": "롱 노트의 떼는 판정을 설정합니다.",
     "en-US": "Set the decision to remove the long note"
   },
+  "LongNoteModifyAssist": {
+    "ko-KR": "만들어진 롱 노트와 다음 노트의 간격을 시작 간격과 끝 간격 사이로 설정합니다.",
+    "en-US": "Sets the interval between the created long note and the next note between the start and end intervals."
+  },
   "LongNoteModifyContents": {
     "ko-KR": "단일 노트를 롱 노트로 만듭니다.",
     "en-US": "Turn single notes into long notes"
@@ -1810,10 +1818,6 @@
   "LowestJudgmentModeContents": {
     "ko-KR": "판정 난이도가 매우 관대해집니다.",
     "en-US": "Very easy judgment mode"
-  },
-  "LowestLongNoteModify": {
-    "ko-KR": "시작 간격",
-    "en-US": "Start interval"
   },
   "LowestWantBPMContents": {
     "ko-KR": "0 BPM 부터",
@@ -2651,6 +2655,10 @@
     "ko-KR": "1P를 2P로 복사합니다. (⑤K, ⑦K만 적용)",
     "en-US": "Copy 1P to 2P. (⑤K, ⑦K only)"
   },
+  "PutNoteSetAssist": {
+    "ko-KR": "대상 비율 만큼의 BGM을 대상 간격 이상 거리를 유지하여 추가 노트로 만듭니다.",
+    "en-US": "Make BGM as much as the target ratio into an additional note by maintaining a distance beyond the target interval."
+  },
   "PutSetNoteModeContents": {
     "ko-KR": "BGM을 추가 노트로 만듭니다.",
     "en-US": "Make the BGM an additional note."
@@ -3116,8 +3124,8 @@
     "en-US": "Manual"
   },
   "TutorialID0": {
-    "ko-KR": "◀, ▶ 키로 다른 사용자의 결과를 보세요",
-    "en-US": "View other users' results with ◀, ▶ keys"
+    "ko-KR": "◀, ▶ 키로 다른 플레이어의 결과를 보세요",
+    "en-US": "Use the ◀, ▶ keys to see other players’ results"
   },
   "TutorialID1": {
     "ko-KR": "다음에 도움말을 다시 보려면 F1 키를 누르세요",
@@ -3126,6 +3134,10 @@
   "TutorialID2": {
     "ko-KR": "연습하려면 F1 키를 누르세요",
     "en-US": "Press F1 to practice"
+  },
+  "TutorialID3": {
+    "ko-KR": "실시간으로 확인하면서 조절하려면 라이브 컨트롤 버튼을 누르세요",
+    "en-US": "Press the Live Control button to adjust while checking in real time"
   },
   "TVAssistConfigure": {
     "ko-KR": "방송 시작시 도움말 보여주기",

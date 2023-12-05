@@ -22,23 +22,20 @@
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding MultiplierContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
-                    <Slider Grid.Column="2" Style="{StaticResource StandardSlider}" Value="{Binding MainValue.ModeComponentValue.MultiplierValue, Source={StaticResource ViewModels}}" Maximum="4096" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyMultiplier, Source={StaticResource ViewModels}}" />
-                    <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.Multiplier, Source={StaticResource ViewModels}, Converter={StaticResource FormatModifier}, ConverterParameter='×0.0'}" />
-                    <view:BinInput Grid.Column="4" Value="{Binding MainValue.ModeComponentValue.MultiplierValue, Source={StaticResource ViewModels}}" Lowest="0" Format="0.### BPM" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyMultiplier, Source={StaticResource ViewModels}}" />
-                    <TextBlock Grid.Column="5" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.IIDXMultiplierMillisText, Source={StaticResource ViewModels}}" Foreground="Green" />
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding MultiplierContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                    <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding MainValue.ModeComponentValue.MultiplierValue, Source={StaticResource ViewModels}}" Maximum="3072" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyMultiplier, Source={StaticResource ViewModels}}" />
+                    <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.Multiplier, Source={StaticResource ViewModels}, Converter={StaticResource FormatModifier}, ConverterParameter='×0.0'}" />
+                    <view:BinInput Grid.Column="3" Value="{Binding MainValue.ModeComponentValue.MultiplierValue, Source={StaticResource ViewModels}}" Lowest="0" Format="0.### BPM" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyMultiplier, Source={StaticResource ViewModels}}" />
+                    <TextBlock Grid.Column="4" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.IIDXMultiplierMillisText, Source={StaticResource ViewModels}}" Foreground="Green" />
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
@@ -48,37 +45,36 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AudioMultiplierContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
-                    <Slider Grid.Column="2" Style="{StaticResource StandardSlider}" Value="{Binding MainValue.ModeComponentValue.AudioMultiplier, Source={StaticResource ViewModels}}" Minimum="0.5" Maximum="2.0" TickFrequency="0.01" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}" />
-                    <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.AudioMultiplier,  Source={StaticResource ViewModels}, Converter={StaticResource FormatModifier}, ConverterParameter='×0.00'}" HorizontalAlignment="Left" />
-                    <Button Grid.Column="4" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×0.5" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AudioMultiplierContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                    <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding MainValue.ModeComponentValue.AudioMultiplier, Source={StaticResource ViewModels}}" Minimum="0.5" Maximum="2.0" TickFrequency="0.01" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}" />
+                    <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.AudioMultiplier,  Source={StaticResource ViewModels}, Converter={StaticResource FormatModifier}, ConverterParameter='×0.00'}" HorizontalAlignment="Left" />
+                    <Button Grid.Column="3" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×0.5" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
                         <Button.CommandParameter>
                             <system:Double>0.5</system:Double>
                         </Button.CommandParameter>
                     </Button>
-                    <Button Grid.Column="5" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×0.75" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
+                    <Button Grid.Column="4" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×0.75" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
                         <Button.CommandParameter>
                             <system:Double>0.75</system:Double>
                         </Button.CommandParameter>
                     </Button>
-                    <Button Grid.Column="6" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×1.0" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
+                    <Button Grid.Column="5" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×1.0" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
                         <Button.CommandParameter>
                             <system:Double>1.0</system:Double>
                         </Button.CommandParameter>
                     </Button>
-                    <Button Grid.Column="7" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×1.5" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
+                    <Button Grid.Column="6" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×1.5" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
                         <Button.CommandParameter>
                             <system:Double>1.5</system:Double>
                         </Button.CommandParameter>
                     </Button>
-                    <Button Grid.Column="8" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×2.0" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
+                    <Button Grid.Column="7" Style="{StaticResource StandardInput}" Command="{Binding SetAudioMultiplierCommand}" Content="×2.0" IsEnabled="{Binding MainValue.ModeComponentValue.CanModifyAudioMultiplier, Source={StaticResource ViewModels}}">
                         <Button.CommandParameter>
                             <system:Double>2.0</system:Double>
                         </Button.CommandParameter>
                     </Button>
-                    <CheckBox Grid.Column="9" Style="{StaticResource StandardVInput}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding AudioMultiplierAtone, Source={StaticResource Configure}}" Content="{Binding AudioMultiplierAtoneText, Source={StaticResource LanguageSystem}}" />
+                    <CheckBox Grid.Column="8" Style="{StaticResource StandardVInput}" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}" IsChecked="{Binding AudioMultiplierAtone, Source={StaticResource Configure}}" Content="{Binding AudioMultiplierAtoneText, Source={StaticResource LanguageSystem}}" />
                 </Grid>
                 <Grid Grid.Row="2" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
                     <Grid.ColumnDefinitions>

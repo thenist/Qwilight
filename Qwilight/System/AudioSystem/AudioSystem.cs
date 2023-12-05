@@ -323,7 +323,7 @@ namespace Qwilight
                                 Array.Copy(targetAudioHeights[audioVariety], 0, targetAudioVisualizerValues[audioVariety], 0, audioVisualizerCount);
                                 for (var i = audioVisualizerCount - 1; i >= 0; --i)
                                 {
-                                    _audioVisualizerValue[audioVariety][i] += Utility.GetMove(targetAudioVisualizerValues[audioVariety][i], _audioVisualizerValue[audioVariety][i], 1000 / 60);
+                                    _audioVisualizerValue[audioVariety][i] += Utility.GetMove(targetAudioVisualizerValues[audioVariety][i], _audioVisualizerValue[audioVariety][i], 1000.0 / 60);
                                 }
                             }
                         }
