@@ -323,7 +323,7 @@ namespace Qwilight.ViewModel
                             LevelID = value.LevelID;
                             Title = value.Title;
                             Comment = value.Comment;
-                            Drawing = $"{QwilightComponent.QwilightAPI}/drawing?levelName={LevelName}&levelID={LevelID}";
+                            Drawing = $"{QwilightComponent.QwilightAPI}/drawing?levelID={LevelID}";
 
                             Array.Fill(StandContents, null);
                             if (twilightWwwLevelValue.stand != null)
