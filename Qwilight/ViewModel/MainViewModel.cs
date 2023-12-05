@@ -694,11 +694,6 @@ namespace Qwilight.ViewModel
             {
                 _ = GetQwilight(true);
             }
-
-            if (QwilightComponent.IsTest)
-            {
-                StrongReferenceMessenger.Default.Send<Quit>();
-            }
         }
 
         public void OnFileAs(DragEventArgs e)

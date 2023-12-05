@@ -69,7 +69,7 @@ namespace Qwilight.ViewModel
         readonly WwwLevelData _wwwLevelDataValue = new WwwLevelData();
         readonly double[] _audioMultipliers = new double[2];
         WwwLevelAvatar _wwwLevelAvatarValue;
-        string _wwwLevelName;
+        string _levelName;
         bool _isAvatarIDsLoading;
         bool _isLevelNamesLoading;
         bool _isLevelNameLoading;
@@ -192,8 +192,6 @@ namespace Qwilight.ViewModel
 
             set => SetProperty(ref _isLevelItemLoading, value, nameof(IsLevelItemLoading));
         }
-
-        public string LevelName { get; init; }
 
         public ObservableCollection<WwwLevelItem> WwwLevelItemCollection { get; } = new();
 
@@ -325,7 +323,7 @@ namespace Qwilight.ViewModel
                             LevelID = value.LevelID;
                             Title = value.Title;
                             Comment = value.Comment;
-                            Drawing = $"{QwilightComponent.QwilightAPI}/drawing?levelID={LevelID}";
+                            Drawing = $"{QwilightComponent.QwilightAPI}/drawing?levelName={LevelName}&levelID={LevelID}";
 
                             Array.Fill(StandContents, null);
                             if (twilightWwwLevelValue.stand != null)
@@ -752,8 +750,8 @@ namespace Qwilight.ViewModel
                         var levelNames = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/level?avatarID={WebUtility.UrlEncode(avatarID)}");
                         if (levelNames != null && (WwwLevelAvatarValue?.AvatarWwwValue?.AvatarID ?? string.Empty) == avatarID)
                         {
-                            Utility.SetUICollection(WwwLevelNameCollection, levelNames);
-                            WwwLevelName ??= WwwLevelNameCollection.FirstOrDefault();
+                            Utility.SetUICollection(LevelNameCollection, levelNames);
+                            LevelName ??= LevelNameCollection.FirstOrDefault();
                         }
                         IsLevelNamesLoading = false;
                     }
@@ -761,7 +759,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public ObservableCollection<string> WwwLevelNameCollection { get; } = new();
+        public ObservableCollection<string> LevelNameCollection { get; } = new();
 
         public ObservableCollection<WwwLevelAvatar> WwwLevelAvatarCollection { get; } = new();
 
@@ -779,20 +777,20 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _isLevelNamesLoading, value, nameof(IsLevelNamesLoading));
         }
 
-        public string WwwLevelName
+        public string LevelName
         {
-            get => _wwwLevelName;
+            get => _levelName;
 
             set
             {
-                if (SetProperty(ref _wwwLevelName, value, nameof(WwwLevelName)) && value != null)
+                if (SetProperty(ref _levelName, value, nameof(LevelName)) && value != null)
                 {
                     _ = Awaitable();
                     async Task Awaitable()
                     {
                         IsLevelNameLoading = true;
                         var twilightWwwLevels = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwLevels[]>($"{QwilightComponent.QwilightAPI}/level?levelName={WebUtility.UrlEncode(value)}");
-                        if (twilightWwwLevels != null && WwwLevelName == value)
+                        if (twilightWwwLevels != null && LevelName == value)
                         {
                             Utility.SetUICollection(WwwLevelItemCollection, twilightWwwLevels.Select(twilightWwwLevel =>
                             {

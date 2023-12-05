@@ -49,7 +49,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding WwwLevelNameCollection}" SelectedItem="{Binding WwwLevelName}" Visibility="{Binding IsLevelNamesLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                            <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding LevelNameCollection}" SelectedItem="{Binding LevelName}" Visibility="{Binding IsLevelNamesLoading, Converter={StaticResource VisibilityNotModifier}}" />
                             <Grid Grid.Row="1">
                                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsLevelNameLoading, Converter={StaticResource VisibilityModifier}}" />
                                 <Grid Visibility="{Binding IsLevelNameLoading, Converter={StaticResource VisibilityNotModifier}}">

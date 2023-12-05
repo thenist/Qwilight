@@ -28,28 +28,6 @@ IF %TEST% == 1 (
 		PAUSE
 	)
 )
-IF %TEST% == 1 (
-	RMDIR /S /Q %PUBLISH%
-	dotnet publish Qwilight\Qwilight.csproj -c Release -p:Platform=x64
-	%PUBLISH%\Qwilight.exe --language 1033 --test
-)
-IF %TEST% == 1 (
-	IF NOT %ERRORLEVEL% == 0  (
-		ECHO %ERRORLEVEL%
-		PAUSE
-	)
-)
-IF %TEST% == 1 (
-	RMDIR /S /Q %PUBLISH%
-	dotnet publish Qwilight\Qwilight.csproj -c Release -p:Platform=x64
-	%PUBLISH%\Qwilight.exe --language 1042 --test
-)
-IF %TEST% == 1 (
-	IF NOT %ERRORLEVEL% == 0  (
-		ECHO %ERRORLEVEL%
-		PAUSE
-	)
-)
 
 RMDIR /S /Q %PUBLISH%
 dotnet publish Qwilight\Qwilight.csproj -c Release -p:Platform=x64

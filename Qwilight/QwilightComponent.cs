@@ -35,9 +35,6 @@ namespace Qwilight
 
             [Option("language")]
             public int Language { get; set; }
-
-            [Option("test")]
-            public bool IsTest { get; set; }
         }
 
         public const int SendUnit = 1024 * 1024;
@@ -92,8 +89,6 @@ namespace Qwilight
 
         public static string TestLanguage { get; set; }
 
-        public static bool IsTest { get; set; }
-
         public static bool IsVS { get; set; }
 
         public static Func<string, object> OnGetBuiltInData { get; set; }
@@ -139,7 +134,6 @@ namespace Qwilight
                 {
                     TestLanguage = Utility.GetLanguage(o.Language);
                 }
-                IsTest = o.IsTest;
 #if DEBUG
                 IsVS = true;
 #else
