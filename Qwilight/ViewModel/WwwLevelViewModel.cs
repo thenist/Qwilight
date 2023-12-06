@@ -171,7 +171,8 @@ namespace Qwilight.ViewModel
                 modeComponentValue.LowestJudgmentConditionModeValue = LowestJudgmentConditionModes.First().Value;
             }
             modeComponentValue.PutCopyNotesValueV2 = ModeComponent.PutCopyNotes.Default;
-            mainViewModel.HandleLevyNoteFile(mainViewModel.EventNoteEntryItems[GetEventNoteID()].NoteFile, _wwwLevelDataValue, defaultModeComponentValue);
+            var entryItem = mainViewModel.EventNoteEntryItems[GetEventNoteID()];
+            mainViewModel.HandleLevyNoteFile(entryItem.NoteFile, entryItem, _wwwLevelDataValue, defaultModeComponentValue);
         }
 
         string GetEventNoteID() => string.Join('/', WwwLevelComputingCollection.Select(wwwLevelComputing => wwwLevelComputing.GetNoteID512()));

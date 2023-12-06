@@ -1507,11 +1507,12 @@ namespace Qwilight.ViewModel
             };
         }
 
-        public void HandleLevyNoteFile(BaseNoteFile noteFile = null, WwwLevelData wwwLevelDataValue = null, ModeComponent defaultModeComponentValue = null)
+        public void HandleLevyNoteFile(BaseNoteFile noteFile = null, EntryItem entryItem = null, WwwLevelData wwwLevelDataValue = null, ModeComponent defaultModeComponentValue = null)
         {
-            if (noteFile != null || HasNotInput())
+            if ((noteFile != null && entryItem != null) || HasNotInput())
             {
-                noteFile ??= EntryItemValue?.NoteFile;
+                entryItem ??= EntryItemValue;
+                noteFile ??= entryItem?.NoteFile;
 
                 var onLevyNoteFile = noteFile?.OnLevyNoteFile;
                 if (onLevyNoteFile != null)
@@ -1530,12 +1531,11 @@ namespace Qwilight.ViewModel
                         if (isSaltNoteFile)
                         {
                             SaltEntryView();
-                            noteFile = EntryItemValue?.NoteFile;
+                            entryItem = EntryItemValue;
                         }
 
-                        if (noteFile != null)
+                        if (entryItem != null)
                         {
-                            var entryItem = noteFile.EntryItem;
                             if (string.IsNullOrEmpty(entryItem.EventNoteID))
                             {
                                 Utility.HandleUIAudio("Levy Note File");

@@ -32,7 +32,7 @@ namespace Qwilight.ViewModel
                     var mainViewModel = ViewModels.Instance.MainValue;
                     if (mainViewModel.NoteID512s.TryGetValue(GetNoteID512(), out var noteFile))
                     {
-                        mainViewModel.HandleLevyNoteFile(noteFile);
+                        mainViewModel.HandleLevyNoteFile(noteFile, noteFile.EntryItem);
                     }
                 }
             }
