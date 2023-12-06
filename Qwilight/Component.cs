@@ -99,6 +99,11 @@
             _1_0_0, _1_14_91
         };
 
+        public enum NoteSaltDate
+        {
+            _1_0_0, _1_3_11, _1_6_11
+        };
+
         static readonly double[,,,] JudgmentMap = new double[7, 5, 6, 2];
         static readonly double[] LongNoteAssistMap = new double[4];
         static readonly double[] JudgmentCalibrateMap = new double[3];
