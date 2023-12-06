@@ -80,6 +80,7 @@
     <Style x:Key="StandardModalWindow" TargetType="Grid">
         <Setter Property="Background" Value="{Binding ModalPaint}" />
         <Setter Property="Canvas.ZIndex" Value="{Binding Zvalue}" />
+        <Setter Property="Opacity" Value="{Binding Faint}" />
         <Setter Property="Visibility" Value="{Binding IsOpened, Mode=OneWay, Converter={StaticResource VisibilityModifier}}" />
 
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -93,7 +94,6 @@
         <Setter Property="Height" Value="{Binding Height}" />
         <Setter Property="HorizontalAlignment" Value="{Binding LengthSystem}" />
         <Setter Property="VerticalAlignment" Value="{Binding HeightSystem}" />
-        <Setter Property="Opacity" Value="{Binding Faint}" />
 
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
