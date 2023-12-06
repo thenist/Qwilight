@@ -1,5 +1,4 @@
-﻿using Qwilight.Utilities;
-using Qwilight.ViewModel;
+﻿using Qwilight.ViewModel;
 using System.Text.Json.Serialization;
 using Windows.UI;
 
@@ -104,7 +103,7 @@ namespace Qwilight
         double _putNoteSet = 25.0;
         double _putNoteSetMillis = 100.0;
 
-        public bool IsNoteSaltModeWarning(string date) => Utility.IsLowerDate(Version.Parse(date), 1, 16, 11) && (NoteSaltModeValue == NoteSaltMode.InputSalt || NoteSaltModeValue == NoteSaltMode.MeterSalt || NoteSaltModeValue == NoteSaltMode.HalfInputSalt);
+        public bool IsNoteSaltModeWarning(Component.NoteSaltModeDate noteSaltModeDate) => noteSaltModeDate == Component.NoteSaltModeDate._1_0_0 && (NoteSaltModeValue == NoteSaltMode.InputSalt || NoteSaltModeValue == NoteSaltMode.Salt || NoteSaltModeValue == NoteSaltMode.MeterSalt || NoteSaltModeValue == NoteSaltMode.HalfInputSalt);
 
         public bool IsGASWarning => HitPointsModeValue == HitPointsMode.Default || HitPointsModeValue == HitPointsMode.Higher;
 

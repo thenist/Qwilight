@@ -1218,7 +1218,7 @@ namespace Qwilight.Compute
 
         public Component.CommentWaitDate CommentWaitDate { get; }
 
-        public Component.NoteSaltDate NoteSaltDate { get; }
+        public Component.NoteSaltModeDate NoteSaltModeDate { get; }
 
         public bool BanalMedia { get; } = Configure.Instance.BanalMedia;
 
@@ -1539,7 +1539,7 @@ namespace Qwilight.Compute
             _targetCompiler = BaseCompiler.GetCompiler(NoteFile, _setCancelCompiler);
             _targetCompilerHandler = Utility.GetParallelHandler(() => _targetCompiler.Compile(this, true));
             CommentWaitDate = Utility.GetDate<Component.CommentWaitDate>(date, "1.3.11", "1.6.4");
-            NoteSaltDate = Utility.GetDate<Component.NoteSaltDate>(date, "1.3.11", "1.6.11");
+            NoteSaltModeDate = Utility.GetDate<Component.NoteSaltModeDate>(date, "1.14.27", "1.16.11");
             Title = NoteFile.Title;
             Artist = NoteFile.Artist;
             Genre = NoteFile.Genre;

@@ -11,7 +11,7 @@ namespace Qwilight.ViewModel
     {
         static int _lastZvalue;
 
-        double _faint;
+        double _faint = 1.0;
         int _zValue;
         bool _isControlling;
         bool _wasSilentlyClosed;

@@ -1535,10 +1535,6 @@
     "ko-KR": "롱 노트를 단일 노트로 만듭니다.",
     "en-US": "Turn long notes into single notes"
   },
-  "InputSaltCommentWarning": {
-    "ko-KR": "v1.16.11 미만 랜덤 게임 모드를 적용한 플레이는 리플레이가 호환되지 않습니다.",
-    "en-US": "Play with a random game mode less than v1.16.11 is not compatible with replay."
-  },
   "InputSaltModeContents": {
     "ko-KR": "노트 라인을 임의 배치합니다. (라인 랜덤)",
     "en-US": "Line Random mode"
@@ -2246,6 +2242,10 @@
   "NoteModifyModeAssist": {
     "ko-KR": "노트에 규칙을 설정합니다.",
     "en-US": "Set note rules"
+  },
+  "NoteSaltCommentWarning": {
+    "ko-KR": "v1.14.27 미만 랜덤 게임 모드를 적용한 플레이는 리플레이가 호환되지 않습니다.",
+    "en-US": "Play with a random game mode less than v1.14.27 is not compatible with replay."
   },
   "NoteSaltModeAssist": {
     "ko-KR": "노트의 배치 방식을 설정합니다.",

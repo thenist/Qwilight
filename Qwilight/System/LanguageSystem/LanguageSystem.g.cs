@@ -386,7 +386,6 @@ namespace Qwilight
         public string InputMapText { get; set; }
         public string InputNoteCountViewColor { get; set; }
         public string InputNoteSetContents { get; set; }
-        public string InputSaltCommentWarning { get; set; }
         public string InputSaltModeContents { get; set; }
         public string InputVibrationModeText { get; set; }
         public string InputWantAssist { get; set; }
@@ -564,6 +563,7 @@ namespace Qwilight
         public string NoteLengthContents { get; set; }
         public string NoteMobilityAssist { get; set; }
         public string NoteModifyModeAssist { get; set; }
+        public string NoteSaltCommentWarning { get; set; }
         public string NoteSaltModeAssist { get; set; }
         public string NoteWaitContents { get; set; }
         public string NotFavoritesF10 { get; set; }

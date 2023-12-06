@@ -99,9 +99,9 @@
             _1_0_0, _1_14_91
         };
 
-        public enum NoteSaltDate
+        public enum NoteSaltModeDate
         {
-            _1_0_0, _1_3_11, _1_6_11
+            _1_0_0, _1_14_27, _1_6_11
         };
 
         static readonly double[,,,] JudgmentMap = new double[7, 5, 6, 2];

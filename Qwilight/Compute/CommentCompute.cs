@@ -17,9 +17,9 @@ namespace Qwilight.Compute
 
         public override void HandleWarning()
         {
-            if (ModeComponentValue.IsNoteSaltModeWarning(Comment.Date))
+            if (ModeComponentValue.IsNoteSaltModeWarning(NoteSaltModeDate))
             {
-                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InputSaltCommentWarning);
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NoteSaltCommentWarning);
             }
         }
 
