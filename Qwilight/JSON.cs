@@ -757,8 +757,16 @@ namespace Qwilight
             public ModeComponent.SetNoteMode[] setNoteMode;
             public ModeComponent.LowestJudgmentConditionMode[] lowestJudgmentConditionMode;
             public bool allowPause;
+            public Avatar[] avatars;
             public Title[] titles;
             public string[] edgeIDs;
+
+            public struct Avatar
+            {
+                public string avatarID;
+                public string avatarName;
+                public long date;
+            }
 
             public struct Title
             {

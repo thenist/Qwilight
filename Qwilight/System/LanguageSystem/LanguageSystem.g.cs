@@ -885,10 +885,11 @@ namespace Qwilight
         public string WwwLevelAudioMultiplierContents1 { get; set; }
         public string WwwLevelBandContents0 { get; set; }
         public string WwwLevelBandContents1 { get; set; }
+        public string WwwLevelClearAvatars { get; set; }
+        public string WwwLevelClearAwards { get; set; }
+        public string WwwLevelClearAwardsEdge { get; set; }
+        public string WwwLevelClearAwardsTitle { get; set; }
         public string WwwLevelClearContents { get; set; }
-        public string WwwLevelClearItem { get; set; }
-        public string WwwLevelClearItemEdge { get; set; }
-        public string WwwLevelClearItemTitle { get; set; }
         public string WwwLevelJudgmentContents0 { get; set; }
         public string WwwLevelJudgmentContents1 { get; set; }
         public string WwwLevelPointContents0 { get; set; }

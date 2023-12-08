@@ -66,7 +66,7 @@ namespace Qwilight.ViewModel
 
         readonly WwwLevelData _wwwLevelDataValue = new WwwLevelData();
         readonly double[] _audioMultipliers = new double[2];
-        WwwLevelAvatar _wwwLevelAvatarValue;
+        WwwLevelAvatar? _wwwLevelAvatarValue;
         string _levelName;
         bool _isAvatarIDsLoading;
         bool _isLevelNamesLoading;
@@ -81,15 +81,6 @@ namespace Qwilight.ViewModel
 
         [RelayCommand]
         void OnWwwLevelTest() => WwwLevelAvatarValue = null;
-
-        [RelayCommand]
-        void OnViewBundle() => WwwLevelAvatarValue?.AvatarWwwValue?.ViewBundleCommand?.Execute(null);
-
-        [RelayCommand]
-        void OnNewUbuntu() => WwwLevelAvatarValue?.AvatarWwwValue?.NewUbuntuCommand?.Execute(null);
-
-        [RelayCommand]
-        void OnViewAvatar() => WwwLevelAvatarValue?.AvatarWwwValue?.ViewAvatarCommand?.Execute(null);
 
         [RelayCommand]
         void OnGetWwwLevel()
@@ -294,6 +285,8 @@ namespace Qwilight.ViewModel
         public ObservableCollection<WwwLevelModeComponent<ModeComponent.SetNoteMode>> SetNoteModes { get; } = new();
 
         public ObservableCollection<WwwLevelModeComponent<ModeComponent.LowestJudgmentConditionMode>> LowestJudgmentConditionModes { get; } = new();
+
+        public ObservableCollection<WwwLevelClearedAvatar> ClearedAvatars { get; } = new();
 
         public WwwLevelItem WwwLevelItemValue
         {
@@ -663,15 +656,29 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var lowestJudgmentConditionMode in twilightWwwLevelValue.lowestJudgmentConditionMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.LowestJudgmentConditionModeVariety].FindIndex(modeComponentValue => (ModeComponent.LowestJudgmentConditionMode)modeComponentValue.Value == value)))
                                 {
-                                    LowestJudgmentConditionModes.Add(new WwwLevelModeComponent<ModeComponent.LowestJudgmentConditionMode>
+                                    LowestJudgmentConditionModes.Add(new()
                                     {
                                         Value = lowestJudgmentConditionMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.LowestJudgmentConditionModeValue = lowestJudgmentConditionMode;
                                             siteContainerViewModel.CallSetModeComponent();
                                             OnPropertyChanged(nameof(IsLowestJudgmentConditionModeCompatible));
                                         })
+                                    });
+                                }
+                            }
+
+                            ClearedAvatars.Clear();
+                            if (twilightWwwLevelValue.avatars != null)
+                            {
+                                foreach (var avatar in twilightWwwLevelValue.avatars)
+                                {
+                                    ClearedAvatars.Add(new()
+                                    {
+                                        AvatarWwwValue = new(avatar.avatarID),
+                                        AvatarName = avatar.avatarName,
+                                        Date = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(avatar.date).ToString()
                                     });
                                 }
                             }
@@ -727,7 +734,7 @@ namespace Qwilight.ViewModel
 
         public string[] HandledLevelIDs { get; set; }
 
-        public WwwLevelAvatar WwwLevelAvatarValue
+        public WwwLevelAvatar? WwwLevelAvatarValue
         {
             get => _wwwLevelAvatarValue;
 

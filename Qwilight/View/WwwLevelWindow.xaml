@@ -27,19 +27,19 @@
                         <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding WwwLevelAvatarCollection}" SelectedItem="{Binding WwwLevelAvatarValue}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal" Background="Transparent">
+                                        <StackPanel.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewAvatarCommand}" />
+                                                <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewBundleCommand}" />
+                                                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+                                            </ContextMenu>
+                                        </StackPanel.ContextMenu>
                                         <view:AvatarDrawingView Width="24" Height="24" AvatarWwwValue="{Binding AvatarWwwValue}" />
                                         <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
-                            <ListView.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding ViewAvatarCommand}" />
-                                    <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding ViewBundleCommand}" />
-                                    <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
-                                </ContextMenu>
-                            </ListView.ContextMenu>
                         </ListView>
                     </StackPanel>
                     <Grid Grid.Column="1">
@@ -57,24 +57,68 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding WwwLevelItemCollection}" SelectedItem="{Binding WwwLevelItemValue}">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding Title}" />
-                                                    <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="✔️" Foreground="Green" Visibility="{Binding Handled, Converter={StaticResource VisibilityModifier}}" />
-                                                    <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding AvatarCountContents}" />
-                                                </Grid>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding WwwLevelItemCollection}" SelectedItem="{Binding WwwLevelItemValue}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" />
+                                                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding Title}" />
+                                                        <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="✔️" Foreground="Green" Visibility="{Binding Handled, Converter={StaticResource VisibilityModifier}}" />
+                                                        <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding AvatarCountContents}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClearAvatars, Source={StaticResource LanguageSystem}}" FontSize="{StaticResource FontLevel1}" />
+                                            <Grid Grid.Row="1">
+                                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsLevelItemLoading, Converter={StaticResource VisibilityModifier}}" />
+                                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding ClearedAvatars}" Visibility="{Binding IsLevelItemLoading, Converter={StaticResource VisibilityNotModifier}}">
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Grid Background="Transparent">
+                                                                <Grid.ContextMenu>
+                                                                    <ContextMenu>
+                                                                        <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewAvatarCommand}" />
+                                                                        <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewBundleCommand}" />
+                                                                        <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+                                                                    </ContextMenu>
+                                                                </Grid.ContextMenu>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                    <ColumnDefinition />
+                                                                </Grid.ColumnDefinitions>
+                                                                <view:AvatarDrawingView Width="48" Height="48" AvatarWwwValue="{Binding AvatarWwwValue}" />
+                                                                <Grid Grid.Column="1">
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition />
+                                                                        <RowDefinition />
+                                                                    </Grid.RowDefinitions>
+                                                                    <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
+                                                                    <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}"  Text="{Binding Date}" HorizontalAlignment="Left" />
+                                                                </Grid>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                     <ProgressBar Grid.Column="1" Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsLevelItemLoading, Converter={StaticResource VisibilityModifier}}" />
                                     <Grid Grid.Column="1" Visibility="{Binding IsLevelItemLoading, Converter={StaticResource VisibilityNotModifier}}">
                                         <Grid.RowDefinitions>
@@ -400,9 +444,9 @@
                                             </StackPanel>
                                         </ScrollViewer>
                                         <StackPanel Grid.Row="1">
-                                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClearItem, Source={StaticResource LanguageSystem}}" FontSize="{StaticResource FontLevel1}" />
+                                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClearAwards, Source={StaticResource LanguageSystem}}" FontSize="{StaticResource FontLevel1}" />
                                             <StackPanel Orientation="Horizontal" Visibility="{Binding HasClearedTitleItem, Converter={StaticResource VisibilityModifier}}">
-                                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClearItemTitle, Source={StaticResource LanguageSystem}}" VerticalAlignment="Top" />
+                                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClearAwardsTitle, Source={StaticResource LanguageSystem}}" VerticalAlignment="Top" />
                                                 <ItemsControl ItemsSource="{Binding ClearedTitleItemCollection}">
                                                     <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
@@ -417,7 +461,7 @@
                                                 </ItemsControl>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Visibility="{Binding HasClearedEdgeItem, Converter={StaticResource VisibilityModifier}}">
-                                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClearItemEdge, Source={StaticResource LanguageSystem}}" VerticalAlignment="Top" />
+                                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClearAwardsEdge, Source={StaticResource LanguageSystem}}" VerticalAlignment="Top" />
                                                 <ItemsControl ItemsSource="{Binding ClearedEdgeItemCollection}">
                                                     <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>

@@ -3531,21 +3531,25 @@
     "ko-KR": "{0} 콤보 이하",
     "en-US": "{0} Combo or less"
   },
-  "WwwLevelClearContents": {
-    "ko-KR": "도전 과제 {0} 클리어! 축하합니다.",
-    "en-US": "Challenge clear! Congratulations!"
+  "WwwLevelClearAvatars": {
+    "ko-KR": "클리어한 플레이어들",
+    "en-US": "Players who cleared"
   },
-  "WwwLevelClearItem": {
+  "WwwLevelClearAwards": {
     "ko-KR": "클리어 보상",
     "en-US": "Clear Compensation"
   },
-  "WwwLevelClearItemEdge": {
+  "WwwLevelClearAwardsEdge": {
     "ko-KR": "프레임",
     "en-US": "Frame"
   },
-  "WwwLevelClearItemTitle": {
+  "WwwLevelClearAwardsTitle": {
     "ko-KR": "호칭",
     "en-US": "Title"
+  },
+  "WwwLevelClearContents": {
+    "ko-KR": "도전 과제 {0} 클리어! 축하합니다.",
+    "en-US": "Challenge clear! Congratulations!"
   },
   "WwwLevelJudgmentContents0": {
     "ko-KR": "{0} 개 이상",

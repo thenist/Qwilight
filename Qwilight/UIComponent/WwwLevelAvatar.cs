@@ -2,7 +2,7 @@
 
 namespace Qwilight.UIComponent
 {
-    public sealed class WwwLevelAvatar
+    public struct WwwLevelAvatar
     {
         public AvatarWww AvatarWwwValue { get; init; }
 
@@ -13,5 +13,9 @@ namespace Qwilight.UIComponent
         public override bool Equals(object obj) => obj is WwwLevelAvatar wwwLevelAvatar && AvatarWwwValue == wwwLevelAvatar.AvatarWwwValue;
 
         public override int GetHashCode() => AvatarWwwValue.GetHashCode();
+
+        public static bool operator ==(WwwLevelAvatar left, WwwLevelAvatar right) => left.Equals(right);
+
+        public static bool operator !=(WwwLevelAvatar left, WwwLevelAvatar right) => !(left == right);
     }
 }
