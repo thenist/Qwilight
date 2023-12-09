@@ -2069,7 +2069,7 @@ namespace Qwilight
 
                                                     if (defaultComputer.LoadedMedia)
                                                     {
-                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.Media].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, null, assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(Configure.Instance.Media ? "BGA ON" : "BGA OFF", InputAssistFont), assistTextFaint);
+                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.MediaMode].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, null, assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(Configure.Instance.Media ? "BGA ON" : "BGA OFF", InputAssistFont), assistTextFaint);
                                                     }
 
                                                     if (isItemMode)

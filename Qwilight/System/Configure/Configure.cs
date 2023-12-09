@@ -758,6 +758,13 @@ namespace Qwilight
 
         public InputBundle<DefaultInput> DefaultInputBundlesV6 { get; set; }
 
+        public string SetPostItemInputText => string.Format(LanguageSystem.Instance.SetPostItemInputText, DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem0], DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem1]);
+
+        public void NotifySetPostItemInputText()
+        {
+            OnPropertyChanged(nameof(SetPostItemInputText));
+        }
+
         public InputBundle<HwDInput> DInputBundlesV4 { get; set; }
 
         public InputBundle<HwXInput> XInputBundlesV4 { get; set; }
@@ -3294,8 +3301,8 @@ namespace Qwilight
                 DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.LowerMultiplier].Data = VirtualKey.F3;
                 DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HigherMultiplier].Data = VirtualKey.F4;
                 DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.ModifyAutoMode].Data = VirtualKey.F1;
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.Undo].Data = VirtualKey.Tab;
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.Media].Data = VirtualKey.F2;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HandleUndo].Data = VirtualKey.Tab;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.MediaMode].Data = VirtualKey.F2;
                 DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.LowerAudioMultiplier].Data = (VirtualKey)189;
                 DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HigherAudioMultiplier].Data = (VirtualKey)187;
                 DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem0].Data = VirtualKey.V;

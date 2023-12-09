@@ -139,6 +139,7 @@ namespace Qwilight
         public string CannotBeTwilightCommentContents { get; set; }
         public string CannotIOContents { get; set; }
         public string CenterLimiterVariety { get; set; }
+        public string ClearedTabText { get; set; }
         public string ColorText { get; set; }
         public string CommentAssist { get; set; }
         public string CommentComputingSituationContents { get; set; }
@@ -513,7 +514,7 @@ namespace Qwilight
         public string NetItemCountText { get; set; }
         public string NetItemFaintContents { get; set; }
         public string NetSiteCommentsText { get; set; }
-        public string NetText { get; set; }
+        public string NetTabText { get; set; }
         public string NetUIContents { get; set; }
         public string NewDefaultEntry { get; set; }
         public string NewEventNote { get; set; }
@@ -652,7 +653,7 @@ namespace Qwilight
         public string PositivePostedItemText { get; set; }
         public string PostableItemModeViewCommentFault { get; set; }
         public string PostableItemModeWarning { get; set; }
-        public string PostableItemText { get; set; }
+        public string PostableItemTabText { get; set; }
         public string PostItem0Contents { get; set; }
         public string PostItem1Contents { get; set; }
         public string PostItemContents { get; set; }
@@ -720,6 +721,7 @@ namespace Qwilight
         public string SetNoteFile { get; set; }
         public string SetNoteModeAssist { get; set; }
         public string SetNotTotalText { get; set; }
+        public string SetPostItemInputText { get; set; }
         public string SetSaltText { get; set; }
         public string SetSiteHand { get; set; }
         public string SetSiteName { get; set; }
@@ -896,6 +898,7 @@ namespace Qwilight
         public string WwwLevelPointContents1 { get; set; }
         public string WwwLevelStandContents0 { get; set; }
         public string WwwLevelStandContents1 { get; set; }
+        public string WwwLevelTabText { get; set; }
         public string WwwLevelTest { get; set; }
         public string WwwLevelText { get; set; }
         public string XInputContents { get; set; }

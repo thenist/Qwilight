@@ -99,7 +99,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TabControl Style="{StaticResource StandardPageView}">
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding NetText, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding NetTabText, Source={StaticResource LanguageSystem}}">
                     <StackPanel Grid.Column="2">
                         <StackPanel Orientation="Horizontal" Visibility="{Binding IsFavorModeComponent, Converter={StaticResource VisibilityNotModifier}}">
                             <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.AutoModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource AutoModeVariety}}">
@@ -305,11 +305,12 @@
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding PostableItemText, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding PostableItemTabText, Source={StaticResource LanguageSystem}}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <ComboBox IsEnabled="{Binding CanSetTwilightConfigures}" Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding ValidNetModeCollection}" SelectedItem="{Binding ValidNetModeValue}">
                             <ComboBox.ItemTemplate>
@@ -343,6 +344,7 @@
                                 </ItemsControl>
                             </ScrollViewer>
                         </GroupBox>
+                        <Button Grid.Row="2" Style="{StaticResource StandardInput}" Content="{Binding SetPostItemInputText, Source={StaticResource Configure}}" Command="{Binding SetPostItemInputCommand}" />
                     </Grid>
                 </TabItem>
             </TabControl>

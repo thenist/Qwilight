@@ -333,7 +333,7 @@ namespace Qwilight
                                                     SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[i].Data, defaultComputer.IsAutoMode ? inputStandardColor : handlingColor);
                                                 }
                                                 break;
-                                            case InputStandardViewModel.Media:
+                                            case InputStandardViewModel.MediaMode:
                                                 SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[i].Data, Configure.Instance.LoadedMedia && Configure.Instance.Media ? inputStandardColor : handlingColor);
                                                 break;
                                             case InputStandardViewModel.PostItem0:
@@ -377,8 +377,8 @@ namespace Qwilight
                                 PaintInputAudioVisualizer();
                                 PaintEtc();
 
-                                SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.Media].Data, Configure.Instance.Media ? inputStandardColor : handlingColor);
-                                SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.Undo].Data, inputStandardColor);
+                                SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.MediaMode].Data, Configure.Instance.Media ? inputStandardColor : handlingColor);
+                                SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HandleUndo].Data, inputStandardColor);
 
                                 SetInputColor(VirtualKey.Escape, defaultColor);
                                 SetInputColor(VirtualKey.Enter, defaultColor);
@@ -406,7 +406,7 @@ namespace Qwilight
                             SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HigherMultiplier].Data, inputStandardColor);
                             SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.LowerAudioMultiplier].Data, inputStandardColor);
                             SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HigherAudioMultiplier].Data, inputStandardColor);
-                            SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.Media].Data, Configure.Instance.Media ? inputStandardColor : handlingColor);
+                            SetInputColor(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.MediaMode].Data, Configure.Instance.Media ? inputStandardColor : handlingColor);
                         }
 
                         if (isDefaultInputWindowOpened)

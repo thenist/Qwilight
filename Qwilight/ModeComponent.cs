@@ -322,7 +322,7 @@ namespace Qwilight
 
         public string NoteSaltModeContents => LanguageSystem.Instance.NoteSaltModeTexts[(int)NoteSaltModeValue];
 
-        public bool IsAudioMultiplierWarning => AudioMultiplier == 0.98 || AudioMultiplier == 0.99 || AudioMultiplier == 1.01 || AudioMultiplier == 1.02;
+        public bool IsAudioMultiplierWarning => 0.95 < AudioMultiplier && AudioMultiplier < 1.05;
 
         public double AudioMultiplier
         {

@@ -11,8 +11,8 @@ namespace Qwilight.ViewModel
         public const int LowerMultiplier = 0;
         public const int HigherMultiplier = 1;
         public const int ModifyAutoMode = 2;
-        public const int Undo = 3;
-        public const int Media = 4;
+        public const int HandleUndo = 3;
+        public const int MediaMode = 4;
         public const int LowerAudioMultiplier = 5;
         public const int HigherAudioMultiplier = 6;
         public const int PostItem0 = 7;
@@ -28,6 +28,8 @@ namespace Qwilight.ViewModel
         public Brush[] InputPaints { get; } = new Brush[10];
 
         public string[] Inputs { get; } = new string[10];
+
+        public int CallingInputPosition { get; set; }
 
         public bool AllowEssentialInputs
         {
@@ -212,18 +214,22 @@ namespace Qwilight.ViewModel
             }
             Inputs[inputPosition + 1] = string.Format(inputPosition switch
             {
-                0 => LanguageSystem.Instance.LowerMultiplierContents,
-                1 => LanguageSystem.Instance.HigherMultiplierContents,
-                2 => LanguageSystem.Instance.ModifyAutoModeContents,
-                3 => LanguageSystem.Instance.HandleUndoContents,
-                4 => "BGA ({0})",
-                5 => LanguageSystem.Instance.LowerAudioMultiplierContents,
-                6 => LanguageSystem.Instance.HigherAudioMultiplierContents,
-                7 => LanguageSystem.Instance.PostItem0Contents,
-                8 => LanguageSystem.Instance.PostItem1Contents,
+                LowerMultiplier => LanguageSystem.Instance.LowerMultiplierContents,
+                HigherMultiplier => LanguageSystem.Instance.HigherMultiplierContents,
+                ModifyAutoMode => LanguageSystem.Instance.ModifyAutoModeContents,
+                HandleUndo => LanguageSystem.Instance.HandleUndoContents,
+                MediaMode => "BGA ({0})",
+                LowerAudioMultiplier => LanguageSystem.Instance.LowerAudioMultiplierContents,
+                HigherAudioMultiplier => LanguageSystem.Instance.HigherAudioMultiplierContents,
+                PostItem0 => LanguageSystem.Instance.PostItem0Contents,
+                PostItem1 => LanguageSystem.Instance.PostItem1Contents,
                 _ => default
             }, defaultInputText);
             OnPropertyChanged(nameof(Inputs));
+            if (inputPosition == PostItem0 || inputPosition == PostItem1)
+            {
+                Configure.Instance.NotifySetPostItemInputText();
+            }
         }
 
         public void SetInputPaint(int inputPosition, bool isInput)
@@ -241,8 +247,8 @@ namespace Qwilight.ViewModel
                 SetInputPaint(i, false);
                 SetInput(i, Configure.Instance.DefaultInputBundlesV6.StandardInputs[i]);
             }
-            _inputPosition = 0;
-            SetInputPaint(0, true);
+            _inputPosition = CallingInputPosition;
+            SetInputPaint(_inputPosition, true);
         }
     }
 }

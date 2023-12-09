@@ -209,10 +209,10 @@ namespace Qwilight
                                     _onHigherAudioMultiplier(null);
                                     _higherAudioMultiplierHandler = new(_onHigherAudioMultiplier, null, (int)QwilightComponent.StandardWaitMillis, (int)QwilightComponent.StandardLoopMillis);
                                     break;
-                                case InputStandardViewModel.Media:
+                                case InputStandardViewModel.MediaMode:
                                     mainViewModel.HandleMediaMode();
                                     break;
-                                case InputStandardViewModel.Undo:
+                                case InputStandardViewModel.HandleUndo:
                                     mainViewModel.HandleUndo();
                                     break;
                             }

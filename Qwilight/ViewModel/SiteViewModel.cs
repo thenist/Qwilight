@@ -257,6 +257,13 @@ namespace Qwilight.ViewModel
             }
         }
 
+        [RelayCommand]
+        static void OnSetPostItemInput()
+        {
+            ViewModels.Instance.InputStandardValue.CallingInputPosition = InputStandardViewModel.PostItem0;
+            ViewModels.Instance.InputStandardValue.Open();
+        }
+
         public void OnSetFavorNoteFile() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetFavorNoteFile, SiteID);
 
         public void OnSetFavorModeComponent() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetFavorModeComponent, SiteID);

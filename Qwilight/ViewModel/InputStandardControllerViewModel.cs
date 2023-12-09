@@ -147,16 +147,16 @@ namespace Qwilight.ViewModel
             }
             Inputs[inputPosition + 1] = string.Format(inputPosition switch
             {
-                0 => LanguageSystem.Instance.LowerEntryContents,
-                1 => LanguageSystem.Instance.HigherEntryContents,
-                2 => LanguageSystem.Instance.LowerNoteFileContents,
-                3 => LanguageSystem.Instance.HigherNoteFileContents,
-                4 => LanguageSystem.Instance.LevyNoteFileContents,
-                5 => LanguageSystem.Instance.WaitContents,
-                6 => LanguageSystem.Instance.HandleUndoContents,
-                7 => LanguageSystem.Instance.LowerMultiplierContents,
-                8 => LanguageSystem.Instance.HigherMultiplierContents,
-                9 => "BGA ({0})",
+                LowerEntry => LanguageSystem.Instance.LowerEntryContents,
+                HigherEntry => LanguageSystem.Instance.HigherEntryContents,
+                LowerNoteFile => LanguageSystem.Instance.LowerNoteFileContents,
+                HigherNoteFile => LanguageSystem.Instance.HigherNoteFileContents,
+                LevyNoteFile => LanguageSystem.Instance.LevyNoteFileContents,
+                Wait => LanguageSystem.Instance.WaitContents,
+                HandleUndo => LanguageSystem.Instance.HandleUndoContents,
+                LowerMultiplier => LanguageSystem.Instance.LowerMultiplierContents,
+                HigherMultiplier => LanguageSystem.Instance.HigherMultiplierContents,
+                MediaMode => "BGA ({0})",
                 _ => default
             }, input);
             OnPropertyChanged(nameof(Inputs));

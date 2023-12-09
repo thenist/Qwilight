@@ -547,6 +547,10 @@
     "ko-KR": "중앙",
     "en-US": "Center"
   },
+  "ClearedTabText": {
+    "ko-KR": "클리어 정보",
+    "en-US": "Clear Information"
+  },
   "ColorText": {
     "ko-KR": "색상 선택",
     "en-US": "Select Color"
@@ -2043,9 +2047,9 @@
     "ko-KR": "게임 결과",
     "en-US": "Game Results"
   },
-  "NetText": {
-    "ko-KR": "멀티 플레이",
-    "en-US": "Multiplay"
+  "NetTabText": {
+    "ko-KR": "멀티 플레이 설정",
+    "en-US": "Multiplay Settings"
   },
   "NetUIContents": {
     "ko-KR": "스킨 다운로드",
@@ -2599,7 +2603,7 @@
     "ko-KR": "플레이어가 혼자이므로 모든 아이템이 본인에게도 적용됩니다.",
     "en-US": "The player is alone, so all items apply to you."
   },
-  "PostableItemText": {
+  "PostableItemTabText": {
     "ko-KR": "아이템전 설정",
     "en-US": "Item Game Settings"
   },
@@ -2870,6 +2874,10 @@
   "SetNotTotalText": {
     "ko-KR": "모두 선택 해제",
     "en-US": "Deselect All"
+  },
+  "SetPostItemInputText": {
+    "ko-KR": "아이템 사용 키 설정 ({0}, {1})",
+    "en-US": "Set item usage key ({0}, {1})"
   },
   "SetSaltText": {
     "ko-KR": "시드 고정",
@@ -3574,6 +3582,10 @@
   "WwwLevelStandContents1": {
     "ko-KR": "{0} 점 이하",
     "en-US": "{0} Points or less"
+  },
+  "WwwLevelTabText": {
+    "ko-KR": "도전 과제 정보",
+    "en-US": "Challenge Information"
   },
   "WwwLevelTest": {
     "ko-KR": "단위인정",
