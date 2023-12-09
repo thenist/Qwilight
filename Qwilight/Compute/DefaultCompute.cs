@@ -569,14 +569,14 @@ namespace Qwilight.Compute
             }
         }
 
-        public void Migrate(DefaultCompute targetComputer)
+        public void Migrate(DefaultCompute targetMigrateComputer)
         {
-            AudioSystem.Instance.Migrate(TrailerAudioHandler, targetComputer.TrailerAudioHandler);
-            targetComputer.TrailerAudioHandler.IsHandling = TrailerAudioHandler.IsHandling;
+            AudioSystem.Instance.Migrate(TrailerAudioHandler, targetMigrateComputer.TrailerAudioHandler);
+            targetMigrateComputer.TrailerAudioHandler.IsHandling = TrailerAudioHandler.IsHandling;
 
-            AudioSystem.Instance.Migrate(this as IAudioContainer, targetComputer as IAudioContainer);
-            MediaSystem.Instance.Migrate(this, targetComputer);
-            DrawingSystem.Instance.Migrate(this, targetComputer);
+            AudioSystem.Instance.Migrate(this as IAudioContainer, targetMigrateComputer as IAudioContainer);
+            MediaSystem.Instance.Migrate(this, targetMigrateComputer);
+            DrawingSystem.Instance.Migrate(this, targetMigrateComputer);
         }
 
         public void PaintDefaultMedia(DrawingContext targetSession, ref Bound r, int defaultMediaFaint)

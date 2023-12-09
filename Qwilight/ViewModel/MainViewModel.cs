@@ -720,7 +720,6 @@ namespace Qwilight.ViewModel
                                         {
                                             savingUIItem.LevyingStatus = e.EntriesExtracted;
                                             savingUIItem.QuitStatus = e.EntriesTotal;
-                                            savingUIItem.NotifyBundleStatus();
                                         };
                                         zipFile.ExtractAll(string.IsNullOrEmpty(Path.GetDirectoryName(yamlFileName)) ? Path.Combine(QwilightComponent.UIEntryPath, yamlFileName) : QwilightComponent.UIEntryPath, ExtractExistingFileAction.OverwriteSilently);
                                         savingUIItem.Variety = NotifySystem.NotifyVariety.Quit;
@@ -1739,7 +1738,6 @@ namespace Qwilight.ViewModel
                     {
                         savingFileItem.LevyingStatus = e.EntriesExtracted;
                         savingFileItem.QuitStatus = e.EntriesTotal;
-                        savingFileItem.NotifyBundleStatus();
                     };
                     zipFile.ExtractAll(bundleEntryPath, ExtractExistingFileAction.OverwriteSilently);
                 }
@@ -3075,16 +3073,18 @@ namespace Qwilight.ViewModel
                             var target = $"{QwilightComponent.TaehuiNetFE}/qwilight/{title}";
                             using (var wwwClient = new HttpClient())
                             {
-                                using (var fs = File.OpenWrite(tmpFileName))
-                                using (var ts = await wwwClient.GetAsync(target).ConfigureAwait(false))
+                                using (var hrm = await wwwClient.GetAsync(target, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
                                 {
-                                    savingQwilightItem.QuitStatus = ts.Content.Headers.ContentLength ?? 0L;
+                                    savingQwilightItem.QuitStatus = hrm.Content.Headers.ContentLength ?? 0L;
+                                }
+                                using (var fs = File.OpenWrite(tmpFileName))
+                                using (var ws = await wwwClient.GetStreamAsync(target).ConfigureAwait(false))
+                                {
                                     var length = 0;
-                                    while ((length = await (await ts.Content.ReadAsStreamAsync().ConfigureAwait(false)).ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
+                                    while ((length = await ws.ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
                                     {
                                         await fs.WriteAsync(data.AsMemory(0, length)).ConfigureAwait(false);
                                         savingQwilightItem.LevyingStatus += length;
-                                        savingQwilightItem.NotifyBundleStatus();
                                     }
                                 }
                             }
@@ -3476,12 +3476,12 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void SetComputingMode(DefaultCompute targetComputer)
+        public void SetComputingMode(DefaultCompute targetMigrateComputer)
         {
             switch (ModeValue)
             {
                 case Mode.NoteFile:
-                    Fade(HandleImpl, targetComputer, false, 1);
+                    Fade(HandleImpl, targetMigrateComputer, false, 1);
                     break;
                 case Mode.Computing:
                     HandleImpl();
@@ -3494,13 +3494,13 @@ namespace Qwilight.ViewModel
             void HandleImpl()
             {
                 var defaultComputer = Computer;
-                (AutoComputer ?? defaultComputer)?.Migrate(targetComputer);
-                Computer = targetComputer;
+                (AutoComputer ?? defaultComputer)?.Migrate(targetMigrateComputer);
+                Computer = targetMigrateComputer;
                 Computer.HandleCompiler();
                 ModeValue = Mode.Computing;
                 defaultComputer?.Close();
                 CloseAutoComputer();
-                targetComputer.NoteFile.SetConfigure();
+                targetMigrateComputer.NoteFile.SetConfigure();
             }
         }
 
@@ -3608,14 +3608,14 @@ namespace Qwilight.ViewModel
                         {
                             ModeComponentValue.ComputingValue = targetNoteFile;
                             var autoComputer = new AutoCompute(new[] { targetNoteFile }, null, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), -1, levyingWait);
-                            var targetComputer = doMigrate ? autoComputer : null;
-                            var isMigrate = AutoComputer != null && targetComputer != null;
+                            var targetMigrateComputer = doMigrate ? autoComputer : null;
+                            var isMigrate = AutoComputer != null && targetMigrateComputer != null;
                             if (isMigrate)
                             {
-                                AutoComputer.Migrate(targetComputer);
+                                AutoComputer.Migrate(targetMigrateComputer);
                             }
                             var trailerAudioFilePath = Utility.GetFilePath(targetNoteFile.TrailerAudioPath, Utility.FileFormatFlag.Audio);
-                            if (doTrailerAudio && !string.IsNullOrEmpty(trailerAudioFilePath) && AutoComputer?.TrailerAudioHandler?.IsHandling != false)
+                            if (doTrailerAudio && !string.IsNullOrEmpty(trailerAudioFilePath) && (!doMigrate || AutoComputer?.TrailerAudioHandler?.IsHandling != false))
                             {
                                 CloseAutoComputer(null);
                                 var trailerAudioHandler = autoComputer.TrailerAudioHandler;

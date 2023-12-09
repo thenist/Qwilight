@@ -35,7 +35,7 @@
                                         <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Left" Text="{Binding Text}" />
                                     </StackPanel>
                                 </Grid>
-                                <ProgressBar Grid.Row="1" Style="{StaticResource StandardStatusView}" Value="{Binding BundleStatus, Mode=OneWay}" Visibility="{Binding QuitStatus, Converter={StaticResource VisibilityModifier}}" />
+                                <ProgressBar Grid.Row="1" Style="{StaticResource StandardStatusView}" Value="{Binding BundleStatus, Mode=OneWay}" Visibility="{Binding BundleStatus, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

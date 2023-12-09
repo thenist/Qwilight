@@ -7,6 +7,8 @@ namespace Qwilight.UIComponent
     public sealed class NotifyItem : Model, IDisposable
     {
         NotifySystem.NotifyVariety _toNotifyVariety;
+        long _levyingStatus;
+        long _quitStatus;
         string _text;
 
         public byte[] Data { get; set; }
@@ -21,7 +23,7 @@ namespace Qwilight.UIComponent
 
         public bool IsStopped { get; set; }
 
-        public double BundleStatus { get; set; }
+        public double BundleStatus => QuitStatus > 0L ? 100.0 * LevyingStatus / QuitStatus : 0.0;
 
         public Action OnHandle { get; init; }
 
@@ -34,21 +36,18 @@ namespace Qwilight.UIComponent
             set => SetProperty(ref _toNotifyVariety, value, nameof(Variety));
         }
 
-        public long LevyingStatus { get; set; }
-
-        public long QuitStatus { get; set; }
-
-        public void NotifyBundleStatus()
+        public long LevyingStatus
         {
-            if (QuitStatus > 0)
-            {
-                var bundleStatus = 100.0 * LevyingStatus / QuitStatus;
-                if (bundleStatus == 100.0 || Math.Abs(bundleStatus - BundleStatus) >= 1.0)
-                {
-                    BundleStatus = bundleStatus;
-                    OnPropertyChanged(nameof(BundleStatus));
-                }
-            }
+            get => _levyingStatus;
+
+            set => SetProperty(ref _levyingStatus, value, nameof(BundleStatus));
+        }
+
+        public long QuitStatus
+        {
+            get => _quitStatus;
+
+            set => SetProperty(ref _quitStatus, value, nameof(BundleStatus));
         }
 
         public string Text

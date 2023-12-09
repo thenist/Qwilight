@@ -118,7 +118,6 @@ namespace Qwilight
                     ?? o.CreateNavigator().SelectSingleNode("/html/body/meta[@name='bmstable']/@content")?.ToString()
                     ?? o.CreateNavigator().SelectSingleNode("/html/head/body/meta[@name='bmstable']/@content")?.ToString()))).ConfigureAwait(false);
                 var levelTable = await Utility.GetJSON<JSON.BMSTable?>(s).ConfigureAwait(false);
-                s.Position = 0;
                 if (levelTable.HasValue)
                 {
                     var levelTableValue = levelTable.Value;
@@ -139,21 +138,24 @@ namespace Qwilight
                     using (var wwwClient = new HttpClient())
                     {
                         wwwClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
-                        using (var fs = File.Open(Path.Combine(EntryPath, $"{levelTableFileName}.json"), FileMode.Create))
-                        using (var ts = await wwwClient.GetAsync(target).ConfigureAwait(false))
+                        using (var hrm = await wwwClient.GetAsync(target, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
                         {
-                            savingLevelItem.QuitStatus = ts.Content.Headers.ContentLength ?? 0L;
+                            savingLevelItem.QuitStatus = hrm.Content.Headers.ContentLength ?? 0L;
+                        }
+                        using (var fs = File.Open(Path.Combine(EntryPath, $"{levelTableFileName}.json"), FileMode.Create))
+                        using (var ws = await wwwClient.GetStreamAsync(target).ConfigureAwait(false))
+                        {
                             var length = 0;
-                            while ((length = await (await ts.Content.ReadAsStreamAsync().ConfigureAwait(false)).ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
+                            while ((length = await ws.ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
                             {
                                 await fs.WriteAsync(data.AsMemory(0, length)).ConfigureAwait(false);
                                 savingLevelItem.LevyingStatus += length;
-                                savingLevelItem.NotifyBundleStatus();
                             }
                         }
                     }
                     using (var fs = File.Open(Path.Combine(EntryPath, $"#{levelTableFileName}.json"), FileMode.Create))
                     {
+                        s.Position = 0;
                         await s.CopyToAsync(fs).ConfigureAwait(false);
                     }
                     savingLevelItem.Variety = NotifySystem.NotifyVariety.Quit;

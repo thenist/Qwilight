@@ -829,7 +829,6 @@ namespace Qwilight
                                                     var length = (int)Math.Min(savingBundleItem.Data.Length, rms.Length - rms.Position);
                                                     rms.Read(savingBundleItem.Data, 0, length);
                                                     savingBundleItem.LevyingStatus += length;
-                                                    savingBundleItem.NotifyBundleStatus();
                                                     if (length < savingBundleItem.Data.Length)
                                                     {
                                                         Send(Event.Types.EventID.SavedAsBundle, saveAsBundleID, UnsafeByteOperations.UnsafeWrap(savingBundleItem.Data.AsMemory(0, length)));
@@ -859,7 +858,6 @@ namespace Qwilight
                                                 {
                                                     savingBundleItem.LevyingStatus = e.EntriesSaved;
                                                     savingBundleItem.QuitStatus = e.EntriesTotal;
-                                                    savingBundleItem.NotifyBundleStatus();
                                                 }
                                             }
                                         }
@@ -935,7 +933,6 @@ namespace Qwilight
                                             eventItemData[0].WriteTo(savingBundleItem.DataFlow);
                                         }
                                         savingBundleItem.LevyingStatus += eventItemData[0].Length;
-                                        savingBundleItem.NotifyBundleStatus();
                                     }
                                     break;
                                 case Event.Types.EventID.SavedBundle:
@@ -1083,7 +1080,6 @@ namespace Qwilight
                                                         {
                                                             savingBundleItem.LevyingStatus = e.EntriesExtracted;
                                                             savingBundleItem.QuitStatus = e.EntriesTotal;
-                                                            savingBundleItem.NotifyBundleStatus();
                                                         }
                                                     }
                                                 }
