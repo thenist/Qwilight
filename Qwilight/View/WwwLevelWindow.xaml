@@ -57,7 +57,6 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <Grid>
                                         <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding WwwLevelItemCollection}" SelectedItem="{Binding WwwLevelItemValue}">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
@@ -475,7 +474,6 @@
                                     </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
