@@ -182,6 +182,7 @@ namespace Qwilight
                 public string commentary;
                 public bool isPaused;
                 public int inputFlags;
+                public BaseNoteFile.Handled handled;
             }
         }
 
@@ -731,8 +732,9 @@ namespace Qwilight
             public string artist;
             public string title;
             public string genre;
-            public string levelText;
             public BaseNoteFile.Level level;
+            public string levelText;
+            public BaseNoteFile.Handled handled;
         }
 
         public struct TwilightWwwLevel

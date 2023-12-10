@@ -3978,24 +3978,21 @@ namespace Qwilight.Compute
                                     NoteFile.HandledValue = BaseNoteFile.Handled.F;
                                 }
                             }
-                            else
+                            else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Highest)
                             {
-                                if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Highest)
-                                {
-                                    NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
-                                }
-                                else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Higher && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
-                                {
-                                    NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
-                                }
-                                else if (NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
-                                {
-                                    NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
-                                }
+                                NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
+                            }
+                            else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Higher && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
+                            {
+                                NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
+                            }
+                            else if (NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
+                            {
+                                NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
                             }
                         }
+                        DB.Instance.SetHandled(NoteFile);
                     }
-                    DB.Instance.SetHandled(NoteFile);
 
                     DB.Instance.NewDate(NoteFile, default, date);
                     NoteFile.LatestDate = date;

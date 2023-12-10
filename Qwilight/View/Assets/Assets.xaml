@@ -91,7 +91,6 @@
     <system:Int32 x:Key="HandledNot">0</system:Int32>
     <system:Int32 x:Key="HandledClear">1</system:Int32>
     <system:Int32 x:Key="HandledBand1">2</system:Int32>
-    <system:Int32 x:Key="HandledTotal">3</system:Int32>
     <system:Int32 x:Key="HandledF">4</system:Int32>
     <system:Int32 x:Key="HandledHigherClear">5</system:Int32>
     <system:Int32 x:Key="HandledHighestClear">6</system:Int32>

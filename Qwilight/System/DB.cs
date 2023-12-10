@@ -557,7 +557,7 @@ namespace Qwilight
                         var dbStatement = NewDBStatement("""
                             SELECT name
                             FROM sqlite_master
-                            WHERE type = 'table' AND name = @tableName
+                            WHERE type = "table" AND name = @tableName
                         """, t);
                         dbStatement.Parameters.AddWithValue("tableName", tableName);
                         return dbStatement.ExecuteScalar() != null;
