@@ -39,7 +39,7 @@ namespace Qwilight.ViewModel
 
             public bool HaveIt { get; }
 
-            public AvatarComputing(JSON.Computing data) : base(ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.NoteFilePath, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.DefaultEntryItem, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.EntryItem)
+            public AvatarComputing(JSON.Computing data, bool isMe = true) : base(ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.NoteFilePath, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.DefaultEntryItem, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.EntryItem)
             {
                 SetNoteIDs(null, null, data.noteID);
                 HaveIt = ViewModels.Instance.MainValue.NoteID512s.TryGetValue(GetNoteID512(), out var noteFile);
@@ -53,6 +53,7 @@ namespace Qwilight.ViewModel
                     LevelText = noteFile.LevelText;
                     NoteDrawingPath = noteFile.NoteDrawingPath;
                     BannerDrawingPath = noteFile.BannerDrawingPath;
+                    HandledValue = isMe ? noteFile.HandledValue : data.handled;
                 }
                 else
                 {
@@ -62,8 +63,8 @@ namespace Qwilight.ViewModel
                     Genre = data.genre;
                     LevelValue = data.level;
                     LevelText = data.levelText;
+                    HandledValue = data.handled;
                 }
-                HandledValue = data.handled;
             }
         }
 
@@ -150,7 +151,7 @@ namespace Qwilight.ViewModel
                         }
                         foreach (var data in twilightWwwAvatarLevelVS.targetLevelVSItems)
                         {
-                            LevelVSTargetAvatarComputingCollection.Add(new(data)
+                            LevelVSTargetAvatarComputingCollection.Add(new(data, false)
                             {
                                 FittedText = string.Format(LanguageSystem.Instance.LevelVSStandContents, data.stand.ToString("#,##0"), data.levelVSStand.ToString("+#,##0;-#,##0"))
                             });
