@@ -4042,7 +4042,7 @@ namespace Qwilight.Compute
                                         noteModifyMode = (int)ModeComponentValue.NoteModifyModeValue,
                                         lowestJudgmentConditionMode = (int)ModeComponentValue.LowestJudgmentConditionModeValue,
                                         stand = Stand.TargetValue,
-                                        highestBand = HighestBand,
+                                        band = HighestBand,
                                         point = Point.TargetValue,
                                         salt = ModeComponentValue.Salt,
                                         isPaused = _isPaused,
@@ -4090,7 +4090,7 @@ namespace Qwilight.Compute
                                 noteID = eventNoteID ?? NoteFile.GetNoteID512(),
                                 stand = Stand.TargetValue,
                                 point = Point.TargetValue,
-                                highestBand = HighestBand,
+                                band = HighestBand,
                                 judgments = new[]
                                 {
                                 InheritedHighestJudgment,

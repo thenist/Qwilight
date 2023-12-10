@@ -375,7 +375,7 @@
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
                                                 <view:AvatarDrawingView Width="24" Height="24" AvatarWwwValue="{Binding LevelVSMyAvatarWwwValue}" />
-                                                <view:AvatarNameView Grid.Column="1" Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding LevelVSMyAvatarWwwValue}" AvatarName="{Binding LevelVSMyAvatarName}" />
+                                                <view:AvatarNameView Grid.Column="1" AvatarWwwValue="{Binding LevelVSMyAvatarWwwValue}" AvatarName="{Binding LevelVSMyAvatarName}" />
                                             </Grid>
                                             <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding LevelVSMyAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
                                         </Grid>
@@ -410,7 +410,7 @@
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
                                                 <view:AvatarDrawingView Width="24" Height="24" AvatarWwwValue="{Binding LevelVSTargetAvatarWwwValue}" />
-                                                <view:AvatarNameView Grid.Column="1" Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding LevelVSTargetAvatarWwwValue}" AvatarName="{Binding LevelVSTargetAvatarName}" />
+                                                <view:AvatarNameView Grid.Column="1" AvatarWwwValue="{Binding LevelVSTargetAvatarWwwValue}" AvatarName="{Binding LevelVSTargetAvatarName}" />
                                             </Grid>
                                             <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding LevelVSTargetAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
                                         </Grid>

@@ -39,7 +39,7 @@ namespace Qwilight.ViewModel
 
             public bool HaveIt { get; }
 
-            public AvatarComputing(JSON.Computing data, bool isMe = true) : base(ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.NoteFilePath, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.DefaultEntryItem, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.EntryItem)
+            public AvatarComputing(JSON.Computing data, bool isMe) : base(ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.NoteFilePath, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.DefaultEntryItem, ViewModels.Instance.MainValue.NoteID512s.GetValueOrDefault(data.noteID)?.EntryItem)
             {
                 SetNoteIDs(null, null, data.noteID);
                 HaveIt = ViewModels.Instance.MainValue.NoteID512s.TryGetValue(GetNoteID512(), out var noteFile);
@@ -144,7 +144,7 @@ namespace Qwilight.ViewModel
                         var twilightWwwAvatarLevelVS = _twilightWwwAvatarLevelVSMap[value.LevelID];
                         foreach (var data in twilightWwwAvatarLevelVS.avatarLevelVSItems)
                         {
-                            LevelVSMyAvatarComputingCollection.Add(new(data)
+                            LevelVSMyAvatarComputingCollection.Add(new(data, true)
                             {
                                 FittedText = string.Format(LanguageSystem.Instance.LevelVSStandContents, data.stand.ToString("#,##0"), data.levelVSStand.ToString("+#,##0;-#,##0"))
                             });
@@ -395,7 +395,7 @@ namespace Qwilight.ViewModel
                                 Favorites5KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites5KAvatarComputingCollection.Add(new(data)
+                                    Favorites5KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         Title = data.title,
                                         Artist = data.artist,
@@ -416,7 +416,7 @@ namespace Qwilight.ViewModel
                                 Favorites7KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites7KAvatarComputingCollection.Add(new(data)
+                                    Favorites7KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
@@ -432,7 +432,7 @@ namespace Qwilight.ViewModel
                                 Favorites9KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites9KAvatarComputingCollection.Add(new(data)
+                                    Favorites9KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
@@ -448,7 +448,7 @@ namespace Qwilight.ViewModel
                                 Favorites10KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites10KAvatarComputingCollection.Add(new(data)
+                                    Favorites10KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
@@ -464,7 +464,7 @@ namespace Qwilight.ViewModel
                                 Favorites14KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites14KAvatarComputingCollection.Add(new(data)
+                                    Favorites14KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
@@ -480,7 +480,7 @@ namespace Qwilight.ViewModel
                                 Favorites24KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites24KAvatarComputingCollection.Add(new(data)
+                                    Favorites24KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
@@ -496,7 +496,7 @@ namespace Qwilight.ViewModel
                                 Favorites48KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarFavorites)
                                 {
-                                    Favorites48KAvatarComputingCollection.Add(new(data)
+                                    Favorites48KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
                                     });
@@ -517,7 +517,7 @@ namespace Qwilight.ViewModel
                                 Lasts5KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts5KAvatarComputingCollection.Add(new(data)
+                                    Lasts5KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
@@ -533,7 +533,7 @@ namespace Qwilight.ViewModel
                                 Lasts7KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts7KAvatarComputingCollection.Add(new(data)
+                                    Lasts7KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
@@ -549,7 +549,7 @@ namespace Qwilight.ViewModel
                                 Lasts9KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts9KAvatarComputingCollection.Add(new(data)
+                                    Lasts9KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
@@ -565,7 +565,7 @@ namespace Qwilight.ViewModel
                                 Lasts10KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts10KAvatarComputingCollection.Add(new(data)
+                                    Lasts10KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
@@ -581,7 +581,7 @@ namespace Qwilight.ViewModel
                                 Lasts14KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts14KAvatarComputingCollection.Add(new(data)
+                                    Lasts14KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
@@ -597,7 +597,7 @@ namespace Qwilight.ViewModel
                                 Lasts24KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts24KAvatarComputingCollection.Add(new(data)
+                                    Lasts24KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
@@ -613,7 +613,7 @@ namespace Qwilight.ViewModel
                                 Lasts48KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarLasts)
                                 {
-                                    Lasts48KAvatarComputingCollection.Add(new(data)
+                                    Lasts48KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
                                     });
@@ -634,7 +634,7 @@ namespace Qwilight.ViewModel
                                 Ability5KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarAbility)
                                 {
-                                    Ability5KAvatarComputingCollection.Add(new(data)
+                                    Ability5KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
                                     });
@@ -650,7 +650,7 @@ namespace Qwilight.ViewModel
                                 Ability7KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarAbility)
                                 {
-                                    Ability7KAvatarComputingCollection.Add(new(data)
+                                    Ability7KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
                                     });
@@ -666,7 +666,7 @@ namespace Qwilight.ViewModel
                                 Ability9KAvatarComputingCollection.Clear();
                                 foreach (var data in twilightWwwAvatarAbility)
                                 {
-                                    Ability9KAvatarComputingCollection.Add(new(data)
+                                    Ability9KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
                                         FittedText = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
                                     });

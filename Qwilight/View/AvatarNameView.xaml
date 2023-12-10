@@ -4,6 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Name="View"
     Orientation="Horizontal">
-    <TextBlock Style="{StaticResource StandardTextViewMargin0}" Text="{Binding AvatarWwwValue.AvatarTitleValue.TitleNBSP, ElementName=View}" Foreground="{Binding AvatarWwwValue.AvatarTitleValue.TitlePaint, ElementName=View}" FontSize="{Binding FontLength, ElementName=View}" />
-    <TextBlock Style="{StaticResource StandardTextViewMargin0}" Text="{Binding AvatarName, ElementName=View}" Foreground="{Binding TextPaint, ElementName=View}" FontWeight="{Binding HeavyText, ElementName=View}" FontSize="{Binding FontLength, ElementName=View}" />
+    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarWwwValue.AvatarTitleValue.Title, ElementName=View}" Foreground="{Binding AvatarWwwValue.AvatarTitleValue.TitlePaint, ElementName=View}" FontSize="{Binding FontLength, ElementName=View}" />
+    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarName, ElementName=View}" Foreground="{Binding TextPaint, ElementName=View}" FontWeight="{Binding HeavyText, ElementName=View}" FontSize="{Binding FontLength, ElementName=View}" />
 </StackPanel>

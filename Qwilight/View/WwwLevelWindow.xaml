@@ -36,7 +36,7 @@
                                             </ContextMenu>
                                         </StackPanel.ContextMenu>
                                         <view:AvatarDrawingView Width="24" Height="24" AvatarWwwValue="{Binding AvatarWwwValue}" />
-                                        <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
+                                        <view:AvatarNameView AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -429,7 +429,7 @@
                                                                                 <RowDefinition />
                                                                                 <RowDefinition />
                                                                             </Grid.RowDefinitions>
-                                                                            <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
+                                                                            <view:AvatarNameView AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
                                                                             <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}"  Text="{Binding Date}" HorizontalAlignment="Left" />
                                                                         </Grid>
                                                                     </Grid>

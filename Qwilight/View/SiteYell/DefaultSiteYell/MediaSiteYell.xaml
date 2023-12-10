@@ -24,7 +24,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
+            <view:AvatarNameView AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Date}" Foreground="{StaticResource SiteDatePaint}" />
         </StackPanel>
         <StackPanel Grid.Row="1">
