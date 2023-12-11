@@ -111,7 +111,7 @@
                                     </Binding>
                                 </Image.Opacity>
                             </Image>
-                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.NoteSaltModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteSaltModeVariety}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.NoteSaltModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteSaltModeVariety}}">
                                 <Image.Opacity>
                                     <Binding Path="ModeComponentValue.NoteSaltModeValue" Converter="{StaticResource FaintModeComponentModifier}">
                                         <Binding.ConverterParameter>
@@ -120,7 +120,7 @@
                                     </Binding>
                                 </Image.Opacity>
                             </Image>
-                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.FaintNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource FaintNoteModeVariety}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.FaintNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource FaintNoteModeVariety}}">
                                 <Image.Opacity>
                                     <Binding Path="ModeComponentValue.FaintNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
                                         <Binding.ConverterParameter>
@@ -129,7 +129,7 @@
                                     </Binding>
                                 </Image.Opacity>
                             </Image>
-                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.JudgmentModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource JudgmentModeVariety}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.JudgmentModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource JudgmentModeVariety}}">
                                 <Image.Opacity>
                                     <Binding Path="ModeComponentValue.JudgmentModeValue" Converter="{StaticResource FaintModeComponentModifier}">
                                         <Binding.ConverterParameter>
@@ -156,7 +156,7 @@
                                     </Binding>
                                 </Image.Opacity>
                             </Image>
-                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.LongNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LongNoteModeVariety}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.LongNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LongNoteModeVariety}}">
                                 <Image.Opacity>
                                     <Binding Path="ModeComponentValue.LongNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
                                         <Binding.ConverterParameter>
@@ -165,7 +165,7 @@
                                     </Binding>
                                 </Image.Opacity>
                             </Image>
-                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.InputFavorModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.InputFavorModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}">
                                 <Image.Opacity>
                                     <Binding Path="ModeComponentValue.InputFavorModeValue" Converter="{StaticResource FaintModeComponentModifier}">
                                         <Binding.ConverterParameter>
@@ -174,7 +174,7 @@
                                     </Binding>
                                 </Image.Opacity>
                             </Image>
-                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.NoteModifyModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteModifyModeVariety}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.NoteModifyModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource NoteModifyModeVariety}}">
                                 <Image.Opacity>
                                     <Binding Path="ModeComponentValue.NoteModifyModeValue" Converter="{StaticResource FaintModeComponentModifier}">
                                         <Binding.ConverterParameter>
@@ -183,7 +183,7 @@
                                     </Binding>
                                 </Image.Opacity>
                             </Image>
-                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.BPMModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource BPMModeVariety}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.BPMModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource BPMModeVariety}}">
                                 <Image.Opacity>
                                     <Binding Path="ModeComponentValue.BPMModeValue" Converter="{StaticResource FaintModeComponentModifier}">
                                         <Binding.ConverterParameter>
@@ -192,7 +192,7 @@
                                     </Binding>
                                 </Image.Opacity>
                             </Image>
-                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.WaveModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource WaveModeVariety}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.WaveModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource WaveModeVariety}}">
                                 <Image.Opacity>
                                     <Binding Path="ModeComponentValue.WaveModeValue" Converter="{StaticResource FaintModeComponentModifier}">
                                         <Binding.ConverterParameter>
@@ -201,7 +201,7 @@
                                     </Binding>
                                 </Image.Opacity>
                             </Image>
-                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.SetNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource SetNoteModeVariety}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.SetNoteModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource SetNoteModeVariety}}">
                                 <Image.Opacity>
                                     <Binding Path="ModeComponentValue.SetNoteModeValue" Converter="{StaticResource FaintModeComponentModifier}">
                                         <Binding.ConverterParameter>
@@ -210,7 +210,7 @@
                                     </Binding>
                                 </Image.Opacity>
                             </Image>
-                            <Image Style="{StaticResource StandardView}"  Height="24" Source="{Binding ModeComponentValue.LowestJudgmentConditionModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LowestJudgmentConditionModeVariety}}">
+                            <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding ModeComponentValue.LowestJudgmentConditionModeValue, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource LowestJudgmentConditionModeVariety}}">
                                 <Image.Opacity>
                                     <Binding Path="ModeComponentValue.LowestJudgmentConditionModeValue" Converter="{StaticResource FaintModeComponentModifier}">
                                         <Binding.ConverterParameter>

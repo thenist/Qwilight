@@ -101,7 +101,6 @@ namespace Qwilight
 
         const int Channel = 4093;
         const MODE LoadingAudioModes = MODE.DEFAULT | MODE._2D | MODE._3D_WORLDRELATIVE | MODE._3D_INVERSEROLLOFF | MODE.OPENMEMORY | MODE.ACCURATETIME | MODE.MPEGSEARCH | MODE.IGNORETAGS | MODE.LOWMEM;
-        const MODE LoadingImmediatelyAudioModes = LoadingAudioModes | MODE.LOOP_NORMAL;
 
         public const int MainAudio = 0;
         public const int InputAudio = 1;
@@ -1260,7 +1259,7 @@ namespace Qwilight
             return default;
         }
 
-        public void HandleImmediately(string audioFilePath, IAudioContainer audioContainer, IAudioHandler audioHandler)
+        public void HandleImmediately(string audioFilePath, IAudioContainer audioContainer, IAudioHandler audioHandler, bool isLooping)
         {
             var rms = PoolSystem.Instance.GetDataFlow(File.ReadAllBytes(audioFilePath));
             var hash = Utility.GetID128(rms);
@@ -1275,7 +1274,7 @@ namespace Qwilight
                 _audioCSX.EnterWriteLock();
                 if (_isAvailable)
                 {
-                    if (_targetSystem.createSound(rms.GetBuffer(), LoadingImmediatelyAudioModes, ref audioInfo, out var audioData) == RESULT.OK && audioData.getLength(out var audioLength, TIMEUNIT.MS) == RESULT.OK)
+                    if (_targetSystem.createSound(rms.GetBuffer(), LoadingAudioModes | (isLooping ? MODE.LOOP_NORMAL : MODE.LOOP_OFF), ref audioInfo, out var audioData) == RESULT.OK && audioData.getLength(out var audioLength, TIMEUNIT.MS) == RESULT.OK)
                     {
                         _audioMap.AddOrUpdate(audioContainer, (audioContainer, audioItem) => new(new[] { KeyValuePair.Create(hash, audioItem) }), (audioContainer, audioItems, audioItem) =>
                         {

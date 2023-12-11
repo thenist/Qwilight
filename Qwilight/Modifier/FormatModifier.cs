@@ -15,13 +15,13 @@ namespace Qwilight.Modifier
                 case int valueInt:
                     return valueInt.ToString(format);
                 case float valueFloat32:
-                    if (format.Contains("％"))
+                    if (format.Contains('％'))
                     {
                         valueFloat32 *= 100;
                     }
                     return valueFloat32.ToString(format);
                 case double valueFloat64:
-                    if (format.Contains("％"))
+                    if (format.Contains('％'))
                     {
                         valueFloat64 *= 100;
                     }

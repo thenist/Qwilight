@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Qwilight.MSG;
+using Qwilight.System16;
+using Qwilight.System16.View;
 using Qwilight.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +13,11 @@ namespace Qwilight.View
         public WPFView()
         {
             InitializeComponent();
+
+            if (System16Components.Is1221 || System16Components.Is1225)
+            {
+                MainView.Children.Insert(3, new System16View());
+            }
 
             StrongReferenceMessenger.Default.Register<PointZMaxView>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() =>
             {

@@ -8,7 +8,7 @@
     Width="{Binding DefaultLength}"
     Height="{Binding DefaultHeight}"
     Visibility="{Binding IsWPFViewVisible, Converter={StaticResource VisibilityModifier}}">
-    <Grid>
+    <Grid x:Name="MainView">
         <view:Layer0View />
         <view:NoteFileModeWindow />
         <view:Layer1View />

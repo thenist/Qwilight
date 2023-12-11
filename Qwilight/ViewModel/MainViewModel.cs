@@ -4,6 +4,7 @@ using Ionic.Zip;
 using Qwilight.Compute;
 using Qwilight.MSG;
 using Qwilight.NoteFile;
+using Qwilight.System16.MSG;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using SharpCompress.Archives;
@@ -75,7 +76,7 @@ namespace Qwilight.ViewModel
         {
             EnableRaisingEvents = true
         };
-        int _randomMillis;
+        int _randomMillis = Environment.TickCount;
         DispatcherTimer _fadeInHandler;
         bool _isAvailable = true;
         string _twilightCommentText0 = string.Empty;
@@ -88,7 +89,7 @@ namespace Qwilight.ViewModel
         CommentItem _twilightCommentItem;
         int _entryItemPosition;
         EntryItem _entryItemValue;
-        CancellationTokenSource _setCancelDefaultEntryItem;
+        CancellationTokenSource _setCancelDefaultEntryLoading;
         int? _lastLowerMillis;
         bool _wasLowerMillis = true;
         bool _isUILoading;
@@ -1808,11 +1809,11 @@ namespace Qwilight.ViewModel
             }
             else
             {
-                _setCancelDefaultEntryItem = new();
+                _setCancelDefaultEntryLoading = new();
                 IsDefaultEntryLoading = true;
                 Task.Run(() =>
                 {
-                    using (_setCancelDefaultEntryItem)
+                    using (_setCancelDefaultEntryLoading)
                     {
                         try
                         {
@@ -1871,7 +1872,7 @@ namespace Qwilight.ViewModel
                                         }
                                         void LoadEntry(string targetEntryPath)
                                         {
-                                            _setCancelDefaultEntryItem.Token.ThrowIfCancellationRequested();
+                                            _setCancelDefaultEntryLoading.Token.ThrowIfCancellationRequested();
                                             foreach (var entryPath in defaultEntryPath == targetEntryPath ? defaultEntryPaths : Utility.GetEntry(targetEntryPath))
                                             {
                                                 LoadEntry(entryPath);
@@ -1897,9 +1898,9 @@ namespace Qwilight.ViewModel
                                         }
                                         Utility.HandleLowlyParallelly(entryPaths, Configure.Instance.LoadingBin, entryPath =>
                                         {
-                                            LoadEntryItem(defaultEntryItem, entryPath, _setCancelDefaultEntryItem);
+                                            LoadEntryItem(defaultEntryItem, entryPath, _setCancelDefaultEntryLoading);
                                             Status = (double)Interlocked.Increment(ref status) / endStatus;
-                                        }, _setCancelDefaultEntryItem.Token);
+                                        }, _setCancelDefaultEntryLoading.Token);
                                     }
                                     catch (OperationCanceledException)
                                     {
@@ -1965,7 +1966,7 @@ namespace Qwilight.ViewModel
             ViewModels.Instance.SiteContainerValue.SetComputingValues();
         }
 
-        IEnumerable<EntryItem> LoadEntryItem(DefaultEntryItem defaultEntryItem, string entryPath, CancellationTokenSource setCancelDefaultEntryItem)
+        IEnumerable<EntryItem> LoadEntryItem(DefaultEntryItem defaultEntryItem, string entryPath, CancellationTokenSource setCancelDefaultEntryLoading)
         {
             foreach (var (noteID, _) in NoteID512s.Where(pair => pair.Value.EntryItem.EntryPath == entryPath))
             {
@@ -1997,7 +1998,7 @@ namespace Qwilight.ViewModel
                                 noteFile.SetNoteIDs(noteID128, noteID256, noteID512);
                                 if (!FastDB.Instance.GetNoteFile(noteFile))
                                 {
-                                    noteFile.Compile(Environment.TickCount, setCancelDefaultEntryItem);
+                                    noteFile.Compile(Environment.TickCount, setCancelDefaultEntryLoading);
                                 }
                                 noteFile.SetData();
                                 targetNoteFiles.Add(noteFile);
@@ -2029,7 +2030,7 @@ namespace Qwilight.ViewModel
                             {
                                 if (!FastDB.Instance.GetNoteFile(noteFile))
                                 {
-                                    noteFile.Compile(Environment.TickCount, setCancelDefaultEntryItem);
+                                    noteFile.Compile(Environment.TickCount, setCancelDefaultEntryLoading);
                                 }
                                 noteFile.SetData();
                                 targetNoteFiles.Add(noteFile);
@@ -2826,7 +2827,11 @@ namespace Qwilight.ViewModel
                         }
                         if (IsDefaultEntryLoading)
                         {
-                            _setCancelDefaultEntryItem.Cancel();
+                            _setCancelDefaultEntryLoading.Cancel();
+                            return;
+                        }
+                        if (StrongReferenceMessenger.Default.Send(new WipeSystem16View()).Response)
+                        {
                             return;
                         }
                         StrongReferenceMessenger.Default.Send(new Quit
@@ -3499,7 +3504,7 @@ namespace Qwilight.ViewModel
             MIDISystem.Instance.NotifyModel();
             Configure.Instance.NotifyModel();
             AvatarTitleSystem.Instance.WipeAvatarTitles();
-            ViewModels.Instance.ModifyModeComponentValue.SetModeComponentValues();
+            ViewModels.Instance.ModifyModeComponentValue.SetModeComponentItems();
         }
 
         public void SetNoteFileMode(string faultText = null)
@@ -3690,7 +3695,7 @@ namespace Qwilight.ViewModel
                                 var trailerAudioHandler = autoComputer.TrailerAudioHandler;
                                 if (!isMigrate)
                                 {
-                                    AudioSystem.Instance.HandleImmediately(trailerAudioFilePath, autoComputer, trailerAudioHandler);
+                                    AudioSystem.Instance.HandleImmediately(trailerAudioFilePath, autoComputer, trailerAudioHandler, true);
                                 }
                                 trailerAudioHandler.IsHandling = true;
                                 autoComputer.SetPause = true;

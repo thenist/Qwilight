@@ -71,7 +71,7 @@ namespace Qwilight
             lock (UI.Instance.LoadedCSX)
             {
                 var wasHandled = false;
-                if (_audioItemMap.TryGetValue(audioFileName, out var audioItem))
+                if (audioFileName.StartsWith(@"DefaultUI/") ? _defaultAudioItemMap.TryGetValue(audioFileName, out var audioItem) : _audioItemMap.TryGetValue(audioFileName, out audioItem))
                 {
                     wasHandled = true;
                 }
@@ -1357,9 +1357,7 @@ namespace Qwilight
                                     {
                                         using (rms)
                                         {
-                                            var audioItem = AudioSystem.Instance.Load(rms, this, 1F, null, true);
-                                            _defaultAudioItemMap[$@"DefaultUI\{justFileName}"] = audioItem;
-                                            _audioItemMap[$@"DefaultUI\{justFileName}"] = audioItem;
+                                            _defaultAudioItemMap[$@"DefaultUI\{justFileName}"] = AudioSystem.Instance.Load(rms, this, 1F, null, true);
                                         }
                                     }
                                     catch

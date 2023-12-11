@@ -64,17 +64,6 @@
                 <Button Style="{StaticResource StandardInput}" Foreground="{Binding HandleInputAudioPaint, Source={StaticResource Configure}}" Command="{Binding HandleInputAudioCommand}" Content="{Binding HandleInputAudioText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
                 <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding HandleInputAudioContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Button Style="{StaticResource StandardInput}" Content="{Binding DefaultAudioVarietyText, Source={StaticResource Configure}}" Foreground="{Binding DefaultAudioVarietyPaint, Source={StaticResource Configure}}" Command="{Binding DefaultAudioVarietyCommand}" HorizontalAlignment="Right" />
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DefaultAudioVarietyContents, Source={StaticResource LanguageSystem}}" />
-                    <Button Style="{StaticResource StandardInput}" Content="{Binding LoadDefaultAudio, Source={StaticResource LanguageSystem}}" Command="{Binding LoadDefaultAudioCommand}" />
-                </StackPanel>
-            </Grid>
             <Grid Visibility="{Binding IsBanalAudioVisible, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -84,6 +73,17 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="1">
                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding BanalAudioContents, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Content="{Binding LoadBanalAudio, Source={StaticResource LanguageSystem}}" Command="{Binding LoadBanalAudioCommand}" />
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Content="{Binding DefaultAudioVarietyText, Source={StaticResource Configure}}" Foreground="{Binding DefaultAudioVarietyPaint, Source={StaticResource Configure}}" Command="{Binding DefaultAudioVarietyCommand}" HorizontalAlignment="Right" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding DefaultAudioVarietyContents, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding LoadDefaultAudio, Source={StaticResource LanguageSystem}}" Command="{Binding LoadDefaultAudioCommand}" />
                 </StackPanel>
             </Grid>
             <Grid>

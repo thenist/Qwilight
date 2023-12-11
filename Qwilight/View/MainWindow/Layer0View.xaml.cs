@@ -30,7 +30,7 @@ namespace Qwilight.View
             }
         }
 
-        void OnPaint(object sender, object e)
+        void OnPaint(object sender, EventArgs e)
         {
             var millis = _loopingHandler.GetMillis();
             var distanceMillis = millis - _lastMillis;

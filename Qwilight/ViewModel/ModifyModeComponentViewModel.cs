@@ -207,122 +207,126 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void SetModeComponentValues()
+        public void SetModeComponentItems()
         {
             for (var i = ModifyModeComponentItems.Length - 1; i >= 0; --i)
             {
                 ModifyModeComponentItems[i] = new();
             }
-            ModifyModeComponentItems[AutoModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[AutoModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.AutoMode.Default,
                 Data = LanguageSystem.Instance.AutoModeTexts[(int)ModeComponent.AutoMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[AutoModeVariety][(int)ModeComponent.AutoMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[AutoModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[AutoModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.AutoMode.Autoable,
                 Data = LanguageSystem.Instance.AutoModeTexts[(int)ModeComponent.AutoMode.Autoable],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[AutoModeVariety][(int)ModeComponent.AutoMode.Autoable]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteSaltModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[NoteSaltModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteSaltMode.Default,
                 Data = LanguageSystem.Instance.NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteSaltModeVariety][(int)ModeComponent.NoteSaltMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteSaltModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteSaltModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteSaltMode.Symmetric,
                 Data = LanguageSystem.Instance.NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.Symmetric],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteSaltModeVariety][(int)ModeComponent.NoteSaltMode.Symmetric]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteSaltModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteSaltModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteSaltMode.InputSalt,
                 Data = LanguageSystem.Instance.NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.InputSalt],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteSaltModeVariety][(int)ModeComponent.NoteSaltMode.InputSalt]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteSaltModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteSaltModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteSaltMode.MeterSalt,
                 Data = LanguageSystem.Instance.NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.MeterSalt],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteSaltModeVariety][(int)ModeComponent.NoteSaltMode.MeterSalt]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteSaltModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteSaltModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteSaltMode.HalfInputSalt,
                 Data = LanguageSystem.Instance.NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.HalfInputSalt],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteSaltModeVariety][(int)ModeComponent.NoteSaltMode.HalfInputSalt]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteSaltModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteSaltModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteSaltMode.Salt,
                 Data = LanguageSystem.Instance.NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.Salt],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteSaltModeVariety][(int)ModeComponent.NoteSaltMode.Salt]?.DefaultDrawing
             });
-            ModifyModeComponentItems[FaintNoteModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[FaintNoteModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.FaintNoteMode.Default,
                 Data = LanguageSystem.Instance.FaintNoteModeTexts[(int)ModeComponent.FaintNoteMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[FaintNoteModeVariety][(int)ModeComponent.FaintNoteMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[FaintNoteModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[FaintNoteModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.FaintNoteMode.Faint,
                 Data = LanguageSystem.Instance.FaintNoteModeTexts[(int)ModeComponent.FaintNoteMode.Faint],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[FaintNoteModeVariety][(int)ModeComponent.FaintNoteMode.Faint]?.DefaultDrawing
             });
-            ModifyModeComponentItems[FaintNoteModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[FaintNoteModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.FaintNoteMode.Fading,
                 Data = LanguageSystem.Instance.FaintNoteModeTexts[(int)ModeComponent.FaintNoteMode.Fading],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[FaintNoteModeVariety][(int)ModeComponent.FaintNoteMode.Fading]?.DefaultDrawing
             });
-            ModifyModeComponentItems[FaintNoteModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[FaintNoteModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.FaintNoteMode.TotalFading,
                 Data = LanguageSystem.Instance.FaintNoteModeTexts[(int)ModeComponent.FaintNoteMode.TotalFading],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[FaintNoteModeVariety][(int)ModeComponent.FaintNoteMode.TotalFading]?.DefaultDrawing
             });
-            ModifyModeComponentItems[JudgmentModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[JudgmentModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.JudgmentMode.Lowest,
                 Data = LanguageSystem.Instance.JudgmentModeTexts[(int)ModeComponent.JudgmentMode.Lowest],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[JudgmentModeVariety][(int)ModeComponent.JudgmentMode.Lowest]?.DefaultDrawing,
                 PointedPaintID = 1
             });
-            ModifyModeComponentItems[JudgmentModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[JudgmentModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.JudgmentMode.Lower,
                 Data = LanguageSystem.Instance.JudgmentModeTexts[(int)ModeComponent.JudgmentMode.Lower],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[JudgmentModeVariety][(int)ModeComponent.JudgmentMode.Lower]?.DefaultDrawing,
                 PointedPaintID = 1
             });
-            ModifyModeComponentItems[JudgmentModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[JudgmentModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.JudgmentMode.Default,
                 Data = LanguageSystem.Instance.JudgmentModeTexts[(int)ModeComponent.JudgmentMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[JudgmentModeVariety][(int)ModeComponent.JudgmentMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[JudgmentModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[JudgmentModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.JudgmentMode.Higher,
                 Data = LanguageSystem.Instance.JudgmentModeTexts[(int)ModeComponent.JudgmentMode.Higher],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[JudgmentModeVariety][(int)ModeComponent.JudgmentMode.Higher]?.DefaultDrawing
             });
-            ModifyModeComponentItems[JudgmentModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[JudgmentModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.JudgmentMode.Highest,
                 Data = LanguageSystem.Instance.JudgmentModeTexts[(int)ModeComponent.JudgmentMode.Highest],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[JudgmentModeVariety][(int)ModeComponent.JudgmentMode.Highest]?.DefaultDrawing
             });
-            ModifyModeComponentItems[JudgmentModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[JudgmentModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.JudgmentMode.Favor,
                 Data = LanguageSystem.Instance.JudgmentModeTexts[(int)ModeComponent.JudgmentMode.Favor],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[JudgmentModeVariety][(int)ModeComponent.JudgmentMode.Favor]?.DefaultDrawing,
-                OnConfigure = new RelayCommand(() =>
+                OnConfigure = new(() =>
                 {
                     ViewModels.Instance.FavorJudgmentValue.Open();
                     ModeComponentVariety = JudgmentModeVariety;
@@ -330,21 +334,22 @@ namespace Qwilight.ViewModel
                 }),
                 PointedPaintID = 2
             });
-            ModifyModeComponentItems[HitPointsModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.HitPointsMode.Lowest,
                 Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Lowest],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Lowest]?.DefaultDrawing,
                 PointedPaintID = 1
             });
-            ModifyModeComponentItems[HitPointsModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.HitPointsMode.Lower,
                 Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Lower],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Lower]?.DefaultDrawing,
                 PointedPaintID = 1
             });
-            ModifyModeComponentItems[HitPointsModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.HitPointsMode.Default,
                 Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Default],
@@ -356,7 +361,7 @@ namespace Qwilight.ViewModel
                 }),
                 GetIsVConfigure = () => Configure.Instance.GASLevel >= 2
             });
-            ModifyModeComponentItems[HitPointsModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.HitPointsMode.Higher,
                 Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Higher],
@@ -368,7 +373,7 @@ namespace Qwilight.ViewModel
                 }),
                 GetIsVConfigure = () => Configure.Instance.GASLevel >= 1
             });
-            ModifyModeComponentItems[HitPointsModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.HitPointsMode.Highest,
                 Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Highest],
@@ -380,18 +385,18 @@ namespace Qwilight.ViewModel
                 }),
                 GetIsVConfigure = () => Configure.Instance.GASLevel >= 0
             });
-            ModifyModeComponentItems[HitPointsModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.HitPointsMode.Failed,
                 Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Failed],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Failed]?.DefaultDrawing
             });
-            ModifyModeComponentItems[HitPointsModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.HitPointsMode.Favor,
                 Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Favor],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Favor]?.DefaultDrawing,
-                OnConfigure = new RelayCommand(() =>
+                OnConfigure = new(() =>
                 {
                     ViewModels.Instance.FavorHitPointsValue.Open();
                     ModeComponentVariety = HitPointsModeVariety;
@@ -399,166 +404,170 @@ namespace Qwilight.ViewModel
                 }),
                 PointedPaintID = 2
             });
-            ModifyModeComponentItems[HitPointsModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.HitPointsMode.Test,
                 Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Test],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Test]?.DefaultDrawing,
                 PointedPaintID = 2
             });
-            ModifyModeComponentItems[NoteMobilityModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[NoteMobilityModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteMobilityMode.Default,
                 Data = LanguageSystem.Instance.NoteMobilityModeTexts[(int)ModeComponent.NoteMobilityMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteMobilityModeVariety][(int)ModeComponent.NoteMobilityMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteMobilityModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteMobilityModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteMobilityMode._4D,
                 Data = LanguageSystem.Instance.NoteMobilityModeTexts[(int)ModeComponent.NoteMobilityMode._4D],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteMobilityModeVariety][(int)ModeComponent.NoteMobilityMode._4D]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteMobilityModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteMobilityModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteMobilityMode._4DHD,
                 Data = LanguageSystem.Instance.NoteMobilityModeTexts[(int)ModeComponent.NoteMobilityMode._4DHD],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteMobilityModeVariety][(int)ModeComponent.NoteMobilityMode._4DHD]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteMobilityModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteMobilityModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteMobilityMode.Zip,
                 Data = LanguageSystem.Instance.NoteMobilityModeTexts[(int)ModeComponent.NoteMobilityMode.Zip],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteMobilityModeVariety][(int)ModeComponent.NoteMobilityMode.Zip]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteMobilityModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteMobilityModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteMobilityMode.ZipHD,
                 Data = LanguageSystem.Instance.NoteMobilityModeTexts[(int)ModeComponent.NoteMobilityMode.ZipHD],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteMobilityModeVariety][(int)ModeComponent.NoteMobilityMode.ZipHD]?.DefaultDrawing
             });
-            ModifyModeComponentItems[LongNoteModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[LongNoteModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.LongNoteMode.Default,
                 Data = LanguageSystem.Instance.LongNoteModeTexts[(int)ModeComponent.LongNoteMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[LongNoteModeVariety][(int)ModeComponent.LongNoteMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[LongNoteModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[LongNoteModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.LongNoteMode.Auto,
                 Data = LanguageSystem.Instance.LongNoteModeTexts[(int)ModeComponent.LongNoteMode.Auto],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[LongNoteModeVariety][(int)ModeComponent.LongNoteMode.Auto]?.DefaultDrawing,
                 PointedPaintID = 1
             });
-            ModifyModeComponentItems[LongNoteModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[LongNoteModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.LongNoteMode.Input,
                 Data = LanguageSystem.Instance.LongNoteModeTexts[(int)ModeComponent.LongNoteMode.Input],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[LongNoteModeVariety][(int)ModeComponent.LongNoteMode.Input]?.DefaultDrawing,
                 PointedPaintID = 2
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Default,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode4,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode4],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode4]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode5,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode5],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode5]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode6,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode6],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode6]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode7,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode7],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode7]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode8,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode8],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode8]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode9,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode9],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode9]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode10,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode10],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode10]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode51,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode51],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode51]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode71,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode71],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode71]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode102,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode102],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode102]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode142,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode142],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode142]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode242,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode242],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode242]?.DefaultDrawing
             });
-            ModifyModeComponentItems[InputFavorModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.InputFavorMode.Mode484,
                 Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode484],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode484]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteModifyModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[NoteModifyModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteModifyMode.Default,
                 Data = LanguageSystem.Instance.DefaultNoteModifyContents,
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteModifyModeVariety][(int)ModeComponent.NoteModifyMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[NoteModifyModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteModifyModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteModifyMode.InputNote,
                 Data = LanguageSystem.Instance.NoteModifyModeTexts[(int)ModeComponent.NoteModifyMode.InputNote],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteModifyModeVariety][(int)ModeComponent.NoteModifyMode.InputNote]?.DefaultDrawing,
                 PointedPaintID = 1
             });
-            ModifyModeComponentItems[NoteModifyModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[NoteModifyModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.NoteModifyMode.LongNote,
                 Data = LanguageSystem.Instance.NoteModifyModeTexts[(int)ModeComponent.NoteModifyMode.LongNote],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[NoteModifyModeVariety][(int)ModeComponent.NoteModifyMode.LongNote]?.DefaultDrawing,
-                OnConfigure = new RelayCommand(() =>
+                OnConfigure = new(() =>
                 {
                     ViewModels.Instance.LongNoteModifyValue.Open();
                     ModeComponentVariety = NoteModifyModeVariety;
@@ -566,44 +575,47 @@ namespace Qwilight.ViewModel
                 }),
                 PointedPaintID = 2
             });
-            ModifyModeComponentItems[BPMModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[BPMModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.BPMMode.Default,
                 Data = LanguageSystem.Instance.BPMModeTexts[(int)ModeComponent.BPMMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[BPMModeVariety][(int)ModeComponent.BPMMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[BPMModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[BPMModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.BPMMode.Not,
                 Data = LanguageSystem.Instance.BPMModeTexts[(int)ModeComponent.BPMMode.Not],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[BPMModeVariety][(int)ModeComponent.BPMMode.Not]?.DefaultDrawing,
                 PointedPaintID = 2
             });
-            ModifyModeComponentItems[WaveModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[WaveModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.WaveMode.Default,
                 Data = LanguageSystem.Instance.WaveModeTexts[(int)ModeComponent.WaveMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[WaveModeVariety][(int)ModeComponent.WaveMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[WaveModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[WaveModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.WaveMode.Counter,
                 Data = LanguageSystem.Instance.WaveModeTexts[(int)ModeComponent.WaveMode.Counter],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[WaveModeVariety][(int)ModeComponent.WaveMode.Counter]?.DefaultDrawing,
                 PointedPaintID = 2
             });
-            ModifyModeComponentItems[SetNoteModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[SetNoteModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.SetNoteMode.Default,
                 Data = LanguageSystem.Instance.SetNoteModeTexts[(int)ModeComponent.SetNoteMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[SetNoteModeVariety][(int)ModeComponent.SetNoteMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[SetNoteModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[SetNoteModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.SetNoteMode.Put,
                 Data = LanguageSystem.Instance.SetNoteModeTexts[(int)ModeComponent.SetNoteMode.Put],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[SetNoteModeVariety][(int)ModeComponent.SetNoteMode.Put]?.DefaultDrawing,
-                OnConfigure = new RelayCommand(() =>
+                OnConfigure = new(() =>
                 {
                     ViewModels.Instance.PutNoteSetValue.Open();
                     ModeComponentVariety = SetNoteModeVariety;
@@ -611,12 +623,12 @@ namespace Qwilight.ViewModel
                 }),
                 PointedPaintID = 2
             });
-            ModifyModeComponentItems[SetNoteModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[SetNoteModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.SetNoteMode.VoidPut,
                 Data = LanguageSystem.Instance.SetNoteModeTexts[(int)ModeComponent.SetNoteMode.VoidPut],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[SetNoteModeVariety][(int)ModeComponent.SetNoteMode.VoidPut]?.DefaultDrawing,
-                OnConfigure = new RelayCommand(() =>
+                OnConfigure = new(() =>
                 {
                     ViewModels.Instance.PutNoteSetValue.Open();
                     ModeComponentVariety = SetNoteModeVariety;
@@ -624,13 +636,14 @@ namespace Qwilight.ViewModel
                 }),
                 PointedPaintID = 2
             });
-            ModifyModeComponentItems[LowestJudgmentConditionModeVariety].Add(new ModifyModeComponentItem
+
+            ModifyModeComponentItems[LowestJudgmentConditionModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.LowestJudgmentConditionMode.Default,
                 Data = LanguageSystem.Instance.LowestJudgmentConditionModeTexts[(int)ModeComponent.LowestJudgmentConditionMode.Default],
                 Drawing = BaseUI.Instance.ModeComponentDrawings[LowestJudgmentConditionModeVariety][(int)ModeComponent.LowestJudgmentConditionMode.Default]?.DefaultDrawing
             });
-            ModifyModeComponentItems[LowestJudgmentConditionModeVariety].Add(new ModifyModeComponentItem
+            ModifyModeComponentItems[LowestJudgmentConditionModeVariety].Add(new()
             {
                 Value = (int)ModeComponent.LowestJudgmentConditionMode.Wrong,
                 Data = LanguageSystem.Instance.LowestJudgmentConditionModeTexts[(int)ModeComponent.LowestJudgmentConditionMode.Wrong],

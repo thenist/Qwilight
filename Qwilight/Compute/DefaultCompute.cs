@@ -2696,7 +2696,7 @@ namespace Qwilight.Compute
                                                 }
                                             }
                                         }
-                                        HandleStandardInputAudio();
+                                        HandleBanalAudio();
                                         break;
                                 }
                             }
@@ -2737,11 +2737,11 @@ namespace Qwilight.Compute
                                             }
                                         }
                                     }
-                                    HandleStandardInputAudio();
+                                    HandleBanalAudio();
                                 }
                             }
 
-                            void HandleStandardInputAudio()
+                            void HandleBanalAudio()
                             {
                                 if (Configure.Instance.BanalAudio && AudioSystem.Instance.BanalAudio.HasValue)
                                 {
@@ -2749,10 +2749,9 @@ namespace Qwilight.Compute
                                     var lastEventPosition = IsInEvents ? _eventPositions.Last() : LoopingCounter;
                                     if (lastEventPosition < LoopingCounter + audioItemValue.Length)
                                     {
-                                        StopLastEqualAudioItem(string.Empty);
-                                        audioChannelMap[string.Empty] = AudioSystem.Instance.Handle(new()
+                                        AudioSystem.Instance.Handle(new()
                                         {
-                                            AudioItem = AudioSystem.Instance.BanalAudio
+                                            AudioItem = audioItemValue
                                         }, AudioSystem.InputAudio, AudioMultiplier, IsCounterWave, this, 0.0, inputPower);
                                     }
                                 }

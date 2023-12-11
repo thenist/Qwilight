@@ -207,6 +207,18 @@
 		<None Update="Assets\UI\Default\Default.zip">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\System 16\Audio\1221.wav">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\System 16\Audio\1225.wav">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\System 16\Drawing\1221.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\System 16\Drawing\1225.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='ARM64'">
@@ -344,5 +356,9 @@
 		<ProjectReference Include="..\FMODCoreAPI\FMODCoreAPI.csproj" />
 		<ProjectReference Include="..\LedCSharp\LedCSharp.csproj" />
 		<ProjectReference Include="..\Protobuf\Protobuf.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="System16\Assets\" />
 	</ItemGroup>
 </Project>
