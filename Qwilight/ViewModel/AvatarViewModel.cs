@@ -636,7 +636,7 @@ namespace Qwilight.ViewModel
                                 {
                                     Ability5KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
-                                        FittedText = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
+                                        FittedText = string.Format(LanguageSystem.Instance.AbilityFittedText, data.stand.ToString("#,##0"), Math.Round(data.ability, 2))
                                     });
                                 }
                             }
@@ -652,7 +652,7 @@ namespace Qwilight.ViewModel
                                 {
                                     Ability7KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
-                                        FittedText = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
+                                        FittedText = string.Format(LanguageSystem.Instance.AbilityFittedText, data.stand.ToString("#,##0"), Math.Round(data.ability, 2))
                                     });
                                 }
                             }
@@ -668,7 +668,7 @@ namespace Qwilight.ViewModel
                                 {
                                     Ability9KAvatarComputingCollection.Add(new(data, IsMe)
                                     {
-                                        FittedText = string.Format(LanguageSystem.Instance.AbilityStandContents, data.stand.ToString("#,##0"), Math.Round(data.ability, 3))
+                                        FittedText = string.Format(LanguageSystem.Instance.AbilityFittedText, data.stand.ToString("#,##0"), Math.Round(data.ability, 2))
                                     });
                                 }
                             }

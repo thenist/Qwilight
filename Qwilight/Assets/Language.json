@@ -3,7 +3,7 @@
     "ko-KR": "모든 노트가 고유의 스크롤 속도를 가집니다.",
     "en-US": "Different scroll speed for every note"
   },
-  "AbilityStandContents": {
+  "AbilityFittedText": {
     "ko-KR": "{0} 점 (+ {1} Point)",
     "en-US": "{0} Points (+ {1} Points)"
   },
@@ -361,7 +361,7 @@
   },
   "AvatarViewAbilityContents": {
     "ko-KR": "성과 TOP 50",
-    "en-US": "Rating Top 50"
+    "en-US": "Rating TOP 50"
   },
   "AvatarViewDateContents": {
     "ko-KR": "활동 추세",
@@ -373,7 +373,7 @@
   },
   "AvatarViewFavoritesContents": {
     "ko-KR": "가장 많이 플레이 TOP 50",
-    "en-US": "Top 50 most played"
+    "en-US": "Most plays TOP 50"
   },
   "AvatarViewHighestCountText": {
     "ko-KR": "기록 개수: {0} 회",
@@ -385,7 +385,7 @@
   },
   "AvatarViewLastsContents": {
     "ko-KR": "마지막 플레이 TOP 50",
-    "en-US": "Recently played 50"
+    "en-US": "Last plays TOP 50"
   },
   "AvatarViewLevelVSText": {
     "ko-KR": "비교",

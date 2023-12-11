@@ -3,7 +3,7 @@ namespace Qwilight
     public sealed partial class LanguageSystem
     {
         public string _4DModeContents { get; set; }
-        public string AbilityStandContents { get; set; }
+        public string AbilityFittedText { get; set; }
         public string AegisPostedItemText { get; set; }
         public string AllowEssentialInputs { get; set; }
         public string AllowTotalLevyingText { get; set; }

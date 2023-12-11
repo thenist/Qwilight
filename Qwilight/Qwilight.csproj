@@ -22,6 +22,9 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<SelfContained>true</SelfContained>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Assets\UI\%40Default\%40Default.zip.old" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<RuntimeHostConfigurationOption Include="System.Runtime.Loader.UseRidGraph" Value="true" />
