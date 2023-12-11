@@ -128,6 +128,8 @@ namespace Qwilight
 
         public ImageSource[] SiteAudioDrawings { get; } = new ImageSource[3];
 
+        public ImageSource FavoriteNoteFileDrawing { get; set; }
+
         public ImageSource FileDrawing { get; set; }
 
         public ImageSource TotalNotesDrawing { get; set; }
@@ -1461,6 +1463,7 @@ namespace Qwilight
                                     case "Length":
                                     case "BPM":
                                     case "Input Mode":
+                                    case "Favorite Note File":
                                         NewDefaultDrawing(rms);
                                         break;
                                     case "Default":
@@ -1816,6 +1819,9 @@ namespace Qwilight
                                 break;
                             case "Input Mode":
                                 InputModeDrawing = defaultDrawing;
+                                break;
+                            case "Favorite Note File":
+                                FavoriteNoteFileDrawing = defaultDrawing;
                                 break;
                         }
                         break;

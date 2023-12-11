@@ -48,41 +48,44 @@
                 <DataTemplate>
                     <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Background="Transparent" MouseDown="OnLevyNoteFile" PreviewMouseDown="OnEntryViewPointLower">
                         <Grid Visibility="{Binding NoteFile.IsAltDrawing, Converter={StaticResource VisibilityNotModifier}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Border Style="{StaticResource StandardPanelSquareMargin0}" BorderBrush="{Binding NoteFile.LevelPaint}" BorderThickness="0 0 1 0">
-                                <Image Source="{Binding NoteFile.NoteDrawing}" Width="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
-                            </Border>
-                            <Image Grid.Column="1" Source="{Binding NoteFile.HandledWallDrawing}" Width="{Binding HandledWallLength, Source={StaticResource BaseUI}}" Stretch="Fill" />
-                            <Grid Grid.Column="2">
-                                <StackPanel VerticalAlignment="Center">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding NoteFile.LevelText}" Foreground="{Binding NoteFile.LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" />
-                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" FontSize="{Binding WantLevelIDFontLevel, Source={StaticResource BaseUI}}" />
-                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding EventNoteName}" Foreground="{StaticResource EventNoteNamePaint}" FontSize="{Binding EventNoteNameFontLevel, Source={StaticResource BaseUI}}" />
-                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Border Style="{StaticResource StandardPanelSquareMargin0}" BorderBrush="{Binding NoteFile.LevelPaint}" BorderThickness="0 0 1 0">
+                                    <Image Source="{Binding NoteFile.NoteDrawing}" Width="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                </Border>
+                                <Image Grid.Column="1" Source="{Binding NoteFile.HandledWallDrawing}" Width="{Binding HandledWallLength, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                <Grid Grid.Column="2">
+                                    <StackPanel VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.LevelText}" Foreground="{Binding NoteFile.LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" FontSize="{Binding WantLevelIDFontLevel, Source={StaticResource BaseUI}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding EventNoteName}" Foreground="{StaticResource EventNoteNamePaint}" FontSize="{Binding EventNoteNameFontLevel, Source={StaticResource BaseUI}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding PositionText}" FontSize="{Binding EntryItemPositionFontLevel, Source={StaticResource BaseUI}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding FittedText}" Foreground="{StaticResource FittedTextPaint}" FontSize="{Binding FittedTextFontLevel, Source={StaticResource BaseUI}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
+                                            <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.GenreText}" Foreground="{StaticResource GenrePaint}" FontSize="{Binding GenreFontLevel, Source={StaticResource BaseUI}}" />
+                                        </StackPanel>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding PositionText}" FontSize="{Binding EntryItemPositionFontLevel, Source={StaticResource BaseUI}}" />
-                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding FittedText}" Foreground="{StaticResource FittedTextPaint}" FontSize="{Binding FittedTextFontLevel, Source={StaticResource BaseUI}}" />
-                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
-                                        <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.GenreText}" Foreground="{StaticResource GenrePaint}" FontSize="{Binding GenreFontLevel, Source={StaticResource BaseUI}}" />
-                                    </StackPanel>
-                                </StackPanel>
-                                <Image Source="{Binding NoteFile.BannerDrawing}" Visibility="{Binding NoteFile.BannerDrawing, Converter={StaticResource VisibilityModifier}}" HorizontalAlignment="Right">
-                                    <Image.OpacityMask>
-                                        <LinearGradientBrush StartPoint="0.0,0.0" EndPoint="1.0,0.0">
-                                            <LinearGradientBrush.GradientStops>
-                                                <GradientStop Offset="0" Color="Transparent" />
-                                                <GradientStop Offset="1" Color="Black" />
-                                            </LinearGradientBrush.GradientStops>
-                                        </LinearGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                    <Image Source="{Binding NoteFile.BannerDrawing}" Visibility="{Binding NoteFile.BannerDrawing, Converter={StaticResource VisibilityModifier}}" HorizontalAlignment="Right">
+                                        <Image.OpacityMask>
+                                            <LinearGradientBrush StartPoint="0.0,0.0" EndPoint="1.0,0.0">
+                                                <LinearGradientBrush.GradientStops>
+                                                    <GradientStop Offset="0" Color="Transparent" />
+                                                    <GradientStop Offset="1" Color="Black" />
+                                                </LinearGradientBrush.GradientStops>
+                                            </LinearGradientBrush>
+                                        </Image.OpacityMask>
+                                    </Image>
+                                </Grid>
                             </Grid>
+                            <Image Source="{Binding FavoriteNoteFileDrawing, Source={StaticResource BaseUI}}" HorizontalAlignment="Left" Visibility="{Binding NoteFile.HasFavoriteEntryItem, Converter={StaticResource VisibilityModifier}}" />
                         </Grid>
                         <Image Style="{StaticResource StandardView}" Source="{Binding NoteFile.LogicalDrawing}" />
                         <Grid Visibility="{Binding NoteFile.EssentialDrawing, Converter={StaticResource VisibilityModifier}}">

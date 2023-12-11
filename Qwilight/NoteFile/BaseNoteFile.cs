@@ -179,6 +179,13 @@ namespace Qwilight.NoteFile
 
         public HashSet<DefaultEntryItem> FavoriteEntryItems { get; } = new();
 
+        public bool HasFavoriteEntryItem => FavoriteEntryItems.Count > 0;
+
+        public void NotifyHasFavoriteEntryItem()
+        {
+            OnPropertyChanged(nameof(HasFavoriteEntryItem));
+        }
+
         public DefaultEntryItem DefaultEntryItem { get; }
 
         public string NoteFilePath { get; }
@@ -281,6 +288,7 @@ namespace Qwilight.NoteFile
             {
                 FavoriteEntryItems.Add(favoriteEntryItem);
             }
+            NotifyHasFavoriteEntryItem();
             HandledValue = DB.Instance.GetHandled(this);
             (LatestDate, HandledCount) = DB.Instance.GetDate(this, default);
         }

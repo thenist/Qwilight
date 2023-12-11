@@ -16,7 +16,7 @@
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
                 <ScrollViewer Grid.Row="1">
-                    <ItemsControl ItemsSource="{Binding FavoriteEntryCollection}">
+                    <ItemsControl ItemsSource="{Binding FavoriteEntryItemCollection}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Style="{StaticResource StandardVInput}" IsThreeState="{Binding FavoriteEntryValue.Mode, Source={StaticResource ViewModels}, Converter={StaticResource BoolModifier}, ConverterParameter={StaticResource EntryItemMode}}" IsChecked="{Binding FavoriteEntryStatus, UpdateSourceTrigger=PropertyChanged}" Content="{Binding}" />

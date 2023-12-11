@@ -19,7 +19,7 @@ namespace Qwilight.ViewModel
 
         int _mode;
 
-        public ObservableCollection<DefaultEntryItem> FavoriteEntryCollection { get; } = new();
+        public ObservableCollection<DefaultEntryItem> FavoriteEntryItemCollection { get; } = new();
 
         public BaseNoteFile NoteFile { get; set; }
 
@@ -35,12 +35,12 @@ namespace Qwilight.ViewModel
         public override void OnOpened()
         {
             base.OnOpened();
-            Utility.SetUICollection(FavoriteEntryCollection, Configure.Instance.DefaultEntryItems.Where(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite).ToArray());
-            var favoriteEntryItems = new List<DefaultEntryItem>(FavoriteEntryCollection);
-            FavoriteEntryCollection.Clear();
+            Utility.SetUICollection(FavoriteEntryItemCollection, Configure.Instance.DefaultEntryItems.Where(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite).ToArray());
+            var favoriteEntryItems = new List<DefaultEntryItem>(FavoriteEntryItemCollection);
+            FavoriteEntryItemCollection.Clear();
             foreach (var favoriteEntryItem in favoriteEntryItems.Order())
             {
-                FavoriteEntryCollection.Add(favoriteEntryItem);
+                FavoriteEntryItemCollection.Add(favoriteEntryItem);
             }
             switch (Mode)
             {
@@ -78,13 +78,14 @@ namespace Qwilight.ViewModel
             switch (Mode)
             {
                 case NoteFileMode:
-                    foreach (var favoriteEntryItem in FavoriteEntryCollection)
+                    foreach (var favoriteEntryItem in FavoriteEntryItemCollection)
                     {
                         if (favoriteEntryItem.FavoriteEntryStatus.Value)
                         {
                             if (NoteFile.FavoriteEntryItems.Add(favoriteEntryItem))
                             {
                                 favoriteEntryItemsModified.Add(favoriteEntryItem);
+                                NoteFile.NotifyHasFavoriteEntryItem();
                             }
                         }
                         else
@@ -92,6 +93,7 @@ namespace Qwilight.ViewModel
                             if (NoteFile.FavoriteEntryItems.Remove(favoriteEntryItem))
                             {
                                 favoriteEntryItemsModified.Add(favoriteEntryItem);
+                                NoteFile.NotifyHasFavoriteEntryItem();
                             }
                         }
                     }
@@ -106,13 +108,14 @@ namespace Qwilight.ViewModel
                     {
                         if (!noteFile.IsLogical)
                         {
-                            foreach (var favoriteEntryItem in FavoriteEntryCollection.Where(favoriteEntryItem => favoriteEntryItem.FavoriteEntryStatus.HasValue))
+                            foreach (var favoriteEntryItem in FavoriteEntryItemCollection.Where(favoriteEntryItem => favoriteEntryItem.FavoriteEntryStatus.HasValue))
                             {
                                 if (favoriteEntryItem.FavoriteEntryStatus.Value)
                                 {
                                     if (noteFile.FavoriteEntryItems.Add(favoriteEntryItem))
                                     {
                                         favoriteEntryItemsModified.Add(favoriteEntryItem);
+                                        noteFile.NotifyHasFavoriteEntryItem();
                                     }
                                 }
                                 else
@@ -120,6 +123,7 @@ namespace Qwilight.ViewModel
                                     if (noteFile.FavoriteEntryItems.Remove(favoriteEntryItem))
                                     {
                                         favoriteEntryItemsModified.Add(favoriteEntryItem);
+                                        noteFile.NotifyHasFavoriteEntryItem();
                                     }
                                 }
                             }

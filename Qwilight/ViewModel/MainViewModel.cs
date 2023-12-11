@@ -2677,66 +2677,107 @@ namespace Qwilight.ViewModel
 
         public void HandleF9()
         {
-            if (IsNoteFileMode)
+            var targetNoteFile = ViewModels.Instance.NoteFileValue.IsOpened ? ViewModels.Instance.NoteFileValue.NoteFile : null;
+            if (IsNoteFileMode || targetNoteFile != null)
             {
-                var favoriteEntryItems = Configure.Instance.DefaultEntryItems.Where(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite).ToArray();
-                switch (favoriteEntryItems.Length)
+                var favoriteEntryViewModel = ViewModels.Instance.FavoriteEntryValue;
+                if (!favoriteEntryViewModel.IsOpened)
                 {
-                    case 0:
-                        ViewModels.Instance.ModifyDefaultEntryValue.Open();
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotFavoritesF10);
-                        break;
-                    case 1:
-                        DefaultEntryItem favoriteEntryItemModified = null;
-                        var targetFavoriteEntryItem = favoriteEntryItems.Single();
-                        var noteFiles = EntryItemValue.NoteFiles;
-                        var setFavorites = noteFiles.Any(noteFile => !noteFile.FavoriteEntryItems.Contains(targetFavoriteEntryItem));
-                        foreach (var noteFile in noteFiles)
-                        {
-                            if (!noteFile.IsLogical)
+                    var favoriteEntryItems = Configure.Instance.DefaultEntryItems.Where(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite).ToArray();
+                    switch (favoriteEntryItems.Length)
+                    {
+                        case 0:
+                            ViewModels.Instance.ModifyDefaultEntryValue.Open();
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotFavoritesF10);
+                            break;
+                        case 1:
+                            var targetFavoriteEntryItem = favoriteEntryItems.Single();
+                            DefaultEntryItem favoriteEntryItemModified = null;
+                            if (targetNoteFile != null)
                             {
-                                if (setFavorites)
+                                if (!targetNoteFile.IsLogical)
                                 {
-                                    if (noteFile.FavoriteEntryItems.Add(targetFavoriteEntryItem))
+                                    if (!targetNoteFile.FavoriteEntryItems.Contains(targetFavoriteEntryItem))
                                     {
-                                        favoriteEntryItemModified = targetFavoriteEntryItem;
+                                        if (targetNoteFile.FavoriteEntryItems.Add(targetFavoriteEntryItem))
+                                        {
+                                            favoriteEntryItemModified = targetFavoriteEntryItem;
+                                            targetNoteFile.NotifyHasFavoriteEntryItem();
+                                        }
                                     }
+                                    else
+                                    {
+                                        if (targetNoteFile.FavoriteEntryItems.Remove(targetFavoriteEntryItem))
+                                        {
+                                            favoriteEntryItemModified = targetFavoriteEntryItem;
+                                            targetNoteFile.NotifyHasFavoriteEntryItem();
+                                        }
+                                    }
+                                    foreach (var favoriteEntryItem in targetNoteFile.FavoriteEntryItems)
+                                    {
+                                        favoriteEntryItem.FrontEntryPaths.Add(targetNoteFile.DefaultEntryItem.DefaultEntryPath);
+                                    }
+                                    DB.Instance.SetFavoriteEntry(targetNoteFile);
+                                }
+                            }
+                            else
+                            {
+                                var noteFiles = EntryItemValue.NoteFiles;
+                                var setFavorites = noteFiles.Any(noteFile => !noteFile.FavoriteEntryItems.Contains(targetFavoriteEntryItem));
+                                foreach (var noteFile in noteFiles)
+                                {
+                                    if (!noteFile.IsLogical)
+                                    {
+                                        if (setFavorites)
+                                        {
+                                            if (noteFile.FavoriteEntryItems.Add(targetFavoriteEntryItem))
+                                            {
+                                                favoriteEntryItemModified = targetFavoriteEntryItem;
+                                                noteFile.NotifyHasFavoriteEntryItem();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (noteFile.FavoriteEntryItems.Remove(targetFavoriteEntryItem))
+                                            {
+                                                favoriteEntryItemModified = targetFavoriteEntryItem;
+                                                noteFile.NotifyHasFavoriteEntryItem();
+                                            }
+                                        }
+                                        foreach (var favoriteEntryItem in noteFile.FavoriteEntryItems)
+                                        {
+                                            favoriteEntryItem.FrontEntryPaths.Add(noteFile.DefaultEntryItem.DefaultEntryPath);
+                                        }
+                                        DB.Instance.SetFavoriteEntry(noteFile);
+                                    }
+                                }
+                                if (favoriteEntryItemModified != null)
+                                {
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(setFavorites ? LanguageSystem.Instance.SetFavoritesF10 : LanguageSystem.Instance.WipeFavoritesF10, favoriteEntryItemModified.FavoriteEntryName));
+                                    if (favoriteEntryItemModified == Configure.Instance.LastDefaultEntryItem)
+                                    {
+                                        Want();
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            UIHandler.Instance.HandleParallel(() =>
+                            {
+                                if (targetNoteFile != null)
+                                {
+                                    favoriteEntryViewModel.NoteFile = targetNoteFile;
+                                    favoriteEntryViewModel.Mode = 0;
                                 }
                                 else
                                 {
-                                    if (noteFile.FavoriteEntryItems.Remove(targetFavoriteEntryItem))
-                                    {
-                                        favoriteEntryItemModified = targetFavoriteEntryItem;
-                                    }
+                                    favoriteEntryViewModel.EntryItem = EntryItemValue;
+                                    favoriteEntryViewModel.Mode = 1;
                                 }
-                                foreach (var favoriteEntryItem in noteFile.FavoriteEntryItems)
-                                {
-                                    favoriteEntryItem.FrontEntryPaths.Add(noteFile.DefaultEntryItem.DefaultEntryPath);
-                                }
-                                DB.Instance.SetFavoriteEntry(noteFile);
-                            }
-                        }
-                        if (favoriteEntryItemModified != null)
-                        {
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(setFavorites ? LanguageSystem.Instance.SetFavoritesF10 : LanguageSystem.Instance.WipeFavoritesF10, favoriteEntryItemModified.FavoriteEntryName));
-                            if (favoriteEntryItemModified == Configure.Instance.LastDefaultEntryItem)
-                            {
-                                Want();
-                            }
-                        }
-                        break;
-                    default:
-                        UIHandler.Instance.HandleParallel(() =>
-                        {
-                            var favoriteEntryViewModel = ViewModels.Instance.FavoriteEntryValue;
-                            if (!favoriteEntryViewModel.IsOpened)
-                            {
-                                favoriteEntryViewModel.EntryItem = EntryItemValue;
-                                favoriteEntryViewModel.Mode = 1;
-                            }
-                            favoriteEntryViewModel.Toggle();
-                        });
-                        break;
+                                favoriteEntryViewModel.Toggle();
+                            });
+                            break;
+                    }
                 }
             }
         }

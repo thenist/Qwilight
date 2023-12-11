@@ -169,6 +169,7 @@ namespace Qwilight.UIComponent
                 if (!noteFile.IsLogical)
                 {
                     noteFile.FavoriteEntryItems.Clear();
+                    noteFile.NotifyHasFavoriteEntryItem();
                 }
             }
         }
