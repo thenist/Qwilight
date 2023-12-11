@@ -1003,7 +1003,7 @@ namespace Qwilight
 
         public string BanalAudioFilePath { get; set; }
 
-        public string DefaultAudioFilePath { get; set; }
+        public DefaultAudioFilePathItem[] DefaultAudioFilePathItems { get; set; }
 
         public DefaultAudioVariety DefaultAudioVarietyValue
         {
@@ -3289,7 +3289,6 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 15, 5))
             {
                 DefaultAudioVarietyValue = DefaultAudioVariety.UI;
-                DefaultAudioFilePath = string.Empty;
                 DefaultDrawingFilePath = string.Empty;
                 VeilDrawingFilePath = string.Empty;
                 VeilDrawingHeight = 0.0;
@@ -3351,6 +3350,10 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 10))
             {
                 GASLevel = 2;
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 12))
+            {
+                DefaultAudioFilePathItems = Array.Empty<DefaultAudioFilePathItem>();
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

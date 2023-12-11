@@ -67,7 +67,7 @@ namespace Qwilight.NoteFile
 
         public virtual ImageSource EssentialDrawing { get; }
 
-        public virtual string LogicalAudioFileName => "Default";
+        public virtual string LogicalAudioFileName => "DefaultUI";
 
         public Color LevelColor => BaseUI.Instance.LevelColors[(int)LevelValue];
 

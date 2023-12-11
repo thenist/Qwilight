@@ -60,18 +60,26 @@ namespace Qwilight
             }
         }
 
-        readonly ConcurrentDictionary<string, AudioItem?> _audioItemMap = new();
+        readonly ConcurrentDictionary<string, AudioItem> _audioItemMap = new();
+        readonly ConcurrentDictionary<string, AudioItem> _defaultAudioItemMap = new();
         readonly ConcurrentDictionary<string, Channel> _audioChannelMap = new();
+
+        public string GetDefaultAudioFileName(int randomMillis) => _defaultAudioItemMap.IsEmpty ? null : _defaultAudioItemMap.Keys.ElementAt(randomMillis % _defaultAudioItemMap.Count);
 
         public bool HandleAudio(string audioFileName, string defaultFileName = null, PausableAudioHandler pausableAudioHandler = null, double fadeInLength = 0.0)
         {
             lock (UI.Instance.LoadedCSX)
             {
-                if (!_audioItemMap.TryGetValue(audioFileName, out var audioItem) && defaultFileName != null)
+                var wasHandled = false;
+                if (_audioItemMap.TryGetValue(audioFileName, out var audioItem))
                 {
-                    _audioItemMap.TryGetValue(defaultFileName, out audioItem);
+                    wasHandled = true;
                 }
-                if (audioItem != null)
+                else if (defaultFileName != null)
+                {
+                    wasHandled = _audioItemMap.TryGetValue(defaultFileName, out audioItem);
+                }
+                if (wasHandled)
                 {
                     if (QwilightComponent.GetStopLastAudioComputer().IsMatch(audioFileName) && _audioChannelMap.TryGetValue(audioFileName, out var audioChannel))
                     {
@@ -82,9 +90,8 @@ namespace Qwilight
                         AudioLevyingPosition = pausableAudioHandler?.GetAudioPosition() ?? 0U,
                         AudioItem = audioItem
                     }, AudioSystem.SEAudio, 1.0, false, pausableAudioHandler, fadeInLength);
-                    return true;
                 }
-                return false;
+                return wasHandled;
             }
         }
 
@@ -1343,6 +1350,23 @@ namespace Qwilight
                                     }
                                 });
                                 break;
+                            case @"Audio\Default":
+                                parallelItems.Add(() =>
+                                {
+                                    try
+                                    {
+                                        using (rms)
+                                        {
+                                            var audioItem = AudioSystem.Instance.Load(rms, this, 1F, null, true);
+                                            _defaultAudioItemMap[$@"DefaultUI\{justFileName}"] = audioItem;
+                                            _audioItemMap[$@"DefaultUI\{justFileName}"] = audioItem;
+                                        }
+                                    }
+                                    catch
+                                    {
+                                    }
+                                });
+                                break;
                             case "Media":
                                 parallelItems.Add(() =>
                                 {
@@ -2015,6 +2039,8 @@ namespace Qwilight
                 D2DJudgmentPaints[i] = new ICanvasBrush[101];
             }
             _audioItemMap.Clear();
+            _defaultAudioItemMap.Clear();
+            _audioChannelMap.Clear();
             EventItems.Clear();
             FadingPropertyValues[(int)MainViewModel.Mode.NoteFile] = new FadingProperty[4];
             FadingPropertyValues[1] = new FadingProperty[2];

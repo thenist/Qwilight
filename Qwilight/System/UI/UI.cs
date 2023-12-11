@@ -52,7 +52,7 @@ namespace Qwilight
             }
         }
 
-        readonly Dictionary<string, AudioItem?> _audioItemMap = new();
+        readonly Dictionary<string, AudioItem> _audioItemMap = new();
 
         /// <summary>
         /// UI, BaseUI가 로드됨을 보장하는 락
@@ -282,20 +282,24 @@ namespace Qwilight
         {
             lock (LoadedCSX)
             {
-                if (!_audioItemMap.TryGetValue(audioFileName, out var audioItem) && defaultFileName != null)
+                var wasHandled = false;
+                if (_audioItemMap.TryGetValue(audioFileName, out var audioItem))
                 {
-                    _audioItemMap.TryGetValue(defaultFileName, out audioItem);
+                    wasHandled = true;
                 }
-                if (audioItem != null)
+                else if (defaultFileName != null)
+                {
+                    wasHandled = _audioItemMap.TryGetValue(defaultFileName, out audioItem);
+                }
+                if (wasHandled)
                 {
                     AudioSystem.Instance.Handle(new AudioNote
                     {
                         AudioLevyingPosition = pausableAudioHandler?.GetAudioPosition() ?? 0U,
                         AudioItem = audioItem
                     }, AudioSystem.SEAudio, 1.0, false, pausableAudioHandler, fadeInLength);
-                    return true;
                 }
-                return false;
+                return wasHandled;
             }
         }
 

@@ -733,6 +733,11 @@ namespace Compatible
                                     }
                                 }
                             }
+                            if (zipEntry.FileName.StartsWith($"Audio/Default."))
+                            {
+                                zipEntry.FileName = $"Audio/Default/Default{Path.GetExtension(zipEntry.FileName)}";
+                                wasModified = true;
+                            }
                             if (zipEntry.FileName.StartsWith($"Audio/Begin Note File."))
                             {
                                 zipEntry.FileName = $"Audio/Levy Note File{Path.GetExtension(zipEntry.FileName)}";

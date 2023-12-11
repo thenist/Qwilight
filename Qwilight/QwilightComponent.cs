@@ -19,7 +19,7 @@ namespace Qwilight
         [GeneratedRegex("^(Lower Entry)|(Higher Entry)|(Lower Note File)|(Higher Note File)$")]
         public static partial Regex GetStopLastAudioComputer();
 
-        [GeneratedRegex("^(Default)|(Salt)$")]
+        [GeneratedRegex("^(Salt)$")]
         public static partial Regex GetLoopingAudioComputer();
 
         [GeneratedRegex("[a-zA-Z\\d]+\\([\\d.+\\-, ]*\\)")]

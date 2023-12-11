@@ -152,26 +152,41 @@ namespace Qwilight
             }
         }
 
-        public AudioItem? DefaultAudio { get; set; }
+        public ConcurrentDictionary<string, AudioItem> DefaultAudioItemMap { get; } = new();
 
-        public void LoadDefaultAudio()
+        public string GetDefaultAudioFileName(int randomMillis) => DefaultAudioItemMap.IsEmpty ? null : DefaultAudioItemMap.Keys.ElementAt(randomMillis % DefaultAudioItemMap.Count);
+
+        public void LoadDefaultAudioItems()
         {
-            DefaultAudio?.Dispose();
-            try
+            foreach (var defaultAudioItem in DefaultAudioItemMap.Values)
             {
-                var filePath = Configure.Instance.DefaultAudioFilePath;
-                if (File.Exists(filePath))
+                try
                 {
-                    DefaultAudio = Load(filePath, null, 1F, null, true);
+                    _audioCSX.EnterWriteLock();
+                    if (_isAvailable)
+                    {
+                        defaultAudioItem.Dispose();
+                    }
                 }
-                else
+                finally
                 {
-                    DefaultAudio = null;
+                    _audioCSX.ExitWriteLock();
                 }
             }
-            catch
+            DefaultAudioItemMap.Clear();
+            foreach (var defaultAudioFilePathItem in Configure.Instance.DefaultAudioFilePathItems)
             {
-                DefaultAudio = null;
+                try
+                {
+                    var filePath = defaultAudioFilePathItem.Value;
+                    if (File.Exists(filePath))
+                    {
+                        DefaultAudioItemMap[$@"DefaultFavor/{filePath}"] = Load(filePath, null, 1F, null, true);
+                    }
+                }
+                catch
+                {
+                }
             }
         }
 

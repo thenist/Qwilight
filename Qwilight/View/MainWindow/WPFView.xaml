@@ -36,6 +36,7 @@
             <view:EventNoteWindow />
             <view:ModifyModifyDefaultEntryWindow />
             <view:ModifyFrontEntryWindow />
+            <view:ModifyDefaultAudioFilePathWindow />
             <view:ModifyModeComponentWindow />
             <view:FontFamilyWindow />
             <view:LevelWindow />

@@ -174,6 +174,7 @@ namespace Qwilight
         public string DataCount3Text { get; set; }
         public string DateAssistText { get; set; }
         public string DBConfigure { get; set; }
+        public string DefaultAudioFilePathText { get; set; }
         public string DefaultAudioVarietyContents { get; set; }
         public string DefaultBPMModeContents { get; set; }
         public string DefaultBundleCompetenceContents { get; set; }
@@ -516,6 +517,7 @@ namespace Qwilight
         public string NetSiteCommentsText { get; set; }
         public string NetTabText { get; set; }
         public string NetUIContents { get; set; }
+        public string NewDefaultAudioFilePath { get; set; }
         public string NewDefaultEntry { get; set; }
         public string NewEventNote { get; set; }
         public string NewFavoriteEntry { get; set; }

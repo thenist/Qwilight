@@ -687,6 +687,10 @@
     "ko-KR": "데이터베이스 설정",
     "en-US": "Database Settings"
   },
+  "DefaultAudioFilePathText": {
+    "ko-KR": "커스텀 BGM 목록",
+    "en-US": "Custom BGM List"
+  },
   "DefaultAudioVarietyContents": {
     "ko-KR": "노트 파일 목록에서 들리는 BGM 입니다.",
     "en-US": "This is the BGM heard in the note file list."
@@ -2054,6 +2058,10 @@
   "NetUIContents": {
     "ko-KR": "스킨 다운로드",
     "en-US": "Download Skin"
+  },
+  "NewDefaultAudioFilePath": {
+    "ko-KR": "커스텀 BGM 추가",
+    "en-US": "Add a custom BGM"
   },
   "NewDefaultEntry": {
     "ko-KR": "폴더 추가",

@@ -75,6 +75,7 @@ namespace Qwilight.ViewModel
         {
             EnableRaisingEvents = true
         };
+        int _randomMillis;
         DispatcherTimer _fadeInHandler;
         bool _isAvailable = true;
         string _twilightCommentText0 = string.Empty;
@@ -530,6 +531,7 @@ namespace Qwilight.ViewModel
                     {
                         ViewModels.Instance.HandleSilentlyClosableViewModels(silentlyClosableViewModel => silentlyClosableViewModel.OpenSilently());
                         NotifySystem.Instance.NotifyPending();
+                        _randomMillis = Environment.TickCount;
                     }
                     else
                     {
@@ -620,7 +622,7 @@ namespace Qwilight.ViewModel
             StillSystem.Instance.Init(handle);
             await MIDISystem.Instance.HandleSystem().ConfigureAwait(false);
 
-            AudioSystem.Instance.LoadDefaultAudio();
+            AudioSystem.Instance.LoadDefaultAudioItems();
             AudioSystem.Instance.LoadBanalAudio();
             DrawingSystem.Instance.LoadDefaultDrawing();
             DrawingSystem.Instance.LoadVeilDrawing();
@@ -1081,7 +1083,7 @@ namespace Qwilight.ViewModel
                                             }
                                             else
                                             {
-                                                CloseAutoComputer("Default");
+                                                CloseAutoComputer("DefaultUI");
                                                 if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                                                 {
                                                     Text = LanguageSystem.Instance.WipeEntryItemNotify,
@@ -3667,7 +3669,7 @@ namespace Qwilight.ViewModel
                         }
                         else
                         {
-                            CloseAutoComputer("Default");
+                            CloseAutoComputer("DefaultUI");
                         }
                         targetNoteFile.SetConfigure();
 
@@ -3695,7 +3697,7 @@ namespace Qwilight.ViewModel
                             }
                             else
                             {
-                                CloseAutoComputer(isMigrate ? null : "Default");
+                                CloseAutoComputer(isMigrate ? null : "DefaultUI");
                             }
                             AutoComputer = autoComputer;
                             AutoComputer.HandleCompiler();
@@ -3709,7 +3711,7 @@ namespace Qwilight.ViewModel
                 }
                 else
                 {
-                    CloseAutoComputer("Default");
+                    CloseAutoComputer("DefaultUI");
                 }
             }
         }
@@ -3725,7 +3727,7 @@ namespace Qwilight.ViewModel
         public void ClosePausableAudioHandler(string audioFileName = null)
         {
             var defaultAudioVarietyValue = Configure.Instance.DefaultAudioVarietyValue;
-            if (audioFileName == "Default")
+            if (audioFileName == "DefaultUI")
             {
                 switch (defaultAudioVarietyValue)
                 {
@@ -3733,7 +3735,10 @@ namespace Qwilight.ViewModel
                         audioFileName = null;
                         break;
                     case Configure.DefaultAudioVariety.Favor:
-                        audioFileName = nameof(AudioSystem.Instance.DefaultAudio);
+                        audioFileName = AudioSystem.Instance.GetDefaultAudioFileName(_randomMillis);
+                        break;
+                    case Configure.DefaultAudioVariety.UI:
+                        audioFileName = BaseUI.Instance.GetDefaultAudioFileName(_randomMillis);
                         break;
                 }
             }
@@ -3747,18 +3752,17 @@ namespace Qwilight.ViewModel
                     _pausableAudioHandler.IsPausing = audioFileName == null;
                     if (audioFileName != null)
                     {
-                        switch (audioFileName)
+                        if (audioFileName.StartsWith(@"DefaultFavor/"))
                         {
-                            case nameof(AudioSystem.Instance.DefaultAudio):
-                                AudioSystem.Instance.Handle(new()
-                                {
-                                    AudioLevyingPosition = _pausableAudioHandler.GetAudioPosition(),
-                                    AudioItem = AudioSystem.Instance.DefaultAudio
-                                }, AudioSystem.SEAudio, 1.0, false, _pausableAudioHandler, QwilightComponent.StandardWaitMillis);
-                                break;
-                            default:
-                                Utility.HandleUIAudio(audioFileName, null, _pausableAudioHandler, QwilightComponent.StandardWaitMillis);
-                                break;
+                            AudioSystem.Instance.Handle(new()
+                            {
+                                AudioLevyingPosition = _pausableAudioHandler.GetAudioPosition(),
+                                AudioItem = AudioSystem.Instance.DefaultAudioItemMap[audioFileName]
+                            }, AudioSystem.SEAudio, 1.0, false, _pausableAudioHandler, QwilightComponent.StandardWaitMillis);
+                        }
+                        else
+                        {
+                            Utility.HandleUIAudio(audioFileName, null, _pausableAudioHandler, QwilightComponent.StandardWaitMillis);
                         }
                     }
                 }

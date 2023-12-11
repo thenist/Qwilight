@@ -62,6 +62,8 @@ namespace Qwilight.ViewModel
 
         public ModifyFrontEntryViewModel ModifyFrontEntryValue { get; } = new();
 
+        public ModifyDefaultAudioFilePathViewModel ModifyDefaultAudioFilePathValue { get; } = new();
+
         public ModifyModeComponentViewModel ModifyModeComponentValue { get; } = new();
 
         public FontFamilyViewModel FontFamilyValue { get; } = new();
@@ -121,6 +123,7 @@ namespace Qwilight.ViewModel
                 LongNoteModifyValue,
                 EventNoteValue,
                 ModifyFrontEntryValue,
+                ModifyDefaultAudioFilePathValue,
                 ModifyModeComponentValue,
                 FontFamilyValue,
                 LevelValue,

@@ -764,18 +764,9 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        static async Task OnLoadDefaultAudio()
+        static void OnLoadDefaultAudio()
         {
-            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
-            {
-                Filters = QwilightComponent.AudioFileFormats
-            });
-            if (!string.IsNullOrEmpty(fileName))
-            {
-                Configure.Instance.DefaultAudioVarietyValue = Configure.DefaultAudioVariety.Favor;
-                Configure.Instance.DefaultAudioFilePath = fileName;
-                AudioSystem.Instance.LoadDefaultAudio();
-            }
+            ViewModels.Instance.ModifyDefaultAudioFilePathValue.Open();
         }
 
         [RelayCommand]
@@ -1415,7 +1406,7 @@ namespace Qwilight.ViewModel
                 mainViewModel.CloseAutoComputer();
                 AudioSystem.Instance.Dispose();
                 AudioSystem.Instance.Init();
-                AudioSystem.Instance.LoadDefaultAudio();
+                AudioSystem.Instance.LoadDefaultAudioItems();
                 AudioSystem.Instance.LoadBanalAudio();
                 Task.Run(() =>
                 {
