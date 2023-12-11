@@ -212,10 +212,6 @@ namespace Qwilight
         public override void OnCollasped()
         {
             base.OnCollasped();
-            for (var i = DefaultEntryItemCollection.Count - 1; i >= 0; --i)
-            {
-                DefaultEntryItemCollection[i].Layer = i;
-            }
             Configure.Instance.DefaultEntryItems.Clear();
             foreach (var defaultEntryItem in DefaultEntryItemCollection)
             {

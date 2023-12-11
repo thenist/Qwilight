@@ -773,11 +773,13 @@ namespace Qwilight.ViewModel
                             var defaultEntryItem = new DefaultEntryItem
                             {
                                 DefaultEntryVarietyValue = DefaultEntryItem.DefaultEntryVariety.Default,
-                                DefaultEntryPath = filePath,
-                                Layer = Configure.Instance.DefaultEntryItems.Count
+                                DefaultEntryPath = filePath
                             };
                             UIHandler.Instance.HandleParallel(() => ViewModels.Instance.ModifyDefaultEntryValue.DefaultEntryItemCollection.Add(defaultEntryItem));
-                            Configure.Instance.DefaultEntryItems.Add(defaultEntryItem);
+                            if (!Configure.Instance.DefaultEntryItems.Contains(defaultEntryItem))
+                            {
+                                Configure.Instance.DefaultEntryItems.Add(defaultEntryItem);
+                            }
                             lastDefaultEntryItem = defaultEntryItem;
                         }
                     }
@@ -2693,11 +2695,13 @@ namespace Qwilight.ViewModel
                         case 1:
                             var targetFavoriteEntryItem = favoriteEntryItems.Single();
                             DefaultEntryItem favoriteEntryItemModified = null;
+                            var setFavorites = false;
                             if (targetNoteFile != null)
                             {
                                 if (!targetNoteFile.IsLogical)
                                 {
-                                    if (!targetNoteFile.FavoriteEntryItems.Contains(targetFavoriteEntryItem))
+                                    setFavorites = !targetNoteFile.FavoriteEntryItems.Contains(targetFavoriteEntryItem);
+                                    if (setFavorites)
                                     {
                                         if (targetNoteFile.FavoriteEntryItems.Add(targetFavoriteEntryItem))
                                         {
@@ -2723,7 +2727,7 @@ namespace Qwilight.ViewModel
                             else
                             {
                                 var noteFiles = EntryItemValue.NoteFiles;
-                                var setFavorites = noteFiles.Any(noteFile => !noteFile.FavoriteEntryItems.Contains(targetFavoriteEntryItem));
+                                setFavorites = !EntryItemValue.NoteFile.FavoriteEntryItems.Contains(targetFavoriteEntryItem);
                                 foreach (var noteFile in noteFiles)
                                 {
                                     if (!noteFile.IsLogical)
@@ -2751,13 +2755,13 @@ namespace Qwilight.ViewModel
                                         DB.Instance.SetFavoriteEntry(noteFile);
                                     }
                                 }
-                                if (favoriteEntryItemModified != null)
+                            }
+                            if (favoriteEntryItemModified != null)
+                            {
+                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(setFavorites ? LanguageSystem.Instance.SetFavoritesF10 : LanguageSystem.Instance.WipeFavoritesF10, favoriteEntryItemModified.FavoriteEntryName), true, null, null, NotifySystem.SetFavoritesID);
+                                if (favoriteEntryItemModified == Configure.Instance.LastDefaultEntryItem)
                                 {
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(setFavorites ? LanguageSystem.Instance.SetFavoritesF10 : LanguageSystem.Instance.WipeFavoritesF10, favoriteEntryItemModified.FavoriteEntryName));
-                                    if (favoriteEntryItemModified == Configure.Instance.LastDefaultEntryItem)
-                                    {
-                                        Want();
-                                    }
+                                    Want();
                                 }
                             }
                             break;
@@ -3583,8 +3587,9 @@ namespace Qwilight.ViewModel
 
         public void SetDefaultEntryItems()
         {
+            var defaultEntryItems = Configure.Instance.DefaultEntryItems;
             var lastDefaultEntryItem = Configure.Instance.LastDefaultEntryItem;
-            Utility.SetUICollection(DefaultEntryItems, new List<DefaultEntryItem>(Configure.Instance.DefaultEntryItems)
+            Utility.SetUICollection(DefaultEntryItems, new List<DefaultEntryItem>(defaultEntryItems)
             {
                 DefaultEntryItem.Total,
                 DefaultEntryItem.EssentialBundle
@@ -3597,7 +3602,17 @@ namespace Qwilight.ViewModel
                 WipeEntryItems(entryItem => defaultEntryItem == entryItem.DefaultEntryItem, noteFile => defaultEntryItem == noteFile.DefaultEntryItem, false);
                 _alreadyLoadedDefaultEntryItems.Remove(defaultEntryItem);
             });
-            DefaultEntryItems.Sort();
+            DefaultEntryItems.Sort((x, y) =>
+            {
+                if ((x.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Default || x.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite) && (y.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Default || y.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite))
+                {
+                    return defaultEntryItems.IndexOf(x).CompareTo(defaultEntryItems.IndexOf(y));
+                }
+                else
+                {
+                    return x.DefaultEntryVarietyValue.CompareTo(y.DefaultEntryVarietyValue);
+                }
+            });
             LoadDefaultEntryItem(false);
         }
 

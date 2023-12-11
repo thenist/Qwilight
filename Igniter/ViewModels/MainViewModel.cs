@@ -13,7 +13,7 @@ namespace Igniter.ViewModel
     public sealed partial class MainViewModel : ObservableObject
     {
         double _value = double.NaN;
-        string _text = string.Empty;
+        string _text = "Loading…";
         bool _isVisible = true;
 
         public double Value

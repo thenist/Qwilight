@@ -748,7 +748,7 @@ namespace Qwilight
 
         public int LastWASAPIAudioValueID { get; set; }
 
-        public HashSet<DefaultEntryItem> DefaultEntryItems { get; set; }
+        public List<DefaultEntryItem> DefaultEntryItems { get; set; }
 
         public HashSet<TutorialID> PassedTutorialIDs { get; set; }
 
@@ -2365,12 +2365,11 @@ namespace Qwilight
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 10, 14))
             {
-                DefaultEntryItems.Add(new DefaultEntryItem
+                DefaultEntryItems.Add(new()
                 {
                     DefaultEntryVarietyValue = DefaultEntryItem.DefaultEntryVariety.Favorite,
                     DefaultEntryPath = Guid.NewGuid().ToString(),
-                    FavoriteEntryName = "Favorites ⭐",
-                    Layer = DefaultEntryItems.Count
+                    FavoriteEntryName = "Favorites ⭐"
                 });
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 10, 19))

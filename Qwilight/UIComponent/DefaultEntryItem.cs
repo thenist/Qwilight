@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace Qwilight.UIComponent
 {
-    public sealed class DefaultEntryItem : Model, IComparable<DefaultEntryItem>
+    public sealed class DefaultEntryItem : Model
     {
         public static readonly DefaultEntryItem Total = new()
         {
@@ -51,8 +51,6 @@ namespace Qwilight.UIComponent
 
         public string DefaultEntryPath { get; init; }
 
-        public int Layer { get; set; }
-
         public string FavoriteEntryName
         {
             get => _favoriteEntryName;
@@ -62,7 +60,7 @@ namespace Qwilight.UIComponent
 
         public DefaultEntryVariety DefaultEntryVarietyValue { get; init; }
 
-        public HashSet<string> FrontEntryPaths { get; } = new();
+        public HashSet<string> FrontEntryPaths { get; set; } = new();
 
         [JsonIgnore]
         public bool? FavoriteEntryStatus
@@ -73,18 +71,6 @@ namespace Qwilight.UIComponent
         }
 
         public string NameInModifyDefaultEntryWindow => DefaultEntryVarietyValue != DefaultEntryVariety.Favorite ? DefaultEntryPath : FavoriteEntryName;
-
-        public int CompareTo(DefaultEntryItem other)
-        {
-            if ((DefaultEntryVarietyValue == DefaultEntryVariety.Default || DefaultEntryVarietyValue == DefaultEntryVariety.Favorite) && (other.DefaultEntryVarietyValue == DefaultEntryVariety.Default || other.DefaultEntryVarietyValue == DefaultEntryVariety.Favorite))
-            {
-                return Layer.CompareTo(other.Layer);
-            }
-            else
-            {
-                return DefaultEntryVarietyValue.CompareTo(other.DefaultEntryVarietyValue);
-            }
-        }
 
         public override bool Equals(object obj) => obj is DefaultEntryItem defaultEntryItem && DefaultEntryVarietyValue == defaultEntryItem.DefaultEntryVarietyValue && DefaultEntryPath == defaultEntryItem.DefaultEntryPath;
 

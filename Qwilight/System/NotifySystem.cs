@@ -6,6 +6,7 @@ namespace Qwilight
     public sealed class NotifySystem
     {
         public const int ModeComponentID = 0;
+        public const int SetFavoritesID = 1;
 
         public enum NotifyVariety
         {

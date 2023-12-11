@@ -510,7 +510,7 @@ namespace Qwilight.ViewModel
             }) == MESSAGEBOX_RESULT.IDYES)
             {
                 ViewModels.Instance.MainValue.WipeFavoriteEntry();
-                Configure.Instance.DefaultEntryItems.RemoveWhere(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite);
+                Configure.Instance.DefaultEntryItems.RemoveAll(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite);
                 DB.Instance.WipeFavoriteEntry();
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.InitFavoriteEntryOK);
             }
