@@ -48,7 +48,6 @@ namespace Qwilight.View
             {
                 var mainViewModel = (DataContext as MainViewModel);
                 var defaultLength = mainViewModel.DefaultLength;
-                var r = new Bound();
 
                 var fadingValue = mainViewModel.FadingValue;
                 var fadingStatus = fadingValue.Status;
@@ -60,11 +59,11 @@ namespace Qwilight.View
                         var noteFile = mainViewModel.EntryItemValue?.NoteFile;
                         var autoComputer = mainViewModel.AutoComputer;
 
-                        foreach (var paintPropertyValue in BaseUI.Instance.PaintPropertyValues)
+                        foreach (var paintProperty in BaseUI.Instance.PaintProperties)
                         {
-                            if (paintPropertyValue?.Layer == 1)
+                            if (paintProperty?.Layer == 1)
                             {
-                                paintPropertyValue.Paint(targetSession, noteFile, autoComputer, _distanceMillis);
+                                paintProperty.Paint(targetSession, noteFile, autoComputer, _distanceMillis);
                             }
                         }
                     }
@@ -72,30 +71,12 @@ namespace Qwilight.View
 
                 if (fadingStatus > 0.0)
                 {
-                    var fadingComputer = mainViewModel.FadingViewComputer;
-                    var fadingPropertyValue = BaseUI.Instance.FadingPropertyValues[(int)mainViewModel.ModeValue]?[fadingValue.Layer];
-                    var fadingPropertyFrame = fadingPropertyValue?.Frame ?? 0;
-                    if (fadingPropertyFrame > 0)
-                    {
-                        var defaultHeight = mainViewModel.DefaultHeight;
-                        if (fadingPropertyValue.DrawingStatus <= fadingStatus)
-                        {
-                            var fadingViewDrawing = (fadingComputer?.NoteHandledDrawingItem ?? DrawingSystem.Instance.DefaultDrawing).DefaultDrawing;
-                            if (fadingViewDrawing != null)
-                            {
-                                r.SetArea(defaultLength, defaultHeight);
-                                targetSession.DrawRectangle(Paints.Paint0, null, r);
-                                Utility.SetFilledMediaDrawing(ref r, Configure.Instance.IsMediaFill, fadingViewDrawing.Width, fadingViewDrawing.Height, 0.0, 0.0, defaultLength, defaultHeight);
-                                targetSession.PaintDrawing(ref r, fadingViewDrawing);
-                            }
-                        }
-                        r.SetArea(defaultLength, defaultHeight);
-                        targetSession.PaintDrawing(ref r, fadingPropertyValue.HandledDrawingItems[(int)Math.Floor(fadingStatus * (fadingPropertyFrame - 1))]?.DefaultDrawing);
-                    }
+                    BaseUI.Instance.FadingProperties[(int)mainViewModel.ModeValue]?[fadingValue.Layer].Paint(targetSession, fadingStatus);
                 }
 
                 if (allowFramerate)
                 {
+                    var r = new Bound();
                     r.SetPosition(Levels.StandardMarginFloat32, Levels.StandardMarginFloat32);
 
                     var textItem = PoolSystem.Instance.GetDefaultTextItem(_framerate, Levels.FontLevel0, Paints.Paint1);

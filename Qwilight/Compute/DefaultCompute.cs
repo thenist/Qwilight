@@ -529,7 +529,7 @@ namespace Qwilight.Compute
 
         public int NoteFrame { get; set; }
 
-        public HandledDrawingItem? NoteHandledDrawingItem { get; set; }
+        public HandledDrawingItem? NoteDrawing { get; set; }
 
         public double Status { get; set; }
 
@@ -620,7 +620,7 @@ namespace Qwilight.Compute
                 }
                 else
                 {
-                    HandleDrawing(ref r, NoteHandledDrawingItem ?? DrawingSystem.Instance.DefaultDrawing);
+                    HandleDrawing(ref r, NoteDrawing ?? DrawingSystem.Instance.DefaultDrawing);
                 }
             }
 
@@ -687,7 +687,7 @@ namespace Qwilight.Compute
                             }
                             else
                             {
-                                HandleDrawing(ref r, NoteHandledDrawingItem ?? DrawingSystem.Instance.DefaultDrawing);
+                                HandleDrawing(ref r, NoteDrawing ?? DrawingSystem.Instance.DefaultDrawing);
                             }
 
                             void HandleDrawing(ref Bound r, HandledDrawingItem? drawingComputingValue)
@@ -3088,7 +3088,7 @@ namespace Qwilight.Compute
                             foreach (var paintPropertyID in DrawingComponentValue.PaintPropertyIDs)
                             {
                                 var paintPropertyIntMap = DrawingComponentValue.PaintPropertyIntMap[paintPropertyID];
-                                var paintFramerate = 1000.0 / DrawingComponentValue.PaintPropertyValueMap[paintPropertyID][PaintProperty.ID.Framerate];
+                                var paintFramerate = 1000.0 / DrawingComponentValue.PaintPropertyMap[paintPropertyID][PaintProperty.ID.Framerate];
                                 _paintPropertyMillis[paintPropertyID] += millisLoopUnit;
                                 while (_paintPropertyMillis[paintPropertyID] >= paintFramerate)
                                 {

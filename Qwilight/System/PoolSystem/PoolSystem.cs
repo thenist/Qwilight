@@ -24,14 +24,6 @@ namespace Qwilight
         readonly ConcurrentDictionary<FormattedTextID, string> _formattedTexts = new();
         readonly ConcurrentDictionary<long, string> _formattedUnitTexts = new();
 
-        PoolSystem()
-        {
-            _rmsm.GenerateCallStacks = !QwilightComponent.IsVS;
-            _rmsm.AggressiveBufferReturn = true;
-            _rmsm.MaximumFreeSmallPoolBytes = _rmsm.LargeBufferMultiple * 4;
-            _rmsm.MaximumFreeLargePoolBytes = 100 * _rmsm.BlockSize;
-        }
-
         public void Wipe(bool isWPFViewVisible)
         {
             if (isWPFViewVisible)

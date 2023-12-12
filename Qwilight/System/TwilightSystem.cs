@@ -822,13 +822,13 @@ namespace Qwilight
                                             {
                                                 savingBundleItem.Text = LanguageSystem.Instance.SavingAsBundleContents;
                                                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
-                                                savingBundleItem.QuitStatus = rms.Length;
+                                                savingBundleItem.MaxStatus = rms.Length;
                                                 rms.Position = 0;
                                                 while (_savingBundleItems.TryGetValue(saveAsBundleID, out var savingBundleItem))
                                                 {
                                                     var length = (int)Math.Min(savingBundleItem.Data.Length, rms.Length - rms.Position);
                                                     rms.Read(savingBundleItem.Data, 0, length);
-                                                    savingBundleItem.LevyingStatus += length;
+                                                    savingBundleItem.Status += length;
                                                     if (length < savingBundleItem.Data.Length)
                                                     {
                                                         Send(Event.Types.EventID.SavedAsBundle, saveAsBundleID, UnsafeByteOperations.UnsafeWrap(savingBundleItem.Data.AsMemory(0, length)));
@@ -856,8 +856,11 @@ namespace Qwilight
                                                 }
                                                 else
                                                 {
-                                                    savingBundleItem.LevyingStatus = e.EntriesSaved;
-                                                    savingBundleItem.QuitStatus = e.EntriesTotal;
+                                                    if (e.EntriesTotal > 0)
+                                                    {
+                                                        savingBundleItem.Status = e.EntriesSaved;
+                                                        savingBundleItem.MaxStatus = e.EntriesTotal;
+                                                    }
                                                 }
                                             }
                                         }
@@ -911,7 +914,7 @@ namespace Qwilight
                                                 }
                                             }
                                         },
-                                        QuitStatus = bundleLength
+                                        MaxStatus = bundleLength
                                     };
                                     _savingBundleItems[saveBundleID] = savingBundleItem;
                                     UIHandler.Instance.HandleParallel(() => toNotifyViewModel.NotifyItemCollection.Insert(0, savingBundleItem));
@@ -932,7 +935,7 @@ namespace Qwilight
                                         {
                                             eventItemData[0].WriteTo(savingBundleItem.DataFlow);
                                         }
-                                        savingBundleItem.LevyingStatus += eventItemData[0].Length;
+                                        savingBundleItem.Status += eventItemData[0].Length;
                                     }
                                     break;
                                 case Event.Types.EventID.SavedBundle:
@@ -1078,8 +1081,11 @@ namespace Qwilight
                                                         }
                                                         else
                                                         {
-                                                            savingBundleItem.LevyingStatus = e.EntriesExtracted;
-                                                            savingBundleItem.QuitStatus = e.EntriesTotal;
+                                                            if (e.EntriesTotal > 0)
+                                                            {
+                                                                savingBundleItem.Status = e.EntriesExtracted;
+                                                                savingBundleItem.MaxStatus = e.EntriesTotal;
+                                                            }
                                                         }
                                                     }
                                                 }

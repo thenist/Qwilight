@@ -16,12 +16,12 @@ namespace Qwilight.View
                 {
                     To = 0.0
                 };
-                var fadingComputer = new Storyboard();
-                fadingComputer.Children.Add(fadingElement);
+                var fadingViewComputer = new Storyboard();
+                fadingViewComputer.Children.Add(fadingElement);
                 Storyboard.SetTarget(fadingElement, this);
                 Storyboard.SetTargetProperty(fadingElement, new PropertyPath(OpacityProperty));
-                fadingComputer.Completed += (sender, e) => Visibility = Visibility.Collapsed;
-                fadingComputer.Begin();
+                fadingViewComputer.Completed += (sender, e) => Visibility = Visibility.Collapsed;
+                fadingViewComputer.Begin();
             }));
         }
     }

@@ -10,8 +10,8 @@
 
     <Thickness x:Key="StandardEdge">1.0</Thickness>
     <Thickness x:Key="StandardMargin">5.0</Thickness>
-    <Thickness x:Key="StandardHMargin">5.0 0.0</Thickness>
-    <Thickness x:Key="StandardVMargin">0.0 5.0</Thickness>
+    <Thickness x:Key="HNarrowMargin">0.0 5.0</Thickness>
+    <Thickness x:Key="VNarrowMargin">5.0 0.0</Thickness>
     <Thickness x:Key="StandardInputEdge">0 0 1 1</Thickness>
 
     <system:Double x:Key="FontLevel0">12.0</system:Double>
@@ -162,10 +162,10 @@
         <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
     </Style>
     <Style x:Key="VNarrowTextView" TargetType="TextBlock" BasedOn="{StaticResource StandardTextView}">
-        <Setter Property="Margin" Value="{StaticResource StandardHMargin}" />
+        <Setter Property="Margin" Value="{StaticResource VNarrowMargin}" />
     </Style>
     <Style x:Key="HNarrowTextView" TargetType="TextBlock" BasedOn="{StaticResource StandardTextView}">
-        <Setter Property="Margin" Value="{StaticResource StandardVMargin}" />
+        <Setter Property="Margin" Value="{StaticResource HNarrowMargin}" />
     </Style>
     <Style x:Key="StandardTextViewMargin0" TargetType="TextBlock" BasedOn="{StaticResource StandardTextView}">
         <Setter Property="Margin" Value="0" />

@@ -408,7 +408,7 @@ namespace Qwilight
                                     {
                                         lock (UI.Instance.LoadedCSX)
                                         {
-                                            PaintFading();
+                                            PaintFadingProperty();
                                             PaintNotifyXamlItems();
                                         }
                                         PaintFramerate();
@@ -484,12 +484,12 @@ namespace Qwilight
                                                                         if (paintPropertyIntMap[PaintProperty.ID.Frame] > 0)
                                                                         {
                                                                             var paintPropertyAlt = paintPropertyIntMap[PaintProperty.ID.Alt];
-                                                                            var paintPropertyValueMap = drawingComponentValue.PaintPropertyValueMap[paintPropertyID];
-                                                                            var paintPropertyPosition0 = paintPropertyValueMap[PaintProperty.ID.Position0];
-                                                                            var paintPropertyPosition1 = paintPropertyValueMap[PaintProperty.ID.Position1];
-                                                                            var paintPropertyLength = paintPropertyValueMap[PaintProperty.ID.Length];
-                                                                            var paintPropertyHeight = paintPropertyValueMap[PaintProperty.ID.Height];
-                                                                            var paintPropertyDrawing = UI.Instance.PaintPropertyValues[paintPropertyID].Drawings[defaultComputer.PaintPropertyFrames[paintPropertyID]];
+                                                                            var paintPropertyMap = drawingComponentValue.PaintPropertyMap[paintPropertyID];
+                                                                            var paintPropertyPosition0 = paintPropertyMap[PaintProperty.ID.Position0];
+                                                                            var paintPropertyPosition1 = paintPropertyMap[PaintProperty.ID.Position1];
+                                                                            var paintPropertyLength = paintPropertyMap[PaintProperty.ID.Length];
+                                                                            var paintPropertyHeight = paintPropertyMap[PaintProperty.ID.Height];
+                                                                            var paintPropertyDrawing = UI.Instance.PaintProperties[paintPropertyID].Drawings[defaultComputer.PaintPropertyFrames[paintPropertyID]];
                                                                             for (var i = paintPropertyAlt >> 1; i >= paintPropertyAlt % 2; --i)
                                                                             {
                                                                                 var distancePaint = i == 1 && has2P ? distance2P : 0F;
@@ -2270,7 +2270,7 @@ namespace Qwilight
                                                     targetSession.PaintDrawing(ref r, UI.Instance.PausedStopDrawings[defaultSpinningModeValue == Configure.DefaultSpinningMode.Stop ? 1 : 0]);
                                                 }
 
-                                                PaintFading();
+                                                PaintFadingProperty();
                                                 PaintNotifyXamlItems();
                                             }
                                             else
@@ -2592,16 +2592,16 @@ namespace Qwilight
 
                                                 PaintBaseProperty(1);
 
-                                                PaintFading();
+                                                PaintFadingProperty();
                                                 PaintNotifyXamlItems();
 
                                                 void PaintBaseProperty(int layer)
                                                 {
-                                                    foreach (var paintPropertyValue in BaseUI.Instance.PaintPropertyValues)
+                                                    foreach (var paintProperty in BaseUI.Instance.PaintProperties)
                                                     {
-                                                        if (paintPropertyValue?.Layer == layer)
+                                                        if (paintProperty?.Layer == layer)
                                                         {
-                                                            paintPropertyValue.Paint(targetSession, distanceMillis, defaultComputer, handlingComputer);
+                                                            paintProperty.Paint(targetSession, distanceMillis, defaultComputer, handlingComputer);
                                                         }
                                                     }
                                                 }
@@ -2757,51 +2757,11 @@ namespace Qwilight
                         }
                     }
 
-                    void PaintFading()
+                    void PaintFadingProperty()
                     {
                         if (fadingStatus > 0.0)
                         {
-                            var fadingComputer = mainViewModel.FadingViewComputer;
-                            var fadingPropertyValue = BaseUI.Instance.FadingPropertyValues[(int)mode]?[fadingValue.Layer];
-                            var fadingPropertyFrame = fadingPropertyValue?.Frame ?? 0;
-                            if (fadingPropertyFrame > 0)
-                            {
-                                if (fadingPropertyValue.DrawingStatus <= fadingStatus)
-                                {
-                                    var hasContents = false;
-                                    if (fadingComputer != null)
-                                    {
-                                        lock (fadingComputer.LoadedCSX)
-                                        {
-                                            var fadingViewDrawing = fadingComputer.NoteHandledDrawingItem;
-                                            hasContents = fadingComputer.HasContents && fadingViewDrawing != null;
-                                            if (hasContents)
-                                            {
-                                                HandleDrawing(fadingViewDrawing);
-                                            }
-                                        }
-                                    }
-                                    if (!hasContents)
-                                    {
-                                        HandleDrawing(DrawingSystem.Instance.DefaultDrawing);
-                                    }
-
-                                    void HandleDrawing(HandledDrawingItem? fadingViewDrawing)
-                                    {
-                                        var drawing = fadingViewDrawing?.Drawing;
-                                        if (drawing.HasValue)
-                                        {
-                                            r.SetArea(defaultLength, defaultHeight);
-                                            targetSession.FillRectangle(r, Colors.Black);
-                                            var drawingBound = drawing.Value.DrawingBound;
-                                            Utility.SetFilledMediaDrawing(ref r, Configure.Instance.IsMediaFill, drawingBound.Length, drawingBound.Height, 0.0, 0.0, defaultLength, defaultHeight);
-                                            targetSession.PaintDrawing(ref r, drawing);
-                                        }
-                                    }
-                                }
-                                r.SetArea(defaultLength, defaultHeight);
-                                targetSession.PaintDrawing(ref r, fadingPropertyValue.HandledDrawingItems[(int)Math.Floor(fadingStatus * (fadingPropertyFrame - 1))]?.Drawing);
-                            }
+                            BaseUI.Instance.FadingProperties[(int)mode]?[fadingValue.Layer].Paint(targetSession, fadingStatus);
                         }
                     }
 

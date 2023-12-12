@@ -140,22 +140,22 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <RadioButton Style="{StaticResource StandardOInput}" IsChecked="{Binding InputMapping0}">
-                                    <Border Style="{StaticResource StandardPanelSquare}" Margin="{StaticResource StandardHMargin}">
+                                    <Border Style="{StaticResource StandardPanelSquare}" Margin="{StaticResource HNarrowMargin}">
                                         <Image Style="{StaticResource StandardViewMargin0}" Source="{StaticResource InputMapping0Drawing}" Height="12" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor" />
                                     </Border>
                                 </RadioButton>
                                 <RadioButton Grid.Column="1" Style="{StaticResource StandardOInput}" IsChecked="{Binding InputMapping1}">
-                                    <Border Style="{StaticResource StandardPanelSquare}" Margin="{StaticResource StandardHMargin}">
+                                    <Border Style="{StaticResource StandardPanelSquare}" Margin="{StaticResource HNarrowMargin}">
                                         <Image Style="{StaticResource StandardViewMargin0}" Source="{StaticResource InputMapping1Drawing}" Height="12" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor" />
                                     </Border>
                                 </RadioButton>
                                 <RadioButton Grid.Column="2" Style="{StaticResource StandardOInput}" IsChecked="{Binding InputMapping2}">
-                                    <Border Style="{StaticResource StandardPanelSquare}" Margin="{StaticResource StandardHMargin}">
+                                    <Border Style="{StaticResource StandardPanelSquare}" Margin="{StaticResource HNarrowMargin}">
                                         <Image Style="{StaticResource StandardViewMargin0}" Source="{StaticResource InputMapping2Drawing}" Height="12" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor" />
                                     </Border>
                                 </RadioButton>
                                 <RadioButton Grid.Column="3" Style="{StaticResource StandardOInput}" IsChecked="{Binding InputMapping3}">
-                                    <Border Style="{StaticResource StandardPanelSquare}" Margin="{StaticResource StandardHMargin}">
+                                    <Border Style="{StaticResource StandardPanelSquare}" Margin="{StaticResource HNarrowMargin}">
                                         <Image Style="{StaticResource StandardViewMargin0}" Source="{StaticResource InputMapping3Drawing}" Height="12" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor" />
                                     </Border>
                                 </RadioButton>

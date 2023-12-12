@@ -46,11 +46,11 @@ namespace Qwilight.View
                     var noteFile = mainViewModel.EntryItemValue?.NoteFile;
                     var autoComputer = mainViewModel.AutoComputer;
 
-                    foreach (var paintPropertyValue in BaseUI.Instance.PaintPropertyValues)
+                    foreach (var paintProperty in BaseUI.Instance.PaintProperties)
                     {
-                        if (paintPropertyValue?.Layer == 0)
+                        if (paintProperty?.Layer == 0)
                         {
-                            paintPropertyValue.Paint(targetSession, noteFile, autoComputer, distanceMillis);
+                            paintProperty.Paint(targetSession, noteFile, autoComputer, distanceMillis);
                         }
                     }
 

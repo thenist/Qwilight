@@ -5,6 +5,8 @@ namespace Qwilight.UIComponent
 {
     public struct AvatarTitle
     {
+        public string TitleNBSP => $"{Title} ";
+
         public string Title { get; init; }
 
         public Brush TitlePaint { get; init; }

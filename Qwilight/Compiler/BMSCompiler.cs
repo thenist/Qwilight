@@ -735,7 +735,7 @@ namespace Qwilight.Compiler
                 var noteDrawingPath = Utility.GetFilePath(defaultComputer.NoteDrawingPath, Utility.FileFormatFlag.Drawing);
                 if (!string.IsNullOrEmpty(noteDrawingPath))
                 {
-                    defaultComputer.NoteHandledDrawingItem = new HandledDrawingItem
+                    defaultComputer.NoteDrawing = new HandledDrawingItem
                     {
                         Drawing = DrawingSystem.Instance.Load(noteDrawingPath, defaultComputer),
                         DefaultDrawing = DrawingSystem.Instance.LoadDefault(noteDrawingPath, defaultComputer)

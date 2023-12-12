@@ -182,7 +182,7 @@ namespace Qwilight
 
         public DrawingItem?[] JudgmentInputDrawings { get; } = new DrawingItem?[6];
 
-        public PaintProperty[] PaintPropertyValues { get; } = new PaintProperty[HighestPaintPropertyID];
+        public PaintProperty[] PaintProperties { get; } = new PaintProperty[HighestPaintPropertyID];
 
         public DrawingItem?[][] JudgmentDrawings { get; } = new DrawingItem?[11][];
 
@@ -1055,7 +1055,7 @@ namespace Qwilight
                         SaveAltImpl(text, target, AltMap, AltCallMap);
                     }
                 }
-                for (var i = PaintPropertyValues.Length - 1; i >= 0; --i)
+                for (var i = PaintProperties.Length - 1; i >= 0; --i)
                 {
                     var data = GetCalledData(pointNode, $"paintProperty{i}");
                     if (data?.Length > 4)
@@ -1071,7 +1071,7 @@ namespace Qwilight
                         SavePaintInt(PaintProperty.ID.Mode, 7);
                         SavePaintInt(PaintProperty.ID.Pipeline, 8, -1);
                         SavePaintInt(PaintProperty.ID.Composition, 9);
-                        PaintPropertyValues[i] = paintProperty;
+                        PaintProperties[i] = paintProperty;
                         void SavePaintMap(PaintProperty.ID target, int paintPosition, double defaultValue = default)
                         {
                             if (paintPosition < data.Length)
@@ -1265,11 +1265,11 @@ namespace Qwilight
                     }
                 }
             }
-            foreach (var paintPropertyValue in PaintPropertyValues.Where(paintPropertyValue => paintPropertyValue != null))
+            foreach (var paintProperty in PaintProperties.Where(paintProperty => paintProperty != null))
             {
-                foreach (var (toCallID, values) in paintPropertyValue.IntCallMap)
+                foreach (var (toCallID, values) in paintProperty.IntCallMap)
                 {
-                    if (!paintPropertyValue.IntMap.ContainsKey(toCallID))
+                    if (!paintProperty.IntMap.ContainsKey(toCallID))
                     {
                         var lambdaName = values[0];
                         var lambdaValue = lsCaller.Globals[lambdaName];
@@ -1277,7 +1277,7 @@ namespace Qwilight
                         {
                             try
                             {
-                                paintPropertyValue.IntMap[toCallID] = (int)lsCaller.Call(lsCaller.Globals[values[0]], values.Skip(1).Select(value => Utility.ToFloat64(value) as object).ToArray()).Number;
+                                paintProperty.IntMap[toCallID] = (int)lsCaller.Call(lsCaller.Globals[values[0]], values.Skip(1).Select(value => Utility.ToFloat64(value) as object).ToArray()).Number;
                             }
                             catch
                             {
@@ -1290,14 +1290,14 @@ namespace Qwilight
                         }
                     }
                 }
-                switch (paintPropertyValue.IntMap[PaintProperty.ID.Mode])
+                switch (paintProperty.IntMap[PaintProperty.ID.Mode])
                 {
                     case 0:
                     case 2:
-                        paintPropertyValue.Drawings = new DrawingItem?[paintPropertyValue.IntMap[PaintProperty.ID.Frame]];
+                        paintProperty.Drawings = new DrawingItem?[paintProperty.IntMap[PaintProperty.ID.Frame]];
                         break;
                     case 1:
-                        paintPropertyValue.Drawings = new DrawingItem?[paintPropertyValue.IntMap[PaintProperty.ID.Frame] + 1];
+                        paintProperty.Drawings = new DrawingItem?[paintProperty.IntMap[PaintProperty.ID.Frame] + 1];
                         break;
                 }
             }
@@ -1564,7 +1564,7 @@ namespace Qwilight
                         Utility.ToInt32(fileNameContents.ElementAtOrDefault(2), out var value2);
                         if (fileNameContents[0] == getPaintProperty([value1, value2]))
                         {
-                            Utility.GetValue(PaintPropertyValues, value1)?.Drawings?.SetValue(fileNameContents.Length >= 3 ? value2 : 0, drawingItem);
+                            Utility.GetValue(PaintProperties, value1)?.Drawings?.SetValue(fileNameContents.Length >= 3 ? value2 : 0, drawingItem);
                         }
                         else if (fileNameContents[0] == getAutoMain([value1]))
                         {

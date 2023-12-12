@@ -30,7 +30,7 @@ namespace Qwilight
         public const int HighestPaintPropertyID = 256;
 
         [GeneratedRegex(@"^\[.*\]$")]
-        private static partial Regex GetMediaFilePaths();
+        private static partial Regex GetMultipleMediaFilePathsComputer();
 
         public static readonly BaseUI Instance = QwilightComponent.GetBuiltInData<BaseUI>(nameof(BaseUI));
 
@@ -639,11 +639,11 @@ namespace Qwilight
 
         public CanvasTextFormat CommentPlace1Font { get; } = DrawingSystem.Instance.GetFont();
 
-        public BasePaintProperty[] PaintPropertyValues { get; } = new BasePaintProperty[HighestPaintPropertyID];
+        public BasePaintProperty[] PaintProperties { get; } = new BasePaintProperty[HighestPaintPropertyID];
 
         public ConcurrentDictionary<EventItem, List<BasePaintProperty>> EventItems { get; } = new();
 
-        public FadingProperty[][] FadingPropertyValues { get; } = new FadingProperty[4][];
+        public FadingProperty[][] FadingProperties { get; } = new FadingProperty[4][];
 
         public MediaModifier MediaModifierValue { get; }
 
@@ -661,21 +661,21 @@ namespace Qwilight
         {
             foreach (var eventItem in EventItems)
             {
-                foreach (var paintPropertyValue in eventItem.Value)
+                foreach (var paintProperty in eventItem.Value)
                 {
-                    paintPropertyValue.DrawingFrame = -1;
+                    paintProperty.DrawingFrame = -1;
                 }
             }
         }
 
         public void HandleEvent(EventItem eventItem)
         {
-            if (EventItems.TryGetValue(eventItem, out var paintPropertyValues))
+            if (EventItems.TryGetValue(eventItem, out var paintProperties))
             {
-                foreach (var paintPropertyValue in paintPropertyValues)
+                foreach (var paintProperty in paintProperties)
                 {
-                    paintPropertyValue.DrawingMillis = 0.0;
-                    paintPropertyValue.DrawingFrame = 0;
+                    paintProperty.DrawingMillis = 0.0;
+                    paintProperty.DrawingFrame = 0;
                 }
             }
         }
@@ -1068,19 +1068,18 @@ namespace Qwilight
                     DrawingSystem.Instance.SetFontSystem(font, (int)point[5], (int)point[6]);
                 }
 
-                for (var i = PaintPropertyValues.Length - 1; i >= 0; --i)
+                for (var i = PaintProperties.Length - 1; i >= 0; --i)
                 {
-                    PaintPropertyValues[i]?.Dispose();
+                    PaintProperties[i]?.Dispose();
                     var text = Utility.GetText(pointNode, $"paintProperty{i}");
                     if (!string.IsNullOrEmpty(text))
                     {
                         var data = text.Split(",").Select(value => GetCalledText(value.Trim())).ToArray();
                         var frame = Utility.ToInt32(data[4]);
                         var drawingVariety = Utility.ToInt32(data[7]);
-                        var paintPropertyValue = new BasePaintProperty
+                        var paintProperty = new BasePaintProperty
                         {
                             PaintBound = new(Utility.ToFloat64(data[0]), Utility.ToFloat64(data[1]), Utility.ToFloat64(data[2]), Utility.ToFloat64(data[3])),
-                            HandledDrawingItems = new HandledDrawingItem?[frame],
                             Frame = frame,
                             Framerate = Utility.ToFloat64(data[5]),
                             Layer = Utility.ToInt32(data[6]),
@@ -1088,39 +1087,39 @@ namespace Qwilight
                             Etc = data.ElementAtOrDefault(8),
                             Mode = Utility.ToInt32(data.ElementAtOrDefault(9) ?? "0")
                         };
-                        switch (paintPropertyValue.DrawingVariety)
+                        switch (paintProperty.DrawingVariety)
                         {
                             case 3:
                             case 4:
                             case 5:
                             case 7:
                             case 13:
-                                var etcColor = paintPropertyValue.Etc.GetColor();
-                                paintPropertyValue.EtcPaint = DrawingSystem.Instance.GetDefaultPaint(etcColor);
-                                paintPropertyValue.EtcColor = etcColor;
+                                var etcColor = paintProperty.Etc.GetColor();
+                                paintProperty.EtcPaint = DrawingSystem.Instance.GetDefaultPaint(etcColor);
+                                paintProperty.EtcColor = etcColor;
                                 break;
                         }
-                        switch (paintPropertyValue.DrawingVariety)
+                        switch (paintProperty.DrawingVariety)
                         {
                             case 7:
                             case 12:
-                                paintPropertyValue.Font = DrawingSystem.Instance.GetFont();
-                                DrawingSystem.Instance.SetFontFamily(paintPropertyValue.Font);
-                                DrawingSystem.Instance.SetFontLevel(paintPropertyValue.Font, (float)paintPropertyValue.Framerate);
+                                paintProperty.Font = DrawingSystem.Instance.GetFont();
+                                DrawingSystem.Instance.SetFontFamily(paintProperty.Font);
+                                DrawingSystem.Instance.SetFontLevel(paintProperty.Font, (float)paintProperty.Framerate);
                                 break;
                         }
                         if (drawingVariety >= 100)
                         {
-                            paintPropertyValue.DrawingFrame = -1;
-                            EventItems.NewValue((EventItem)drawingVariety, paintPropertyValue);
+                            paintProperty.DrawingFrame = -1;
+                            EventItems.NewValue((EventItem)drawingVariety, paintProperty);
                         }
-                        PaintPropertyValues[i] = paintPropertyValue;
+                        PaintProperties[i] = paintProperty;
                     }
                 }
 
-                for (var i = FadingPropertyValues.Length - 1; i >= 0; --i)
+                for (var i = FadingProperties.Length - 1; i >= 0; --i)
                 {
-                    for (var j = FadingPropertyValues[i].Length - 1; j >= 0; --j)
+                    for (var j = FadingProperties[i].Length - 1; j >= 0; --j)
                     {
                         var text = Utility.GetText(pointNode, $"fadingProperty{i}{j}");
                         if (!string.IsNullOrEmpty(text))
@@ -1128,7 +1127,7 @@ namespace Qwilight
                             var data = text.Split(",").Select(value => GetCalledText(value.Trim())).ToArray();
                             var frame = Utility.ToInt32(data[0]);
                             var framerate = Utility.ToFloat64(data[1]);
-                            FadingPropertyValues[i][j] = new()
+                            FadingProperties[i][j] = new()
                             {
                                 HandledDrawingItems = new HandledDrawingItem?[frame],
                                 Frame = frame,
@@ -1395,11 +1394,12 @@ namespace Qwilight
                                 var fileNameContents = justFileName.Split(' ');
                                 Utility.ToInt32(fileNameContents.ElementAtOrDefault(1), out var value1);
                                 Utility.ToInt32(fileNameContents.ElementAtOrDefault(2), out var value2);
-                                if (fileNameContents[0] == getPaintProperty([value1, value2]))
+                                Utility.ToInt32(fileNameContents.ElementAtOrDefault(3), out var value3);
+                                if (fileNameContents[0] == getPaintProperty([value1, value2, value3]))
                                 {
                                     NewHandledDrawing(rms);
                                 }
-                                else if (fileNameContents[0] == getTransition([value1, value2]))
+                                else if (fileNameContents[0] == getTransition([value1, value2, value3]))
                                 {
                                     NewHandledDrawing(rms);
                                 }
@@ -1563,12 +1563,12 @@ namespace Qwilight
             }
             Utility.HandleLowlyParallelly(parallelItems, Configure.Instance.UIBin, parallelItem => parallelItem());
 
-            foreach (var paintPropertyValue in PaintPropertyValues)
+            foreach (var paintProperty in PaintProperties)
             {
-                if (paintPropertyValue?.DrawingVariety == 11)
+                if (paintProperty?.DrawingVariety == 11)
                 {
-                    var etc = paintPropertyValue.Etc;
-                    paintPropertyValue.HandledMediaItems = (GetMediaFilePaths().IsMatch(etc) ? etc.Substring(etc.IndexOf('[') + 1, etc.LastIndexOf(']') - 1).Split(',').Select(text => text.Trim()) : [etc]).Select(mediaFilePath =>
+                    var etc = paintProperty.Etc;
+                    paintProperty.HandledMediaItems = (GetMultipleMediaFilePathsComputer().IsMatch(etc) ? etc.Substring(etc.IndexOf('[') + 1, etc.LastIndexOf(']') - 1).Split(',').Select(text => text.Trim()) : [etc]).Select(mediaFilePath =>
                     {
                         if (handledMediaValues.TryGetValue(mediaFilePath, out var handledMediaItem))
                         {
@@ -1578,7 +1578,7 @@ namespace Qwilight
                         {
                             try
                             {
-                                return MediaSystem.Instance.Load(Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, paintPropertyValue.Etc), this, true);
+                                return MediaSystem.Instance.Load(Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, paintProperty.Etc), this, true);
                             }
                             catch
                             {
@@ -1864,13 +1864,41 @@ namespace Qwilight
                         var fileNameContents = justFileName.Split(' ');
                         Utility.ToInt32(fileNameContents.ElementAtOrDefault(1), out var value1);
                         Utility.ToInt32(fileNameContents.ElementAtOrDefault(2), out var value2);
-                        if (fileNameContents[0] == getPaintProperty([value1, value2]))
+                        Utility.ToInt32(fileNameContents.ElementAtOrDefault(3), out var value3);
+                        if (fileNameContents[0] == getPaintProperty([value1, value2, value3]))
                         {
-                            PaintPropertyValues[value1].HandledDrawingItems.SetValue(value2, handledDrawingItem);
+                            var paintProperty = PaintProperties[value1];
+                            switch (fileNameContents.Length)
+                            {
+                                case 2:
+                                    if (!paintProperty.HandledDrawingItemMap.TryGetValue(0, out var handledDrawingItems))
+                                    {
+                                        handledDrawingItems = new HandledDrawingItem?[paintProperty.Frame];
+                                        paintProperty.HandledDrawingItemMap[0] = handledDrawingItems;
+                                    }
+                                    handledDrawingItems[0] = handledDrawingItem;
+                                    break;
+                                case 3:
+                                    if (!paintProperty.HandledDrawingItemMap.TryGetValue(0, out handledDrawingItems))
+                                    {
+                                        handledDrawingItems = (new HandledDrawingItem?[paintProperty.Frame]);
+                                        paintProperty.HandledDrawingItemMap[0] = handledDrawingItems;
+                                    }
+                                    handledDrawingItems[value2] = handledDrawingItem;
+                                    break;
+                                case 4:
+                                    if (!paintProperty.HandledDrawingItemMap.TryGetValue(value2, out handledDrawingItems))
+                                    {
+                                        handledDrawingItems = (new HandledDrawingItem?[paintProperty.Frame]);
+                                        paintProperty.HandledDrawingItemMap[value2] = handledDrawingItems;
+                                    }
+                                    handledDrawingItems[value3] = handledDrawingItem;
+                                    break;
+                            }
                         }
                         else if (fileNameContents[0] == getTransition([value1, value2]))
                         {
-                            FadingPropertyValues[value1][value2].HandledDrawingItems.SetValue(Utility.ToInt32(fileNameContents[3]), handledDrawingItem);
+                            FadingProperties[value1][value2].HandledDrawingItems.SetValue(Utility.ToInt32(fileNameContents[3]), handledDrawingItem);
                         }
                         break;
                     case "Input":
@@ -1967,38 +1995,45 @@ namespace Qwilight
                 QuitDrawings[i][1] ??= QuitDrawings[i][0];
             }
 
-            for (var i = PaintPropertyValues.Length - 1; i >= 0; --i)
+            for (var i = PaintProperties.Length - 1; i >= 0; --i)
             {
-                var frame = PaintPropertyValues[i]?.Frame ?? 0;
-                for (var j = 1; j < frame; ++j)
+                var paintProperty = PaintProperties[i];
+                var frame = paintProperty?.Frame ?? 0;
+                if (frame > 0)
                 {
-                    PaintPropertyValues[i].HandledDrawingItems[j] ??= PaintPropertyValues[i].HandledDrawingItems[j - 1];
+                    foreach (var handledDrawingItems in paintProperty.HandledDrawingItemMap.Values)
+                    {
+                        for (var j = 1; j < frame; ++j)
+                        {
+                            handledDrawingItems[j] ??= handledDrawingItems[j - 1];
+                        }
+                    }
                 }
             }
 
-            for (var i = FadingPropertyValues.Length - 1; i >= 0; --i)
+            for (var i = FadingProperties.Length - 1; i >= 0; --i)
             {
-                for (var j = FadingPropertyValues[i].Length - 1; j >= 0; --j)
+                for (var j = FadingProperties[i].Length - 1; j >= 0; --j)
                 {
-                    var frame = FadingPropertyValues[i][j]?.Frame ?? 0;
+                    var frame = FadingProperties[i][j]?.Frame ?? 0;
                     for (var m = 1; m < frame; ++m)
                     {
-                        FadingPropertyValues[i][j].HandledDrawingItems[m] ??= FadingPropertyValues[i][j].HandledDrawingItems[m - 1];
+                        FadingProperties[i][j].HandledDrawingItems[m] ??= FadingProperties[i][j].HandledDrawingItems[m - 1];
                     }
                 }
-                for (var j = FadingPropertyValues[i].Length - 1; j >= 2; --j)
+                for (var j = FadingProperties[i].Length - 1; j >= 2; --j)
                 {
-                    FadingPropertyValues[i][j] ??= FadingPropertyValues[i][1];
+                    FadingProperties[i][j] ??= FadingProperties[i][1];
                 }
-                for (var m = (FadingPropertyValues[i][1]?.Frame ?? 0) - 1; m >= 0; --m)
+                for (var m = (FadingProperties[i][1]?.Frame ?? 0) - 1; m >= 0; --m)
                 {
-                    FadingPropertyValues[i][1].HandledDrawingItems[m] ??= FadingPropertyValues[i][0].HandledDrawingItems.ElementAtOrDefault(m);
+                    FadingProperties[i][1].HandledDrawingItems[m] ??= FadingProperties[i][0].HandledDrawingItems.ElementAtOrDefault(m);
                 }
-                for (var j = FadingPropertyValues[i].Length - 1; j >= 2; --j)
+                for (var j = FadingProperties[i].Length - 1; j >= 2; --j)
                 {
-                    for (var m = (FadingPropertyValues[i][j]?.Frame ?? 0) - 1; m >= 1; --m)
+                    for (var m = (FadingProperties[i][j]?.Frame ?? 0) - 1; m >= 1; --m)
                     {
-                        FadingPropertyValues[i][j].HandledDrawingItems[m] ??= FadingPropertyValues[i][1].HandledDrawingItems.ElementAtOrDefault(m);
+                        FadingProperties[i][j].HandledDrawingItems[m] ??= FadingProperties[i][1].HandledDrawingItems.ElementAtOrDefault(m);
                     }
                 }
             }
@@ -2046,10 +2081,10 @@ namespace Qwilight
             _defaultAudioItemMap.Clear();
             _audioChannelMap.Clear();
             EventItems.Clear();
-            FadingPropertyValues[(int)MainViewModel.Mode.NoteFile] = new FadingProperty[4];
-            FadingPropertyValues[1] = new FadingProperty[2];
-            FadingPropertyValues[(int)MainViewModel.Mode.Computing] = new FadingProperty[4];
-            FadingPropertyValues[(int)MainViewModel.Mode.Quit] = new FadingProperty[2];
+            FadingProperties[(int)MainViewModel.Mode.NoteFile] = new FadingProperty[4];
+            FadingProperties[1] = new FadingProperty[2];
+            FadingProperties[(int)MainViewModel.Mode.Computing] = new FadingProperty[4];
+            FadingProperties[(int)MainViewModel.Mode.Quit] = new FadingProperty[2];
             for (var i = (int)DefaultCompute.QuitStatus.F; i >= (int)DefaultCompute.QuitStatus.SPlus; --i)
             {
                 QuitDrawings[i] = new HandledDrawingItem?[2];
@@ -2164,7 +2199,7 @@ namespace Qwilight
 
                 void OnLoaded()
                 {
-                    HandlePaintPropertyMedia();
+                    HandlePaintProperty();
                     DrawingSystem.Instance.LoadDefaultDrawing();
                     ViewModels.Instance.NotifyWindowViewModels();
                     mainViewModel.NotifyModel();
@@ -2172,18 +2207,20 @@ namespace Qwilight
             }
         }
 
-        public void HandlePaintPropertyMedia()
+        public void HandlePaintProperty()
         {
-            foreach (var paintPropertyValue in PaintPropertyValues)
+            foreach (var paintProperty in PaintProperties)
             {
-                if (paintPropertyValue?.DrawingVariety == 11)
+                var handledMediaItems = paintProperty?.HandledMediaItems;
+                if (handledMediaItems?.Length > 0)
                 {
-                    var handledMediaItems = paintPropertyValue.HandledMediaItems;
-                    if (handledMediaItems.Length > 0)
-                    {
-                        var mode = paintPropertyValue.Mode;
-                        paintPropertyValue.MediaHandlerItemValue = MediaSystem.Instance.Handle(Random.Shared.GetItems(handledMediaItems, 1).SingleOrDefault(), this, mode == 1, mode == 0);
-                    }
+                    var mode = paintProperty.Mode;
+                    paintProperty.MediaHandlerItem = MediaSystem.Instance.Handle(Random.Shared.GetItems(handledMediaItems, 1).Single(), this, mode == 1, mode == 0);
+                }
+                var handledDrawingItems = paintProperty?.HandledDrawingItemMap?.Values?.ToArray();
+                if (handledDrawingItems?.Length > 0)
+                {
+                    paintProperty.HandledDrawingItems = Random.Shared.GetItems(handledDrawingItems, 1).Single();
                 }
             }
         }

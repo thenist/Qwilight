@@ -143,7 +143,7 @@ namespace Qwilight
                             wwwClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
                             using (var hrm = await wwwClient.GetAsync(target, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
                             {
-                                savingLevelItem.QuitStatus = hrm.Content.Headers.ContentLength ?? 0L;
+                                savingLevelItem.MaxStatus = hrm.Content.Headers.ContentLength ?? 0L;
                             }
                             using (var fs = File.Open(Path.Combine(EntryPath, $"{levelTableFileName}.json"), FileMode.Create))
                             using (var ws = await wwwClient.GetStreamAsync(target).ConfigureAwait(false))
@@ -152,7 +152,7 @@ namespace Qwilight
                                 while ((length = await ws.ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
                                 {
                                     await fs.WriteAsync(data.AsMemory(0, length)).ConfigureAwait(false);
-                                    savingLevelItem.LevyingStatus += length;
+                                    savingLevelItem.Status += length;
                                 }
                             }
                         }

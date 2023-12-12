@@ -311,7 +311,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource HNarrowMargin}">
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="F1" FontSize="{StaticResource FontLevel1}" />
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[0].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
                     </StackPanel>
@@ -320,7 +320,7 @@
                             <system:Int32>0</system:Int32>
                         </Button.CommandParameter>
                     </Button>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource HNarrowMargin}">
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="F2" FontSize="{StaticResource FontLevel1}" />
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[1].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
                     </StackPanel>
@@ -329,7 +329,7 @@
                             <system:Int32>1</system:Int32>
                         </Button.CommandParameter>
                     </Button>
-                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource HNarrowMargin}">
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="F3" FontSize="{StaticResource FontLevel1}" />
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[2].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
                     </StackPanel>
@@ -338,7 +338,7 @@
                             <system:Int32>2</system:Int32>
                         </Button.CommandParameter>
                     </Button>
-                    <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                    <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource HNarrowMargin}">
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="F4" FontSize="{StaticResource FontLevel1}" />
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[3].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
                     </StackPanel>
@@ -347,7 +347,7 @@
                             <system:Int32>3</system:Int32>
                         </Button.CommandParameter>
                     </Button>
-                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource HNarrowMargin}">
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="F5" FontSize="{StaticResource FontLevel1}" />
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[4].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
                     </StackPanel>
@@ -356,7 +356,7 @@
                             <system:Int32>4</system:Int32>
                         </Button.CommandParameter>
                     </Button>
-                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource HNarrowMargin}">
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="F6" FontSize="{StaticResource FontLevel1}" />
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[5].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
                     </StackPanel>
@@ -365,7 +365,7 @@
                             <system:Int32>5</system:Int32>
                         </Button.CommandParameter>
                     </Button>
-                    <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                    <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource HNarrowMargin}">
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="F7" FontSize="{StaticResource FontLevel1}" />
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[6].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
                     </StackPanel>
@@ -374,7 +374,7 @@
                             <system:Int32>6</system:Int32>
                         </Button.CommandParameter>
                     </Button>
-                    <StackPanel Grid.Row="2" Grid.Column="3"  Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource StandardHMargin}">
+                    <StackPanel Grid.Row="2" Grid.Column="3"  Orientation="Horizontal" HorizontalAlignment="Left" Margin="{StaticResource HNarrowMargin}">
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="F8" FontSize="{StaticResource FontLevel1}" />
                         <TextBlock Style="{StaticResource HNarrowTextView}" Text="{Binding ModeComponentBundles[7].Name, Source={StaticResource Configure}}" VerticalAlignment="Bottom" />
                     </StackPanel>

@@ -23,7 +23,7 @@ namespace Qwilight.UIComponent
 
         public bool IsStopped { get; set; }
 
-        public double BundleStatus => QuitStatus > 0L ? 100.0 * LevyingStatus / QuitStatus : 0.0;
+        public double BundleStatus => MaxStatus > 0L ? 100.0 * Status / MaxStatus : 0.0;
 
         public Action OnHandle { get; init; }
 
@@ -36,14 +36,14 @@ namespace Qwilight.UIComponent
             set => SetProperty(ref _toNotifyVariety, value, nameof(Variety));
         }
 
-        public long LevyingStatus
+        public long Status
         {
             get => _levyingStatus;
 
             set => SetProperty(ref _levyingStatus, value, nameof(BundleStatus));
         }
 
-        public long QuitStatus
+        public long MaxStatus
         {
             get => _quitStatus;
 

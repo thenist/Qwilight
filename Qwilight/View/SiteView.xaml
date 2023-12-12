@@ -79,7 +79,7 @@
                                 <Image Style="{StaticResource StandardView}" Height="18" Source="{Binding AvatarConfigureValue, Converter={StaticResource AvatarConfigureDrawingModifier}}" />
                                 <Image Style="{StaticResource StandardView}" Height="18" Source="{Binding IsSiteHand, Converter={StaticResource SiteHandDrawingModifier}}" />
                                 <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarGroupValue.Title}" Foreground="{Binding AvatarGroupValue.Paint}" />
-                                <view:AvatarNameView AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" HeavyText="{Binding IsMe, Converter={StaticResource HeavyModifier}}" TextPaint="{Binding AudioInputPaint}" />
+                                <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" HeavyText="{Binding IsMe, Converter={StaticResource HeavyModifier}}" TextPaint="{Binding AudioInputPaint}" />
                                 <Image Style="{StaticResource StandardView}" Height="18" Source="{StaticResource ValveDrawing}" Visibility="{Binding IsValve, Converter={StaticResource VisibilityModifier}}" />
                             </StackPanel>
                         </DataTemplate>

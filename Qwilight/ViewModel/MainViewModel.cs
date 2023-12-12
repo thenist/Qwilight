@@ -204,20 +204,20 @@ namespace Qwilight.ViewModel
         {
             get
             {
-                var fadingComputer = FadingValue.Computer;
+                var fadingViewComputer = FadingValue.Computer;
                 if (FadingValue.IsComputerStable)
                 {
-                    return fadingComputer;
+                    return fadingViewComputer;
                 }
                 else
                 {
-                    if (fadingComputer.NoteFile == AutoComputer?.NoteFile)
+                    if (fadingViewComputer.NoteFile == AutoComputer?.NoteFile)
                     {
                         return AutoComputer;
                     }
                     else
                     {
-                        return fadingComputer;
+                        return fadingViewComputer;
                     }
                 }
             }
@@ -521,7 +521,7 @@ namespace Qwilight.ViewModel
                     OnPropertyChanged(nameof(DefaultHeight));
                     SetWPFViewVisibility();
                     MediaSystem.Instance.Stop(BaseUI.Instance);
-                    BaseUI.Instance.HandlePaintPropertyMedia();
+                    BaseUI.Instance.HandlePaintProperty();
                     MediaSystem.Instance.HandleDefaultIfAvailable(BaseUI.Instance);
                     MediaSystem.Instance.HandleIfAvailable(BaseUI.Instance);
                     var handlingComputer = GetHandlingComputer();
@@ -726,8 +726,11 @@ namespace Qwilight.ViewModel
                                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingUIItem.Text);
                                         zipFile.ExtractProgress += (sender, e) =>
                                         {
-                                            savingUIItem.LevyingStatus = e.EntriesExtracted;
-                                            savingUIItem.QuitStatus = e.EntriesTotal;
+                                            if (e.EntriesTotal > 0)
+                                            {
+                                                savingUIItem.Status = e.EntriesExtracted;
+                                                savingUIItem.MaxStatus = e.EntriesTotal;
+                                            }
                                         };
                                         zipFile.ExtractAll(string.IsNullOrEmpty(Path.GetDirectoryName(yamlFileName)) ? Path.Combine(QwilightComponent.UIEntryPath, yamlFileName) : QwilightComponent.UIEntryPath, ExtractExistingFileAction.OverwriteSilently);
                                         savingUIItem.Variety = NotifySystem.NotifyVariety.Quit;
@@ -1607,6 +1610,7 @@ namespace Qwilight.ViewModel
             Configure.Instance.Save(false);
             GPUConfigure.Instance.Save(false);
             DB.Instance.Save(false);
+            FastDB.Instance.Save();
 
             AudioSystem.Instance.Dispose();
             AudioInputSystem.Instance.Dispose();
@@ -1757,8 +1761,11 @@ namespace Qwilight.ViewModel
                     });
                     zipFile.ExtractProgress += (sender, e) =>
                     {
-                        savingFileItem.LevyingStatus = e.EntriesExtracted;
-                        savingFileItem.QuitStatus = e.EntriesTotal;
+                        if (e.EntriesTotal > 0)
+                        {
+                            savingFileItem.Status = e.EntriesExtracted;
+                            savingFileItem.MaxStatus = e.EntriesTotal;
+                        }
                     };
                     zipFile.ExtractAll(bundleEntryPath, ExtractExistingFileAction.OverwriteSilently);
                 }
@@ -2378,17 +2385,17 @@ namespace Qwilight.ViewModel
             }
         }
 
-        void Fade(Action onFade, DefaultCompute fadingComputer, bool isFadingComputerStable, int fadingViewLayer)
+        void Fade(Action onFade, DefaultCompute fadingViewComputer, bool isFadingComputerStable, int fadingViewLayer)
         {
             _fadeInHandler?.Stop();
 
             IsAvailable = false;
 
-            FadingValue.Computer = fadingComputer;
+            FadingValue.Computer = fadingViewComputer;
             FadingValue.IsComputerStable = isFadingComputerStable;
             FadingValue.Layer = fadingViewLayer;
 
-            var millis = BaseUI.Instance.FadingPropertyValues[(int)ModeValue]?[FadingValue.Layer]?.Millis;
+            var millis = BaseUI.Instance.FadingProperties[(int)ModeValue]?[FadingValue.Layer]?.Millis;
             var fadingCounter = Stopwatch.StartNew();
             new DispatcherTimer(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
             {
@@ -2409,7 +2416,7 @@ namespace Qwilight.ViewModel
                     FadingValue.Layer = 0;
                     onFade();
 
-                    var millis = BaseUI.Instance.FadingPropertyValues[(int)ModeValue]?[FadingValue.Layer]?.Millis;
+                    var millis = BaseUI.Instance.FadingProperties[(int)ModeValue]?[FadingValue.Layer]?.Millis;
                     fadingCounter.Restart();
                     _fadeInHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
                     {
@@ -3143,7 +3150,7 @@ namespace Qwilight.ViewModel
                             {
                                 using (var hrm = await wwwClient.GetAsync(target, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
                                 {
-                                    savingQwilightItem.QuitStatus = hrm.Content.Headers.ContentLength ?? 0L;
+                                    savingQwilightItem.MaxStatus = hrm.Content.Headers.ContentLength ?? 0L;
                                 }
                                 using (var fs = File.OpenWrite(tmpFileName))
                                 using (var ws = await wwwClient.GetStreamAsync(target).ConfigureAwait(false))
@@ -3152,7 +3159,7 @@ namespace Qwilight.ViewModel
                                     while ((length = await ws.ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
                                     {
                                         await fs.WriteAsync(data.AsMemory(0, length)).ConfigureAwait(false);
-                                        savingQwilightItem.LevyingStatus += length;
+                                        savingQwilightItem.Status += length;
                                     }
                                 }
                             }

@@ -423,7 +423,7 @@ namespace Qwilight
         public readonly object PaintPropertyCSX = new();
         public readonly List<int> PaintPropertyIDs = new();
         public readonly Dictionary<PaintProperty.ID, int>[] PaintPropertyIntMap = new Dictionary<PaintProperty.ID, int>[UI.HighestPaintPropertyID];
-        public readonly Dictionary<PaintProperty.ID, double>[] PaintPropertyValueMap = new Dictionary<PaintProperty.ID, double>[UI.HighestPaintPropertyID];
+        public readonly Dictionary<PaintProperty.ID, double>[] PaintPropertyMap = new Dictionary<PaintProperty.ID, double>[UI.HighestPaintPropertyID];
         /// <summary>
         /// 라인 길이
         /// 플로팅 노트는 라인 길이가 0 이다.
@@ -447,9 +447,9 @@ namespace Qwilight
 
         public DrawingComponent()
         {
-            for (var i = PaintPropertyValueMap.Length - 1; i >= 0; --i)
+            for (var i = PaintPropertyMap.Length - 1; i >= 0; --i)
             {
-                PaintPropertyValueMap[i] = new();
+                PaintPropertyMap[i] = new();
             }
             for (var i = PaintPropertyIntMap.Length - 1; i >= 0; --i)
             {
@@ -663,35 +663,35 @@ namespace Qwilight
             lock (PaintPropertyCSX)
             {
                 PaintPropertyIDs.Clear();
-                for (var i = UI.Instance.PaintPropertyValues.Length - 1; i >= 0; --i)
+                for (var i = UI.Instance.PaintProperties.Length - 1; i >= 0; --i)
                 {
-                    PaintPropertyValueMap[i].Clear();
+                    PaintPropertyMap[i].Clear();
                     PaintPropertyIntMap[i].Clear();
 
-                    var paintPropertyValue = UI.Instance.PaintPropertyValues[i];
-                    if (paintPropertyValue != null)
+                    var paintProperty = UI.Instance.PaintProperties[i];
+                    if (paintProperty != null)
                     {
                         PaintPropertyIDs.Add(i);
 
-                        foreach (var (valueID, value) in paintPropertyValue.ValueMap)
+                        foreach (var (valueID, value) in paintProperty.ValueMap)
                         {
-                            PaintPropertyValueMap[i][valueID] = value;
+                            PaintPropertyMap[i][valueID] = value;
                         }
-                        foreach (var (valueID, value) in paintPropertyValue.AltMap)
+                        foreach (var (valueID, value) in paintProperty.AltMap)
                         {
                             PaintPropertyIntMap[i][valueID] = value;
                         }
-                        foreach (var (valueID, value) in paintPropertyValue.IntMap)
+                        foreach (var (valueID, value) in paintProperty.IntMap)
                         {
                             PaintPropertyIntMap[i][valueID] = value;
                         }
-                        foreach (var (valueID, values) in paintPropertyValue.ValueCallMap)
+                        foreach (var (valueID, values) in paintProperty.ValueCallMap)
                         {
-                            if (!PaintPropertyValueMap[i].ContainsKey(valueID))
+                            if (!PaintPropertyMap[i].ContainsKey(valueID))
                             {
                                 try
                                 {
-                                    PaintPropertyValueMap[i][valueID] = lsCaller.Call(lsCaller.Globals[values[0]], values.Skip(1).Select(value => Utility.ToFloat64(value) as object).ToArray()).Number;
+                                    PaintPropertyMap[i][valueID] = lsCaller.Call(lsCaller.Globals[values[0]], values.Skip(1).Select(value => Utility.ToFloat64(value) as object).ToArray()).Number;
                                 }
                                 catch
                                 {
@@ -699,7 +699,7 @@ namespace Qwilight
                                 }
                             }
                         }
-                        foreach (var (valueID, values) in paintPropertyValue.IntCallMap)
+                        foreach (var (valueID, values) in paintProperty.IntCallMap)
                         {
                             if (!PaintPropertyIntMap[i].ContainsKey(valueID))
                             {
@@ -713,7 +713,7 @@ namespace Qwilight
                                 }
                             }
                         }
-                        foreach (var (valueID, values) in paintPropertyValue.AltCallMap)
+                        foreach (var (valueID, values) in paintProperty.AltCallMap)
                         {
                             if (!PaintPropertyIntMap[i].ContainsKey(valueID))
                             {

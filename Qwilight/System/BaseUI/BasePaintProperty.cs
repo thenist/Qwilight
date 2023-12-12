@@ -23,23 +23,25 @@ namespace Qwilight
 
         public Bound PaintBound { get; set; }
 
-        public int Frame { get; set; }
+        public int Frame { get; init; }
 
-        public double Framerate { get; set; }
+        public double Framerate { get; init; }
 
-        public int Layer { get; set; }
+        public int Layer { get; init; }
+
+        public Dictionary<int, HandledDrawingItem?[]> HandledDrawingItemMap { get; } = new();
 
         public HandledDrawingItem?[] HandledDrawingItems { get; set; }
 
         public HandledMediaItem[] HandledMediaItems { get; set; }
 
-        public MediaHandlerItem MediaHandlerItemValue { get; set; }
+        public MediaHandlerItem MediaHandlerItem { get; set; }
 
-        public int DrawingVariety { get; set; }
+        public int DrawingVariety { get; init; }
 
-        public int Mode { get; set; }
+        public int Mode { get; init; }
 
-        public string Etc { get; set; }
+        public string Etc { get; init; }
 
         public void Dispose()
         {
@@ -62,7 +64,7 @@ namespace Qwilight
                                 var framerate = 1000.0 / Framerate;
                                 DrawingMillis += millis;
                                 DrawingFrame = (int)(DrawingMillis / framerate) % Frame;
-                                targetSession.PaintDrawing(ref r, HandledDrawingItems[DrawingFrame]?.DefaultDrawing);
+                                targetSession.PaintDrawing(ref r, HandledDrawingItems?.ElementAtOrDefault(DrawingFrame)?.DefaultDrawing);
                             }
                             break;
                         case 1:
@@ -70,9 +72,9 @@ namespace Qwilight
                             {
                                 targetSession.PushOpacity(defaultMediaFaint / 100.0);
                                 targetSession.DrawRectangle(Paints.Paint0, null, r);
-                                var defaultDrawing = noteFile.NoteDrawing;
-                                Utility.SetFilledMediaDrawing(ref r, Configure.Instance.IsMediaFill, defaultDrawing.Width, defaultDrawing.Height, PaintBound.Position0, PaintBound.Position1, PaintBound.Length, PaintBound.Height);
-                                targetSession.PaintDrawing(ref r, defaultDrawing);
+                                var noteDrawing = noteFile.NoteDrawing;
+                                Utility.SetFilledMediaDrawing(ref r, Configure.Instance.IsMediaFill, noteDrawing.Width, noteDrawing.Height, PaintBound.Position0, PaintBound.Position1, PaintBound.Length, PaintBound.Height);
+                                targetSession.PaintDrawing(ref r, noteDrawing);
                                 targetSession.Pop();
                             }
                             break;
@@ -117,7 +119,7 @@ namespace Qwilight
                             Utility.PaintAudioVisualizer(targetSession, ref r, (int)(100 * Configure.Instance.BaseUIConfigureValue.DefaultAudioVisualizerFaint), PaintBound.Position0, PaintBound.Position1, PaintBound.Length, PaintBound.Height);
                             break;
                         case 11:
-                            targetSession.DrawVideo(MediaHandlerItemValue?.HandledMediaItem.DefaultMedia, r);
+                            targetSession.DrawVideo(MediaHandlerItem?.HandledMediaItem.DefaultMedia, r);
                             break;
                         case 12:
                             if (TwilightSystem.Instance.IsSignedIn && Framerate > 0.0)
@@ -149,7 +151,7 @@ namespace Qwilight
                     DrawingFrame = (int)(DrawingMillis / (1000.0 / Framerate));
                     if (DrawingFrame < Frame)
                     {
-                        targetSession.PaintDrawing(ref r, HandledDrawingItems[DrawingFrame]?.DefaultDrawing);
+                        targetSession.PaintDrawing(ref r, HandledDrawingItems?.ElementAtOrDefault(DrawingFrame)?.DefaultDrawing);
                     }
                 }
             }
@@ -171,7 +173,7 @@ namespace Qwilight
                                 var framerate = 1000.0 / Framerate;
                                 DrawingMillis += millis;
                                 DrawingFrame = (int)(DrawingMillis / framerate) % Frame;
-                                targetSession.PaintDrawing(ref r, HandledDrawingItems[DrawingFrame]?.Drawing);
+                                targetSession.PaintDrawing(ref r, HandledDrawingItems?.ElementAtOrDefault(DrawingFrame)?.Drawing);
                             }
                             break;
                         case 1:
@@ -182,7 +184,7 @@ namespace Qwilight
                                 {
                                     if (handlingComputer.HasContents)
                                     {
-                                        targetSession.PaintDrawing(ref r, (handlingComputer.NoteHandledDrawingItem ?? DrawingSystem.Instance.DefaultDrawing).Drawing, defaultMediaFaint);
+                                        targetSession.PaintDrawing(ref r, (handlingComputer.NoteDrawing ?? DrawingSystem.Instance.DefaultDrawing).Drawing, defaultMediaFaint);
                                     }
                                 }
                             }
@@ -241,7 +243,7 @@ namespace Qwilight
                                     case "D FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.D && defaultComputer.IsP:
                                     case "D" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.D && !defaultComputer.IsP:
                                     case "F" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.F:
-                                        targetSession.PaintDrawing(ref r, HandledDrawingItems[DrawingFrame]?.Drawing);
+                                        targetSession.PaintDrawing(ref r, HandledDrawingItems?.ElementAtOrDefault(DrawingFrame)?.Drawing);
                                         break;
                                 }
                             }
@@ -250,7 +252,7 @@ namespace Qwilight
                             Utility.PaintAudioVisualizer(targetSession, ref r, (int)(100 * Configure.Instance.BaseUIConfigureValue.DefaultAudioVisualizerFaint), r.Position0, r.Position1, r.Length, r.Height);
                             break;
                         case 11:
-                            var mediaFrame = MediaHandlerItemValue?.MediaFrame;
+                            var mediaFrame = MediaHandlerItem?.MediaFrame;
                             if (mediaFrame != null)
                             {
                                 var mediaFrameBound = mediaFrame.Bounds;
@@ -287,7 +289,7 @@ namespace Qwilight
                     DrawingFrame = (int)(DrawingMillis / (1000.0 / Framerate));
                     if (DrawingFrame < Frame)
                     {
-                        targetSession.PaintDrawing(ref r, HandledDrawingItems[DrawingFrame]?.Drawing);
+                        targetSession.PaintDrawing(ref r, HandledDrawingItems?.ElementAtOrDefault(DrawingFrame)?.Drawing);
                     }
                 }
             }

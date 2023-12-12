@@ -101,7 +101,7 @@
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <view:AvatarNameView AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" FontLength="{Binding CommentAvatarNameFontLevel, Source={StaticResource BaseUI}}" TextPaint="{StaticResource CommentNamePaint}" />
+                                                <view:AvatarNameView Margin="{StaticResource VNarrowMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" FontLength="{Binding CommentAvatarNameFontLevel, Source={StaticResource BaseUI}}" TextPaint="{StaticResource CommentNamePaint}" />
                                                 <TextBlock Grid.Column="1" Style="{StaticResource VNarrowTextView}" Text="❕" FontSize="{Binding CommentViewPointFontLevel, Source={StaticResource BaseUI}}" Foreground="Yellow" Visibility="{Binding ModeComponentValue.IsLowerStand, Converter={StaticResource VisibilityModifier}}" />
                                                 <TextBlock Grid.Column="2" Style="{StaticResource VNarrowTextView}" Text="{Binding StandText}" FontSize="{Binding CommentStandFontLevel, Source={StaticResource BaseUI}}" Foreground="{Binding StandPaint}" />
                                             </Grid>
@@ -150,7 +150,7 @@
                             </Grid.ColumnDefinitions>
                             <view:AvatarDrawingView Width="{Binding CommentItemAvatarHeight, Source={StaticResource BaseUI}}" Height="{Binding CommentItemAvatarHeight, Source={StaticResource BaseUI}}" AvatarWwwValue="{Binding AvatarWwwValue}" />
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <view:AvatarNameView AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" FontLength="{Binding CommentAvatarNameFontLevel, Source={StaticResource BaseUI}}" TextPaint="{StaticResource CommentNamePaint}" />
+                                <view:AvatarNameView Margin="{StaticResource VNarrowMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" FontLength="{Binding CommentAvatarNameFontLevel, Source={StaticResource BaseUI}}" TextPaint="{StaticResource CommentNamePaint}" />
                                 <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding Value}" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Grid>

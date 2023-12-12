@@ -28,7 +28,7 @@
                                 </Grid.ColumnDefinitions>
                                 <view:AvatarDrawingView Width="48" Height="48" AvatarWwwValue="{Binding AvatarWwwValue}" />
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <view:AvatarNameView AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
+                                    <view:AvatarNameView Margin="{StaticResource StandardMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" />
                                     <StackPanel Orientation="Horizontal" Grid.Row="1">
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Stand}" />
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Band}" />
