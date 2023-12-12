@@ -475,7 +475,7 @@ namespace Qwilight.Compiler
                 bmsonPositionSet.Add(bmsonPosition);
             }
             targetComputing.LevyingBPM = _text.info.init_bpm;
-            ComponentValue = new Component(targetComputing.LevyingBPM);
+            ComponentValue = new(targetComputing.LevyingBPM);
             _res = _text.info.resolution * 4;
             var lastBMSONPosition = 0L;
             var lastWait = 0.0;
@@ -654,11 +654,11 @@ namespace Qwilight.Compiler
                         {
                             if (note.l > 0L)
                             {
-                                Notes.Add(new LongNote(logicalY, wait, new[] { audioNote }, input, _bmsonPositionWaitMap[bmsonPosition + note.l] - wait, logicalY - (ComponentValue.LevyingHeight + _bmsonPositionLogicalYMap[bmsonPosition + note.l])));
+                                Notes.Add(new LongNote(logicalY, wait, [audioNote], input, _bmsonPositionWaitMap[bmsonPosition + note.l] - wait, logicalY - (ComponentValue.LevyingHeight + _bmsonPositionLogicalYMap[bmsonPosition + note.l])));
                             }
                             else
                             {
-                                Notes.Add(new InputNote(logicalY, wait, new[] { audioNote }, input));
+                                Notes.Add(new InputNote(logicalY, wait, [audioNote], input));
                             }
                         }
                     }
@@ -687,7 +687,7 @@ namespace Qwilight.Compiler
                         {
                             AudioItem = audioItem
                         };
-                        Notes.Add(new TrapNote(logicalY, wait, new[] { audioNote }, input, note.damage > 0));
+                        Notes.Add(new TrapNote(logicalY, wait, [audioNote], input, note.damage > 0));
                     }
                 }
             }

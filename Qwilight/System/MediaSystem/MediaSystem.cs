@@ -145,7 +145,7 @@ namespace Qwilight
             };
             handledMediaItem.Media.CommandManager.IsEnabled = false;
             handledMediaItem.Media.SystemMediaTransportControls.IsEnabled = false;
-            _mediaMap.AddOrUpdate(mediaContainer, (mediaContainer, handledMediaItem) => new(new[] { KeyValuePair.Create(hash, handledMediaItem) }), (mediaContainer, handledMediaItems, handledMediaItem) =>
+            _mediaMap.AddOrUpdate(mediaContainer, (mediaContainer, handledMediaItem) => new([KeyValuePair.Create(hash, handledMediaItem)]), (mediaContainer, handledMediaItems, handledMediaItem) =>
             {
                 handledMediaItems[hash] = handledMediaItem;
                 return handledMediaItems;

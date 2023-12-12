@@ -133,7 +133,7 @@ namespace Qwilight
                                 {
                                     Console.WriteLine(noteFile.NoteFilePath);
                                     var targetCompiler = BaseCompiler.GetCompiler(noteFile, null);
-                                    var defaultComputer = new DefaultCompute(new[] { noteFile }, null, null, string.Empty, string.Empty)
+                                    var defaultComputer = new DefaultCompute([noteFile], null, null, string.Empty, string.Empty)
                                     {
                                         IsSilent = true
                                     };

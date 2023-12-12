@@ -468,85 +468,155 @@ namespace Qwilight.ViewModel
 
         public InputViewModel()
         {
-            _inputMap[(int)Component.InputMode._4] = new[] { default, 4, 5, 6, 7 };
-            _inputMap[(int)Component.InputMode._5] = new[] { default, 4, 5, 6, 7, 8 };
-            _inputMap[(int)Component.InputMode._6] = new[] { default, 3, 4, 5, 6, 7, 8 };
-            _inputMap[(int)Component.InputMode._7] = new[] { default, 3, 4, 5, 6, 7, 8, 9 };
-            _inputMap[(int)Component.InputMode._8] = new[] { default, 2, 3, 4, 5, 6, 7, 8, 9 };
-            _inputMap[(int)Component.InputMode._9] = new[] { default, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            _inputMap[(int)Component.InputMode._10] = new[] { default, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            _inputMap[(int)Component.InputMode._5_1] = new[] { default, 1, 4, 5, 6, 7, 8 };
-            _inputMap[(int)Component.InputMode._7_1] = new[] { default, 1, 3, 4, 5, 6, 7, 8, 9 };
-            _inputMap[(int)Component.InputMode._10_2] = new[] { default,
-                1, 4, 5, 6, 7, 8,
-                3, 4, 5, 6, 7, 10
-            };
-            _inputMap[(int)Component.InputMode._14_2] = new[] { default,
-                1, 3, 4, 5, 6, 7, 8, 9,
-                2, 3, 4, 5, 6, 7, 8, 10
-            };
-            _inputMap[(int)Component.InputMode._24_2] = new[] { default,
-                1, 4, 5, 6, 7, 8,
-                3, 4, 5, 6, 7, 8, 9,
-                4, 5, 6, 7, 8, 2, 3,
-                4, 5, 6, 7, 8, 10
-            };
-            _inputMap[(int)Component.InputMode._48_4] = new[] { default,
-                1, 2, 4, 5, 6, 7, 8,
-                3, 4, 5, 6, 7, 8, 9,
-                4, 5, 6, 7, 8,
-                3, 4, 5, 6, 7, 8, 9,
-                4, 5, 6, 7, 8,
-                3, 4, 5, 6, 7, 8, 9,
-                4, 5, 6, 7, 8,
-                2, 3, 4, 5, 6, 7, 8, 9, 10
-            };
-            _pageMap[(int)Component.InputMode._4] = new[] { 4 };
-            _pageMap[(int)Component.InputMode._5] = new[] { 5 };
-            _pageMap[(int)Component.InputMode._6] = new[] { 6 };
-            _pageMap[(int)Component.InputMode._7] = new[] { 7 };
-            _pageMap[(int)Component.InputMode._8] = new[] { 8 };
-            _pageMap[(int)Component.InputMode._9] = new[] { 9 };
-            _pageMap[(int)Component.InputMode._10] = new[] { 10 };
-            _pageMap[(int)Component.InputMode._5_1] = new[] { 6 };
-            _pageMap[(int)Component.InputMode._7_1] = new[] { 8 };
-            _pageMap[(int)Component.InputMode._10_2] = new[] { 6, 12 };
-            _pageMap[(int)Component.InputMode._14_2] = new[] { 8, 16 };
-            _pageMap[(int)Component.InputMode._24_2] = new[] { 6, 13, 18, 26 };
-            _pageMap[(int)Component.InputMode._48_4] = new[] { 7, 14, 19, 26, 31, 38, 43, 52 };
-            _inputPositionMap[(int)Component.InputMode._4] = new[] { new[] { default, default, default, default, 1, 2, 3, 4, default, default, default } };
-            _inputPositionMap[(int)Component.InputMode._5] = new[] { new[] { default, default, default, default, 1, 2, 3, 4, 5, default, default } };
-            _inputPositionMap[(int)Component.InputMode._6] = new[] { new[] { default, default, default, 1, 2, 3, 4, 5, 6, default, default } };
-            _inputPositionMap[(int)Component.InputMode._7] = new[] { new[] { default, default, default, 1, 2, 3, 4, 5, 6, 7, default } };
-            _inputPositionMap[(int)Component.InputMode._8] = new[] { new[] { default, default, 1, 2, 3, 4, 5, 6, 7, 8, default } };
-            _inputPositionMap[(int)Component.InputMode._9] = new[] { new[] { default, default, 1, 2, 3, 4, 5, 6, 7, 8, 9 } };
-            _inputPositionMap[(int)Component.InputMode._10] = new[] { new[] { default, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } };
-            _inputPositionMap[(int)Component.InputMode._5_1] = new[] { new[] { default, 1, default, default, 2, 3, 4, 5, 6, default, default } };
-            _inputPositionMap[(int)Component.InputMode._7_1] = new[] { new[] { default, 1, default, 2, 3, 4, 5, 6, 7, 8, default } };
-            _inputPositionMap[(int)Component.InputMode._10_2] = new[] {
-                new[] { default, 1, default, default, 2, 3, 4, 5, 6, default, default },
-                new[] { default, default, default, 7, 8, 9, 10, 11, default, default, 12 }
-            };
-            _inputPositionMap[(int)Component.InputMode._14_2] = new[] {
-                new[] { default, 1, default, 2, 3, 4, 5, 6, 7, 8, default },
-                new[] { default, default, 9, 10, 11, 12, 13, 14, 15, default, 16 }
-            };
-            _inputPositionMap[(int)Component.InputMode._24_2] = new[] {
-                new[] { default, 1, default, default, 2, 3, 4, 5, 6, default, default, default },
-                new[] { default, default, default, 7, 8, 9, 10, 11, 12, 13, default, default },
-                new[] { default, default, default, default, 14, 15, 16, 17, 18, default, default },
-                new[] { default, default, 19, 20, 21, 22, 23, 24, 25, default, 26 }
-            };
-            _inputPositionMap[(int)Component.InputMode._48_4] = new[] {
-                new[] { default, 1, 2, default, 3, 4, 5, 6, 7, default, default },
-                new[] { default, default, default, 8, 9, 10, 11, 12, 13, 14, default },
-                new[] { default, default, default, default, 15, 16, 17, 18, 19, default, default },
-                new[] { default, default, default, 20, 21, 22, 23, 24, 25, 26, default },
-                new[] { default, default, default, default, 27, 28, 29, 30, 31, default, default },
-                new[] { default, default, default, 32, 33, 34, 35, 36, 37, 38, default},
-                new[] { default, default, default, default, 39, 40, 41, 42, 43, default, default },
-                new[] { default, default, 44, 45, 46, 47, 48, 49, 50, 51, 52 }
-            };
+            _inputMap[(int)Component.InputMode._4] = [default, 4, 5, 6, 7];
+            _inputMap[(int)Component.InputMode._5] = [default, 4, 5, 6, 7, 8];
+            _inputMap[(int)Component.InputMode._6] = [default, 3, 4, 5, 6, 7, 8];
+            _inputMap[(int)Component.InputMode._7] = [default, 3, 4, 5, 6, 7, 8, 9];
+            _inputMap[(int)Component.InputMode._8] = [default, 2, 3, 4, 5, 6, 7, 8, 9];
+            _inputMap[(int)Component.InputMode._9] = [default, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            _inputMap[(int)Component.InputMode._10] = [default, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            _inputMap[(int)Component.InputMode._5_1] = [default, 1, 4, 5, 6, 7, 8];
+            _inputMap[(int)Component.InputMode._7_1] = [default, 1, 3, 4, 5, 6, 7, 8, 9];
+            _inputMap[(int)Component.InputMode._10_2] = [default,
+                1,
+                4,
+                5,
+                6,
+                7,
+                8,
+                3,
+                4,
+                5,
+                6,
+                7,
+                10
+           ];
+            _inputMap[(int)Component.InputMode._14_2] = [default,
+                1,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                10
+            ];
+            _inputMap[(int)Component.InputMode._24_2] = [default,
+                1,
+                4,
+                5,
+                6,
+                7,
+                8,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                4,
+                5,
+                6,
+                7,
+                8,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                10
+            ];
+            _inputMap[(int)Component.InputMode._48_4] = [default,
+                1,
+                2,
+                4,
+                5,
+                6,
+                7,
+                8,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                4,
+                5,
+                6,
+                7,
+                8,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                4,
+                5,
+                6,
+                7,
+                8,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                4,
+                5,
+                6,
+                7,
+                8,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+            ];
+            _pageMap[(int)Component.InputMode._4] = [4];
+            _pageMap[(int)Component.InputMode._5] = [5];
+            _pageMap[(int)Component.InputMode._6] = [6];
+            _pageMap[(int)Component.InputMode._7] = [7];
+            _pageMap[(int)Component.InputMode._8] = [8];
+            _pageMap[(int)Component.InputMode._9] = [9];
+            _pageMap[(int)Component.InputMode._10] = [10];
+            _pageMap[(int)Component.InputMode._5_1] = [6];
+            _pageMap[(int)Component.InputMode._7_1] = [8];
+            _pageMap[(int)Component.InputMode._10_2] = [6, 12];
+            _pageMap[(int)Component.InputMode._14_2] = [8, 16];
+            _pageMap[(int)Component.InputMode._24_2] = [6, 13, 18, 26];
+            _pageMap[(int)Component.InputMode._48_4] = [7, 14, 19, 26, 31, 38, 43, 52];
+            _inputPositionMap[(int)Component.InputMode._4] = [[default, default, default, default, 1, 2, 3, 4, default, default, default]];
+            _inputPositionMap[(int)Component.InputMode._5] = [[default, default, default, default, 1, 2, 3, 4, 5, default, default]];
+            _inputPositionMap[(int)Component.InputMode._6] = [[default, default, default, 1, 2, 3, 4, 5, 6, default, default]];
+            _inputPositionMap[(int)Component.InputMode._7] = [[default, default, default, 1, 2, 3, 4, 5, 6, 7, default]];
+            _inputPositionMap[(int)Component.InputMode._8] = [[default, default, 1, 2, 3, 4, 5, 6, 7, 8, default]];
+            _inputPositionMap[(int)Component.InputMode._9] = [[default, default, 1, 2, 3, 4, 5, 6, 7, 8, 9]];
+            _inputPositionMap[(int)Component.InputMode._10] = [[default, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]];
+            _inputPositionMap[(int)Component.InputMode._5_1] = [[default, 1, default, default, 2, 3, 4, 5, 6, default, default]];
+            _inputPositionMap[(int)Component.InputMode._7_1] = [[default, 1, default, 2, 3, 4, 5, 6, 7, 8, default]];
+            _inputPositionMap[(int)Component.InputMode._10_2] = [[default, 1, default, default, 2, 3, 4, 5, 6, default, default], [default, default, default, 7, 8, 9, 10, 11, default, default, 12]];
+            _inputPositionMap[(int)Component.InputMode._14_2] = [[default, 1, default, 2, 3, 4, 5, 6, 7, 8, default], [default, default, 9, 10, 11, 12, 13, 14, 15, default, 16]];
+            _inputPositionMap[(int)Component.InputMode._24_2] = [[default, 1, default, default, 2, 3, 4, 5, 6, default, default, default], [default, default, default, 7, 8, 9, 10, 11, 12, 13, default, default], [default, default, default, default, 14, 15, 16, 17, 18, default, default], [default, default, 19, 20, 21, 22, 23, 24, 25, default, 26]];
+            _inputPositionMap[(int)Component.InputMode._48_4] = [[default, 1, 2, default, 3, 4, 5, 6, 7, default, default], [default, default, default, 8, 9, 10, 11, 12, 13, 14, default], [default, default, default, default, 15, 16, 17, 18, 19, default, default], [default, default, default, 20, 21, 22, 23, 24, 25, 26, default], [default, default, default, default, 27, 28, 29, 30, 31, default, default], [default, default, default, 32, 33, 34, 35, 36, 37, 38, default], [default, default, default, default, 39, 40, 41, 42, 43, default, default], [default, default, 44, 45, 46, 47, 48, 49, 50, 51, 52]];
         }
 
         void SetInputs<T>(T[][][] inputConfigure)

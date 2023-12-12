@@ -316,7 +316,7 @@ namespace Qwilight
             Init();
 
             var drawingMap = new int[HighestNoteID + 1][];
-            drawingMap[0] = new int[] { 0 };
+            drawingMap[0] = new[] { 0 };
             var noteHitDrawings = new DrawingItem?[HighestNoteID + 1][];
             var longNoteHitDrawings = new DrawingItem?[HighestNoteID + 1][];
             var inputDrawings = new DrawingItem?[HighestNoteID + 1][];
@@ -882,14 +882,14 @@ namespace Qwilight
                 DrawingInputModeMap[(int)Component.InputMode._48_4] = GetDrawingInputMode((int)Component.InputMode._48_4, "6, 6, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 9, 8, 7, 8, 7, 9, 8, 7, 8, 7, 8, 7, 11, 11");
                 if (DrawingInputModeMap[(int)Component.InputMode._48_4].Length == 51)
                 {
-                    DrawingInputModeMap[(int)Component.InputMode._48_4] = new int[] { default }.Append(DrawingInputModeMap[(int)Component.InputMode._48_4][1]).Concat(DrawingInputModeMap[(int)Component.InputMode._48_4].Skip(1)).Append(DrawingInputModeMap[(int)Component.InputMode._48_4][50]).ToArray();
+                    DrawingInputModeMap[(int)Component.InputMode._48_4] = new[] { 0 }.Append(DrawingInputModeMap[(int)Component.InputMode._48_4][1]).Concat(DrawingInputModeMap[(int)Component.InputMode._48_4].Skip(1)).Append(DrawingInputModeMap[(int)Component.InputMode._48_4][50]).ToArray();
                 }
 
                 DrawingPipeline.AddRange(GetCalledText(Utility.GetText(lambdaNode, "drawingPipeline", string.Join(", ", Enumerable.Range(0, HighestNoteID)))).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => drawingPipeline < HighestNoteID));
 
                 int[] GetDrawingInputMode(int mode, string defaultValue)
                 {
-                    return new int[] { default }.Concat(GetCalledText(Utility.GetText(lambdaNode, $"drawingInputMode{mode}", defaultValue)).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < HighestNoteID)).ToArray();
+                    return new[] { 0 }.Concat(GetCalledText(Utility.GetText(lambdaNode, $"drawingInputMode{mode}", defaultValue)).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < HighestNoteID)).ToArray();
                 }
 
                 int[] GetDrawingInputMode2P(int mode, string defaultValue)
@@ -897,9 +897,9 @@ namespace Qwilight
                     var drawingInputModeMap = GetDrawingInputMode(mode, defaultValue).Skip(1).ToArray();
                     return IntMap["drawingInputModeSystem"] switch
                     {
-                        0 => new int[] { default }.Concat(drawingInputModeMap).Concat(drawingInputModeMap.Skip(1)).Append(drawingInputModeMap.First()).ToArray(),
-                        1 => new int[] { default }.Concat(drawingInputModeMap).Concat(drawingInputModeMap.Reverse()).ToArray(),
-                        2 => new int[] { default }.Concat(drawingInputModeMap).ToArray(),
+                        0 => new[] { 0 }.Concat(drawingInputModeMap).Concat(drawingInputModeMap.Skip(1)).Append(drawingInputModeMap.First()).ToArray(),
+                        1 => new[] { 0 }.Concat(drawingInputModeMap).Concat(drawingInputModeMap.Reverse()).ToArray(),
+                        2 => new[] { 0 }.Concat(drawingInputModeMap).ToArray(),
                         _ => throw new ArgumentException("drawingInputModeSystem")
                     };
                 }
@@ -1517,7 +1517,7 @@ namespace Qwilight
                         var fileNameContents = justFileName.Split(' ');
                         var main = Utility.ToInt32(fileNameContents.ElementAtOrDefault(1));
                         var frame = Utility.ToInt32(fileNameContents.ElementAtOrDefault(2));
-                        if (fileNameContents[0] == getHitNotePaint(new[] { main, frame }))
+                        if (fileNameContents[0] == getHitNotePaint([main, frame]))
                         {
                             switch (fileNameContents.Length)
                             {
@@ -1535,7 +1535,7 @@ namespace Qwilight
                                     break;
                             }
                         }
-                        else if (fileNameContents[0] == getHitLongNotePaint(new[] { main, frame }))
+                        else if (fileNameContents[0] == getHitLongNotePaint([main, frame]))
                         {
                             switch (fileNameContents.Length)
                             {
@@ -1553,7 +1553,7 @@ namespace Qwilight
                                     break;
                             }
                         }
-                        else if (fileNameContents[0] == getJudgmentPaint(new[] { main, frame }))
+                        else if (fileNameContents[0] == getJudgmentPaint([main, frame]))
                         {
                             JudgmentDrawings.SetValue(main, frame, drawingItem);
                         }
@@ -1562,15 +1562,15 @@ namespace Qwilight
                         fileNameContents = justFileName.Split(' ');
                         Utility.ToInt32(fileNameContents.ElementAtOrDefault(1), out var value1);
                         Utility.ToInt32(fileNameContents.ElementAtOrDefault(2), out var value2);
-                        if (fileNameContents[0] == getPaintProperty(new[] { value1, value2 }))
+                        if (fileNameContents[0] == getPaintProperty([value1, value2]))
                         {
                             Utility.GetValue(PaintPropertyValues, value1)?.Drawings?.SetValue(fileNameContents.Length >= 3 ? value2 : 0, drawingItem);
                         }
-                        else if (fileNameContents[0] == getAutoMain(new[] { value1 }))
+                        else if (fileNameContents[0] == getAutoMain([value1]))
                         {
                             AutoMainDrawings[value1] = drawingItem;
                         }
-                        else if (fileNameContents[0] == getPause(new[] { value1, value2 }))
+                        else if (fileNameContents[0] == getPause([value1, value2]))
                         {
                             PauseDrawings.SetValue(value1, value2, drawingItem);
                         }
@@ -1614,7 +1614,7 @@ namespace Qwilight
                         frame = Utility.ToInt32(fileNameContents.ElementAtOrDefault(2));
                         var text = Utility.ToInt32(fileNameContents.ElementAtOrDefault(3));
                         var longNoteContents = Utility.ToInt32(fileNameContents.ElementAtOrDefault(4));
-                        if (fileNameContents[0] == getNote(new[] { main, frame, text, longNoteContents }))
+                        if (fileNameContents[0] == getNote([main, frame, text, longNoteContents]))
                         {
                             var status = fileNameContents.Length > 4 ? longNoteContents : LongNote.LongNoteBefore;
                             foreach (var drawingMapValue in drawingMap[main])
@@ -1627,32 +1627,32 @@ namespace Qwilight
                         fileNameContents = justFileName.Split(' ');
                         main = Utility.ToInt32(fileNameContents.ElementAtOrDefault(1));
                         frame = Utility.ToInt32(fileNameContents.ElementAtOrDefault(2));
-                        if (fileNameContents[0] == getMain(new[] { main, frame }))
+                        if (fileNameContents[0] == getMain([main, frame]))
                         {
                             foreach (var drawingMapValue in drawingMap[main])
                             {
                                 mainDrawings.SetValue(drawingMapValue, frame, drawingItem);
                             }
                         }
-                        else if (fileNameContents[0] == getWall(new[] { main, frame }))
+                        else if (fileNameContents[0] == getWall([main, frame]))
                         {
                             MainWalls.SetValue(main, drawingItem);
                         }
-                        else if (fileNameContents[0] == getAutoInput(new[] { main, frame }))
+                        else if (fileNameContents[0] == getAutoInput([main, frame]))
                         {
                             foreach (var drawingMapValue in drawingMap[main])
                             {
                                 autoInputDrawings.SetValue(drawingMapValue, drawingItem);
                             }
                         }
-                        else if (fileNameContents[0] == getJudgmentMain(new[] { main, frame }))
+                        else if (fileNameContents[0] == getJudgmentMain([main, frame]))
                         {
                             foreach (var drawingMapValue in drawingMap[main])
                             {
                                 judgmentMainDrawings.SetValue(drawingMapValue, frame, drawingItem);
                             }
                         }
-                        else if (fileNameContents[0] == getMainJudgmentMeter(new[] { main, frame }))
+                        else if (fileNameContents[0] == getMainJudgmentMeter([main, frame]))
                         {
                             if (main > 0)
                             {
@@ -1674,7 +1674,7 @@ namespace Qwilight
                         fileNameContents = justFileName.Split(' ');
                         main = Utility.ToInt32(fileNameContents[1]);
                         frame = Utility.ToInt32(fileNameContents[2]);
-                        if (fileNameContents[0] == getInput(new[] { main, frame }))
+                        if (fileNameContents[0] == getInput([main, frame]))
                         {
                             foreach (var drawingMapValue in drawingMap[main])
                             {
@@ -1689,7 +1689,7 @@ namespace Qwilight
                         fileNameContents = justFileName.Split(' ');
                         main = Utility.ToInt32(fileNameContents[1]);
                         frame = Utility.ToInt32(fileNameContents[2]);
-                        if (fileNameContents[0] == getLevel(new[] { main, frame }))
+                        if (fileNameContents[0] == getLevel([main, frame]))
                         {
                             LevelDrawings.SetValue(main, frame, drawingItem);
                         }
@@ -1772,7 +1772,7 @@ namespace Qwilight
                                 {
                                     BinBPMMap.SetValue(value1, drawingItem);
                                 }
-                                else if (fileNameContents[0] == getBandBin(new[] { value1, value2 }))
+                                else if (fileNameContents[0] == getBandBin([value1, value2]))
                                 {
                                     switch (fileNameContents.Length)
                                     {
@@ -1788,7 +1788,7 @@ namespace Qwilight
                                 {
                                     BinEarlyValueMap.SetValue(value1, drawingItem);
                                 }
-                                else if (fileNameContents[0] == getHighestBandBin(new[] { value1 }))
+                                else if (fileNameContents[0] == getHighestBandBin([value1]))
                                 {
                                     BinHighestBandMap.SetValue(value1, drawingItem);
                                 }
@@ -1888,7 +1888,7 @@ namespace Qwilight
                                             break;
                                     }
                                 }
-                                else if (fileNameContents[0] == getStandBin(new[] { value1 }))
+                                else if (fileNameContents[0] == getStandBin([value1]))
                                 {
                                     BinStandMap.SetValue(value1, drawingItem);
                                 }

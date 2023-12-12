@@ -17,7 +17,7 @@ namespace Qwilight
         {
             {
                 "Beats Flex",
-                new AudioConfigure
+                new()
                 {
                     AudioWait = -173.0,
                     HandleInputAudio = false
@@ -25,7 +25,7 @@ namespace Qwilight
             },
             {
                 "Buds2 Pro",
-                new AudioConfigure
+                new()
                 {
                     AudioWait = -250.0,
                     HandleInputAudio = false
@@ -33,7 +33,7 @@ namespace Qwilight
             },
             {
                 "Buds2 Stereo",
-                new AudioConfigure
+                new()
                 {
                     AudioWait = -250.0,
                     HandleInputAudio = false
@@ -41,7 +41,7 @@ namespace Qwilight
             },
             {
                 "direm W1",
-                new AudioConfigure
+                new()
                 {
                     AudioWait = -48.0,
                     HandleInputAudio = false
@@ -49,7 +49,7 @@ namespace Qwilight
             },
             {
                 "Galaxy Buds Pro",
-                new AudioConfigure
+                new()
                 {
                     AudioWait = -337.0,
                     HandleInputAudio = false
@@ -57,7 +57,7 @@ namespace Qwilight
             },
             {
                 "MOMENTUM 4",
-                new AudioConfigure
+                new()
                 {
                     AudioWait = -249.0,
                     HandleInputAudio = false
@@ -65,7 +65,7 @@ namespace Qwilight
             },
             {
                 "Razer Hammerhead TWS (2nd Gen)",
-                new AudioConfigure
+                new()
                 {
                     AudioWait = -275.0,
                     HandleInputAudio = false
@@ -73,7 +73,7 @@ namespace Qwilight
             },
             {
                 "Razer Hammerhead TWS Pro",
-                new AudioConfigure
+                new()
                 {
                     AudioWait = -259.0,
                     HandleInputAudio = false
@@ -81,7 +81,7 @@ namespace Qwilight
             },
             {
                 "WF-1000XM5",
-                new AudioConfigure
+                new()
                 {
                     AudioWait = -216.0,
                     HandleInputAudio = false
@@ -89,7 +89,7 @@ namespace Qwilight
             },
             {
                 "WH-1000XM5",
-                new AudioConfigure
+                new()
                 {
                     AudioWait = -216.0,
                     HandleInputAudio = false
@@ -153,11 +153,16 @@ namespace Qwilight
 
         public ConcurrentDictionary<string, AudioItem> DefaultAudioItemMap { get; } = new();
 
-        public string GetDefaultAudioFileName(int randomMillis) => DefaultAudioItemMap.IsEmpty ? null : DefaultAudioItemMap.Keys.ElementAt(randomMillis % DefaultAudioItemMap.Count);
-
-        public void LoadDefaultAudioItems()
+        public string GetDefaultAudioFileName(int defaultAudioSalt)
         {
-            foreach (var defaultAudioItem in DefaultAudioItemMap.Values)
+            var defaultAudioFilePathItems = Configure.Instance.DefaultAudioFilePathItems;
+            var defaultAudioFilePathItemsLength = defaultAudioFilePathItems.Length;
+            return defaultAudioFilePathItems.Length > 0 ? $"{nameof(AudioSystem)}://{defaultAudioFilePathItems[defaultAudioSalt < defaultAudioFilePathItemsLength ? defaultAudioSalt : defaultAudioSalt % defaultAudioFilePathItemsLength].Value}" : null;
+        }
+
+        public void WipeDefaultAudioItem(string filePath)
+        {
+            if (DefaultAudioItemMap.TryRemove($"{nameof(AudioSystem)}://{filePath}", out var defaultAudioItem))
             {
                 try
                 {
@@ -172,20 +177,28 @@ namespace Qwilight
                     _audioCSX.ExitWriteLock();
                 }
             }
-            DefaultAudioItemMap.Clear();
+        }
+
+        public void LoadDefaultAudioItem(string filePath)
+        {
+            WipeDefaultAudioItem(filePath);
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    DefaultAudioItemMap[$"{nameof(AudioSystem)}://{filePath}"] = Load(filePath, null, 1F, null, true);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        public void LoadDefaultAudioItems()
+        {
             foreach (var defaultAudioFilePathItem in Configure.Instance.DefaultAudioFilePathItems)
             {
-                try
-                {
-                    var filePath = defaultAudioFilePathItem.Value;
-                    if (File.Exists(filePath))
-                    {
-                        DefaultAudioItemMap[$@"DefaultFavor/{filePath}"] = Load(filePath, null, 1F, null, true);
-                    }
-                }
-                catch
-                {
-                }
+                LoadDefaultAudioItem(defaultAudioFilePathItem.Value);
             }
         }
 
@@ -235,7 +248,7 @@ namespace Qwilight
                     }
                     else
                     {
-                        Configure.Instance.AudioConfigureValues[audioValueName] = _audioConfigureValues.FirstOrDefault(audioConfigureValue => audioValueName.Contains(audioConfigureValue.Key)).Value ?? new AudioConfigure
+                        Configure.Instance.AudioConfigureValues[audioValueName] = _audioConfigureValues.FirstOrDefault(audioConfigureValue => audioValueName.Contains(audioConfigureValue.Key)).Value ?? new()
                         {
                             HandleInputAudio = true
                         };
@@ -267,13 +280,12 @@ namespace Qwilight
                     {
                         AudioValues.Add(audioValue);
                     }
-                    var lastAudioValueID = Configure.Instance.AudioVariety switch
+                    AudioValue = AudioValues.GetSafely(Configure.Instance.AudioVariety switch
                     {
                         OUTPUTTYPE.WASAPI => Configure.Instance.LastWASAPIAudioValueID,
                         OUTPUTTYPE.ASIO => Configure.Instance.LastASIOAudioValueID,
                         _ => default
-                    };
-                    AudioValue = lastAudioValueID < AudioValues.Count ? AudioValues[lastAudioValueID] : null;
+                    });
                 });
                 return RESULT.OK;
             };
@@ -973,7 +985,7 @@ namespace Qwilight
             }
             if (audioContainer != null)
             {
-                _audioMap.AddOrUpdate(audioContainer, (audioContainer, audioItem) => new(new[] { KeyValuePair.Create(hash, audioItem) }), (audioContainer, audioItems, audioItem) =>
+                _audioMap.AddOrUpdate(audioContainer, (audioContainer, audioItem) => new([KeyValuePair.Create(hash, audioItem)]), (audioContainer, audioItems, audioItem) =>
                 {
                     audioItems[hash] = audioItem;
                     return audioItems;
@@ -1276,7 +1288,7 @@ namespace Qwilight
                 {
                     if (_targetSystem.createSound(rms.GetBuffer(), LoadingAudioModes | (isLooping ? MODE.LOOP_NORMAL : MODE.LOOP_OFF), ref audioInfo, out var audioData) == RESULT.OK && audioData.getLength(out var audioLength, TIMEUNIT.MS) == RESULT.OK)
                     {
-                        _audioMap.AddOrUpdate(audioContainer, (audioContainer, audioItem) => new(new[] { KeyValuePair.Create(hash, audioItem) }), (audioContainer, audioItems, audioItem) =>
+                        _audioMap.AddOrUpdate(audioContainer, (audioContainer, audioItem) => new([KeyValuePair.Create(hash, audioItem)]), (audioContainer, audioItems, audioItem) =>
                         {
                             audioItems[hash] = audioItem;
                             return audioItems;

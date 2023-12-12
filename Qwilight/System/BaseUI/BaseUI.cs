@@ -13,6 +13,7 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using Windows.UI;
 using YamlDotNet.Core;
@@ -23,10 +24,13 @@ using Stretch = System.Windows.Media.Stretch;
 
 namespace Qwilight
 {
-    public sealed class BaseUI : Model, IAudioContainer, IDrawingContainer, IMediaContainer, IMediaHandler
+    public sealed partial class BaseUI : Model, IAudioContainer, IDrawingContainer, IMediaContainer, IMediaHandler
     {
         public const int HighestBaseUIConfigure = 16;
         public const int HighestPaintPropertyID = 256;
+
+        [GeneratedRegex(@"^\[.*\]$")]
+        private static partial Regex GetMediaFilePaths();
 
         public static readonly BaseUI Instance = QwilightComponent.GetBuiltInData<BaseUI>(nameof(BaseUI));
 
@@ -64,14 +68,14 @@ namespace Qwilight
         readonly ConcurrentDictionary<string, AudioItem> _defaultAudioItemMap = new();
         readonly ConcurrentDictionary<string, Channel> _audioChannelMap = new();
 
-        public string GetDefaultAudioFileName(int randomMillis) => _defaultAudioItemMap.IsEmpty ? null : _defaultAudioItemMap.Keys.ElementAt(randomMillis % _defaultAudioItemMap.Count);
+        public string GetDefaultAudioFileName(int defaultAudioSalt) => _defaultAudioItemMap.IsEmpty ? null : _defaultAudioItemMap.Keys.ElementAt(defaultAudioSalt % _defaultAudioItemMap.Count);
 
         public bool HandleAudio(string audioFileName, string defaultFileName = null, PausableAudioHandler pausableAudioHandler = null, double fadeInLength = 0.0)
         {
             lock (UI.Instance.LoadedCSX)
             {
                 var wasHandled = false;
-                if (audioFileName.StartsWith(@"DefaultUI/") ? _defaultAudioItemMap.TryGetValue(audioFileName, out var audioItem) : _audioItemMap.TryGetValue(audioFileName, out audioItem))
+                if (audioFileName.StartsWith($"{nameof(BaseUI)}://") ? _defaultAudioItemMap.TryGetValue(audioFileName, out var audioItem) : _audioItemMap.TryGetValue(audioFileName, out audioItem))
                 {
                     wasHandled = true;
                 }
@@ -85,7 +89,7 @@ namespace Qwilight
                     {
                         AudioSystem.Instance.Stop(audioChannel);
                     }
-                    _audioChannelMap[audioFileName] = AudioSystem.Instance.Handle(new AudioNote
+                    _audioChannelMap[audioFileName] = AudioSystem.Instance.Handle(new()
                     {
                         AudioLevyingPosition = pausableAudioHandler?.GetAudioPosition() ?? 0U,
                         AudioItem = audioItem
@@ -786,13 +790,13 @@ namespace Qwilight
                 CommentStandColor = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, "commentStand", nameof(Colors.White))).GetColor());
 
                 foreach (var pair in new[] {
-                        ("level0", (int)BaseNoteFile.Level.Level0),
-                        ("level1", (int)BaseNoteFile.Level.Level1),
-                        ("level2", (int)BaseNoteFile.Level.Level2),
-                        ("level3", (int)BaseNoteFile.Level.Level3),
-                        ("level4", (int)BaseNoteFile.Level.Level4),
-                        ("level5", (int)BaseNoteFile.Level.Level5)
-                    })
+                    ("level0", (int)BaseNoteFile.Level.Level0),
+                    ("level1", (int)BaseNoteFile.Level.Level1),
+                    ("level2", (int)BaseNoteFile.Level.Level2),
+                    ("level3", (int)BaseNoteFile.Level.Level3),
+                    ("level4", (int)BaseNoteFile.Level.Level4),
+                    ("level5", (int)BaseNoteFile.Level.Level5)
+                })
                 {
                     LevelColors[pair.Item2] = Utility.ModifyColor(GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor());
                     LevelPaints[pair.Item2] = DrawingSystem.Instance.GetDefaultPaint(Utility.ModifyColor(LevelColors[pair.Item2]));
@@ -813,15 +817,15 @@ namespace Qwilight
                 CommentPlaceColor = GetCalledText(Utility.GetText(paintNode, "commentPlace", nameof(Colors.White))).GetColor();
 
                 foreach (var pair in new[] {
-                        ("lowestHitPoints", ModeComponent.HitPointsMode.Lowest),
-                        ("lowerHitPoints", ModeComponent.HitPointsMode.Lower),
-                        ("defaultHitPoints", ModeComponent.HitPointsMode.Default),
-                        ("higherHitPoints", ModeComponent.HitPointsMode.Higher),
-                        ("highestHitPoints", ModeComponent.HitPointsMode.Highest),
-                        ("failedHitPoints", ModeComponent.HitPointsMode.Failed),
-                        ("favorHitPoints", ModeComponent.HitPointsMode.Favor),
-                        ("testHitPoints", ModeComponent.HitPointsMode.Test)
-                    })
+                    ("lowestHitPoints", ModeComponent.HitPointsMode.Lowest),
+                    ("lowerHitPoints", ModeComponent.HitPointsMode.Lower),
+                    ("defaultHitPoints", ModeComponent.HitPointsMode.Default),
+                    ("higherHitPoints", ModeComponent.HitPointsMode.Higher),
+                    ("highestHitPoints", ModeComponent.HitPointsMode.Highest),
+                    ("failedHitPoints", ModeComponent.HitPointsMode.Failed),
+                    ("favorHitPoints", ModeComponent.HitPointsMode.Favor),
+                    ("testHitPoints", ModeComponent.HitPointsMode.Test)
+                })
                 {
                     parallelItems.Add(() =>
                     {
@@ -837,13 +841,13 @@ namespace Qwilight
                 HitPointsStatusViewColor = GetCalledText(Utility.GetText(paintNode, "hitPointsStatusView", nameof(Colors.White))).GetColor();
 
                 foreach (var pair in new[] {
-                        ("highestJudgmentV2", Component.Judged.Highest),
-                        ("higherJudgmentV2", Component.Judged.Higher),
-                        ("highJudgmentV2", Component.Judged.High),
-                        ("lowJudgmentV2", Component.Judged.Low),
-                        ("lowerJudgmentV2", Component.Judged.Lower),
-                        ("lowestJudgmentV2", Component.Judged.Lowest)
-                    })
+                    ("highestJudgmentV2", Component.Judged.Highest),
+                    ("higherJudgmentV2", Component.Judged.Higher),
+                    ("highJudgmentV2", Component.Judged.High),
+                    ("lowJudgmentV2", Component.Judged.Low),
+                    ("lowerJudgmentV2", Component.Judged.Lower),
+                    ("lowestJudgmentV2", Component.Judged.Lowest)
+                })
                 {
                     var inputMode = (int)(Component.InputMode)pair.Item2;
                     JudgmentColors[(int)inputMode] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor();
@@ -853,13 +857,13 @@ namespace Qwilight
 
                 TotalNotesJudgmentQuitColor = GetCalledText(Utility.GetText(paintNode, "totalNotesJudgmentQuit", nameof(Colors.White))).GetColor();
                 foreach (var pair in new[] {
-                        ("highestJudgmentQuit", Component.Judged.Highest),
-                        ("higherJudgmentQuit", Component.Judged.Higher),
-                        ("highJudgmentQuit", Component.Judged.High),
-                        ("lowJudgmentQuit", Component.Judged.Low),
-                        ("lowerJudgmentQuit", Component.Judged.Lower),
-                        ("lowestJudgmentQuit", Component.Judged.Lowest)
-                    })
+                    ("highestJudgmentQuit", Component.Judged.Highest),
+                    ("higherJudgmentQuit", Component.Judged.Higher),
+                    ("highJudgmentQuit", Component.Judged.High),
+                    ("lowJudgmentQuit", Component.Judged.Low),
+                    ("lowerJudgmentQuit", Component.Judged.Lower),
+                    ("lowestJudgmentQuit", Component.Judged.Lowest)
+                })
                 {
                     JudgmentQuitColors[(int)pair.Item2] = GetCalledText(Utility.GetText(paintNode, pair.Item1, nameof(Colors.White))).GetColor();
                 }
@@ -890,12 +894,12 @@ namespace Qwilight
                 }
 
                 NoteFileMargin = new(GetCalledValue(pointNode, "noteFileMargin", "31.5"), 1.0, 1.0, 1.0);
-                var entryViewTitleMargin = GetLayerPoint(pointNode, "entryViewTitleMargin", new[] { 58.0, 0.0, 0.0, 0.0 });
+                var entryViewTitleMargin = GetLayerPoint(pointNode, "entryViewTitleMargin", [58.0, 0.0, 0.0, 0.0]);
                 EntryViewTitleMargin = new(entryViewTitleMargin[0], entryViewTitleMargin[1], entryViewTitleMargin[2], entryViewTitleMargin[3]);
 
                 SignInPoint = GetDrawingPoint(pointNode, "signIn");
                 ConfigurePoint = GetDrawingPoint(pointNode, "configure");
-                CommentPoint = GetDrawingPoint(pointNode, "comment", new object[] { 0.0, 0.0, 0.0, 0.0, HorizontalAlignment.Center, VerticalAlignment.Center, Stretch.Uniform });
+                CommentPoint = GetDrawingPoint(pointNode, "comment", [0.0, 0.0, 0.0, 0.0, HorizontalAlignment.Center, VerticalAlignment.Center, Stretch.Uniform]);
                 HasCommentPoint = (double)CommentPoint[2] > 0.0 && (double)CommentPoint[3] > 0.0;
 
                 SaltAutoPoint = GetDrawingPoint(pointNode, "saltAuto");
@@ -908,8 +912,8 @@ namespace Qwilight
 
                 CommentViewPoint = GetLayerPoint(pointNode, "commentView");
                 EntryViewPoint = GetLayerPoint(pointNode, "entryView");
-                InputNoteCountViewPoint = GetLayerPoint(pointNode, "inputNoteCountView", new double[] { 0.0, 0.0, 0.0, 0.0 });
-                AssistViewPoint = GetPanelPoint(pointNode, "assistView", new object[] { 0.0, 0.0, 0.0, 0.0, HorizontalAlignment.Stretch, VerticalAlignment.Stretch, Colors.Transparent, Colors.Transparent });
+                InputNoteCountViewPoint = GetLayerPoint(pointNode, "inputNoteCountView", [0.0, 0.0, 0.0, 0.0]);
+                AssistViewPoint = GetPanelPoint(pointNode, "assistView", [0.0, 0.0, 0.0, 0.0, HorizontalAlignment.Stretch, VerticalAlignment.Stretch, Colors.Transparent, Colors.Transparent]);
 
                 AutoModePoint = GetDrawingPoint(pointNode, "autoMode");
                 NoteSaltModePoint = GetDrawingPoint(pointNode, "noteSaltMode");
@@ -1021,7 +1025,7 @@ namespace Qwilight
                 PointContentsQuitPoint = GetQuitPoint(pointNode, "pointContentsQuit");
                 BandContentsQuitPoint = GetQuitPoint(pointNode, "bandContentsQuit");
 
-                var commentPlacePoint = GetQuitPoint(pointNode, "commentPlace", new float[] { 0F, 0F, 0F, 0F, Levels.FontLevel1Float32 });
+                var commentPlacePoint = GetQuitPoint(pointNode, "commentPlace", [0F, 0F, 0F, 0F, Levels.FontLevel1Float32]);
                 CommentPlace0Point[0] = commentPlacePoint[0];
                 CommentPlace0Point[1] = commentPlacePoint[1];
                 CommentPlace0Point[2] = commentPlacePoint[2] / 2;
@@ -1303,7 +1307,7 @@ namespace Qwilight
                 var lambdaValue = lsCaller.Globals[lambdaName];
                 if (lambdaValue != null)
                 {
-                    value = new Func<int[], string>(args =>
+                    value = new(args =>
                     {
                         try
                         {
@@ -1357,7 +1361,7 @@ namespace Qwilight
                                     {
                                         using (rms)
                                         {
-                                            _defaultAudioItemMap[$@"DefaultUI\{justFileName}"] = AudioSystem.Instance.Load(rms, this, 1F, null, true);
+                                            _defaultAudioItemMap[$"{nameof(BaseUI)}://{justFileName}"] = AudioSystem.Instance.Load(rms, this, 1F, null, true);
                                         }
                                     }
                                     catch
@@ -1391,11 +1395,11 @@ namespace Qwilight
                                 var fileNameContents = justFileName.Split(' ');
                                 Utility.ToInt32(fileNameContents.ElementAtOrDefault(1), out var value1);
                                 Utility.ToInt32(fileNameContents.ElementAtOrDefault(2), out var value2);
-                                if (fileNameContents[0] == getPaintProperty(new[] { value1, value2 }))
+                                if (fileNameContents[0] == getPaintProperty([value1, value2]))
                                 {
                                     NewHandledDrawing(rms);
                                 }
-                                else if (fileNameContents[0] == getTransition(new[] { value1, value2 }))
+                                else if (fileNameContents[0] == getTransition([value1, value2]))
                                 {
                                     NewHandledDrawing(rms);
                                 }
@@ -1563,23 +1567,25 @@ namespace Qwilight
             {
                 if (paintPropertyValue?.DrawingVariety == 11)
                 {
-                    var mode = paintPropertyValue.Mode;
-                    var isAvailable = mode == 1;
-                    var isDefaultAvailable = mode == 0;
-                    if (handledMediaValues.TryGetValue(paintPropertyValue.Etc, out var handledMediaItem))
+                    var etc = paintPropertyValue.Etc;
+                    paintPropertyValue.HandledMediaItems = (GetMediaFilePaths().IsMatch(etc) ? etc.Substring(etc.IndexOf('[') + 1, etc.LastIndexOf(']') - 1).Split(',').Select(text => text.Trim()) : [etc]).Select(mediaFilePath =>
                     {
-                        paintPropertyValue.HandledMediaItemValue = handledMediaItem;
-                    }
-                    else
-                    {
-                        try
+                        if (handledMediaValues.TryGetValue(mediaFilePath, out var handledMediaItem))
                         {
-                            paintPropertyValue.HandledMediaItemValue = MediaSystem.Instance.Load(Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, paintPropertyValue.Etc), this, true);
+                            return handledMediaItem;
                         }
-                        catch
+                        else
                         {
+                            try
+                            {
+                                return MediaSystem.Instance.Load(Path.Combine(QwilightComponent.UIEntryPath, target.UIEntry, paintPropertyValue.Etc), this, true);
+                            }
+                            catch
+                            {
+                                return null;
+                            }
                         }
-                    }
+                    }).Where(handledMediaItem => handledMediaItem != null).ToArray();
                 }
             }
             foreach (var (fileName, drawingItem) in drawingValues)
@@ -1858,11 +1864,11 @@ namespace Qwilight
                         var fileNameContents = justFileName.Split(' ');
                         Utility.ToInt32(fileNameContents.ElementAtOrDefault(1), out var value1);
                         Utility.ToInt32(fileNameContents.ElementAtOrDefault(2), out var value2);
-                        if (fileNameContents[0] == getPaintProperty(new[] { value1, value2 }))
+                        if (fileNameContents[0] == getPaintProperty([value1, value2]))
                         {
                             PaintPropertyValues[value1].HandledDrawingItems.SetValue(value2, handledDrawingItem);
                         }
-                        else if (fileNameContents[0] == getTransition(new[] { value1, value2 }))
+                        else if (fileNameContents[0] == getTransition([value1, value2]))
                         {
                             FadingPropertyValues[value1][value2].HandledDrawingItems.SetValue(Utility.ToInt32(fileNameContents[3]), handledDrawingItem);
                         }
@@ -2158,18 +2164,26 @@ namespace Qwilight
 
                 void OnLoaded()
                 {
-                    foreach (var paintPropertyValue in PaintPropertyValues)
-                    {
-                        var handledMediaItem = paintPropertyValue?.HandledMediaItemValue;
-                        if (handledMediaItem != null && paintPropertyValue.DrawingVariety == 11)
-                        {
-                            var mode = paintPropertyValue.Mode;
-                            paintPropertyValue.MediaHandlerItemValue = MediaSystem.Instance.Handle(handledMediaItem, this, mode == 1, mode == 0);
-                        }
-                    }
+                    HandlePaintPropertyMedia();
                     DrawingSystem.Instance.LoadDefaultDrawing();
                     ViewModels.Instance.NotifyWindowViewModels();
                     mainViewModel.NotifyModel();
+                }
+            }
+        }
+
+        public void HandlePaintPropertyMedia()
+        {
+            foreach (var paintPropertyValue in PaintPropertyValues)
+            {
+                if (paintPropertyValue?.DrawingVariety == 11)
+                {
+                    var handledMediaItems = paintPropertyValue.HandledMediaItems;
+                    if (handledMediaItems.Length > 0)
+                    {
+                        var mode = paintPropertyValue.Mode;
+                        paintPropertyValue.MediaHandlerItemValue = MediaSystem.Instance.Handle(Random.Shared.GetItems(handledMediaItems, 1).SingleOrDefault(), this, mode == 1, mode == 0);
+                    }
                 }
             }
         }

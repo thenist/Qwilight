@@ -139,7 +139,7 @@ namespace Qwilight
                 var textLength = defaultTextID.textLength;
                 if (textLength > 0.0)
                 {
-                    defaultTextItem.SetMaxTextWidths(new[] { textLength });
+                    defaultTextItem.SetMaxTextWidths([textLength]);
                 }
                 return defaultTextItem;
             });

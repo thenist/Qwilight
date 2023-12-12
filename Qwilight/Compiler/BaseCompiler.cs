@@ -1002,7 +1002,7 @@ namespace Qwilight.Compiler
                                             targetInput = inputs[putInput];
                                             continue;
                                         }
-                                        Notes.Add(new InputNote(defaultComputer.WaitLogicalYMap[wait], wait, new[] { audioNote }, targetInput));
+                                        Notes.Add(new InputNote(defaultComputer.WaitLogicalYMap[wait], wait, [audioNote], targetInput));
                                         audioNotes.Remove(audioNote);
                                         break;
                                     } while (true);

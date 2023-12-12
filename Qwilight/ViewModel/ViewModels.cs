@@ -140,7 +140,7 @@ namespace Qwilight.ViewModel
                 WantValue,
                 LevelVoteValue
             };
-            SilentlyClosableViewModels = WindowViewModels.Except(new[] { ConfigureValue }).ToArray();
+            SilentlyClosableViewModels = WindowViewModels.Except([ConfigureValue]).ToArray();
         }
 
         public void HandleSiteViewModels(Action<SiteViewModel> onHandle)

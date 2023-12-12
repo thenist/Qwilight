@@ -11,7 +11,7 @@ namespace Qwilight.Compiler
 {
     public class BMSCompiler : BaseCompiler
     {
-        static readonly char[] _delimiters = new[] { ':', ' ', '.', ';' };
+        static readonly char[] _delimiters = [':', ' ', '.', ';'];
         static readonly Dictionary<string, int> _formatMap = new()
         {
             { "1e517d8a7f7e34e58db1c62aeaf590b7445eb56f12d976af196afb9cda98339108346cacc8939c3cb004eee75f141f1e8104fa7ee425fa95acdf705b3c8064dc:0", 949 },
@@ -936,7 +936,7 @@ namespace Qwilight.Compiler
                                     case '2':
                                         if (input != default)
                                         {
-                                            var inputNote = new InputNote(logicalY, wait, new[] { audioNote }, input);
+                                            var inputNote = new InputNote(logicalY, wait, [audioNote], input);
                                             if (string.IsNullOrEmpty(_longNoteBMSID))
                                             {
                                                 Notes.Add(inputNote);
@@ -955,14 +955,14 @@ namespace Qwilight.Compiler
                                     case '4':
                                         if (input != default)
                                         {
-                                            Notes.Add(new VoidNote(logicalY, wait, new[] { audioNote }, input));
+                                            Notes.Add(new VoidNote(logicalY, wait, [audioNote], input));
                                         }
                                         break;
                                     case '5':
                                     case '6':
                                         if (input != default)
                                         {
-                                            var inputNote = new InputNote(logicalY, wait, new[] { audioNote }, input);
+                                            var inputNote = new InputNote(logicalY, wait, [audioNote], input);
                                             if (!string.IsNullOrEmpty(_longNoteBMSID) && _longNoteBMSID.EqualsCaseless(bmsID))
                                             {
                                                 bmsLongInputItemSets[input].Add(new BMSLongInputItem

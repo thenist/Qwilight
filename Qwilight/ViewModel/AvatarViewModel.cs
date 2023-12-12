@@ -892,7 +892,7 @@ namespace Qwilight.ViewModel
         {
             var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
-                Filters = new[] { ".png" }
+                Filters = [".png"]
             });
             if (!string.IsNullOrEmpty(fileName) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
             {

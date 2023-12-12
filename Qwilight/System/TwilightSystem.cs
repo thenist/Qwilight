@@ -357,7 +357,7 @@ namespace Qwilight
                                             siteYell = twilightSiteYell.siteYell,
                                             siteYellID = twilightSiteYell.siteYellID
                                         };
-                                        siteYellSiteViewModel.NewSiteYells(new[] { siteYell }, false);
+                                        siteYellSiteViewModel.NewSiteYells([siteYell], false);
                                         siteYellSiteViewModel.SetNew();
                                         if (twilightSiteYell.avatarName != "@Enter" || twilightSiteYell.siteYell != GetAvatarName())
                                         {
@@ -576,7 +576,7 @@ namespace Qwilight
                                                 modeComponentValue.NoteMobilityModeValue = ModeComponent.NoteMobilityMode.Default;
                                             }
                                             Utility.HandleUIAudio("Levy Note File");
-                                            mainViewModel.SetComputingMode(new NetCompute(new[] { toLevyNoteFile }, twilightLevyNet.validNetMode == 0 && isFavorModeComponent ? null : defaultModeComponentValue, AvatarID, GetAvatarName(), twilightLevyNet));
+                                            mainViewModel.SetComputingMode(new NetCompute([toLevyNoteFile], twilightLevyNet.validNetMode == 0 && isFavorModeComponent ? null : defaultModeComponentValue, AvatarID, GetAvatarName(), twilightLevyNet));
                                         }
                                         else
                                         {
@@ -1145,7 +1145,7 @@ namespace Qwilight
                                         modeComponentValue.CopyAsJSON(twilightCallIOComponent.data);
                                         modeComponentValue.CanModifyMultiplier = false;
                                         modeComponentValue.CanModifyAudioMultiplier = false;
-                                        mainViewModel.SetComputingMode(new IOCompute(new[] { ioNoteFile }, defaultModeComponentValue, twilightCallIOComponent));
+                                        mainViewModel.SetComputingMode(new IOCompute([ioNoteFile], defaultModeComponentValue, twilightCallIOComponent));
                                     }
                                     else
                                     {

@@ -249,7 +249,7 @@ namespace Qwilight.ViewModel
         {
             var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
-                Filters = new[] { "*" }
+                Filters = ["*"]
             });
             if (!string.IsNullOrEmpty(fileName))
             {
@@ -842,7 +842,7 @@ namespace Qwilight.ViewModel
                     {
                         siteID = SiteID,
                         noteID = noteFile.GetNoteID512(),
-                        noteIDs = IsFavorNoteFile ? noteFile.EntryItem.CompatibleNoteFiles.Select(noteFile => noteFile.GetNoteID512()) : new[] { noteFile.GetNoteID512() },
+                        noteIDs = IsFavorNoteFile ? noteFile.EntryItem.CompatibleNoteFiles.Select(noteFile => noteFile.GetNoteID512()) : [noteFile.GetNoteID512()],
                         title = noteFile.Title,
                         artist = noteFile.Artist,
                         genre = noteFile.Genre,

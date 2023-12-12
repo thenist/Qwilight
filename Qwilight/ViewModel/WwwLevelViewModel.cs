@@ -47,10 +47,10 @@ namespace Qwilight.ViewModel
                     NoteVarietyValue = data.noteVariety;
                     if (NoteVarietyValue == BaseNoteFile.NoteVariety.EventNote)
                     {
-                        Title = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                        Artist = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                        Genre = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
-                        LevelText = new string('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                        Title = new('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                        Artist = new('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                        Genre = new('❌', 1 + RandomNumberGenerator.GetInt32(10));
+                        LevelText = new('❌', 1 + RandomNumberGenerator.GetInt32(10));
                     }
                     else
                     {
@@ -64,7 +64,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        readonly WwwLevelData _wwwLevelDataValue = new WwwLevelData();
+        readonly WwwLevelData _wwwLevelDataValue = new();
         readonly double[] _audioMultipliers = new double[2];
         WwwLevelAvatar? _wwwLevelAvatarValue;
         string _levelName;
@@ -432,10 +432,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var autoMode in twilightWwwLevelValue.autoMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.AutoModeVariety].FindIndex(modeComponentValue => (ModeComponent.AutoMode)modeComponentValue.Value == value)))
                                 {
-                                    AutoModes.Add(new WwwLevelModeComponent<ModeComponent.AutoMode>
+                                    AutoModes.Add(new()
                                     {
                                         Value = autoMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.AutoModeValue = autoMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -450,10 +450,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var noteSaltMode in twilightWwwLevelValue.noteSaltMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.NoteSaltModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteSaltMode)modeComponentValue.Value == value)))
                                 {
-                                    NoteSaltModes.Add(new WwwLevelModeComponent<ModeComponent.NoteSaltMode>
+                                    NoteSaltModes.Add(new()
                                     {
                                         Value = noteSaltMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.NoteSaltModeValue = noteSaltMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -469,10 +469,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var faintNoteMode in twilightWwwLevelValue.faintNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.FaintNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.FaintNoteMode)modeComponentValue.Value == value)))
                                 {
-                                    FaintNoteModes.Add(new WwwLevelModeComponent<ModeComponent.FaintNoteMode>
+                                    FaintNoteModes.Add(new()
                                     {
                                         Value = faintNoteMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.FaintNoteModeValue = faintNoteMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -487,10 +487,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var judgmentMode in twilightWwwLevelValue.judgmentMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.JudgmentModeVariety].FindIndex(modeComponentValue => (ModeComponent.JudgmentMode)modeComponentValue.Value == value)))
                                 {
-                                    JudgmentModes.Add(new WwwLevelModeComponent<ModeComponent.JudgmentMode>
+                                    JudgmentModes.Add(new()
                                     {
                                         Value = judgmentMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.JudgmentModeValue = judgmentMode;
                                             mainViewModel.OnJudgmentMeterMillisModified();
@@ -506,10 +506,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var hitPointsMode in twilightWwwLevelValue.hitPointsMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.HitPointsModeVariety].FindIndex(modeComponentValue => (ModeComponent.HitPointsMode)modeComponentValue.Value == value)))
                                 {
-                                    HitPointsModes.Add(new WwwLevelModeComponent<ModeComponent.HitPointsMode>
+                                    HitPointsModes.Add(new()
                                     {
                                         Value = hitPointsMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.HitPointsModeValue = hitPointsMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -524,10 +524,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var noteMobilityMode in twilightWwwLevelValue.noteMobilityMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.NoteMobilityModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteMobilityMode)modeComponentValue.Value == value)))
                                 {
-                                    NoteMobilityModes.Add(new WwwLevelModeComponent<ModeComponent.NoteMobilityMode>
+                                    NoteMobilityModes.Add(new()
                                     {
                                         Value = noteMobilityMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.NoteMobilityModeValue = noteMobilityMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -542,10 +542,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var longNoteMode in twilightWwwLevelValue.longNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.LongNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.LongNoteMode)modeComponentValue.Value == value)))
                                 {
-                                    LongNoteModes.Add(new WwwLevelModeComponent<ModeComponent.LongNoteMode>
+                                    LongNoteModes.Add(new()
                                     {
                                         Value = longNoteMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.LongNoteModeValue = longNoteMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -561,10 +561,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var inputFavorMode in twilightWwwLevelValue.inputFavorMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.InputFavorModeVariety].FindIndex(modeComponentValue => (ModeComponent.InputFavorMode)modeComponentValue.Value == value)))
                                 {
-                                    InputFavorModes.Add(new WwwLevelModeComponent<ModeComponent.InputFavorMode>
+                                    InputFavorModes.Add(new()
                                     {
                                         Value = inputFavorMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.InputFavorModeValue = inputFavorMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -580,10 +580,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var noteModifyMode in twilightWwwLevelValue.noteModifyMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.NoteModifyModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteModifyMode)modeComponentValue.Value == value)))
                                 {
-                                    NoteModifyModes.Add(new WwwLevelModeComponent<ModeComponent.NoteModifyMode>
+                                    NoteModifyModes.Add(new()
                                     {
                                         Value = noteModifyMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.NoteModifyModeValue = noteModifyMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -599,10 +599,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var bpmMode in twilightWwwLevelValue.bpmMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.BPMModeVariety].FindIndex(modeComponentValue => (ModeComponent.BPMMode)modeComponentValue.Value == value)))
                                 {
-                                    BPMModes.Add(new WwwLevelModeComponent<ModeComponent.BPMMode>
+                                    BPMModes.Add(new()
                                     {
                                         Value = bpmMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.BPMModeValue = bpmMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -618,10 +618,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var waveMode in twilightWwwLevelValue.waveMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.WaveModeVariety].FindIndex(modeComponentValue => (ModeComponent.WaveMode)modeComponentValue.Value == value)))
                                 {
-                                    WaveModes.Add(new WwwLevelModeComponent<ModeComponent.WaveMode>
+                                    WaveModes.Add(new()
                                     {
                                         Value = waveMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.WaveModeValue = waveMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -637,10 +637,10 @@ namespace Qwilight.ViewModel
                             {
                                 foreach (var setNoteMode in twilightWwwLevelValue.setNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.SetNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.SetNoteMode)modeComponentValue.Value == value)))
                                 {
-                                    SetNoteModes.Add(new WwwLevelModeComponent<ModeComponent.SetNoteMode>
+                                    SetNoteModes.Add(new()
                                     {
                                         Value = setNoteMode,
-                                        OnInput = new RelayCommand(() =>
+                                        OnInput = new(() =>
                                         {
                                             mainViewModel.ModeComponentValue.SetNoteModeValue = setNoteMode;
                                             siteContainerViewModel.CallSetModeComponent();
@@ -829,7 +829,7 @@ namespace Qwilight.ViewModel
                     HandledLevelIDs = twilightWwwLevelAvatarsValue.levelIDs;
                     Utility.SetUICollection(WwwLevelAvatarCollection, twilightWwwLevelAvatarsValue.avatars.Select(avatar => new WwwLevelAvatar
                     {
-                        AvatarWwwValue = new AvatarWww(avatar.avatarID),
+                        AvatarWwwValue = new(avatar.avatarID),
                         AvatarName = avatar.avatarName
                     }).ToArray());
                     WwwLevelAvatarValue ??= WwwLevelAvatarCollection.FirstOrDefault();

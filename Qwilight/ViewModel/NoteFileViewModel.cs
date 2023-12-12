@@ -92,7 +92,7 @@ namespace Qwilight.ViewModel
                         {
                             var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                             {
-                                Filters = new[] { ".exe" }
+                                Filters = [".exe"]
                             });
                             if (!string.IsNullOrEmpty(fileName))
                             {
@@ -194,7 +194,7 @@ Qwilight
                         {
                             var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                             {
-                                Filters = new[] { ".exe" }
+                                Filters = [".exe"]
                             });
                             if (!string.IsNullOrEmpty(fileName))
                             {
@@ -298,7 +298,7 @@ Qwilight
             var inputTextViewModel = ViewModels.Instance.InputTextValue;
             inputTextViewModel.Text = LanguageSystem.Instance.ModifyEventNoteNameContents;
             inputTextViewModel.Input = EntryItemValue.EventNoteName;
-            inputTextViewModel.HandleOK = new Action<string>(text =>
+            inputTextViewModel.HandleOK = new(text =>
             {
                 DB.Instance.ModifyEventNoteName(EntryItemValue.EventNoteID, text);
                 EntryItemValue.EventNoteName = text;

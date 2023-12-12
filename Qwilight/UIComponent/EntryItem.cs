@@ -13,16 +13,16 @@ namespace Qwilight.UIComponent
         public static readonly EntryItem DefaultEntryConfigureEntryItem = new()
         {
             IsLogical = true,
-            NoteFiles = new[] { ModifyDefaultEntryNoteFile.Instance },
-            WellNoteFiles = new(new[] { ModifyDefaultEntryNoteFile.Instance }),
+            NoteFiles = [ModifyDefaultEntryNoteFile.Instance],
+            WellNoteFiles = new([ModifyDefaultEntryNoteFile.Instance]),
             LogicalVarietyValue = LogicalVariety.DefaultEntryConfigure
         };
 
         public static readonly EntryItem SaltEntryItem = new()
         {
             IsLogical = true,
-            NoteFiles = new[] { SaltNoteFile.Instance },
-            WellNoteFiles = new(new[] { SaltNoteFile.Instance }),
+            NoteFiles = [SaltNoteFile.Instance],
+            WellNoteFiles = new([SaltNoteFile.Instance]),
             LogicalVarietyValue = LogicalVariety.Salt
         };
 

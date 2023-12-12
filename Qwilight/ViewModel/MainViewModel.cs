@@ -76,7 +76,6 @@ namespace Qwilight.ViewModel
         {
             EnableRaisingEvents = true
         };
-        int _randomMillis = Environment.TickCount;
         DispatcherTimer _fadeInHandler;
         bool _isAvailable = true;
         string _twilightCommentText0 = string.Empty;
@@ -137,6 +136,10 @@ namespace Qwilight.ViewModel
         {
             DefaultEntryItem.Total
         };
+
+        public int DefaultAudioSalt { get; set; } = Environment.TickCount;
+
+        public string PausableAudioFileName => _pausableAudioHandler.AudioFileName;
 
         public bool IsBPMVisible => EntryItemValue?.NoteFile?.HasBPMMap != true;
 
@@ -241,12 +244,6 @@ namespace Qwilight.ViewModel
                     });
                     IsC8H10N4O2 = IsComputingMode && !value;
                     ViewModels.Instance.NotifyWindowViewModels();
-                    var handlingComputer = GetHandlingComputer();
-                    if (handlingComputer != null)
-                    {
-                        MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
-                        MediaSystem.Instance.HandleIfAvailable(handlingComputer);
-                    }
                     TVSystem.Instance.HandleSystemIfAvailable();
                 }
             }
@@ -523,8 +520,16 @@ namespace Qwilight.ViewModel
                     OnPropertyChanged(nameof(DefaultLength));
                     OnPropertyChanged(nameof(DefaultHeight));
                     SetWPFViewVisibility();
+                    MediaSystem.Instance.Stop(BaseUI.Instance);
+                    BaseUI.Instance.HandlePaintPropertyMedia();
                     MediaSystem.Instance.HandleDefaultIfAvailable(BaseUI.Instance);
                     MediaSystem.Instance.HandleIfAvailable(BaseUI.Instance);
+                    var handlingComputer = GetHandlingComputer();
+                    if (handlingComputer != null)
+                    {
+                        MediaSystem.Instance.HandleDefaultIfAvailable(handlingComputer);
+                        MediaSystem.Instance.HandleIfAvailable(handlingComputer);
+                    }
                     ViewModels.Instance.NotifyWindowViewModels();
                     BaseUI.Instance.InitEvents();
                     Configure.Instance.UIConfigureValue.NotifyInputMode();
@@ -532,7 +537,7 @@ namespace Qwilight.ViewModel
                     {
                         ViewModels.Instance.HandleSilentlyClosableViewModels(silentlyClosableViewModel => silentlyClosableViewModel.OpenSilently());
                         NotifySystem.Instance.NotifyPending();
-                        _randomMillis = Environment.TickCount;
+                        DefaultAudioSalt = Environment.TickCount;
                     }
                     else
                     {
@@ -1084,7 +1089,7 @@ namespace Qwilight.ViewModel
                                             }
                                             else
                                             {
-                                                CloseAutoComputer("DefaultUI");
+                                                CloseAutoComputer("Default");
                                                 if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
                                                 {
                                                     Text = LanguageSystem.Instance.WipeEntryItemNotify,
@@ -1184,7 +1189,7 @@ namespace Qwilight.ViewModel
                         if (string.IsNullOrEmpty(EntryItemValue.EventNoteID))
                         {
                             using var fs = File.OpenRead(Path.Combine(QwilightComponent.CommentEntryPath, defaultCommentItem.CommentID));
-                            SetQuitMode(new QuitCompute(new[] { EntryItemValue.NoteFile }, new[] { Comment.Parser.ParseFrom(fs) }, defaultModeComponentValue, defaultCommentItem, null));
+                            SetQuitMode(new QuitCompute([EntryItemValue.NoteFile], [Comment.Parser.ParseFrom(fs)], defaultModeComponentValue, defaultCommentItem, null));
                         }
                         else
                         {
@@ -1223,7 +1228,7 @@ namespace Qwilight.ViewModel
                         IsCommentMode = false;
                         var defaultModeComponentValue = ModeComponentValue.Clone();
                         ModeComponentValue.CopyAs(twilightCommentItem.ModeComponentValue, null, false);
-                        SetQuitMode(new QuitCompute(new[] { noteFile }, new[] { Comment.Parser.ParseFrom(s) }, defaultModeComponentValue, twilightCommentItem, null));
+                        SetQuitMode(new QuitCompute([noteFile], [Comment.Parser.ParseFrom(s)], defaultModeComponentValue, twilightCommentItem, null));
                     }
                 }
             }
@@ -1558,7 +1563,7 @@ namespace Qwilight.ViewModel
                                 ModeComponentValue.ComputingValue = noteFile;
                                 ModeComponentValue.CanModifyMultiplier = true;
                                 ModeComponentValue.CanModifyAudioMultiplier = true;
-                                SetComputingMode(new(new[] { noteFile }, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), wwwLevelDataValue, null, null, null));
+                                SetComputingMode(new([noteFile], null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), wwwLevelDataValue, null, null, null));
                             }
                             else
                             {
@@ -2074,13 +2079,13 @@ namespace Qwilight.ViewModel
                     tmpEntryItem.WellNoteFiles = targetNoteFiles;
                     tmpEntryItem.NotePosition = Math.Min(DB.Instance.GetNotePosition(entryPath), targetNoteFiles.Count - 1);
                     _entryItems[tmpEntryItem.EntryItemID] = tmpEntryItem;
-                    return new[] { tmpEntryItem };
+                    return [tmpEntryItem];
                 }
                 else
                 {
                     foreach (var targetNoteFile in targetNoteFiles)
                     {
-                        targetNoteFile.EntryItem.NoteFiles = new[] { targetNoteFile };
+                        targetNoteFile.EntryItem.NoteFiles = [targetNoteFile];
                         targetNoteFile.EntryItem.CompatibleNoteFiles = targetNoteFiles.ToArray();
                         targetNoteFile.EntryItem.WellNoteFiles = targetNoteFile.EntryItem.NoteFiles.ToList();
                         targetNoteFile.EntryItem.NotePosition = 0;
@@ -3035,7 +3040,7 @@ namespace Qwilight.ViewModel
                 IsCommentMode = false;
                 var defaultModeComponentValue = Computer.DefaultModeComponentValue ?? ModeComponentValue.Clone();
                 ModeComponentValue.CopyAs(netItem.CommentItem.ModeComponentValue, Computer.NoteFile, false);
-                SetComputingMode(new CommentCompute(new[] { Computer.NoteFile }, new[] { netItem.Comment }, defaultModeComponentValue, netItem.AvatarID, netItem.AvatarName, null, null, null, Computer.LoopingCounter));
+                SetComputingMode(new CommentCompute([Computer.NoteFile], [netItem.Comment], defaultModeComponentValue, netItem.AvatarID, netItem.AvatarName, null, null, null, Computer.LoopingCounter));
             }
         }
 
@@ -3674,14 +3679,14 @@ namespace Qwilight.ViewModel
                         }
                         else
                         {
-                            CloseAutoComputer("DefaultUI");
+                            CloseAutoComputer("Default");
                         }
                         targetNoteFile.SetConfigure();
 
                         void NewAutoComputer(double levyingWait, bool doMigrate)
                         {
                             ModeComponentValue.ComputingValue = targetNoteFile;
-                            var autoComputer = new AutoCompute(new[] { targetNoteFile }, null, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), -1, levyingWait);
+                            var autoComputer = new AutoCompute([targetNoteFile], null, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), -1, levyingWait);
                             var targetMigrateComputer = doMigrate ? autoComputer : null;
                             var isMigrate = AutoComputer != null && targetMigrateComputer != null;
                             if (isMigrate)
@@ -3702,7 +3707,7 @@ namespace Qwilight.ViewModel
                             }
                             else
                             {
-                                CloseAutoComputer(isMigrate ? null : "DefaultUI");
+                                CloseAutoComputer(isMigrate ? null : "Default");
                             }
                             AutoComputer = autoComputer;
                             AutoComputer.HandleCompiler();
@@ -3716,7 +3721,7 @@ namespace Qwilight.ViewModel
                 }
                 else
                 {
-                    CloseAutoComputer("DefaultUI");
+                    CloseAutoComputer("Default");
                 }
             }
         }
@@ -3732,7 +3737,7 @@ namespace Qwilight.ViewModel
         public void ClosePausableAudioHandler(string audioFileName = null)
         {
             var defaultAudioVarietyValue = Configure.Instance.DefaultAudioVarietyValue;
-            if (audioFileName == "DefaultUI")
+            if (audioFileName == "Default")
             {
                 switch (defaultAudioVarietyValue)
                 {
@@ -3740,10 +3745,10 @@ namespace Qwilight.ViewModel
                         audioFileName = null;
                         break;
                     case Configure.DefaultAudioVariety.Favor:
-                        audioFileName = AudioSystem.Instance.GetDefaultAudioFileName(_randomMillis);
+                        audioFileName = AudioSystem.Instance.GetDefaultAudioFileName(DefaultAudioSalt);
                         break;
                     case Configure.DefaultAudioVariety.UI:
-                        audioFileName = BaseUI.Instance.GetDefaultAudioFileName(_randomMillis);
+                        audioFileName = BaseUI.Instance.GetDefaultAudioFileName(DefaultAudioSalt);
                         break;
                 }
             }
@@ -3757,12 +3762,12 @@ namespace Qwilight.ViewModel
                     _pausableAudioHandler.IsPausing = audioFileName == null;
                     if (audioFileName != null)
                     {
-                        if (audioFileName.StartsWith(@"DefaultFavor/"))
+                        if (AudioSystem.Instance.DefaultAudioItemMap.TryGetValue(audioFileName, out var audioItem))
                         {
                             AudioSystem.Instance.Handle(new()
                             {
                                 AudioLevyingPosition = _pausableAudioHandler.GetAudioPosition(),
-                                AudioItem = AudioSystem.Instance.DefaultAudioItemMap[audioFileName]
+                                AudioItem = audioItem
                             }, AudioSystem.SEAudio, 1.0, false, _pausableAudioHandler, QwilightComponent.StandardWaitMillis);
                         }
                         else

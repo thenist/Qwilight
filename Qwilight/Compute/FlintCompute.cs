@@ -7,7 +7,7 @@ namespace Qwilight.Compute
     {
         public override bool IsMeterVisible => true;
 
-        public FlintCompute(BaseNoteFile noteFile, ModeComponent defaultModeComponentValue, string avatarID, string avatarName, int levyingMeter) : base(new[] { noteFile }, defaultModeComponentValue, avatarID, avatarName, levyingMeter, double.NaN)
+        public FlintCompute(BaseNoteFile noteFile, ModeComponent defaultModeComponentValue, string avatarID, string avatarName, int levyingMeter) : base([noteFile], defaultModeComponentValue, avatarID, avatarName, levyingMeter, double.NaN)
         {
         }
 

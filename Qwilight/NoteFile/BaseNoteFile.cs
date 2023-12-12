@@ -27,15 +27,15 @@ namespace Qwilight.NoteFile
         {
             if (noteFilePath.IsTailCaselsss(".bmson"))
             {
-                return new[] { new BMSONFile(noteFilePath, defaultEntryItem, entryItem) };
+                return [new BMSONFile(noteFilePath, defaultEntryItem, entryItem)];
             }
             else if (noteFilePath.IsTailCaselsss(".pms"))
             {
-                return new[] { new PMSFile(noteFilePath, defaultEntryItem, entryItem) };
+                return [new PMSFile(noteFilePath, defaultEntryItem, entryItem)];
             }
             else
             {
-                return new[] { new BMSFile(noteFilePath, defaultEntryItem, entryItem) };
+                return [new BMSFile(noteFilePath, defaultEntryItem, entryItem)];
             }
         }
 
@@ -67,7 +67,7 @@ namespace Qwilight.NoteFile
 
         public virtual ImageSource EssentialDrawing { get; }
 
-        public virtual string LogicalAudioFileName => "DefaultUI";
+        public virtual string LogicalAudioFileName => "Default";
 
         public Color LevelColor => BaseUI.Instance.LevelColors[(int)LevelValue];
 

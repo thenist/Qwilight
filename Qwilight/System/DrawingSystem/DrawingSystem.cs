@@ -195,7 +195,7 @@ namespace Qwilight
             {
                 targetSession.Clear(Colors.Transparent);
             }
-            var defaultClearedDrawing = BitmapSource.Create(1, 1, 96.0, 96.0, PixelFormats.Pbgra32, null, new byte[] { 0, 0, 0, 0 }, 4);
+            var defaultClearedDrawing = BitmapSource.Create(1, 1, 96.0, 96.0, PixelFormats.Pbgra32, null, new[] { 0, 0, 0, 0 }, 4);
             defaultClearedDrawing.Freeze();
             ClearedDrawing = new()
             {
@@ -247,22 +247,7 @@ namespace Qwilight
 
         public CanvasTextFormat StatusViewFont { get; }
 
-        public int DrawingItemCount
-        {
-            get
-            {
-                var drawingItemCount = 0;
-                foreach (var drawingItems in _drawingMap.Values)
-                {
-                    drawingItemCount += drawingItems.Count;
-                }
-                foreach (var defaultDrawing in _defaultDrawingMap.Values)
-                {
-                    drawingItemCount += defaultDrawing.Count;
-                }
-                return drawingItemCount;
-            }
-        }
+        public int DrawingItemCount => _drawingMap.Values.Sum(values => values.Count) + _defaultDrawingMap.Values.Sum(values => values.Count);
 
         public void InitMediaInputArea()
         {
@@ -273,10 +258,6 @@ namespace Qwilight
 
         public void LoadDefaultDrawing()
         {
-            if (!ClearedDrawing.Equals(DefaultDrawing))
-            {
-                DefaultDrawing.Dispose();
-            }
             try
             {
                 var filePath = Configure.Instance.DefaultDrawingFilePath;
@@ -302,10 +283,6 @@ namespace Qwilight
 
         public void LoadVeilDrawing()
         {
-            if (!ClearedDrawing.Equals(VeilDrawing))
-            {
-                VeilDrawing.Dispose();
-            }
             try
             {
                 var filePath = Configure.Instance.VeilDrawingFilePath;
@@ -2966,7 +2943,7 @@ namespace Qwilight
                         PaintPipelineID.JudgmentVisualizer => Configure.Instance.UIPipelineJudgmentVisualizer,
                         PaintPipelineID.HitNotePaint => Configure.Instance.UIPipelineHitNotePaint,
                         PaintPipelineID.Hunter => Configure.Instance.UIPipelineHunter,
-                        PaintPipelineID.MediaInput => Configure.Instance.MediaInput,
+                        PaintPipelineID.MediaInput => Configure.Instance.MediaInput && Configure.Instance.FavorMediaInput,
                         PaintPipelineID.VeilDrawing => Configure.Instance.VeilDrawingHeight > 0.0,
                         PaintPipelineID.MainJudgmentMeter => Configure.Instance.UIPipelineMainJudgmentMeter,
                         _ => true
@@ -3124,7 +3101,7 @@ namespace Qwilight
             drawingItem = Load(s, setAverage);
             if (drawingContainer != null)
             {
-                _drawingMap.AddOrUpdate(drawingContainer, (drawingContainer, drawingItem) => new(new[] { KeyValuePair.Create(hash, drawingItem) }), (drawingContainer, drawingItems, drawingItem) =>
+                _drawingMap.AddOrUpdate(drawingContainer, (drawingContainer, drawingItem) => new([KeyValuePair.Create(hash, drawingItem)]), (drawingContainer, drawingItems, drawingItem) =>
                 {
                     drawingItems[hash] = drawingItem;
                     return drawingItems;
@@ -3175,7 +3152,7 @@ namespace Qwilight
                 };
             }
 
-            _drawingMap.AddOrUpdate(drawingContainer, (drawingContainer, drawingItem) => new(new[] { KeyValuePair.Create(hash, drawingItem) }), (drawingContainer, drawingItems, drawingItem) =>
+            _drawingMap.AddOrUpdate(drawingContainer, (drawingContainer, drawingItem) => new([KeyValuePair.Create(hash, drawingItem)]), (drawingContainer, drawingItems, drawingItem) =>
             {
                 drawingItems[hash] = drawingItem;
                 return drawingItems;
@@ -3277,7 +3254,7 @@ namespace Qwilight
                     return defaultDrawing;
                 }
                 defaultDrawing = LoadDefault(s);
-                _defaultDrawingMap.AddOrUpdate(drawingContainer, (drawingContainer, defaultDrawing) => new(new[] { KeyValuePair.Create(hash, defaultDrawing) }), (drawingContainer, defaultDrawings, defaultDrawing) =>
+                _defaultDrawingMap.AddOrUpdate(drawingContainer, (drawingContainer, defaultDrawing) => new([KeyValuePair.Create(hash, defaultDrawing)]), (drawingContainer, defaultDrawings, defaultDrawing) =>
                 {
                     defaultDrawings[hash] = defaultDrawing;
                     return defaultDrawings;
@@ -3301,7 +3278,7 @@ namespace Qwilight
                     return defaultDrawing;
                 }
                 defaultDrawing = LoadImpl();
-                _defaultDrawingMap.AddOrUpdate(drawingContainer, (drawingContainer, defaultDrawing) => new(new[] { KeyValuePair.Create(hash, defaultDrawing) }), (drawingContainer, defaultDrawings, defaultDrawing) =>
+                _defaultDrawingMap.AddOrUpdate(drawingContainer, (drawingContainer, defaultDrawing) => new([KeyValuePair.Create(hash, defaultDrawing)]), (drawingContainer, defaultDrawings, defaultDrawing) =>
                 {
                     defaultDrawings[hash] = defaultDrawing;
                     return defaultDrawings;

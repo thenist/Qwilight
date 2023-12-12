@@ -357,16 +357,15 @@
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="0" />
     </Style>
     <Style x:Key="BaseUIInput" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="Padding" Value="0" />
         <Setter Property="MinWidth" Value="0" />
         <Setter Property="MinHeight" Value="0" />
-        <Setter Property="MinHeight" Value="0" />
-        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <ContentControl x:Name="View" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                    <ContentControl x:Name="View" Content="{TemplateBinding Content}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">

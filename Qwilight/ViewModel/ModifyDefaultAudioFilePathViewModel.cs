@@ -22,7 +22,14 @@ namespace Qwilight.ViewModel
         {
             get => _defaultAudioFilePathItem;
 
-            set => SetProperty(ref _defaultAudioFilePathItem, value, nameof(DefaultAudioFilePathItemValue));
+            set
+            {
+                if (SetProperty(ref _defaultAudioFilePathItem, value, nameof(DefaultAudioFilePathItemValue)) && value.HasValue)
+                {
+                    ViewModels.Instance.MainValue.DefaultAudioSalt = DefaultAudioFilePathItemCollection.IndexOf(value.Value);
+                    ViewModels.Instance.MainValue.CloseAutoComputer("Default");
+                }
+            }
         }
 
         public void OnInputLower(KeyEventArgs e)
@@ -30,8 +37,11 @@ namespace Qwilight.ViewModel
             switch (e.Key)
             {
                 case Key.Delete when DefaultAudioFilePathItemValue.HasValue:
-                    var i = DefaultAudioFilePathItemCollection.IndexOf(DefaultAudioFilePathItemValue.Value);
+                    var defaultAudioFilePathItemValue = DefaultAudioFilePathItemValue.Value;
+                    var i = DefaultAudioFilePathItemCollection.IndexOf(defaultAudioFilePathItemValue);
                     DefaultAudioFilePathItemCollection.RemoveAt(i);
+                    Configure.Instance.DefaultAudioFilePathItems = DefaultAudioFilePathItemCollection.ToArray();
+                    AudioSystem.Instance.WipeDefaultAudioItem(defaultAudioFilePathItemValue.Value);
                     if (i < DefaultAudioFilePathItemCollection.Count)
                     {
                         DefaultAudioFilePathItemValue = DefaultAudioFilePathItemCollection[i];
@@ -48,39 +58,29 @@ namespace Qwilight.ViewModel
         async Task OnNewDefaultAudioFilePath()
         {
             var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow { Filters = QwilightComponent.AudioFileFormats });
-            if (!string.IsNullOrEmpty(fileName) && !DefaultAudioFilePathItemCollection.Any(defaultAudioFilePathItem => defaultAudioFilePathItem.Value == fileName))
+            var defaultAudioFilePathItem = new DefaultAudioFilePathItem
             {
-                DefaultAudioFilePathItemCollection.Add(new() { Value = fileName });
+                Value = fileName
+            };
+            if (!string.IsNullOrEmpty(fileName) && !DefaultAudioFilePathItemCollection.Contains(defaultAudioFilePathItem))
+            {
+                AudioSystem.Instance.LoadDefaultAudioItem(fileName);
+                DefaultAudioFilePathItemCollection.Add(defaultAudioFilePathItem);
+                Configure.Instance.DefaultAudioFilePathItems = DefaultAudioFilePathItemCollection.ToArray();
             }
         }
 
         public override void OnOpened()
         {
             base.OnOpened();
+            Configure.Instance.DefaultAudioVarietyValue = Configure.DefaultAudioVariety.Favor;
             DefaultAudioFilePathItemCollection.Clear();
             foreach (var defaultAudioFilePathItem in Configure.Instance.DefaultAudioFilePathItems)
             {
                 DefaultAudioFilePathItemCollection.Add(defaultAudioFilePathItem);
             }
-        }
-
-        public override void OnCollasped()
-        {
-            base.OnCollasped();
-            var defaultAudioFilePathItems = DefaultAudioFilePathItemCollection.ToArray();
-            if (Utility.IsItemsEqual(Configure.Instance.DefaultAudioFilePathItems, defaultAudioFilePathItems) == false)
-            {
-                Configure.Instance.DefaultAudioFilePathItems = defaultAudioFilePathItems;
-                AudioSystem.Instance.LoadDefaultAudioItems();
-                if (defaultAudioFilePathItems.Length > 0)
-                {
-                    Configure.Instance.DefaultAudioVarietyValue = Configure.DefaultAudioVariety.Favor;
-                }
-                else if (Configure.Instance.DefaultAudioVarietyValue == Configure.DefaultAudioVariety.Favor)
-                {
-                    Configure.Instance.DefaultAudioVarietyValue = Configure.DefaultAudioVariety.UI;
-                }
-            }
+            var pausableAudioFileName = ViewModels.Instance.MainValue.PausableAudioFileName;
+            DefaultAudioFilePathItemValue = DefaultAudioFilePathItemCollection.Where(defaultAudioFilePathItem => $"{nameof(AudioSystem)}://{defaultAudioFilePathItem.Value}" == pausableAudioFileName).ToArray().GetSafely();
         }
     }
 }

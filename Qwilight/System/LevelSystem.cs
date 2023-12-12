@@ -111,60 +111,64 @@ namespace Qwilight
             var data = ArrayPool<byte>.Shared.Rent(QwilightComponent.SendUnit);
             try
             {
-                var o = new HtmlDocument();
-                using var os = await TwilightSystem.Instance.GetWwwParallel(www).ConfigureAwait(false);
-                o.Load(os);
-                using var s = await TwilightSystem.Instance.GetWwwParallel(WebUtility.HtmlDecode(ModifyDataValue(o.CreateNavigator().SelectSingleNode("/html/head/meta[@name='bmstable']/@content")?.ToString()
-                    ?? o.CreateNavigator().SelectSingleNode("/html/body/meta[@name='bmstable']/@content")?.ToString()
-                    ?? o.CreateNavigator().SelectSingleNode("/html/head/body/meta[@name='bmstable']/@content")?.ToString()))).ConfigureAwait(false);
-                var levelTable = await Utility.GetJSON<JSON.BMSTable?>(s).ConfigureAwait(false);
-                if (levelTable.HasValue)
+                var levelCompiler = new HtmlDocument();
+                using (var s = await TwilightSystem.Instance.GetWwwParallel(www).ConfigureAwait(false))
                 {
-                    var levelTableValue = levelTable.Value;
-                    var savingLevelItem = new NotifyItem
+                    levelCompiler.Load(s);
+                }
+                using (var s = await TwilightSystem.Instance.GetWwwParallel(WebUtility.HtmlDecode(ModifyDataValue(levelCompiler.CreateNavigator().SelectSingleNode("/html/head/meta[@name='bmstable']/@content")?.ToString()
+                    ?? levelCompiler.CreateNavigator().SelectSingleNode("/html/body/meta[@name='bmstable']/@content")?.ToString()
+                    ?? levelCompiler.CreateNavigator().SelectSingleNode("/html/head/body/meta[@name='bmstable']/@content")?.ToString()))).ConfigureAwait(false))
+                {
+                    var levelTable = await Utility.GetJSON<JSON.BMSTable?>(s).ConfigureAwait(false);
+                    if (levelTable.HasValue)
                     {
-                        Text = LanguageSystem.Instance.SavingLevelContents,
-                        Variety = NotifySystem.NotifyVariety.Levying,
-                        OnStop = wipeTotal => false
-                    };
-                    UIHandler.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingLevelItem));
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingLevelItem.Text);
-                    var target = ModifyDataValue(levelTableValue.data_url);
-                    var levelTableFileName = levelTableValue.name;
-                    foreach (var targetFileName in Path.GetInvalidFileNameChars())
-                    {
-                        levelTableFileName = levelTableFileName.Replace(targetFileName.ToString(), string.Empty);
-                    }
-                    using (var wwwClient = new HttpClient())
-                    {
-                        wwwClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
-                        using (var hrm = await wwwClient.GetAsync(target, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
+                        var levelTableValue = levelTable.Value;
+                        var savingLevelItem = new NotifyItem
                         {
-                            savingLevelItem.QuitStatus = hrm.Content.Headers.ContentLength ?? 0L;
+                            Text = LanguageSystem.Instance.SavingLevelContents,
+                            Variety = NotifySystem.NotifyVariety.Levying,
+                            OnStop = wipeTotal => false
+                        };
+                        UIHandler.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingLevelItem));
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingLevelItem.Text);
+                        var target = ModifyDataValue(levelTableValue.data_url);
+                        var levelTableFileName = levelTableValue.name;
+                        foreach (var targetFileName in Path.GetInvalidFileNameChars())
+                        {
+                            levelTableFileName = levelTableFileName.Replace(targetFileName.ToString(), string.Empty);
                         }
-                        using (var fs = File.Open(Path.Combine(EntryPath, $"{levelTableFileName}.json"), FileMode.Create))
-                        using (var ws = await wwwClient.GetStreamAsync(target).ConfigureAwait(false))
+                        using (var wwwClient = new HttpClient())
                         {
-                            var length = 0;
-                            while ((length = await ws.ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
+                            wwwClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
+                            using (var hrm = await wwwClient.GetAsync(target, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
                             {
-                                await fs.WriteAsync(data.AsMemory(0, length)).ConfigureAwait(false);
-                                savingLevelItem.LevyingStatus += length;
+                                savingLevelItem.QuitStatus = hrm.Content.Headers.ContentLength ?? 0L;
+                            }
+                            using (var fs = File.Open(Path.Combine(EntryPath, $"{levelTableFileName}.json"), FileMode.Create))
+                            using (var ws = await wwwClient.GetStreamAsync(target).ConfigureAwait(false))
+                            {
+                                var length = 0;
+                                while ((length = await ws.ReadAsync(data.AsMemory(0, data.Length)).ConfigureAwait(false)) > 0)
+                                {
+                                    await fs.WriteAsync(data.AsMemory(0, length)).ConfigureAwait(false);
+                                    savingLevelItem.LevyingStatus += length;
+                                }
                             }
                         }
+                        using (var fs = File.Open(Path.Combine(EntryPath, $"#{levelTableFileName}.json"), FileMode.Create))
+                        {
+                            s.Position = 0;
+                            await s.CopyToAsync(fs).ConfigureAwait(false);
+                        }
+                        savingLevelItem.Variety = NotifySystem.NotifyVariety.Quit;
+                        savingLevelItem.Text = LanguageSystem.Instance.SavedLevelContents;
+                        savingLevelItem.OnStop = wipeTotal => true;
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedLevelContents);
+                        Configure.Instance.LevelTargetMap[levelTableFileName] = www;
+                        LoadLevelFiles();
+                        Configure.Instance.WantLevelName = levelTableFileName;
                     }
-                    using (var fs = File.Open(Path.Combine(EntryPath, $"#{levelTableFileName}.json"), FileMode.Create))
-                    {
-                        s.Position = 0;
-                        await s.CopyToAsync(fs).ConfigureAwait(false);
-                    }
-                    savingLevelItem.Variety = NotifySystem.NotifyVariety.Quit;
-                    savingLevelItem.Text = LanguageSystem.Instance.SavedLevelContents;
-                    savingLevelItem.OnStop = wipeTotal => true;
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedLevelContents);
-                    Configure.Instance.LevelTargetMap[levelTableFileName] = www;
-                    LoadLevelFiles();
-                    Configure.Instance.WantLevelName = levelTableFileName;
                 }
 
                 string ModifyDataValue(string dataValue)

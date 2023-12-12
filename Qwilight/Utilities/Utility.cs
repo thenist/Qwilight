@@ -178,6 +178,16 @@ namespace Qwilight.Utilities
 
         public static double GetMillis(this Stopwatch handler) => 1000.0 * handler.ElapsedTicks / Stopwatch.Frequency;
 
+        public static T? GetSafely<T>(this ICollection<T> data) where T : struct
+        {
+            return data.Count == 1 ? data.Single() : null;
+        }
+
+        public static T? GetSafely<T>(this ICollection<T> data, int i) where T : struct
+        {
+            return i < data.Count ? data.ElementAt(i) : null;
+        }
+
         public static void OpenAs(string fileName, string parameter = null)
         {
             if (!string.IsNullOrEmpty(fileName))
