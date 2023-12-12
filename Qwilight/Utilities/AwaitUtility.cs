@@ -10,5 +10,12 @@ namespace Qwilight.Utilities
             t.Wait();
             return t.Result;
         }
+
+        public static T Await<T, U>(this IAsyncOperationWithProgress<T, U> awaitable)
+        {
+            using var t = awaitable.AsTask();
+            t.Wait();
+            return t.Result;
+        }
     }
 }

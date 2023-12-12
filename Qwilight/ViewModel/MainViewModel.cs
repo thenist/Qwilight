@@ -76,6 +76,7 @@ namespace Qwilight.ViewModel
         {
             EnableRaisingEvents = true
         };
+        int _randomMillis = Environment.TickCount;
         DispatcherTimer _fadeInHandler;
         bool _isAvailable = true;
         string _twilightCommentText0 = string.Empty;
@@ -136,8 +137,6 @@ namespace Qwilight.ViewModel
         {
             DefaultEntryItem.Total
         };
-
-        public int DefaultAudioSalt { get; set; } = Environment.TickCount;
 
         public string PausableAudioFileName => _pausableAudioHandler.AudioFileName;
 
@@ -537,7 +536,7 @@ namespace Qwilight.ViewModel
                     {
                         ViewModels.Instance.HandleSilentlyClosableViewModels(silentlyClosableViewModel => silentlyClosableViewModel.OpenSilently());
                         NotifySystem.Instance.NotifyPending();
-                        DefaultAudioSalt = Environment.TickCount;
+                        _randomMillis = Environment.TickCount;
                     }
                     else
                     {
@@ -2842,7 +2841,8 @@ namespace Qwilight.ViewModel
                             _setCancelDefaultEntryLoading.Cancel();
                             return;
                         }
-                        if (StrongReferenceMessenger.Default.Send(new WipeSystem16View()).Response)
+                        var wasWipedSystem16View = StrongReferenceMessenger.Default.Send(new WipeSystem16View());
+                        if (wasWipedSystem16View.HasReceivedResponse && wasWipedSystem16View.Response)
                         {
                             return;
                         }
@@ -3733,17 +3733,21 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void CloseAutoComputer(string audioFileName = null)
+        public void CloseAutoComputer(string audioFileName = null, int randomMillis = -1)
         {
             _autoComputerHandler.Stop();
             AutoComputer?.Close();
             AutoComputer = null;
-            ClosePausableAudioHandler(audioFileName);
+            ClosePausableAudioHandler(audioFileName, randomMillis);
         }
 
-        public void ClosePausableAudioHandler(string audioFileName = null)
+        public void ClosePausableAudioHandler(string audioFileName = null, int randomMillis = -1)
         {
             var defaultAudioVarietyValue = Configure.Instance.DefaultAudioVarietyValue;
+            if (randomMillis >= 0)
+            {
+                _randomMillis = randomMillis;
+            }
             if (audioFileName == "Default")
             {
                 switch (defaultAudioVarietyValue)
@@ -3752,10 +3756,10 @@ namespace Qwilight.ViewModel
                         audioFileName = null;
                         break;
                     case Configure.DefaultAudioVariety.Favor:
-                        audioFileName = AudioSystem.Instance.GetDefaultAudioFileName(DefaultAudioSalt);
+                        audioFileName = AudioSystem.Instance.GetDefaultAudioFileName(_randomMillis);
                         break;
                     case Configure.DefaultAudioVariety.UI:
-                        audioFileName = BaseUI.Instance.GetDefaultAudioFileName(DefaultAudioSalt);
+                        audioFileName = BaseUI.Instance.GetDefaultAudioFileName(_randomMillis);
                         break;
                 }
             }

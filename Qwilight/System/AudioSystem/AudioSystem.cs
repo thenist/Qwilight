@@ -153,11 +153,11 @@ namespace Qwilight
 
         public ConcurrentDictionary<string, AudioItem> DefaultAudioItemMap { get; } = new();
 
-        public string GetDefaultAudioFileName(int defaultAudioSalt)
+        public string GetDefaultAudioFileName(int randomMillis)
         {
             var defaultAudioFilePathItems = Configure.Instance.DefaultAudioFilePathItems;
             var defaultAudioFilePathItemsLength = defaultAudioFilePathItems.Length;
-            return defaultAudioFilePathItems.Length > 0 ? $"{nameof(AudioSystem)}://{defaultAudioFilePathItems[defaultAudioSalt < defaultAudioFilePathItemsLength ? defaultAudioSalt : defaultAudioSalt % defaultAudioFilePathItemsLength].Value}" : null;
+            return defaultAudioFilePathItems.Length > 0 ? $"{nameof(AudioSystem)}://{defaultAudioFilePathItems[randomMillis < defaultAudioFilePathItemsLength ? randomMillis : randomMillis % defaultAudioFilePathItemsLength].Value}" : null;
         }
 
         public void WipeDefaultAudioItem(string filePath)

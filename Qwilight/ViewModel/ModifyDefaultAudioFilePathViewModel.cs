@@ -26,8 +26,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _defaultAudioFilePathItem, value, nameof(DefaultAudioFilePathItemValue)) && value.HasValue)
                 {
-                    ViewModels.Instance.MainValue.DefaultAudioSalt = DefaultAudioFilePathItemCollection.IndexOf(value.Value);
-                    ViewModels.Instance.MainValue.CloseAutoComputer("Default");
+                    ViewModels.Instance.MainValue.CloseAutoComputer("Default", DefaultAudioFilePathItemCollection.IndexOf(value.Value));
                 }
             }
         }

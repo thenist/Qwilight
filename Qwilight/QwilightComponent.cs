@@ -59,6 +59,7 @@ namespace Qwilight
         public static readonly int HeapCount = GC.MaxGeneration + 1;
         public static readonly HwMode DefaultHwMode;
         public static readonly string AssetsEntryPath;
+        public static readonly string MSIXAssetsEntryPath;
         public static readonly string CPUAssetsEntryPath;
         public static readonly string QwilightEntryPath;
         public static readonly string EdgeEntryPath;
@@ -153,6 +154,7 @@ namespace Qwilight
 #else
             CPUAssetsEntryPath = Path.Combine(AssetsEntryPath, "ARM64");
 #endif
+            MSIXAssetsEntryPath = Path.Combine(AssetsEntryPath, "MSIX");
             QwilightEntryPath = Path.Combine(AppContext.BaseDirectory, IsValve ? "SavesDir" : Environment.UserName);
             EdgeEntryPath = Path.Combine(QwilightEntryPath, "Edge");
             FaultEntryPath = Path.Combine(QwilightEntryPath, "Fault");

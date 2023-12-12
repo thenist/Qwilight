@@ -68,7 +68,7 @@ namespace Qwilight
         readonly ConcurrentDictionary<string, AudioItem> _defaultAudioItemMap = new();
         readonly ConcurrentDictionary<string, Channel> _audioChannelMap = new();
 
-        public string GetDefaultAudioFileName(int defaultAudioSalt) => _defaultAudioItemMap.IsEmpty ? null : _defaultAudioItemMap.Keys.ElementAt(defaultAudioSalt % _defaultAudioItemMap.Count);
+        public string GetDefaultAudioFileName(int randomMillis) => _defaultAudioItemMap.IsEmpty ? null : _defaultAudioItemMap.Keys.ElementAt(randomMillis % _defaultAudioItemMap.Count);
 
         public bool HandleAudio(string audioFileName, string defaultFileName = null, PausableAudioHandler pausableAudioHandler = null, double fadeInLength = 0.0)
         {
