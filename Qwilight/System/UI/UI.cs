@@ -21,9 +21,9 @@ namespace Qwilight
 {
     public sealed class UI : Model, IDrawingContainer, IAudioContainer
     {
-        public const int HighestUIConfigure = 16;
-        public const int HighestNoteID = 64;
-        public const int HighestPaintPropertyID = 256;
+        public const int MaxUIConfigure = 16;
+        public const int MaxNoteID = 64;
+        public const int MaxPaintPropertyID = 256;
 
         public static readonly UI Instance = QwilightComponent.GetBuiltInData<UI>(nameof(UI));
 
@@ -182,7 +182,7 @@ namespace Qwilight
 
         public DrawingItem?[] JudgmentInputDrawings { get; } = new DrawingItem?[6];
 
-        public PaintProperty[] PaintProperties { get; } = new PaintProperty[HighestPaintPropertyID];
+        public PaintProperty[] PaintProperties { get; } = new PaintProperty[MaxPaintPropertyID];
 
         public DrawingItem?[][] JudgmentDrawings { get; } = new DrawingItem?[11][];
 
@@ -278,7 +278,7 @@ namespace Qwilight
 
         public DrawingItem?[] PausedConfigureDrawings { get; } = new DrawingItem?[2];
 
-        public bool HandleAudio(string audioFileName, string defaultFileName, PausableAudioHandler pausableAudioHandler, double fadeInLength)
+        public bool HandleAudio(string audioFileName, string defaultFileName = null, PausableAudioHandler pausableAudioHandler = null, double fadeInLength = 0.0, int audioVariety = AudioSystem.SEAudio)
         {
             lock (LoadedCSX)
             {
@@ -297,7 +297,7 @@ namespace Qwilight
                     {
                         AudioLevyingPosition = pausableAudioHandler?.GetAudioPosition() ?? 0U,
                         AudioItem = audioItem
-                    }, AudioSystem.SEAudio, 1.0, false, pausableAudioHandler, fadeInLength);
+                    }, audioVariety, 1.0, false, pausableAudioHandler, fadeInLength);
                 }
                 return wasHandled;
             }
@@ -315,16 +315,19 @@ namespace Qwilight
 
             Init();
 
-            var drawingMap = new int[HighestNoteID + 1][];
-            drawingMap[0] = new[] { 0 };
-            var noteHitDrawings = new DrawingItem?[HighestNoteID + 1][];
-            var longNoteHitDrawings = new DrawingItem?[HighestNoteID + 1][];
-            var inputDrawings = new DrawingItem?[HighestNoteID + 1][];
-            var noteDrawings = new DrawingItem?[HighestNoteID + 1][][][];
-            var mainDrawings = new DrawingItem?[HighestNoteID + 1][];
-            var autoInputDrawings = new DrawingItem?[HighestNoteID + 1];
-            var judgmentMainDrawings = new DrawingItem?[HighestNoteID + 1][];
-            var mainJudgmentMeterDrawings = new Dictionary<int, DrawingItem?>[HighestNoteID + 1];
+            var drawingMap = new int[MaxNoteID + 1][];
+            for (var i = drawingMap.Length - 1; i >= 0; --i)
+            {
+                drawingMap[i] = [i];
+            }
+            var noteHitDrawings = new DrawingItem?[MaxNoteID + 1][];
+            var longNoteHitDrawings = new DrawingItem?[MaxNoteID + 1][];
+            var inputDrawings = new DrawingItem?[MaxNoteID + 1][];
+            var noteDrawings = new DrawingItem?[MaxNoteID + 1][][][];
+            var mainDrawings = new DrawingItem?[MaxNoteID + 1][];
+            var autoInputDrawings = new DrawingItem?[MaxNoteID + 1];
+            var judgmentMainDrawings = new DrawingItem?[MaxNoteID + 1][];
+            var mainJudgmentMeterDrawings = new Dictionary<int, DrawingItem?>[MaxNoteID + 1];
             string zipName;
 
             var lsCaller = new Script();
@@ -346,7 +349,7 @@ namespace Qwilight
 
                 zipName = Utility.GetText(formatNode, "zip", target.YamlName);
 
-                XamlUIConfigures = Enumerable.Range(0, HighestUIConfigure).Select(i =>
+                XamlUIConfigures = Enumerable.Range(0, MaxUIConfigure).Select(i =>
                 {
                     var configures = (Utility.GetText(lambdaNode, $"configure-{i}-{Utility.GetLCID(Configure.Instance.Language)}") ?? Utility.GetText(lambdaNode, $"configure-{i}"))?.Split(',')?.Select(configure => configure.Trim())?.ToArray();
                     if (configures != null)
@@ -372,6 +375,11 @@ namespace Qwilight
 
                 DefaultLength = GetCalledValue(formatNode, "defaultLength", Component.StandardLength.ToString());
                 DefaultHeight = GetCalledValue(formatNode, "defaultHeight", Component.StandardHeight.ToString());
+
+                for (var i = drawingMap.Length - 1; i > 0; --i)
+                {
+                    drawingMap[i] = GetCalledText(Utility.GetText(lambdaNode, $"drawing{i}", i.ToString())).Split(',').Select(value => Utility.ToInt32(value, out var main) ? main : 0).Where(main => 0 < main && main < MaxNoteID).ToArray();
+                }
 
                 var setPaintPipelines = Utility.ToBool(Utility.GetText(lambdaNode, "set-paint-pinelines", bool.FalseString));
                 foreach (var pipeline in GetCalledText(Utility.GetText(lambdaNode, "pipeline")).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var pipeline) ? pipeline : 0))
@@ -862,11 +870,6 @@ namespace Qwilight
                 SaveValueMap(pointNode, "assistTextPosition1", 360.0);
                 SaveValueMap(pointNode, "inputAssistTextPosition1", 480.0);
 
-                for (var i = HighestNoteID; i > 0; --i)
-                {
-                    drawingMap[i] = GetCalledText(Utility.GetText(lambdaNode, $"drawing{i}", i.ToString())).Split(',').Select(value => Utility.ToInt32(value, out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < HighestNoteID).ToArray();
-                }
-
                 DrawingInputModeMap[(int)Component.InputMode._4] = GetDrawingInputMode((int)Component.InputMode._4, "2, 3, 3, 2");
                 DrawingInputModeMap[(int)Component.InputMode._5] = GetDrawingInputMode((int)Component.InputMode._5, "2, 3, 4, 3, 2");
                 DrawingInputModeMap[(int)Component.InputMode._6] = GetDrawingInputMode((int)Component.InputMode._6, "2, 3, 2, 2, 3, 2");
@@ -885,11 +888,11 @@ namespace Qwilight
                     DrawingInputModeMap[(int)Component.InputMode._48_4] = new[] { 0 }.Append(DrawingInputModeMap[(int)Component.InputMode._48_4][1]).Concat(DrawingInputModeMap[(int)Component.InputMode._48_4].Skip(1)).Append(DrawingInputModeMap[(int)Component.InputMode._48_4][50]).ToArray();
                 }
 
-                DrawingPipeline.AddRange(GetCalledText(Utility.GetText(lambdaNode, "drawingPipeline", string.Join(", ", Enumerable.Range(0, HighestNoteID)))).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => drawingPipeline < HighestNoteID));
+                DrawingPipeline.AddRange(GetCalledText(Utility.GetText(lambdaNode, "drawingPipeline", string.Join(", ", Enumerable.Range(0, MaxNoteID)))).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => drawingPipeline < MaxNoteID));
 
                 int[] GetDrawingInputMode(int mode, string defaultValue)
                 {
-                    return new[] { 0 }.Concat(GetCalledText(Utility.GetText(lambdaNode, $"drawingInputMode{mode}", defaultValue)).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < HighestNoteID)).ToArray();
+                    return new[] { 0 }.Concat(GetCalledText(Utility.GetText(lambdaNode, $"drawingInputMode{mode}", defaultValue)).Split(',').Select(value => Utility.ToInt32(value.Trim(), out var drawingPipeline) ? drawingPipeline : 0).Where(drawingPipeline => 0 < drawingPipeline && drawingPipeline < MaxNoteID)).ToArray();
                 }
 
                 int[] GetDrawingInputMode2P(int mode, string defaultValue)
@@ -975,7 +978,7 @@ namespace Qwilight
                     if (data != null)
                     {
                         string lastData = null;
-                        for (var i = 0; i < HighestNoteID; ++i)
+                        for (var i = 0; i < MaxNoteID; ++i)
                         {
                             var t = data.ElementAtOrDefault(i) ?? "~";
                             var s = t != "~" ? t : lastData;
@@ -985,7 +988,7 @@ namespace Qwilight
                     }
                     else
                     {
-                        for (var i = HighestNoteID - 1; i >= 0; --i)
+                        for (var i = MaxNoteID - 1; i >= 0; --i)
                         {
                             ValueMap[$"{target}{i + 1}"] = defaultValue;
                         }
@@ -997,7 +1000,7 @@ namespace Qwilight
                     if (data != null)
                     {
                         string lastData = null;
-                        for (var i = 0; i < HighestNoteID; ++i)
+                        for (var i = 0; i < MaxNoteID; ++i)
                         {
                             var t = data.ElementAtOrDefault(i) ?? "~";
                             var s = t != "~" ? t : lastData;
@@ -1007,7 +1010,7 @@ namespace Qwilight
                     }
                     else
                     {
-                        for (var i = HighestNoteID - 1; i >= 0; --i)
+                        for (var i = MaxNoteID - 1; i >= 0; --i)
                         {
                             if (ValueMap.TryGetValue(defaultValueID, out var defaultValue))
                             {
@@ -1522,15 +1525,15 @@ namespace Qwilight
                             switch (fileNameContents.Length)
                             {
                                 case 2:
-                                    for (var i = HighestNoteID; i > 0; --i)
+                                    for (var i = MaxNoteID; i > 0; --i)
                                     {
                                         noteHitDrawings.SetValue(i, main, drawingItem);
                                     }
                                     break;
                                 case 3:
-                                    foreach (var drawingMapValue in drawingMap[main])
+                                    foreach (var drawing in drawingMap[main])
                                     {
-                                        noteHitDrawings.SetValue(drawingMapValue, frame, drawingItem);
+                                        noteHitDrawings.SetValue(drawing, frame, drawingItem);
                                     }
                                     break;
                             }
@@ -1540,15 +1543,15 @@ namespace Qwilight
                             switch (fileNameContents.Length)
                             {
                                 case 2:
-                                    for (var i = HighestNoteID; i > 0; --i)
+                                    for (var i = MaxNoteID; i > 0; --i)
                                     {
                                         longNoteHitDrawings.SetValue(i, main, drawingItem);
                                     }
                                     break;
                                 case 3:
-                                    foreach (var drawingMapValue in drawingMap[main])
+                                    foreach (var drawing in drawingMap[main])
                                     {
-                                        longNoteHitDrawings.SetValue(drawingMapValue, frame, drawingItem);
+                                        longNoteHitDrawings.SetValue(drawing, frame, drawingItem);
                                     }
                                     break;
                             }
@@ -1617,9 +1620,9 @@ namespace Qwilight
                         if (fileNameContents[0] == getNote([main, frame, text, longNoteContents]))
                         {
                             var status = fileNameContents.Length > 4 ? longNoteContents : LongNote.LongNoteBefore;
-                            foreach (var drawingMapValue in drawingMap[main])
+                            foreach (var drawing in drawingMap[main])
                             {
-                                noteDrawings.SetValue(drawingMapValue, frame, text, status, drawingItem);
+                                noteDrawings.SetValue(drawing, frame, text, status, drawingItem);
                             }
                         }
                         break;
@@ -1629,9 +1632,9 @@ namespace Qwilight
                         frame = Utility.ToInt32(fileNameContents.ElementAtOrDefault(2));
                         if (fileNameContents[0] == getMain([main, frame]))
                         {
-                            foreach (var drawingMapValue in drawingMap[main])
+                            foreach (var drawing in drawingMap[main])
                             {
-                                mainDrawings.SetValue(drawingMapValue, frame, drawingItem);
+                                mainDrawings.SetValue(drawing, frame, drawingItem);
                             }
                         }
                         else if (fileNameContents[0] == getWall([main, frame]))
@@ -1640,25 +1643,25 @@ namespace Qwilight
                         }
                         else if (fileNameContents[0] == getAutoInput([main, frame]))
                         {
-                            foreach (var drawingMapValue in drawingMap[main])
+                            foreach (var drawing in drawingMap[main])
                             {
-                                autoInputDrawings.SetValue(drawingMapValue, drawingItem);
+                                autoInputDrawings.SetValue(drawing, drawingItem);
                             }
                         }
                         else if (fileNameContents[0] == getJudgmentMain([main, frame]))
                         {
-                            foreach (var drawingMapValue in drawingMap[main])
+                            foreach (var drawing in drawingMap[main])
                             {
-                                judgmentMainDrawings.SetValue(drawingMapValue, frame, drawingItem);
+                                judgmentMainDrawings.SetValue(drawing, frame, drawingItem);
                             }
                         }
                         else if (fileNameContents[0] == getMainJudgmentMeter([main, frame]))
                         {
                             if (main > 0)
                             {
-                                foreach (var drawingMapValue in drawingMap[main])
+                                foreach (var drawing in drawingMap[main])
                                 {
-                                    mainJudgmentMeterDrawings[drawingMapValue][frame] = drawingItem;
+                                    mainJudgmentMeterDrawings[drawing][frame] = drawingItem;
                                 }
                             }
                             else
@@ -1676,11 +1679,11 @@ namespace Qwilight
                         frame = Utility.ToInt32(fileNameContents[2]);
                         if (fileNameContents[0] == getInput([main, frame]))
                         {
-                            foreach (var drawingMapValue in drawingMap[main])
+                            foreach (var drawing in drawingMap[main])
                             {
-                                if (drawingMapValue > 0)
+                                if (drawing > 0)
                                 {
-                                    inputDrawings.SetValue(drawingMapValue, frame, drawingItem);
+                                    inputDrawings.SetValue(drawing, frame, drawingItem);
                                 }
                             }
                         }
@@ -2205,7 +2208,7 @@ namespace Qwilight
 
         public void SetConfigures(Script lsCaller)
         {
-            lsCaller.Globals["configures"] = Enumerable.Range(0, HighestUIConfigure).Select(i =>
+            lsCaller.Globals["configures"] = Enumerable.Range(0, MaxUIConfigure).Select(i =>
             {
                 return Math.Max(0, Array.IndexOf(XamlUIConfigures.SingleOrDefault(value => value.Position == i)?.Configures ?? Array.Empty<string>(), Configure.Instance.UIConfigureValue.UIConfiguresV2[i]));
             }).ToArray();

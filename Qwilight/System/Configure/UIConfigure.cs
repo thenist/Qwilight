@@ -14,7 +14,7 @@ namespace Qwilight
         double _bandPosition;
         double _judgmentPaintPosition;
 
-        public string[] UIConfiguresV2 { get; set; } = new string[UI.HighestUIConfigure];
+        public string[] UIConfiguresV2 { get; set; } = new string[UI.MaxUIConfigure];
 
         public double MainFaintV2
         {

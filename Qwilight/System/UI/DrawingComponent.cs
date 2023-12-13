@@ -422,8 +422,8 @@ namespace Qwilight
 
         public readonly object PaintPropertyCSX = new();
         public readonly List<int> PaintPropertyIDs = new();
-        public readonly Dictionary<PaintProperty.ID, int>[] PaintPropertyIntMap = new Dictionary<PaintProperty.ID, int>[UI.HighestPaintPropertyID];
-        public readonly Dictionary<PaintProperty.ID, double>[] PaintPropertyMap = new Dictionary<PaintProperty.ID, double>[UI.HighestPaintPropertyID];
+        public readonly Dictionary<PaintProperty.ID, int>[] PaintPropertyIntMap = new Dictionary<PaintProperty.ID, int>[UI.MaxPaintPropertyID];
+        public readonly Dictionary<PaintProperty.ID, double>[] PaintPropertyMap = new Dictionary<PaintProperty.ID, double>[UI.MaxPaintPropertyID];
         /// <summary>
         /// 라인 길이
         /// 플로팅 노트는 라인 길이가 0 이다.
@@ -516,7 +516,7 @@ namespace Qwilight
 
             // 이 항목들은 Wall, Contents 함수등 기반이 되므로 먼저 처리
             SaveValueMap("mainPosition");
-            for (var i = UI.HighestNoteID; i > 0; --i)
+            for (var i = UI.MaxNoteID; i > 0; --i)
             {
                 SaveValueMap($"noteLength{i}");
                 SaveValueMap($"floatingNotePosition0{i}");

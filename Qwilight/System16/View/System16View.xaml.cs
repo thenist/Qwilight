@@ -4,6 +4,7 @@ using Qwilight.System16.MSG;
 using Qwilight.ViewModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -48,16 +49,8 @@ namespace Qwilight.System16.View
 
         readonly DrawingGroup _target = new();
         readonly List<FallingItem> _fallingItems = new(64);
-        bool _isViewVisible = true;
 
         public ImageSource Falling { get; set; }
-
-        public bool IsViewVisible
-        {
-            get => _isViewVisible;
-
-            set => SetProperty(ref _isViewVisible, value, nameof(IsViewVisible));
-        }
 
         public System16View()
         {
@@ -67,13 +60,11 @@ namespace Qwilight.System16.View
             {
                 Falling = new BitmapImage(new Uri(Path.Combine(QwilightComponent.AssetsEntryPath, "System 16", "Drawing", "1221.png"), UriKind.Relative));
                 Falling.Freeze();
-                AudioSystem.Instance.HandleImmediately(Path.Combine(QwilightComponent.AssetsEntryPath, "System 16", "Audio", "1221.wav"), this, this, false);
             }
             else if (System16Components.Is1225)
             {
                 Falling = new BitmapImage(new Uri(Path.Combine(QwilightComponent.AssetsEntryPath, "System 16", "Drawing", "1225.png"), UriKind.Relative));
                 Falling.Freeze();
-                AudioSystem.Instance.HandleImmediately(Path.Combine(QwilightComponent.AssetsEntryPath, "System 16", "Audio", "1225.wav"), this, this, false);
             }
             for (var i = _fallingItems.Capacity - 1; i >= 0; --i)
             {
@@ -82,14 +73,11 @@ namespace Qwilight.System16.View
 
             StrongReferenceMessenger.Default.Register<WipeSystem16View>(this, (recipient, message) =>
             {
-                if ((recipient as System16View).IsViewVisible)
+                if (System16Components.Is1221 || System16Components.Is1225)
                 {
-                    (recipient as System16View).IsViewVisible = false;
-                    message.Reply(true);
-                }
-                else
-                {
-                    message.Reply(false);
+                    System16Components.Is1221 = false;
+                    System16Components.Is1225 = false;
+                    UIHandler.Instance.HandleParallel(() => ((recipient as FrameworkElement).Parent as Panel).Children.Remove(this));
                 }
             });
         }

@@ -38,11 +38,11 @@ namespace Qwilight.Utilities
             return (titlePosition >= 0 ? title.Substring(0, titlePosition) : title).Trim();
         }
 
-        public static void HandleUIAudio(string audioFileName, string defaultFileName = null, PausableAudioHandler pausableAudioHandler = null, double fadeInLength = 0.0)
+        public static void HandleUIAudio(string audioFileName, string defaultFileName = null, PausableAudioHandler pausableAudioHandler = null, double fadeInLength = 0.0, int audioVariety = AudioSystem.SEAudio)
         {
-            if (!BaseUI.Instance.HandleAudio(audioFileName, defaultFileName, pausableAudioHandler, fadeInLength))
+            if (!BaseUI.Instance.HandleAudio(audioFileName, defaultFileName, pausableAudioHandler, fadeInLength, audioVariety))
             {
-                UI.Instance.HandleAudio(audioFileName, defaultFileName, pausableAudioHandler, fadeInLength);
+                UI.Instance.HandleAudio(audioFileName, defaultFileName, pausableAudioHandler, fadeInLength, audioVariety);
             }
         }
 

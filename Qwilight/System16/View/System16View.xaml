@@ -4,5 +4,4 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     IsHitTestVisible="False"
     IsVisibleChanged="OnVisibilityModified"
-    DataContext="{Binding RelativeSource={RelativeSource Self}}"
-    Visibility="{Binding IsViewVisible, Converter={StaticResource VisibilityModifier}}"/>
+    DataContext="{Binding RelativeSource={RelativeSource Self}}" />

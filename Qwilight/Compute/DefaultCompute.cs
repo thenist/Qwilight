@@ -97,7 +97,7 @@ namespace Qwilight.Compute
         };
 
         readonly Action _lazyInit;
-        readonly double[] _paintPropertyMillis = new double[UI.HighestPaintPropertyID];
+        readonly double[] _paintPropertyMillis = new double[UI.MaxPaintPropertyID];
         readonly double[] _hitLongNotePaintMillis = new double[53];
         readonly double[] _lastEnlargedBandPaintMillis = new double[53];
         readonly int[] _targetMainFrames = new int[53];
@@ -227,7 +227,7 @@ namespace Qwilight.Compute
 
         public int[] MainJudgmentMeterFrames { get; } = new int[53];
 
-        public int[] PaintPropertyFrames { get; } = new int[UI.HighestPaintPropertyID];
+        public int[] PaintPropertyFrames { get; } = new int[UI.MaxPaintPropertyID];
 
         public int AutoMainFrame { get; set; }
 
@@ -4676,9 +4676,9 @@ namespace Qwilight.Compute
         {
             if (!IsInEvents)
             {
-                if (!UI.Instance.HandleAudio(audioFileName, null, null, 0.0))
+                if (!UI.Instance.HandleAudio(audioFileName))
                 {
-                    BaseUI.Instance.HandleAudio(audioFileName, null, null, 0.0);
+                    BaseUI.Instance.HandleAudio(audioFileName);
                 }
             }
         }

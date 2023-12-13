@@ -4,6 +4,7 @@ using Ionic.Zip;
 using Qwilight.Compute;
 using Qwilight.MSG;
 using Qwilight.NoteFile;
+using Qwilight.System16;
 using Qwilight.System16.MSG;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
@@ -520,7 +521,7 @@ namespace Qwilight.ViewModel
                     OnPropertyChanged(nameof(DefaultHeight));
                     SetWPFViewVisibility();
                     MediaSystem.Instance.Stop(BaseUI.Instance);
-                    BaseUI.Instance.HandlePaintProperty();
+                    BaseUI.Instance.HandlePaintProperties();
                     MediaSystem.Instance.HandleDefaultIfAvailable(BaseUI.Instance);
                     MediaSystem.Instance.HandleIfAvailable(BaseUI.Instance);
                     var handlingComputer = GetHandlingComputer();
@@ -2841,9 +2842,10 @@ namespace Qwilight.ViewModel
                             _setCancelDefaultEntryLoading.Cancel();
                             return;
                         }
-                        var wasWipedSystem16View = StrongReferenceMessenger.Default.Send(new WipeSystem16View());
-                        if (wasWipedSystem16View.HasReceivedResponse && wasWipedSystem16View.Response)
+                        if (System16Components.Is1221 || System16Components.Is1225)
                         {
+                            StrongReferenceMessenger.Default.Send(new WipeSystem16View());
+                            HandleAutoComputer();
                             return;
                         }
                         StrongReferenceMessenger.Default.Send(new Quit
@@ -3750,17 +3752,28 @@ namespace Qwilight.ViewModel
             }
             if (audioFileName == "Default")
             {
-                switch (defaultAudioVarietyValue)
+                if (System16Components.Is1221)
                 {
-                    case Configure.DefaultAudioVariety.Not:
-                        audioFileName = null;
-                        break;
-                    case Configure.DefaultAudioVariety.Favor:
-                        audioFileName = AudioSystem.Instance.GetDefaultAudioFileName(_randomMillis);
-                        break;
-                    case Configure.DefaultAudioVariety.UI:
-                        audioFileName = BaseUI.Instance.GetDefaultAudioFileName(_randomMillis);
-                        break;
+                    audioFileName = Path.Combine(QwilightComponent.AssetsEntryPath, "System 16", "Audio", "1221.mp3");
+                }
+                else if (System16Components.Is1225)
+                {
+                    audioFileName = Path.Combine(QwilightComponent.AssetsEntryPath, "System 16", "Audio", "1225.mp3");
+                }
+                else
+                {
+                    switch (defaultAudioVarietyValue)
+                    {
+                        case Configure.DefaultAudioVariety.Not:
+                            audioFileName = null;
+                            break;
+                        case Configure.DefaultAudioVariety.Favor:
+                            audioFileName = AudioSystem.Instance.GetDefaultAudioFileName(_randomMillis);
+                            break;
+                        case Configure.DefaultAudioVariety.UI:
+                            audioFileName = BaseUI.Instance.GetDefaultAudioFileName(_randomMillis);
+                            break;
+                    }
                 }
             }
             if (_pausableAudioHandler.AudioFileName != audioFileName)
@@ -3779,11 +3792,11 @@ namespace Qwilight.ViewModel
                             {
                                 AudioLevyingPosition = _pausableAudioHandler.GetAudioPosition(),
                                 AudioItem = audioItem
-                            }, AudioSystem.SEAudio, 1.0, false, _pausableAudioHandler, QwilightComponent.StandardWaitMillis);
+                            }, AudioSystem.MainAudio, 1.0, false, _pausableAudioHandler, QwilightComponent.StandardWaitMillis);
                         }
                         else
                         {
-                            Utility.HandleUIAudio(audioFileName, null, _pausableAudioHandler, QwilightComponent.StandardWaitMillis);
+                            Utility.HandleUIAudio(audioFileName, null, _pausableAudioHandler, QwilightComponent.StandardWaitMillis, AudioSystem.MainAudio);
                         }
                     }
                 }

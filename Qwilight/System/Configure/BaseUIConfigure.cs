@@ -5,7 +5,7 @@
         double _defaultMediaFaint = 0.25;
         double _defaultAudioVisualizerFaint = 0.1;
 
-        public string[] UIConfigures { get; set; } = new string[BaseUI.HighestBaseUIConfigure];
+        public string[] UIConfigures { get; set; } = new string[BaseUI.MaxBaseUIConfigure];
 
         public double DefaultMediaFaint
         {

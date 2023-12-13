@@ -201,6 +201,12 @@
 		<None Update="Assets\MicrosoftEdgeWebview2Setup.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\System 16\Audio\1221.mp3">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\System 16\Audio\1225.mp3">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\UI\%40Default\%40Default.lua">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -221,12 +227,6 @@
 		</None>
 		<None Update="Assets\UI\Default\Default.zip">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\System 16\Audio\1221.wav">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\System 16\Audio\1225.wav">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\System 16\Drawing\1221.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
