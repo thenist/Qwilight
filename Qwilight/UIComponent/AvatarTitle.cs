@@ -5,7 +5,7 @@ namespace Qwilight.UIComponent
 {
     public struct AvatarTitle
     {
-        public string TitleNBSP => $"{Title} ";
+        public string TitleNBSP => string.IsNullOrEmpty(Title) ? string.Empty : $"{Title} ";
 
         public string Title { get; init; }
 

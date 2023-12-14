@@ -1043,13 +1043,13 @@
     "ko-KR": "플랜지 활성화",
     "en-US": "Enable Flanger"
   },
-  "FlowNetItemContents": {
-    "ko-KR": "실시간 랭킹이 부드럽게 이동합니다.",
-    "en-US": "Real-time ranking moves smoothly."
+  "FlowValuesContents": {
+    "ko-KR": "각종 수치가 부드럽게 움직입니다.",
+    "en-US": "Various figures move smoothly."
   },
-  "FlowNetItemText": {
-    "ko-KR": "실시간 랭킹 애니메이션 활성화",
-    "en-US": "Enable real-time ranking animation"
+  "FlowValuesText": {
+    "ko-KR": "수치 애니메이션 활성화",
+    "en-US": "Enable numerical animation"
   },
   "FontFamilyAssist": {
     "ko-KR": "텍스트를 입력하여 글꼴 미리보기",
@@ -2275,9 +2275,9 @@
     "ko-KR": "플랜지 비활성화",
     "en-US": "Disable Flanger"
   },
-  "NotFlowNetItemText": {
-    "ko-KR": "실시간 랭킹 애니메이션 비활성화",
-    "en-US": "Disable real-time ranking animation"
+  "NotFlowValuesText": {
+    "ko-KR": "수치 애니메이션 비활성화",
+    "en-US": "Disable numerical animation"
   },
   "NotHandleInputAudioText": {
     "ko-KR": "키음 비활성화",

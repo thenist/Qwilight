@@ -263,8 +263,8 @@ namespace Qwilight
         public string FitDefaultEntry { get; set; }
         public string FlangeContents { get; set; }
         public string FlangeText { get; set; }
-        public string FlowNetItemContents { get; set; }
-        public string FlowNetItemText { get; set; }
+        public string FlowValuesContents { get; set; }
+        public string FlowValuesText { get; set; }
         public string FontFamilyAssist { get; set; }
         public string FontFamilyText { get; set; }
         public string FrontEntryText { get; set; }
@@ -571,7 +571,7 @@ namespace Qwilight
         public string NoteWaitContents { get; set; }
         public string NotFavoritesF10 { get; set; }
         public string NotFlangeText { get; set; }
-        public string NotFlowNetItemText { get; set; }
+        public string NotFlowValuesText { get; set; }
         public string NotHandleInputAudioText { get; set; }
         public string NotHandleMeterText { get; set; }
         public string NotHaveLevelTarget { get; set; }

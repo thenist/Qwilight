@@ -276,7 +276,7 @@ namespace Qwilight
         double _judgmentMeterMillis;
         AutoJudgmentMeterMillisItem _autoJudgmentMeterMillisItem;
         bool _handleMeter;
-        bool _flowNetItem;
+        bool _flowValues;
         bool _ubuntuNetItemTarget;
         DefaultAudioVariety _defaultAudioVariety;
         int _valueGASLevel;
@@ -330,23 +330,23 @@ namespace Qwilight
 
         public Brush HandleMeterPaint => Paints.PointPaints[HandleMeter ? 1 : 0];
 
-        public bool FlowNetItem
+        public bool FlowValues
         {
-            get => _flowNetItem;
+            get => _flowValues;
 
             set
             {
-                if (SetProperty(ref _flowNetItem, value))
+                if (SetProperty(ref _flowValues, value))
                 {
-                    OnPropertyChanged(nameof(FlowNetItemText));
-                    OnPropertyChanged(nameof(FlowNetItemPaint));
+                    OnPropertyChanged(nameof(FlowValuesText));
+                    OnPropertyChanged(nameof(FlowValuesPaint));
                 }
             }
         }
 
-        public string FlowNetItemText => FlowNetItem ? LanguageSystem.Instance.FlowNetItemText : LanguageSystem.Instance.NotFlowNetItemText;
+        public string FlowValuesText => FlowValues ? LanguageSystem.Instance.FlowValuesText : LanguageSystem.Instance.NotFlowValuesText;
 
-        public Brush FlowNetItemPaint => Paints.PointPaints[FlowNetItem ? 1 : 0];
+        public Brush FlowValuesPaint => Paints.PointPaints[FlowValues ? 1 : 0];
 
         public Dictionary<string, string> LevelTargetMap { get; set; }
 
@@ -3278,10 +3278,6 @@ namespace Qwilight
                 Averager = false;
                 UbuntuNetItemTarget = false;
             }
-            if (isInit || Utility.IsLowerDate(Date, 1, 14, 127))
-            {
-                FlowNetItem = true;
-            }
             if (isInit || Utility.IsLowerDate(Date, 1, 15, 3))
             {
                 ModeComponentValue = new();
@@ -3354,6 +3350,10 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 12))
             {
                 DefaultAudioFilePathItems = Array.Empty<DefaultAudioFilePathItem>();
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 13))
+            {
+                FlowValues = true;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

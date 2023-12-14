@@ -411,7 +411,7 @@ namespace Qwilight.ViewModel
         static void OnHandleMeter() => Configure.Instance.HandleMeter = !Configure.Instance.HandleMeter;
 
         [RelayCommand]
-        static void OnFlowNetItem() => Configure.Instance.FlowNetItem = !Configure.Instance.FlowNetItem;
+        static void OnFlowValues() => Configure.Instance.FlowValues = !Configure.Instance.FlowValues;
 
         [RelayCommand]
         static void OnIsFailMode() => Configure.Instance.IsFailMode = !Configure.Instance.IsFailMode;

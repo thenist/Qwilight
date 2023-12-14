@@ -2895,12 +2895,18 @@ namespace Qwilight.Compute
                                 if (judgmentMeter > 0.0)
                                 {
                                     ++LateValue;
-                                    MainJudgmentMeterFrames[input] = DrawingComponentValue.mainJudgmentMeterFrame;
+                                    if (!IsInEvents)
+                                    {
+                                        MainJudgmentMeterFrames[input] = DrawingComponentValue.mainJudgmentMeterFrame;
+                                    }
                                 }
                                 else if (judgmentMeter < 0.0)
                                 {
                                     ++EarlyValue;
-                                    MainJudgmentMeterFrames[input] = -DrawingComponentValue.mainJudgmentMeterFrame;
+                                    if (!IsInEvents)
+                                    {
+                                        MainJudgmentMeterFrames[input] = -DrawingComponentValue.mainJudgmentMeterFrame;
+                                    }
                                 }
                                 _noteWaits.Add(judgmentMeter);
                             }
@@ -3193,23 +3199,17 @@ namespace Qwilight.Compute
                             }
                         }
 
+                        var framerate = Configure.Instance.FlowValues ? 60.0 / millisLoopUnit : 1.0;
                         foreach (var netItem in NetItems)
                         {
                             netItem.IsFailedStatus = Math.Clamp(netItem.IsFailedStatus + Utility.GetMove(0.0, netItem.IsFailedStatus, 60.0 / millisLoopUnit), 0.0, 1.0);
-                            if (Configure.Instance.FlowNetItem)
-                            {
-                                netItem.DrawingPosition += Utility.GetMove(netItem.TargetPosition, netItem.DrawingPosition, 60.0 / millisLoopUnit);
-                            }
-                            else
-                            {
-                                netItem.DrawingPosition = netItem.TargetPosition;
-                            }
+                            netItem.DrawingPosition += Utility.GetMove(netItem.TargetPosition, netItem.DrawingPosition, framerate: 1.0);
                         }
-                        Band.Value += Utility.GetMove(Band.TargetValue, Band.Value, 60.0 / millisLoopUnit);
-                        Stand.Value += Utility.GetMove(Stand.TargetValue, Stand.Value, 60.0 / millisLoopUnit);
-                        HitPoints.Value = Math.Clamp(HitPoints.Value + Utility.GetMove(HitPoints.TargetValue, HitPoints.Value, 60.0 / millisLoopUnit), 0.0, 1.0);
-                        Point.Value = Math.Clamp(Point.Value + Utility.GetMove(Point.TargetValue, Point.Value, 60.0 / millisLoopUnit), 0.0, 1.0);
-                        Hunter.Value = Hunter.TargetValue.HasValue ? (Hunter.Value ?? 0) + Utility.GetMove(Hunter.TargetValue.Value, Hunter.Value ?? 0, 60.0 / millisLoopUnit) : null;
+                        Band.Value += Utility.GetMove(Band.TargetValue, Band.Value, framerate);
+                        Stand.Value += Utility.GetMove(Stand.TargetValue, Stand.Value, framerate);
+                        HitPoints.Value = Math.Clamp(HitPoints.Value + Utility.GetMove(HitPoints.TargetValue, HitPoints.Value, framerate), 0.0, 1.0);
+                        Point.Value = Math.Clamp(Point.Value + Utility.GetMove(Point.TargetValue, Point.Value, framerate), 0.0, 1.0);
+                        Hunter.Value = Hunter.TargetValue.HasValue ? (Hunter.Value ?? 0) + Utility.GetMove(Hunter.TargetValue.Value, Hunter.Value ?? 0, framerate) : null;
                         for (var i = PostableItemFaints.Length - 1; i >= 0; --i)
                         {
                             PostableItemFaints[i].Value = Math.Clamp(PostableItemFaints[i].Value + Utility.GetMove(PostableItemFaints[i].TargetValue, PostableItemFaints[i].Value, 60.0 / millisLoopUnit), 0.0, 1.0);

@@ -102,7 +102,7 @@ namespace Qwilight.Utilities
             {
                 if (distance > 0.0)
                 {
-                    if (distance > 0.1)
+                    if (distance > 0.01)
                     {
                         return distance / framerate;
                     }
@@ -113,7 +113,7 @@ namespace Qwilight.Utilities
                 }
                 else
                 {
-                    if (distance < -0.1)
+                    if (distance < -0.01)
                     {
                         return distance / framerate;
                     }
