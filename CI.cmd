@@ -20,4 +20,4 @@ Robocopy Xwindow\x64\Release Qwilight\Assets\x64 Xwindow.exe
 Robocopy Xwindow\ARM64\Release Qwilight\Assets\ARM64 Xwindow.exe
 
 dotnet build Language\Language.csproj -c Release -p:Platform=x64
-Language\bin\x64\Release\net7.0\Language.exe
+Language\bin\x64\Release\net8.0\Language.exe

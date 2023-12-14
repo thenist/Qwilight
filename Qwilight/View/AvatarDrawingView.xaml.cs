@@ -19,13 +19,13 @@ namespace Qwilight.View
 
         public Thickness MarginValue => new Thickness(-EdgeX, -EdgeY, -EdgeX, -EdgeY);
 
-        public double EdgeLength => Width * Levels.EdgeMargin;
+        public double EdgeLength => double.IsNaN(Width) ? 0.0 : Width * Levels.EdgeMargin;
 
-        public double EdgeHeight => Height * Levels.EdgeMargin;
+        public double EdgeHeight => double.IsNaN(Height) ? 0.0 : Height * Levels.EdgeMargin;
 
-        public double EdgeX => Width * Levels.EdgeXY;
+        public double EdgeX => double.IsNaN(Width) ? 0.0 : Width * Levels.EdgeXY;
 
-        public double EdgeY => Height * Levels.EdgeXY;
+        public double EdgeY => double.IsNaN(Height) ? 0.0 : Height * Levels.EdgeXY;
 
         void OnLoaded(object sender, RoutedEventArgs e)
         {
