@@ -201,6 +201,17 @@
                 <Button Style="{StaticResource StandardInput}" Foreground="{Binding LowHitPointsFaintUIPaint, Source={StaticResource Configure}}" Command="{Binding LowHitPointsFaintUICommand}" Content="{Binding LowHitPointsFaintUIText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
                 <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding LowHitPointsFaintUIContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
+            <StackPanel Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                <Separator Style="{StaticResource StandardHr}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource StandardInput}" Command="{Binding FlowValuesCommand}" Content="{Binding FlowValuesText, Source={StaticResource Configure}}" Foreground="{Binding FlowValuesPaint, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding FlowValuesContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                </Grid>
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </TabItem>

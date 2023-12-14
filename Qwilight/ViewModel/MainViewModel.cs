@@ -1555,6 +1555,7 @@ namespace Qwilight.ViewModel
                         {
                             SaltEntryView();
                             entryItem = EntryItemValue;
+                            noteFile = entryItem.NoteFile;
                         }
 
                         if (entryItem != null)
