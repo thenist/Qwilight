@@ -3202,8 +3202,8 @@ namespace Qwilight.Compute
                         var framerate = Configure.Instance.FlowValues ? 60.0 / millisLoopUnit : 1.0;
                         foreach (var netItem in NetItems)
                         {
-                            netItem.IsFailedStatus = Math.Clamp(netItem.IsFailedStatus + Utility.GetMove(0.0, netItem.IsFailedStatus, 60.0 / millisLoopUnit), 0.0, 1.0);
-                            netItem.DrawingPosition += Utility.GetMove(netItem.TargetPosition, netItem.DrawingPosition, framerate: 1.0);
+                            netItem.IsFailedStatus = Math.Clamp(netItem.IsFailedStatus + Utility.GetMove(0.0, netItem.IsFailedStatus, 60.0 / millisLoopUnit), 0.0, 100.0);
+                            netItem.DrawingPosition += Utility.GetMove(netItem.TargetPosition, netItem.DrawingPosition, framerate);
                         }
                         Band.Value += Utility.GetMove(Band.TargetValue, Band.Value, framerate);
                         Stand.Value += Utility.GetMove(Stand.TargetValue, Stand.Value, framerate);
