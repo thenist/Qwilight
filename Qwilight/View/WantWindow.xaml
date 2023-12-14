@@ -74,37 +74,37 @@
                             <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding HandledNot}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledNot}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[0], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledNot, Source={StaticResource LanguageSystem}}" />
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledNotText, Source={StaticResource LanguageSystem}}" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding HandledF}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledF}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[4], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledF, Source={StaticResource LanguageSystem}}" />
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledFText, Source={StaticResource LanguageSystem}}" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding HandledClear}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledClear}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[1], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledClear, Source={StaticResource LanguageSystem}}" />
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledClearText, Source={StaticResource LanguageSystem}}" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding HandledHigherClear}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledHigherClear}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[5], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledHigherClear, Source={StaticResource LanguageSystem}}" />
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledHigherClearText, Source={StaticResource LanguageSystem}}" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding HandledHighestClear}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledHighestClear}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[6], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledHighestClear, Source={StaticResource LanguageSystem}}" />
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledHighestClearText, Source={StaticResource LanguageSystem}}" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding HandledBand1}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledBand1}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[2], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledBand1, Source={StaticResource LanguageSystem}}" />
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledBand1Text, Source={StaticResource LanguageSystem}}" />
                                 </StackPanel>
                             </Button>
                         </WrapPanel>

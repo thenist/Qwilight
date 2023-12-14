@@ -68,6 +68,66 @@ namespace Qwilight.ViewModel
             }
         }
 
+        readonly int[] _avatarLevels = new int[3];
+        Dictionary<string, JSON.TwilightWwwAvatarLevelVS> _twilightWwwAvatarLevelVSMap;
+        Dictionary<string, JSON.TwilightWwwAvatarHandled> _twilightWwwAvatarHandledMap;
+        string _avatarAbility5KPlaceText0 = string.Empty;
+        string _avatarAbility5KPlaceText1 = string.Empty;
+        ImageSource _abilityClass5KDrawing;
+        double _avatarAbility5K;
+        string _avatarAbility7KPlaceText0 = string.Empty;
+        string _avatarAbility7KPlaceText1 = string.Empty;
+        ImageSource _abilityClass7KDrawing;
+        double _avatarAbility7K;
+        string _avatarAbility9KPlaceText0 = string.Empty;
+        string _avatarAbility9KPlaceText1 = string.Empty;
+        ImageSource _abilityClass9KDrawing;
+        double _avatarAbility9K;
+        bool _isAvatarLoading;
+        string _avatarID;
+        string _avatarName;
+        int _totalCount;
+        double _totalLength;
+        int _highestCount;
+        DateTime _date;
+        int _wwwLevelIDCount;
+        int _avatarTabPosition;
+        int _abilityTabPosition;
+        int _favoritesTabPosition;
+        int _lastsTabPosition;
+        bool _isAvatarFavorites5KLoading;
+        bool _isAvatarFavorites7KLoading;
+        bool _isAvatarFavorites9KLoading;
+        bool _isAvatarFavorites10KLoading;
+        bool _isAvatarFavorites14KLoading;
+        bool _isAvatarFavorites24KLoading;
+        bool _isAvatarFavorites48KLoading;
+        bool _isAvatarLasts5KLoading;
+        bool _isAvatarLasts7KLoading;
+        bool _isAvatarLasts9KLoading;
+        bool _isAvatarLasts10KLoading;
+        bool _isAvatarLasts14KLoading;
+        bool _isAvatarLasts24KLoading;
+        bool _isAvatarLasts48KLoading;
+        bool _isAvatarAbility5KLoading;
+        bool _isAvatarAbility7KLoading;
+        bool _isAvatarAbility9KLoading;
+        bool _isAvatarWwwLevelLoading;
+        string _handledLevelName;
+        HandledLevelIDItem _handledLevelIDItem;
+        string _handledBand1;
+        string _handledHighestClear;
+        string _handledHigherClear;
+        string _handledClear;
+        bool _isHandledLoading;
+        string _levelVSLevelName;
+        AvatarWww _levelVSMyAvatarWww;
+        string _levelVSMyAvatarName;
+        AvatarWww _levelVSTargetAvatarWww;
+        string _levelVSTargetAvatarName;
+        LevelVSLevelIDItem _levelVSLevelIDItem;
+        bool _isLevelVSLoading;
+
         public ObservableCollection<AvatarComputing> Favorites5KAvatarComputingCollection { get; } = new();
 
         public ObservableCollection<AvatarComputing> Favorites7KAvatarComputingCollection { get; } = new();
@@ -104,13 +164,142 @@ namespace Qwilight.ViewModel
 
         public ObservableCollection<AvatarLevelItem> WwwLevelIDCollection { get; } = new();
 
-        public ObservableCollection<string> LevelNameCollection { get; } = new();
+        public ObservableCollection<string> LevelVSLevelNameCollection { get; } = new();
+
+        public ObservableCollection<HandledLevelIDItem> HandledLevelIDItemCollection { get; } = new();
+
+        public ObservableCollection<AvatarComputing> HandledBand1AvatarComputingCollection { get; } = new();
+
+        public ObservableCollection<AvatarComputing> HandledHighestClearAvatarComputingCollection { get; } = new();
+
+        public ObservableCollection<AvatarComputing> HandledHigherClearAvatarComputingCollection { get; } = new();
+
+        public ObservableCollection<AvatarComputing> HandledClearAvatarComputingCollection { get; } = new();
+
+        public ObservableCollection<string> HandledLevelNameCollection { get; } = new();
+
+        public string HandledBand1Text
+        {
+            get => _handledBand1;
+
+            set => SetProperty(ref _handledBand1, value, nameof(HandledBand1Text));
+        }
+
+        public string HandledHighestClearText
+        {
+            get => _handledHighestClear;
+
+            set => SetProperty(ref _handledHighestClear, value, nameof(HandledHighestClearText));
+        }
+
+        public string HandledHigherClearText
+        {
+            get => _handledHigherClear;
+
+            set => SetProperty(ref _handledHigherClear, value, nameof(HandledHigherClearText));
+        }
+
+        public string HandledClearText
+        {
+            get => _handledClear;
+
+            set => SetProperty(ref _handledClear, value, nameof(HandledClearText));
+        }
 
         public ObservableCollection<LevelVSLevelIDItem> LevelVSLevelIDItemCollection { get; } = new();
 
         public ObservableCollection<AvatarComputing> LevelVSMyAvatarComputingCollection { get; } = new();
 
         public ObservableCollection<AvatarComputing> LevelVSTargetAvatarComputingCollection { get; } = new();
+
+        public bool IsHandledLoading
+        {
+            get => _isHandledLoading;
+
+            set => SetProperty(ref _isHandledLoading, value, nameof(IsHandledLoading));
+        }
+
+        public string HandledLevelName
+        {
+            get => _handledLevelName;
+
+            set
+            {
+                if (SetProperty(ref _handledLevelName, value, nameof(HandledLevelName)))
+                {
+                    _ = CallAvatarAPI();
+                }
+            }
+        }
+
+        public HandledLevelIDItem HandledLevelIDItemValue
+        {
+            get => _handledLevelIDItem;
+
+            set
+            {
+                if (SetProperty(ref _handledLevelIDItem, value, nameof(HandledLevelIDItemValue)))
+                {
+                    HandledBand1AvatarComputingCollection.Clear();
+                    HandledHighestClearAvatarComputingCollection.Clear();
+                    HandledHigherClearAvatarComputingCollection.Clear();
+                    HandledClearAvatarComputingCollection.Clear();
+                    if (value != null)
+                    {
+                        var avatarHandledMap = _twilightWwwAvatarHandledMap[value.LevelID];
+                        var noteIDCountText = avatarHandledMap.noteIDCount.ToString("#,##0");
+                        var avatarHandledItems = avatarHandledMap.avatarHandledItems;
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Band1, out var handledItems))
+                        {
+                            foreach (var data in handledItems)
+                            {
+                                HandledBand1AvatarComputingCollection.Add(new(data, true)
+                                {
+                                    FittedText = data.stand.ToString(LanguageSystem.Instance.StandContents)
+                                });
+                            }
+                        }
+                        HandledBand1Text = string.Format(LanguageSystem.Instance.AvatarHandledBand1Text, avatarHandledMap.handledBand1Count.ToString("#,##0"), noteIDCountText);
+
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.HighestClear, out handledItems))
+                        {
+                            foreach (var data in handledItems)
+                            {
+                                HandledHighestClearAvatarComputingCollection.Add(new(data, true)
+                                {
+                                    FittedText = data.stand.ToString(LanguageSystem.Instance.StandContents)
+                                });
+                            }
+                        }
+                        HandledHighestClearText = string.Format(LanguageSystem.Instance.AvatarHandledHighestClearText, avatarHandledMap.handledHighestClearCount.ToString("#,##0"), noteIDCountText);
+
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.HigherClear, out handledItems))
+                        {
+                            foreach (var data in handledItems)
+                            {
+                                HandledHigherClearAvatarComputingCollection.Add(new(data, true)
+                                {
+                                    FittedText = data.stand.ToString(LanguageSystem.Instance.StandContents)
+                                });
+                            }
+                        }
+                        HandledHigherClearText = string.Format(LanguageSystem.Instance.AvatarHandledHigherClearText, avatarHandledMap.handledHigherClearCount.ToString("#,##0"), noteIDCountText);
+
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Clear, out handledItems))
+                        {
+                            foreach (var data in handledItems)
+                            {
+                                HandledClearAvatarComputingCollection.Add(new(data, true)
+                                {
+                                    FittedText = data.stand.ToString(LanguageSystem.Instance.StandContents)
+                                });
+                            }
+                        }
+                        HandledClearText = string.Format(LanguageSystem.Instance.AvatarHandledClearText, avatarHandledMap.handledClearCount.ToString("#,##0"), noteIDCountText);
+                    }
+                }
+            }
+        }
 
         public string LevelVSLevelName
         {
@@ -199,58 +388,6 @@ namespace Qwilight.ViewModel
         public override double TargetHeight => 0.9;
 
         public override VerticalAlignment HeightSystem => VerticalAlignment.Top;
-
-        readonly int[] _avatarLevels = new int[3];
-        Dictionary<string, JSON.TwilightWwwAvatarLevelVS> _twilightWwwAvatarLevelVSMap;
-        string _avatarAbility5KPlaceText0 = string.Empty;
-        string _avatarAbility5KPlaceText1 = string.Empty;
-        ImageSource _abilityClass5KDrawing;
-        double _avatarAbility5K;
-        string _avatarAbility7KPlaceText0 = string.Empty;
-        string _avatarAbility7KPlaceText1 = string.Empty;
-        ImageSource _abilityClass7KDrawing;
-        double _avatarAbility7K;
-        string _avatarAbility9KPlaceText0 = string.Empty;
-        string _avatarAbility9KPlaceText1 = string.Empty;
-        ImageSource _abilityClass9KDrawing;
-        double _avatarAbility9K;
-        bool _isAvatarLoading;
-        string _avatarID;
-        string _avatarName;
-        int _totalCount;
-        double _totalLength;
-        int _highestCount;
-        DateTime _date;
-        int _wwwLevelIDCount;
-        int _avatarTabPosition;
-        int _abilityTabPosition;
-        int _favoritesTabPosition;
-        int _lastsTabPosition;
-        bool _isAvatarFavorites5KLoading;
-        bool _isAvatarFavorites7KLoading;
-        bool _isAvatarFavorites9KLoading;
-        bool _isAvatarFavorites10KLoading;
-        bool _isAvatarFavorites14KLoading;
-        bool _isAvatarFavorites24KLoading;
-        bool _isAvatarFavorites48KLoading;
-        bool _isAvatarLasts5KLoading;
-        bool _isAvatarLasts7KLoading;
-        bool _isAvatarLasts9KLoading;
-        bool _isAvatarLasts10KLoading;
-        bool _isAvatarLasts14KLoading;
-        bool _isAvatarLasts24KLoading;
-        bool _isAvatarLasts48KLoading;
-        bool _isAvatarAbility5KLoading;
-        bool _isAvatarAbility7KLoading;
-        bool _isAvatarAbility9KLoading;
-        bool _isAvatarWwwLevelLoading;
-        string _levelVSLevelName;
-        AvatarWww _levelVSMyAvatarWww;
-        string _levelVSMyAvatarName;
-        AvatarWww _levelVSTargetAvatarWww;
-        string _levelVSTargetAvatarName;
-        LevelVSLevelIDItem _levelVSLevelIDItem;
-        bool _isLevelVSLoading;
 
         public AvatarWww AvatarWwwValue { get; set; }
 
@@ -695,13 +832,36 @@ namespace Qwilight.ViewModel
                     }
                     IsAvatarWwwLevelLoading = false;
                     break;
-                case 4 when IsLevelVSVisible:
+                case 4:
+                    IsHandledLoading = true;
+                    HandledLevelName ??= HandledLevelNameCollection.FirstOrDefault();
+                    var handledLevelName = HandledLevelName;
+                    var twilightWwwAvatarHandledMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarHandled>>($"{QwilightComponent.QwilightAPI}/avatar/handled?avatarID={TwilightSystem.Instance.AvatarID}&levelName={handledLevelName}");
+                    if (handledLevelName == HandledLevelName)
+                    {
+                        if (twilightWwwAvatarHandledMap != null)
+                        {
+                            _twilightWwwAvatarHandledMap = twilightWwwAvatarHandledMap;
+                            HandledLevelIDItemCollection.Clear();
+                            foreach (var data in twilightWwwAvatarHandledMap)
+                            {
+                                HandledLevelIDItemCollection.Add(new()
+                                {
+                                    LevelID = data.Key
+                                });
+                            }
+                            HandledLevelIDItemValue = HandledLevelIDItemCollection.FirstOrDefault();
+                        }
+                        IsHandledLoading = false;
+                    }
+                    break;
+                case 5 when IsLevelVSVisible:
                     IsLevelVSLoading = true;
                     LevelVSMyAvatarWwwValue = new(TwilightSystem.Instance.AvatarID);
                     LevelVSMyAvatarName = TwilightSystem.Instance.AvatarName;
                     LevelVSTargetAvatarWwwValue = new(_avatarID);
                     LevelVSTargetAvatarName = _avatarName;
-                    LevelVSLevelName ??= LevelNameCollection.FirstOrDefault();
+                    LevelVSLevelName ??= LevelVSLevelNameCollection.FirstOrDefault();
                     var levelVSLevelName = LevelVSLevelName;
                     var twilightWwwAvatarLevelVSMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarLevelVS>>($"{QwilightComponent.QwilightAPI}/avatar/levelVS?avatarID={TwilightSystem.Instance.AvatarID}&targetID={CallingAvatarID}&levelName={levelVSLevelName}");
                     if (levelVSLevelName == LevelVSLevelName)
@@ -1024,7 +1184,8 @@ namespace Qwilight.ViewModel
                         _wwwLevelIDCount = twilightWwwAvatarValue.wwwLevelIDCount;
                         OnPropertyChanged(nameof(AvatarViewWwwLevelText));
 
-                        Utility.SetUICollection(LevelNameCollection, twilightWwwAvatarValue.levelNames);
+                        Utility.SetUICollection(HandledLevelNameCollection, twilightWwwAvatarValue.levelNames.Except(["*"]).ToArray());
+                        Utility.SetUICollection(LevelVSLevelNameCollection, twilightWwwAvatarValue.levelNames);
 
                         _ = CallAvatarAPI();
                     }

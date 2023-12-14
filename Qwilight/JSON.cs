@@ -817,6 +817,21 @@ namespace Qwilight
             public long date;
         }
 
+        public struct TwilightWwwAvatarHandled
+        {
+            public int handledBand1Count;
+            public int handledHighestClearCount;
+            public int handledHigherClearCount;
+            public int handledClearCount;
+            public int noteIDCount;
+            public Dictionary<BaseNoteFile.Handled, List<HandledItem>> avatarHandledItems;
+
+            public sealed class HandledItem : Computing
+            {
+                public int stand;
+            }
+        }
+
         public struct TwilightWwwAvatarLevelVS
         {
             public int avatarLevelVSCount;

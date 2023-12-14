@@ -229,8 +229,8 @@
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <Image Style="{StaticResource NarrowView}" Source="{Binding HandledWallDrawing}" Height="24" />
-                                            <Image Style="{StaticResource NarrowView}" Source="{Binding InputMode, Converter={StaticResource InputModeDrawingModifier}}" Height="24" />
+                                            <Image Style="{StaticResource VNarrowView}" Source="{Binding HandledWallDrawing}" Height="24" />
+                                            <Image Style="{StaticResource VNarrowView}" Source="{Binding InputMode, Converter={StaticResource InputModeDrawingModifier}}" Height="24" />
                                             <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="❌" Foreground="Red" Visibility="{Binding NotHaveIt, Converter={StaticResource VisibilityModifier}}" />
                                             <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="{Binding LevelText}" Foreground="{Binding LevelValue, Converter={StaticResource LevelPaintModifier}}" />
                                             <TextBlock Style="{StaticResource VNarrowTextView}" FontWeight="{Binding IsDefault, Converter={StaticResource HeavyModifier}}" Text="{Binding WantLevelID}" Foreground="{StaticResource WantLevelIDPaint}" />

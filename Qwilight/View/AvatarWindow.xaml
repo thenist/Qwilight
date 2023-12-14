@@ -345,13 +345,82 @@
                                     <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsAvatarWwwLevelLoading, Converter={StaticResource VisibilityModifier}}" />
                                 </Grid>
                             </TabItem>
+                            <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding AvatarViewHandledText, Source={StaticResource LanguageSystem}}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding HandledLevelNameCollection}" SelectedItem="{Binding HandledLevelName}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <Grid Grid.Row="1">
+                                        <Grid Visibility="{Binding IsHandledLoading, Converter={StaticResource VisibilityNotModifier}}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding HandledLevelIDItemCollection}" SelectedItem="{Binding HandledLevelIDItemValue}">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding LevelID}" HorizontalAlignment="Left" />
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                            <TabControl Grid.Column="1" Style="{StaticResource StandardPageView}">
+                                                <TabItem Style="{StaticResource StandardPageItem}">
+                                                    <TabItem.Header>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Style="{StaticResource VNarrowView}" Source="{Binding HandledWallDrawings[2], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                                            <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding HandledBand1Text}" />
+                                                        </StackPanel>
+                                                    </TabItem.Header>
+                                                    <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding HandledBand1AvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
+                                                </TabItem>
+                                                <TabItem Style="{StaticResource StandardPageItem}">
+                                                    <TabItem.Header>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Style="{StaticResource VNarrowView}" Source="{Binding HandledWallDrawings[6], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                                            <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding HandledHighestClearText}" />
+                                                        </StackPanel>
+                                                    </TabItem.Header>
+                                                    <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding HandledHighestClearAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
+                                                </TabItem>
+                                                <TabItem Style="{StaticResource StandardPageItem}">
+                                                    <TabItem.Header>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Style="{StaticResource VNarrowView}" Source="{Binding HandledWallDrawings[5], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                                            <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding HandledHigherClearText}" />
+                                                        </StackPanel>
+                                                    </TabItem.Header>
+                                                    <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding HandledHigherClearAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
+                                                </TabItem>
+                                                <TabItem Style="{StaticResource StandardPageItem}">
+                                                    <TabItem.Header>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Style="{StaticResource VNarrowView}" Source="{Binding HandledWallDrawings[1], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                                            <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding HandledClearText}" />
+                                                        </StackPanel>
+                                                    </TabItem.Header>
+                                                    <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding HandledClearAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
+                                                </TabItem>
+                                            </TabControl>
+                                        </Grid>
+                                        <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHandledLoading, Converter={StaticResource VisibilityModifier}}" />
+                                    </Grid>
+                                </Grid>
+                            </TabItem>
                             <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding AvatarViewLevelVSText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsLevelVSVisible, Converter={StaticResource VisibilityModifier}}">
                                 <Grid Visibility="{Binding Visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding LevelNameCollection}" SelectedItem="{Binding LevelVSLevelName}">
+                                    <ComboBox Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding LevelVSLevelNameCollection}" SelectedItem="{Binding LevelVSLevelName}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding}" />
@@ -379,26 +448,20 @@
                                             </Grid>
                                             <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding LevelVSMyAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
                                         </Grid>
-                                        <Grid Grid.Column="1">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition />
-                                            </Grid.RowDefinitions>
-                                            <ListView Grid.Row="1" Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding LevelVSLevelIDItemCollection}" SelectedItem="{Binding LevelVSLevelIDItemValue}">
-                                                <ListView.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Grid>
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="Auto" />
-                                                                <ColumnDefinition />
-                                                            </Grid.ColumnDefinitions>
-                                                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding LevelID}" />
-                                                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Text="{Binding LevelVSCountText}" />
-                                                        </Grid>
-                                                    </DataTemplate>
-                                                </ListView.ItemTemplate>
-                                            </ListView>
-                                        </Grid>
+                                        <ListView Grid.Column="1" Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding LevelVSLevelIDItemCollection}" SelectedItem="{Binding LevelVSLevelIDItemValue}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding LevelID}" />
+                                                        <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Text="{Binding LevelVSCountText}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
                                         <Grid Grid.Column="2">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />

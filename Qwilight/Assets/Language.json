@@ -343,6 +343,26 @@
     "ko-KR": "프레임 선택",
     "en-US": "Select Frame"
   },
+  "AvatarHandledBand1Text": {
+    "ko-KR": "풀콤보 ({0} / {1})",
+    "en-US": "Full Combo ({0} / {1})"
+  },
+  "AvatarHandledClearText": {
+    "ko-KR": "NM 클리어 ({0} / {1})",
+    "en-US": "NM Clear ({0} / {1})"
+  },
+  "AvatarHandledHigherClearText": {
+    "ko-KR": "HD 클리어 ({0} / {1})",
+    "en-US": "HD Clear ({0} / {1})"
+  },
+  "AvatarHandledHighestClearText": {
+    "ko-KR": "VHD 클리어 ({0} / {1})",
+    "en-US": "VHD Clear ({0} / {1})"
+  },
+  "AvatarHandledNotText": {
+    "ko-KR": "아직 안 함 ({0} / {1})",
+    "en-US": "Not yet ({0} / {1})"
+  },
   "AvatarID": {
     "ko-KR": "아이디",
     "en-US": "ID"
@@ -374,6 +394,10 @@
   "AvatarViewFavoritesContents": {
     "ko-KR": "가장 많이 플레이 TOP 50",
     "en-US": "Most plays TOP 50"
+  },
+  "AvatarViewHandledText": {
+    "ko-KR": "클리어 램프 (Beta)",
+    "en-US": "Clear lamp (Beta)"
   },
   "AvatarViewHighestCountText": {
     "ko-KR": "기록 개수: {0} 회",
@@ -1115,11 +1139,11 @@
     "ko-KR": "노트 라인을 반으로 나눠서 임의 배치합니다. (하프 랜덤)",
     "en-US": "Half Random mode"
   },
-  "HandledBand1": {
+  "HandledBand1Text": {
     "ko-KR": "풀콤보",
     "en-US": "Full combo."
   },
-  "HandledClear": {
+  "HandledClearText": {
     "ko-KR": "NM 클리어",
     "en-US": "NM Clear"
   },
@@ -1127,19 +1151,19 @@
     "ko-KR": "#,##0 회",
     "en-US": "#,##0 times"
   },
-  "HandledF": {
+  "HandledFText": {
     "ko-KR": "F 랭크",
     "en-US": "F rank"
   },
-  "HandledHigherClear": {
+  "HandledHigherClearText": {
     "ko-KR": "HD 클리어",
     "en-US": "HD Clear"
   },
-  "HandledHighestClear": {
+  "HandledHighestClearText": {
     "ko-KR": "VHD 클리어",
     "en-US": "VHD Clear"
   },
-  "HandledNot": {
+  "HandledNotText": {
     "ko-KR": "아직 안 함",
     "en-US": "Not yet."
   },

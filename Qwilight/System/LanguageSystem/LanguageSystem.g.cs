@@ -88,6 +88,11 @@ namespace Qwilight
         public string AvatarCountContents { get; set; }
         public string AvatarDrawingText { get; set; }
         public string AvatarEdgeText { get; set; }
+        public string AvatarHandledBand1Text { get; set; }
+        public string AvatarHandledClearText { get; set; }
+        public string AvatarHandledHigherClearText { get; set; }
+        public string AvatarHandledHighestClearText { get; set; }
+        public string AvatarHandledNotText { get; set; }
         public string AvatarID { get; set; }
         public string AvatarName { get; set; }
         public string AvatarText { get; set; }
@@ -96,6 +101,7 @@ namespace Qwilight
         public string AvatarViewDateContents { get; set; }
         public string AvatarViewDateText { get; set; }
         public string AvatarViewFavoritesContents { get; set; }
+        public string AvatarViewHandledText { get; set; }
         public string AvatarViewHighestCountText { get; set; }
         public string AvatarViewIntro { get; set; }
         public string AvatarViewLastsContents { get; set; }
@@ -281,13 +287,13 @@ namespace Qwilight
         public string GPUModeText { get; set; }
         public string GUIConfigureText { get; set; }
         public string HalfInputSaltModeContents { get; set; }
-        public string HandledBand1 { get; set; }
-        public string HandledClear { get; set; }
+        public string HandledBand1Text { get; set; }
+        public string HandledClearText { get; set; }
         public string HandledContents { get; set; }
-        public string HandledF { get; set; }
-        public string HandledHigherClear { get; set; }
-        public string HandledHighestClear { get; set; }
-        public string HandledNot { get; set; }
+        public string HandledFText { get; set; }
+        public string HandledHigherClearText { get; set; }
+        public string HandledHighestClearText { get; set; }
+        public string HandledNotText { get; set; }
         public string HandleFailedAudioCountText { get; set; }
         public string HandleFailedAudioText { get; set; }
         public string HandleInputAudioContents { get; set; }

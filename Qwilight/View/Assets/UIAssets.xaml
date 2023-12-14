@@ -427,8 +427,8 @@
     <Style x:Key="StandardViewMargin0" TargetType="Image" BasedOn="{StaticResource StandardView}">
         <Setter Property="Margin" Value="0" />
     </Style>
-    <Style x:Key="NarrowView" TargetType="Image" BasedOn="{StaticResource StandardView}">
-        <Setter Property="Margin" Value="5 0" />
+    <Style x:Key="VNarrowView" TargetType="Image" BasedOn="{StaticResource StandardView}">
+        <Setter Property="Margin" Value="{StaticResource VNarrowMargin}" />
     </Style>
 
     <!-- ListViewItem -->
