@@ -3571,6 +3571,10 @@
     "ko-KR": "{0} 콤보 이하",
     "en-US": "{0} Combo or less"
   },
+  "WwwLevelClause": {
+    "ko-KR": "본 도전과제와 클리어 보상들은 공식 디스코드에서 제보받은 사용자 지정 도전과제로 개발자와 무관합니다.",
+    "en-US": "These challenges and clear rewards are custom challenges reported on the official Discord, independent of the developer."
+  },
   "WwwLevelClearAvatars": {
     "ko-KR": "클리어한 플레이어들",
     "en-US": "Players who cleared"

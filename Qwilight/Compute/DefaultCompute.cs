@@ -3962,7 +3962,7 @@ namespace Qwilight.Compute
                 var eventNoteID = EventNoteEntryItem?.EventNoteID;
                 if (string.IsNullOrEmpty(eventNoteID))
                 {
-                    if (ModeComponentValue.CanSetHandled)
+                    if (new[] { TotallyLevyingAudioMultiplier }.Concat(Comment.AudioMultipliers.Select(audioMultiplier => audioMultiplier.AudioMultiplier)).Min() >= 1.0 && ModeComponentValue.CanSetHandled)
                     {
                         if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
                         {
@@ -3979,17 +3979,20 @@ namespace Qwilight.Compute
                                         NoteFile.HandledValue = BaseNoteFile.Handled.F;
                                     }
                                 }
-                                else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Highest)
+                                else
                                 {
-                                    NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
-                                }
-                                else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Higher && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
-                                {
-                                    NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
-                                }
-                                else if (NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
-                                {
-                                    NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
+                                    switch (ModeComponentValue.HandlingHitPointsModeValue)
+                                    {
+                                        case ModeComponent.HitPointsMode.Highest:
+                                            NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
+                                            break;
+                                        case ModeComponent.HitPointsMode.Higher when NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear:
+                                            NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
+                                            break;
+                                        case ModeComponent.HitPointsMode.Default when NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear:
+                                            NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
+                                            break;
+                                    }
                                 }
                             }
                             DB.Instance.SetHandled(NoteFile);

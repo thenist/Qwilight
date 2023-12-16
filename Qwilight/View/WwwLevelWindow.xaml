@@ -11,6 +11,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelText, Source={StaticResource LanguageSystem}}" FontSize="{StaticResource FontLevel1}" />
@@ -476,6 +477,7 @@
                             </Grid>
                     </Grid>
                 </Grid>
+                <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClause, Source={StaticResource LanguageSystem}}" />
             </Grid>
         </Border>
     </Grid>

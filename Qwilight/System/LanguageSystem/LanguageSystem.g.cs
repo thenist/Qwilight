@@ -895,6 +895,7 @@ namespace Qwilight
         public string WwwLevelAudioMultiplierContents1 { get; set; }
         public string WwwLevelBandContents0 { get; set; }
         public string WwwLevelBandContents1 { get; set; }
+        public string WwwLevelClause { get; set; }
         public string WwwLevelClearAvatars { get; set; }
         public string WwwLevelClearAwards { get; set; }
         public string WwwLevelClearAwardsEdge { get; set; }

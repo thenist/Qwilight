@@ -11,15 +11,14 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding VoteText, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
-                <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding AutoEdgeText, Source={StaticResource LanguageSystem}}" />
-                <TabControl Style="{StaticResource StandardPageView}" Grid.Row="2">
+                <TabControl Style="{StaticResource StandardPageView}" Grid.Row="1">
                     <TabItem Style="{StaticResource StandardPageItem}" Header="BOF:NT">
                         <view:EdgePanel InitWww="https://manbow.nothing.sh/event/event.cgi?action=List_def&amp;event=142" />
                     </TabItem>
@@ -73,6 +72,7 @@
                         </Border>
                     </TabItem>
                 </TabControl>
+                <TextBlock Grid.Row="2" Style="{StaticResource StandardTextView}" Text="{Binding AutoEdgeText, Source={StaticResource LanguageSystem}}" />
             </Grid>
         </Border>
     </Grid>

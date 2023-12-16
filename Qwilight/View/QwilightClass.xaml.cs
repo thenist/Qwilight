@@ -77,10 +77,6 @@ namespace Qwilight.View
                 exe.WaitForExit();
                 if (!Bootstrap.TryInitialize(65540U, out _))
                 {
-                    HandleMSIX("Microsoft.WindowsAppRuntime.1.4.msix");
-                    HandleMSIX("Microsoft.WindowsAppRuntime.DDLM.1.4.msix");
-                    HandleMSIX("Microsoft.WindowsAppRuntime.Main.1.4.msix");
-                    HandleMSIX("Microsoft.WindowsAppRuntime.Singleton.1.4.msix");
                     Bootstrap.Initialize(65540U, null, default, Bootstrap.InitializeOptions.OnNoMatch_ShowUI);
                 }
             }
