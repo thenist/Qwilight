@@ -174,6 +174,14 @@ namespace Qwilight
             _ => default
         };
 
+        public bool CanSetHandled => CanBeTwilightComment &&
+            AutoModeValue == AutoMode.Default &&
+            (JudgmentModeValue == JudgmentMode.Default || JudgmentModeValue == JudgmentMode.Higher || JudgmentModeValue == JudgmentMode.Highest) &&
+            (HandlingHitPointsModeValue == HitPointsMode.Default || HandlingHitPointsModeValue == HitPointsMode.Higher || HandlingHitPointsModeValue == HitPointsMode.Highest || HandlingHitPointsModeValue == HitPointsMode.Failed) &&
+            LongNoteModeValue == LongNoteMode.Default &&
+            InputFavorModeValue == InputFavorMode.Default &&
+            NoteModifyModeValue == NoteModifyMode.Default;
+
         public bool CanBeTwilightComment => JudgmentModeValue != JudgmentMode.Favor &&
             HandlingHitPointsModeValue != HitPointsMode.Favor && HandlingHitPointsModeValue != HitPointsMode.Test &&
             LongNoteModeValue != LongNoteMode.Input &&

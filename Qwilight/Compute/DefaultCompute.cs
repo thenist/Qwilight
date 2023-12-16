@@ -3962,35 +3962,38 @@ namespace Qwilight.Compute
                 var eventNoteID = EventNoteEntryItem?.EventNoteID;
                 if (string.IsNullOrEmpty(eventNoteID))
                 {
-                    if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
+                    if (ModeComponentValue.CanSetHandled)
                     {
-                        if (IsP)
+                        if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
                         {
-                            NoteFile.HandledValue = BaseNoteFile.Handled.Band1;
-                        }
-                        else
-                        {
-                            if (IsF)
+                            if (IsP)
                             {
-                                if (NoteFile.HandledValue == BaseNoteFile.Handled.Not)
+                                NoteFile.HandledValue = BaseNoteFile.Handled.Band1;
+                            }
+                            else
+                            {
+                                if (IsF)
                                 {
-                                    NoteFile.HandledValue = BaseNoteFile.Handled.F;
+                                    if (NoteFile.HandledValue == BaseNoteFile.Handled.Not)
+                                    {
+                                        NoteFile.HandledValue = BaseNoteFile.Handled.F;
+                                    }
+                                }
+                                else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Highest)
+                                {
+                                    NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
+                                }
+                                else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Higher && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
+                                {
+                                    NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
+                                }
+                                else if (NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
+                                {
+                                    NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
                                 }
                             }
-                            else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Highest)
-                            {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
-                            }
-                            else if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Higher && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
-                            {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
-                            }
-                            else if (NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
-                            {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
-                            }
+                            DB.Instance.SetHandled(NoteFile);
                         }
-                        DB.Instance.SetHandled(NoteFile);
                     }
 
                     DB.Instance.NewDate(NoteFile, default, date);

@@ -1445,39 +1445,14 @@ namespace Qwilight.ViewModel
                                 var targetComment = commentItems.Where(comment => comment.AvatarWwwValue.AvatarID == TwilightSystem.Instance.AvatarID).SingleOrDefault();
                                 if (targetComment != null)
                                 {
-                                    var handled = comments.Where(comment => comment.avatarID == TwilightSystem.Instance.AvatarID).SingleOrDefault().handled;
                                     TwilightCommentText0 = (Array.IndexOf(commentItems, targetComment) + 1).ToString("＃#,##0");
                                     TwilightCommentText1 = commentItems.Length.ToString("／#,##0");
-                                    if (noteFile.HandledValue != BaseNoteFile.Handled.Band1)
-                                    {
-                                        if (handled == BaseNoteFile.Handled.Band1)
-                                        {
-                                            noteFile.HandledValue = BaseNoteFile.Handled.Band1;
-                                        }
-                                        else
-                                        {
-                                            if (handled == BaseNoteFile.Handled.F)
-                                            {
-                                                if (noteFile.HandledValue == BaseNoteFile.Handled.Not)
-                                                {
-                                                    noteFile.HandledValue = BaseNoteFile.Handled.F;
-                                                }
-                                            }
-                                            else if (handled == BaseNoteFile.Handled.HighestClear)
-                                            {
-                                                noteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
-                                            }
-                                            else if (handled == BaseNoteFile.Handled.HigherClear && noteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
-                                            {
-                                                noteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
-                                            }
-                                            else if (noteFile.HandledValue != BaseNoteFile.Handled.HigherClear && noteFile.HandledValue != BaseNoteFile.Handled.HighestClear)
-                                            {
-                                                noteFile.HandledValue = BaseNoteFile.Handled.Clear;
-                                            }
-                                        }
-                                        DB.Instance.SetHandled(noteFile);
-                                    }
+                                }
+                                var handled = twilightWwwCommentValue.handled;
+                                if (noteFile.HandledValue != handled && !(noteFile.HandledValue == BaseNoteFile.Handled.F && handled == BaseNoteFile.Handled.Not))
+                                {
+                                    noteFile.HandledValue = handled;
+                                    DB.Instance.SetHandled(noteFile);
                                 }
                             }
                         }
