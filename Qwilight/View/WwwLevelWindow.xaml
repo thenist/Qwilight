@@ -477,7 +477,7 @@
                             </Grid>
                     </Grid>
                 </Grid>
-                <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClause, Source={StaticResource LanguageSystem}}" />
+                <TextBlock Grid.Row="2" Style="{StaticResource StandardTextView}" Text="{Binding WwwLevelClause, Source={StaticResource LanguageSystem}}" />
             </Grid>
         </Border>
     </Grid>
