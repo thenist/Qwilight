@@ -344,24 +344,24 @@
     "en-US": "Select Frame"
   },
   "AvatarHandledBand1Text": {
-    "ko-KR": "풀콤보 ({0} / {1})",
-    "en-US": "Full Combo ({0} / {1})"
+    "ko-KR": "풀콤보 ({0})",
+    "en-US": "Full Combo ({0})"
   },
   "AvatarHandledClearText": {
-    "ko-KR": "NM 클리어 ({0} / {1})",
-    "en-US": "NM Clear ({0} / {1})"
+    "ko-KR": "NM 클리어 ({0})",
+    "en-US": "NM Clear ({0})"
   },
   "AvatarHandledHigherClearText": {
-    "ko-KR": "HD 클리어 ({0} / {1})",
-    "en-US": "HD Clear ({0} / {1})"
+    "ko-KR": "HD 클리어 ({0})",
+    "en-US": "HD Clear ({0})"
   },
   "AvatarHandledHighestClearText": {
-    "ko-KR": "VHD 클리어 ({0} / {1})",
-    "en-US": "VHD Clear ({0} / {1})"
+    "ko-KR": "VHD 클리어 ({0})",
+    "en-US": "VHD Clear ({0})"
   },
   "AvatarHandledNotText": {
-    "ko-KR": "아직 안 함 ({0} / {1})",
-    "en-US": "Not yet ({0} / {1})"
+    "ko-KR": "아직 안 함 ({0})",
+    "en-US": "Not yet ({0})"
   },
   "AvatarID": {
     "ko-KR": "아이디",

@@ -233,7 +233,7 @@ namespace Qwilight.ViewModel
                         IsHandledLoading = true;
                         var handledLevelName = value;
                         var twilightWwwAvatarHandledMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarHandled>>($"{QwilightComponent.QwilightAPI}/avatar/handled?avatarID={_avatarID}&levelName={handledLevelName}");
-                        if (handledLevelName == value)
+                        if (handledLevelName == HandledLevelName)
                         {
                             if (twilightWwwAvatarHandledMap != null)
                             {
@@ -282,9 +282,7 @@ namespace Qwilight.ViewModel
                                 });
                             }
                         }
-                        var handledBand1Count = avatarHandledMap.handledBand1Count;
-                        HandledBand1Text = string.Format(LanguageSystem.Instance.AvatarHandledBand1Text, handledBand1Count.ToString("#,##0"), noteIDCount.ToString("#,##0"));
-                        noteIDCount -= handledBand1Count;
+                        HandledBand1Text = string.Format(LanguageSystem.Instance.AvatarHandledBand1Text, (100.0 * avatarHandledMap.handledBand1Count / noteIDCount).ToString("0.##％"));
 
                         if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.HighestClear, out handledItems))
                         {
@@ -296,9 +294,7 @@ namespace Qwilight.ViewModel
                                 });
                             }
                         }
-                        var handledHighestClearCount = avatarHandledMap.handledHighestClearCount;
-                        HandledHighestClearText = string.Format(LanguageSystem.Instance.AvatarHandledHighestClearText, handledHighestClearCount.ToString("#,##0"), noteIDCount.ToString("#,##0"));
-                        noteIDCount -= handledHighestClearCount;
+                        HandledHighestClearText = string.Format(LanguageSystem.Instance.AvatarHandledHighestClearText, (100.0 * avatarHandledMap.handledHighestClearCount / noteIDCount).ToString("0.##％"));
 
                         if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.HigherClear, out handledItems))
                         {
@@ -310,9 +306,7 @@ namespace Qwilight.ViewModel
                                 });
                             }
                         }
-                        var handledHigherClearCount = avatarHandledMap.handledHigherClearCount;
-                        HandledHigherClearText = string.Format(LanguageSystem.Instance.AvatarHandledHigherClearText, handledHigherClearCount.ToString("#,##0"), noteIDCount.ToString("#,##0"));
-                        noteIDCount -= handledHigherClearCount;
+                        HandledHigherClearText = string.Format(LanguageSystem.Instance.AvatarHandledHigherClearText, (100.0 * avatarHandledMap.handledHigherClearCount / noteIDCount).ToString("0.##％"));
 
                         if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Clear, out handledItems))
                         {
@@ -324,9 +318,7 @@ namespace Qwilight.ViewModel
                                 });
                             }
                         }
-                        var handledClearCount = avatarHandledMap.handledClearCount;
-                        HandledClearText = string.Format(LanguageSystem.Instance.AvatarHandledClearText, handledClearCount.ToString("#,##0"), noteIDCount.ToString("#,##0"));
-                        noteIDCount -= handledClearCount;
+                        HandledClearText = string.Format(LanguageSystem.Instance.AvatarHandledClearText, (100.0 * avatarHandledMap.handledClearCount / noteIDCount).ToString("0.##％"));
                     }
                 }
             }
@@ -346,7 +338,7 @@ namespace Qwilight.ViewModel
                         IsLevelVSLoading = true;
                         var levelVSLevelName = value;
                         var twilightWwwAvatarLevelVSMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarLevelVS>>($"{QwilightComponent.QwilightAPI}/avatar/levelVS?avatarID={TwilightSystem.Instance.AvatarID}&targetID={_avatarID}&levelName={levelVSLevelName}");
-                        if (levelVSLevelName == value)
+                        if (levelVSLevelName == LevelVSLevelName)
                         {
                             if (twilightWwwAvatarLevelVSMap != null)
                             {

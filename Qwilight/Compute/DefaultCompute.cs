@@ -120,7 +120,7 @@ namespace Qwilight.Compute
         readonly List<AudioNote>[] _lastIIDXInputAudioNoteMap = new List<AudioNote>[53];
         readonly List<Comment> _comments = new();
         readonly List<NetItem> _netItems = new();
-        readonly Dictionary<MediaNote.Mode, IHandlerItem> DrawingCollection = new();
+        readonly Dictionary<MediaNote.Mode, IHandlerItem> MediaCollection = new();
         readonly Stopwatch _loopingHandler = new();
         readonly ConcurrentQueue<(int, byte)> _rawInputQueue = new();
         readonly List<PaintEvent>[] _paintEventsGAS = new List<PaintEvent>[8];
@@ -498,7 +498,7 @@ namespace Qwilight.Compute
 
         public XORInt32 HighestBand { get; set; }
 
-        public bool IsHandlingDrawing { get; set; }
+        public bool IsMediaHandling { get; set; }
 
         public bool AlwaysNotP2Position { get; set; }
 
@@ -589,7 +589,7 @@ namespace Qwilight.Compute
             if (defaultMediaFaint > 0)
             {
                 targetSession.DrawRectangle(Paints.Paint0, null, r);
-                if (Configure.Instance.Media && IsHandlingDrawing)
+                if (Configure.Instance.Media && IsMediaHandling)
                 {
                     var defaultHandlerItem = GetHandlerItem(MediaNote.Mode.Default);
                     var layerHandlerItem = GetHandlerItem(MediaNote.Mode.Layer);
@@ -659,7 +659,7 @@ namespace Qwilight.Compute
                     {
                         if (HasContents)
                         {
-                            if (Configure.Instance.Media && IsHandlingDrawing)
+                            if (Configure.Instance.Media && IsMediaHandling)
                             {
                                 var defaultHandlerItem = GetHandlerItem(MediaNote.Mode.Default);
                                 var layerHandlerItem = GetHandlerItem(MediaNote.Mode.Layer);
@@ -1688,16 +1688,21 @@ namespace Qwilight.Compute
                 {
                     if (mediaNote.HasContents)
                     {
+                        var mediaMode = mediaNote.MediaMode;
                         var mediaItem = mediaNote.MediaItem;
-                        if (mediaItem != null && LoopingCounter < waitModified + mediaItem.Length)
+                        if (mediaItem == null)
+                        {
+                            MediaCollection[mediaMode] = null;
+                            IsMediaHandling = true;
+                        }
+                        else if (LoopingCounter < waitModified + mediaItem.Length)
                         {
                             lock (LoadedCSX)
                             {
                                 if (HasContents)
                                 {
-                                    var mediaMode = mediaNote.MediaMode;
-                                    DrawingCollection[mediaMode] = mediaItem.Handle(this, mediaItem.IsLooping ? TimeSpan.Zero : TimeSpan.FromMilliseconds(waitModified) - mediaNote.MediaLevyingPosition, mediaMode);
-                                    IsHandlingDrawing = true;
+                                    MediaCollection[mediaMode] = mediaItem.Handle(this, mediaItem.IsLooping ? TimeSpan.Zero : TimeSpan.FromMilliseconds(waitModified) - mediaNote.MediaLevyingPosition, mediaMode);
+                                    IsMediaHandling = true;
                                 }
                             }
                         }
@@ -4193,7 +4198,7 @@ namespace Qwilight.Compute
 
         public void SetWait() => DB.Instance.SetWait(NoteFile, Math.Clamp(Configure.Instance.AudioWait, -1000.0, 1000.0), Math.Clamp(Configure.Instance.MediaWait, -1000.0, 1000.0), Configure.Instance.Media);
 
-        IHandlerItem GetHandlerItem(MediaNote.Mode mode) => ViewFailedDrawing && _failedDrawingMillis > 0.0 && DrawingCollection.TryGetValue(MediaNote.Mode.Failed, out var failedHandler) ? failedHandler : DrawingCollection.TryGetValue(mode, out var handler) ? handler : null;
+        IHandlerItem GetHandlerItem(MediaNote.Mode mode) => ViewFailedDrawing && _failedDrawingMillis > 0.0 && MediaCollection.TryGetValue(MediaNote.Mode.Failed, out var failedHandler) ? failedHandler : MediaCollection.TryGetValue(mode, out var handler) ? handler : null;
 
         public virtual void SendNotCompiled()
         {
@@ -4237,7 +4242,7 @@ namespace Qwilight.Compute
             _valueComponent.SetBPM(LevyingBPM);
             _millisStandardMeter = 60000.0 / LevyingBPM;
             _millisMeter = 0.0;
-            IsHandlingDrawing = false;
+            IsMediaHandling = false;
             HasFailedJudgment = false;
             _isPaused = false;
             _inputFlags = InputFlag.Not;
@@ -4316,7 +4321,7 @@ namespace Qwilight.Compute
             {
                 PaintedNotes.Clear();
             }
-            DrawingCollection.Clear();
+            MediaCollection.Clear();
             foreach (var judgmentVisualizerValues in JudgmentVisualizerValues)
             {
                 lock (judgmentVisualizerValues)

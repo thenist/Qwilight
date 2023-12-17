@@ -888,6 +888,7 @@ namespace Qwilight.Compiler
                                     AudioItem = audioItem
                                 };
                                 bmsIDHandledItemMap.TryGetValue(bmsID, out mediaItem);
+                                var hasContents = defaultComputer.LoadedMedia;
                                 switch (noteVariety0)
                                 {
                                     case '0':
@@ -908,7 +909,7 @@ namespace Qwilight.Compiler
                                                 {
                                                     MediaMode = MediaNote.Mode.Default,
                                                     MediaItem = mediaItem,
-                                                    HasContents = defaultComputer.LoadedMedia
+                                                    HasContents = hasContents
                                                 });
                                                 break;
                                             case '6' when !isBanalMedia && !isBanalFailedMedia:
@@ -916,7 +917,7 @@ namespace Qwilight.Compiler
                                                 {
                                                     MediaMode = MediaNote.Mode.Failed,
                                                     MediaItem = mediaItem,
-                                                    HasContents = defaultComputer.LoadedMedia
+                                                    HasContents = hasContents
                                                 });
                                                 break;
                                             case '7' when !isBanalMedia:
@@ -924,7 +925,7 @@ namespace Qwilight.Compiler
                                                 {
                                                     MediaMode = MediaNote.Mode.Layer,
                                                     MediaItem = mediaItem,
-                                                    HasContents = defaultComputer.LoadedMedia
+                                                    HasContents = hasContents
                                                 });
                                                 break;
                                             case '9':
@@ -943,7 +944,7 @@ namespace Qwilight.Compiler
                                             }
                                             else
                                             {
-                                                bmsLongInputItemSets[input].Add(new BMSLongInputItem
+                                                bmsLongInputItemSets[input].Add(new()
                                                 {
                                                     InputNote = inputNote,
                                                     BMSID = bmsID
@@ -965,7 +966,7 @@ namespace Qwilight.Compiler
                                             var inputNote = new InputNote(logicalY, wait, [audioNote], input);
                                             if (!string.IsNullOrEmpty(_longNoteBMSID) && _longNoteBMSID.EqualsCaseless(bmsID))
                                             {
-                                                bmsLongInputItemSets[input].Add(new BMSLongInputItem
+                                                bmsLongInputItemSets[input].Add(new()
                                                 {
                                                     InputNote = inputNote,
                                                     BMSID = bmsID
@@ -973,7 +974,7 @@ namespace Qwilight.Compiler
                                             }
                                             else
                                             {
-                                                bmsInputItemSets[input].Add(new BMSInputItem
+                                                bmsInputItemSets[input].Add(new()
                                                 {
                                                     InputNote = inputNote
                                                 });
