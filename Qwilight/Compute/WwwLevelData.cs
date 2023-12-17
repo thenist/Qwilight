@@ -14,7 +14,7 @@
         {
             IsStandSatisify = IsSatisify(defaultComputer.Stand.TargetValue, Stand);
             IsPointSatisify = IsSatisify(defaultComputer.Point.TargetValue, Point);
-            IsBandSatisify = IsSatisify(defaultComputer.Band.TargetValue, Band);
+            IsBandSatisify = IsSatisify(defaultComputer.HighestBand, Band);
             IsJudgmentsSatisify[(int)Component.Judged.Highest] = IsSatisify(defaultComputer.InheritedHighestJudgment + defaultComputer.Comment.HighestJudgment, Judgments?[(int)Component.Judged.Highest]);
             IsJudgmentsSatisify[(int)Component.Judged.Higher] = IsSatisify(defaultComputer.InheritedHigherJudgment + defaultComputer.Comment.HigherJudgment, Judgments?[(int)Component.Judged.Higher]);
             IsJudgmentsSatisify[(int)Component.Judged.High] = IsSatisify(defaultComputer.InheritedHighJudgment + defaultComputer.Comment.HighJudgment, Judgments?[(int)Component.Judged.High]);

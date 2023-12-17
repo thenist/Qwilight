@@ -2791,7 +2791,6 @@ namespace Qwilight.Compute
                         {
                             _lastStatus = Comment.LowestJudgment > 0 ? LastStatus.Last : LastStatus.Band1;
                         }
-                        WwwLevelDataValue?.SetSatisify(this);
 
                         void HandleJudged(BaseNote judgedNote, JudgedNoteData? judgedNoteData, double loopingCounter)
                         {
@@ -3892,7 +3891,47 @@ namespace Qwilight.Compute
                     _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] = Math.Clamp(_hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher], 0.0, 1.0);
                     _hitPointsGAS[(int)ModeComponent.HitPointsMode.Highest] = Math.Clamp(_hitPointsGAS[(int)ModeComponent.HitPointsMode.Highest], 0.0, 1.0);
 
-                    NewPaintEvent();
+                    Comment.Paints.Add(new PaintEvent
+                    {
+                        HitPoints = HitPoints.TargetValue,
+                        Stand = Stand.TargetValue,
+                        Band = Band.TargetValue,
+                        Point = Point.TargetValue,
+                        Wait = LoopingCounter
+                    });
+                    switch (ModeComponentValue.HandlingHitPointsModeValue)
+                    {
+                        case ModeComponent.HitPointsMode.Highest:
+                            _paintEventsGAS[(int)ModeComponent.HitPointsMode.Higher].Add(new()
+                            {
+                                HitPoints = _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher],
+                                Stand = Stand.TargetValue,
+                                Band = Band.TargetValue,
+                                Point = Point.TargetValue,
+                                Wait = LoopingCounter
+                            });
+
+                            _paintEventsGAS[(int)ModeComponent.HitPointsMode.Default].Add(new()
+                            {
+                                HitPoints = _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default],
+                                Stand = Stand.TargetValue,
+                                Band = Band.TargetValue,
+                                Point = Point.TargetValue,
+                                Wait = LoopingCounter
+                            });
+                            break;
+                        case ModeComponent.HitPointsMode.Higher:
+                            _paintEventsGAS[(int)ModeComponent.HitPointsMode.Default].Add(new()
+                            {
+                                HitPoints = _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default],
+                                Stand = Stand.TargetValue,
+                                Band = Band.TargetValue,
+                                Point = Point.TargetValue,
+                                Wait = LoopingCounter
+                            });
+                            break;
+                    }
+                    WwwLevelDataValue?.SetSatisify(this);
                 }
                 if (!IsInEvents)
                 {
@@ -4131,50 +4170,6 @@ namespace Qwilight.Compute
             }
 
             IsNewStand = Stand.TargetValue > _netItems.Where(netItem => !netItem.IsMyNetItem && netItem.AvatarID == AvatarID).DefaultIfEmpty().Max(netItem => netItem?.StandValue ?? 0);
-        }
-
-        void NewPaintEvent()
-        {
-            Comment.Paints.Add(new PaintEvent
-            {
-                HitPoints = HitPoints.TargetValue,
-                Stand = Stand.TargetValue,
-                Band = Band.TargetValue,
-                Point = Point.TargetValue,
-                Wait = LoopingCounter
-            });
-            switch (ModeComponentValue.HandlingHitPointsModeValue)
-            {
-                case ModeComponent.HitPointsMode.Highest:
-                    _paintEventsGAS[(int)ModeComponent.HitPointsMode.Higher].Add(new()
-                    {
-                        HitPoints = _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher],
-                        Stand = Stand.TargetValue,
-                        Band = Band.TargetValue,
-                        Point = Point.TargetValue,
-                        Wait = LoopingCounter
-                    });
-
-                    _paintEventsGAS[(int)ModeComponent.HitPointsMode.Default].Add(new()
-                    {
-                        HitPoints = _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default],
-                        Stand = Stand.TargetValue,
-                        Band = Band.TargetValue,
-                        Point = Point.TargetValue,
-                        Wait = LoopingCounter
-                    });
-                    break;
-                case ModeComponent.HitPointsMode.Higher:
-                    _paintEventsGAS[(int)ModeComponent.HitPointsMode.Default].Add(new()
-                    {
-                        HitPoints = _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default],
-                        Stand = Stand.TargetValue,
-                        Band = Band.TargetValue,
-                        Point = Point.TargetValue,
-                        Wait = LoopingCounter
-                    });
-                    break;
-            }
         }
 
         public void HandleCompiler()
