@@ -99,7 +99,6 @@ namespace Qwilight.View
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _ = PInvoke.timeBeginPeriod(1);
-            Thread.CurrentThread.Priority = ThreadPriority.Highest;
             ThreadPool.GetMaxThreads(out var tw, out var tIOCP);
             ThreadPool.SetMinThreads(tw, tIOCP);
 

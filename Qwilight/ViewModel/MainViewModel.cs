@@ -1585,7 +1585,7 @@ namespace Qwilight.ViewModel
 
             Configure.Instance.Save(false);
             GPUConfigure.Instance.Save(false);
-            DB.Instance.Save(false);
+            DB.Instance.Save();
             FastDB.Instance.Save();
 
             AudioSystem.Instance.Dispose();

@@ -1125,26 +1125,14 @@ namespace Qwilight
             return new(text, _fastDB, ta);
         }
 
-        public void Save(bool isParallel)
+        public void Save()
         {
-            if (isParallel)
+            lock (_setSaveCSX)
             {
-                Task.Run(SaveImpl);
-            }
-            else
-            {
-                SaveImpl();
-            }
-
-            void SaveImpl()
-            {
-                lock (_setSaveCSX)
-                {
-                    Utility.CopyFile(_fileName, _tmp0FileName);
-                    Utility.MoveFile(_tmp0FileName, _tmp1FileName);
-                    _fastDB.BackupDatabase(_fileDB, _fileDB.Database, _fastDB.Database, -1, null, -1);
-                    Utility.WipeFile(_tmp1FileName);
-                }
+                Utility.CopyFile(_fileName, _tmp0FileName);
+                Utility.MoveFile(_tmp0FileName, _tmp1FileName);
+                _fastDB.BackupDatabase(_fileDB, _fileDB.Database, _fastDB.Database, -1, null, -1);
+                Utility.WipeFile(_tmp1FileName);
             }
         }
     }

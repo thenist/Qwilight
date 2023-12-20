@@ -776,7 +776,7 @@ namespace Qwilight
                                                     case BundleItem.BundleVariety.Qwilight:
                                                         Configure.Instance.Save(false);
                                                         GPUConfigure.Instance.Save(false);
-                                                        DB.Instance.Save(false);
+                                                        DB.Instance.Save();
                                                         if (Directory.Exists(QwilightComponent.CommentEntryPath))
                                                         {
                                                             zipFile.AddDirectory(QwilightComponent.CommentEntryPath, "Comment");
