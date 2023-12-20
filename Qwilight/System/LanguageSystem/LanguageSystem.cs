@@ -128,19 +128,19 @@ namespace Qwilight
             LongNoteModeTexts[(int)ModeComponent.LongNoteMode.Input] = HigherLongNoteMode;
 
             InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Default] = InputDefaultMode;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode4] = InputFavorMode4;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode5] = InputFavorMode5;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode6] = InputFavorMode6;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode7] = InputFavorMode7;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode8] = InputFavorMode8;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode9] = InputFavorMode9;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode10] = InputFavorMode10;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode51] = InputFavorMode51;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode71] = InputFavorMode71;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode102] = InputFavorMode102;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode142] = InputFavorMode142;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode242] = InputFavorMode242;
-            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode484] = InputFavorMode484;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._4] = InputFavorMode4;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._5] = InputFavorMode5;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._6] = InputFavorMode6;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._7] = InputFavorMode7;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._8] = InputFavorMode8;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._9] = InputFavorMode9;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._10] = InputFavorMode10;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._5_1] = InputFavorMode51;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._7_1] = InputFavorMode71;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._10_2] = InputFavorMode102;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._14_2] = InputFavorMode142;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._24_2] = InputFavorMode242;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode._48_4] = InputFavorMode484;
 
             NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.Default] = DefaultSaltModeContents;
             NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.Symmetric] = SymmetricModeContents;

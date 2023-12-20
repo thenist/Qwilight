@@ -1913,6 +1913,7 @@ namespace Qwilight
                                     handledDrawingItems[0] = handledDrawingItem;
                                     break;
                                 case 3:
+                                    (frame, random) = (random, frame);
                                     if (!paintProperty.HandledDrawingItemMap.TryGetValue(0, out handledDrawingItems))
                                     {
                                         handledDrawingItems = new HandledDrawingItem?[paintProperty.Frame];

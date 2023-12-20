@@ -472,81 +472,81 @@ namespace Qwilight.ViewModel
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode4,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode4],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode4]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._4,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._4],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._4]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode5,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode5],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode5]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._5,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._5],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._5]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode6,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode6],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode6]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._6,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._6],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._6]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode7,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode7],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode7]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._7,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._7],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._7]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode8,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode8],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode8]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._8,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._8],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._8]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode9,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode9],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode9]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._9,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._9],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._9]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode10,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode10],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode10]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._10,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._10],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._10]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode51,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode51],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode51]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._5_1,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._5_1],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._5_1]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode71,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode71],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode71]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._7_1,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._7_1],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._7_1]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode102,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode102],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode102]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._10_2,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._10_2],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._10_2]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode142,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode142],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode142]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._14_2,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._14_2],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._14_2]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode242,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode242],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode242]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._24_2,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._24_2],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._24_2]?.DefaultDrawing
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Mode484,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Mode484],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Mode484]?.DefaultDrawing
+                Value = (int)ModeComponent.InputFavorMode._48_4,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode._48_4],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode._48_4]?.DefaultDrawing
             });
 
             ModifyModeComponentItems[NoteModifyModeVariety].Add(new()

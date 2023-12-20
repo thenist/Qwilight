@@ -435,43 +435,43 @@ namespace Qwilight.Compiler
                 }
                 switch (inputFavorModeValue)
                 {
-                    case ModeComponent.InputFavorMode.Mode4:
+                    case ModeComponent.InputFavorMode._4:
                         InputMode = Component.InputMode._4;
                         break;
-                    case ModeComponent.InputFavorMode.Mode5:
+                    case ModeComponent.InputFavorMode._5:
                         InputMode = Component.InputMode._5;
                         break;
-                    case ModeComponent.InputFavorMode.Mode6:
+                    case ModeComponent.InputFavorMode._6:
                         InputMode = Component.InputMode._6;
                         break;
-                    case ModeComponent.InputFavorMode.Mode7:
+                    case ModeComponent.InputFavorMode._7:
                         InputMode = Component.InputMode._7;
                         break;
-                    case ModeComponent.InputFavorMode.Mode8:
+                    case ModeComponent.InputFavorMode._8:
                         InputMode = Component.InputMode._8;
                         break;
-                    case ModeComponent.InputFavorMode.Mode9:
+                    case ModeComponent.InputFavorMode._9:
                         InputMode = Component.InputMode._9;
                         break;
-                    case ModeComponent.InputFavorMode.Mode51:
+                    case ModeComponent.InputFavorMode._5_1:
                         InputMode = Component.InputMode._5_1;
                         break;
-                    case ModeComponent.InputFavorMode.Mode71:
+                    case ModeComponent.InputFavorMode._7_1:
                         InputMode = Component.InputMode._7_1;
                         break;
-                    case ModeComponent.InputFavorMode.Mode102:
+                    case ModeComponent.InputFavorMode._10_2:
                         InputMode = Component.InputMode._10_2;
                         break;
-                    case ModeComponent.InputFavorMode.Mode142:
+                    case ModeComponent.InputFavorMode._14_2:
                         InputMode = Component.InputMode._14_2;
                         break;
-                    case ModeComponent.InputFavorMode.Mode10:
+                    case ModeComponent.InputFavorMode._10:
                         InputMode = Component.InputMode._10;
                         break;
-                    case ModeComponent.InputFavorMode.Mode242:
+                    case ModeComponent.InputFavorMode._24_2:
                         InputMode = Component.InputMode._24_2;
                         break;
-                    case ModeComponent.InputFavorMode.Mode484:
+                    case ModeComponent.InputFavorMode._48_4:
                         InputMode = Component.InputMode._48_4;
                         break;
                 }

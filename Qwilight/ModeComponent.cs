@@ -43,7 +43,7 @@ namespace Qwilight
 
         public enum InputFavorMode
         {
-            Default, Mode4 = 4, Mode5, Mode6, Mode7, Mode8, Mode9, Mode51, Mode71, Mode102, Mode142, Mode10, Mode242, Mode484
+            Default, _4 = 4, _5, _6, _7, _8, _9, _5_1, _7_1, _10_2, _14_2, _10, _24_2, _48_4
         }
 
         public enum NoteModifyMode

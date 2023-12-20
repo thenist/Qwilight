@@ -147,8 +147,9 @@ namespace Qwilight
                 }
                 else if (DrawingFrame >= 0)
                 {
+                    var framerate = 1000.0 / Framerate;
                     DrawingMillis += millis;
-                    DrawingFrame = (int)(DrawingMillis / (1000.0 / Framerate));
+                    DrawingFrame = (int)(DrawingMillis / framerate);
                     if (DrawingFrame < Frame)
                     {
                         targetSession.PaintDrawing(ref r, HandledDrawingItems?.ElementAtOrDefault(DrawingFrame)?.DefaultDrawing);
@@ -285,8 +286,9 @@ namespace Qwilight
                 }
                 else if (DrawingFrame >= 0)
                 {
+                    var framerate = 1000.0 / Framerate;
                     DrawingMillis += millis;
-                    DrawingFrame = (int)(DrawingMillis / (1000.0 / Framerate));
+                    DrawingFrame = (int)(DrawingMillis / framerate);
                     if (DrawingFrame < Frame)
                     {
                         targetSession.PaintDrawing(ref r, HandledDrawingItems?.ElementAtOrDefault(DrawingFrame)?.Drawing);
