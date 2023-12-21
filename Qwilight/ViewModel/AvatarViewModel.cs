@@ -223,36 +223,7 @@ namespace Qwilight.ViewModel
         {
             get => _handledLevelName;
 
-            set
-            {
-                if (SetProperty(ref _handledLevelName, value, nameof(HandledLevelName)))
-                {
-                    _ = Awaitable();
-                    async Task Awaitable()
-                    {
-                        IsHandledLoading = true;
-                        var handledLevelName = value;
-                        var twilightWwwAvatarHandledMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarHandled>>($"{QwilightComponent.QwilightAPI}/avatar/handled?avatarID={_avatarID}&levelName={handledLevelName}");
-                        if (handledLevelName == HandledLevelName)
-                        {
-                            if (twilightWwwAvatarHandledMap != null)
-                            {
-                                _twilightWwwAvatarHandledMap = twilightWwwAvatarHandledMap;
-                                HandledLevelIDItemCollection.Clear();
-                                foreach (var data in twilightWwwAvatarHandledMap)
-                                {
-                                    HandledLevelIDItemCollection.Add(new()
-                                    {
-                                        LevelID = data.Key
-                                    });
-                                }
-                                HandledLevelIDItemValue = HandledLevelIDItemCollection.FirstOrDefault();
-                            }
-                            IsHandledLoading = false;
-                        }
-                    }
-                }
-            }
+            set => SetProperty(ref _handledLevelName, value, nameof(HandledLevelName));
         }
 
         public HandledLevelIDItem HandledLevelIDItemValue
@@ -328,38 +299,7 @@ namespace Qwilight.ViewModel
         {
             get => _levelVSLevelName;
 
-            set
-            {
-                if (SetProperty(ref _levelVSLevelName, value, nameof(LevelVSLevelName)))
-                {
-                    _ = Awaitable();
-                    async Task Awaitable()
-                    {
-                        IsLevelVSLoading = true;
-                        var levelVSLevelName = value;
-                        var twilightWwwAvatarLevelVSMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarLevelVS>>($"{QwilightComponent.QwilightAPI}/avatar/levelVS?avatarID={TwilightSystem.Instance.AvatarID}&targetID={_avatarID}&levelName={levelVSLevelName}");
-                        if (levelVSLevelName == LevelVSLevelName)
-                        {
-                            if (twilightWwwAvatarLevelVSMap != null)
-                            {
-                                _twilightWwwAvatarLevelVSMap = twilightWwwAvatarLevelVSMap;
-                                LevelVSLevelIDItemCollection.Clear();
-                                foreach (var data in twilightWwwAvatarLevelVSMap)
-                                {
-                                    LevelVSLevelIDItemCollection.Add(new()
-                                    {
-                                        LevelID = data.Key,
-                                        AvatarLevelVSCount = data.Value.avatarLevelVSCount,
-                                        TargetLevelVSCount = data.Value.targetLevelVSCount
-                                    });
-                                }
-                                LevelVSLevelIDItemValue = LevelVSLevelIDItemCollection.FirstOrDefault();
-                            }
-                            IsLevelVSLoading = false;
-                        }
-                    }
-                }
-            }
+            set => SetProperty(ref _levelVSLevelName, value, nameof(LevelVSLevelName));
         }
 
         public bool IsLevelVSVisible => TwilightSystem.Instance.IsSignedIn && !IsMe;
@@ -881,14 +821,56 @@ namespace Qwilight.ViewModel
                     IsAvatarWwwLevelLoading = false;
                     break;
                 case 4:
-                    HandledLevelName = HandledLevelName ?? HandledLevelNameCollection.FirstOrDefault();
+                    HandledLevelName ??= HandledLevelNameCollection.FirstOrDefault();
+                    IsHandledLoading = true;
+                    var handledLevelName = HandledLevelName;
+                    var twilightWwwAvatarHandledMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarHandled>>($"{QwilightComponent.QwilightAPI}/avatar/handled?avatarID={_avatarID}&levelName={handledLevelName}");
+                    if (handledLevelName == HandledLevelName)
+                    {
+                        if (twilightWwwAvatarHandledMap != null)
+                        {
+                            _twilightWwwAvatarHandledMap = twilightWwwAvatarHandledMap;
+                            HandledLevelIDItemCollection.Clear();
+                            foreach (var data in twilightWwwAvatarHandledMap)
+                            {
+                                HandledLevelIDItemCollection.Add(new()
+                                {
+                                    LevelID = data.Key
+                                });
+                            }
+                            HandledLevelIDItemValue = HandledLevelIDItemCollection.FirstOrDefault();
+                        }
+                        IsHandledLoading = false;
+                    }
                     break;
                 case 5 when IsLevelVSVisible:
                     LevelVSMyAvatarWwwValue = new(TwilightSystem.Instance.AvatarID);
                     LevelVSMyAvatarName = TwilightSystem.Instance.AvatarName;
                     LevelVSTargetAvatarWwwValue = new(_avatarID);
                     LevelVSTargetAvatarName = _avatarName;
-                    LevelVSLevelName = LevelVSLevelName ?? LevelVSLevelNameCollection.FirstOrDefault();
+                    LevelVSLevelName ??= LevelVSLevelNameCollection.FirstOrDefault();
+                    IsLevelVSLoading = true;
+                    var levelVSLevelName = LevelVSLevelName;
+                    var twilightWwwAvatarLevelVSMap = await TwilightSystem.Instance.GetWwwParallel<Dictionary<string, JSON.TwilightWwwAvatarLevelVS>>($"{QwilightComponent.QwilightAPI}/avatar/levelVS?avatarID={TwilightSystem.Instance.AvatarID}&targetID={_avatarID}&levelName={levelVSLevelName}");
+                    if (levelVSLevelName == LevelVSLevelName)
+                    {
+                        if (twilightWwwAvatarLevelVSMap != null)
+                        {
+                            _twilightWwwAvatarLevelVSMap = twilightWwwAvatarLevelVSMap;
+                            LevelVSLevelIDItemCollection.Clear();
+                            foreach (var data in twilightWwwAvatarLevelVSMap)
+                            {
+                                LevelVSLevelIDItemCollection.Add(new()
+                                {
+                                    LevelID = data.Key,
+                                    AvatarLevelVSCount = data.Value.avatarLevelVSCount,
+                                    TargetLevelVSCount = data.Value.targetLevelVSCount
+                                });
+                            }
+                            LevelVSLevelIDItemValue = LevelVSLevelIDItemCollection.FirstOrDefault();
+                        }
+                        IsLevelVSLoading = false;
+                    }
                     break;
             }
         }
