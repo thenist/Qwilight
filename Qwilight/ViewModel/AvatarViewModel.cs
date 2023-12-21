@@ -223,7 +223,13 @@ namespace Qwilight.ViewModel
         {
             get => _handledLevelName;
 
-            set => SetProperty(ref _handledLevelName, value, nameof(HandledLevelName));
+            set
+            {
+                if (SetProperty(ref _handledLevelName, value, nameof(HandledLevelName)))
+                {
+                    _ = CallAvatarAPI();
+                }
+            }
         }
 
         public HandledLevelIDItem HandledLevelIDItemValue
@@ -299,7 +305,13 @@ namespace Qwilight.ViewModel
         {
             get => _levelVSLevelName;
 
-            set => SetProperty(ref _levelVSLevelName, value, nameof(LevelVSLevelName));
+            set
+            {
+                if (SetProperty(ref _levelVSLevelName, value, nameof(LevelVSLevelName)))
+                {
+                    _ = CallAvatarAPI();
+                }
+            }
         }
 
         public bool IsLevelVSVisible => TwilightSystem.Instance.IsSignedIn && !IsMe;
