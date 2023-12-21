@@ -881,14 +881,14 @@ namespace Qwilight.ViewModel
                     IsAvatarWwwLevelLoading = false;
                     break;
                 case 4:
-                    HandledLevelName ??= HandledLevelNameCollection.FirstOrDefault();
+                    HandledLevelName = HandledLevelName ?? HandledLevelNameCollection.FirstOrDefault();
                     break;
                 case 5 when IsLevelVSVisible:
                     LevelVSMyAvatarWwwValue = new(TwilightSystem.Instance.AvatarID);
                     LevelVSMyAvatarName = TwilightSystem.Instance.AvatarName;
                     LevelVSTargetAvatarWwwValue = new(_avatarID);
                     LevelVSTargetAvatarName = _avatarName;
-                    LevelVSLevelName ??= LevelVSLevelNameCollection.FirstOrDefault();
+                    LevelVSLevelName = LevelVSLevelName ?? LevelVSLevelNameCollection.FirstOrDefault();
                     break;
             }
         }
