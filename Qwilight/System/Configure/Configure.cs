@@ -3032,7 +3032,6 @@ namespace Qwilight
             {
                 InputWantNoteVariety = new bool[7];
                 Array.Fill(InputWantNoteVariety, true);
-                Array.Fill(InputWantHandled, true);
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 97))
             {
@@ -3357,6 +3356,7 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 14))
             {
                 InputWantHandled = new bool[8];
+                Array.Fill(InputWantHandled, true);
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {
