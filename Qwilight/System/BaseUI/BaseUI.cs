@@ -118,7 +118,7 @@ namespace Qwilight
 
         public HandledDrawingItem?[] InputModeDrawings { get; } = new HandledDrawingItem?[17];
 
-        public ImageSource[] HandledWallDrawings { get; } = new ImageSource[7];
+        public ImageSource[] HandledWallDrawings { get; } = new ImageSource[8];
 
         public ImageSource[] DefaultEntryDrawings { get; } = new ImageSource[5];
 

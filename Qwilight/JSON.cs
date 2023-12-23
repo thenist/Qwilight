@@ -823,6 +823,7 @@ namespace Qwilight
             public int handledHighestClearCount;
             public int handledHigherClearCount;
             public int handledClearCount;
+            public int handledAssistClearCount;
             public int noteIDCount;
             public Dictionary<BaseNoteFile.Handled, List<HandledItem>> avatarHandledItems;
 

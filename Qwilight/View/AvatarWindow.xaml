@@ -408,6 +408,15 @@
                                                     </TabItem.Header>
                                                     <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding HandledClearAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
                                                 </TabItem>
+                                                <TabItem Style="{StaticResource StandardPageItem}">
+                                                    <TabItem.Header>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Style="{StaticResource VNarrowView}" Source="{Binding HandledWallDrawings[7], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                                            <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding HandledAssistClearText}" />
+                                                        </StackPanel>
+                                                    </TabItem.Header>
+                                                    <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding HandledAssistClearAvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
+                                                </TabItem>
                                             </TabControl>
                                         </Grid>
                                         <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHandledLoading, Converter={StaticResource VisibilityModifier}}" />

@@ -88,6 +88,7 @@ namespace Qwilight
         public string AvatarCountContents { get; set; }
         public string AvatarDrawingText { get; set; }
         public string AvatarEdgeText { get; set; }
+        public string AvatarHandledAssistClearText { get; set; }
         public string AvatarHandledBand1Text { get; set; }
         public string AvatarHandledClearText { get; set; }
         public string AvatarHandledHigherClearText { get; set; }
@@ -287,6 +288,7 @@ namespace Qwilight
         public string GPUModeText { get; set; }
         public string GUIConfigureText { get; set; }
         public string HalfInputSaltModeContents { get; set; }
+        public string HandledAssistClearText { get; set; }
         public string HandledBand1Text { get; set; }
         public string HandledClearText { get; set; }
         public string HandledContents { get; set; }

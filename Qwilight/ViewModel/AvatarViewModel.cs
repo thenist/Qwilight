@@ -119,6 +119,7 @@ namespace Qwilight.ViewModel
         string _handledHighestClear;
         string _handledHigherClear;
         string _handledClear;
+        string _handledAssistClear;
         bool _isHandledLoading;
         string _levelVSLevelName;
         AvatarWww _levelVSMyAvatarWww;
@@ -174,6 +175,8 @@ namespace Qwilight.ViewModel
 
         public ObservableCollection<AvatarComputing> HandledHigherClearAvatarComputingCollection { get; } = new();
 
+        public ObservableCollection<AvatarComputing> HandledAssistClearAvatarComputingCollection { get; } = new();
+
         public ObservableCollection<AvatarComputing> HandledClearAvatarComputingCollection { get; } = new();
 
         public ObservableCollection<string> HandledLevelNameCollection { get; } = new();
@@ -204,6 +207,13 @@ namespace Qwilight.ViewModel
             get => _handledClear;
 
             set => SetProperty(ref _handledClear, value, nameof(HandledClearText));
+        }
+
+        public string HandledAssistClearText
+        {
+            get => _handledAssistClear;
+
+            set => SetProperty(ref _handledAssistClear, value, nameof(HandledAssistClearText));
         }
 
         public ObservableCollection<LevelVSLevelIDItem> LevelVSLevelIDItemCollection { get; } = new();
@@ -243,6 +253,7 @@ namespace Qwilight.ViewModel
                     HandledBand1AvatarComputingCollection.Clear();
                     HandledHighestClearAvatarComputingCollection.Clear();
                     HandledHigherClearAvatarComputingCollection.Clear();
+                    HandledAssistClearAvatarComputingCollection.Clear();
                     HandledClearAvatarComputingCollection.Clear();
                     if (value != null)
                     {
@@ -296,6 +307,18 @@ namespace Qwilight.ViewModel
                             }
                         }
                         HandledClearText = string.Format(LanguageSystem.Instance.AvatarHandledClearText, (100.0 * avatarHandledMap.handledClearCount / noteIDCount).ToString("0.##％"));
+
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.AssistClear, out handledItems))
+                        {
+                            foreach (var data in handledItems)
+                            {
+                                HandledAssistClearAvatarComputingCollection.Add(new(data, true)
+                                {
+                                    FittedText = data.stand.ToString(LanguageSystem.Instance.StandContents)
+                                });
+                            }
+                        }
+                        HandledAssistClearText = string.Format(LanguageSystem.Instance.AvatarHandledAssistClearText, (100.0 * avatarHandledMap.handledAssistClearCount / noteIDCount).ToString("0.##％"));
                     }
                 }
             }

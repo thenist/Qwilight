@@ -343,6 +343,10 @@
     "ko-KR": "프레임 선택",
     "en-US": "Select Frame"
   },
+  "AvatarHandledAssistClearText": {
+    "ko-KR": "ASSIST 클리어 ({0})",
+    "en-US": "ASSIST Clear ({0})"
+  },
   "AvatarHandledBand1Text": {
     "ko-KR": "풀콤보 ({0})",
     "en-US": "Full Combo ({0})"
@@ -1138,6 +1142,10 @@
   "HalfInputSaltModeContents": {
     "ko-KR": "노트 라인을 반으로 나눠서 임의 배치합니다. (하프 랜덤)",
     "en-US": "Half Random mode"
+  },
+  "HandledAssistClearText": {
+    "ko-KR": "ASSIST 클리어",
+    "en-US": "ASSIST Clear"
   },
   "HandledBand1Text": {
     "ko-KR": "풀콤보",

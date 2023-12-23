@@ -4006,7 +4006,8 @@ namespace Qwilight.Compute
                 var eventNoteID = EventNoteEntryItem?.EventNoteID;
                 if (string.IsNullOrEmpty(eventNoteID))
                 {
-                    if (new[] { TotallyLevyingAudioMultiplier }.Concat(Comment.AudioMultipliers.Select(audioMultiplier => audioMultiplier.AudioMultiplier)).Min() >= 1.0 && ModeComponentValue.CanSetHandled)
+                    var lowestAudioMultiplier = new[] { TotallyLevyingAudioMultiplier }.Concat(Comment.AudioMultipliers.Select(audioMultiplier => audioMultiplier.AudioMultiplier)).Min();
+                    if (lowestAudioMultiplier >= 1.0 && ModeComponentValue.IsDefaultHandled)
                     {
                         if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
                         {
@@ -4039,6 +4040,14 @@ namespace Qwilight.Compute
                                     }
                                 }
                             }
+                            DB.Instance.SetHandled(NoteFile);
+                        }
+                    }
+                    else
+                    {
+                        if (NoteFile.HandledValue == BaseNoteFile.Handled.Not || NoteFile.HandledValue == BaseNoteFile.Handled.F)
+                        {
+                            NoteFile.HandledValue = BaseNoteFile.Handled.AssistClear;
                             DB.Instance.SetHandled(NoteFile);
                         }
                     }

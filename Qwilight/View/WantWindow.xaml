@@ -83,6 +83,12 @@
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledFText, Source={StaticResource LanguageSystem}}" />
                                 </StackPanel>
                             </Button>
+                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding HandledAssistClear}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledAssistClear}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[7], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledAssistClearText, Source={StaticResource LanguageSystem}}" />
+                                </StackPanel>
+                            </Button>
                             <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding HandledClear}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledClear}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[1], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />

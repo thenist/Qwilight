@@ -94,6 +94,7 @@
     <system:Int32 x:Key="HandledF">4</system:Int32>
     <system:Int32 x:Key="HandledHigherClear">5</system:Int32>
     <system:Int32 x:Key="HandledHighestClear">6</system:Int32>
+    <system:Int32 x:Key="HandledAssistClear">7</system:Int32>
 
     <system:Int32 x:Key="InputMode4">4</system:Int32>
     <system:Int32 x:Key="InputMode5">5</system:Int32>
