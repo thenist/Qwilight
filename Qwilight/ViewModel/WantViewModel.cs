@@ -233,6 +233,7 @@ namespace Qwilight.ViewModel
         public Brush HandledHighestClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear] ? 1 : 0];
 
         public bool IsTotalWantHandled => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Not] ||
+            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.AssistClear] ||
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Clear] ||
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Band1] ||
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.F] ||
