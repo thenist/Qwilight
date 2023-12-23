@@ -145,32 +145,7 @@ namespace Qwilight
                                 Lowest_Hit_Points_1 REAL DEFAULT 0.0,
                                 Note_ID VARCHAR(139),
                                 Is_Paused INTEGER DEFAULT 0,
-                                Input_Flags INTEGER DEFAULT 0,
-                                CHECK (Multiplier >= 0.0)
-                                CHECK (Auto_Mode IN(0, 1))
-                                CHECK (Note_Salt_Mode IN (0, 1, 2, 4, 11, 13))
-                                CHECK (Audio_Multiplier >= 0.5 AND Audio_Multiplier <= 2.0)
-                                CHECK (Faint_Note_Mode IN (0, 1, 2, 3))
-                                CHECK (Judgment_Mode IN (0, 1, 2, 3, 4, 5, 6))
-                                CHECK (Hit_Points_Mode IN (0, 1, 2, 3, 4, 5, 6, 7))
-                                CHECK (Note_Mobility_Mode IN (0, 1, 3, 4, 5))
-                                CHECK (Long_Note_Mode IN (0, 1, 2, 3))
-                                CHECK (Input_Favor_Mode IN (0, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16))
-                                CHECK (Note_Modify_Mode IN (0, 1, 2))
-                                CHECK (BPM_Mode IN (0, 1))
-                                CHECK (Lowest_Judgment_Condition_Mode IN (0, 1))
-                                CHECK (Wave_Mode IN (0, 1))
-                                CHECK (Set_Note_Mode IN (0, 1, 3))
-                                CHECK (Stand >= 0)
-                                CHECK (Band >= 0)
-                                CHECK (Is_P IN (0, 1))
-                                CHECK (Point >= 0.0 AND Point <= 1.0)
-                                CHECK (Lowest_Long_Note_Modify > 0.0)
-                                CHECK (Highest_Long_Note_Modify > 0.0)
-                                CHECK (Put_Note_Set >= 0.0 AND Put_Note_Set <= 100.0)
-                                CHECK (Put_Note_Set_Millis > 0.0)
-                                CHECK (Is_Paused IN (0, 1))
-                                CHECK (Input_Flags >= 0 AND Input_Flags <= 15)
+                                Input_Flags INTEGER DEFAULT 0
                             )
                         """, ta))
                         {
@@ -384,7 +359,7 @@ namespace Qwilight
                     #endregion
 
                     #region 노트 파일 설정 (오디오 레이턴시, BGA 레이턴시, BGA 활성화)
-                    if (date < Date.DB_1_16_9)
+                    if (date < Date.DB_1_16_15)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_wait (
@@ -392,9 +367,6 @@ namespace Qwilight
                                 Audio_Wait REAL,
                                 Media_Wait REAL DEFAULT 0,
                                 Media LONG DEFAULT 1,
-                                CHECK (Audio_Wait >= -1000.0 AND Audio_Wait <= 1000.0)
-                                CHECK (Media_Wait >= -1000.0 AND Media_Wait <= 1000.0)
-                                CHECK (Media IN (0, 1))
                                 PRIMARY KEY (Note_ID)
                             )
                         """, ta))
@@ -467,7 +439,7 @@ namespace Qwilight
                     #endregion
 
                     #region 코스
-                    if (date < Date.DB_1_16_9)
+                    if (date < Date.DB_1_16_15)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_event_note (
@@ -476,7 +448,6 @@ namespace Qwilight
                                 Date DATE,
                                 Variety INTEGER DEFAULT 0,
                                 PRIMARY KEY (Event_Note_ID, Variety)
-                                CHECK (Variety IN (0, 1))
                             )
                         """, ta))
                         {
