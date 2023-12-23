@@ -19,32 +19,42 @@
                 </StackPanel>
                 <StackPanel Grid.Row="1">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Text="{Binding ConfigurePutNoteSetContents, Source={StaticResource LanguageSystem}}" />
-                            <view:BinInput Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.PutNoteSet, Source={StaticResource ViewModels}}" Lowest="1.0" Highest="100.0" Format="0％" />
+                            <view:BinInput Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.PutNoteSet, Source={StaticResource ViewModels}}" Lowest="0.0" Highest="100.0" Format="0％" />
                         </Grid>
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Text="{Binding ConfigurePutNoteSetMillisContents, Source={StaticResource LanguageSystem}}" />
-                        <view:BinInput Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.PutNoteSetMillis, Source={StaticResource ViewModels}}" Lowest="0.0" Highest="1000.0" Format="#,##0.## ms" />
-                        <CheckBox Grid.Column="2" Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoPutNoteSetMillis, Source={StaticResource Configure}}" Checked="OnSetMeter" />
-                        <Slider Grid.Column="3" Style="{StaticResource StandardSlider}" IsEnabled="{Binding AutoPutNoteSetMillis, Source={StaticResource Configure}}" Value="{Binding AutoPutNoteSetMillisValue, Source={StaticResource Configure}}" Minimum="6" Maximum="192" Ticks="6, 8, 12, 16, 24, 32, 48, 64, 96, 192" ValueChanged="OnMeterModified" />
-                        <TextBlock Grid.Column="4" Style="{StaticResource StandardTextView}" Text="{Binding AutoPutNoteSetMillisValue, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='1／0'}" HorizontalAlignment="Left" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Text="{Binding ConfigurePutNoteSetMillisContents, Source={StaticResource LanguageSystem}}" />
+                            <view:BinInput Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.PutNoteSetMillis, Source={StaticResource ViewModels}}" Lowest="0.0" Format="#,##0.## ms" />
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoPutNoteSetMillis, Source={StaticResource Configure}}" Checked="OnSetMeter" />
+                            <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" IsEnabled="{Binding AutoPutNoteSetMillis, Source={StaticResource Configure}}" Value="{Binding AutoPutNoteSetMillisValue, Source={StaticResource Configure}}" Minimum="6" Maximum="192" Ticks="6, 8, 12, 16, 24, 32, 48, 64, 96, 192" ValueChanged="OnMeterModified" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding AutoPutNoteSetMillisValue, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='1／0'}" HorizontalAlignment="Left" />
+                        </Grid>
                     </Grid>
                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding PutNoteSetAssist, Source={StaticResource LanguageSystem}}" />
                 </StackPanel>

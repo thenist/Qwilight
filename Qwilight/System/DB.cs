@@ -15,7 +15,7 @@ namespace Qwilight
     {
         enum Date : long
         {
-            DB100, DB1169, Max
+            DB_1_0_0, DB_1_16_9, DB_1_16_15, Max
         }
         const Date LatestDBDate = Date.Max - 1;
 
@@ -87,7 +87,7 @@ namespace Qwilight
                     #endregion
 
                     #region 오프라인 기록
-                    if (date < Date.DB1169)
+                    if (date < Date.DB_1_16_15)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_comment (
@@ -165,10 +165,10 @@ namespace Qwilight
                                 CHECK (Band >= 0)
                                 CHECK (Is_P IN (0, 1))
                                 CHECK (Point >= 0.0 AND Point <= 1.0)
-                                CHECK (Lowest_Long_Note_Modify >= 1.0 AND Lowest_Long_Note_Modify <= 1000.0)
-                                CHECK (Highest_Long_Note_Modify >= 1.0 AND Highest_Long_Note_Modify <= 1000.0)
-                                CHECK (Put_Note_Set >= 1 AND Put_Note_Set <= 100)
-                                CHECK (Put_Note_Set_Millis >= 0.0 AND Put_Note_Set_Millis <= 1000.0)
+                                CHECK (Lowest_Long_Note_Modify > 0.0)
+                                CHECK (Highest_Long_Note_Modify > 0.0)
+                                CHECK (Put_Note_Set >= 0.0 AND Put_Note_Set <= 100.0)
+                                CHECK (Put_Note_Set_Millis > 0.0)
                                 CHECK (Is_Paused IN (0, 1))
                                 CHECK (Input_Flags >= 0 AND Input_Flags <= 15)
                             )
@@ -212,7 +212,7 @@ namespace Qwilight
                     #endregion
 
                     #region 폴더의 선택된 노트 파일
-                    if (date < Date.DB1169)
+                    if (date < Date.DB_1_16_9)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_entry (
@@ -251,7 +251,7 @@ namespace Qwilight
                     #endregion
 
                     #region 컬렉션
-                    if (date < Date.DB1169)
+                    if (date < Date.DB_1_16_9)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_favorite_entry (
@@ -297,7 +297,7 @@ namespace Qwilight
                     #endregion
 
                     #region 클리어 램프
-                    if (date < Date.DB1169)
+                    if (date < Date.DB_1_16_9)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_handled (
@@ -336,7 +336,7 @@ namespace Qwilight
                     #endregion
 
                     #region 클리어 시간들 (플레이 카운트, 마지막 플레이 정렬)
-                    if (date < Date.DB1169)
+                    if (date < Date.DB_1_16_9)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_date (
@@ -384,7 +384,7 @@ namespace Qwilight
                     #endregion
 
                     #region 노트 파일 설정 (오디오 레이턴시, BGA 레이턴시, BGA 활성화)
-                    if (date < Date.DB1169)
+                    if (date < Date.DB_1_16_9)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_wait (
@@ -428,7 +428,7 @@ namespace Qwilight
                     #endregion
 
                     #region 텍스트 인코딩
-                    if (date < Date.DB1169)
+                    if (date < Date.DB_1_16_9)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_format (
@@ -467,7 +467,7 @@ namespace Qwilight
                     #endregion
 
                     #region 코스
-                    if (date < Date.DB1169)
+                    if (date < Date.DB_1_16_9)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_event_note (
@@ -509,7 +509,7 @@ namespace Qwilight
                     #endregion
 
                     #region 코스 캐시
-                    if (date < Date.DB1169)
+                    if (date < Date.DB_1_16_9)
                     {
                         using (var dbStatement = NewDBStatement("""
                             CREATE TABLE IF NOT EXISTS tmp_event_note_data (
@@ -630,8 +630,8 @@ namespace Qwilight
                         LowJudgment1 = rows.GetDouble("Low_Judgment_1"),
                         LowerJudgment1 = rows.GetDouble("Lower_Judgment_1"),
                         LowestJudgment1 = rows.GetDouble("Lowest_Judgment_1"),
-                        ConfigureLowestLongNoteModify = rows.GetDouble("Lowest_Long_Note_Modify"),
-                        ConfigureHighestLongNoteModify = rows.GetDouble("Highest_Long_Note_Modify"),
+                        LowestLongNoteModify = rows.GetDouble("Lowest_Long_Note_Modify"),
+                        HighestLongNoteModify = rows.GetDouble("Highest_Long_Note_Modify"),
                         PutNoteSet = rows.GetInt32("Put_Note_Set"),
                         PutNoteSetMillis = rows.GetDouble("Put_Note_Set_Millis"),
                         HighestHitPoints0 = 100.0 * rows.GetDouble("Highest_Hit_Points_0"),
@@ -999,8 +999,8 @@ namespace Qwilight
             dbStatement.Parameters.AddWithValue("lowJudgment1", modeComponentValue.LowJudgment1);
             dbStatement.Parameters.AddWithValue("lowerJudgment1", modeComponentValue.LowerJudgment1);
             dbStatement.Parameters.AddWithValue("lowestJudgment1", modeComponentValue.LowestJudgment1);
-            dbStatement.Parameters.AddWithValue("lowestLongNoteModify", modeComponentValue.ConfigureLowestLongNoteModify);
-            dbStatement.Parameters.AddWithValue("highestLongNoteModify", modeComponentValue.ConfigureHighestLongNoteModify);
+            dbStatement.Parameters.AddWithValue("lowestLongNoteModify", modeComponentValue.LowestLongNoteModify);
+            dbStatement.Parameters.AddWithValue("highestLongNoteModify", modeComponentValue.HighestLongNoteModify);
             dbStatement.Parameters.AddWithValue("putNoteSet", modeComponentValue.PutNoteSet);
             dbStatement.Parameters.AddWithValue("putNoteSetMillis", modeComponentValue.PutNoteSetMillis);
             dbStatement.Parameters.AddWithValue("highestHitPoints0", modeComponentValue.HighestHitPoints0 / 100.0);

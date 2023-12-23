@@ -10,9 +10,9 @@
 		<ApplicationIcon>Qwilight.ico</ApplicationIcon>
 		<Authors>Taehui</Authors>
 		<Company>불로그</Company>
-		<AssemblyVersion>1.16.14.572</AssemblyVersion>
-		<FileVersion>1.16.14.572</FileVersion>
-		<Version>1.16.14</Version>
+		<AssemblyVersion>1.16.15.573</AssemblyVersion>
+		<FileVersion>1.16.15.573</FileVersion>
+		<Version>1.16.15</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableMsixTooling>true</EnableMsixTooling>
@@ -50,7 +50,7 @@
 		<PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
 		<PackageReference Include="DotNetZip" Version="1.16.0" />
 		<PackageReference Include="Facepunch.Steamworks" Version="2.3.3" />
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.56" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.57" />
 		<PackageReference Include="ini-parser-new" Version="2.6.2" />
 		<PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
 		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.1.1" />

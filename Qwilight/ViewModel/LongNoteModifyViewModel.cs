@@ -15,7 +15,9 @@ namespace Qwilight.ViewModel
             get
             {
                 var modeComponentValue = ViewModels.Instance.MainValue.ModeComponentValue;
-                if (modeComponentValue.ConfigureLowestLongNoteModify > modeComponentValue.ConfigureHighestLongNoteModify)
+                var lowestLongNoteModify = modeComponentValue.LowestLongNoteModify;
+                var highestLongNoteModify = modeComponentValue.HighestLongNoteModify;
+                if (lowestLongNoteModify == 0.0 || highestLongNoteModify == 0.0 || lowestLongNoteModify > highestLongNoteModify)
                 {
                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.LongNoteModifyFaultText);
                     return false;

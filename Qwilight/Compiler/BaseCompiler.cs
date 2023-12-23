@@ -843,7 +843,7 @@ namespace Qwilight.Compiler
             {
                 foreach (var note in Notes)
                 {
-                    note.Wait = defaultComputer.Length + Component.QuitWait - note.Wait - note.LongWait + Component.QuitWait;
+                    note.Wait = defaultComputer.Length - note.Wait - note.LongWait;
                 }
 
                 var waitAudioNoteMap = new SortedDictionary<double, List<AudioNote>>(defaultComputer.WaitAudioNoteMap);
@@ -853,7 +853,7 @@ namespace Qwilight.Compiler
                     var audioNotes = waitAudioNoteMap[wait];
                     foreach (var audioNote in audioNotes)
                     {
-                        Utility.NewValue(defaultComputer.WaitAudioNoteMap, defaultComputer.Length + Component.QuitWait - wait + Component.QuitWait - (audioNote.AudioItem?.Length ?? 0.0), audioNote);
+                        Utility.NewValue(defaultComputer.WaitAudioNoteMap, defaultComputer.Length - wait - (audioNote.AudioItem?.Length ?? 0.0), audioNote);
                     }
                 }
 
@@ -864,7 +864,7 @@ namespace Qwilight.Compiler
                     var mediaNotes = waitMediaNoteMap[wait];
                     foreach (var mediaNote in mediaNotes)
                     {
-                        Utility.NewValue(defaultComputer.WaitMediaNoteMap, defaultComputer.Length + Component.QuitWait - wait + Component.QuitWait - mediaNote.Length, mediaNote);
+                        Utility.NewValue(defaultComputer.WaitMediaNoteMap, defaultComputer.Length - wait - mediaNote.Length, mediaNote);
                     }
                 }
 
@@ -1031,8 +1031,8 @@ namespace Qwilight.Compiler
                 // 단일 노트를 롱 노트로 만듭니다.
                 case ModeComponent.NoteModifyMode.LongNote:
                     var waitBPMMap = new Queue<KeyValuePair<double, double>>(defaultComputer.WaitBPMMap);
-                    var lowestLongNoteModify = defaultComputer.ModeComponentValue.ConfigureLowestLongNoteModify;
-                    var highestLongNoteModify = defaultComputer.ModeComponentValue.ConfigureHighestLongNoteModify;
+                    var lowestLongNoteModify = defaultComputer.ModeComponentValue.LowestLongNoteModify;
+                    var highestLongNoteModify = defaultComputer.ModeComponentValue.HighestLongNoteModify;
                     var distanceLongNoteModify = highestLongNoteModify - lowestLongNoteModify;
                     for (var i = inputCount; i > 0; --i)
                     {

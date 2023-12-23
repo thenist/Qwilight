@@ -163,9 +163,7 @@ namespace Qwilight
         public string ConfigureBaseUIContents { get; set; }
         public string ConfigureEtcUIContents { get; set; }
         public string ConfigureFontFamilyContents { get; set; }
-        public string ConfigureHighestLongNoteModify { get; set; }
         public string ConfigureLevelContents { get; set; }
-        public string ConfigureLowestLongNoteModify { get; set; }
         public string ConfigurePutNoteSetContents { get; set; }
         public string ConfigurePutNoteSetMillisContents { get; set; }
         public string ConfigureText { get; set; }
@@ -319,6 +317,7 @@ namespace Qwilight
         public string HigherNoteFileContents { get; set; }
         public string HighestHitPointsModeContents { get; set; }
         public string HighestJudgmentModeContents { get; set; }
+        public string HighestLongNoteModify { get; set; }
         public string HighestWantBPMContents { get; set; }
         public string HighestWantInputCountContents { get; set; }
         public string HighestWantLevelTextValue { get; set; }
@@ -466,6 +465,7 @@ namespace Qwilight
         public string LowestHitPointsModeContents { get; set; }
         public string LowestJudgmentConditionModeAssist { get; set; }
         public string LowestJudgmentModeContents { get; set; }
+        public string LowestLongNoteModify { get; set; }
         public string LowestWantBPMContents { get; set; }
         public string LowestWantInputCountContents { get; set; }
         public string LowestWantLevelTextValue { get; set; }
@@ -678,6 +678,7 @@ namespace Qwilight
         public string Power13 { get; set; }
         public string PutCopyNotesContents { get; set; }
         public string PutNoteSetAssist { get; set; }
+        public string PutNoteSetFaultText { get; set; }
         public string PutSetNoteModeContents { get; set; }
         public string QuitComputingSituationContents { get; set; }
         public string QuitContents { get; set; }

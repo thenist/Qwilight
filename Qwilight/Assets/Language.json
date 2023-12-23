@@ -643,17 +643,9 @@
     "ko-KR": "순서대로 글꼴 모양을 설정합니다.",
     "en-US": "Sets the font appearance in order."
   },
-  "ConfigureHighestLongNoteModify": {
-    "ko-KR": "끝 간격",
-    "en-US": "End interval"
-  },
   "ConfigureLevelContents": {
     "ko-KR": "사용할 난이도 테이블을 설정합니다.",
     "en-US": "Set the difficulty table to use"
-  },
-  "ConfigureLowestLongNoteModify": {
-    "ko-KR": "시작 간격",
-    "en-US": "Start interval"
   },
   "ConfigurePutNoteSetContents": {
     "ko-KR": "대상 비율",
@@ -1267,6 +1259,10 @@
     "ko-KR": "판정 난이도가 매우 어려워집니다.",
     "en-US": "Very hard judgment mode"
   },
+  "HighestLongNoteModify": {
+    "ko-KR": "끝 간격",
+    "en-US": "End interval"
+  },
   "HighestWantBPMContents": {
     "ko-KR": "0 BPM 까지",
     "en-US": "Up to 0 BPM"
@@ -1854,6 +1850,10 @@
   "LowestJudgmentModeContents": {
     "ko-KR": "판정 난이도가 매우 관대해집니다.",
     "en-US": "Very easy judgment mode"
+  },
+  "LowestLongNoteModify": {
+    "ko-KR": "시작 간격",
+    "en-US": "Start interval"
   },
   "LowestWantBPMContents": {
     "ko-KR": "0 BPM 부터",
@@ -2702,6 +2702,10 @@
   "PutNoteSetAssist": {
     "ko-KR": "대상 비율 만큼의 BGM을 대상 간격 이상 거리를 유지하여 추가 노트로 만듭니다.",
     "en-US": "Make BGM as much as the target ratio into an additional note by maintaining a distance beyond the target interval."
+  },
+  "PutNoteSetFaultText": {
+    "ko-KR": "대상 간격이 올바르지 않습니다.",
+    "en-US": "Destination spacing is not valid."
   },
   "PutSetNoteModeContents": {
     "ko-KR": "BGM을 추가 노트로 만듭니다.",
