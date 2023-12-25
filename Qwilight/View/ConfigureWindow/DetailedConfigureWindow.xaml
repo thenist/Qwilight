@@ -42,6 +42,17 @@
                 <view:BinInput Lowest="1" Highest="{Binding CPUCount}" Value="{Binding UIBin, Source={StaticResource Configure}}" Format="{Binding CountContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
                 <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding UIBinText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <view:BinInput Lowest="0" Value="{Binding LazyGCLength, Source={StaticResource Configure}}" Format="#,##0 MB" IsEnabled="{Binding LazyGC, Source={StaticResource Configure}}" />
+                    <CheckBox Grid.Column="1" IsChecked="{Binding LazyGC, Source={StaticResource Configure}}" />
+                </StackPanel>
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding LazyGCText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
             <ContentControl IsEnabled="{Binding MainValue.IsNoteFileMode, Source={StaticResource ViewModels}}">
                 <Grid>
                     <Grid.ColumnDefinitions>

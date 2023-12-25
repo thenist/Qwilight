@@ -423,6 +423,7 @@ namespace Qwilight
         public string JudgmentVisualizerMillisText { get; set; }
         public string K70Contents { get; set; }
         public string K70Text { get; set; }
+        public string LazyGCText { get; set; }
         public string Level0Contents { get; set; }
         public string Level1Contents { get; set; }
         public string Level2Contents { get; set; }

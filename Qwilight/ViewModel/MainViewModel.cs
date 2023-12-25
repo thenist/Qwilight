@@ -114,6 +114,7 @@ namespace Qwilight.ViewModel
         bool _isHOFAbility9KLoading;
         bool _isHOFLevelLoading;
         string _twilightCommentary = string.Empty;
+        bool _isC8H10N4O2;
         bool _isWPFViewVisible = true;
         bool _isLoaded;
         double _windowDPI;
@@ -249,7 +250,35 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public bool IsC8H10N4O2 { get; set; }
+        public bool IsC8H10N4O2
+        {
+            get => _isC8H10N4O2;
+
+            set
+            {
+                if (_isC8H10N4O2 != value)
+                {
+                    _isC8H10N4O2 = value;
+                    if (value)
+                    {
+                        if (Configure.Instance.LazyGC)
+                        {
+                            GC.TryStartNoGCRegion(Configure.Instance.LazyGCLength * 1000L * 1000L);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            GC.EndNoGCRegion();
+                        }
+                        catch (InvalidOperationException)
+                        {
+                        }
+                    }
+                }
+            }
+        }
 
         public bool HasPoint { get; set; }
 

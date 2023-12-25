@@ -1481,6 +1481,7 @@ namespace Qwilight.Compute
                 HighestComputingPosition = lastComputer.HighestComputingPosition + 1;
                 _comments = lastComputer._comments;
             }
+            WwwLevelDataValue?.SetSatisify(this);
             if (comments != null)
             {
                 Comments = comments;
@@ -4150,13 +4151,13 @@ namespace Qwilight.Compute
                                 band = HighestBand,
                                 judgments = new[]
                                 {
-                                InheritedHighestJudgment,
-                                InheritedHigherJudgment,
-                                InheritedHighJudgment,
-                                InheritedLowJudgment,
-                                InheritedLowerJudgment,
-                                InheritedLowestJudgment
-                            },
+                                    InheritedHighestJudgment,
+                                    InheritedHigherJudgment,
+                                    InheritedHighJudgment,
+                                    InheritedLowJudgment,
+                                    InheritedLowerJudgment,
+                                    InheritedLowestJudgment
+                                },
                                 autoMode = (int)ModeComponentValue.AutoModeValue,
                                 noteSaltMode = (int)ModeComponentValue.NoteSaltModeValue,
                                 faintNoteMode = (int)ModeComponentValue.FaintNoteModeValue,
