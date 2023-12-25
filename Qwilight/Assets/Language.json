@@ -1504,60 +1504,112 @@
     "en-US": "Do not modify the number of note lines."
   },
   "InputFavorMode10": {
-    "ko-KR": "10 키로 만듭니다.",
-    "en-US": "Force 10 keys"
+    "ko-KR": "10 으로 만듭니다.",
+    "en-US": "Make it 10."
   },
   "InputFavorMode102": {
-    "ko-KR": "10 + 2 키로 만듭니다.",
-    "en-US": "Force 10 + 2 keys"
+    "ko-KR": "⑩K로 만듭니다.",
+    "en-US": "Make it ⑩K."
   },
   "InputFavorMode142": {
-    "ko-KR": "14 + 2 키로 만듭니다.",
-    "en-US": "Force 14 + 2 keys"
+    "ko-KR": "⑭K로 만듭니다.",
+    "en-US": "Make it ⑭K."
   },
   "InputFavorMode242": {
-    "ko-KR": "24 + 2 키로 만듭니다.",
-    "en-US": "Force 24 + 2 keys"
+    "ko-KR": "24로 만듭니다.",
+    "en-US": "Make it 24."
   },
   "InputFavorMode4": {
-    "ko-KR": "4 키로 만듭니다.",
-    "en-US": "Force 4 keys."
+    "ko-KR": "4K로 만듭니다.",
+    "en-US": "Make it 4K."
   },
   "InputFavorMode484": {
-    "ko-KR": "48 + 4 키로 만듭니다.",
-    "en-US": "Force 48 + 4 keys"
+    "ko-KR": "48로 만듭니다.",
+    "en-US": "Make it 48."
   },
   "InputFavorMode5": {
-    "ko-KR": "5 키로 만듭니다.",
-    "en-US": "Force 5 keys"
+    "ko-KR": "5K로 만듭니다.",
+    "en-US": "Make it 5K."
   },
   "InputFavorMode51": {
-    "ko-KR": "5 + 1 키로 만듭니다.",
-    "en-US": "Force 5 + 1 keys"
+    "ko-KR": "⑤K로 만듭니다.",
+    "en-US": "Make it ⑤K."
   },
   "InputFavorMode6": {
-    "ko-KR": "6 키로 만듭니다.",
-    "en-US": "Force 6 keys"
+    "ko-KR": "6K로 만듭니다.",
+    "en-US": "Make it 6K."
   },
   "InputFavorMode7": {
-    "ko-KR": "7 키로 만듭니다.",
-    "en-US": "Force 7 keys"
+    "ko-KR": "7K로 만듭니다.",
+    "en-US": "Make it 7K."
   },
   "InputFavorMode71": {
-    "ko-KR": "7 + 1 키로 만듭니다.",
-    "en-US": "Force 7 + 1 keys"
+    "ko-KR": "⑦K로 만듭니다.",
+    "en-US": "Make it ⑦K."
   },
   "InputFavorMode8": {
-    "ko-KR": "8 키로 만듭니다.",
-    "en-US": "Force 8 keys"
+    "ko-KR": "8K로 만듭니다.",
+    "en-US": "Make it 8K."
   },
   "InputFavorMode9": {
-    "ko-KR": "9 키로 만듭니다.",
-    "en-US": "Force 9 keys"
+    "ko-KR": "9K로 만듭니다.",
+    "en-US": "Make it 9K."
   },
   "InputFavorModeAssist": {
     "ko-KR": "노트 라인 개수를 설정합니다.",
     "en-US": "Sets the number of note lines."
+  },
+  "InputFavorModeFill10": {
+    "ko-KR": "10 으로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible 10. (Beta)"
+  },
+  "InputFavorModeFill102": {
+    "ko-KR": "⑩K로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible ⑩K. (Beta)"
+  },
+  "InputFavorModeFill142": {
+    "ko-KR": "⑭K로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible ⑭K. (Beta)"
+  },
+  "InputFavorModeFill242": {
+    "ko-KR": "24로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible 24. (Beta)"
+  },
+  "InputFavorModeFill4": {
+    "ko-KR": "4K로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible 4K. (Beta)"
+  },
+  "InputFavorModeFill484": {
+    "ko-KR": "48로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible 48. (Beta)"
+  },
+  "InputFavorModeFill5": {
+    "ko-KR": "5K로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible 5K. (Beta)"
+  },
+  "InputFavorModeFill51": {
+    "ko-KR": "⑤K로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible ⑤K. (Beta)"
+  },
+  "InputFavorModeFill6": {
+    "ko-KR": "6K로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible 6K. (Beta)"
+  },
+  "InputFavorModeFill7": {
+    "ko-KR": "7K로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible 7K. (Beta)"
+  },
+  "InputFavorModeFill71": {
+    "ko-KR": "⑦K로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible ⑦K. (Beta)"
+  },
+  "InputFavorModeFill8": {
+    "ko-KR": "8K로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible 8K. (Beta)"
+  },
+  "InputFavorModeFill9": {
+    "ko-KR": "9K로 그럴싸하게 만듭니다. (Beta)",
+    "en-US": "Make it plausible 9K. (Beta)"
   },
   "InputMapText": {
     "ko-KR": "1P와 2P의 턴 테이블 방향을 설정합니다.",

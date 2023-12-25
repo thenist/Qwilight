@@ -15,7 +15,7 @@ namespace Qwilight
         public string[] HitPointsModeTexts { get; } = new string[8];
         public string[] NoteMobilityModeTexts { get; } = new string[6];
         public string[] LongNoteModeTexts { get; } = new string[4];
-        public string[] InputFavorModeTexts { get; } = new string[17];
+        public string[] InputFavorModeTexts { get; } = new string[30];
         public string[] NoteModifyModeTexts { get; } = new string[3];
         public string[] BPMModeTexts { get; } = new string[2];
         public string[] WaveModeTexts { get; } = new string[2];
@@ -141,6 +141,19 @@ namespace Qwilight
             InputFavorModeTexts[(int)ModeComponent.InputFavorMode._14_2] = InputFavorMode142;
             InputFavorModeTexts[(int)ModeComponent.InputFavorMode._24_2] = InputFavorMode242;
             InputFavorModeTexts[(int)ModeComponent.InputFavorMode._48_4] = InputFavorMode484;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_4] = InputFavorModeFill4;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_5] = InputFavorModeFill5;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_6] = InputFavorModeFill6;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_7] = InputFavorModeFill7;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_8] = InputFavorModeFill8;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_9] = InputFavorModeFill9;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_10] = InputFavorModeFill10;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_5_1] = InputFavorModeFill51;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_7_1] = InputFavorModeFill71;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_10_2] = InputFavorModeFill102;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_14_2] = InputFavorModeFill142;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_24_2] = InputFavorModeFill242;
+            InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_48_4] = InputFavorModeFill484;
 
             NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.Default] = DefaultSaltModeContents;
             NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.Symmetric] = SymmetricModeContents;

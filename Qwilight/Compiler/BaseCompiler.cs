@@ -409,77 +409,128 @@ namespace Qwilight.Compiler
             }
 
             var levyingInputMode = InputMode;
-            var inputFavorModeValue = defaultComputer.ModeComponentValue.InputFavorModeValue;
-            if (inputFavorModeValue != ModeComponent.InputFavorMode.Default)
+            var inputFavorMode = defaultComputer.ModeComponentValue.InputFavorModeValue;
+            if (inputFavorMode != ModeComponent.InputFavorMode.Default)
             {
-                var defaultFavorInputs = Component.FavorInputs[(int)InputMode, (int)inputFavorModeValue];
-                for (var i = Notes.Count - 1; i >= 0; --i)
+                if (ModeComponent.InputFavorMode._4 <= inputFavorMode && inputFavorMode <= ModeComponent.InputFavorMode._48_4)
                 {
-                    var note = Notes[i];
-                    if (note.HasInput)
+                    var favorInputs = Component.FavorInputs[(int)levyingInputMode, (int)inputFavorMode];
+                    for (var i = Notes.Count - 1; i >= 0; --i)
                     {
-                        var input = defaultFavorInputs[note.LevyingInput];
-                        if (input > 0)
+                        var note = Notes[i];
+                        if (note.HasInput)
                         {
-                            note.LevyingInput = input;
-                        }
-                        else
-                        {
-                            Notes.RemoveAt(i);
-                            foreach (var audioNote in note.AudioNotes)
+                            var favorInput = favorInputs[note.LevyingInput];
+                            if (favorInput > 0)
                             {
-                                defaultComputer.WaitAudioNoteMap.NewValue(note.Wait, audioNote);
+                                note.LevyingInput = favorInput;
+                            }
+                            else
+                            {
+                                Notes.RemoveAt(i);
+                                foreach (var audioNote in note.AudioNotes)
+                                {
+                                    defaultComputer.WaitAudioNoteMap.NewValue(note.Wait, audioNote);
+                                }
                             }
                         }
                     }
                 }
-                switch (inputFavorModeValue)
+                else if (ModeComponent.InputFavorMode.Fill_4 <= inputFavorMode && inputFavorMode <= ModeComponent.InputFavorMode.Fill_48_4)
+                {
+                    var fillLambda = Component.FillLambdas[(int)levyingInputMode, (int)inputFavorMode];
+                    foreach (var note in Notes.ToArray())
+                    {
+                        if (note.HasInput)
+                        {
+                            if (Component.AutoableInputs[(int)levyingInputMode].Contains(note.LevyingInput))
+                            {
+                                Notes.Remove(note);
+                                foreach (var audioNote in note.AudioNotes)
+                                {
+                                    defaultComputer.WaitAudioNoteMap.NewValue(note.Wait, audioNote);
+                                }
+                            }
+                            else
+                            {
+                                var filledInput0 = (int)Math.Ceiling(fillLambda(note.LevyingInput, 0.0));
+                                var filledInput1 = (int)Math.Floor(fillLambda(note.LevyingInput, 1.0));
+                                note.LevyingInput = filledInput0;
+                                for (var filledInput = filledInput0 + 1; filledInput <= filledInput1; ++filledInput)
+                                {
+                                    Notes.Add(note switch
+                                    {
+                                        TrapNote trapNote => new TrapNote(trapNote.LogicalY, trapNote.Wait, Array.Empty<AudioNote>(), filledInput),
+                                        LongNote longNote => new LongNote(longNote.LogicalY, longNote.Wait, Array.Empty<AudioNote>(), filledInput, longNote.LongWait, longNote.LongHeight),
+                                        VoidNote voidNote => new VoidNote(voidNote.LogicalY, voidNote.Wait, Array.Empty<AudioNote>(), filledInput),
+                                        InputNote inputNote => new InputNote(inputNote.LogicalY, inputNote.Wait, Array.Empty<AudioNote>(), filledInput),
+                                        _ => null
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                switch (inputFavorMode)
                 {
                     case ModeComponent.InputFavorMode._4:
+                    case ModeComponent.InputFavorMode.Fill_4:
                         InputMode = Component.InputMode._4;
                         break;
                     case ModeComponent.InputFavorMode._5:
+                    case ModeComponent.InputFavorMode.Fill_5:
                         InputMode = Component.InputMode._5;
                         break;
                     case ModeComponent.InputFavorMode._6:
+                    case ModeComponent.InputFavorMode.Fill_6:
                         InputMode = Component.InputMode._6;
                         break;
                     case ModeComponent.InputFavorMode._7:
+                    case ModeComponent.InputFavorMode.Fill_7:
                         InputMode = Component.InputMode._7;
                         break;
                     case ModeComponent.InputFavorMode._8:
+                    case ModeComponent.InputFavorMode.Fill_8:
                         InputMode = Component.InputMode._8;
                         break;
                     case ModeComponent.InputFavorMode._9:
+                    case ModeComponent.InputFavorMode.Fill_9:
                         InputMode = Component.InputMode._9;
                         break;
+                    case ModeComponent.InputFavorMode._10:
+                    case ModeComponent.InputFavorMode.Fill_10:
+                        InputMode = Component.InputMode._10;
+                        break;
                     case ModeComponent.InputFavorMode._5_1:
+                    case ModeComponent.InputFavorMode.Fill_5_1:
                         InputMode = Component.InputMode._5_1;
                         break;
                     case ModeComponent.InputFavorMode._7_1:
+                    case ModeComponent.InputFavorMode.Fill_7_1:
                         InputMode = Component.InputMode._7_1;
                         break;
                     case ModeComponent.InputFavorMode._10_2:
+                    case ModeComponent.InputFavorMode.Fill_10_2:
                         InputMode = Component.InputMode._10_2;
                         break;
                     case ModeComponent.InputFavorMode._14_2:
+                    case ModeComponent.InputFavorMode.Fill_14_2:
                         InputMode = Component.InputMode._14_2;
                         break;
-                    case ModeComponent.InputFavorMode._10:
-                        InputMode = Component.InputMode._10;
-                        break;
                     case ModeComponent.InputFavorMode._24_2:
+                    case ModeComponent.InputFavorMode.Fill_24_2:
                         InputMode = Component.InputMode._24_2;
                         break;
                     case ModeComponent.InputFavorMode._48_4:
+                    case ModeComponent.InputFavorMode.Fill_48_4:
                         InputMode = Component.InputMode._48_4;
                         break;
                 }
             }
+            var autoableInputs = Component.AutoableInputs[(int)InputMode];
 
             var inputCount = Component.InputCounts[(int)InputMode];
             var autoableInputCount = Component.AutoableInputCounts[(int)InputMode];
-            var autoableInputs = Component.AutoableInputs[(int)InputMode];
             var isCounterWave = defaultComputer.ModeComponentValue.WaveModeValue == ModeComponent.WaveMode.Counter;
 
             foreach (var (wait, bpm) in WaitBPMMap)
@@ -586,7 +637,6 @@ namespace Qwilight.Compiler
                                             return levyingMeterWait <= wait && wait < endMeterWait;
                                         }).ToArray());
                                         levyingMeterWait = endMeterWait;
-                                        defaultComputer.SetCompilingStatus((double)i / (meterWaitCount - 1));
                                     }
                                     break;
                                 case Component.NoteSaltModeDate._1_6_11:
@@ -603,7 +653,6 @@ namespace Qwilight.Compiler
                                             SaltInput(inputNotesInMeter);
                                             levyingMeterWait = endMeterWait;
                                         }
-                                        defaultComputer.SetCompilingStatus((double)i / meterWaitCount);
                                     }
                                     break;
                             }
@@ -634,6 +683,7 @@ namespace Qwilight.Compiler
                                 case Component.NoteSaltModeDate._1_14_27:
                                     foreach (var inputNote in inputNotes)
                                     {
+                                        SetCancelCompiler?.Token.ThrowIfCancellationRequested();
                                         var input = inputNote.LevyingInput;
                                         if (!autoableInputs.Contains(input))
                                         {
@@ -679,11 +729,13 @@ namespace Qwilight.Compiler
                                             saltedNotes.Add(inputNote);
                                             inputNote.LevyingInput = saltInput;
                                         }
+                                        defaultComputer.SetCompilingStatus((double)++status / endStatus);
                                     }
                                     break;
                                 case Component.NoteSaltModeDate._1_6_11:
                                     foreach (var inputNote in inputNotes)
                                     {
+                                        SetCancelCompiler?.Token.ThrowIfCancellationRequested();
                                         var input = inputNote.LevyingInput;
                                         if (!autoableInputs.Contains(input))
                                         {
@@ -705,7 +757,7 @@ namespace Qwilight.Compiler
                                                         break;
                                                 }
                                             }
-                                            saltedInputs = saltedInputs.Except(saltedNotes.Where(note => note.IsCollided(inputNote)).Select(note => note.LevyingInput)).ToArray();
+                                            saltedInputs = saltedInputs.Except(saltedNotes.Where(saltedNote => saltedNote.IsCollided(inputNote)).Select(saltedNote => saltedNote.LevyingInput)).ToArray();
                                             noteSaltComputer.Shuffle(saltedInputs);
                                             inputNote.LevyingInput = saltedInputs.First();
                                             saltedNotes.Add(inputNote);
@@ -915,7 +967,6 @@ namespace Qwilight.Compiler
                 var quitLength = defaultComputer.Length + Component.QuitWait;
                 for (var loopingCounter = -Component.LevyingWait; loopingCounter <= quitLength; loopingCounter += 1.0)
                 {
-                    SetCancelCompiler?.Token.ThrowIfCancellationRequested();
                     loopingCounterSet.Add(loopingCounter);
                 }
 
@@ -925,7 +976,6 @@ namespace Qwilight.Compiler
                 defaultComputer.WaitLogicalYMap[lastLoopingCounter] = Component.StandardHeight - ComponentValue.LogicalYMillis * (lastLoopingCounter + Component.LevyingWait);
                 foreach (var loopingCounter in loopingCounterSet)
                 {
-                    SetCancelCompiler?.Token.ThrowIfCancellationRequested();
                     defaultComputer.WaitLogicalYMap[loopingCounter] = defaultComputer.WaitLogicalYMap[lastLoopingCounter] - Utility.GetDistance(ComponentValue, waitBPMMap, lastLoopingCounter, loopingCounter, out _);
                     lastLoopingCounter = loopingCounter;
                 }
@@ -939,8 +989,6 @@ namespace Qwilight.Compiler
                 var voidPutInputs = Component.VoidPutInputs[(int)levyingInputMode, (int)InputMode];
                 var putNoteSet = defaultComputer.ModeComponentValue.PutNoteSet;
                 var putNoteSetMillis = defaultComputer.ModeComponentValue.PutNoteSetMillis;
-                var endStatus = defaultComputer.WaitAudioNoteMap.Count;
-                var status = 0;
                 foreach (var (wait, audioNotes) in defaultComputer.WaitAudioNoteMap)
                 {
                     foreach (var audioNote in audioNotes.ToArray())
@@ -1010,7 +1058,6 @@ namespace Qwilight.Compiler
                             }
                         }
                     }
-                    defaultComputer.SetCompilingStatus((double)++status / endStatus);
                 }
             }
 

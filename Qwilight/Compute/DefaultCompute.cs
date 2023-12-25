@@ -1481,7 +1481,6 @@ namespace Qwilight.Compute
                 HighestComputingPosition = lastComputer.HighestComputingPosition + 1;
                 _comments = lastComputer._comments;
             }
-            WwwLevelDataValue?.SetSatisify(this);
             if (comments != null)
             {
                 Comments = comments;
@@ -1498,6 +1497,7 @@ namespace Qwilight.Compute
                     };
                 }
             }
+            WwwLevelDataValue?.SetSatisify(this);
             EventNoteEntryItem = eventNoteEntryItem;
             HandlerID = handlerID ?? Guid.NewGuid().ToString();
             for (var i = 0; i < PostableItemFaints.Length; ++i)

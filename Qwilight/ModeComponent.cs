@@ -43,7 +43,8 @@ namespace Qwilight
 
         public enum InputFavorMode
         {
-            Default, _4 = 4, _5, _6, _7, _8, _9, _5_1, _7_1, _10_2, _14_2, _10, _24_2, _48_4
+            Default, _4 = 4, _5, _6, _7, _8, _9, _5_1, _7_1, _10_2, _14_2, _10, _24_2, _48_4,
+            Fill_4, Fill_5, Fill_6, Fill_7, Fill_8, Fill_9, Fill_10, Fill_5_1, Fill_7_1, Fill_10_2, Fill_14_2, Fill_24_2, Fill_48_4
         }
 
         public enum NoteModifyMode
@@ -193,12 +194,13 @@ namespace Qwilight
 
         public string CanBeTwilightCommentContents => CanBeTwilightComment ? LanguageSystem.Instance.CanBeTwilightCommentContents : LanguageSystem.Instance.CannotBeTwilightCommentContents;
 
-        public bool IsLowerStand => (Component.AutoableInputCounts[(int)InputMode] > 0 && AutoModeValue == AutoMode.Autoable) ||
+        public bool IsLowerStand => AutoModeValue != AutoMode.Default ||
             AudioMultiplier < 1.0 ||
             JudgmentModeValue == JudgmentMode.Lower || JudgmentModeValue == JudgmentMode.Lowest ||
             HitPointsModeValue == HitPointsMode.Lower || HitPointsModeValue == HitPointsMode.Lowest ||
             LongNoteModeValue == LongNoteMode.Auto ||
-            (InputFavorModeValue != InputFavorMode.Default && (Component.AutoableInputCounts[(int)InputFavorModeValue] < Component.AutoableInputCounts[(int)InputMode] || Component.InputCounts[(int)InputFavorModeValue] < Component.InputCounts[(int)InputMode]));
+            InputFavorModeValue != InputFavorMode.Default ||
+            NoteModifyModeValue != NoteModifyMode.Default;
 
         /// <summary>
         /// 계산된 스크롤 속도
@@ -1040,9 +1042,9 @@ namespace Qwilight
             AudioMultiplier = modeComponentValue.AudioMultiplier;
             FaintNoteModeValue = modeComponentValue.FaintNoteModeValue;
             JudgmentModeValue = modeComponentValue.JudgmentModeValue;
-            var handlingHitPointsModeValue = modeComponentValue.HandlingHitPointsModeValue;
+            var handlingHitPointsMode = modeComponentValue.HandlingHitPointsModeValue;
             HitPointsModeValue = modeComponentValue.HitPointsModeValue;
-            HandlingHitPointsModeValue = handlingHitPointsModeValue;
+            HandlingHitPointsModeValue = handlingHitPointsMode;
             NoteMobilityModeValue = modeComponentValue.NoteMobilityModeValue;
             LongNoteModeValue = modeComponentValue.LongNoteModeValue;
             InputFavorModeValue = modeComponentValue.InputFavorModeValue;

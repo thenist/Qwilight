@@ -154,7 +154,7 @@ namespace Qwilight
         {
             public bool? favor;
             public int totalFavor;
-            public BaseNoteFile.Handled handled;
+            public BaseNoteFile.Handled? handled;
             public Comment[] comments;
 
             public struct Comment

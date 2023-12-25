@@ -1447,7 +1447,7 @@ namespace Qwilight.ViewModel
                 var noteID = EntryItemValue?.NoteFile?.GetNoteID512();
                 if (!string.IsNullOrEmpty(noteID))
                 {
-                    var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={TwilightSystem.Instance.AvatarID}&language={Configure.Instance.Language}&target={Configure.Instance.UbuntuNetItemTarget}");
+                    var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={(TwilightSystem.Instance.IsSignedIn ? TwilightSystem.Instance.AvatarID : string.Empty)}&language={Configure.Instance.Language}&target={Configure.Instance.UbuntuNetItemTarget}");
                     var noteFile = EntryItemValue?.NoteFile;
                     if (noteFile?.GetNoteID512() == noteID)
                     {
@@ -1478,10 +1478,14 @@ namespace Qwilight.ViewModel
                                     TwilightCommentText1 = commentItems.Length.ToString("／#,##0");
                                 }
                                 var handled = twilightWwwCommentValue.handled;
-                                if (noteFile.HandledValue != handled && !(noteFile.HandledValue == BaseNoteFile.Handled.F && handled == BaseNoteFile.Handled.Not))
+                                if (handled.HasValue)
                                 {
-                                    noteFile.HandledValue = handled;
-                                    DB.Instance.SetHandled(noteFile);
+                                    var handledValue = handled.Value;
+                                    if (noteFile.HandledValue != handledValue && !(noteFile.HandledValue == BaseNoteFile.Handled.F && handledValue == BaseNoteFile.Handled.Not))
+                                    {
+                                        noteFile.HandledValue = handledValue;
+                                        DB.Instance.SetHandled(noteFile);
+                                    }
                                 }
                             }
                         }

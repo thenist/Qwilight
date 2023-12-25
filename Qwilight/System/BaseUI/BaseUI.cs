@@ -2137,7 +2137,7 @@ namespace Qwilight
             ModeComponentDrawings[ModifyModeComponentViewModel.HitPointsModeVariety] = new HandledDrawingItem?[8];
             ModeComponentDrawings[ModifyModeComponentViewModel.NoteMobilityModeVariety] = new HandledDrawingItem?[6];
             ModeComponentDrawings[ModifyModeComponentViewModel.LongNoteModeVariety] = new HandledDrawingItem?[4];
-            ModeComponentDrawings[ModifyModeComponentViewModel.InputFavorModeVariety] = new HandledDrawingItem?[17];
+            ModeComponentDrawings[ModifyModeComponentViewModel.InputFavorModeVariety] = new HandledDrawingItem?[30];
             ModeComponentDrawings[ModifyModeComponentViewModel.NoteModifyModeVariety] = new HandledDrawingItem?[3];
             ModeComponentDrawings[ModifyModeComponentViewModel.BPMModeVariety] = new HandledDrawingItem?[2];
             ModeComponentDrawings[ModifyModeComponentViewModel.WaveModeVariety] = new HandledDrawingItem?[2];
