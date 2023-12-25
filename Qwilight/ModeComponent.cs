@@ -186,6 +186,7 @@ namespace Qwilight
         public bool CanBeTwilightComment => JudgmentModeValue != JudgmentMode.Favor &&
             HandlingHitPointsModeValue != HitPointsMode.Favor && HandlingHitPointsModeValue != HitPointsMode.Test &&
             LongNoteModeValue != LongNoteMode.Input &&
+            InputFavorModeValue != InputFavorMode.Fill_4 && InputFavorModeValue != InputFavorMode.Fill_5 && InputFavorModeValue != InputFavorMode.Fill_6 && InputFavorModeValue != InputFavorMode.Fill_7 && InputFavorModeValue != InputFavorMode.Fill_8 && InputFavorModeValue != InputFavorMode.Fill_9 && InputFavorModeValue != InputFavorMode.Fill_10 && InputFavorModeValue != InputFavorMode.Fill_5_1 && InputFavorModeValue != InputFavorMode.Fill_7_1 && InputFavorModeValue != InputFavorMode.Fill_10_2 && InputFavorModeValue != InputFavorMode.Fill_14_2 && InputFavorModeValue != InputFavorMode.Fill_24_2 && InputFavorModeValue != InputFavorMode.Fill_48_4 &&
             NoteModifyModeValue != NoteModifyMode.LongNote &&
             BPMModeValue == BPMMode.Default &&
             WaveModeValue == WaveMode.Default &&
@@ -443,6 +444,7 @@ namespace Qwilight
                 if (SetProperty(ref _inputFavorMode, value, nameof(InputFavorModeValue)))
                 {
                     OnPropertyChanged(nameof(InputFavorModeContents));
+                    OnPropertyChanged(nameof(CanBeTwilightCommentContents));
                 }
             }
         }
