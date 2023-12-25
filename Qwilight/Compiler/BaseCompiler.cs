@@ -443,27 +443,33 @@ namespace Qwilight.Compiler
                             {
                                 var filledInput0 = (int)Math.Ceiling(fillLambda(note.LevyingInput, 0.0));
                                 var filledInput1 = (int)Math.Floor(fillLambda(note.LevyingInput, 1.0));
-
-                                note.LevyingInput = filledInput0;
-                                if (filledNotes.Any(filledNote => filledNote.LevyingInput == note.LevyingInput && filledNote.IsCollided(note)))
+                                if (filledInput1 > filledInput0)
                                 {
-                                    WipeNote(note);
+                                    note.LevyingInput = filledInput0;
+
+                                    for (var filledInput = filledInput0 + 1; filledInput <= filledInput1; ++filledInput)
+                                    {
+                                        Notes.Add(note switch
+                                        {
+                                            TrapNote trapNote => new TrapNote(trapNote.LogicalY, trapNote.Wait, Array.Empty<AudioNote>(), filledInput),
+                                            LongNote longNote => new LongNote(longNote.LogicalY, longNote.Wait, Array.Empty<AudioNote>(), filledInput, longNote.LongWait, longNote.LongHeight),
+                                            VoidNote voidNote => new VoidNote(voidNote.LogicalY, voidNote.Wait, Array.Empty<AudioNote>(), filledInput),
+                                            InputNote inputNote => new InputNote(inputNote.LogicalY, inputNote.Wait, Array.Empty<AudioNote>(), filledInput),
+                                            _ => null
+                                        });
+                                    }
                                 }
                                 else
                                 {
-                                    filledNotes.Add(note);
-                                }
-
-                                for (var filledInput = filledInput0 + 1; filledInput <= filledInput1; ++filledInput)
-                                {
-                                    Notes.Add(note switch
+                                    note.LevyingInput = (int)Math.Round(fillLambda(note.LevyingInput, 0.0));
+                                    if (filledNotes.Any(filledNote => filledNote.LevyingInput == note.LevyingInput && filledNote.IsCollided(note)))
                                     {
-                                        TrapNote trapNote => new TrapNote(trapNote.LogicalY, trapNote.Wait, Array.Empty<AudioNote>(), filledInput),
-                                        LongNote longNote => new LongNote(longNote.LogicalY, longNote.Wait, Array.Empty<AudioNote>(), filledInput, longNote.LongWait, longNote.LongHeight),
-                                        VoidNote voidNote => new VoidNote(voidNote.LogicalY, voidNote.Wait, Array.Empty<AudioNote>(), filledInput),
-                                        InputNote inputNote => new InputNote(inputNote.LogicalY, inputNote.Wait, Array.Empty<AudioNote>(), filledInput),
-                                        _ => null
-                                    });
+                                        WipeNote(note);
+                                    }
+                                    else
+                                    {
+                                        filledNotes.Add(note);
+                                    }
                                 }
                             }
                         }
