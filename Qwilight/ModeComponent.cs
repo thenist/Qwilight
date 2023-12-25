@@ -44,7 +44,7 @@ namespace Qwilight
         public enum InputFavorMode
         {
             Default, _4 = 4, _5, _6, _7, _8, _9, _5_1, _7_1, _10_2, _14_2, _10, _24_2, _48_4,
-            Fill_4, Fill_5, Fill_6, Fill_7, Fill_8, Fill_9, Fill_10, Fill_5_1, Fill_7_1, Fill_10_2, Fill_14_2, Fill_24_2, Fill_48_4
+            Fill4, Fill5, Fill6, Fill7, Fill8, Fill9, Fill10, Fill5_1, Fill7_1, Fill10_2, Fill14_2, Fill24_2, Fill48_4
         }
 
         public enum NoteModifyMode
@@ -186,7 +186,7 @@ namespace Qwilight
         public bool CanBeTwilightComment => JudgmentModeValue != JudgmentMode.Favor &&
             HandlingHitPointsModeValue != HitPointsMode.Favor && HandlingHitPointsModeValue != HitPointsMode.Test &&
             LongNoteModeValue != LongNoteMode.Input &&
-            InputFavorModeValue != InputFavorMode.Fill_4 && InputFavorModeValue != InputFavorMode.Fill_5 && InputFavorModeValue != InputFavorMode.Fill_6 && InputFavorModeValue != InputFavorMode.Fill_7 && InputFavorModeValue != InputFavorMode.Fill_8 && InputFavorModeValue != InputFavorMode.Fill_9 && InputFavorModeValue != InputFavorMode.Fill_10 && InputFavorModeValue != InputFavorMode.Fill_5_1 && InputFavorModeValue != InputFavorMode.Fill_7_1 && InputFavorModeValue != InputFavorMode.Fill_10_2 && InputFavorModeValue != InputFavorMode.Fill_14_2 && InputFavorModeValue != InputFavorMode.Fill_24_2 && InputFavorModeValue != InputFavorMode.Fill_48_4 &&
+            InputFavorModeValue != InputFavorMode.Fill4 && InputFavorModeValue != InputFavorMode.Fill5 && InputFavorModeValue != InputFavorMode.Fill6 && InputFavorModeValue != InputFavorMode.Fill7 && InputFavorModeValue != InputFavorMode.Fill8 && InputFavorModeValue != InputFavorMode.Fill9 && InputFavorModeValue != InputFavorMode.Fill10 && InputFavorModeValue != InputFavorMode.Fill5_1 && InputFavorModeValue != InputFavorMode.Fill7_1 && InputFavorModeValue != InputFavorMode.Fill10_2 && InputFavorModeValue != InputFavorMode.Fill14_2 && InputFavorModeValue != InputFavorMode.Fill24_2 && InputFavorModeValue != InputFavorMode.Fill48_4 &&
             NoteModifyModeValue != NoteModifyMode.LongNote &&
             BPMModeValue == BPMMode.Default &&
             WaveModeValue == WaveMode.Default &&

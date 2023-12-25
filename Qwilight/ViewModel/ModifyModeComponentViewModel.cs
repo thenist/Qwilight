@@ -521,93 +521,93 @@ namespace Qwilight.ViewModel
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_4,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_4],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_4]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill4,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill4],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill4]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_5,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_5],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_5]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill5,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill5],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill5]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_6,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_6],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_6]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill6,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill6],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill6]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_7,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_7],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_7]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill7,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill7],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill7]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_8,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_8],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_8]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill8,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill8],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill8]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_9,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_9],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_9]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill9,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill9],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill9]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_10,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_10],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_10]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill10,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill10],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill10]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_5_1,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_5_1],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_5_1]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill5_1,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill5_1],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill5_1]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_7_1,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_7_1],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_7_1]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill7_1,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill7_1],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill7_1]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_10_2,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_10_2],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_10_2]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill10_2,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill10_2],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill10_2]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_14_2,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_14_2],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_14_2]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill14_2,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill14_2],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill14_2]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_24_2,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_24_2],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_24_2]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill24_2,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill24_2],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill24_2]?.DefaultDrawing,
                 PointedPaintID = 2
             });
             ModifyModeComponentItems[InputFavorModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.InputFavorMode.Fill_48_4,
-                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill_48_4],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill_48_4]?.DefaultDrawing,
+                Value = (int)ModeComponent.InputFavorMode.Fill48_4,
+                Data = LanguageSystem.Instance.InputFavorModeTexts[(int)ModeComponent.InputFavorMode.Fill48_4],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[InputFavorModeVariety][(int)ModeComponent.InputFavorMode.Fill48_4]?.DefaultDrawing,
                 PointedPaintID = 2
             });
 
