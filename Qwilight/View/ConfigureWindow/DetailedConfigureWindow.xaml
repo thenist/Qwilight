@@ -47,10 +47,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <view:BinInput Lowest="0" Value="{Binding LazyGCLength, Source={StaticResource Configure}}" Format="#,##0 MB" IsEnabled="{Binding LazyGC, Source={StaticResource Configure}}" />
-                    <CheckBox Grid.Column="1" IsChecked="{Binding LazyGC, Source={StaticResource Configure}}" />
-                </StackPanel>
+                <view:BinInput Lowest="0" Value="{Binding LazyGCV2, Source={StaticResource Configure}}" Format="#,##0 MB" HorizontalAlignment="Right" />
                 <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding LazyGCText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
             <ContentControl IsEnabled="{Binding MainValue.IsNoteFileMode, Source={StaticResource ViewModels}}">

@@ -20,6 +20,7 @@ using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Runtime;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -260,19 +261,23 @@ namespace Qwilight.ViewModel
                     _isC8H10N4O2 = value;
                     if (value)
                     {
-                        if (Configure.Instance.LazyGC)
+                        var lazyGC = Configure.Instance.LazyGCV2 * 1000L * 1000L;
+                        if (lazyGC > 0L)
                         {
-                            GC.TryStartNoGCRegion(Configure.Instance.LazyGCLength * 1000L * 1000L);
+                            GC.TryStartNoGCRegion(lazyGC);
                         }
                     }
                     else
                     {
-                        try
+                        if (GCSettings.LatencyMode == GCLatencyMode.NoGCRegion)
                         {
-                            GC.EndNoGCRegion();
-                        }
-                        catch (InvalidOperationException)
-                        {
+                            try
+                            {
+                                GC.EndNoGCRegion();
+                            }
+                            catch (InvalidOperationException)
+                            {
+                            }
                         }
                     }
                 }

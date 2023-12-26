@@ -280,16 +280,8 @@ namespace Qwilight
         bool _ubuntuNetItemTarget;
         DefaultAudioVariety _defaultAudioVariety;
         int _valueGASLevel;
-        bool _lazyGC;
 
-        public bool LazyGC
-        {
-            get => _lazyGC;
-
-            set => SetProperty(ref _lazyGC, value, nameof(LazyGC));
-        }
-
-        public long LazyGCLength { get; set; }
+        public long LazyGCV2 { get; set; }
 
         public int GASLevel
         {
@@ -3370,8 +3362,7 @@ namespace Qwilight
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 16))
             {
-                LazyGC = false;
-                LazyGCLength = 0L;
+                LazyGCV2 = 0L;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {
