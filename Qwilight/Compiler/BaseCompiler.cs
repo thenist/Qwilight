@@ -441,12 +441,16 @@ namespace Qwilight.Compiler
                             }
                             else
                             {
-                                var filledInput0 = (int)Math.Ceiling(fillLambda(note.LevyingInput, 0.0));
-                                var filledInput1 = (int)Math.Floor(fillLambda(note.LevyingInput, 1.0));
-                                if (filledInput1 > filledInput0)
-                                {
-                                    note.LevyingInput = filledInput0;
+                                var levyingInput = note.LevyingInput;
+                                var filledLambda0 = fillLambda(levyingInput, 0.0);
+                                var filledLambda1 = fillLambda(levyingInput, 1.0);
+                                var filledInput0 = (int)Math.Ceiling(filledLambda0);
+                                var filledInput1 = (int)Math.Floor(filledLambda1);
 
+                                note.LevyingInput = filledInput0;
+
+                                if (filledLambda1 - filledLambda0 > 1.0)
+                                {
                                     for (var filledInput = filledInput0 + 1; filledInput <= filledInput1; ++filledInput)
                                     {
                                         Notes.Add(note switch
@@ -461,7 +465,7 @@ namespace Qwilight.Compiler
                                 }
                                 else
                                 {
-                                    note.LevyingInput = (int)Math.Round(fillLambda(note.LevyingInput, 0.0));
+                                    note.LevyingInput = (int)Math.Round(fillLambda(levyingInput, 0.5));
                                     if (filledNotes.Any(filledNote => filledNote.LevyingInput == note.LevyingInput && filledNote.IsCollided(note)))
                                     {
                                         WipeNote(note);
