@@ -253,7 +253,7 @@ namespace Qwilight.Compiler
                 });
             }
 
-            // 특정 도전 과제용 라이프 게이지를 사용합니다.
+            // 단위인정용 라이프 게이지를 사용합니다.
             if (defaultComputer.ModeComponentValue.HitPointsModeValue == ModeComponent.HitPointsMode.Test)
             {
                 defaultComputer.HitPointsValue = 0.001;
@@ -449,7 +449,7 @@ namespace Qwilight.Compiler
 
                                 note.LevyingInput = filledInput0;
 
-                                if (filledLambda1 - filledLambda0 > 1.0)
+                                if (filledLambda1 - filledLambda0 >= 1.0)
                                 {
                                     for (var filledInput = filledInput0 + 1; filledInput <= filledInput1; ++filledInput)
                                     {
