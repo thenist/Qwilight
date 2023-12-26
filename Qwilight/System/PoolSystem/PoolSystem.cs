@@ -15,7 +15,16 @@ namespace Qwilight
     {
         public static readonly PoolSystem Instance = new();
 
-        readonly RecyclableMemoryStreamManager _rmsm = new();
+        readonly RecyclableMemoryStreamManager _rmsm = new(new()
+        {
+            BlockSize = 1024,
+            LargeBufferMultiple = 1024 * 1024,
+            MaximumBufferSize = 16 * 1024 * 1024,
+            GenerateCallStacks = !QwilightComponent.IsVS,
+            AggressiveBufferReturn = true,
+            MaximumLargePoolFreeBytes = 16 * 1024 * 1024 * 4,
+            MaximumSmallPoolFreeBytes = 100 * 1024
+        });
         readonly ConcurrentDictionary<TextID, CanvasTextLayout> _textItems = new();
         readonly ConcurrentDictionary<DefaultTextID, FormattedText> _defaultTextItems = new();
         readonly ConcurrentDictionary<TargetID, CanvasRenderTarget> _targetItems = new();
