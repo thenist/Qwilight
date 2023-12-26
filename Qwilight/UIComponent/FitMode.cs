@@ -90,7 +90,18 @@ namespace Qwilight.UIComponent
                 entryItems.Sort((x, y) =>
                 {
                     var value = wantLevelItem ? LevelSystem.Instance.WantLevelIDEquality.Compare(x.WantLevelID, y.WantLevelID) : 0;
-                    return value != 0 ? value : asc ? fromEntryItem(x).CompareTo(fromEntryItem(y)) : fromEntryItem(y).CompareTo(fromEntryItem(x));
+                    if (value != 0)
+                    {
+                        return value;
+                    }
+
+                    value = asc ? fromEntryItem(x).CompareTo(fromEntryItem(y)) : fromEntryItem(y).CompareTo(fromEntryItem(x));
+                    if (value != 0)
+                    {
+                        return value;
+                    }
+
+                    return x.Title.CompareTo(y.Title);
                 });
 
                 foreach (var entryItem in entryItems)

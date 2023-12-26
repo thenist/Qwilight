@@ -409,17 +409,20 @@ namespace Qwilight.Compiler
             }
 
             var levyingInputMode = InputMode;
+            var autoableInputs = Component.AutoableInputs[(int)InputMode];
+            var defaultInputs = Component.DefaultInputs[(int)InputMode];
             var inputFavorMode = defaultComputer.ModeComponentValue.InputFavorModeValue;
             if (inputFavorMode != ModeComponent.InputFavorMode.Default)
             {
+                var inputMode = Component.GetInputMode(inputFavorMode);
+                var inputFavorMap = Component.InputFavorMap[(int)InputMode, (int)inputMode];
                 if (ModeComponent.InputFavorMode._4 <= inputFavorMode && inputFavorMode <= ModeComponent.InputFavorMode._48_4)
                 {
-                    var favorInputs = Component.FavorInputs[(int)levyingInputMode, (int)inputFavorMode];
                     foreach (var note in Notes.ToArray())
                     {
                         if (note.HasInput)
                         {
-                            note.LevyingInput = favorInputs[note.LevyingInput];
+                            note.LevyingInput = inputFavorMap[note.LevyingInput];
                             if (note.LevyingInput == 0)
                             {
                                 WipeNote(note);
@@ -434,57 +437,72 @@ namespace Qwilight.Compiler
                     {
                         if (note.HasInput)
                         {
-                            if (Component.AutoableInputs[(int)levyingInputMode].Contains(note.LevyingInput))
+                            var input = note.LevyingInput;
+                            if (autoableInputs.Contains(input))
                             {
-                                WipeNote(note);
+                                note.LevyingInput = inputFavorMap[input];
+                                if (note.LevyingInput == 0)
+                                {
+                                    WipeNote(note);
+                                }
                             }
                             else
                             {
-                                var levyingInput = note.LevyingInput;
-                                var filledFloatInput0 = GetFilledInput(levyingInput, 0.0);
-                                var filledFloatInput1 = GetFilledInput(levyingInput, 1.0);
-                                var filledInput0 = (int)Math.Ceiling(filledFloatInput0);
-                                var filledInput1 = (int)Math.Floor(filledFloatInput1);
+                                var filledInput0 = (int)Math.Ceiling(GetFilledInput(input, 0.0));
+                                var filledInput1 = (int)Math.Floor(GetFilledInput(input, 1.0));
 
-                                if (filledFloatInput1 - filledFloatInput0 >= 1.0)
+                                if (Component.DefaultInputCounts[(int)InputMode] < Component.DefaultInputCounts[(int)inputMode])
                                 {
                                     note.LevyingInput = filledInput0;
                                     for (var filledInput = filledInput0 + 1; filledInput <= filledInput1; ++filledInput)
                                     {
-                                        Notes.Add(note switch
+                                        var filledNote = note switch
                                         {
                                             TrapNote trapNote => new TrapNote(trapNote.LogicalY, trapNote.Wait, Array.Empty<AudioNote>(), filledInput),
                                             LongNote longNote => new LongNote(longNote.LogicalY, longNote.Wait, Array.Empty<AudioNote>(), filledInput, longNote.LongWait, longNote.LongHeight),
                                             VoidNote voidNote => new VoidNote(voidNote.LogicalY, voidNote.Wait, Array.Empty<AudioNote>(), filledInput),
                                             InputNote inputNote => new InputNote(inputNote.LogicalY, inputNote.Wait, Array.Empty<AudioNote>(), filledInput),
                                             _ => null
-                                        });
+                                        };
+                                        if (!WipeIfCollided(filledNote))
+                                        {
+                                            Notes.Add(filledNote);
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                    note.LevyingInput = (int)Math.Round(GetFilledInput(levyingInput, (double)(levyingInput - Component.DefaultInputs[(int)levyingInputMode].First()) / (Component.DefaultInputs[(int)levyingInputMode].Last() - Component.DefaultInputs[(int)levyingInputMode].First())));
-                                    if (filledNotes.Any(filledNote => filledNote.LevyingInput == note.LevyingInput && filledNote.IsCollided(note)))
-                                    {
-                                        WipeNote(note);
-                                    }
-                                    else
-                                    {
-                                        filledNotes.Add(note);
-                                    }
+                                    note.LevyingInput = (int)Math.Round(GetFilledInput(input, (double)(input - defaultInputs.First()) / (defaultInputs.Last() - defaultInputs.First())));
+                                    WipeIfCollided(note);
                                 }
 
                                 double GetFilledInput(int input, double random)
                                 {
-                                    var a = (double)(Component.DefaultInputCounts[(int)Component.GetInputMode(inputFavorMode)] - 1) / Component.DefaultInputCounts[(int)levyingInputMode];
-                                    return a * (input - Component.DefaultInputs[(int)levyingInputMode].First()) + Component.DefaultInputs[(int)Component.GetInputMode(inputFavorMode)].First() + a * random;
+                                    var rate = (double)(Component.DefaultInputCounts[(int)Component.GetInputMode(inputFavorMode)] - 1) / Component.DefaultInputCounts[(int)InputMode];
+                                    return rate * (input - defaultInputs.First()) + Component.DefaultInputs[(int)Component.GetInputMode(inputFavorMode)].First() + rate * random;
+                                }
+
+                                bool WipeIfCollided(BaseNote note)
+                                {
+                                    if (filledNotes.Any(filledNote => filledNote.LevyingInput == note.LevyingInput && filledNote.IsCollided(note)))
+                                    {
+                                        WipeNote(note);
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        filledNotes.Add(note);
+                                        return false;
+                                    }
                                 }
                             }
                         }
                     }
                 }
 
-                InputMode = Component.GetInputMode(inputFavorMode);
+                InputMode = inputMode;
+                autoableInputs = Component.AutoableInputs[(int)InputMode];
+                defaultInputs = Component.DefaultInputs[(int)InputMode];
 
                 void WipeNote(BaseNote note)
                 {
@@ -496,7 +514,6 @@ namespace Qwilight.Compiler
                 }
             }
 
-            var autoableInputs = Component.AutoableInputs[(int)InputMode];
             var inputCount = Component.InputCounts[(int)InputMode];
             var isCounterWave = defaultComputer.ModeComponentValue.WaveModeValue == ModeComponent.WaveMode.Counter;
 
@@ -630,7 +647,7 @@ namespace Qwilight.Compiler
                                 var input = inputNote.LevyingInput;
                                 if (!autoableInputs.Contains(input))
                                 {
-                                    inputNote.LevyingInput = 1 + inputCount + ((Component.DefaultInputs[(int)InputMode].First() - Component.Inputs[(int)InputMode].First()) - (Component.Inputs[(int)InputMode].Last() - Component.DefaultInputs[(int)InputMode].Last())) - input;
+                                    inputNote.LevyingInput = 1 + inputCount + ((defaultInputs.First() - Component.Inputs[(int)InputMode].First()) - (Component.Inputs[(int)InputMode].Last() - defaultInputs.Last())) - input;
                                 }
                             }
                             break;
@@ -644,7 +661,7 @@ namespace Qwilight.Compiler
                                         var input = inputNote.LevyingInput;
                                         if (!autoableInputs.Contains(input))
                                         {
-                                            var levyingInput = Component.DefaultInputs[(int)InputMode].First();
+                                            var levyingInput = defaultInputs.First();
                                             var lastInput = levyingInput + Component.DefaultInputCounts[(int)InputMode];
                                             var wait = inputNote.Wait;
                                             var longWait = inputNote.LongWait;
@@ -680,7 +697,7 @@ namespace Qwilight.Compiler
                                             var saltedInputs = new int[Component.DefaultInputCounts[(int)InputMode]];
                                             for (var i = saltedInputs.Length - 1; i >= 0; --i)
                                             {
-                                                saltedInputs[i] = i + Component.DefaultInputs[(int)InputMode].First();
+                                                saltedInputs[i] = i + defaultInputs.First();
                                             }
                                             saltedInputs = saltedInputs.Except(saltedNotes.Where(saltedNote => saltedNote.IsCollided(inputNote)).Select(saltedNote => saltedNote.LevyingInput)).ToArray();
                                             noteSaltComputer.Shuffle(saltedInputs);
@@ -699,7 +716,7 @@ namespace Qwilight.Compiler
                         var saltedInputs = new int[defaultInputCount];
                         for (var i = defaultInputCount - 1; i >= 0; --i)
                         {
-                            saltedInputs[i] = i + Component.DefaultInputs[(int)InputMode].First();
+                            saltedInputs[i] = i + defaultInputs.First();
                         }
                         switch (defaultComputer.NoteSaltModeDate)
                         {
@@ -749,7 +766,7 @@ namespace Qwilight.Compiler
                             var input = note.LevyingInput;
                             if (!autoableInputs.Contains(input))
                             {
-                                note.LevyingInput = saltedInputs[input - Component.DefaultInputs[(int)InputMode].First()];
+                                note.LevyingInput = saltedInputs[input - defaultInputs.First()];
                             }
                         }
                     }
@@ -903,7 +920,7 @@ namespace Qwilight.Compiler
                             switch (setNoteModeValue)
                             {
                                 case ModeComponent.SetNoteMode.Put:
-                                    NewNote(audioNote, GetInputs(Component.DefaultInputs[(int)InputMode].First(), Component.DefaultInputs[(int)InputMode].Last()));
+                                    NewNote(audioNote, GetInputs(defaultInputs.First(), defaultInputs.Last()));
                                     break;
                                 case ModeComponent.SetNoteMode.VoidPut:
                                     NewNote(audioNote, inputsVoid);
