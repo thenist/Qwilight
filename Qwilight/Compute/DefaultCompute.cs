@@ -460,7 +460,7 @@ namespace Qwilight.Compute
 
         public int InheritedTotalNotes { get; set; }
 
-        public int Input1PCount { get; set; }
+        public int InputCount1P { get; set; }
 
         public bool[] IsIn2P { get; set; }
 
@@ -835,13 +835,13 @@ namespace Qwilight.Compute
             var inputCount = Component.InputCounts[(int)InputMode];
             if (AlwaysNotP2Position)
             {
-                Input1PCount = inputCount;
+                InputCount1P = inputCount;
                 IsIn2P = new bool[inputCount + 1];
                 Has2P = false;
             }
             else
             {
-                Input1PCount = Component.Input1PCounts[(int)InputMode];
+                InputCount1P = Component.InputCounts1P[(int)InputMode];
                 IsIn2P = Component.IsIn2P[(int)InputMode];
                 Has2P = Component.Has2P[(int)InputMode];
             }
@@ -1978,8 +1978,7 @@ namespace Qwilight.Compute
                                                 while (postedTrapNotesMillis >= 60.0)
                                                 {
                                                     postedTrapNotesMillis -= 60.0;
-                                                    var autoableInputCount = Component.AutoableInputCounts[(int)InputMode];
-                                                    var input = 1 + autoableInputCount + Random.Shared.Next(Component.InputCounts[(int)InputMode] - autoableInputCount);
+                                                    var input = Utility.GetSaltedValue(Component.DefaultInputs[(int)InputMode].ToArray());
                                                     var wait = Math.Floor(Math.Min(LoopingCounter + 1000.0 * Random.Shared.Next(1000 / 60) / (1000 / 60), Length + Component.QuitWait));
                                                     var isTrapNote = true;
                                                     foreach (var handlingNote in _handlingNotes)
@@ -2036,8 +2035,7 @@ namespace Qwilight.Compute
                                                 while (postedSaltNotesMillis >= 60.0)
                                                 {
                                                     postedSaltNotesMillis -= 60.0;
-                                                    var autoableInputCount = Component.AutoableInputCounts[(int)InputMode];
-                                                    var input = 1 + autoableInputCount + Random.Shared.Next(Component.InputCounts[(int)InputMode] - autoableInputCount);
+                                                    var input = Utility.GetSaltedValue(Component.DefaultInputs[(int)InputMode]);
                                                     foreach (var handlingNote in _handlingNotes)
                                                     {
                                                         if (handlingNote.HasStand && handlingNote.Judged == Component.Judged.Not && handlingNote.IsVisibleHalf(this) && handlingNote.TargetInput == handlingNote.LevyingInput)

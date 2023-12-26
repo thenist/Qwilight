@@ -111,19 +111,68 @@
         public static readonly double[,] StandMap = new double[2, 6];
         public static readonly double[,] PointMap = new double[2, 6];
         public static readonly double[,,] HitPointsMap = new double[4, 8, 6];
+        public static readonly int[][] Inputs = new int[17][];
         public static readonly int[] InputCounts = new int[17];
+        public static readonly int[][] DefaultInputs = new int[17][];
+        public static readonly int[] DefaultInputCounts = new int[17];
         public static readonly int[][] AutoableInputs = new int[17][];
         public static readonly int[] AutoableInputCounts = new int[17];
         public static readonly int[,][] InputMappingValues = new int[4, 17][];
         public static readonly int[,][] BasePaintMap = new int[4, 17][];
         public static readonly int[,][] FavorInputs = new int[17, 17][];
-        public static readonly Func<int, double, double>[,] FillLambdas = new Func<int, double, double>[17, 30];
-        public static readonly int[,][] VoidPutInputs = new int[17, 17][];
         public static readonly bool[][] IsIn2P = new bool[17][];
-        public static readonly int[] Input1PCounts = new int[17];
+        public static readonly int[] InputCounts1P = new int[17];
         public static readonly bool[] Has2P = new bool[17];
         public static readonly int[,,][] LimiterCenterMap = new int[4, 17, 2][];
         public static readonly bool[][] Limiter57Map = new bool[17][];
+
+        public static InputMode GetInputMode(ModeComponent.InputFavorMode inputFavorMode)
+        {
+            switch (inputFavorMode)
+            {
+                case ModeComponent.InputFavorMode._4:
+                case ModeComponent.InputFavorMode.Fill4:
+                    return InputMode._4;
+                case ModeComponent.InputFavorMode._5:
+                case ModeComponent.InputFavorMode.Fill5:
+                    return InputMode._5;
+                case ModeComponent.InputFavorMode._6:
+                case ModeComponent.InputFavorMode.Fill6:
+                    return InputMode._6;
+                case ModeComponent.InputFavorMode._7:
+                case ModeComponent.InputFavorMode.Fill7:
+                    return InputMode._7;
+                case ModeComponent.InputFavorMode._8:
+                case ModeComponent.InputFavorMode.Fill8:
+                    return InputMode._8;
+                case ModeComponent.InputFavorMode._9:
+                case ModeComponent.InputFavorMode.Fill9:
+                    return InputMode._9;
+                case ModeComponent.InputFavorMode._10:
+                case ModeComponent.InputFavorMode.Fill10:
+                    return InputMode._10;
+                case ModeComponent.InputFavorMode._5_1:
+                case ModeComponent.InputFavorMode.Fill5_1:
+                    return InputMode._5_1;
+                case ModeComponent.InputFavorMode._7_1:
+                case ModeComponent.InputFavorMode.Fill7_1:
+                    return InputMode._7_1;
+                case ModeComponent.InputFavorMode._10_2:
+                case ModeComponent.InputFavorMode.Fill10_2:
+                    return InputMode._10_2;
+                case ModeComponent.InputFavorMode._14_2:
+                case ModeComponent.InputFavorMode.Fill14_2:
+                    return InputMode._14_2;
+                case ModeComponent.InputFavorMode._24_2:
+                case ModeComponent.InputFavorMode.Fill24_2:
+                    return InputMode._24_2;
+                case ModeComponent.InputFavorMode._48_4:
+                case ModeComponent.InputFavorMode.Fill48_4:
+                    return InputMode._48_4;
+                default:
+                    throw new ArgumentException(inputFavorMode.ToString());
+            }
+        }
 
         static Component()
         {
@@ -492,19 +541,42 @@
             StandMap[(int)StandMapDate._1_14_118, (int)Judged.Lowest] = 0.0;
             #endregion
 
-            InputCounts[(int)InputMode._4] = 4;
-            InputCounts[(int)InputMode._5] = 5;
-            InputCounts[(int)InputMode._6] = 6;
-            InputCounts[(int)InputMode._7] = 7;
-            InputCounts[(int)InputMode._8] = 8;
-            InputCounts[(int)InputMode._9] = 9;
-            InputCounts[(int)InputMode._10] = 10;
-            InputCounts[(int)InputMode._5_1] = 6;
-            InputCounts[(int)InputMode._7_1] = 8;
-            InputCounts[(int)InputMode._10_2] = 12;
-            InputCounts[(int)InputMode._14_2] = 16;
-            InputCounts[(int)InputMode._24_2] = 26;
-            InputCounts[(int)InputMode._48_4] = 52;
+            Inputs[(int)InputMode._4] = [1, 2, 3, 4];
+            Inputs[(int)InputMode._5] = [1, 2, 3, 4, 5];
+            Inputs[(int)InputMode._6] = [1, 2, 3, 4, 5, 6];
+            Inputs[(int)InputMode._7] = [1, 2, 3, 4, 5, 6, 7];
+            Inputs[(int)InputMode._8] = [1, 2, 3, 4, 5, 6, 7, 8];
+            Inputs[(int)InputMode._9] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            Inputs[(int)InputMode._10] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            Inputs[(int)InputMode._5_1] = [1, 2, 3, 4, 5, 6];
+            Inputs[(int)InputMode._7_1] = [1, 2, 3, 4, 5, 6, 7, 8];
+            Inputs[(int)InputMode._10_2] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+            Inputs[(int)InputMode._14_2] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+            Inputs[(int)InputMode._24_2] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26];
+            Inputs[(int)InputMode._48_4] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52];
+
+            AutoableInputs[(int)InputMode._4] = Array.Empty<int>();
+            AutoableInputs[(int)InputMode._5] = Array.Empty<int>();
+            AutoableInputs[(int)InputMode._6] = Array.Empty<int>();
+            AutoableInputs[(int)InputMode._7] = Array.Empty<int>();
+            AutoableInputs[(int)InputMode._8] = Array.Empty<int>();
+            AutoableInputs[(int)InputMode._9] = Array.Empty<int>();
+            AutoableInputs[(int)InputMode._10] = Array.Empty<int>();
+            AutoableInputs[(int)InputMode._5_1] = [1];
+            AutoableInputs[(int)InputMode._7_1] = [1];
+            AutoableInputs[(int)InputMode._10_2] = [1, 12];
+            AutoableInputs[(int)InputMode._14_2] = [1, 16];
+            AutoableInputs[(int)InputMode._24_2] = [1, 26];
+            AutoableInputs[(int)InputMode._48_4] = [1, 2, 51, 52];
+
+            for (var inputMode = (int)InputMode._4; inputMode <= (int)InputMode._48_4; ++inputMode)
+            {
+                DefaultInputs[inputMode] = Inputs[inputMode].Except(AutoableInputs[inputMode]).ToArray();
+
+                InputCounts[inputMode] = Inputs[inputMode].Length;
+                AutoableInputCounts[inputMode] = AutoableInputs[inputMode].Length;
+                DefaultInputCounts[inputMode] = DefaultInputs[inputMode].Length;
+            }
 
             InputMappingValues[(int)InputMapping.Mapping0, (int)InputMode._4] = [default, 1, 2, 3, 4];
             InputMappingValues[(int)InputMapping.Mapping0, (int)InputMode._5] = [default, 1, 2, 3, 4, 5];
@@ -611,27 +683,6 @@
             BasePaintMap[(int)InputMapping.Mapping3, (int)InputMode._14_2] = [default, 2, 3, 4, 5, 6, 7, 8, 1, 9, 10, 11, 12, 13, 14, 15, 16];
             BasePaintMap[(int)InputMapping.Mapping3, (int)InputMode._24_2] = [default, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 1];
             BasePaintMap[(int)InputMapping.Mapping3, (int)InputMode._48_4] = [default, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 52, 51, 2, 1];
-
-            AutoableInputs[(int)InputMode._4] = Array.Empty<int>();
-            AutoableInputs[(int)InputMode._5] = Array.Empty<int>();
-            AutoableInputs[(int)InputMode._6] = Array.Empty<int>();
-            AutoableInputs[(int)InputMode._7] = Array.Empty<int>();
-            AutoableInputs[(int)InputMode._8] = Array.Empty<int>();
-            AutoableInputs[(int)InputMode._9] = Array.Empty<int>();
-            AutoableInputs[(int)InputMode._10] = Array.Empty<int>();
-            AutoableInputs[(int)InputMode._5_1] = [1];
-            AutoableInputs[(int)InputMode._7_1] = [1];
-            AutoableInputs[(int)InputMode._10_2] = [1, 12];
-            AutoableInputs[(int)InputMode._14_2] = [1, 16];
-            AutoableInputs[(int)InputMode._24_2] = [1, 26];
-            AutoableInputs[(int)InputMode._48_4] = [1, 2, 51, 52];
-
-            AutoableInputCounts[(int)InputMode._5_1] = 1;
-            AutoableInputCounts[(int)InputMode._7_1] = 1;
-            AutoableInputCounts[(int)InputMode._10_2] = 2;
-            AutoableInputCounts[(int)InputMode._14_2] = 2;
-            AutoableInputCounts[(int)InputMode._24_2] = 2;
-            AutoableInputCounts[(int)InputMode._48_4] = 4;
 
             FavorInputs[(int)InputMode._4, (int)ModeComponent.InputFavorMode._4] = [default, 1, 2, 3, 4];
             FavorInputs[(int)InputMode._4, (int)ModeComponent.InputFavorMode._5] = [default, 1, 2, 3, 4];
@@ -815,370 +866,6 @@
             FavorInputs[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode._24_2] = [default, 1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26];
             FavorInputs[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode._48_4] = [default, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52];
 
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 4.0 * (input - 1) + 1) + 3.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 4.0 * (input - 1) + 1) + 4.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 4.0 * (input - 1) + 1) + 5.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 4.0 * (input - 1) + 1) + 6.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 4.0 * (input - 1) + 1) + 7.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 4.0 * (input - 1) + 1) + 8.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 4.0 * (input - 1) + 1) + 9.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 4.0 * (input - 1) + 2) + 4.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 4.0 * (input - 1) + 2) + 6.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 4.0 * (input - 1) + 2) + 9.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 4.0 * (input - 1) + 2) + 13.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 4.0 * (input - 1) + 2) + 23.0 / 4.0 * random;
-            FillLambdas[(int)InputMode._4, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 4.0 * (input - 1) + 3) + 47.0 / 4.0 * random;
-
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 5.0 * (input - 1) + 1) + 3.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 5.0 * (input - 1) + 1) + 4.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 5.0 * (input - 1) + 1) + 5.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 5.0 * (input - 1) + 1) + 6.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 5.0 * (input - 1) + 1) + 7.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 5.0 * (input - 1) + 1) + 8.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 5.0 * (input - 1) + 1) + 9.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 5.0 * (input - 1) + 2) + 4.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 5.0 * (input - 1) + 2) + 6.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 5.0 * (input - 1) + 2) + 9.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 5.0 * (input - 1) + 2) + 13.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 5.0 * (input - 1) + 2) + 23.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 5.0 * (input - 1) + 3) + 47.0 / 5.0 * random;
-
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 6.0 * (input - 1) + 1) + 3.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 6.0 * (input - 1) + 1) + 4.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 6.0 * (input - 1) + 1) + 5.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 6.0 * (input - 1) + 1) + 6.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 6.0 * (input - 1) + 1) + 7.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 6.0 * (input - 1) + 1) + 8.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 6.0 * (input - 1) + 1) + 9.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 6.0 * (input - 1) + 2) + 4.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 6.0 * (input - 1) + 2) + 6.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 6.0 * (input - 1) + 2) + 9.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 6.0 * (input - 1) + 2) + 13.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 6.0 * (input - 1) + 2) + 23.0 / 6.0 * random;
-            FillLambdas[(int)InputMode._6, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 6.0 * (input - 1) + 3) + 47.0 / 6.0 * random;
-
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 7.0 * (input - 1) + 1) + 3.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 7.0 * (input - 1) + 1) + 4.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 7.0 * (input - 1) + 1) + 5.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 7.0 * (input - 1) + 1) + 6.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 7.0 * (input - 1) + 1) + 7.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 7.0 * (input - 1) + 1) + 8.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 7.0 * (input - 1) + 1) + 9.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 7.0 * (input - 1) + 2) + 4.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 7.0 * (input - 1) + 2) + 6.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 7.0 * (input - 1) + 2) + 9.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 7.0 * (input - 1) + 2) + 13.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 7.0 * (input - 1) + 2) + 23.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 7.0 * (input - 1) + 3) + 47.0 / 7.0 * random;
-
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 8.0 * (input - 1) + 1) + 3.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 8.0 * (input - 1) + 1) + 4.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 8.0 * (input - 1) + 1) + 5.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 8.0 * (input - 1) + 1) + 6.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 8.0 * (input - 1) + 1) + 7.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 8.0 * (input - 1) + 1) + 8.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 8.0 * (input - 1) + 1) + 9.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 8.0 * (input - 1) + 2) + 4.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 8.0 * (input - 1) + 2) + 6.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 8.0 * (input - 1) + 2) + 9.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 8.0 * (input - 1) + 2) + 13.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 8.0 * (input - 1) + 2) + 23.0 / 8.0 * random;
-            FillLambdas[(int)InputMode._8, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 8.0 * (input - 1) + 3) + 47.0 / 8.0 * random;
-
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 9.0 * (input - 1) + 1) + 3.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 9.0 * (input - 1) + 1) + 4.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 9.0 * (input - 1) + 1) + 5.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 9.0 * (input - 1) + 1) + 6.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 9.0 * (input - 1) + 1) + 7.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 9.0 * (input - 1) + 1) + 8.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 9.0 * (input - 1) + 1) + 9.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 9.0 * (input - 1) + 2) + 4.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 9.0 * (input - 1) + 2) + 6.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 9.0 * (input - 1) + 2) + 9.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 9.0 * (input - 1) + 2) + 13.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 9.0 * (input - 1) + 2) + 23.0 / 9.0 * random;
-            FillLambdas[(int)InputMode._9, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 9.0 * (input - 1) + 3) + 47.0 / 9.0 * random;
-
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 10.0 * (input - 1) + 1) + 3.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 10.0 * (input - 1) + 1) + 4.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 10.0 * (input - 1) + 1) + 5.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 10.0 * (input - 1) + 1) + 6.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 10.0 * (input - 1) + 1) + 7.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 10.0 * (input - 1) + 1) + 8.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 10.0 * (input - 1) + 1) + 9.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 10.0 * (input - 1) + 2) + 4.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 10.0 * (input - 1) + 2) + 6.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 10.0 * (input - 1) + 2) + 9.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 10.0 * (input - 1) + 2) + 13.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 10.0 * (input - 1) + 2) + 23.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 10.0 * (input - 1) + 3) + 47.0 / 10.0 * random;
-
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 5.0 * (input - 2) + 1) + 3.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 5.0 * (input - 2) + 1) + 4.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 5.0 * (input - 2) + 1) + 5.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 5.0 * (input - 2) + 1) + 6.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 5.0 * (input - 2) + 1) + 7.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 5.0 * (input - 2) + 1) + 8.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 5.0 * (input - 2) + 1) + 9.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 5.0 * (input - 2) + 2) + 4.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 5.0 * (input - 2) + 2) + 6.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 5.0 * (input - 2) + 2) + 9.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 5.0 * (input - 2) + 2) + 13.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 5.0 * (input - 2) + 2) + 23.0 / 5.0 * random;
-            FillLambdas[(int)InputMode._5_1, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 5.0 * (input - 2) + 3) + 47.0 / 5.0 * random;
-
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 7.0 * (input - 2) + 1) + 3.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 7.0 * (input - 2) + 1) + 4.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 7.0 * (input - 2) + 1) + 5.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 7.0 * (input - 2) + 1) + 6.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 7.0 * (input - 2) + 1) + 7.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 7.0 * (input - 2) + 1) + 8.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 7.0 * (input - 2) + 1) + 9.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 7.0 * (input - 2) + 2) + 4.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 7.0 * (input - 2) + 2) + 6.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 7.0 * (input - 2) + 2) + 9.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 7.0 * (input - 2) + 2) + 13.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 7.0 * (input - 2) + 2) + 23.0 / 7.0 * random;
-            FillLambdas[(int)InputMode._7_1, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 7.0 * (input - 2) + 3) + 47.0 / 7.0 * random;
-
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 10.0 * (input - 2) + 1) + 3.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 10.0 * (input - 2) + 1) + 4.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 10.0 * (input - 2) + 1) + 5.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 10.0 * (input - 2) + 1) + 6.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 10.0 * (input - 2) + 1) + 7.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 10.0 * (input - 2) + 1) + 8.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 10.0 * (input - 2) + 1) + 9.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 10.0 * (input - 2) + 2) + 4.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 10.0 * (input - 2) + 2) + 6.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 10.0 * (input - 2) + 2) + 9.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 10.0 * (input - 2) + 2) + 13.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 10.0 * (input - 2) + 2) + 23.0 / 10.0 * random;
-            FillLambdas[(int)InputMode._10_2, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 10.0 * (input - 2) + 3) + 47.0 / 10.0 * random;
-
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 14.0 * (input - 2) + 1) + 3.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 14.0 * (input - 2) + 1) + 4.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 14.0 * (input - 2) + 1) + 5.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 14.0 * (input - 2) + 1) + 6.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 14.0 * (input - 2) + 1) + 7.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 14.0 * (input - 2) + 1) + 8.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 14.0 * (input - 2) + 1) + 9.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 14.0 * (input - 2) + 2) + 4.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 14.0 * (input - 2) + 2) + 6.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 14.0 * (input - 2) + 2) + 9.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 14.0 * (input - 2) + 2) + 13.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 14.0 * (input - 2) + 2) + 23.0 / 14.0 * random;
-            FillLambdas[(int)InputMode._14_2, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 14.0 * (input - 2) + 3) + 47.0 / 14.0 * random;
-
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 24.0 * (input - 2) + 1) + 3.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 24.0 * (input - 2) + 1) + 4.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 24.0 * (input - 2) + 1) + 5.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 24.0 * (input - 2) + 1) + 6.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 24.0 * (input - 2) + 1) + 7.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 24.0 * (input - 2) + 1) + 8.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 24.0 * (input - 2) + 1) + 9.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 24.0 * (input - 2) + 2) + 4.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 24.0 * (input - 2) + 2) + 6.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 24.0 * (input - 2) + 2) + 9.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 24.0 * (input - 2) + 2) + 13.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 24.0 * (input - 2) + 2) + 23.0 / 24.0 * random;
-            FillLambdas[(int)InputMode._24_2, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 24.0 * (input - 2) + 3) + 47.0 / 24.0 * random;
-
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill4] = (input, random) => (3.0 / 48.0 * (input - 3) + 1) + 3.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill5] = (input, random) => (4.0 / 48.0 * (input - 3) + 1) + 4.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill6] = (input, random) => (5.0 / 48.0 * (input - 3) + 1) + 5.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill7] = (input, random) => (6.0 / 48.0 * (input - 3) + 1) + 6.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill8] = (input, random) => (7.0 / 48.0 * (input - 3) + 1) + 7.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill9] = (input, random) => (8.0 / 48.0 * (input - 3) + 1) + 8.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill10] = (input, random) => (9.0 / 48.0 * (input - 3) + 1) + 9.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill5_1] = (input, random) => (4.0 / 48.0 * (input - 3) + 2) + 4.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill7_1] = (input, random) => (6.0 / 48.0 * (input - 3) + 2) + 6.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill10_2] = (input, random) => (9.0 / 48.0 * (input - 3) + 2) + 9.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill14_2] = (input, random) => (13.0 / 48.0 * (input - 3) + 2) + 13.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill24_2] = (input, random) => (23.0 / 48.0 * (input - 3) + 2) + 23.0 / 48.0 * random;
-            FillLambdas[(int)InputMode._48_4, (int)ModeComponent.InputFavorMode.Fill48_4] = (input, random) => (47.0 / 48.0 * (input - 3) + 3) + 47.0 / 48.0 * random;
-
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._5] = [5];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._6] = [5, 6];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._7] = [5, 6, 7];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._8] = [5, 6, 7, 8];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._9] = [5, 6, 7, 8, 9];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._10] = [5, 6, 7, 8, 9, 10];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._5_1] = [6];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._7_1] = [6, 7, 8];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._10_2] = [6, 7, 8, 9, 10, 11];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._14_2] = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._24_2] = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._4, (int)InputMode._48_4] = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._6] = [6];
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._7] = [6, 7];
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._8] = [6, 7, 8];
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._9] = [6, 7, 8, 9];
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._10] = [6, 7, 8, 9, 10];
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._7_1] = [7, 8];
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._10_2] = [7, 8, 9, 10, 11];
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._14_2] = [7, 8, 9, 10, 11, 12, 13, 14, 15];
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._24_2] = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._5, (int)InputMode._48_4] = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._6] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._7] = [7];
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._8] = [7, 8];
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._9] = [7, 8, 9];
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._10] = [7, 8, 9, 10];
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._7_1] = [8];
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._10_2] = [8, 9, 10, 11];
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._14_2] = [8, 9, 10, 11, 12, 13, 14, 15];
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._24_2] = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._6, (int)InputMode._48_4] = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._6] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._7] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._8] = [8];
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._9] = [8, 9];
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._10] = [8, 9, 10];
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._7_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._10_2] = [9, 10, 11];
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._14_2] = [9, 10, 11, 12, 13, 14, 15];
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._24_2] = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._7, (int)InputMode._48_4] = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._6] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._7] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._8] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._9] = [9];
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._10] = [9, 10];
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._7_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._10_2] = [10, 11];
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._14_2] = [10, 11, 12, 13, 14, 15];
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._24_2] = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._8, (int)InputMode._48_4] = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._6] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._7] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._8] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._9] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._10] = [10];
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._7_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._10_2] = [11];
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._14_2] = [11, 12, 13, 14, 15];
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._24_2] = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._9, (int)InputMode._48_4] = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._6] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._7] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._8] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._9] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._10] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._7_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._10_2] = [12];
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._14_2] = [12, 13, 14, 15];
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._24_2] = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._10, (int)InputMode._48_4] = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._6] = [6];
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._7] = [6, 7];
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._8] = [6, 7, 8];
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._9] = [6, 7, 8, 9];
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._10] = [6, 7, 8, 9, 10];
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._7_1] = [7, 8];
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._10_2] = [7, 8, 9, 10, 11, 12];
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._14_2] = [7, 8, 9, 10, 11, 12, 13, 14, 15];
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._24_2] = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._5_1, (int)InputMode._48_4] = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._6] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._7] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._8] = [8];
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._9] = [8, 9];
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._10] = [8, 9, 10];
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._7_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._10_2] = [9, 10, 11];
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._14_2] = [9, 10, 11, 12, 13, 14, 15];
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._24_2] = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._7_1, (int)InputMode._48_4] = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._6] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._7] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._8] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._9] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._10] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._7_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._10_2] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._14_2] = [12, 13, 14, 15];
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._24_2] = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._10_2, (int)InputMode._48_4] = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._6] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._7] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._8] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._9] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._10] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._7_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._10_2] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._14_2] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._24_2] = [16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-            VoidPutInputs[(int)InputMode._14_2, (int)InputMode._48_4] = [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._6] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._7] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._8] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._9] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._10] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._7_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._10_2] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._14_2] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._24_2] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._24_2, (int)InputMode._48_4] = [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._4] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._5] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._6] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._7] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._8] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._9] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._10] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._5_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._7_1] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._10_2] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._14_2] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._24_2] = Array.Empty<int>();
-            VoidPutInputs[(int)InputMode._48_4, (int)InputMode._48_4] = Array.Empty<int>();
-
             IsIn2P[(int)InputMode._4] = new bool[5];
             IsIn2P[(int)InputMode._5] = new bool[6];
             IsIn2P[(int)InputMode._6] = new bool[7];
@@ -1193,19 +880,19 @@
             IsIn2P[(int)InputMode._24_2] = new bool[27];
             IsIn2P[(int)InputMode._48_4] = new bool[53];
 
-            Input1PCounts[(int)InputMode._4] = 4;
-            Input1PCounts[(int)InputMode._5] = 5;
-            Input1PCounts[(int)InputMode._6] = 6;
-            Input1PCounts[(int)InputMode._7] = 7;
-            Input1PCounts[(int)InputMode._8] = 8;
-            Input1PCounts[(int)InputMode._9] = 9;
-            Input1PCounts[(int)InputMode._10] = 10;
-            Input1PCounts[(int)InputMode._5_1] = 6;
-            Input1PCounts[(int)InputMode._7_1] = 8;
-            Input1PCounts[(int)InputMode._10_2] = 6;
-            Input1PCounts[(int)InputMode._14_2] = 8;
-            Input1PCounts[(int)InputMode._24_2] = 26;
-            Input1PCounts[(int)InputMode._48_4] = 52;
+            InputCounts1P[(int)InputMode._4] = 4;
+            InputCounts1P[(int)InputMode._5] = 5;
+            InputCounts1P[(int)InputMode._6] = 6;
+            InputCounts1P[(int)InputMode._7] = 7;
+            InputCounts1P[(int)InputMode._8] = 8;
+            InputCounts1P[(int)InputMode._9] = 9;
+            InputCounts1P[(int)InputMode._10] = 10;
+            InputCounts1P[(int)InputMode._5_1] = 6;
+            InputCounts1P[(int)InputMode._7_1] = 8;
+            InputCounts1P[(int)InputMode._10_2] = 6;
+            InputCounts1P[(int)InputMode._14_2] = 8;
+            InputCounts1P[(int)InputMode._24_2] = 26;
+            InputCounts1P[(int)InputMode._48_4] = 52;
 
             Has2P[(int)InputMode._10_2] = true;
             Has2P[(int)InputMode._14_2] = true;

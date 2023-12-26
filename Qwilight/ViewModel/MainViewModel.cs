@@ -20,7 +20,6 @@ using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -2137,12 +2136,12 @@ namespace Qwilight.ViewModel
 
         public void SaltEntryView()
         {
-            var entryItemPosition = 1 + (EntryItems[1].IsLogical ? 1 : 0) + RandomNumberGenerator.GetInt32(EntryItems.Count - EntryItems.Count(entryItem => entryItem.IsLogical));
-            if (entryItemPosition == EntryItemPosition)
-            {
-                ++entryItemPosition;
-            }
-            EntryItemValue = EntryItems.ElementAtOrDefault(entryItemPosition);
+            var entryItems = EntryItems.ToArray();
+            EntryItemValue = Utility.GetSaltedValue(entryItems
+                .Skip(Array.FindIndex(entryItems, entryItem => !entryItem.IsLogical))
+                .SkipLast(entryItems.Length - Array.FindLastIndex(entryItems, entryItem => !entryItem.IsLogical) - 1)
+                .Except([EntryItemValue])
+                .ToArray());
         }
 
         public void Want(EntryItem wantEntryItem = null)

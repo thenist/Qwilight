@@ -118,7 +118,7 @@ namespace Qwilight.View
                         if (autoComputer?.IsHandling == true)
                         {
                             var statusValue = status.Value;
-                            var targetInputCount = Component.Input1PCounts[(int)autoComputer.InputMode] * 6;
+                            var targetInputCount = Component.InputCounts1P[(int)autoComputer.InputMode] * 6;
 
                             if (targetInputCount > 0)
                             {

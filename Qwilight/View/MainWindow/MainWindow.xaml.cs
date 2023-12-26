@@ -360,12 +360,12 @@ namespace Qwilight.View
             var p1BuiltLength = drawingComponentValue.p1BuiltLength;
             var positionX = pointPosition.X - drawingComponentValue.mainPosition;
             var inputMode = defaultComputer.InputMode;
-            var input1PCount = defaultComputer.Input1PCount;
+            var inputCount1P = defaultComputer.InputCount1P;
             var mainNoteLengthLevyingMap = drawingComponentValue.MainNoteLengthLevyingMap;
             var mainNoteLengthBuiltMap = drawingComponentValue.MainNoteLengthBuiltMap;
             if (0.0 <= positionX && positionX < p1BuiltLength)
             {
-                for (var input = input1PCount; input > 0; --input)
+                for (var input = inputCount1P; input > 0; --input)
                 {
                     if (mainNoteLengthLevyingMap[input] <= positionX && positionX < mainNoteLengthBuiltMap[input])
                     {
@@ -379,7 +379,7 @@ namespace Qwilight.View
                 var inputCount = Component.InputCounts[(int)inputMode];
                 if (p1BuiltLength <= positionX && positionX < drawingComponentValue.p2BuiltLength)
                 {
-                    for (var input = inputCount; input > input1PCount; --input)
+                    for (var input = inputCount; input > inputCount1P; --input)
                     {
                         if (mainNoteLengthLevyingMap[input] <= positionX && positionX < mainNoteLengthBuiltMap[input])
                         {

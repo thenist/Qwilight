@@ -532,5 +532,11 @@ namespace Qwilight.Utilities
             }
             return (T)(object)0;
         }
+
+        public static T GetSaltedValue<T>(T[] values)
+        {
+            Random.Shared.Shuffle(values);
+            return values.First();
+        }
     }
 }

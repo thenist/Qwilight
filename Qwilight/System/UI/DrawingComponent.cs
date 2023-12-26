@@ -469,9 +469,9 @@ namespace Qwilight
             var floatingNotePosition0s = new float[inputCount + 1];
             var floatingNoteLengths = new float[inputCount + 1];
             var slashNotePosition0s = new float[inputCount + 1];
-            var p1BuiltLengthFunc = new Func<double, float>(e => (float)(MainNoteLengthBuiltMap.Skip(1).Take(defaultComputer.Input1PCount).DefaultIfEmpty(0).Max() * e));
+            var p1BuiltLengthFunc = new Func<double, float>(e => (float)(MainNoteLengthBuiltMap.Skip(1).Take(defaultComputer.InputCount1P).DefaultIfEmpty(0).Max() * e));
             var p2BuiltLengthFunc = new Func<double, float>(e => (float)(MainNoteLengthBuiltMap.Skip(1).Max() * e));
-            var p1Length = new Func<double, float>(e => (float)(MainNoteLengthBuiltMap.Skip(1).Take(Component.Input1PCounts[(int)inputMode]).DefaultIfEmpty(0).Max() * e));
+            var p1Length = new Func<double, float>(e => (float)(MainNoteLengthBuiltMap.Skip(1).Take(Component.InputCounts1P[(int)inputMode]).DefaultIfEmpty(0).Max() * e));
             var lsCaller = new Script();
             lsCaller.Globals["judgmentStage"] = defaultComputer.JudgmentStage;
             lsCaller.Globals["autoableInputCount"] = autoableInputCount;

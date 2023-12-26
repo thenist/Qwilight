@@ -439,7 +439,7 @@ namespace Qwilight
                                                 var isIn2P = defaultComputer.IsIn2P;
                                                 var has2P = defaultComputer.Has2P;
                                                 var inputCount = Component.InputCounts[(int)inputMode];
-                                                var input1PCount = defaultComputer.Input1PCount;
+                                                var inputCount1P = defaultComputer.InputCount1P;
                                                 var mainPosition = drawingComponentValue.mainPosition;
                                                 var p2Position = drawingComponentValue.p2Position;
                                                 var p1Length = drawingComponentValue.p1BuiltLength;
