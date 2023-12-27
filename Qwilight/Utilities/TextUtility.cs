@@ -9,5 +9,7 @@
         public static bool IsTailCaselsss(this string text, string value) => text.EndsWith(value, StringComparison.InvariantCultureIgnoreCase);
 
         public static bool ContainsCaselsss(this string text, string value) => text.Contains(value, StringComparison.InvariantCultureIgnoreCase);
+
+        public static int FitCaseless(this string text, string value) => string.Compare(text, value, StringComparison.InvariantCultureIgnoreCase);
     }
 }

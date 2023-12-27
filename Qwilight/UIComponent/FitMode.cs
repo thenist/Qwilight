@@ -95,13 +95,22 @@ namespace Qwilight.UIComponent
                         return value;
                     }
 
-                    value = asc ? fromEntryItem(x).CompareTo(fromEntryItem(y)) : fromEntryItem(y).CompareTo(fromEntryItem(x));
+                    var valueX = fromEntryItem(x);
+                    var valueY = fromEntryItem(y);
+                    if (valueX is string textX && valueY is string textY)
+                    {
+                        value = asc ? textX.FitCaseless(textY) : textY.FitCaseless(textX);
+                    }
+                    else
+                    {
+                        value = asc ? valueX.CompareTo(valueY) : valueY.CompareTo(valueX);
+                    }
                     if (value != 0)
                     {
                         return value;
                     }
 
-                    return x.Title.CompareTo(y.Title);
+                    return x.Title.FitCaseless(y.Title);
                 });
 
                 foreach (var entryItem in entryItems)

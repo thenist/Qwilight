@@ -1,17 +1,5 @@
 -- https://taehui.ddns.net/qwilight/assistLS
 
-function IsO4U()
-	return configures[2] == 1
-end
-
-function IsFloating()
-	return configures[3] == 1
-end
-
-function IsYellow()
-	return configures[4] == 1
-end
-
 function DefaultLength(e)
 	if configures[1] == 2 then
 		return e * 720 * 21 / 9
@@ -29,6 +17,28 @@ function DefaultHeight(e)
 		return e * 1280 * 10 / 16
 	else
 		return e * 720
+	end
+end
+
+function IsO4U()
+	return configures[2] == 1
+end
+
+function IsFloating()
+	return configures[3] == 1
+end
+
+function IsYellow()
+	return configures[4] == 1
+end
+
+function _GetVeil()
+	if configures[5] == 0 then
+		return "Veil 0"
+	elseif configures[5] == 1 then
+		return "Veil 1"
+	elseif configures[5] == 2 then
+		return "Veil 2"
 	end
 end
 
@@ -317,11 +327,11 @@ function PaintProperty4Position0()
 end
 
 function PaintProperty4Position1()
-	return 214 + bandPosition
+	return 214 + judgmentVisualizerPosition
 end
 
 function JudgmentVisualizerPosition1()
-	return 199 + bandPosition
+	return 199 + judgmentVisualizerPosition
 end
 
 function HunterPosition1()

@@ -13,6 +13,7 @@ namespace Qwilight
         double _noteWait;
         double _bandPosition;
         double _judgmentPaintPosition;
+        double _judgmentVisualizerPosition;
 
         public string[] UIConfiguresV2 { get; set; } = new string[UI.MaxUIConfigure];
 
@@ -156,6 +157,21 @@ namespace Qwilight
         }
 
         public string JudgmentPaintPositionContents => JudgmentPaintPosition.ToString(LanguageSystem.Instance.PointLevelContents);
+
+        public double JudgmentVisualizerPosition
+        {
+            get => _judgmentVisualizerPosition;
+
+            set
+            {
+                if (SetProperty(ref _judgmentVisualizerPosition, value, nameof(JudgmentVisualizerPosition)))
+                {
+                    OnPropertyChanged(nameof(JudgmentVisualizerPositionContents));
+                }
+            }
+        }
+
+        public string JudgmentVisualizerPositionContents => JudgmentVisualizerPosition.ToString(LanguageSystem.Instance.PointLevelContents);
 
         public Dictionary<int, double> HitNotePaintAreas { get; set; } = new();
 

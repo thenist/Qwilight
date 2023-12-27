@@ -1560,56 +1560,56 @@
     "en-US": "Sets the number of note lines."
   },
   "InputFavorModeFill10": {
-    "ko-KR": "10 으로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible 10. (Beta)"
+    "ko-KR": "10 으로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural 10. (Beta)"
   },
   "InputFavorModeFill102": {
-    "ko-KR": "⑩K로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible ⑩K. (Beta)"
+    "ko-KR": "⑩K로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural ⑩K. (Beta)"
   },
   "InputFavorModeFill142": {
-    "ko-KR": "⑭K로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible ⑭K. (Beta)"
+    "ko-KR": "⑭K로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural ⑭K. (Beta)"
   },
   "InputFavorModeFill242": {
-    "ko-KR": "24로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible 24. (Beta)"
+    "ko-KR": "24로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural 24. (Beta)"
   },
   "InputFavorModeFill4": {
-    "ko-KR": "4K로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible 4K. (Beta)"
+    "ko-KR": "4K로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural 4K. (Beta)"
   },
   "InputFavorModeFill484": {
-    "ko-KR": "48로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible 48. (Beta)"
+    "ko-KR": "48로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural 48. (Beta)"
   },
   "InputFavorModeFill5": {
-    "ko-KR": "5K로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible 5K. (Beta)"
+    "ko-KR": "5K로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural 5K. (Beta)"
   },
   "InputFavorModeFill51": {
-    "ko-KR": "⑤K로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible ⑤K. (Beta)"
+    "ko-KR": "⑤K로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural ⑤K. (Beta)"
   },
   "InputFavorModeFill6": {
-    "ko-KR": "6K로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible 6K. (Beta)"
+    "ko-KR": "6K로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural 6K. (Beta)"
   },
   "InputFavorModeFill7": {
-    "ko-KR": "7K로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible 7K. (Beta)"
+    "ko-KR": "7K로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural 7K. (Beta)"
   },
   "InputFavorModeFill71": {
-    "ko-KR": "⑦K로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible ⑦K. (Beta)"
+    "ko-KR": "⑦K로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural ⑦K. (Beta)"
   },
   "InputFavorModeFill8": {
-    "ko-KR": "8K로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible 8K. (Beta)"
+    "ko-KR": "8K로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural 8K. (Beta)"
   },
   "InputFavorModeFill9": {
-    "ko-KR": "9K로 그럴싸하게 만듭니다. (Beta)",
-    "en-US": "Make it plausible 9K. (Beta)"
+    "ko-KR": "9K로 자연스럽게 만듭니다. (Beta)",
+    "en-US": "Make it natural 9K. (Beta)"
   },
   "InputMapText": {
     "ko-KR": "1P와 2P의 턴 테이블 방향을 설정합니다.",
@@ -1717,7 +1717,7 @@
   },
   "JudgmentPaintPositionContents": {
     "ko-KR": "판정 애니메이션 위치",
-    "en-US": "Decision Animation Location"
+    "en-US": "Judgment animation position"
   },
   "JudgmentStage": {
     "ko-KR": "판정 난이도",
@@ -1726,6 +1726,10 @@
   "JudgmentVisualizerMillisText": {
     "ko-KR": "판정 비주얼라이저의 막대기가 얼마나 지속될지 설정합니다.",
     "en-US": "Set how long the bar of the judgment visualizer will be visible."
+  },
+  "JudgmentVisualizerPositionContents": {
+    "ko-KR": "판정 비주얼라이저 위치",
+    "en-US": "Judgment visualizer position"
   },
   "K70Contents": {
     "ko-KR": "CORSAIR® CUE™를 사용합니다.",

@@ -39,7 +39,6 @@ namespace Qwilight.ViewModel
                     LevelValue = noteFile.LevelValue;
                     LevelText = noteFile.LevelText;
                     NoteDrawingPath = noteFile.NoteDrawingPath;
-                    HandledValue = noteFile.HandledValue;
                     BannerDrawingPath = noteFile.BannerDrawingPath;
                 }
                 else
@@ -61,6 +60,7 @@ namespace Qwilight.ViewModel
                         LevelText = data.levelText;
                     }
                 }
+                HandledValue = data.handled;
             }
         }
 

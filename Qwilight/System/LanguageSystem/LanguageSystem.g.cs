@@ -434,6 +434,7 @@ namespace Qwilight
         public string JudgmentPaintPositionContents { get; set; }
         public string JudgmentStage { get; set; }
         public string JudgmentVisualizerMillisText { get; set; }
+        public string JudgmentVisualizerPositionContents { get; set; }
         public string K70Contents { get; set; }
         public string K70Text { get; set; }
         public string LazyGCText { get; set; }

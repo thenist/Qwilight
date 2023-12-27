@@ -71,6 +71,7 @@ lambda:
     setNoteHeight: true
     setBandPosition: true
     setJudgmentPaintPosition: true
+    setJudgmentVisualizerPosition: true
     setHitNotePaintArea: true
 
     configure-0: 16：9, 16：10, 21：9, 32：9
@@ -91,6 +92,11 @@ lambda:
     configure-3-1042: Classic (파란색), Default (노란색)
     configure-comment-3: Select a center note color.
     configure-comment-3-1042: 중앙 노트 색상을 선택합니다.
+    
+    configure-4: Hexagon, Rectangle, Triangle
+    configure-4-1042: 육각형, 사각형, 삼각형
+    configure-comment-4: Select the lane cover.
+    configure-comment-4-1042: 레인 커버를 선택합니다.
 
     pipeline: 1, 26, 3, 4, 7, 101, 8, 57, 31, 102, 103, 61, 2, 6, 9, 10, 11, 12, 13, 14, 30, 28, 15, 16, 27, 29, 33, 35, 36, 37, 38, 39, 40, 43, 44, 46, 47, 48, 51, 58, 104
 

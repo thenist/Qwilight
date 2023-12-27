@@ -454,6 +454,7 @@ namespace Qwilight.Compiler
                                 if (Component.DefaultInputCounts[(int)InputMode] < Component.DefaultInputCounts[(int)inputMode])
                                 {
                                     note.LevyingInput = filledInput0;
+                                    WipeIfCollided(note);
                                     for (var filledInput = filledInput0 + 1; filledInput <= filledInput1; ++filledInput)
                                     {
                                         var filledNote = note switch
@@ -908,7 +909,7 @@ namespace Qwilight.Compiler
             var setNoteModeValue = defaultComputer.ModeComponentValue.SetNoteModeValue;
             if (setNoteModeValue == ModeComponent.SetNoteMode.Put || setNoteModeValue == ModeComponent.SetNoteMode.VoidPut)
             {
-                var inputsVoid = Enumerable.Range(1, inputCount).Where(i => !Notes.Any(note => note.LevyingInput == i)).ToArray();
+                var inputsVoid = Enumerable.Range(defaultInputs.First(), Component.DefaultInputCounts[(int)InputMode]).Where(i => !Notes.Any(note => note.LevyingInput == i)).ToArray();
                 var putNoteSet = defaultComputer.ModeComponentValue.PutNoteSet;
                 var putNoteSetMillis = defaultComputer.ModeComponentValue.PutNoteSetMillis;
                 foreach (var (wait, audioNotes) in defaultComputer.WaitAudioNoteMap)

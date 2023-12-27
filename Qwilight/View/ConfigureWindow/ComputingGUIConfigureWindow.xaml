@@ -92,6 +92,7 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -117,9 +118,13 @@
                         <Slider Grid.Row="3" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.JudgmentPaintPosition, Source={StaticResource Configure}}" Minimum="-512" Maximum="512" IsEnabled="{Binding SetJudgmentPaintPosition, Source={StaticResource UI}}" Thumb.DragStarted="OnComputingPointed" ValueChanged="OnComputingModified" Thumb.DragCompleted="OnComputingNotPointed" />
                         <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.JudgmentPaintPositionContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
 
-                        <TextBlock Grid.Row="4" Style="{StaticResource StandardTextView}" Text="{Binding VeilDrawingHeightContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" VerticalAlignment="Top" />
-                        <Slider Grid.Row="4" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding VeilDrawingHeight, Source={StaticResource Configure}}" Minimum="0" Maximum="1024" VerticalAlignment="Top" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
-                        <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal">
+                        <TextBlock Grid.Row="4" Style="{StaticResource StandardTextView}" Text="{Binding JudgmentVisualizerPositionContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                        <Slider Grid.Row="4" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding UIConfigureValue.JudgmentVisualizerPosition, Source={StaticResource Configure}}" Minimum="-512" Maximum="512" IsEnabled="{Binding SetJudgmentVisualizerPosition, Source={StaticResource UI}}" Thumb.DragStarted="OnComputingPointed" ValueChanged="OnComputingModified" Thumb.DragCompleted="OnComputingNotPointed" />
+                        <TextBlock Grid.Row="4" Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding UIConfigureValue.JudgmentVisualizerPositionContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
+
+                        <TextBlock Grid.Row="5" Style="{StaticResource StandardTextView}" Text="{Binding VeilDrawingHeightContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                        <Slider Grid.Row="5" Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding VeilDrawingHeight, Source={StaticResource Configure}}" Minimum="0" Maximum="1024" VerticalAlignment="Top" Thumb.DragStarted="OnComputingPointed" Thumb.DragCompleted="OnComputingNotPointed" />
+                        <StackPanel Grid.Row="5" Grid.Column="2" Orientation="Horizontal">
                             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding VeilDrawingHeightContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                             <Border Style="{StaticResource StandardPanelSquare}" Height="72" MouseDown="OnVeilDrawing" Cursor="Hand">
                                 <Image Style="{StaticResource StandardViewMargin0}" Source="{Binding VeilDrawing.DefaultDrawing, Source={StaticResource DrawingSystem}}" />

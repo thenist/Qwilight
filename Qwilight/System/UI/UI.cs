@@ -226,6 +226,8 @@ namespace Qwilight
 
         public bool SetHitNotePaintArea { get; set; }
 
+        public bool SetJudgmentVisualizerPosition { get; set; }
+
         public DrawingItem?[] HitPointsDrawings { get; } = new DrawingItem?[8];
 
         public HandledDrawingItem? VeilDrawing { get; set; }
@@ -544,6 +546,7 @@ namespace Qwilight
                 SetNoteHeight = Utility.ToBool(Utility.GetText(lambdaNode, "setNoteHeight", bool.FalseString));
                 SetBandPosition = Utility.ToBool(Utility.GetText(lambdaNode, "setBandPosition", bool.FalseString));
                 SetJudgmentPaintPosition = Utility.ToBool(Utility.GetText(lambdaNode, "setJudgmentPaintPosition", bool.FalseString));
+                SetJudgmentVisualizerPosition = Utility.ToBool(Utility.GetText(lambdaNode, "setJudgmentVisualizerPosition", bool.FalseString));
                 SetHitNotePaintArea = Utility.ToBool(Utility.GetText(lambdaNode, "setHitNotePaintArea", bool.FalseString));
 
                 SaveIntMap(lambdaNode, "judgmentPaintComposition");
@@ -1209,6 +1212,7 @@ namespace Qwilight
             var getHighestBandBin = new Func<int[], string>(args => "HC");
             var getStandBin = new Func<int[], string>(args => "S");
             var getBandBin = new Func<int[], string>(args => "C");
+            var getVeil = new Func<int[], string>(args => "Veil");
 
             SetLambda("_GetNote", ref getNote);
             SetLambda("_GetHitNotePaint", ref getHitNotePaint);
@@ -1225,6 +1229,7 @@ namespace Qwilight
             SetLambda("_GetHighestBandBin", ref getHighestBandBin);
             SetLambda("_GetStandBin", ref getStandBin);
             SetLambda("_GetBandBin", ref getBandBin);
+            SetLambda("_GetVeil", ref getVeil);
 
             void SetLambda(string lambdaName, ref Func<int[], string> lambda)
             {
@@ -1446,14 +1451,13 @@ namespace Qwilight
                         NewDrawing(s, true);
                         break;
                     case "Drawing":
-                        switch (justFileName)
+                        if (justFileName == getVeil([]))
                         {
-                            case "Veil":
-                                NewHandledDrawing(s);
-                                break;
-                            default:
-                                NewDrawing(s);
-                                break;
+                            NewHandledDrawing(s);
+                        }
+                        else
+                        {
+                            NewDrawing(s);
                         }
                         break;
                     default:
@@ -1910,11 +1914,9 @@ namespace Qwilight
                 switch (Path.GetDirectoryName(fileName))
                 {
                     case "Drawing":
-                        switch (justFileName)
+                        if (justFileName == getVeil([]))
                         {
-                            case "Veil":
-                                VeilDrawing = handledDrawingItem;
-                                break;
+                            VeilDrawing = handledDrawingItem;
                         }
                         break;
                 }
