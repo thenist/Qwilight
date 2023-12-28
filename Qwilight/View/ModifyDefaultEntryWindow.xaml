@@ -14,6 +14,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -41,21 +42,59 @@
                     <Button Style="{StaticResource StandardInput}" Content="{Binding ModifyFrontEntry, Source={StaticResource LanguageSystem}}" Command="{Binding ModifyFrontEntryCommand}" Visibility="{Binding IsFavoriteEntry, Converter={StaticResource VisibilityModifier}}" />
                     <Button Style="{StaticResource StandardInput}" Content="{Binding FitDefaultEntry, Source={StaticResource LanguageSystem}}" Command="{Binding FitDefaultEntryCommand}" />
                 </StackPanel>
-                <StackPanel Grid.Row="5">
+                <Separator Grid.Row="5" Style="{StaticResource StandardHr}" />
+                <StackPanel Grid.Row="6">
                     <Grid>
+                        <Grid.Resources>
+                            <DataTemplate x:Key="ComputingView">
+                                <Grid Height="{Binding EntryItemHeight, Source={StaticResource BaseUI}}" Background="Transparent" MouseDown="OnLevyNoteFile">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding NoteFile.HandledWallDrawing}" Width="{Binding HandledWallLength, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                        <Grid Grid.Column="1">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.LevelText}" Foreground="{Binding NoteFile.LevelValue, Converter={StaticResource LevelPaintModifier}}" FontSize="{Binding LevelFontLevel, Source={StaticResource BaseUI}}" />
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Title}" Foreground="{StaticResource TitlePaint}" FontSize="{Binding TitleFontLevel, Source={StaticResource BaseUI}}" />
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding PositionText}" FontSize="{Binding EntryItemPositionFontLevel, Source={StaticResource BaseUI}}" />
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.Artist}" Foreground="{StaticResource ArtistPaint}" FontSize="{Binding ArtistFontLevel, Source={StaticResource BaseUI}}" />
+                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding NoteFile.GenreText}" Foreground="{StaticResource GenrePaint}" FontSize="{Binding GenreFontLevel, Source={StaticResource BaseUI}}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                    <Image Source="{Binding FavoriteNoteFileDrawing, Source={StaticResource BaseUI}}" HorizontalAlignment="Left" Visibility="{Binding NoteFile.HasFavoriteEntryItem, Converter={StaticResource VisibilityModifier}}" />
+                                </Grid>
+                            </DataTemplate>
+                        </Grid.Resources>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <RadioButton Style="{StaticResource StandardOInput}" IsChecked="{Binding GroupEntry0}">
-                            <Border Style="{StaticResource StandardPanelSquare}">
-                                <Image Style="{StaticResource StandardViewMargin0}" Source="{StaticResource GroupEntry0Drawing}" />
-                            </Border>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding GroupEntry0Assist, Source={StaticResource LanguageSystem}}" />
+                                <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding EZ2DJMAXEntryItems0}" ItemTemplate="{StaticResource ComputingView}" />
+                            </Grid>
                         </RadioButton>
                         <RadioButton Grid.Column="1" Style="{StaticResource StandardOInput}" IsChecked="{Binding GroupEntry1}">
-                            <Border Style="{StaticResource StandardPanelSquare}">
-                                <Image Style="{StaticResource StandardViewMargin0}" Source="{StaticResource GroupEntry1Drawing}" />
-                            </Border>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding GroupEntry1Assist, Source={StaticResource LanguageSystem}}" />
+                                <ListView Grid.Row="1" Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding EZ2DJMAXEntryItems1}" ItemTemplate="{StaticResource ComputingView}" />
+                            </Grid>
                         </RadioButton>
                     </Grid>
                 </StackPanel>

@@ -285,6 +285,8 @@ namespace Qwilight
         public string GetWwwLevel { get; set; }
         public string GPUModeModified { get; set; }
         public string GPUModeText { get; set; }
+        public string GroupEntry0Assist { get; set; }
+        public string GroupEntry1Assist { get; set; }
         public string GUIConfigureText { get; set; }
         public string HalfInputSaltModeContents { get; set; }
         public string HandledAssistClearText { get; set; }

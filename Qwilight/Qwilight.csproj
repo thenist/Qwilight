@@ -123,12 +123,6 @@
 		<None Update="Assets\Audio\Postable Item\Posted.wav">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\Drawing\Assist\Group Entry 0.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\Drawing\Assist\Group Entry 1.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\Drawing\Assist\Input Mapping 0.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

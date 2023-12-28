@@ -212,7 +212,10 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Border Style="{StaticResource StandardPanelSquare}" Height="72" HorizontalAlignment="Right" MouseDown="OnDefaultDrawing" Cursor="Hand">
-                    <Image Style="{StaticResource StandardViewMargin0}" Source="{Binding DefaultDrawing.DefaultDrawing, Source={StaticResource DrawingSystem}}" />
+                    <Grid>
+                        <Image Style="{StaticResource StandardViewMargin0}" Source="{Binding DefaultDrawing.DefaultDrawing, Source={StaticResource DrawingSystem}}" />
+                        <TextBlock Style="{StaticResource StandardTextView}" Text="📂" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    </Grid>
                 </Border>
                 <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding DefaultDrawingContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
             </Grid>

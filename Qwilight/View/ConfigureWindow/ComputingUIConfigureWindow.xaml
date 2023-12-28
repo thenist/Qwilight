@@ -222,7 +222,7 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <view:BinInput Lowest="0" Value="{Binding JudgmentMeterMillis, Source={StaticResource Configure}}" Format="#,##0.## ms" />
+                                        <view:BinInput Lowest="0" IsEnabled="{Binding AutoJudgmentMeterMillis, Source={StaticResource Configure}, Converter={StaticResource NotModifier}}" Value="{Binding JudgmentMeterMillis, Source={StaticResource Configure}}" Format="#,##0.## ms" />
                                         <ComboBox Grid.Column="1" Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding AutoJudgmentMeterMillisItemValue, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding AutoJudgmentMeterMillis, Source={StaticResource Configure}}">
                                             <ComboBox.Items>
                                                 <quic:AutoJudgmentMeterMillisItem Judged="{StaticResource HighestJudgment}" />

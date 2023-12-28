@@ -127,7 +127,10 @@
                         <StackPanel Grid.Row="5" Grid.Column="2" Orientation="Horizontal">
                             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding VeilDrawingHeightContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                             <Border Style="{StaticResource StandardPanelSquare}" Height="72" MouseDown="OnVeilDrawing" Cursor="Hand">
-                                <Image Style="{StaticResource StandardViewMargin0}" Source="{Binding VeilDrawing.DefaultDrawing, Source={StaticResource DrawingSystem}}" />
+                                <Grid>
+                                    <Image Style="{StaticResource StandardViewMargin0}" Source="{Binding VeilDrawing.DefaultDrawing, Source={StaticResource DrawingSystem}}" />
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="📂" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </Grid>
                             </Border>
                         </StackPanel>
                     </Grid>

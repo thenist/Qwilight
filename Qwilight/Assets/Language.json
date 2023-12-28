@@ -1131,6 +1131,14 @@
     "ko-KR": "그래픽 출력 API를 설정합니다.",
     "en-US": "Set up the graphics output API."
   },
+  "GroupEntry0Assist": {
+    "ko-KR": "노트 파일 단위로 보여줍니다.",
+    "en-US": "Show by note file."
+  },
+  "GroupEntry1Assist": {
+    "ko-KR": "폴더 단위로 보여줍니다.",
+    "en-US": "Displays in folder units."
+  },
   "GUIConfigureText": {
     "ko-KR": "그래픽 설정",
     "en-US": "Graphic Settings"

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Qwilight.MSG;
+using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using Qwilight.ViewModel;
@@ -16,6 +17,10 @@ namespace Qwilight
         readonly bool[] _groupEntryInputs = new bool[2];
         bool _defaultGroupEntry;
         DefaultEntryItem _defaultEntryItem;
+
+        public ObservableCollection<EntryItem> EZ2DJMAXEntryItems0 { get; } = new();
+
+        public ObservableCollection<EntryItem> EZ2DJMAXEntryItems1 { get; } = new();
 
         public bool GroupEntry0
         {
@@ -45,7 +50,7 @@ namespace Qwilight
 
         public override double TargetLength => 0.6;
 
-        public override double TargetHeight => 0.8;
+        public override double TargetHeight => 0.9;
 
         public ObservableCollection<DefaultEntryItem> DefaultEntryItemCollection { get; } = new();
 
@@ -207,6 +212,28 @@ namespace Qwilight
             });
             GroupEntry0 = !Configure.Instance.GroupEntry;
             GroupEntry1 = Configure.Instance.GroupEntry;
+
+            Random.Shared.Shuffle(EZ2DJMAXNoteFile.Instances);
+            Utility.SetUICollection(EZ2DJMAXEntryItems0, [
+                NewEntryItem(0, EZ2DJMAXNoteFile.Instances[0][0]),
+                NewEntryItem(1, EZ2DJMAXNoteFile.Instances[0][1]),
+                NewEntryItem(2, EZ2DJMAXNoteFile.Instances[0][2]),
+                NewEntryItem(3, EZ2DJMAXNoteFile.Instances[0][3])
+            ]);
+            Utility.SetUICollection(EZ2DJMAXEntryItems1, [
+                NewEntryItem(0, EZ2DJMAXNoteFile.Instances[0]),
+                NewEntryItem(1, EZ2DJMAXNoteFile.Instances[1]),
+                NewEntryItem(2, EZ2DJMAXNoteFile.Instances[2]),
+                NewEntryItem(3, EZ2DJMAXNoteFile.Instances[3])
+            ]);
+
+            static EntryItem NewEntryItem(int entryItemID, params BaseNoteFile[] noteFiles) => new()
+            {
+                NoteFiles = noteFiles,
+                WellNoteFiles = noteFiles.ToList(),
+                EntryItemID = Random.Shared.Next(),
+                NotePosition = Random.Shared.Next(noteFiles.Length)
+            };
         }
 
         public override void OnCollasped()
