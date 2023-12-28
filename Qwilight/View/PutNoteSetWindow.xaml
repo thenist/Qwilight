@@ -42,7 +42,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Text="{Binding ConfigurePutNoteSetMillisContents, Source={StaticResource LanguageSystem}}" />
-                            <view:BinInput Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.PutNoteSetMillis, Source={StaticResource ViewModels}}" Lowest="0.0" Format="#,##0.## ms" />
+                            <view:BinInput Grid.Column="1" IsEnabled="{Binding AutoPutNoteSetMillis, Source={StaticResource Configure}, Converter={StaticResource NotModifier}}" Value="{Binding MainValue.ModeComponentValue.PutNoteSetMillis, Source={StaticResource ViewModels}}" Lowest="0.0" Format="#,##0.## ms" />
                         </Grid>
                         <Grid Grid.Column="1">
                             <Grid.ColumnDefinitions>

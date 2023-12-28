@@ -28,7 +28,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Text="{Binding ConfigureLabelledInputFavorMillisContents, Source={StaticResource LanguageSystem}}" />
-                            <view:BinInput Grid.Column="1" Value="{Binding MainValue.ModeComponentValue.LabelledInputFavorMillis, Source={StaticResource ViewModels}}" Lowest="0.0" Format="#,##0.## ms" />
+                            <view:BinInput Grid.Column="1" IsEnabled="{Binding AutoLabelledInputFavorMillis, Source={StaticResource Configure}, Converter={StaticResource NotModifier}}" Value="{Binding MainValue.ModeComponentValue.LabelledInputFavorMillis, Source={StaticResource ViewModels}}" Lowest="0.0" Format="#,##0.## ms" />
                         </Grid>
                         <Grid Grid.Column="1">
                             <Grid.ColumnDefinitions>

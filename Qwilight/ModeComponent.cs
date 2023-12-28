@@ -99,11 +99,11 @@ namespace Qwilight
         LowestJudgmentConditionMode _lowestJudgmentConditionMode;
         PutCopyNotes _putCopyNotes;
         double _multiplierUnit = 0.01;
-        double _labelledInputFavorMillis = 100.0;
-        double _lowestLongNoteModify = 100.0;
-        double _highestLongNoteModify = 100.0;
+        double _labelledInputFavorMillis = 125.0;
+        double _lowestLongNoteModify = 125.0;
+        double _highestLongNoteModify = 125.0;
         double _putNoteSet = 25.0;
-        double _putNoteSetMillis = 100.0;
+        double _putNoteSetMillis = 125.0;
 
         public bool IsNoteSaltModeWarning(Component.NoteSaltModeDate noteSaltModeDate) => noteSaltModeDate == Component.NoteSaltModeDate._1_0_0 && (NoteSaltModeValue == NoteSaltMode.InputSalt || NoteSaltModeValue == NoteSaltMode.Salt || NoteSaltModeValue == NoteSaltMode.MeterSalt || NoteSaltModeValue == NoteSaltMode.HalfInputSalt);
 
@@ -990,6 +990,16 @@ namespace Qwilight
             {
                 return false;
             }
+            if (InputFavorMode.Labelled4 <= InputFavorModeValue && InputFavorModeValue <= InputFavorMode.Labelled48_4)
+            {
+                if (InputFavorMode.Labelled4 <= modeComponentValue.InputFavorModeValue && modeComponentValue.InputFavorModeValue <= InputFavorMode.Labelled48_4)
+                {
+                    if (LabelledInputFavorMillis != modeComponentValue.LabelledInputFavorMillis)
+                    {
+                        return false;
+                    }
+                }
+            }
             if (NoteModifyModeValue == NoteModifyMode.LongNote)
             {
                 if (modeComponentValue.NoteModifyModeValue == NoteModifyMode.LongNote)
@@ -1111,6 +1121,7 @@ namespace Qwilight
             OnPropertyChanged(nameof(HigherHitPoints1));
             OnPropertyChanged(nameof(HighestHitPoints0));
             OnPropertyChanged(nameof(HighestHitPoints1));
+            LabelledInputFavorMillis = modeComponentValue.LabelledInputFavorMillis;
             LowestLongNoteModify = modeComponentValue.LowestLongNoteModify;
             HighestLongNoteModify = modeComponentValue.HighestLongNoteModify;
             PutNoteSet = modeComponentValue.PutNoteSet;

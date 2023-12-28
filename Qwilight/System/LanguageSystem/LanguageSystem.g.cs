@@ -5,7 +5,6 @@ namespace Qwilight
         public string _4DModeContents { get; set; }
         public string AbilityFittedText { get; set; }
         public string AegisPostedItemText { get; set; }
-        public string LabelledInputFavorFaultText { get; set; }
         public string AllowEssentialInputs { get; set; }
         public string AllowTotalLevyingText { get; set; }
         public string AllowTwilightCommentAssist { get; set; }
@@ -160,11 +159,11 @@ namespace Qwilight
         public string ComputingGUIConfigure { get; set; }
         public string ComputingModeComponentConfigure { get; set; }
         public string ComputingUIConfigure { get; set; }
-        public string ConfigureLabelledInputFavorMillisContents { get; set; }
         public string ConfigureAssist { get; set; }
         public string ConfigureBaseUIContents { get; set; }
         public string ConfigureEtcUIContents { get; set; }
         public string ConfigureFontFamilyContents { get; set; }
+        public string ConfigureLabelledInputFavorMillisContents { get; set; }
         public string ConfigureLevelContents { get; set; }
         public string ConfigurePutNoteSetContents { get; set; }
         public string ConfigurePutNoteSetMillisContents { get; set; }
@@ -439,6 +438,7 @@ namespace Qwilight
         public string JudgmentVisualizerPositionContents { get; set; }
         public string K70Contents { get; set; }
         public string K70Text { get; set; }
+        public string LabelledInputFavorAssist { get; set; }
         public string LazyGCText { get; set; }
         public string Level0Contents { get; set; }
         public string Level1Contents { get; set; }
@@ -695,7 +695,6 @@ namespace Qwilight
         public string Power13 { get; set; }
         public string PutCopyNotesContents { get; set; }
         public string PutNoteSetAssist { get; set; }
-        public string PutNoteSetFaultText { get; set; }
         public string PutSetNoteModeContents { get; set; }
         public string QuitComputingSituationContents { get; set; }
         public string QuitContents { get; set; }
