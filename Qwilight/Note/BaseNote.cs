@@ -145,6 +145,6 @@ namespace Qwilight.Note
 
         public abstract void Paint(CanvasDrawingSession targetSession, bool isValidNetDrawings, DefaultCompute defaultComputer, ref Bound r);
 
-        public bool IsCollided(BaseNote note) => (Wait <= note.Wait && note.Wait <= Wait + LongWait) || (note.Wait <= Wait && Wait <= note.Wait + note.LongWait);
+        public bool IsCollided(BaseNote note, double waitMargin = 0.0) => (Wait - waitMargin <= note.Wait && note.Wait <= Wait + LongWait + waitMargin) || (note.Wait - waitMargin <= Wait && Wait <= note.Wait + note.LongWait + waitMargin);
     }
 }

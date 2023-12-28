@@ -430,9 +430,10 @@ namespace Qwilight.Compiler
                         }
                     }
                 }
-                else if (ModeComponent.InputFavorMode.Fill4 <= inputFavorMode && inputFavorMode <= ModeComponent.InputFavorMode.Fill48_4)
+                else if (ModeComponent.InputFavorMode.Algorithm4 <= inputFavorMode && inputFavorMode <= ModeComponent.InputFavorMode.Algorithm48_4)
                 {
-                    var filledNotes = new List<BaseNote>();
+                    var algorithmInputFavorMillis = defaultComputer.ModeComponentValue.AlgorithmInputFavorMillis;
+                    var algorithmNotes = new List<BaseNote>();
                     foreach (var note in Notes.ToArray())
                     {
                         if (note.HasInput)
@@ -448,36 +449,36 @@ namespace Qwilight.Compiler
                             }
                             else
                             {
-                                var filledInput0 = (int)Math.Ceiling(GetFilledInput(input, 0.0));
-                                var filledInput1 = (int)Math.Floor(GetFilledInput(input, 1.0));
+                                var algorithmInput0 = (int)Math.Ceiling(GetAlgorithmInput(input, 0.0));
+                                var algorithmInput1 = (int)Math.Floor(GetAlgorithmInput(input, 1.0));
 
                                 if (Component.DefaultInputCounts[(int)InputMode] < Component.DefaultInputCounts[(int)inputMode])
                                 {
-                                    note.LevyingInput = filledInput0;
+                                    note.LevyingInput = algorithmInput0;
                                     WipeIfCollided(note);
-                                    for (var filledInput = filledInput0 + 1; filledInput <= filledInput1; ++filledInput)
+                                    for (var algorithmInput = algorithmInput0 + 1; algorithmInput <= algorithmInput1; ++algorithmInput)
                                     {
-                                        var filledNote = note switch
+                                        var algorithmNote = note switch
                                         {
-                                            TrapNote trapNote => new TrapNote(trapNote.LogicalY, trapNote.Wait, Array.Empty<AudioNote>(), filledInput),
-                                            LongNote longNote => new LongNote(longNote.LogicalY, longNote.Wait, Array.Empty<AudioNote>(), filledInput, longNote.LongWait, longNote.LongHeight),
-                                            VoidNote voidNote => new VoidNote(voidNote.LogicalY, voidNote.Wait, Array.Empty<AudioNote>(), filledInput),
-                                            InputNote inputNote => new InputNote(inputNote.LogicalY, inputNote.Wait, Array.Empty<AudioNote>(), filledInput),
+                                            TrapNote trapNote => new TrapNote(trapNote.LogicalY, trapNote.Wait, Array.Empty<AudioNote>(), algorithmInput),
+                                            LongNote longNote => new LongNote(longNote.LogicalY, longNote.Wait, Array.Empty<AudioNote>(), algorithmInput, longNote.LongWait, longNote.LongHeight),
+                                            VoidNote voidNote => new VoidNote(voidNote.LogicalY, voidNote.Wait, Array.Empty<AudioNote>(), algorithmInput),
+                                            InputNote inputNote => new InputNote(inputNote.LogicalY, inputNote.Wait, Array.Empty<AudioNote>(), algorithmInput),
                                             _ => null
                                         };
-                                        if (!WipeIfCollided(filledNote))
+                                        if (!WipeIfCollided(algorithmNote))
                                         {
-                                            Notes.Add(filledNote);
+                                            Notes.Add(algorithmNote);
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    note.LevyingInput = (int)Math.Round(GetFilledInput(input, (double)(input - defaultInputs.First()) / (defaultInputs.Last() - defaultInputs.First())));
+                                    note.LevyingInput = (int)Math.Round(GetAlgorithmInput(input, (double)(input - defaultInputs.First()) / (defaultInputs.Last() - defaultInputs.First())));
                                     WipeIfCollided(note);
                                 }
 
-                                double GetFilledInput(int input, double random)
+                                double GetAlgorithmInput(int input, double random)
                                 {
                                     var rate = (double)(Component.DefaultInputCounts[(int)Component.GetInputMode(inputFavorMode)] - 1) / Component.DefaultInputCounts[(int)InputMode];
                                     return rate * (input - defaultInputs.First()) + Component.DefaultInputs[(int)Component.GetInputMode(inputFavorMode)].First() + rate * random;
@@ -485,14 +486,14 @@ namespace Qwilight.Compiler
 
                                 bool WipeIfCollided(BaseNote note)
                                 {
-                                    if (filledNotes.Any(filledNote => filledNote.LevyingInput == note.LevyingInput && filledNote.IsCollided(note)))
+                                    if (algorithmNotes.Any(algorithmNote => algorithmNote.LevyingInput == note.LevyingInput && algorithmNote.IsCollided(note, algorithmInputFavorMillis)))
                                     {
                                         WipeNote(note);
                                         return true;
                                     }
                                     else
                                     {
-                                        filledNotes.Add(note);
+                                        algorithmNotes.Add(note);
                                         return false;
                                     }
                                 }
@@ -663,29 +664,30 @@ namespace Qwilight.Compiler
                                         if (!autoableInputs.Contains(input))
                                         {
                                             var levyingInput = defaultInputs.First();
-                                            var lastInput = levyingInput + Component.DefaultInputCounts[(int)InputMode];
-                                            var wait = inputNote.Wait;
-                                            var longWait = inputNote.LongWait;
-                                            var levyingSaltInput = inputNote.Salt % (lastInput - levyingInput) + levyingInput;
-                                            var saltInput = levyingSaltInput;
-                                            var loopCount = lastInput - levyingInput;
+                                            var defaultInputsLength = defaultInputs.Length;
+                                            var loopCount = defaultInputsLength;
+                                            var saltedPosition = inputNote.Salt % defaultInputsLength;
                                             do
                                             {
-                                                if (saltedNotes.Any(note => note != inputNote && note.LevyingInput == saltInput && note.IsCollided(inputNote)))
+                                                var saltedInput = defaultInputs[saltedPosition];
+                                                if (saltedNotes.Any(note => note.LevyingInput == saltedInput && note.IsCollided(inputNote)))
                                                 {
-                                                    if (++saltInput >= lastInput)
+                                                    if (++saltedPosition >= defaultInputsLength)
                                                     {
-                                                        saltInput = levyingInput;
+                                                        saltedPosition = 0;
                                                     }
                                                     if (--loopCount > 0)
                                                     {
                                                         continue;
                                                     }
                                                 }
+                                                else
+                                                {
+                                                    inputNote.LevyingInput = saltedInput;
+                                                }
                                                 break;
                                             } while (true);
                                             saltedNotes.Add(inputNote);
-                                            inputNote.LevyingInput = saltInput;
                                         }
                                     }
                                     break;
@@ -909,64 +911,47 @@ namespace Qwilight.Compiler
             var setNoteModeValue = defaultComputer.ModeComponentValue.SetNoteModeValue;
             if (setNoteModeValue == ModeComponent.SetNoteMode.Put || setNoteModeValue == ModeComponent.SetNoteMode.VoidPut)
             {
-                var inputsVoid = Enumerable.Range(defaultInputs.First(), Component.DefaultInputCounts[(int)InputMode]).Where(i => !Notes.Any(note => note.LevyingInput == i)).ToArray();
-                var putNoteSet = defaultComputer.ModeComponentValue.PutNoteSet;
-                var putNoteSetMillis = defaultComputer.ModeComponentValue.PutNoteSetMillis;
-                foreach (var (wait, audioNotes) in defaultComputer.WaitAudioNoteMap)
+                var putInputs = setNoteModeValue switch
                 {
-                    foreach (var audioNote in audioNotes.ToArray())
+                    ModeComponent.SetNoteMode.Put => Enumerable.Range(defaultInputs.First(), Component.DefaultInputCounts[(int)InputMode]).ToArray(),
+                    ModeComponent.SetNoteMode.VoidPut => Enumerable.Range(defaultInputs.First(), Component.DefaultInputCounts[(int)InputMode]).Where(i => !Notes.Any(note => note.LevyingInput == i)).ToArray(),
+                    _ => throw new ArgumentException(setNoteModeValue.ToString())
+                };
+                if (putInputs.Length > 0)
+                {
+                    var putNoteSet = defaultComputer.ModeComponentValue.PutNoteSet;
+                    var putNoteSetMillis = defaultComputer.ModeComponentValue.PutNoteSetMillis;
+                    foreach (var (wait, audioNotes) in defaultComputer.WaitAudioNoteMap)
                     {
-                        if (audioNote.Salt % 100 < putNoteSet)
+                        foreach (var audioNote in audioNotes.ToArray())
                         {
-                            switch (setNoteModeValue)
+                            if (audioNote.Salt % 100 < putNoteSet)
                             {
-                                case ModeComponent.SetNoteMode.Put:
-                                    NewNote(audioNote, GetInputs(defaultInputs.First(), defaultInputs.Last()));
-                                    break;
-                                case ModeComponent.SetNoteMode.VoidPut:
-                                    NewNote(audioNote, inputsVoid);
-                                    break;
-                            }
-                            int[] GetInputs(int levyingInput, int lastInput)
-                            {
-                                var inputs = new int[lastInput - levyingInput + 1];
-                                for (var i = lastInput; i >= levyingInput; --i)
+                                var levyingInput = putInputs.First();
+                                var putInputsLength = putInputs.Length;
+                                var loopCount = putInputsLength;
+                                var putPosition = audioNote.Salt % putInputsLength;
+                                do
                                 {
-                                    inputs[i - levyingInput] = i;
-                                }
-                                return inputs;
-                            }
-                            void NewNote(AudioNote audioNote, int[] inputs)
-                            {
-                                if (inputs.Length > 0)
-                                {
-                                    var levyingPutInput = audioNote.Salt % inputs.Length;
-                                    var putInput = levyingPutInput;
-                                    var targetInput = inputs[putInput];
-                                    do
+                                    var inputNote = new InputNote(defaultComputer.WaitLogicalYMap[wait], wait, [audioNote], putInputs[putPosition]);
+                                    if (Notes.Any(note => note.LevyingInput == inputNote.LevyingInput && note.IsCollided(inputNote, putNoteSetMillis)))
                                     {
-                                        if (Notes.Any(note =>
+                                        if (++putPosition >= putInputsLength)
                                         {
-                                            var noteWait = note.Wait;
-                                            return note.HasInput && note.LevyingInput == targetInput && noteWait - putNoteSetMillis <= wait && wait <= noteWait + putNoteSetMillis + note.LongWait;
-                                        }))
+                                            putPosition = 0;
+                                        }
+                                        if (--loopCount > 0)
                                         {
-                                            if (++putInput >= inputs.Length)
-                                            {
-                                                putInput = 0;
-                                            }
-                                            if (putInput == levyingPutInput)
-                                            {
-                                                break;
-                                            }
-                                            targetInput = inputs[putInput];
                                             continue;
                                         }
-                                        Notes.Add(new InputNote(defaultComputer.WaitLogicalYMap[wait], wait, [audioNote], targetInput));
+                                    }
+                                    else
+                                    {
+                                        Notes.Add(inputNote);
                                         audioNotes.Remove(audioNote);
-                                        break;
-                                    } while (true);
-                                }
+                                    }
+                                    break;
+                                } while (true);
                             }
                         }
                     }

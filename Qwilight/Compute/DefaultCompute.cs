@@ -4529,7 +4529,7 @@ namespace Qwilight.Compute
                             break;
                         case 1:
                         case 2:
-                            var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&target={Configure.Instance.UbuntuNetItemTarget}").ConfigureAwait(false);
+                            var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&isUbuntu={Configure.Instance.UbuntuNetItemTarget}").ConfigureAwait(false);
                             if (twilightWwwComment.HasValue)
                             {
                                 netItems.AddRange(GetNetItemsImpl(HandleTwilightNetItems(Utility.GetCommentItems(twilightWwwComment.Value.comments, NoteFile))));

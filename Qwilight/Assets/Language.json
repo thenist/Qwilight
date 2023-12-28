@@ -11,6 +11,10 @@
     "ko-KR": "{0}의 {1}를 방어함",
     "en-US": "Defends {1} of {0}"
   },
+  "AlgorithmInputFavorFaultText": {
+    "ko-KR": "대상 간격이 올바르지 않습니다.",
+    "en-US": "Destination spacing is not valid."
+  },
   "AllowEssentialInputs": {
     "ko-KR": "◀, ▶ 키 등을 키 설정에 허용",
     "en-US": "Allow key settings such as ◀, ▶ keys, etc"
@@ -626,6 +630,10 @@
   "ComputingUIConfigure": {
     "ko-KR": "스킨 설정",
     "en-US": "Skin Settings"
+  },
+  "ConfigureAlgorithmInputFavorMillisContents": {
+    "ko-KR": "대상 간격",
+    "en-US": "Target Interval"
   },
   "ConfigureAssist": {
     "ko-KR": "게임 설정 열기",
@@ -2758,6 +2766,9 @@
   "PutCopyNotesContents": {
     "ko-KR": "1P를 2P로 복사합니다. (⑤K, ⑦K만 적용)",
     "en-US": "Copy 1P to 2P. (⑤K, ⑦K only)"
+  },
+  "AlgorithmInputFavorAssist": {
+    "ko-KR": "대상 간격 이상 거리를 유지하여 자연스럽게 만듭니다."
   },
   "PutNoteSetAssist": {
     "ko-KR": "대상 비율 만큼의 BGM을 대상 간격 이상 거리를 유지하여 추가 노트로 만듭니다.",

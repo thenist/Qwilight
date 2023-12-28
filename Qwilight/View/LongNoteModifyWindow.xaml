@@ -27,10 +27,10 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Text="{Binding LowestLongNoteModify, Source={StaticResource LanguageSystem}}" />
-                        <view:BinInput Grid.Column="1" IsEnabled="{Binding LowestAutoLongNoteModify, Source={StaticResource Configure}, Converter={StaticResource NotModifier}}" Value="{Binding MainValue.ModeComponentValue.LowestLongNoteModify, Source={StaticResource ViewModels}}" Lowest="0.0" Format="#,##0.## ms" />
-                        <CheckBox Grid.Column="2" Style="{StaticResource StandardVInput}" IsChecked="{Binding LowestAutoLongNoteModify, Source={StaticResource Configure}}" />
-                        <Slider Grid.Column="3" Style="{StaticResource StandardSlider}" IsEnabled="{Binding LowestAutoLongNoteModify, Source={StaticResource Configure}}" Value="{Binding LowestAutoLongNoteModifyValue, Source={StaticResource Configure}}" Minimum="6" Maximum="192" Ticks="6, 8, 12, 16, 24, 32, 48, 64, 96, 192" />
-                        <TextBlock Grid.Column="4" Style="{StaticResource StandardTextView}" Text="{Binding LowestAutoLongNoteModifyValue, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='1／0'}" HorizontalAlignment="Left" />
+                        <view:BinInput Grid.Column="1" IsEnabled="{Binding AutoLowestLongNoteModify, Source={StaticResource Configure}, Converter={StaticResource NotModifier}}" Value="{Binding MainValue.ModeComponentValue.LowestLongNoteModify, Source={StaticResource ViewModels}}" Lowest="0.0" Format="#,##0.## ms" />
+                        <CheckBox Grid.Column="2" Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoLowestLongNoteModify, Source={StaticResource Configure}}" />
+                        <Slider Grid.Column="3" Style="{StaticResource StandardSlider}" IsEnabled="{Binding AutoLowestLongNoteModify, Source={StaticResource Configure}}" Value="{Binding AutoLowestLongNoteModifyValue, Source={StaticResource Configure}}" Minimum="6" Maximum="192" Ticks="6, 8, 12, 16, 24, 32, 48, 64, 96, 192" />
+                        <TextBlock Grid.Column="4" Style="{StaticResource StandardTextView}" Text="{Binding AutoLowestLongNoteModifyValue, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='1／0'}" HorizontalAlignment="Left" />
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -43,8 +43,8 @@
                         <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Text="{Binding HighestLongNoteModify, Source={StaticResource LanguageSystem}}" />
                         <view:BinInput Grid.Column="1" IsEnabled="{Binding HighestAutoLongNoteModify, Source={StaticResource Configure}, Converter={StaticResource NotModifier}}" Value="{Binding MainValue.ModeComponentValue.HighestLongNoteModify, Source={StaticResource ViewModels}}" Lowest="0.0" Format="#,##0.## ms" />
                         <CheckBox Grid.Column="2" Style="{StaticResource StandardVInput}" IsChecked="{Binding HighestAutoLongNoteModify, Source={StaticResource Configure}}" />
-                        <Slider Grid.Column="3" Style="{StaticResource StandardSlider}" IsEnabled="{Binding HighestAutoLongNoteModify, Source={StaticResource Configure}}" Value="{Binding HighestAutoLongNoteModifyValue, Source={StaticResource Configure}}" Minimum="6" Maximum="192" Ticks="6, 8, 12, 16, 24, 32, 48, 64, 96, 192" />
-                        <TextBlock Grid.Column="4" Style="{StaticResource StandardTextView}" Text="{Binding HighestAutoLongNoteModifyValue, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='1／0'}" HorizontalAlignment="Left" />
+                        <Slider Grid.Column="3" Style="{StaticResource StandardSlider}" IsEnabled="{Binding HighestAutoLongNoteModify, Source={StaticResource Configure}}" Value="{Binding AutoHighestLongNoteModifyValue, Source={StaticResource Configure}}" Minimum="6" Maximum="192" Ticks="6, 8, 12, 16, 24, 32, 48, 64, 96, 192" />
+                        <TextBlock Grid.Column="4" Style="{StaticResource StandardTextView}" Text="{Binding AutoHighestLongNoteModifyValue, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='1／0'}" HorizontalAlignment="Left" />
                     </Grid>
                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding LongNoteModifyAssist, Source={StaticResource LanguageSystem}}" />
                 </StackPanel>

@@ -70,6 +70,8 @@ namespace Qwilight.ViewModel
 
         public LevelViewModel LevelValue { get; } = new();
 
+        public AlgorithmInputFavorViewModel AlgorithmInputFavorValue { get; } = new();
+
         public PutNoteSetViewModel PutNoteSetValue { get; } = new();
 
         public InputTextViewModel InputTextValue { get; } = new();
@@ -127,6 +129,7 @@ namespace Qwilight.ViewModel
                 ModifyModeComponentValue,
                 FontFamilyValue,
                 LevelValue,
+                AlgorithmInputFavorValue,
                 PutNoteSetValue,
                 InputTextValue,
                 InputPwValue,

@@ -250,11 +250,13 @@ namespace Qwilight
         int _hofViewTotalTabPosition;
         int _hofViewAtTabPosition;
         int _hofViewAbilityTabPosition;
-        bool _lowestAutoLongNoteModify;
+        bool _autoAlgorithmInputFavorMillis;
+        bool _autoLowestLongNoteModify;
         bool _highestAutoLongNoteModify;
         bool _autoPutNoteSetMillis;
-        double _lowestAutoLongNoteModifyValue;
-        double _highestAutoLongNoteModifyValue;
+        double _autoAlgorithmInputFavorMillisValue;
+        double _autoLowestLongNoteModifyValue;
+        double _autoHighestLongNoteModifyValue;
         double _autoPutNoteSetMillisValue;
         string _language;
         bool _setHwMode;
@@ -639,15 +641,41 @@ namespace Qwilight
         [JsonIgnore]
         public string ConfigureFault { get; set; }
 
-        public bool LowestAutoLongNoteModify
+        public bool AutoAlgorithmInputFavorMillis
         {
-            get => _lowestAutoLongNoteModify;
+            get => _autoAlgorithmInputFavorMillis;
 
             set
             {
-                if (SetProperty(ref _lowestAutoLongNoteModify, value, nameof(LowestAutoLongNoteModify)) && _isLoaded)
+                if (SetProperty(ref _autoAlgorithmInputFavorMillis, value, nameof(AutoAlgorithmInputFavorMillis)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.ModeComponentValue.SetLowestAutoLongNoteModify();
+                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoAlgorithmInputFavorMillis();
+                }
+            }
+        }
+
+        public bool AutoLowestLongNoteModify
+        {
+            get => _autoLowestLongNoteModify;
+
+            set
+            {
+                if (SetProperty(ref _autoLowestLongNoteModify, value, nameof(AutoLowestLongNoteModify)) && _isLoaded)
+                {
+                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoLowestLongNoteModify();
+                }
+            }
+        }
+
+        public double AutoAlgorithmInputFavorMillisValue
+        {
+            get => _autoAlgorithmInputFavorMillisValue;
+
+            set
+            {
+                if (SetProperty(ref _autoAlgorithmInputFavorMillisValue, value, nameof(AutoAlgorithmInputFavorMillisValue)) && _isLoaded)
+                {
+                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoAlgorithmInputFavorMillis();
                 }
             }
         }
@@ -660,33 +688,33 @@ namespace Qwilight
             {
                 if (SetProperty(ref _highestAutoLongNoteModify, value, nameof(HighestAutoLongNoteModify)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.ModeComponentValue.SetHighestAutoLongNoteModify();
+                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoHighestLongNoteModify();
                 }
             }
         }
 
-        public double LowestAutoLongNoteModifyValue
+        public double AutoLowestLongNoteModifyValue
         {
-            get => _lowestAutoLongNoteModifyValue;
+            get => _autoLowestLongNoteModifyValue;
 
             set
             {
-                if (SetProperty(ref _lowestAutoLongNoteModifyValue, value, nameof(LowestAutoLongNoteModifyValue)) && _isLoaded)
+                if (SetProperty(ref _autoLowestLongNoteModifyValue, value, nameof(AutoLowestLongNoteModifyValue)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.ModeComponentValue.SetLowestAutoLongNoteModify();
+                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoLowestLongNoteModify();
                 }
             }
         }
 
-        public double HighestAutoLongNoteModifyValue
+        public double AutoHighestLongNoteModifyValue
         {
-            get => _highestAutoLongNoteModifyValue;
+            get => _autoHighestLongNoteModifyValue;
 
             set
             {
-                if (SetProperty(ref _highestAutoLongNoteModifyValue, value, nameof(HighestAutoLongNoteModifyValue)) && _isLoaded)
+                if (SetProperty(ref _autoHighestLongNoteModifyValue, value, nameof(AutoHighestLongNoteModifyValue)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.ModeComponentValue.SetHighestAutoLongNoteModify();
+                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoHighestLongNoteModify();
                 }
             }
         }
@@ -3057,10 +3085,10 @@ namespace Qwilight
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 105))
             {
-                LowestAutoLongNoteModify = false;
+                AutoLowestLongNoteModify = false;
                 HighestAutoLongNoteModify = false;
-                LowestAutoLongNoteModifyValue = 16.0;
-                HighestAutoLongNoteModifyValue = 16.0;
+                AutoLowestLongNoteModifyValue = 16.0;
+                AutoHighestLongNoteModifyValue = 16.0;
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 107))
             {
