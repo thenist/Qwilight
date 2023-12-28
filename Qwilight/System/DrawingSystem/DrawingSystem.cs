@@ -73,10 +73,12 @@ namespace Qwilight
 
         static readonly string FaultEntryPath = Path.Combine(QwilightComponent.FaultEntryPath, nameof(DrawingSystem));
 
+        readonly DrawingContainer _defaultDrawingContainer = new();
+        readonly DrawingContainer _veilDrawingContainer = new();
         /// <summary>
         /// Direct2D™ 싱글 스레드 제어용 락
         /// </summary>
-        readonly object d2D1CSX = new();
+        readonly object _d2D1CSX = new();
         readonly ConcurrentDictionary<IDrawingContainer, ConcurrentDictionary<string, DrawingItem>> _drawingMap = new();
         readonly ConcurrentDictionary<IDrawingContainer, ConcurrentDictionary<string, ImageSource>> _defaultDrawingMap = new();
         readonly ConcurrentDictionary<IDrawingContainer, ConcurrentBag<IDisposable>> _toCloseValues = new();
@@ -258,6 +260,7 @@ namespace Qwilight
 
         public void LoadDefaultDrawing()
         {
+            Close(_defaultDrawingContainer);
             try
             {
                 var filePath = Configure.Instance.DefaultDrawingFilePath;
@@ -265,8 +268,8 @@ namespace Qwilight
                 {
                     DefaultDrawing = new()
                     {
-                        Drawing = Load(filePath, null),
-                        DefaultDrawing = LoadDefault(filePath, null)
+                        Drawing = Load(filePath, _defaultDrawingContainer),
+                        DefaultDrawing = LoadDefault(filePath, _defaultDrawingContainer)
                     };
                 }
                 else
@@ -283,6 +286,7 @@ namespace Qwilight
 
         public void LoadVeilDrawing()
         {
+            Close(_veilDrawingContainer);
             try
             {
                 var filePath = Configure.Instance.VeilDrawingFilePath;
@@ -290,8 +294,8 @@ namespace Qwilight
                 {
                     VeilDrawing = new()
                     {
-                        Drawing = Load(filePath, null),
-                        DefaultDrawing = LoadDefault(filePath, null)
+                        Drawing = Load(filePath, _veilDrawingContainer),
+                        DefaultDrawing = LoadDefault(filePath, _veilDrawingContainer)
                     };
                 }
                 else
@@ -402,7 +406,7 @@ namespace Qwilight
                         switch (mode)
                         {
                             case MainViewModel.Mode.NoteFile:
-                                lock (d2D1CSX)
+                                lock (_d2D1CSX)
                                 {
                                     using (targetSession = _rawTargetSystem.CreateDrawingSession(Colors.Black))
                                     {
@@ -420,7 +424,7 @@ namespace Qwilight
                             case MainViewModel.Mode.Computing:
                                 defaultComputer = mainViewModel.Computer;
                                 modeComponentValue = defaultComputer.ModeComponentValue;
-                                lock (d2D1CSX)
+                                lock (_d2D1CSX)
                                 {
                                     using (targetSession = _targetSystem.CreateDrawingSession())
                                     {
@@ -2321,7 +2325,7 @@ namespace Qwilight
                                 defaultComputer = mainViewModel.Computer;
                                 modeComponentValue = defaultComputer.ModeComponentValue;
                                 var handlingComputer = mainViewModel.GetHandlingComputer();
-                                lock (d2D1CSX)
+                                lock (_d2D1CSX)
                                 {
                                     using (targetSession = _targetSystem.CreateDrawingSession())
                                     {
@@ -3014,7 +3018,7 @@ namespace Qwilight
             var dataCount = Configure.Instance.DataCount;
             if (_rawTargetSystem == null)
             {
-                lock (d2D1CSX)
+                lock (_d2D1CSX)
                 {
                     _targetSystem?.Dispose();
                     _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
@@ -3031,7 +3035,7 @@ namespace Qwilight
             }
             else if (_rawTargetSystem.Size.Width != defaultLength || _rawTargetSystem.Size.Height != defaultHeight || _drawingQuality != drawingQuality || _rawTargetSystem.BufferCount != dataCount)
             {
-                lock (d2D1CSX)
+                lock (_d2D1CSX)
                 {
                     _targetSystem?.Dispose();
                     _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
