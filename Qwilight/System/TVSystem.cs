@@ -42,7 +42,7 @@ namespace Qwilight
 
         public bool TVAssists => TVAssist0 || TVAssist1;
 
-        bool IsAvailable => !ViewModels.Instance.MainValue.IsC8H10N4O2;
+        bool IsAvailable => !ViewModels.Instance.MainValue.IsDNDMode;
 
         public void HandleSystemIfAvailable()
         {

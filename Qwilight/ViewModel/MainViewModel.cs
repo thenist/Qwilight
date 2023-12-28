@@ -20,7 +20,6 @@ using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Runtime;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -114,7 +113,7 @@ namespace Qwilight.ViewModel
         bool _isHOFAbility9KLoading;
         bool _isHOFLevelLoading;
         string _twilightCommentary = string.Empty;
-        bool _isC8H10N4O2;
+        bool _isDNDMode;
         bool _isWPFViewVisible = true;
         bool _isLoaded;
         double _windowDPI;
@@ -243,42 +242,42 @@ namespace Qwilight.ViewModel
                     {
                         IsVisible = !value
                     });
-                    IsC8H10N4O2 = IsComputingMode && !value;
+                    IsDNDMode = IsComputingMode && !value;
                     ViewModels.Instance.NotifyWindowViewModels();
                     TVSystem.Instance.HandleSystemIfAvailable();
                 }
             }
         }
 
-        public bool IsC8H10N4O2
+        public bool IsDNDMode
         {
-            get => _isC8H10N4O2;
+            get => _isDNDMode;
 
             set
             {
-                if (_isC8H10N4O2 != value)
+                _isDNDMode = value;
+                if (value)
                 {
-                    _isC8H10N4O2 = value;
-                    if (value)
+                    var lazyGC = Configure.Instance.LazyGCV2 * 1000L * 1000L;
+                    if (lazyGC > 0L)
                     {
-                        var lazyGC = Configure.Instance.LazyGCV2 * 1000L * 1000L;
-                        if (lazyGC > 0L)
+                        try
                         {
                             GC.TryStartNoGCRegion(lazyGC);
                         }
-                    }
-                    else
-                    {
-                        if (GCSettings.LatencyMode == GCLatencyMode.NoGCRegion)
+                        catch (InvalidOperationException)
                         {
-                            try
-                            {
-                                GC.EndNoGCRegion();
-                            }
-                            catch (InvalidOperationException)
-                            {
-                            }
                         }
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        GC.EndNoGCRegion();
+                    }
+                    catch (InvalidOperationException)
+                    {
                     }
                 }
             }
