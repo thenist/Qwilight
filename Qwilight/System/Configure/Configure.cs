@@ -250,14 +250,14 @@ namespace Qwilight
         int _hofViewTotalTabPosition;
         int _hofViewAtTabPosition;
         int _hofViewAbilityTabPosition;
-        bool _autoLabelledInputFavorMillis;
+        bool _autoInputFavorLabelledMillis;
         bool _autoLowestLongNoteModify;
-        bool _highestAutoLongNoteModify;
-        bool _autoPutNoteSetMillis;
-        double _autoLabelledInputFavorMillisValue;
+        bool _autoHighestLongNoteModify;
+        bool _autoSetNotePutMillis;
+        double _autoInputFavorLabelledMillisValue;
         double _autoLowestLongNoteModifyValue;
         double _autoHighestLongNoteModifyValue;
-        double _autoPutNoteSetMillisValue;
+        double _autoSetNotePutMillisValue;
         string _language;
         bool _setHwMode;
         HwMode _hwModeValue;
@@ -641,15 +641,15 @@ namespace Qwilight
         [JsonIgnore]
         public string ConfigureFault { get; set; }
 
-        public bool AutoLabelledInputFavorMillis
+        public bool AutoInputFavorLabelledMillis
         {
-            get => _autoLabelledInputFavorMillis;
+            get => _autoInputFavorLabelledMillis;
 
             set
             {
-                if (SetProperty(ref _autoLabelledInputFavorMillis, value, nameof(AutoLabelledInputFavorMillis)) && _isLoaded)
+                if (SetProperty(ref _autoInputFavorLabelledMillis, value, nameof(AutoInputFavorLabelledMillis)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoLabelledInputFavorMillis();
+                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoInputFavorLabelledMillis();
                 }
             }
         }
@@ -667,26 +667,26 @@ namespace Qwilight
             }
         }
 
-        public double AutoLabelledInputFavorMillisValue
+        public double AutoInputFavorLabelledMillisValue
         {
-            get => _autoLabelledInputFavorMillisValue;
+            get => _autoInputFavorLabelledMillisValue;
 
             set
             {
-                if (SetProperty(ref _autoLabelledInputFavorMillisValue, value, nameof(AutoLabelledInputFavorMillisValue)) && _isLoaded)
+                if (SetProperty(ref _autoInputFavorLabelledMillisValue, value, nameof(AutoInputFavorLabelledMillisValue)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoLabelledInputFavorMillis();
+                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoInputFavorLabelledMillis();
                 }
             }
         }
 
-        public bool HighestAutoLongNoteModify
+        public bool AutoHighestLongNoteModify
         {
-            get => _highestAutoLongNoteModify;
+            get => _autoHighestLongNoteModify;
 
             set
             {
-                if (SetProperty(ref _highestAutoLongNoteModify, value, nameof(HighestAutoLongNoteModify)) && _isLoaded)
+                if (SetProperty(ref _autoHighestLongNoteModify, value, nameof(AutoHighestLongNoteModify)) && _isLoaded)
                 {
                     ViewModels.Instance.MainValue.ModeComponentValue.SetAutoHighestLongNoteModify();
                 }
@@ -719,18 +719,18 @@ namespace Qwilight
             }
         }
 
-        public bool AutoPutNoteSetMillis
+        public bool AutoSetNotePutMillis
         {
-            get => _autoPutNoteSetMillis;
+            get => _autoSetNotePutMillis;
 
-            set => SetProperty(ref _autoPutNoteSetMillis, value, nameof(AutoPutNoteSetMillis));
+            set => SetProperty(ref _autoSetNotePutMillis, value, nameof(AutoSetNotePutMillis));
         }
 
-        public double AutoPutNoteSetMillisValue
+        public double AutoSetNotePutMillisValue
         {
-            get => _autoPutNoteSetMillisValue;
+            get => _autoSetNotePutMillisValue;
 
-            set => SetProperty(ref _autoPutNoteSetMillisValue, value, nameof(AutoPutNoteSetMillisValue));
+            set => SetProperty(ref _autoSetNotePutMillisValue, value, nameof(AutoSetNotePutMillisValue));
         }
 
         public string Language
@@ -2487,10 +2487,6 @@ namespace Qwilight
                 SFX = false;
                 Flange = false;
             }
-            if (isInit || Utility.IsLowerDate(Date, 1, 13, 33))
-            {
-                AutoPutNoteSetMillisValue = 16.0;
-            }
             if (isInit || Utility.IsLowerDate(Date, 1, 13, 38))
             {
                 Limiter57Variety = true;
@@ -3083,13 +3079,6 @@ namespace Qwilight
                     Mode = FitMode.Title
                 };
             }
-            if (isInit || Utility.IsLowerDate(Date, 1, 14, 105))
-            {
-                AutoLowestLongNoteModify = false;
-                HighestAutoLongNoteModify = false;
-                AutoLowestLongNoteModifyValue = 16.0;
-                AutoHighestLongNoteModifyValue = 16.0;
-            }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 107))
             {
                 LastWASAPIAudioValueID = 0;
@@ -3391,6 +3380,17 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 16))
             {
                 LazyGCV2 = 0L;
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 17))
+            {
+                AutoInputFavorLabelledMillis = false;
+                AutoLowestLongNoteModify = false;
+                AutoHighestLongNoteModify = false;
+                AutoSetNotePutMillis = false;
+                AutoInputFavorLabelledMillisValue = 16.0;
+                AutoLowestLongNoteModifyValue = 16.0;
+                AutoHighestLongNoteModifyValue = 16.0;
+                AutoSetNotePutMillisValue = 16.0;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

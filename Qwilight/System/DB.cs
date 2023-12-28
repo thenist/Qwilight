@@ -127,11 +127,11 @@ namespace Qwilight
                                 Low_Judgment_1 REAL DEFAULT 0.0,
                                 Lower_Judgment_1 REAL DEFAULT 0.0,
                                 Lowest_Judgment_1 REAL DEFAULT 0.0,
-                                Lowest_Long_Note_Modify REAL DEFAULT 125.0,
-                                Highest_Long_Note_Modify REAL DEFAULT 125.0,
-                                Labelled_Input_Favor_Millis REAL DEFAULT 125.0,
-                                Put_Note_Set REAL DEFAULT 25.0,
-                                Put_Note_Set_Millis REAL DEFAULT 125.0,
+                                Lowest_Long_Note_Modify REAL DEFAULT 100.0,
+                                Highest_Long_Note_Modify REAL DEFAULT 100.0,
+                                Input_Favor_Labelled_Millis REAL DEFAULT 0.0,
+                                Set_Note_Put REAL DEFAULT 1.0,
+                                Set_Note_Put_Millis REAL DEFAULT 0.0,
                                 Highest_Hit_Points_0 REAL DEFAULT 0.0,
                                 Higher_Hit_Points_0 REAL DEFAULT 0.0,
                                 High_Hit_Points_0 REAL DEFAULT 0.0,
@@ -154,10 +154,10 @@ namespace Qwilight
                         }
                         if (HasTable("comment", ta))
                         {
-                            // Labelled_Input_Favor_Millis
+                            // Input_Favor_Labelled_Millis
                             using (var dbStatement = NewDBStatement("""
                                 INSERT
-                                INTO tmp_comment(Date, Event_Note_ID, Comment, Name, Multiplier, Auto_Mode, Note_Salt_Mode, Audio_Multiplier, Faint_Note_Mode, Judgment_Mode, Hit_Points_Mode, Note_Mobility_Mode, Long_Note_Mode, Input_Favor_Mode, Note_Modify_Mode, BPM_Mode, Wave_Mode, Set_Note_Mode, Lowest_Judgment_Condition_Mode, Stand, Band, Is_P, Point, Salt, Highest_Judgment_0, Higher_Judgment_0, High_Judgment_0, Low_Judgment_0, Lower_Judgment_0, Lowest_Judgment_0, Highest_Judgment_1, Higher_Judgment_1, High_Judgment_1, Low_Judgment_1, Lower_Judgment_1, Lowest_Judgment_1, Lowest_Long_Note_Modify, Highest_Long_Note_Modify, Put_Note_Set, Put_Note_Set_Millis, Highest_Hit_Points_0, Higher_Hit_Points_0, High_Hit_Points_0, Low_Hit_Points_0, Lower_Hit_Points_0, Lowest_Hit_Points_0, Highest_Hit_Points_1, Higher_Hit_Points_1, High_Hit_Points_1, Low_Hit_Points_1, Lower_Hit_Points_1, Lowest_Hit_Points_1, Note_ID, Is_Paused, Input_Flags)
+                                INTO tmp_comment(Date, Event_Note_ID, Comment, Name, Multiplier, Auto_Mode, Note_Salt_Mode, Audio_Multiplier, Faint_Note_Mode, Judgment_Mode, Hit_Points_Mode, Note_Mobility_Mode, Long_Note_Mode, Input_Favor_Mode, Note_Modify_Mode, BPM_Mode, Wave_Mode, Set_Note_Mode, Lowest_Judgment_Condition_Mode, Stand, Band, Is_P, Point, Salt, Highest_Judgment_0, Higher_Judgment_0, High_Judgment_0, Low_Judgment_0, Lower_Judgment_0, Lowest_Judgment_0, Highest_Judgment_1, Higher_Judgment_1, High_Judgment_1, Low_Judgment_1, Lower_Judgment_1, Lowest_Judgment_1, Lowest_Long_Note_Modify, Highest_Long_Note_Modify, Set_Note_Put, Set_Note_Put_Millis, Highest_Hit_Points_0, Higher_Hit_Points_0, High_Hit_Points_0, Low_Hit_Points_0, Lower_Hit_Points_0, Lowest_Hit_Points_0, Highest_Hit_Points_1, Higher_Hit_Points_1, High_Hit_Points_1, Low_Hit_Points_1, Lower_Hit_Points_1, Lowest_Hit_Points_1, Note_ID, Is_Paused, Input_Flags)
                                     SELECT *
                                     FROM comment
                             """, ta))
@@ -543,7 +543,7 @@ namespace Qwilight
         {
             var commentItems = new List<CommentItem>();
             using var dbStatement = NewDBStatement($"""
-                SELECT Date, Comment, Name, Multiplier, Auto_Mode, Note_Salt_Mode, Audio_Multiplier, Faint_Note_Mode, Judgment_Mode, Hit_Points_Mode, Note_Mobility_Mode, Long_Note_Mode, Input_Favor_Mode, Note_Modify_Mode, BPM_Mode, Wave_Mode, Set_Note_Mode, Lowest_Judgment_Condition_Mode, Stand, Band, Is_P, Point, Salt, Highest_Judgment_0, Higher_Judgment_0, High_Judgment_0, Low_Judgment_0, Lower_Judgment_0, Lowest_Judgment_0, Highest_Judgment_1, Higher_Judgment_1, High_Judgment_1, Low_Judgment_1, Lower_Judgment_1, Lowest_Judgment_1, Labelled_Input_Favor_Millis, Lowest_Long_Note_Modify, Highest_Long_Note_Modify, Put_Note_Set, Put_Note_Set_Millis, Highest_Hit_Points_0, Higher_Hit_Points_0, High_Hit_Points_0, Low_Hit_Points_0, Lower_Hit_Points_0, Lowest_Hit_Points_0, Highest_Hit_Points_1, Higher_Hit_Points_1, High_Hit_Points_1, Low_Hit_Points_1, Lower_Hit_Points_1, Lowest_Hit_Points_1, Is_Paused, Input_Flags
+                SELECT Date, Comment, Name, Multiplier, Auto_Mode, Note_Salt_Mode, Audio_Multiplier, Faint_Note_Mode, Judgment_Mode, Hit_Points_Mode, Note_Mobility_Mode, Long_Note_Mode, Input_Favor_Mode, Note_Modify_Mode, BPM_Mode, Wave_Mode, Set_Note_Mode, Lowest_Judgment_Condition_Mode, Stand, Band, Is_P, Point, Salt, Highest_Judgment_0, Higher_Judgment_0, High_Judgment_0, Low_Judgment_0, Lower_Judgment_0, Lowest_Judgment_0, Highest_Judgment_1, Higher_Judgment_1, High_Judgment_1, Low_Judgment_1, Lower_Judgment_1, Lowest_Judgment_1, Input_Favor_Labelled_Millis, Lowest_Long_Note_Modify, Highest_Long_Note_Modify, Set_Note_Put, Set_Note_Put_Millis, Highest_Hit_Points_0, Higher_Hit_Points_0, High_Hit_Points_0, Low_Hit_Points_0, Lower_Hit_Points_0, Lowest_Hit_Points_0, Highest_Hit_Points_1, Higher_Hit_Points_1, High_Hit_Points_1, Low_Hit_Points_1, Lower_Hit_Points_1, Lowest_Hit_Points_1, Is_Paused, Input_Flags
                 FROM comment
                 WHERE {(string.IsNullOrEmpty(eventNoteID) ? "Note_ID = @noteID" : "Event_Note_ID = @eventNoteID")}
                 ORDER BY Stand DESC
@@ -603,11 +603,11 @@ namespace Qwilight
                         LowJudgment1 = rows.GetDouble("Low_Judgment_1"),
                         LowerJudgment1 = rows.GetDouble("Lower_Judgment_1"),
                         LowestJudgment1 = rows.GetDouble("Lowest_Judgment_1"),
-                        LabelledInputFavorMillis = rows.GetDouble("Labelled_Input_Favor_Millis"),
+                        InputFavorLabelledMillis = rows.GetDouble("Input_Favor_Labelled_Millis"),
                         LowestLongNoteModify = rows.GetDouble("Lowest_Long_Note_Modify"),
                         HighestLongNoteModify = rows.GetDouble("Highest_Long_Note_Modify"),
-                        PutNoteSet = rows.GetInt32("Put_Note_Set"),
-                        PutNoteSetMillis = rows.GetDouble("Put_Note_Set_Millis"),
+                        SetNotePut = rows.GetDouble("Set_Note_Put"),
+                        SetNotePutMillis = rows.GetDouble("Set_Note_Put_Millis"),
                         HighestHitPoints0 = 100.0 * rows.GetDouble("Highest_Hit_Points_0"),
                         HigherHitPoints0 = 100.0 * rows.GetDouble("Higher_Hit_Points_0"),
                         HighHitPoints0 = 100.0 * rows.GetDouble("High_Hit_Points_0"),
@@ -935,7 +935,7 @@ namespace Qwilight
             using var dbStatement = NewDBStatement("""
                 INSERT
                 INTO comment
-                VALUES(@date, @eventNoteID, @comment, @avatar, @multiplier, @autoMode, @noteSaltMode, @audioMultiplier, @faintNoteMode, @judgmentMode, @hitPointsMode, @noteMobilityMode, @longNoteMode, @inputFavorMode, @noteModifyMode, @bpmMode, @waveMode, @setNoteMode, @lowestJudgmentConditionMode, @stand, @band, @isP, @point, @salt, @highestJudgment0, @higherJudgment0, @highJudgment0, @lowJudgment0, @lowerJudgment0, @lowestJudgment0, @highestJudgment1, @higherJudgment1, @highJudgment1, @lowJudgment1, @lowerJudgment1, @lowestJudgment1, @labelledInputFavorMillis, @lowestLongNoteModify, @highestLongNoteModify, @putNoteSet, @putNoteSetMillis, @highestHitPoints0, @higherHitPoints0, @highHitPoints0, @lowHitPoints0, @lowerHitPoints0, @lowestHitPoints0, @highestHitPoints1, @higherHitPoints1, @highHitPoints1, @lowHitPoints1, @lowerHitPoints1, @lowestHitPoints1, @noteID, @isPaused, @inputFlags)
+                VALUES(@date, @eventNoteID, @comment, @avatar, @multiplier, @autoMode, @noteSaltMode, @audioMultiplier, @faintNoteMode, @judgmentMode, @hitPointsMode, @noteMobilityMode, @longNoteMode, @inputFavorMode, @noteModifyMode, @bpmMode, @waveMode, @setNoteMode, @lowestJudgmentConditionMode, @stand, @band, @isP, @point, @salt, @highestJudgment0, @higherJudgment0, @highJudgment0, @lowJudgment0, @lowerJudgment0, @lowestJudgment0, @highestJudgment1, @higherJudgment1, @highJudgment1, @lowJudgment1, @lowerJudgment1, @lowestJudgment1, @inputFavorLabelledMillis, @lowestLongNoteModify, @highestLongNoteModify, @setNotePut, @setNotePutMillis, @highestHitPoints0, @higherHitPoints0, @highHitPoints0, @lowHitPoints0, @lowerHitPoints0, @lowestHitPoints0, @highestHitPoints1, @higherHitPoints1, @highHitPoints1, @lowHitPoints1, @lowerHitPoints1, @lowestHitPoints1, @noteID, @isPaused, @inputFlags)
             """);
             dbStatement.Parameters.AddWithValue("date", date);
             dbStatement.Parameters.AddWithValue("eventNoteID", eventNoteID ?? DBNull.Value as object);
@@ -973,11 +973,11 @@ namespace Qwilight
             dbStatement.Parameters.AddWithValue("lowJudgment1", modeComponentValue.LowJudgment1);
             dbStatement.Parameters.AddWithValue("lowerJudgment1", modeComponentValue.LowerJudgment1);
             dbStatement.Parameters.AddWithValue("lowestJudgment1", modeComponentValue.LowestJudgment1);
-            dbStatement.Parameters.AddWithValue("labelledInputFavorMillis", modeComponentValue.LabelledInputFavorMillis);
+            dbStatement.Parameters.AddWithValue("inputFavorLabelledMillis", modeComponentValue.InputFavorLabelledMillis);
             dbStatement.Parameters.AddWithValue("lowestLongNoteModify", modeComponentValue.LowestLongNoteModify);
             dbStatement.Parameters.AddWithValue("highestLongNoteModify", modeComponentValue.HighestLongNoteModify);
-            dbStatement.Parameters.AddWithValue("putNoteSet", modeComponentValue.PutNoteSet);
-            dbStatement.Parameters.AddWithValue("putNoteSetMillis", modeComponentValue.PutNoteSetMillis);
+            dbStatement.Parameters.AddWithValue("setNotePut", modeComponentValue.SetNotePut);
+            dbStatement.Parameters.AddWithValue("setNotePutMillis", modeComponentValue.SetNotePutMillis);
             dbStatement.Parameters.AddWithValue("highestHitPoints0", modeComponentValue.HighestHitPoints0 / 100.0);
             dbStatement.Parameters.AddWithValue("higherHitPoints0", modeComponentValue.HigherHitPoints0 / 100.0);
             dbStatement.Parameters.AddWithValue("highHitPoints0", modeComponentValue.HighHitPoints0 / 100.0);

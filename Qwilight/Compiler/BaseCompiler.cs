@@ -430,7 +430,7 @@ namespace Qwilight.Compiler
                 }
                 else if (ModeComponent.InputFavorMode.Labelled4 <= inputFavorMode && inputFavorMode <= ModeComponent.InputFavorMode.Labelled48_4)
                 {
-                    var labelledInputFavorMillis = defaultComputer.ModeComponentValue.LabelledInputFavorMillis;
+                    var inputFavorLabelledMillis = defaultComputer.ModeComponentValue.InputFavorLabelledMillis;
                     var labelledNotes = new List<BaseNote>();
                     foreach (var note in Notes.ToArray())
                     {
@@ -484,7 +484,7 @@ namespace Qwilight.Compiler
 
                                 bool WipeIfCollided(BaseNote note)
                                 {
-                                    if (labelledNotes.Any(labelledNote => labelledNote.LevyingInput == note.LevyingInput && labelledNote.IsCollided(note, labelledInputFavorMillis)))
+                                    if (labelledNotes.Any(labelledNote => labelledNote.LevyingInput == note.LevyingInput && labelledNote.IsCollided(note, inputFavorLabelledMillis)))
                                     {
                                         WipeNote(note);
                                         return true;
@@ -917,13 +917,13 @@ namespace Qwilight.Compiler
                 };
                 if (putInputs.Length > 0)
                 {
-                    var putNoteSet = defaultComputer.ModeComponentValue.PutNoteSet;
-                    var putNoteSetMillis = defaultComputer.ModeComponentValue.PutNoteSetMillis;
+                    var setNotePut = (int)(100.0 * defaultComputer.ModeComponentValue.SetNotePut);
+                    var setNotePutMillis = defaultComputer.ModeComponentValue.SetNotePutMillis;
                     foreach (var (wait, audioNotes) in defaultComputer.WaitAudioNoteMap)
                     {
                         foreach (var audioNote in audioNotes.ToArray())
                         {
-                            if (audioNote.Salt % 100 < putNoteSet)
+                            if (audioNote.Salt % 100 < setNotePut)
                             {
                                 var levyingInput = putInputs.First();
                                 var putInputsLength = putInputs.Length;
@@ -932,7 +932,7 @@ namespace Qwilight.Compiler
                                 do
                                 {
                                     var inputNote = new InputNote(defaultComputer.WaitLogicalYMap[wait], wait, [audioNote], putInputs[putPosition]);
-                                    if (Notes.Any(note => note.LevyingInput == inputNote.LevyingInput && note.IsCollided(inputNote, putNoteSetMillis)))
+                                    if (Notes.Any(note => note.LevyingInput == inputNote.LevyingInput && note.IsCollided(inputNote, setNotePutMillis)))
                                     {
                                         if (++putPosition >= putInputsLength)
                                         {

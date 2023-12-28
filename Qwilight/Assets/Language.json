@@ -643,7 +643,7 @@
     "ko-KR": "순서대로 글꼴 모양을 설정합니다.",
     "en-US": "Sets the font appearance in order."
   },
-  "ConfigureLabelledInputFavorMillisContents": {
+  "ConfigureInputFavorLabelledMillisContents": {
     "ko-KR": "대상 간격",
     "en-US": "Target Interval"
   },
@@ -651,11 +651,11 @@
     "ko-KR": "사용할 난이도 테이블을 설정합니다.",
     "en-US": "Set the difficulty table to use"
   },
-  "ConfigurePutNoteSetContents": {
+  "ConfigureSetNotePutContents": {
     "ko-KR": "대상 비율",
     "en-US": "Target Ratio"
   },
-  "ConfigurePutNoteSetMillisContents": {
+  "ConfigureSetNotePutMillisContents": {
     "ko-KR": "대상 간격",
     "en-US": "Target Interval"
   },
@@ -1507,6 +1507,10 @@
     "ko-KR": "노트 라인 개수를 수정하지 않습니다.",
     "en-US": "Do not modify the number of note lines."
   },
+  "InputFavorLabelledAssist": {
+    "ko-KR": "대상 간격 이상 거리를 유지하여 자연스럽게 만듭니다.",
+    "en-US": "Make it natural by maintaining a distance beyond the target interval."
+  },
   "InputFavorMode10": {
     "ko-KR": "10 으로 만듭니다.",
     "en-US": "Make it 10."
@@ -1623,10 +1627,6 @@
     "ko-KR": "\uD83C\uDFA8 NPS 비주얼라이저",
     "en-US": "\uD83C\uDFA8 NPS graph"
   },
-  "InputNoteSetContents": {
-    "ko-KR": "롱 노트를 단일 노트로 만듭니다.",
-    "en-US": "Turn long notes into single notes"
-  },
   "InputSaltModeContents": {
     "ko-KR": "노트 라인을 임의 배치합니다. (라인 랜덤)",
     "en-US": "Line Random mode"
@@ -1654,6 +1654,10 @@
   "InputWindowAssist3": {
     "ko-KR": "DEL: 모든 키 지우기",
     "en-US": "DEL: Clear all keys"
+  },
+  "InsetNotePutContents": {
+    "ko-KR": "롱 노트를 단일 노트로 만듭니다.",
+    "en-US": "Turn long notes into single notes"
   },
   "IOAvatarContents": {
     "ko-KR": "회원의 관전 요청만 받음",
@@ -1742,10 +1746,6 @@
   "K70Text": {
     "ko-KR": "CORSAIR® CUE™ 활성화",
     "en-US": "Enable CORSAIR® CUE™"
-  },
-  "LabelledInputFavorAssist": {
-    "ko-KR": "대상 간격 이상 거리를 유지하여 자연스럽게 만듭니다.",
-    "en-US": "Make it natural by maintaining a distance beyond the target interval."
   },
   "LazyGCText": {
     "ko-KR": "게임 플레이 중 다음 메모리를 미리 할당하여 GC 스파이크를 방지합니다.",
@@ -2767,10 +2767,6 @@
     "ko-KR": "1P를 2P로 복사합니다. (⑤K, ⑦K만 적용)",
     "en-US": "Copy 1P to 2P. (⑤K, ⑦K only)"
   },
-  "PutNoteSetAssist": {
-    "ko-KR": "대상 비율 만큼의 BGM을 대상 간격 이상 거리를 유지하여 추가 노트로 만듭니다.",
-    "en-US": "Make BGM as much as the target ratio into an additional note by maintaining a distance beyond the target interval."
-  },
   "PutSetNoteModeContents": {
     "ko-KR": "BGM을 추가 노트로 만듭니다.",
     "en-US": "Make the BGM an additional note."
@@ -2978,6 +2974,10 @@
   "SetNoteModeAssist": {
     "ko-KR": "추가 노트를 설정합니다.",
     "en-US": "Set up additional charts."
+  },
+  "SetNotePutAssist": {
+    "ko-KR": "대상 비율 만큼의 BGM을 대상 간격 이상 거리를 유지하여 추가 노트로 만듭니다.",
+    "en-US": "Make BGM as much as the target ratio into an additional note by maintaining a distance beyond the target interval."
   },
   "SetNotTotalText": {
     "ko-KR": "모두 선택 해제",

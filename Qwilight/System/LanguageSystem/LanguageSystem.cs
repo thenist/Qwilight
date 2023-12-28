@@ -163,7 +163,7 @@ namespace Qwilight
             NoteSaltModeTexts[(int)ModeComponent.NoteSaltMode.HalfInputSalt] = HalfInputSaltModeContents;
 
             NoteModifyModeTexts[(int)ModeComponent.NoteModifyMode.Default] = DefaultNoteModifyContents;
-            NoteModifyModeTexts[(int)ModeComponent.NoteModifyMode.InputNote] = InputNoteSetContents;
+            NoteModifyModeTexts[(int)ModeComponent.NoteModifyMode.InputNote] = InsetNotePutContents;
             NoteModifyModeTexts[(int)ModeComponent.NoteModifyMode.LongNote] = LongNoteModifyContents;
 
             BPMModeTexts[(int)ModeComponent.BPMMode.Default] = DefaultBPMModeContents;

@@ -3473,7 +3473,7 @@ namespace Qwilight.ViewModel
                     ModeComponentValue.ComputingValue = targetNoteFile;
                     ModeComponentValue.Salt = salt;
                     ModeComponentValue.SetAutoLowestLongNoteModify();
-                    ModeComponentValue.SetAutoPutNoteSetMillis();
+                    ModeComponentValue.SetAutoSetNotePutMillis();
                     OnJudgmentMeterMillisModified();
                     targetNoteFile.NotifyModel();
                 }

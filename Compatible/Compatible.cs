@@ -36,11 +36,39 @@ namespace Compatible
         {
             if (HasTable("comment"))
             {
-                using var dbStatement = NewDBStatement("""
-                    UPDATE comment
-                    SET Comment = REPLACE(Comment, '.pb', '')
-                """);
-                dbStatement.ExecuteNonQuery();
+                try
+                {
+                    using var dbStatement = NewDBStatement("""
+                        UPDATE comment
+                        SET Comment = REPLACE(Comment, '.pb', '')
+                    """);
+                    dbStatement.ExecuteNonQuery();
+                }
+                catch
+                {
+                }
+                try
+                {
+                    using var dbStatement = NewDBStatement("""
+                        ALTER TABLE comment
+                        RENAME COLUMN Put_Note_Set TO Set_Note_Put
+                    """);
+                    dbStatement.ExecuteNonQuery();
+                }
+                catch
+                {
+                }
+                try
+                {
+                    using var dbStatement = NewDBStatement("""
+                        ALTER TABLE comment
+                        RENAME COLUMN Put_Note_Set_Millis TO Set_Note_Put_Millis
+                    """);
+                    dbStatement.ExecuteNonQuery();
+                }
+                catch
+                {
+                }
             }
 
             if (HasTable("note"))

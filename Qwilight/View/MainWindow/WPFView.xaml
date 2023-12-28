@@ -40,8 +40,8 @@
             <view:ModifyModeComponentWindow />
             <view:FontFamilyWindow />
             <view:LevelWindow />
-            <view:LabelledInputFavorWindow />
-            <view:PutNoteSetWindow />
+            <view:InputFavorLabelledWindow />
+            <view:SetNotePutWindow />
             <view:SiteContainerWindow />
             <view:InputTextWindow />
             <view:InputPwWindow />

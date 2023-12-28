@@ -163,10 +163,10 @@ namespace Qwilight
         public string ConfigureBaseUIContents { get; set; }
         public string ConfigureEtcUIContents { get; set; }
         public string ConfigureFontFamilyContents { get; set; }
-        public string ConfigureLabelledInputFavorMillisContents { get; set; }
+        public string ConfigureInputFavorLabelledMillisContents { get; set; }
         public string ConfigureLevelContents { get; set; }
-        public string ConfigurePutNoteSetContents { get; set; }
-        public string ConfigurePutNoteSetMillisContents { get; set; }
+        public string ConfigureSetNotePutContents { get; set; }
+        public string ConfigureSetNotePutMillisContents { get; set; }
         public string ConfigureText { get; set; }
         public string ConfigureUIContents { get; set; }
         public string ControllerConfigure { get; set; }
@@ -379,6 +379,7 @@ namespace Qwilight
         public string InputConfigure { get; set; }
         public string InputConfigureText { get; set; }
         public string InputDefaultMode { get; set; }
+        public string InputFavorLabelledAssist { get; set; }
         public string InputFavorMode10 { get; set; }
         public string InputFavorMode102 { get; set; }
         public string InputFavorMode142 { get; set; }
@@ -408,7 +409,6 @@ namespace Qwilight
         public string InputFavorModeFill9 { get; set; }
         public string InputMapText { get; set; }
         public string InputNoteCountViewColor { get; set; }
-        public string InputNoteSetContents { get; set; }
         public string InputSaltModeContents { get; set; }
         public string InputVibrationModeText { get; set; }
         public string InputWantAssist { get; set; }
@@ -416,6 +416,7 @@ namespace Qwilight
         public string InputWindowAssist1 { get; set; }
         public string InputWindowAssist2 { get; set; }
         public string InputWindowAssist3 { get; set; }
+        public string InsetNotePutContents { get; set; }
         public string IOAvatarContents { get; set; }
         public string IOCallableContents { get; set; }
         public string IOCompetenceContents { get; set; }
@@ -438,7 +439,6 @@ namespace Qwilight
         public string JudgmentVisualizerPositionContents { get; set; }
         public string K70Contents { get; set; }
         public string K70Text { get; set; }
-        public string LabelledInputFavorAssist { get; set; }
         public string LazyGCText { get; set; }
         public string Level0Contents { get; set; }
         public string Level1Contents { get; set; }
@@ -694,7 +694,6 @@ namespace Qwilight
         public string Power12 { get; set; }
         public string Power13 { get; set; }
         public string PutCopyNotesContents { get; set; }
-        public string PutNoteSetAssist { get; set; }
         public string PutSetNoteModeContents { get; set; }
         public string QuitComputingSituationContents { get; set; }
         public string QuitContents { get; set; }
@@ -747,6 +746,7 @@ namespace Qwilight
         public string SetFavoritesF10 { get; set; }
         public string SetNoteFile { get; set; }
         public string SetNoteModeAssist { get; set; }
+        public string SetNotePutAssist { get; set; }
         public string SetNotTotalText { get; set; }
         public string SetPostItemInputText { get; set; }
         public string SetSaltText { get; set; }

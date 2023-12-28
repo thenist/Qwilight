@@ -194,14 +194,12 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Button Style="{StaticResource StandardInputPadding0}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource InputFavorModeVariety}">
                                 <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.InputFavorModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}" />
                             </Button>
                             <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding MainValue.ModeComponentValue.InputFavorModeContents, Source={StaticResource ViewModels}}" />
-                            <Button Grid.Column="2" Style="{StaticResource StandardInput}" Command="{Binding MainValue.ModeComponentValue.InputFavorModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentInputModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}" Visibility="{Binding MainValue.ModeComponentValue.InputFavorModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentInputVisibilityModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}">…</Button>
-                            <TextBlock Grid.Column="3" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.InputFavorModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.InputFavorModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.InputFavorModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandTextModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}" Foreground="{Binding MainValue.ModeComponentValue.InputFavorModeValue, Source={StaticResource ViewModels}, Converter={StaticResource LowerStandPaintModifier}, ConverterParameter={StaticResource InputFavorModeVariety}}" />
                         </Grid>
                         <Grid Grid.Row="1" Grid.Column="1" Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
                             <Grid.ColumnDefinitions>

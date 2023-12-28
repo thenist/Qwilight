@@ -1,0 +1,59 @@
+﻿<Grid
+    x:Class="Qwilight.View.SetNotePutWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:view="clr-namespace:Qwilight.View"
+    DataContext="{Binding SetNotePutValue, Source={StaticResource ViewModels}}"
+    Style="{StaticResource StandardModalWindow}">
+    <Grid Style="{StaticResource StandardWindow}">
+        <Border Style="{StaticResource WindowStandardPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ModifyModeComponentText, Source={StaticResource LanguageSystem}}" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding ConfigureSetNotePutContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Right" />
+                        <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" Value="{Binding MainValue.ModeComponentValue.SetNotePut, Source={StaticResource ViewModels}}" Minimum="0" Maximum="1" TickFrequency="0.01"/>
+                        <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding MainValue.ModeComponentValue.SetNotePut, Source={StaticResource ViewModels}, Converter={StaticResource FormatModifier}, ConverterParameter='0％'}" HorizontalAlignment="Left" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource StandardTextView}" HorizontalAlignment="Right" Text="{Binding ConfigureSetNotePutMillisContents, Source={StaticResource LanguageSystem}}" />
+                            <view:BinInput Grid.Column="1" IsEnabled="{Binding AutoSetNotePutMillis, Source={StaticResource Configure}, Converter={StaticResource NotModifier}}" Value="{Binding MainValue.ModeComponentValue.SetNotePutMillis, Source={StaticResource ViewModels}}" Lowest="0.0" Format="#,##0.## ms" />
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoSetNotePutMillis, Source={StaticResource Configure}}" Checked="OnSetMeter" />
+                            <Slider Grid.Column="1" Style="{StaticResource StandardSlider}" IsEnabled="{Binding AutoSetNotePutMillis, Source={StaticResource Configure}}" Value="{Binding AutoSetNotePutMillisValue, Source={StaticResource Configure}}" Minimum="6" Maximum="192" Ticks="6, 8, 12, 16, 24, 32, 48, 64, 96, 192" ValueChanged="OnMeterModified" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardTextView}" Text="{Binding AutoSetNotePutMillisValue, Source={StaticResource Configure}, Converter={StaticResource FormatModifier}, ConverterParameter='1／0'}" HorizontalAlignment="Left" />
+                        </Grid>
+                    </Grid>
+                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding SetNotePutAssist, Source={StaticResource LanguageSystem}}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Grid>

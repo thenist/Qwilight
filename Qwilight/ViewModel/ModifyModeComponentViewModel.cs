@@ -443,7 +443,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled4);
                 })
@@ -463,7 +463,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled5);
                 })
@@ -483,7 +483,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled6);
                 })
@@ -503,7 +503,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled7);
                 })
@@ -523,7 +523,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled8);
                 })
@@ -543,7 +543,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled9);
                 })
@@ -563,7 +563,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled10);
                 })
@@ -583,7 +583,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled5_1);
                 })
@@ -603,7 +603,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled7_1);
                 })
@@ -623,7 +623,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled10_2);
                 })
@@ -643,7 +643,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled14_2);
                 })
@@ -663,7 +663,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled24_2);
                 })
@@ -683,7 +683,7 @@ namespace Qwilight.ViewModel
                 PointedPaintID = 2,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.LabelledInputFavorValue.Open();
+                    ViewModels.Instance.InputFavorLabelledValue.Open();
                     ModeComponentVariety = InputFavorModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.InputFavorMode.Labelled48_4);
                 })
@@ -757,7 +757,7 @@ namespace Qwilight.ViewModel
                 Drawing = BaseUI.Instance.ModeComponentDrawings[SetNoteModeVariety][(int)ModeComponent.SetNoteMode.Put]?.DefaultDrawing,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.PutNoteSetValue.Open();
+                    ViewModels.Instance.SetNotePutValue.Open();
                     ModeComponentVariety = SetNoteModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.SetNoteMode.Put);
                 }),
@@ -770,7 +770,7 @@ namespace Qwilight.ViewModel
                 Drawing = BaseUI.Instance.ModeComponentDrawings[SetNoteModeVariety][(int)ModeComponent.SetNoteMode.VoidPut]?.DefaultDrawing,
                 OnConfigure = new(() =>
                 {
-                    ViewModels.Instance.PutNoteSetValue.Open();
+                    ViewModels.Instance.SetNotePutValue.Open();
                     ModeComponentVariety = SetNoteModeVariety;
                     ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.SetNoteMode.VoidPut);
                 }),

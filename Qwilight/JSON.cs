@@ -484,8 +484,8 @@ namespace Qwilight
             public double lowestJudgment1;
             public double lowestLongNoteModify;
             public double highestLongNoteModify;
-            public double putNoteSet;
-            public double putNoteSetMillis;
+            public double setNotePut;
+            public double setNotePutMillis;
             public double highestHitPoints0;
             public double higherHitPoints0;
             public double highHitPoints0;
