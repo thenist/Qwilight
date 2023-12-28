@@ -5,7 +5,7 @@ namespace Qwilight
         public string _4DModeContents { get; set; }
         public string AbilityFittedText { get; set; }
         public string AegisPostedItemText { get; set; }
-        public string AlgorithmInputFavorFaultText { get; set; }
+        public string LabelledInputFavorFaultText { get; set; }
         public string AllowEssentialInputs { get; set; }
         public string AllowTotalLevyingText { get; set; }
         public string AllowTwilightCommentAssist { get; set; }
@@ -160,7 +160,7 @@ namespace Qwilight
         public string ComputingGUIConfigure { get; set; }
         public string ComputingModeComponentConfigure { get; set; }
         public string ComputingUIConfigure { get; set; }
-        public string ConfigureAlgorithmInputFavorMillisContents { get; set; }
+        public string ConfigureLabelledInputFavorMillisContents { get; set; }
         public string ConfigureAssist { get; set; }
         public string ConfigureBaseUIContents { get; set; }
         public string ConfigureEtcUIContents { get; set; }

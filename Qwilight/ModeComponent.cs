@@ -44,7 +44,7 @@ namespace Qwilight
         public enum InputFavorMode
         {
             Default, _4 = 4, _5, _6, _7, _8, _9, _5_1, _7_1, _10_2, _14_2, _10, _24_2, _48_4,
-            Algorithm4, Algorithm5, Algorithm6, Algorithm7, Algorithm8, Algorithm9, Algorithm10, Algorithm5_1, Algorithm7_1, Algorithm10_2, Algorithm14_2, Algorithm24_2, Algorithm48_4
+            Labelled4, Labelled5, Labelled6, Labelled7, Labelled8, Labelled9, Labelled10, Labelled5_1, Labelled7_1, Labelled10_2, Labelled14_2, Labelled24_2, Labelled48_4
         }
 
         public enum NoteModifyMode
@@ -99,7 +99,7 @@ namespace Qwilight
         LowestJudgmentConditionMode _lowestJudgmentConditionMode;
         PutCopyNotes _putCopyNotes;
         double _multiplierUnit = 0.01;
-        double _algorithmInputFavorMillis = 100.0;
+        double _labelledInputFavorMillis = 100.0;
         double _lowestLongNoteModify = 100.0;
         double _highestLongNoteModify = 100.0;
         double _putNoteSet = 25.0;
@@ -187,7 +187,7 @@ namespace Qwilight
         public bool CanBeTwilightComment => JudgmentModeValue != JudgmentMode.Favor &&
             HandlingHitPointsModeValue != HitPointsMode.Favor && HandlingHitPointsModeValue != HitPointsMode.Test &&
             LongNoteModeValue != LongNoteMode.Input &&
-            InputFavorModeValue != InputFavorMode.Algorithm4 && InputFavorModeValue != InputFavorMode.Algorithm5 && InputFavorModeValue != InputFavorMode.Algorithm6 && InputFavorModeValue != InputFavorMode.Algorithm7 && InputFavorModeValue != InputFavorMode.Algorithm8 && InputFavorModeValue != InputFavorMode.Algorithm9 && InputFavorModeValue != InputFavorMode.Algorithm10 && InputFavorModeValue != InputFavorMode.Algorithm5_1 && InputFavorModeValue != InputFavorMode.Algorithm7_1 && InputFavorModeValue != InputFavorMode.Algorithm10_2 && InputFavorModeValue != InputFavorMode.Algorithm14_2 && InputFavorModeValue != InputFavorMode.Algorithm24_2 && InputFavorModeValue != InputFavorMode.Algorithm48_4 &&
+            InputFavorModeValue != InputFavorMode.Labelled4 && InputFavorModeValue != InputFavorMode.Labelled5 && InputFavorModeValue != InputFavorMode.Labelled6 && InputFavorModeValue != InputFavorMode.Labelled7 && InputFavorModeValue != InputFavorMode.Labelled8 && InputFavorModeValue != InputFavorMode.Labelled9 && InputFavorModeValue != InputFavorMode.Labelled10 && InputFavorModeValue != InputFavorMode.Labelled5_1 && InputFavorModeValue != InputFavorMode.Labelled7_1 && InputFavorModeValue != InputFavorMode.Labelled10_2 && InputFavorModeValue != InputFavorMode.Labelled14_2 && InputFavorModeValue != InputFavorMode.Labelled24_2 && InputFavorModeValue != InputFavorMode.Labelled48_4 &&
             NoteModifyModeValue != NoteModifyMode.LongNote &&
             BPMModeValue == BPMMode.Default &&
             WaveModeValue == WaveMode.Default &&
@@ -815,11 +815,11 @@ namespace Qwilight
             set => SetProperty(ref FavorHitPoints[(int)Component.Judged.Lowest][1], value, nameof(LowestHitPoints1));
         }
 
-        public void SetAutoAlgorithmInputFavorMillis()
+        public void SetAutoLabelledInputFavorMillis()
         {
-            if (Configure.Instance.AutoAlgorithmInputFavorMillis)
+            if (Configure.Instance.AutoLabelledInputFavorMillis)
             {
-                AlgorithmInputFavorMillis = 1000.0 * 240.0 / (BPM * AudioMultiplier) / Configure.Instance.AutoAlgorithmInputFavorMillisValue;
+                LabelledInputFavorMillis = 1000.0 * 240.0 / (BPM * AudioMultiplier) / Configure.Instance.AutoLabelledInputFavorMillisValue;
             }
         }
 
@@ -847,11 +847,11 @@ namespace Qwilight
             }
         }
 
-        public double AlgorithmInputFavorMillis
+        public double LabelledInputFavorMillis
         {
-            get => _algorithmInputFavorMillis;
+            get => _labelledInputFavorMillis;
 
-            set => SetProperty(ref _algorithmInputFavorMillis, value, nameof(AlgorithmInputFavorMillis));
+            set => SetProperty(ref _labelledInputFavorMillis, value, nameof(LabelledInputFavorMillis));
         }
 
         public double LowestLongNoteModify

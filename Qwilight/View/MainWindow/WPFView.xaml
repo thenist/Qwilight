@@ -40,7 +40,7 @@
             <view:ModifyModeComponentWindow />
             <view:FontFamilyWindow />
             <view:LevelWindow />
-            <view:AlgorithmInputFavorWindow />
+            <view:LabelledInputFavorWindow />
             <view:PutNoteSetWindow />
             <view:SiteContainerWindow />
             <view:InputTextWindow />

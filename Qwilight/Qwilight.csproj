@@ -10,9 +10,9 @@
 		<ApplicationIcon>Qwilight.ico</ApplicationIcon>
 		<Authors>Taehui</Authors>
 		<Company>불로그</Company>
-		<AssemblyVersion>1.16.16.574</AssemblyVersion>
-		<FileVersion>1.16.16.574</FileVersion>
-		<Version>1.16.16</Version>
+		<AssemblyVersion>1.16.17.575</AssemblyVersion>
+		<FileVersion>1.16.17.575</FileVersion>
+		<Version>1.16.17</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableMsixTooling>true</EnableMsixTooling>

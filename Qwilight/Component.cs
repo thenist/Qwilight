@@ -131,43 +131,43 @@
             switch (inputFavorMode)
             {
                 case ModeComponent.InputFavorMode._4:
-                case ModeComponent.InputFavorMode.Algorithm4:
+                case ModeComponent.InputFavorMode.Labelled4:
                     return InputMode._4;
                 case ModeComponent.InputFavorMode._5:
-                case ModeComponent.InputFavorMode.Algorithm5:
+                case ModeComponent.InputFavorMode.Labelled5:
                     return InputMode._5;
                 case ModeComponent.InputFavorMode._6:
-                case ModeComponent.InputFavorMode.Algorithm6:
+                case ModeComponent.InputFavorMode.Labelled6:
                     return InputMode._6;
                 case ModeComponent.InputFavorMode._7:
-                case ModeComponent.InputFavorMode.Algorithm7:
+                case ModeComponent.InputFavorMode.Labelled7:
                     return InputMode._7;
                 case ModeComponent.InputFavorMode._8:
-                case ModeComponent.InputFavorMode.Algorithm8:
+                case ModeComponent.InputFavorMode.Labelled8:
                     return InputMode._8;
                 case ModeComponent.InputFavorMode._9:
-                case ModeComponent.InputFavorMode.Algorithm9:
+                case ModeComponent.InputFavorMode.Labelled9:
                     return InputMode._9;
                 case ModeComponent.InputFavorMode._10:
-                case ModeComponent.InputFavorMode.Algorithm10:
+                case ModeComponent.InputFavorMode.Labelled10:
                     return InputMode._10;
                 case ModeComponent.InputFavorMode._5_1:
-                case ModeComponent.InputFavorMode.Algorithm5_1:
+                case ModeComponent.InputFavorMode.Labelled5_1:
                     return InputMode._5_1;
                 case ModeComponent.InputFavorMode._7_1:
-                case ModeComponent.InputFavorMode.Algorithm7_1:
+                case ModeComponent.InputFavorMode.Labelled7_1:
                     return InputMode._7_1;
                 case ModeComponent.InputFavorMode._10_2:
-                case ModeComponent.InputFavorMode.Algorithm10_2:
+                case ModeComponent.InputFavorMode.Labelled10_2:
                     return InputMode._10_2;
                 case ModeComponent.InputFavorMode._14_2:
-                case ModeComponent.InputFavorMode.Algorithm14_2:
+                case ModeComponent.InputFavorMode.Labelled14_2:
                     return InputMode._14_2;
                 case ModeComponent.InputFavorMode._24_2:
-                case ModeComponent.InputFavorMode.Algorithm24_2:
+                case ModeComponent.InputFavorMode.Labelled24_2:
                     return InputMode._24_2;
                 case ModeComponent.InputFavorMode._48_4:
-                case ModeComponent.InputFavorMode.Algorithm48_4:
+                case ModeComponent.InputFavorMode.Labelled48_4:
                     return InputMode._48_4;
                 default:
                     throw new ArgumentException(inputFavorMode.ToString());

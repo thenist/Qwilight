@@ -430,10 +430,10 @@ namespace Qwilight.Compiler
                         }
                     }
                 }
-                else if (ModeComponent.InputFavorMode.Algorithm4 <= inputFavorMode && inputFavorMode <= ModeComponent.InputFavorMode.Algorithm48_4)
+                else if (ModeComponent.InputFavorMode.Labelled4 <= inputFavorMode && inputFavorMode <= ModeComponent.InputFavorMode.Labelled48_4)
                 {
-                    var algorithmInputFavorMillis = defaultComputer.ModeComponentValue.AlgorithmInputFavorMillis;
-                    var algorithmNotes = new List<BaseNote>();
+                    var labelledInputFavorMillis = defaultComputer.ModeComponentValue.LabelledInputFavorMillis;
+                    var labelledNotes = new List<BaseNote>();
                     foreach (var note in Notes.ToArray())
                     {
                         if (note.HasInput)
@@ -449,36 +449,36 @@ namespace Qwilight.Compiler
                             }
                             else
                             {
-                                var algorithmInput0 = (int)Math.Ceiling(GetAlgorithmInput(input, 0.0));
-                                var algorithmInput1 = (int)Math.Floor(GetAlgorithmInput(input, 1.0));
+                                var labelledInput0 = (int)Math.Ceiling(GetLabelledInput(input, 0.0));
+                                var labelledInput1 = (int)Math.Floor(GetLabelledInput(input, 1.0));
 
                                 if (Component.DefaultInputCounts[(int)InputMode] < Component.DefaultInputCounts[(int)inputMode])
                                 {
-                                    note.LevyingInput = algorithmInput0;
+                                    note.LevyingInput = labelledInput0;
                                     WipeIfCollided(note);
-                                    for (var algorithmInput = algorithmInput0 + 1; algorithmInput <= algorithmInput1; ++algorithmInput)
+                                    for (var labelledInput = labelledInput0 + 1; labelledInput <= labelledInput1; ++labelledInput)
                                     {
-                                        var algorithmNote = note switch
+                                        var labelledNote = note switch
                                         {
-                                            TrapNote trapNote => new TrapNote(trapNote.LogicalY, trapNote.Wait, Array.Empty<AudioNote>(), algorithmInput),
-                                            LongNote longNote => new LongNote(longNote.LogicalY, longNote.Wait, Array.Empty<AudioNote>(), algorithmInput, longNote.LongWait, longNote.LongHeight),
-                                            VoidNote voidNote => new VoidNote(voidNote.LogicalY, voidNote.Wait, Array.Empty<AudioNote>(), algorithmInput),
-                                            InputNote inputNote => new InputNote(inputNote.LogicalY, inputNote.Wait, Array.Empty<AudioNote>(), algorithmInput),
+                                            TrapNote trapNote => new TrapNote(trapNote.LogicalY, trapNote.Wait, Array.Empty<AudioNote>(), labelledInput),
+                                            LongNote longNote => new LongNote(longNote.LogicalY, longNote.Wait, Array.Empty<AudioNote>(), labelledInput, longNote.LongWait, longNote.LongHeight),
+                                            VoidNote voidNote => new VoidNote(voidNote.LogicalY, voidNote.Wait, Array.Empty<AudioNote>(), labelledInput),
+                                            InputNote inputNote => new InputNote(inputNote.LogicalY, inputNote.Wait, Array.Empty<AudioNote>(), labelledInput),
                                             _ => null
                                         };
-                                        if (!WipeIfCollided(algorithmNote))
+                                        if (!WipeIfCollided(labelledNote))
                                         {
-                                            Notes.Add(algorithmNote);
+                                            Notes.Add(labelledNote);
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    note.LevyingInput = (int)Math.Round(GetAlgorithmInput(input, (double)(input - defaultInputs.First()) / (defaultInputs.Last() - defaultInputs.First())));
+                                    note.LevyingInput = (int)Math.Round(GetLabelledInput(input, (double)(input - defaultInputs.First()) / (defaultInputs.Last() - defaultInputs.First())));
                                     WipeIfCollided(note);
                                 }
 
-                                double GetAlgorithmInput(int input, double random)
+                                double GetLabelledInput(int input, double random)
                                 {
                                     var rate = (double)(Component.DefaultInputCounts[(int)Component.GetInputMode(inputFavorMode)] - 1) / Component.DefaultInputCounts[(int)InputMode];
                                     return rate * (input - defaultInputs.First()) + Component.DefaultInputs[(int)Component.GetInputMode(inputFavorMode)].First() + rate * random;
@@ -486,14 +486,14 @@ namespace Qwilight.Compiler
 
                                 bool WipeIfCollided(BaseNote note)
                                 {
-                                    if (algorithmNotes.Any(algorithmNote => algorithmNote.LevyingInput == note.LevyingInput && algorithmNote.IsCollided(note, algorithmInputFavorMillis)))
+                                    if (labelledNotes.Any(labelledNote => labelledNote.LevyingInput == note.LevyingInput && labelledNote.IsCollided(note, labelledInputFavorMillis)))
                                     {
                                         WipeNote(note);
                                         return true;
                                     }
                                     else
                                     {
-                                        algorithmNotes.Add(note);
+                                        labelledNotes.Add(note);
                                         return false;
                                     }
                                 }

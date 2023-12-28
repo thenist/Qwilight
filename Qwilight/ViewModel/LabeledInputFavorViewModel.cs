@@ -2,7 +2,7 @@
 
 namespace Qwilight.ViewModel
 {
-    public sealed class AlgorithmInputFavorViewModel : BaseViewModel
+    public sealed class LabelledInputFavorViewModel : BaseViewModel
     {
         public override double TargetLength => double.NaN;
 
@@ -10,17 +10,17 @@ namespace Qwilight.ViewModel
 
         public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
-        public void OnMeterModified() => ViewModels.Instance.MainValue.ModeComponentValue.SetAutoAlgorithmInputFavorMillis();
+        public void OnMeterModified() => ViewModels.Instance.MainValue.ModeComponentValue.SetAutoLabelledInputFavorMillis();
 
         public override bool ClosingCondition
         {
             get
             {
                 var modeComponentValue = ViewModels.Instance.MainValue.ModeComponentValue;
-                var algorithmInputFavorMillis = modeComponentValue.AlgorithmInputFavorMillis;
-                if (algorithmInputFavorMillis == 0.0)
+                var labelledInputFavorMillis = modeComponentValue.LabelledInputFavorMillis;
+                if (labelledInputFavorMillis == 0.0)
                 {
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.AlgorithmInputFavorFaultText);
+                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.LabelledInputFavorFaultText);
                     return false;
                 }
 

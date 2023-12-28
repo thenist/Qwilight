@@ -250,11 +250,11 @@ namespace Qwilight
         int _hofViewTotalTabPosition;
         int _hofViewAtTabPosition;
         int _hofViewAbilityTabPosition;
-        bool _autoAlgorithmInputFavorMillis;
+        bool _autoLabelledInputFavorMillis;
         bool _autoLowestLongNoteModify;
         bool _highestAutoLongNoteModify;
         bool _autoPutNoteSetMillis;
-        double _autoAlgorithmInputFavorMillisValue;
+        double _autoLabelledInputFavorMillisValue;
         double _autoLowestLongNoteModifyValue;
         double _autoHighestLongNoteModifyValue;
         double _autoPutNoteSetMillisValue;
@@ -641,15 +641,15 @@ namespace Qwilight
         [JsonIgnore]
         public string ConfigureFault { get; set; }
 
-        public bool AutoAlgorithmInputFavorMillis
+        public bool AutoLabelledInputFavorMillis
         {
-            get => _autoAlgorithmInputFavorMillis;
+            get => _autoLabelledInputFavorMillis;
 
             set
             {
-                if (SetProperty(ref _autoAlgorithmInputFavorMillis, value, nameof(AutoAlgorithmInputFavorMillis)) && _isLoaded)
+                if (SetProperty(ref _autoLabelledInputFavorMillis, value, nameof(AutoLabelledInputFavorMillis)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoAlgorithmInputFavorMillis();
+                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoLabelledInputFavorMillis();
                 }
             }
         }
@@ -667,15 +667,15 @@ namespace Qwilight
             }
         }
 
-        public double AutoAlgorithmInputFavorMillisValue
+        public double AutoLabelledInputFavorMillisValue
         {
-            get => _autoAlgorithmInputFavorMillisValue;
+            get => _autoLabelledInputFavorMillisValue;
 
             set
             {
-                if (SetProperty(ref _autoAlgorithmInputFavorMillisValue, value, nameof(AutoAlgorithmInputFavorMillisValue)) && _isLoaded)
+                if (SetProperty(ref _autoLabelledInputFavorMillisValue, value, nameof(AutoLabelledInputFavorMillisValue)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoAlgorithmInputFavorMillis();
+                    ViewModels.Instance.MainValue.ModeComponentValue.SetAutoLabelledInputFavorMillis();
                 }
             }
         }
