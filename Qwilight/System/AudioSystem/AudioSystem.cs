@@ -132,7 +132,18 @@ namespace Qwilight
 
         public void LoadBanalAudio()
         {
-            BanalAudio?.Dispose();
+            try
+            {
+                _audioCSX.EnterWriteLock();
+                if (_isAvailable)
+                {
+                    BanalAudio?.Dispose();
+                }
+            }
+            finally
+            {
+                _audioCSX.ExitWriteLock();
+            }
             try
             {
                 var filePath = Configure.Instance.BanalAudioFilePath;
