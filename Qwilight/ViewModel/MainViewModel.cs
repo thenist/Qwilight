@@ -2245,8 +2245,8 @@ namespace Qwilight.ViewModel
                             }
                             if (wellNoteFiles.Count > 0)
                             {
-                                var highestLevelTextValue = double.MinValue;
-                                var highestWantLevelID = string.Empty;
+                                var levelTextValue = 0.0;
+                                var wantLevelID = string.Empty;
                                 var highestInputCount = 0;
                                 var averageInputCount = 0.0;
                                 var totalNotes = 0;
@@ -2267,37 +2267,35 @@ namespace Qwilight.ViewModel
                                     totalNotes = Math.Max(totalNotes, wellNoteFile.TotalNotes);
                                     highestInputCount = Math.Max(highestInputCount, wellNoteFile.HighestInputCount);
                                     averageInputCount = Math.Max(averageInputCount, wellNoteFile.AverageInputCount);
+                                    if (!double.IsNaN(wellNoteFile.LevelTextValue))
+                                    {
+                                        levelTextValue = Math.Max(levelTextValue, wellNoteFile.LevelTextValue);
+                                    }
                                     if (!isEntryItemEventNote)
                                     {
                                         if ((latestDate ?? DateTime.MinValue) < (wellNoteFile.LatestDate ?? DateTime.MinValue))
                                         {
                                             latestDate = wellNoteFile.LatestDate;
                                         }
-                                        var wantLevelID = wellNoteFile.WantLevelID;
-                                        if (string.IsNullOrEmpty(highestWantLevelID) || LevelSystem.Instance.WantLevelIDEquality.Compare(wantLevelID, highestWantLevelID) > 0)
+                                        if (string.IsNullOrEmpty(wantLevelID) || LevelSystem.Instance.WantLevelIDEquality.Compare(wellNoteFile.WantLevelID, wantLevelID) > 0)
                                         {
-                                            highestWantLevelID = wantLevelID;
+                                            wantLevelID = wellNoteFile.WantLevelID;
                                         }
                                         handledCount += wellNoteFile.HandledCount;
-                                    }
-                                    var levelTextValue = wellNoteFile.LevelTextValue;
-                                    if (!double.IsNaN(levelTextValue) && highestLevelTextValue < levelTextValue)
-                                    {
-                                        highestLevelTextValue = levelTextValue;
                                     }
                                 }
                                 entryItem.Artist = Utility.GetFavoriteItem(artists);
                                 entryItem.BPM = Utility.GetFavoriteItem(bpms);
                                 entryItem.Length = Utility.GetFavoriteItem(lengths);
                                 entryItem.TotalNotes = totalNotes;
-                                entryItem.LevelTextValue = highestLevelTextValue;
+                                entryItem.LevelTextValue = levelTextValue;
                                 entryItem.HighestInputCount = highestInputCount;
                                 if (!isEntryItemEventNote)
                                 {
                                     entryItem.Title = Utility.GetFavoriteItem(titles);
                                     entryItem.LatestDate = latestDate;
                                     entryItem.HandledCount = handledCount;
-                                    entryItem.WantLevelID = highestWantLevelID;
+                                    entryItem.WantLevelID = wantLevelID;
                                 }
                                 fitMode.SetFittedText(entryItem);
                             }
@@ -3473,6 +3471,7 @@ namespace Qwilight.ViewModel
                     ModeComponentValue.ComputingValue = targetNoteFile;
                     ModeComponentValue.Salt = salt;
                     ModeComponentValue.SetAutoLowestLongNoteModify();
+                    ModeComponentValue.SetAutoHighestLongNoteModify();
                     ModeComponentValue.SetAutoSetNotePutMillis();
                     OnJudgmentMeterMillisModified();
                     targetNoteFile.NotifyModel();

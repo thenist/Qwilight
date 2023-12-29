@@ -35,13 +35,8 @@ namespace Qwilight.ViewModel
         public override void OnOpened()
         {
             base.OnOpened();
-            Utility.SetUICollection(FavoriteEntryItemCollection, Configure.Instance.DefaultEntryItems.Where(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite).ToArray());
-            var favoriteEntryItems = new List<DefaultEntryItem>(FavoriteEntryItemCollection);
-            FavoriteEntryItemCollection.Clear();
-            foreach (var favoriteEntryItem in favoriteEntryItems.Order())
-            {
-                FavoriteEntryItemCollection.Add(favoriteEntryItem);
-            }
+            var favoriteEntryItems = Configure.Instance.DefaultEntryItems.Where(defaultEntryItem => defaultEntryItem.DefaultEntryVarietyValue == DefaultEntryItem.DefaultEntryVariety.Favorite).ToArray();
+            Utility.SetUICollection(FavoriteEntryItemCollection, favoriteEntryItems);
             switch (Mode)
             {
                 case NoteFileMode:

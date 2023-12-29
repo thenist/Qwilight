@@ -12,6 +12,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Style="{StaticResource StandardView}" Source="{Binding DefaultEntryDrawings[2], Source={StaticResource BaseUI}}" Height="24" />
                     <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding FavoriteEntryText, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>

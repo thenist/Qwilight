@@ -484,7 +484,8 @@ namespace Qwilight.Compiler
 
                                 bool WipeIfCollided(BaseNote note)
                                 {
-                                    if (labelledNotes.Any(labelledNote => labelledNote.LevyingInput == note.LevyingInput && labelledNote.IsCollided(note, inputFavorLabelledMillis)))
+                                    var waitMargin = note.HasStand ? inputFavorLabelledMillis : 0.0;
+                                    if (labelledNotes.Any(labelledNote => labelledNote.LevyingInput == note.LevyingInput && labelledNote.IsCollided(note, waitMargin)))
                                     {
                                         WipeNote(note);
                                         return true;
@@ -972,7 +973,6 @@ namespace Qwilight.Compiler
                     break;
                 // 단일 노트를 롱 노트로 만듭니다.
                 case ModeComponent.NoteModifyMode.LongNote:
-                    var waitBPMMap = new Queue<KeyValuePair<double, double>>(defaultComputer.WaitBPMMap);
                     var lowestLongNoteModify = defaultComputer.ModeComponentValue.LowestLongNoteModify;
                     var highestLongNoteModify = defaultComputer.ModeComponentValue.HighestLongNoteModify;
                     var distanceLongNoteModify = highestLongNoteModify - lowestLongNoteModify;
@@ -985,7 +985,7 @@ namespace Qwilight.Compiler
                             var inputNote = inputNotes[j];
                             if (j < inputNotesLength - 1 && inputNote.LongWait == 0.0)
                             {
-                                var longNoteModify = lowestLongNoteModify + distanceLongNoteModify > 0.0 ? inputNote.Salt % distanceLongNoteModify : 0.0;
+                                var longNoteModify = lowestLongNoteModify + (distanceLongNoteModify > 0.0 ? inputNote.Salt % distanceLongNoteModify : 0.0);
                                 var targetInputNote = inputNotes[j + 1];
                                 var noteWait = inputNote.Wait;
                                 var targetWait = targetInputNote.Wait;
@@ -994,6 +994,7 @@ namespace Qwilight.Compiler
                                 {
                                     var lastBPMs = defaultComputer.WaitBPMMap.Where(pair => pair.Key <= loopingCounter).ToArray();
                                     ComponentValue.SetBPM(lastBPMs.Length > 0 ? lastBPMs.Last().Value : defaultComputer.LevyingBPM);
+                                    var waitBPMMap = new Queue<KeyValuePair<double, double>>(defaultComputer.WaitBPMMap.Where(pair => loopingCounter <= pair.Key));
                                     var distance = Utility.GetDistance(ComponentValue, waitBPMMap, loopingCounter, targetWait, out _);
                                     Notes[Notes.IndexOf(inputNote)] = new LongNote(inputNote.LogicalY, noteWait, inputNote.AudioNotes, inputNote.LevyingInput, targetWait - noteWait - longNoteModify, inputNote.LogicalY - targetInputNote.LogicalY - distance);
                                 }

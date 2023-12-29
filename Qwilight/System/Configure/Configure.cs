@@ -425,7 +425,6 @@ namespace Qwilight
                 {
                     OnPropertyChanged(nameof(IsDInputXyzSensitivityVisible));
                     OnPropertyChanged(nameof(IsDInputIIDXSensitivityVisible));
-                    OnPropertyChanged(nameof(IsBanalAudioVisible));
                     if (_isLoaded)
                     {
                         ViewModels.Instance.ConfigureValue.NotifyCanGetDefaultText();
@@ -1610,7 +1609,6 @@ namespace Qwilight
                 {
                     OnPropertyChanged(nameof(HandleInputAudioPaint));
                     OnPropertyChanged(nameof(HandleInputAudioText));
-                    OnPropertyChanged(nameof(IsBanalAudioVisible));
                     if (_isLoaded)
                     {
                         var audioValueName = AudioSystem.Instance.AudioValue?.Name;
@@ -1644,8 +1642,6 @@ namespace Qwilight
         public Brush BanalAudioPaint => Paints.PointPaints[BanalAudio ? 1 : 0];
 
         public string BanalAudioText => BanalAudio ? LanguageSystem.Instance.BanalAudioText : LanguageSystem.Instance.NotBanalAudioText;
-
-        public bool IsBanalAudioVisible => DetailedConfigure && HandleInputAudio;
 
         public bool BanalMedia
         {

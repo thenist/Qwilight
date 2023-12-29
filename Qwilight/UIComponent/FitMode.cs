@@ -110,7 +110,7 @@ namespace Qwilight.UIComponent
                         return value;
                     }
 
-                    return x.Title.FitCaseless(y.Title);
+                    return (x.NoteFiles.Length > 1 ? x.Title : x.NoteFile.Title).FitCaseless(y.NoteFiles.Length > 1 ? y.Title : y.NoteFile.Title);
                 });
 
                 foreach (var entryItem in entryItems)
