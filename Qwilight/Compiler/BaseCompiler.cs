@@ -225,6 +225,19 @@ namespace Qwilight.Compiler
         void HandleCompile(DefaultCompute defaultComputer, byte[] noteFileContents, bool loadParallelItems)
         {
             CompileImpl(defaultComputer, noteFileContents, loadParallelItems);
+
+            for (var i = Notes.Count - 1; i >= 0; --i)
+            {
+                var inputNote = Notes[i];
+                if (inputNote.HasStand && inputNote.LongWait == 0.0)
+                {
+                    if (Notes.Any(note => note != inputNote && note.LevyingInput == inputNote.LevyingInput && note.IsCollided(inputNote)))
+                    {
+                        Notes.RemoveAt(i);
+                    }
+                }
+            }
+
             if (defaultComputer.IsLongNoteStand1)
             {
                 defaultComputer.TotalNotes = Notes.Sum(note => note.HasStand ? 1 : 0);

@@ -644,20 +644,20 @@
     "en-US": "Sets the font appearance in order."
   },
   "ConfigureInputFavorLabelledMillisContents": {
-    "ko-KR": "대상 간격",
-    "en-US": "Target Interval"
+    "ko-KR": "노트 간격",
+    "en-US": "Note Interval"
   },
   "ConfigureLevelContents": {
     "ko-KR": "사용할 난이도 테이블을 설정합니다.",
     "en-US": "Set the difficulty table to use"
   },
   "ConfigureSetNotePutContents": {
-    "ko-KR": "대상 비율",
-    "en-US": "Target Ratio"
+    "ko-KR": "노트 비율",
+    "en-US": "Note Ratio"
   },
   "ConfigureSetNotePutMillisContents": {
-    "ko-KR": "대상 간격",
-    "en-US": "Target Interval"
+    "ko-KR": "노트 간격",
+    "en-US": "Note Interval"
   },
   "ConfigureText": {
     "ko-KR": "게임 설정",
@@ -1516,8 +1516,8 @@
     "en-US": "Do not modify the number of note lines."
   },
   "InputFavorLabelledAssist": {
-    "ko-KR": "대상 간격 이상 거리를 유지하여 자연스럽게 만듭니다.",
-    "en-US": "Make it natural by maintaining a distance beyond the target interval."
+    "ko-KR": "노트 간격 이상 거리를 유지하여 자연스럽게 만듭니다.",
+    "en-US": "Make it natural by maintaining a distance beyond the note interval."
   },
   "InputFavorMode10": {
     "ko-KR": "10 으로 만듭니다.",
@@ -2984,8 +2984,8 @@
     "en-US": "Set up additional charts."
   },
   "SetNotePutAssist": {
-    "ko-KR": "대상 비율 만큼의 BGM을 대상 간격 이상 거리를 유지하여 추가 노트로 만듭니다.",
-    "en-US": "Make BGM as much as the target ratio into an additional note by maintaining a distance beyond the target interval."
+    "ko-KR": "노트 비율 만큼의 BGM을 노트 간격 이상 거리를 유지하여 추가 노트로 만듭니다.",
+    "en-US": "Make BGM as much as the note ratio into an additional note by maintaining a distance beyond the note interval."
   },
   "SetNotTotalText": {
     "ko-KR": "모두 선택 해제",

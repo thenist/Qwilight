@@ -1011,15 +1011,9 @@ namespace Qwilight.Compiler
                     {
                         if (lastBMSLongInputItem != null)
                         {
-                            var lastInputNote = lastBMSLongInputItem.InputNote;
-                            var lastWait = lastInputNote.Wait;
-                            var targetWait = bmsLongInputItem.InputNote.Wait;
-                            Notes.RemoveAll((Predicate<BaseNote>)(note =>
-                            {
-                                var wait = note.Wait;
-                                return lastWait <= wait && wait <= targetWait && note.LevyingInput == i;
-                            }));
-                            Notes.Add(new LongNote(lastInputNote.LogicalY, lastWait, lastInputNote.AudioNotes, lastInputNote.LevyingInput, targetWait - lastWait, lastInputNote.LogicalY - bmsLongInputItem.InputNote.LogicalY));
+                            var inputNote = lastBMSLongInputItem.InputNote;
+                            var wait = inputNote.Wait;
+                            Notes.Add(new LongNote(inputNote.LogicalY, wait, inputNote.AudioNotes, inputNote.LevyingInput, bmsLongInputItem.InputNote.Wait - wait, inputNote.LogicalY - bmsLongInputItem.InputNote.LogicalY));
                             lastBMSLongInputItem = null;
                             continue;
                         }
@@ -1045,15 +1039,9 @@ namespace Qwilight.Compiler
                 {
                     if (lastBMSInputItem != null)
                     {
-                        var lastInputNote = lastBMSInputItem.InputNote;
-                        var lastWait = lastInputNote.Wait;
-                        var targetWait = bmsInputItem.InputNote.Wait;
-                        Notes.RemoveAll((Predicate<BaseNote>)(note =>
-                        {
-                            var wait = note.Wait;
-                            return lastWait <= wait && wait <= targetWait && note.LevyingInput == i;
-                        }));
-                        Notes.Add(new LongNote(lastInputNote.LogicalY, lastWait, lastInputNote.AudioNotes, i, targetWait - lastWait, lastInputNote.LogicalY - bmsInputItem.InputNote.LogicalY));
+                        var inputNote = lastBMSInputItem.InputNote;
+                        var wait = inputNote.Wait;
+                        Notes.Add(new LongNote(inputNote.LogicalY, wait, inputNote.AudioNotes, i, bmsInputItem.InputNote.Wait - wait, inputNote.LogicalY - bmsInputItem.InputNote.LogicalY));
                         lastBMSInputItem = null;
                     }
                     else
