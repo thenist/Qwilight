@@ -2807,6 +2807,10 @@
     "ko-KR": "스트레치 화면",
     "en-US": "Stretch screen"
   },
+  "RAMWarning": {
+    "ko-KR": "남은 메모리가 {0} 만큼 부족하여 게임 성능이 감소됩니다.",
+    "en-US": "Game performance will be reduced due to a lack of remaining memory by {0}."
+  },
   "SaltContents": {
     "ko-KR": "BMS 랜덤이나 게임 모드 등에 사용되는 시드입니다.",
     "en-US": "Seed used for BMS random or game mode."

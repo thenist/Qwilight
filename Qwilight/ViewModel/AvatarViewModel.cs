@@ -94,6 +94,7 @@ namespace Qwilight.ViewModel
         int _abilityTabPosition;
         int _favoritesTabPosition;
         int _lastsTabPosition;
+        bool _isAvatarFavorites6KLoading;
         bool _isAvatarFavorites5KLoading;
         bool _isAvatarFavorites7KLoading;
         bool _isAvatarFavorites9KLoading;
@@ -101,6 +102,7 @@ namespace Qwilight.ViewModel
         bool _isAvatarFavorites14KLoading;
         bool _isAvatarFavorites24KLoading;
         bool _isAvatarFavorites48KLoading;
+        bool _isAvatarLasts6KLoading;
         bool _isAvatarLasts5KLoading;
         bool _isAvatarLasts7KLoading;
         bool _isAvatarLasts9KLoading;
@@ -128,6 +130,8 @@ namespace Qwilight.ViewModel
         LevelVSLevelIDItem _levelVSLevelIDItem;
         bool _isLevelVSLoading;
 
+        public ObservableCollection<AvatarComputing> Favorites6KAvatarComputingCollection { get; } = new();
+
         public ObservableCollection<AvatarComputing> Favorites5KAvatarComputingCollection { get; } = new();
 
         public ObservableCollection<AvatarComputing> Favorites7KAvatarComputingCollection { get; } = new();
@@ -141,6 +145,8 @@ namespace Qwilight.ViewModel
         public ObservableCollection<AvatarComputing> Favorites24KAvatarComputingCollection { get; } = new();
 
         public ObservableCollection<AvatarComputing> Favorites48KAvatarComputingCollection { get; } = new();
+
+        public ObservableCollection<AvatarComputing> Lasts6KAvatarComputingCollection { get; } = new();
 
         public ObservableCollection<AvatarComputing> Lasts5KAvatarComputingCollection { get; } = new();
 
@@ -413,6 +419,13 @@ namespace Qwilight.ViewModel
 
         public AvatarWww AvatarWwwValue { get; set; }
 
+        public bool IsAvatarFavorites6KLoading
+        {
+            get => _isAvatarFavorites6KLoading;
+
+            set => SetProperty(ref _isAvatarFavorites6KLoading, value, nameof(IsAvatarFavorites6KLoading));
+        }
+
         public bool IsAvatarFavorites5KLoading
         {
             get => _isAvatarFavorites5KLoading;
@@ -460,6 +473,13 @@ namespace Qwilight.ViewModel
             get => _isAvatarFavorites48KLoading;
 
             set => SetProperty(ref _isAvatarFavorites48KLoading, value, nameof(IsAvatarFavorites48KLoading));
+        }
+
+        public bool IsAvatarLasts6KLoading
+        {
+            get => _isAvatarLasts6KLoading;
+
+            set => SetProperty(ref _isAvatarLasts6KLoading, value, nameof(IsAvatarLasts6KLoading));
         }
 
         public bool IsAvatarLasts5KLoading
@@ -547,8 +567,29 @@ namespace Qwilight.ViewModel
                     switch (FavoritesTabPosition)
                     {
                         case 0:
+                            IsAvatarFavorites6KLoading = true;
+                            var twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/6K?avatarID={_avatarID}");
+                            if (twilightWwwAvatarFavorites != null)
+                            {
+                                Favorites6KAvatarComputingCollection.Clear();
+                                foreach (var data in twilightWwwAvatarFavorites)
+                                {
+                                    Favorites6KAvatarComputingCollection.Add(new(data)
+                                    {
+                                        Title = data.title,
+                                        Artist = data.artist,
+                                        Genre = data.genre,
+                                        LevelValue = data.level,
+                                        LevelText = data.levelText,
+                                        FittedText = data.totalCount.ToString(LanguageSystem.Instance.HandledContents)
+                                    });
+                                }
+                            }
+                            IsAvatarFavorites6KLoading = false;
+                            break;
+                        case 1:
                             IsAvatarFavorites5KLoading = true;
-                            var twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/5K?avatarID={_avatarID}");
+                            twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/5K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
                             {
                                 Favorites5KAvatarComputingCollection.Clear();
@@ -567,7 +608,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarFavorites5KLoading = false;
                             break;
-                        case 1:
+                        case 2:
                             IsAvatarFavorites7KLoading = true;
                             twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/7K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
@@ -583,7 +624,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarFavorites7KLoading = false;
                             break;
-                        case 2:
+                        case 3:
                             IsAvatarFavorites9KLoading = true;
                             twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/9K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
@@ -599,7 +640,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarFavorites9KLoading = false;
                             break;
-                        case 3:
+                        case 4:
                             IsAvatarFavorites10KLoading = true;
                             twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/10K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
@@ -615,7 +656,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarFavorites10KLoading = false;
                             break;
-                        case 4:
+                        case 5:
                             IsAvatarFavorites14KLoading = true;
                             twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/14K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
@@ -631,7 +672,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarFavorites14KLoading = false;
                             break;
-                        case 5:
+                        case 6:
                             IsAvatarFavorites24KLoading = true;
                             twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/24K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
@@ -647,7 +688,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarFavorites24KLoading = false;
                             break;
-                        case 6:
+                        case 7:
                             IsAvatarFavorites48KLoading = true;
                             twilightWwwAvatarFavorites = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarFavorite[]>($"{QwilightComponent.QwilightAPI}/avatar/favorites/48K?avatarID={_avatarID}");
                             if (twilightWwwAvatarFavorites != null)
@@ -669,8 +710,24 @@ namespace Qwilight.ViewModel
                     switch (LastsTabPosition)
                     {
                         case 0:
+                            IsAvatarLasts6KLoading = true;
+                            var twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/6K?avatarID={_avatarID}");
+                            if (twilightWwwAvatarLasts != null)
+                            {
+                                Lasts6KAvatarComputingCollection.Clear();
+                                foreach (var data in twilightWwwAvatarLasts)
+                                {
+                                    Lasts6KAvatarComputingCollection.Add(new(data)
+                                    {
+                                        FittedText = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(data.date).ToString()
+                                    });
+                                }
+                            }
+                            IsAvatarLasts6KLoading = false;
+                            break;
+                        case 1:
                             IsAvatarLasts5KLoading = true;
-                            var twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/5K?avatarID={_avatarID}");
+                            twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/5K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
                             {
                                 Lasts5KAvatarComputingCollection.Clear();
@@ -684,7 +741,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarLasts5KLoading = false;
                             break;
-                        case 1:
+                        case 2:
                             IsAvatarLasts7KLoading = true;
                             twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/7K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
@@ -700,7 +757,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarLasts7KLoading = false;
                             break;
-                        case 2:
+                        case 3:
                             IsAvatarLasts9KLoading = true;
                             twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/9K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
@@ -716,7 +773,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarLasts9KLoading = false;
                             break;
-                        case 3:
+                        case 4:
                             IsAvatarLasts10KLoading = true;
                             twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/10K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
@@ -732,7 +789,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarLasts10KLoading = false;
                             break;
-                        case 4:
+                        case 5:
                             IsAvatarLasts14KLoading = true;
                             twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/14K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
@@ -748,7 +805,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarLasts14KLoading = false;
                             break;
-                        case 5:
+                        case 6:
                             IsAvatarLasts24KLoading = true;
                             twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/24K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)
@@ -764,7 +821,7 @@ namespace Qwilight.ViewModel
                             }
                             IsAvatarLasts24KLoading = false;
                             break;
-                        case 6:
+                        case 7:
                             IsAvatarLasts48KLoading = true;
                             twilightWwwAvatarLasts = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatarLast[]>($"{QwilightComponent.QwilightAPI}/avatar/lasts/48K?avatarID={_avatarID}");
                             if (twilightWwwAvatarLasts != null)

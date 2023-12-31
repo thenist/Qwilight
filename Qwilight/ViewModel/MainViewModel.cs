@@ -19,6 +19,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
+using System.Management;
 using System.Net.Http;
 using System.Text;
 using System.Windows;
@@ -259,6 +260,21 @@ namespace Qwilight.ViewModel
                 if (value)
                 {
                     var lazyGC = Configure.Instance.LazyGCV2 * 1000L * 1000L;
+                    try
+                    {
+                        using var mos = new ManagementObjectSearcher("SELECT TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem");
+                        using var moc = mos.Get();
+                        var totalRAM = (long)moc.Cast<ManagementBaseObject>().Select(o => (ulong)o["TotalVisibleMemorySize"]).Single();
+                        var availableRAM = (long)moc.Cast<ManagementBaseObject>().Select(o => (ulong)o["FreePhysicalMemory"]).Single();
+                        var unavailableRAM = (long)(0.1 * totalRAM - (availableRAM - lazyGC));
+                        if (unavailableRAM > 0L)
+                        {
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.RAMWarning, Utility.FormatLength(unavailableRAM)));
+                        }
+                    }
+                    catch
+                    {
+                    }
                     if (lazyGC > 0L)
                     {
                         try

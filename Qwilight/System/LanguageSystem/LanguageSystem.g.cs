@@ -704,6 +704,7 @@ namespace Qwilight
         public string QwilightBundleText { get; set; }
         public string QwilightFillContents { get; set; }
         public string QwilightFillText { get; set; }
+        public string RAMWarning { get; set; }
         public string SaltContents { get; set; }
         public string SaltModeContents { get; set; }
         public string SaveAsBundle { get; set; }
