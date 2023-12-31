@@ -1756,8 +1756,8 @@
     "en-US": "Enable CORSAIR® CUE™"
   },
   "LazyGCText": {
-    "ko-KR": "게임 플레이 중 다음 메모리를 미리 할당하여 GC 스파이크를 방지합니다.",
-    "en-US": "Preallocate the following memory during gameplay to prevent GC spikes."
+    "ko-KR": "게임 플레이 중 다음 메모리를 미리 할당하여 GC 스파이크로 인한 스터터링을 방지합니다.",
+    "en-US": "Preallocate the following memory during gameplay to prevent stutter caused by GC spikes."
   },
   "Level0Contents": {
     "ko-KR": "미정",
@@ -2808,8 +2808,8 @@
     "en-US": "Stretch screen"
   },
   "RAMWarning": {
-    "ko-KR": "남은 메모리가 {0} 만큼 부족하여 게임 성능이 감소됩니다.",
-    "en-US": "Game performance will be reduced due to a lack of remaining memory by {0}."
+    "ko-KR": "남은 메모리가 {0} 만큼 부족하여 공격적으로 GC가 수행되므로 게임 성능이 감소됩니다.",
+    "en-US": "Game performance is reduced because GC is aggressively performed due to lack of remaining memory by {0}."
   },
   "SaltContents": {
     "ko-KR": "BMS 랜덤이나 게임 모드 등에 사용되는 시드입니다.",

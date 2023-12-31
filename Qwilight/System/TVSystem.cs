@@ -42,7 +42,7 @@ namespace Qwilight
 
         public bool TVAssists => TVAssist0 || TVAssist1;
 
-        bool IsAvailable => !ViewModels.Instance.MainValue.IsDNDMode;
+        bool IsAvailable => !ViewModels.Instance.MainValue.IsLazyGCMode;
 
         public void HandleSystemIfAvailable()
         {

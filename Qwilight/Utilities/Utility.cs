@@ -4,6 +4,7 @@ using Qwilight.UIComponent;
 using SharpGen.Runtime;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Management;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -537,6 +538,13 @@ namespace Qwilight.Utilities
         {
             Random.Shared.Shuffle(values);
             return values.First();
+        }
+
+        public static IEnumerable<ManagementBaseObject> GetWMI(string textWMI)
+        {
+            using var targetWMI = new ManagementObjectSearcher(textWMI);
+            using var dataWMI = targetWMI.Get();
+            return dataWMI.Cast<ManagementBaseObject>();
         }
     }
 }

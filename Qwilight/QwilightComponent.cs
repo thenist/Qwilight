@@ -6,7 +6,6 @@ using System.Diagnostics;
 #endif
 using System.Globalization;
 using System.IO;
-using System.Management;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Windows.Win32;
@@ -70,7 +69,8 @@ namespace Qwilight
         public static readonly string MediaEntryPath;
         public static readonly string UtilityEntryPath;
         public static readonly string AMD64Name = string.Empty;
-        public static readonly string OSName = string.Empty;
+        public static readonly string OSName = Environment.OSVersion.ToString();
+        public static readonly ulong RAM;
         public static readonly string RAMName = string.Empty;
         public static readonly string GPUName = string.Empty;
         public static readonly string M2Name = string.Empty;
@@ -170,9 +170,7 @@ namespace Qwilight
 
             try
             {
-                using var mos = new ManagementObjectSearcher("SELECT Name FROM Win32_Processor");
-                using var moc = mos.Get();
-                AMD64Name = string.Join(", ", moc.Cast<ManagementBaseObject>().Select(o => o["Name"]));
+                AMD64Name = string.Join(", ", Utility.GetWMI("SELECT Name FROM Win32_Processor").Select(o => o["Name"]));
             }
             catch
             {
@@ -180,7 +178,16 @@ namespace Qwilight
 
             try
             {
-                OSName = Environment.OSVersion.ToString();
+                RAM = Utility.GetWMI("SELECT TotalPhysicalMemory FROM Win32_ComputerSystem").Select(o => (ulong)o["TotalPhysicalMemory"]).Single();
+            }
+            catch
+            {
+            }
+            RAMName = Utility.FormatLength((long)RAM);
+
+            try
+            {
+                GPUName = string.Join(", ", Utility.GetWMI("SELECT Name FROM Win32_VideoController").Select(o => o["Name"]));
             }
             catch
             {
@@ -188,9 +195,7 @@ namespace Qwilight
 
             try
             {
-                using var mos = new ManagementObjectSearcher("SELECT TotalPhysicalMemory FROM Win32_ComputerSystem");
-                using var moc = mos.Get();
-                RAMName = Utility.FormatLength((long)moc.Cast<ManagementBaseObject>().Select(o => (ulong)o["TotalPhysicalMemory"]).Single());
+                M2Name = string.Join(", ", Utility.GetWMI("SELECT Model FROM Win32_DiskDrive").Select(o => o["Model"]));
             }
             catch
             {
@@ -198,29 +203,7 @@ namespace Qwilight
 
             try
             {
-                using var mos = new ManagementObjectSearcher("SELECT Name FROM Win32_VideoController");
-                using var moc = mos.Get();
-                GPUName = string.Join(", ", moc.Cast<ManagementBaseObject>().Select(o => o["Name"]));
-            }
-            catch
-            {
-            }
-
-            try
-            {
-                using var mos = new ManagementObjectSearcher("SELECT Model FROM Win32_DiskDrive");
-                using var moc = mos.Get();
-                M2Name = string.Join(", ", moc.Cast<ManagementBaseObject>().Select(o => o["Model"]));
-            }
-            catch
-            {
-            }
-
-            try
-            {
-                using var mos = new ManagementObjectSearcher("SELECT ProductName FROM Win32_SoundDevice");
-                using var moc = mos.Get();
-                AudioName = string.Join(", ", moc.Cast<ManagementBaseObject>().Select(o => o["ProductName"]));
+                AudioName = string.Join(", ", Utility.GetWMI("SELECT ProductName FROM Win32_SoundDevice").Select(o => o["ProductName"]));
             }
             catch
             {
@@ -230,9 +213,7 @@ namespace Qwilight
 
             try
             {
-                using var mos = new ManagementObjectSearcher("SELECT ProductName FROM Win32_NetworkAdapter");
-                using var moc = mos.Get();
-                LANName = string.Join(", ", moc.Cast<ManagementBaseObject>().Select(o => o["ProductName"]));
+                LANName = string.Join(", ", Utility.GetWMI("SELECT ProductName FROM Win32_NetworkAdapter").Select(o => o["ProductName"]));
             }
             catch
             {

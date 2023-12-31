@@ -19,7 +19,6 @@ using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
-using System.Management;
 using System.Net.Http;
 using System.Text;
 using System.Windows;
@@ -114,7 +113,7 @@ namespace Qwilight.ViewModel
         bool _isHOFAbility9KLoading;
         bool _isHOFLevelLoading;
         string _twilightCommentary = string.Empty;
-        bool _isDNDMode;
+        bool _isLazyGCMode;
         bool _isWPFViewVisible = true;
         bool _isLoaded;
         double _windowDPI;
@@ -243,33 +242,29 @@ namespace Qwilight.ViewModel
                     {
                         IsVisible = !value
                     });
-                    IsDNDMode = IsComputingMode && !value;
+                    IsLazyGCMode = IsComputingMode && !value;
                     ViewModels.Instance.NotifyWindowViewModels();
                     TVSystem.Instance.HandleSystemIfAvailable();
                 }
             }
         }
 
-        public bool IsDNDMode
+        public bool IsLazyGCMode
         {
-            get => _isDNDMode;
+            get => _isLazyGCMode;
 
             set
             {
-                _isDNDMode = value;
+                _isLazyGCMode = value;
                 if (value)
                 {
                     var lazyGC = Configure.Instance.LazyGCV2 * 1000L * 1000L;
                     try
                     {
-                        using var mos = new ManagementObjectSearcher("SELECT TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem");
-                        using var moc = mos.Get();
-                        var totalRAM = (long)moc.Cast<ManagementBaseObject>().Select(o => (ulong)o["TotalVisibleMemorySize"]).Single();
-                        var availableRAM = (long)moc.Cast<ManagementBaseObject>().Select(o => (ulong)o["FreePhysicalMemory"]).Single();
-                        var unavailableRAM = (long)(0.1 * totalRAM - (availableRAM - lazyGC / 1024));
-                        if (unavailableRAM > 0L)
+                        var eagerRAM = 0.1 * QwilightComponent.RAM - ((long)Utility.GetWMI("SELECT FreePhysicalMemory FROM Win32_OperatingSystem").Select(o => (ulong)o["FreePhysicalMemory"]).Single() - lazyGC / 1024);
+                        if (eagerRAM > 0.0)
                         {
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.RAMWarning, Utility.FormatLength(unavailableRAM)));
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.RAMWarning, Utility.FormatLength((long)eagerRAM)));
                         }
                     }
                     catch
