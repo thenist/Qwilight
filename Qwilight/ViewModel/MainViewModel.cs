@@ -266,7 +266,7 @@ namespace Qwilight.ViewModel
                         using var moc = mos.Get();
                         var totalRAM = (long)moc.Cast<ManagementBaseObject>().Select(o => (ulong)o["TotalVisibleMemorySize"]).Single();
                         var availableRAM = (long)moc.Cast<ManagementBaseObject>().Select(o => (ulong)o["FreePhysicalMemory"]).Single();
-                        var unavailableRAM = (long)(0.1 * totalRAM - (availableRAM - lazyGC));
+                        var unavailableRAM = (long)(0.1 * totalRAM - (availableRAM - lazyGC / 1024));
                         if (unavailableRAM > 0L)
                         {
                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.RAMWarning, Utility.FormatLength(unavailableRAM)));
