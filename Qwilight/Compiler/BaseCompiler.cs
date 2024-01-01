@@ -535,13 +535,17 @@ namespace Qwilight.Compiler
             {
                 defaultComputer.WaitBPMMap[wait] = bpm;
             }
+            var waitStopMapCount = WaitStopMap.Count;
+            var loadedWaitStopMapCount = 0.0;
             foreach (var (wait, stop) in WaitStopMap)
             {
+                SetCancelCompiler?.Token.ThrowIfCancellationRequested();
                 var lastBPMs = defaultComputer.WaitBPMMap.Where(pair => pair.Key <= wait).ToArray();
                 var lastBPM = lastBPMs.Length > 0 ? lastBPMs.Last().Value : defaultComputer.LevyingBPM;
                 ComponentValue.SetBPM(lastBPM);
                 defaultComputer.WaitBPMMap[wait] = 0.0;
                 defaultComputer.WaitBPMMap[wait + ComponentValue.MillisMeter * stop] = lastBPM;
+                defaultComputer.SetCompilingStatus(++loadedWaitStopMapCount / waitStopMapCount);
             }
             var lastWait = double.MaxValue;
             foreach (var (wait, multiplier) in WaitMultiplierMap)

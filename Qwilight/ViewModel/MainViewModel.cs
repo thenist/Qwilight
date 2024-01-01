@@ -1894,13 +1894,13 @@ namespace Qwilight.ViewModel
                                     WipeEntryItems(entryItem => defaultEntryItem == entryItem.DefaultEntryItem, noteFile => noteFile.DefaultEntryItem == defaultEntryItem, false);
                                     var defaultEntryData = FastDB.Instance.GetDefaultEntryItems(defaultEntryPath);
                                     var entryPaths = new ConcurrentBag<string>(defaultEntryData);
-                                    var status = 0;
-                                    var endStatus = 0;
+                                    var loadedDefaultEntryPathsLength = 0;
+                                    var defaultEntryPathsLength = 0;
                                     if (entryPaths.IsEmpty)
                                     {
                                         var defaultEntryPaths = Utility.GetEntry(defaultEntryPath);
-                                        status = 0;
-                                        endStatus = defaultEntryPaths.Length;
+                                        defaultEntryPathsLength = defaultEntryPaths.Length;
+                                        loadedDefaultEntryPathsLength = 0;
                                         if (Directory.Exists(defaultEntryPath))
                                         {
                                             LoadEntry(defaultEntryPath);
@@ -1913,15 +1913,15 @@ namespace Qwilight.ViewModel
                                                 LoadEntry(entryPath);
                                                 if (defaultEntryPath == targetEntryPath)
                                                 {
-                                                    Status = (double)Interlocked.Increment(ref status) / endStatus;
+                                                    Status = (double)Interlocked.Increment(ref loadedDefaultEntryPathsLength) / defaultEntryPathsLength;
                                                 }
                                             }
                                             entryPaths.Add(targetEntryPath);
                                             FastDB.Instance.SetDefaultEntryItem(defaultEntryPath, targetEntryPath);
                                         }
                                     }
-                                    status = 0;
-                                    endStatus = entryPaths.Count;
+                                    loadedDefaultEntryPathsLength = 0;
+                                    defaultEntryPathsLength = entryPaths.Count;
                                     try
                                     {
                                         if (isF5)
@@ -1934,7 +1934,7 @@ namespace Qwilight.ViewModel
                                         Utility.HandleLowlyParallelly(entryPaths, Configure.Instance.LoadingBin, entryPath =>
                                         {
                                             LoadEntryItem(defaultEntryItem, entryPath, _setCancelDefaultEntryLoading);
-                                            Status = (double)Interlocked.Increment(ref status) / endStatus;
+                                            Status = (double)Interlocked.Increment(ref loadedDefaultEntryPathsLength) / defaultEntryPathsLength;
                                         }, _setCancelDefaultEntryLoading.Token);
                                     }
                                     catch (OperationCanceledException)

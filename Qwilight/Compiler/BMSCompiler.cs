@@ -258,7 +258,6 @@ namespace Qwilight.Compiler
             var audioValues = new HashSet<string>();
             foreach (var line in _lines)
             {
-                SetCancelCompiler?.Token.ThrowIfCancellationRequested();
                 var lineAt1 = line[1..];
                 var delimited = lineAt1.Split(_delimiters, 2);
                 if (IsMainBMSData(lineAt1))
@@ -602,7 +601,6 @@ namespace Qwilight.Compiler
             var inputSet = new HashSet<int>();
             foreach (var line in _lines)
             {
-                SetCancelCompiler?.Token.ThrowIfCancellationRequested();
                 var lineAt1 = line[1..];
                 var delimited = lineAt1.Split(_delimiters, 2);
                 if (IsMainBMSData(lineAt1))
@@ -750,7 +748,6 @@ namespace Qwilight.Compiler
             defaultComputer.LoadBanalMedia(isBanalMedia, isBanalFailedMedia, parallelItems);
             foreach (var line in _lines)
             {
-                SetCancelCompiler?.Token.ThrowIfCancellationRequested();
                 var lineAt1 = line[1..];
                 if (!IsMainBMSData(lineAt1))
                 {
@@ -821,12 +818,12 @@ namespace Qwilight.Compiler
 
             if (loadParallelItems)
             {
-                var endStatus = parallelItems.Count;
-                var status = 0;
+                var parallelItemsCount = parallelItems.Count;
+                var loadedParallelItemsCount = 0;
                 Utility.HandleLowlyParallelly(parallelItems, Configure.Instance.CompilingBin, parallelItem =>
                 {
                     parallelItem();
-                    defaultComputer.SetCompilingStatus((double)Interlocked.Increment(ref status) / endStatus);
+                    defaultComputer.SetCompilingStatus((double)Interlocked.Increment(ref loadedParallelItemsCount) / parallelItemsCount);
                 }, SetCancelCompiler?.Token);
             }
 
@@ -859,7 +856,6 @@ namespace Qwilight.Compiler
             }
             foreach (var line in _lines)
             {
-                SetCancelCompiler?.Token.ThrowIfCancellationRequested();
                 var lineAt1 = line[1..];
                 if (IsMainBMSData(lineAt1))
                 {

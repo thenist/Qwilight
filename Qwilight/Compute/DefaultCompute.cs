@@ -956,30 +956,31 @@ namespace Qwilight.Compute
             IsSilent = true;
             SetStop = true;
             SendNotCompiled();
-            TrailerAudioHandler.Stop();
-            if (_targetCompiler != null)
-            {
-                lock (_targetCompiler)
-                {
-                    if (_targetCompilerStatus == CompilerStatus.Compiling)
-                    {
-                        _setCancelCompiler.Cancel();
-                        _setCancelCompiler.Dispose();
-                        MediaModifierValue.StopModifyMedia();
-                        _targetCompilerHandler.Join();
-                        _targetCompilerStatus = CompilerStatus.Close;
-                    }
-                }
-            }
             lock (_targetHandlerCSX)
             {
                 if (IsHandling)
                 {
+                    _targetHandler.Interrupt();
                     _targetHandler.Join();
                 }
             }
+            TrailerAudioHandler.Stop();
             Task.Run(() =>
             {
+                if (_targetCompiler != null)
+                {
+                    lock (_targetCompiler)
+                    {
+                        if (_targetCompilerStatus == CompilerStatus.Compiling)
+                        {
+                            _setCancelCompiler.Cancel();
+                            _setCancelCompiler.Dispose();
+                            MediaModifierValue.StopModifyMedia();
+                            _targetCompilerHandler.Join();
+                            _targetCompilerStatus = CompilerStatus.Close;
+                        }
+                    }
+                }
                 lock (LoadedCSX)
                 {
                     if (HasContents)
