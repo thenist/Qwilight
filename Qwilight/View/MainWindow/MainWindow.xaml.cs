@@ -7,6 +7,7 @@ using Microsoft.UI.Input;
 using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.Win32;
 using Qwilight.Compute;
 using Qwilight.MSG;
 using Qwilight.ViewModel;
@@ -155,10 +156,8 @@ namespace Qwilight.View
             StrongReferenceMessenger.Default.Register<ViewAllowWindow>(this, (recipient, message) => message.Reply(PInvoke.MessageBox(_handle, message.Text, "Qwilight", (MESSAGEBOX_STYLE)message.Data)));
             StrongReferenceMessenger.Default.Register<ViewEntryWindow>(this, (recipient, message) =>
             {
-                var entryWindow = new FolderPicker();
-                InitializeWithWindow.Initialize(entryWindow, _handle);
-                entryWindow.FileTypeFilter.Add("*");
-                message.Reply(entryWindow.PickSingleFolderAsync().AsTask().ContinueWith(entry => entry.Result?.Path));
+                var entryWindow = new OpenFolderDialog();
+                message.Reply(entryWindow.ShowDialog() == true ? entryWindow.FolderName : null);
             });
             StrongReferenceMessenger.Default.Register<ViewFileWindow>(this, (recipient, message) =>
             {

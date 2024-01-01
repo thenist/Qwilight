@@ -56,14 +56,14 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         async Task OnNewDefaultAudioFilePath()
         {
-            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow { Filters = QwilightComponent.AudioFileFormats });
+            var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow { Filters = QwilightComponent.AudioFileFormats });
             var defaultAudioFilePathItem = new DefaultAudioFilePathItem
             {
-                Value = fileName
+                Value = filePath
             };
-            if (!string.IsNullOrEmpty(fileName) && !DefaultAudioFilePathItemCollection.Contains(defaultAudioFilePathItem))
+            if (!string.IsNullOrEmpty(filePath) && !DefaultAudioFilePathItemCollection.Contains(defaultAudioFilePathItem))
             {
-                AudioSystem.Instance.LoadDefaultAudioItem(fileName);
+                AudioSystem.Instance.LoadDefaultAudioItem(filePath);
                 DefaultAudioFilePathItemCollection.Add(defaultAudioFilePathItem);
                 Configure.Instance.DefaultAudioFilePathItems = DefaultAudioFilePathItemCollection.ToArray();
             }

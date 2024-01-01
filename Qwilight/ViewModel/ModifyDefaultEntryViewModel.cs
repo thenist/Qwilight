@@ -120,17 +120,17 @@ namespace Qwilight
         }
 
         [RelayCommand]
-        async Task OnNewDefaultEntry()
+        void OnNewDefaultEntry()
         {
-            var fileName = await StrongReferenceMessenger.Default.Send<ViewEntryWindow>();
-            if (!string.IsNullOrEmpty(fileName))
+            var entryPath = StrongReferenceMessenger.Default.Send<ViewEntryWindow>();
+            if (!string.IsNullOrEmpty(entryPath))
             {
-                if (!DefaultEntryItemCollection.Any(defaultEntryItem => defaultEntryItem.DefaultEntryPath == fileName))
+                if (!DefaultEntryItemCollection.Any(defaultEntryItem => defaultEntryItem.DefaultEntryPath == entryPath))
                 {
                     DefaultEntryItemCollection.Add(new DefaultEntryItem
                     {
                         DefaultEntryVarietyValue = DefaultEntryItem.DefaultEntryVariety.Default,
-                        DefaultEntryPath = fileName
+                        DefaultEntryPath = entryPath
                     });
                 }
             }

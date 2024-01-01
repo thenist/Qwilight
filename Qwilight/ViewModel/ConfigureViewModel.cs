@@ -241,13 +241,13 @@ namespace Qwilight.ViewModel
             }
             else
             {
-                var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
+                var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                 {
                     Filters = QwilightComponent.DrawingFileFormats
                 });
-                if (!string.IsNullOrEmpty(fileName))
+                if (!string.IsNullOrEmpty(filePath))
                 {
-                    Configure.Instance.DefaultDrawingFilePath = fileName;
+                    Configure.Instance.DefaultDrawingFilePath = filePath;
                     DrawingSystem.Instance.LoadDefaultDrawing();
                 }
             }
@@ -277,13 +277,13 @@ namespace Qwilight.ViewModel
             }
             else
             {
-                var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
+                var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                 {
                     Filters = QwilightComponent.DrawingFileFormats
                 });
-                if (!string.IsNullOrEmpty(fileName))
+                if (!string.IsNullOrEmpty(filePath))
                 {
-                    Configure.Instance.VeilDrawingFilePath = fileName;
+                    Configure.Instance.VeilDrawingFilePath = filePath;
                     DrawingSystem.Instance.LoadVeilDrawing();
                 }
             }
@@ -751,13 +751,13 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         static async Task OnLoadBanalAudio()
         {
-            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
+            var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
                 Filters = QwilightComponent.AudioFileFormats
             });
-            if (!string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(filePath))
             {
-                Configure.Instance.BanalAudioFilePath = fileName;
+                Configure.Instance.BanalAudioFilePath = filePath;
                 Configure.Instance.BanalAudio = true;
                 AudioSystem.Instance.LoadBanalAudio();
             }
@@ -775,13 +775,13 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         static async Task OnLoadBanalMedia()
         {
-            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
+            var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
                 Filters = QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats)
             });
-            if (!string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(filePath))
             {
-                Configure.Instance.BanalMediaFilePath = fileName;
+                Configure.Instance.BanalMediaFilePath = filePath;
                 Configure.Instance.BanalMedia = true;
                 ViewModels.Instance.MainValue.HandleAutoComputer();
             }
@@ -796,13 +796,13 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         static async Task OnLoadBanalFailedMedia()
         {
-            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
+            var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
                 Filters = QwilightComponent.DrawingFileFormats.Concat(QwilightComponent.MediaFileFormats)
             });
-            if (!string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(filePath))
             {
-                Configure.Instance.BanalFailedMediaFilePath = fileName;
+                Configure.Instance.BanalFailedMediaFilePath = filePath;
                 Configure.Instance.BanalFailedMedia = true;
                 ViewModels.Instance.MainValue.HandleAutoComputer();
             }

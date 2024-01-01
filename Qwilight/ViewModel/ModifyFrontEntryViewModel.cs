@@ -70,14 +70,14 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        async Task OnNewFrontEntry()
+        void OnNewFrontEntry()
         {
-            var fileName = await StrongReferenceMessenger.Default.Send<ViewEntryWindow>();
-            if (!string.IsNullOrEmpty(fileName) && !FrontEntryItemCollection.Any(frontEntryItem => frontEntryItem.FrontEntryPath == fileName))
+            var entryPath = StrongReferenceMessenger.Default.Send<ViewEntryWindow>();
+            if (!string.IsNullOrEmpty(entryPath) && !FrontEntryItemCollection.Any(frontEntryItem => frontEntryItem.FrontEntryPath == entryPath))
             {
                 FrontEntryItemCollection.Add(new FrontEntryItem
                 {
-                    FrontEntryPath = fileName,
+                    FrontEntryPath = entryPath,
                 });
             }
         }

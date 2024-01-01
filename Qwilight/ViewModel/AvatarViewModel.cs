@@ -1129,11 +1129,11 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         async Task OnAvatarDrawing()
         {
-            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
+            var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
                 Filters = [".png"]
             });
-            if (!string.IsNullOrEmpty(fileName) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", fileName).ConfigureAwait(false))
+            if (!string.IsNullOrEmpty(filePath) && await TwilightSystem.Instance.PostAvatarDrawingParallel($"{QwilightComponent.TaehuiNetAPI}/avatar/drawing", filePath).ConfigureAwait(false))
             {
                 AvatarWwwValue = new(TwilightSystem.Instance.AvatarID, AvatarWwwValue.AvatarTitleValue, AvatarWwwValue.AvatarEdge, true);
                 NotifyAvatarWwwValue();

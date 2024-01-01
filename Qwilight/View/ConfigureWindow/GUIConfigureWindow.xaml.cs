@@ -10,6 +10,6 @@ namespace Qwilight.View
 
         void OnWindowArea(object sender, RoutedEventArgs e) => (DataContext as ConfigureViewModel).OnWindowArea();
 
-        void OnDefaultDrawing(object sender, MouseButtonEventArgs e) => _ = (DataContext as ConfigureViewModel).OnDefaultDrawing();
+        void OnDefaultDrawing(object sender, MouseButtonEventArgs e) => (DataContext as ConfigureViewModel).OnDefaultDrawing();
     }
 }

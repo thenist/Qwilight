@@ -247,13 +247,13 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         static async Task OnPostFile()
         {
-            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
+            var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
             {
                 Filters = ["*"]
             });
-            if (!string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(filePath))
             {
-                TwilightSystem.Instance.SendParallel(Event.Types.EventID.PostFile, Path.GetFileName(fileName), UnsafeByteOperations.UnsafeWrap(await File.ReadAllBytesAsync(fileName).ConfigureAwait(false)));
+                TwilightSystem.Instance.SendParallel(Event.Types.EventID.PostFile, Path.GetFileName(filePath), UnsafeByteOperations.UnsafeWrap(await File.ReadAllBytesAsync(filePath).ConfigureAwait(false)));
             }
         }
 

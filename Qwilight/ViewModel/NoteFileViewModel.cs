@@ -90,13 +90,13 @@ namespace Qwilight.ViewModel
                     {
                         if (Utility.HasInput(VirtualKey.LeftMenu) || !File.Exists(Configure.Instance.BMSEditorFilePath))
                         {
-                            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
+                            var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                             {
                                 Filters = [".exe"]
                             });
-                            if (!string.IsNullOrEmpty(fileName))
+                            if (!string.IsNullOrEmpty(filePath))
                             {
-                                Configure.Instance.BMSEditorFilePath = fileName;
+                                Configure.Instance.BMSEditorFilePath = filePath;
                                 await Edit().ConfigureAwait(false);
                                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.ModifyEditorContents);
                             }
@@ -192,13 +192,13 @@ Qwilight
                     {
                         if (Utility.HasInput(VirtualKey.LeftMenu) || !File.Exists(Configure.Instance.BMSONEditorFilePath))
                         {
-                            var fileName = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
+                            var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow
                             {
                                 Filters = [".exe"]
                             });
-                            if (!string.IsNullOrEmpty(fileName))
+                            if (!string.IsNullOrEmpty(filePath))
                             {
-                                Configure.Instance.BMSONEditorFilePath = fileName;
+                                Configure.Instance.BMSONEditorFilePath = filePath;
                                 Edit();
                                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.ModifyEditorContents);
                             }
