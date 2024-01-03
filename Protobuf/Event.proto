@@ -52,7 +52,7 @@ message Event {
         string handlerID = 2;
         AvatarNetStatus avatarNetStatus = 3;
         int32 stand = 4;
-		int32 highestBand = 5;
+		int32 band = 5;
         double point = 6;
         double hitPoints = 7;
         bool isFailed = 8;

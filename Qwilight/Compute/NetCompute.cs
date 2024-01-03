@@ -166,7 +166,7 @@ namespace Qwilight.Compute
                 qwilightCallNet.HitPointsMode = (int)ModeComponentValue.HandlingHitPointsModeValue;
                 qwilightCallNet.AvatarNetStatus = avatarNetStatus;
                 qwilightCallNet.Stand = Stand.TargetValue;
-                qwilightCallNet.HighestBand = HighestBand;
+                qwilightCallNet.Band = Band.TargetValue;
                 qwilightCallNet.Point = Point.TargetValue;
                 qwilightCallNet.HitPoints = HitPoints.TargetValue;
                 qwilightCallNet.IsFailed = _hasPendingFailed;

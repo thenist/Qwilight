@@ -10,7 +10,7 @@ namespace Qwilight.View
 
         public ComputingGUIConfigureWindow() => InitializeComponent();
 
-        void OnVeilDrawing(object sender, MouseButtonEventArgs e) => (DataContext as ConfigureViewModel).OnVeilDrawing();
+        void OnVeilDrawing(object sender, MouseButtonEventArgs e) => _ = (DataContext as ConfigureViewModel).OnVeilDrawing();
 
         void OnComputingPointed(object sender, DragStartedEventArgs e) => (DataContext as ConfigureViewModel).OnComputingPointed();
 

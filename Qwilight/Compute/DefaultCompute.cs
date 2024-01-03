@@ -571,6 +571,7 @@ namespace Qwilight.Compute
 
         public void Migrate(DefaultCompute targetMigrateComputer)
         {
+            AudioSystem.Instance.Migrate(this as IAudioHandler, targetMigrateComputer as IAudioHandler);
             AudioSystem.Instance.Migrate(TrailerAudioHandler, targetMigrateComputer.TrailerAudioHandler);
             targetMigrateComputer.TrailerAudioHandler.IsHandling = TrailerAudioHandler.IsHandling;
 
@@ -743,7 +744,7 @@ namespace Qwilight.Compute
                 InheritedTotalNotes = TotalNotes;
                 InheritedLowestJudgment = Comment.LowestJudgment;
                 IsF.SetValue(quitNetItem.isF);
-                HighestBand = quitNetItem.highestBand;
+                HighestBand = quitNetItem.band;
                 LevyingMultiplier = quitNetItem.multiplier;
                 LevyingAudioMultiplier = quitNetItem.audioMultiplier;
                 NetPosition = quitNetItem.netPosition;
