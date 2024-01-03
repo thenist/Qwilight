@@ -132,9 +132,9 @@ namespace Qwilight
 
         public void LoadBanalAudio()
         {
+            _audioCSX.EnterWriteLock();
             try
             {
-                _audioCSX.EnterWriteLock();
                 if (_isAvailable)
                 {
                     BanalAudio?.Dispose();
@@ -175,9 +175,9 @@ namespace Qwilight
         {
             if (DefaultAudioItemMap.TryRemove($"{nameof(AudioSystem)}://{filePath}", out var defaultAudioItem))
             {
+                _audioCSX.EnterWriteLock();
                 try
                 {
-                    _audioCSX.EnterWriteLock();
                     if (_isAvailable)
                     {
                         defaultAudioItem.Dispose();
@@ -313,9 +313,9 @@ namespace Qwilight
             }
             _audioHandler = new(state =>
             {
+                _audioCSX.EnterWriteLock();
                 try
                 {
-                    _audioCSX.EnterWriteLock();
                     if (_isAvailable)
                     {
                         if (Configure.Instance.AudioVisualizer)
@@ -376,9 +376,9 @@ namespace Qwilight
 
                 for (var audioVariety = SEAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             var targetAudioVolume = (float)(1 - Math.Sqrt(1 - Math.Pow(totalAudioVolume * _audioVolumes[audioVariety], 2)));
@@ -394,9 +394,9 @@ namespace Qwilight
                     }
                 }
 
+                _audioCSX.EnterWriteLock();
                 try
                 {
-                    _audioCSX.EnterWriteLock();
                     if (_isAvailable)
                     {
                         _targetSystem.update();
@@ -411,9 +411,9 @@ namespace Qwilight
 
         public virtual void Init()
         {
+            _audioCSX.EnterWriteLock();
             try
             {
-                _audioCSX.EnterWriteLock();
                 if (!_isAvailable)
                 {
                     Factory.System_Create(out _targetSystem);
@@ -488,9 +488,9 @@ namespace Qwilight
 
         public void SetAudioVariety(OUTPUTTYPE audioValueVariety)
         {
+            _audioCSX.EnterWriteLock();
             try
             {
-                _audioCSX.EnterWriteLock();
                 if (_isAvailable)
                 {
                     _targetSystem.setOutput(audioValueVariety);
@@ -500,9 +500,9 @@ namespace Qwilight
             {
                 _audioCSX.ExitWriteLock();
             }
+            _audioCSX.EnterWriteLock();
             try
             {
-                _audioCSX.EnterWriteLock();
                 if (_isAvailable)
                 {
                     _onModified(_targetSystem.handle, SYSTEM_CALLBACK_TYPE.DEVICELISTCHANGED, nint.Zero, nint.Zero, nint.Zero);
@@ -522,9 +522,9 @@ namespace Qwilight
         {
             if (isAudioMultiplierAtoneSet)
             {
+                _audioCSX.EnterWriteLock();
                 try
                 {
-                    _audioCSX.EnterWriteLock();
                     if (_isAvailable)
                     {
                         for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
@@ -544,9 +544,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _audioGroups[audioVariety].removeDSP(_audioMultiplierAtoneComputers[audioVariety]);
@@ -563,9 +563,9 @@ namespace Qwilight
 
         public int GetHandlingAudioCount()
         {
+            _audioCSX.EnterWriteLock();
             try
             {
-                _audioCSX.EnterWriteLock();
                 if (_isAvailable)
                 {
                     _targetSystem.getChannelsPlaying(out _, out var handlingAudioCount);
@@ -581,9 +581,9 @@ namespace Qwilight
 
         public float GetAudioUnitStatus()
         {
+            _audioCSX.EnterWriteLock();
             try
             {
-                _audioCSX.EnterWriteLock();
                 if (_isAvailable)
                 {
                     _targetSystem.getCPUUsage(out var audioUnitStatus);
@@ -603,9 +603,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _targetSystem.createDSPByType(DSP_TYPE.MULTIBAND_EQ, out _equalizerComputers[audioVariety]);
@@ -637,9 +637,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _audioGroups[audioVariety].removeDSP(_equalizerComputers[audioVariety]);
@@ -658,9 +658,9 @@ namespace Qwilight
         {
             for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
             {
+                _audioCSX.EnterWriteLock();
                 try
                 {
-                    _audioCSX.EnterWriteLock();
                     if (_isAvailable)
                     {
                         switch (equalizerHzPosition)
@@ -694,9 +694,9 @@ namespace Qwilight
         {
             for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
             {
+                _audioCSX.EnterWriteLock();
                 try
                 {
-                    _audioCSX.EnterWriteLock();
                     if (_isAvailable)
                     {
                         switch (equalizerPosition)
@@ -732,9 +732,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _targetSystem.createDSPByType(DSP_TYPE.COMPRESSOR, out _tubeComputers[audioVariety]);
@@ -751,9 +751,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _audioGroups[audioVariety].removeDSP(_tubeComputers[audioVariety]);
@@ -774,9 +774,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _targetSystem.createDSPByType(DSP_TYPE.FFT, out _audioVisualizerComputers[audioVariety]);
@@ -793,9 +793,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _audioGroups[audioVariety].removeDSP(_audioVisualizerComputers[audioVariety]);
@@ -816,9 +816,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _targetSystem.createDSPByType(DSP_TYPE.SFXREVERB, out _valueSFXComputers[audioVariety]);
@@ -835,9 +835,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _audioGroups[audioVariety].removeDSP(_valueSFXComputers[audioVariety]);
@@ -858,9 +858,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _targetSystem.createDSPByType(DSP_TYPE.FLANGE, out _flangeComputers[audioVariety]);
@@ -877,9 +877,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _audioGroups[audioVariety].removeDSP(_flangeComputers[audioVariety]);
@@ -900,9 +900,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _targetSystem.createDSPByType(DSP_TYPE.NORMALIZE, out _averagerComputers[audioVariety]);
@@ -919,9 +919,9 @@ namespace Qwilight
             {
                 for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             _audioGroups[audioVariety].removeDSP(_averagerComputers[audioVariety]);
@@ -981,9 +981,9 @@ namespace Qwilight
             {
                 _audioCSX.ExitReadLock();
             }
+            _audioCSX.EnterWriteLock();
             try
             {
-                _audioCSX.EnterWriteLock();
                 if (_isAvailable)
                 {
                     audioItem.AudioData.getLength(out var audioLength, TIMEUNIT.MS);
@@ -1018,9 +1018,9 @@ namespace Qwilight
 
         public void Stop(Channel audioChannel)
         {
+            _audioCSX.EnterWriteLock();
             try
             {
-                _audioCSX.EnterWriteLock();
                 if (_isAvailable)
                 {
                     audioChannel.stop();
@@ -1039,9 +1039,9 @@ namespace Qwilight
                 foreach (var audioHandlerItem in audioHandlerItems)
                 {
                     var audioChannel = audioHandlerItem.Channel;
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             audioChannel.getPosition(out var audioPosition, TIMEUNIT.MS);
@@ -1068,9 +1068,9 @@ namespace Qwilight
             {
                 foreach (var audioItem in audioItems.Values)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             audioItem.Dispose();
@@ -1113,9 +1113,9 @@ namespace Qwilight
                     foreach (var audioHandlerItem in audioHandlerItems)
                     {
                         var audioChannel = audioHandlerItem.Channel;
+                        _audioCSX.EnterWriteLock();
                         try
                         {
-                            _audioCSX.EnterWriteLock();
                             if (_isAvailable)
                             {
                                 audioChannel.isPlaying(out var isHandling);
@@ -1141,9 +1141,9 @@ namespace Qwilight
                     foreach (var audioHandlerItem in audioHandlerItems)
                     {
                         var audioChannel = audioHandlerItem.Channel;
+                        _audioCSX.EnterWriteLock();
                         try
                         {
-                            _audioCSX.EnterWriteLock();
                             if (_isAvailable)
                             {
                                 if (audioHandlerItem.Length.HasValue)
@@ -1168,9 +1168,9 @@ namespace Qwilight
             {
                 foreach (var audioHandlerItem in audioHandlerItems)
                 {
+                    _audioCSX.EnterWriteLock();
                     try
                     {
-                        _audioCSX.EnterWriteLock();
                         if (_isAvailable)
                         {
                             audioHandlerItem.Channel.setPitch((float)audioMultiplier);
@@ -1184,9 +1184,9 @@ namespace Qwilight
             }
             for (var audioVariety = InputAudio; audioVariety >= MainAudio; --audioVariety)
             {
+                _audioCSX.EnterWriteLock();
                 try
                 {
-                    _audioCSX.EnterWriteLock();
                     if (_isAvailable)
                     {
                         _audioMultiplierAtoneComputers[audioVariety].setParameterFloat((int)DSP_PITCHSHIFT.PITCH, (float)(1 / audioMultiplier));
@@ -1211,9 +1211,9 @@ namespace Qwilight
                     var audioLevyingPosition = audioNoteValue.AudioLevyingPosition;
                     if (audioItemValue.Length > audioLevyingPosition)
                     {
+                        _audioCSX.EnterWriteLock();
                         try
                         {
-                            _audioCSX.EnterWriteLock();
                             if (_isAvailable)
                             {
                                 if (audioItemValue.System == _targetSystem.handle)
@@ -1292,9 +1292,9 @@ namespace Qwilight
                 length = (uint)rms.Length,
                 cbsize = Marshal.SizeOf<CREATESOUNDEXINFO>()
             };
+            _audioCSX.EnterWriteLock();
             try
             {
-                _audioCSX.EnterWriteLock();
                 if (_isAvailable)
                 {
                     if (_targetSystem.createSound(rms.GetBuffer(), LoadingAudioModes | (isLooping ? MODE.LOOP_NORMAL : MODE.LOOP_OFF), ref audioInfo, out var audioData) == RESULT.OK && audioData.getLength(out var audioLength, TIMEUNIT.MS) == RESULT.OK)
@@ -1336,9 +1336,9 @@ namespace Qwilight
 
         public void Dispose()
         {
+            _audioCSX.EnterWriteLock();
             try
             {
-                _audioCSX.EnterWriteLock();
                 if (_isAvailable)
                 {
                     _isAvailable = false;
