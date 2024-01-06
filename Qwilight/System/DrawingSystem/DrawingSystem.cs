@@ -394,15 +394,15 @@ namespace Qwilight
                     var mode = mainViewModel.ModeValue;
                     var defaultLength = (float)_rawTargetSystem.Size.Width;
                     var defaultHeight = (float)_rawTargetSystem.Size.Height;
-                    var fadingValue = mainViewModel.FadingValue;
-                    var fadingStatus = fadingValue.Status;
+                    var fading = mainViewModel.FadingValue;
+                    var fadingStatus = fading.Status;
                     pauseNotify0Position0 = Levels.StandardMarginFloat32;
                     pauseNotify0Position1 = Levels.StandardMarginFloat32;
                     pauseNotify1Position0 = defaultLength - Levels.StandardMarginFloat32;
                     pauseNotify1Position1 = Levels.StandardMarginFloat32;
                     if (fadingStatus < 1.0)
                     {
-                        ModeComponent modeComponentValue;
+                        ModeComponent modeComponent;
                         switch (mode)
                         {
                             case MainViewModel.Mode.NoteFile:
@@ -423,7 +423,7 @@ namespace Qwilight
                                 break;
                             case MainViewModel.Mode.Computing:
                                 defaultComputer = mainViewModel.Computer;
-                                modeComponentValue = defaultComputer.ModeComponentValue;
+                                modeComponent = defaultComputer.ModeComponentValue;
                                 lock (_d2D1CSX)
                                 {
                                     using (targetSession = _targetSystem.CreateDrawingSession())
@@ -435,18 +435,18 @@ namespace Qwilight
                                             var faultText = UI.Instance.FaultText;
                                             if (string.IsNullOrEmpty(faultText))
                                             {
-                                                var isItemMode = defaultComputer.IsPostableItemMode;
-                                                var drawingComponentValue = defaultComputer.DrawingComponentValue;
+                                                var isPostableItemMode = defaultComputer.IsPostableItemMode;
+                                                var drawingComponent = defaultComputer.DrawingComponentValue;
                                                 var loopingCounter = defaultComputer.LoopingCounter;
-                                                var faintNoteModeValue = modeComponentValue.FaintNoteModeValue;
+                                                var faintNoteMode = modeComponent.FaintNoteModeValue;
                                                 var inputMode = defaultComputer.InputMode;
                                                 var isIn2P = defaultComputer.IsIn2P;
                                                 var has2P = defaultComputer.Has2P;
                                                 var inputCount = Component.InputCounts[(int)inputMode];
                                                 var inputCount1P = defaultComputer.InputCount1P;
-                                                var mainPosition = drawingComponentValue.mainPosition;
-                                                var p2Position = drawingComponentValue.p2Position;
-                                                var p1Length = drawingComponentValue.p1BuiltLength;
+                                                var mainPosition = drawingComponent.mainPosition;
+                                                var p2Position = drawingComponent.p2Position;
+                                                var p1Length = drawingComponent.p1BuiltLength;
                                                 var distance2P = p1Length + p2Position;
                                                 var isHandling = defaultComputer.IsHandling;
                                                 var hitPoints = defaultComputer.HitPoints.Value;
@@ -462,9 +462,9 @@ namespace Qwilight
                                                 judgments[(int)Component.Judged.Low] = defaultComputer.InheritedLowJudgment + (setStop ? 0 : comment.LowJudgment);
                                                 judgments[(int)Component.Judged.Lower] = defaultComputer.InheritedLowerJudgment + (setStop ? 0 : comment.LowerJudgment);
                                                 judgments[(int)Component.Judged.Lowest] = defaultComputer.InheritedLowestJudgment + (setStop ? 0 : comment.LowestJudgment);
-                                                var drawingNoteLengthMap = drawingComponentValue.DrawingNoteLengthMap;
-                                                var mainPosition1 = drawingComponentValue.mainPosition1;
-                                                var mainHeight = drawingComponentValue.mainHeight;
+                                                var drawingNoteLengthMap = drawingComponent.DrawingNoteLengthMap;
+                                                var mainPosition1 = drawingComponent.mainPosition1;
+                                                var mainHeight = drawingComponent.mainHeight;
                                                 var binJudgmentValueMap = UI.Instance.BinJudgmentValueMap;
                                                 var drawingInputModeMap = UI.Instance.DrawingInputModeMap[(int)inputMode];
                                                 var drawingPipelines = UI.Instance.DrawingPipeline;
@@ -477,18 +477,18 @@ namespace Qwilight
                                                         if (paintPipeline >= PaintPipelineID.PaintProperty0 && paintPipeline <= PaintPipelineID.PaintProperty255)
                                                         {
                                                             var paintPropertyID = (int)paintPipeline - (int)PaintPipelineID.PaintProperty0;
-                                                            lock (drawingComponentValue.PaintPropertyCSX)
+                                                            lock (drawingComponent.PaintPropertyCSX)
                                                             {
-                                                                if (drawingComponentValue.PaintPropertyIDs.Contains(paintPropertyID))
+                                                                if (drawingComponent.PaintPropertyIDs.Contains(paintPropertyID))
                                                                 {
-                                                                    var paintPropertyIntMap = drawingComponentValue.PaintPropertyIntMap[paintPropertyID];
+                                                                    var paintPropertyIntMap = drawingComponent.PaintPropertyIntMap[paintPropertyID];
                                                                     var paintPropertyPipeline = (PaintPipelineID)paintPropertyIntMap[PaintProperty.ID.Pipeline];
                                                                     if ((int)paintPropertyPipeline == -1 || paintPipelines.Contains(paintPropertyPipeline) && CanPaint(paintPropertyPipeline))
                                                                     {
                                                                         if (paintPropertyIntMap[PaintProperty.ID.Frame] > 0)
                                                                         {
                                                                             var paintPropertyAlt = paintPropertyIntMap[PaintProperty.ID.Alt];
-                                                                            var paintPropertyMap = drawingComponentValue.PaintPropertyMap[paintPropertyID];
+                                                                            var paintPropertyMap = drawingComponent.PaintPropertyMap[paintPropertyID];
                                                                             var paintPropertyPosition0 = paintPropertyMap[PaintProperty.ID.Position0];
                                                                             var paintPropertyPosition1 = paintPropertyMap[PaintProperty.ID.Position1];
                                                                             var paintPropertyLength = paintPropertyMap[PaintProperty.ID.Length];
@@ -511,11 +511,11 @@ namespace Qwilight
                                                             {
                                                                 case PaintPipelineID.Media:
                                                                     var mediaFaint = (float)Configure.Instance.UIConfigureValue.MediaFaintV2;
-                                                                    var mediaPosition0 = drawingComponentValue.mediaPosition0;
-                                                                    var mediaPosition1 = drawingComponentValue.mediaPosition1;
-                                                                    var mediaLength = drawingComponentValue.mediaLength;
-                                                                    var mediaHeight = drawingComponentValue.mediaHeight;
-                                                                    var altMedia = drawingComponentValue.altMedia;
+                                                                    var mediaPosition0 = drawingComponent.mediaPosition0;
+                                                                    var mediaPosition1 = drawingComponent.mediaPosition1;
+                                                                    var mediaLength = drawingComponent.mediaLength;
+                                                                    var mediaHeight = drawingComponent.mediaHeight;
+                                                                    var altMedia = drawingComponent.altMedia;
                                                                     for (var i = altMedia >> 1; i >= altMedia % 2; --i)
                                                                     {
                                                                         var distanceMedia = i == 1 && has2P ? distance2P : 0F;
@@ -524,14 +524,14 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.AudioVisualizer:
-                                                                    Utility.PaintAudioVisualizer(targetSession, ref r, (int)(100 * Configure.Instance.UIConfigureValue.AudioVisualizerFaintV2), drawingComponentValue.audioVisualizerPosition0, drawingComponentValue.audioVisualizerPosition1, drawingComponentValue.audioVisualizerLength, drawingComponentValue.audioVisualizerHeight);
+                                                                    Utility.PaintAudioVisualizer(targetSession, ref r, (int)(100 * Configure.Instance.UIConfigureValue.AudioVisualizerFaintV2), drawingComponent.audioVisualizerPosition0, drawingComponent.audioVisualizerPosition1, drawingComponent.audioVisualizerLength, drawingComponent.audioVisualizerHeight);
                                                                     break;
                                                                 case PaintPipelineID.MainWall:
                                                                     var mainWalls = UI.Instance.MainWalls;
-                                                                    var mainWall0Position1 = drawingComponentValue.mainWall0Position1;
-                                                                    var mainWall0Length = drawingComponentValue.mainWall0Length;
-                                                                    var mainWall0Height = drawingComponentValue.mainWall0Height;
-                                                                    var altWall0 = drawingComponentValue.altWall0;
+                                                                    var mainWall0Position1 = drawingComponent.mainWall0Position1;
+                                                                    var mainWall0Length = drawingComponent.mainWall0Length;
+                                                                    var mainWall0Height = drawingComponent.mainWall0Height;
+                                                                    var altWall0 = drawingComponent.altWall0;
                                                                     var mainWallDrawing0 = mainWalls[0];
                                                                     for (var i = altWall0 >> 1; i >= altWall0 % 2; --i)
                                                                     {
@@ -539,10 +539,10 @@ namespace Qwilight
                                                                         r.Set(mainPosition + distanceMainWall0 - mainWall0Length, mainWall0Position1, mainWall0Length, mainWall0Height);
                                                                         targetSession.PaintDrawing(ref r, mainWallDrawing0);
                                                                     }
-                                                                    var mainWall1Position1 = drawingComponentValue.mainWall1Position1;
-                                                                    var mainWall1Length = drawingComponentValue.mainWall1Length;
-                                                                    var mainWall1Height = drawingComponentValue.mainWall1Height;
-                                                                    var altWall1 = drawingComponentValue.altWall1;
+                                                                    var mainWall1Position1 = drawingComponent.mainWall1Position1;
+                                                                    var mainWall1Length = drawingComponent.mainWall1Length;
+                                                                    var mainWall1Height = drawingComponent.mainWall1Height;
+                                                                    var altWall1 = drawingComponent.altWall1;
                                                                     var mainWallDrawing1 = mainWalls[1];
                                                                     for (var i = altWall1 >> 1; i >= altWall1 % 2; --i)
                                                                     {
@@ -565,13 +565,13 @@ namespace Qwilight
                                                                                 {
                                                                                     r.Set(defaultComputer.GetPosition(i), mainPosition1, drawingNoteLengthMap[i], mainHeight);
                                                                                     targetSession.PaintDrawing(ref r, mainDrawing, mainFaint);
-                                                                                    defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Main, mainDrawing.Value.AverageColor, r.Position0 - drawingComponentValue.mainPosition, r.Position1, r.Length, r.Height);
+                                                                                    defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Main, mainDrawing.Value.AverageColor, r.Position0 - drawingComponent.mainPosition, r.Position1, r.Length, r.Height);
                                                                                 }
                                                                             }
                                                                         }
                                                                     }
 
-                                                                    if (isItemMode)
+                                                                    if (isPostableItemMode)
                                                                     {
                                                                         for (var i = 1; i >= -1; --i)
                                                                         {
@@ -591,8 +591,8 @@ namespace Qwilight
                                                                     if (!isAutoMode || UI.Instance.MaintainAutoInput)
                                                                     {
                                                                         var autoInputDrawings = UI.Instance.AutoInputDrawings[(int)inputMode];
-                                                                        var autoInputPosition1s = drawingComponentValue.autoInputPosition1s;
-                                                                        var autoInputHeights = drawingComponentValue.autoInputHeights;
+                                                                        var autoInputPosition1s = drawingComponent.autoInputPosition1s;
+                                                                        var autoInputHeights = drawingComponent.autoInputHeights;
                                                                         foreach (var drawingPipeline in drawingPipelines)
                                                                         {
                                                                             for (var i = inputCount; i > 0; --i)
@@ -610,13 +610,13 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.HitPoints:
-                                                                    var hitPointsPosition0 = drawingComponentValue.hitPointsPosition0;
-                                                                    var hitPointsPosition1 = drawingComponentValue.hitPointsPosition1;
-                                                                    var hitPointsLength = drawingComponentValue.hitPointsLength;
-                                                                    var hitPointsHeight = drawingComponentValue.hitPointsHeight;
-                                                                    var hitPointsDrawing = UI.Instance.HitPointsDrawings[(int)modeComponentValue.HandlingHitPointsModeValue];
-                                                                    var altHitPoints = drawingComponentValue.altHitPoints;
-                                                                    var hitPointsSystem = drawingComponentValue.hitPointsSystem;
+                                                                    var hitPointsPosition0 = drawingComponent.hitPointsPosition0;
+                                                                    var hitPointsPosition1 = drawingComponent.hitPointsPosition1;
+                                                                    var hitPointsLength = drawingComponent.hitPointsLength;
+                                                                    var hitPointsHeight = drawingComponent.hitPointsHeight;
+                                                                    var hitPointsDrawing = UI.Instance.HitPointsDrawings[(int)modeComponent.HandlingHitPointsModeValue];
+                                                                    var altHitPoints = drawingComponent.altHitPoints;
+                                                                    var hitPointsSystem = drawingComponent.hitPointsSystem;
                                                                     for (var i = altHitPoints >> 1; i >= altHitPoints % 2; --i)
                                                                     {
                                                                         var distanceHitPoints = i == 1 && has2P ? distance2P : 0F;
@@ -671,7 +671,7 @@ namespace Qwilight
                                                                         }
                                                                     }
 
-                                                                    if (faintNoteModeValue == ModeComponent.FaintNoteMode.Faint)
+                                                                    if (faintNoteMode == ModeComponent.FaintNoteMode.Faint)
                                                                     {
                                                                         r.Set(mainPosition, 0.0, p1Length, mainHeight);
                                                                         targetSession.PaintDrawing(ref r, _faintNoteDrawing);
@@ -684,10 +684,10 @@ namespace Qwilight
                                                                     break;
                                                                 case PaintPipelineID.Input:
                                                                     var inputDrawings = UI.Instance.InputDrawings[(int)inputMode];
-                                                                    var inputPosition0s = drawingComponentValue.inputPosition0s;
-                                                                    var inputPosition1s = drawingComponentValue.inputPosition1s;
-                                                                    var inputLengths = drawingComponentValue.inputLengths;
-                                                                    var inputHeights = drawingComponentValue.inputHeights;
+                                                                    var inputPosition0s = drawingComponent.inputPosition0s;
+                                                                    var inputPosition1s = drawingComponent.inputPosition1s;
+                                                                    var inputLengths = drawingComponent.inputLengths;
+                                                                    var inputHeights = drawingComponent.inputHeights;
                                                                     var inputFrames = defaultComputer.InputFrames;
                                                                     foreach (var drawingPipeline in drawingPipelines)
                                                                     {
@@ -707,12 +707,12 @@ namespace Qwilight
                                                                     var band = defaultComputer.Band.Value;
                                                                     if (band > 0)
                                                                     {
-                                                                        var bandPosition0 = drawingComponentValue.bandPosition0;
-                                                                        var bandPosition1 = drawingComponentValue.bandPosition1;
-                                                                        var binBandLength = drawingComponentValue.binBandLength;
-                                                                        var binBandHeight = drawingComponentValue.binBandHeight;
-                                                                        var bandSystem = drawingComponentValue.bandSystem;
-                                                                        var altBand = drawingComponentValue.altBand;
+                                                                        var bandPosition0 = drawingComponent.bandPosition0;
+                                                                        var bandPosition1 = drawingComponent.bandPosition1;
+                                                                        var binBandLength = drawingComponent.binBandLength;
+                                                                        var binBandHeight = drawingComponent.binBandHeight;
+                                                                        var bandSystem = drawingComponent.bandSystem;
+                                                                        var altBand = drawingComponent.altBand;
                                                                         var bandDrawingMap = defaultComputer.BandEnlargedMap;
                                                                         var bandDrawingFrames = defaultComputer.BandDrawingFrames;
                                                                         var bandDigit = Utility.GetDigit(band);
@@ -742,15 +742,15 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.JudgmentMeter:
-                                                                    var judgmentMeterPosition0 = drawingComponentValue.judgmentMeterPosition0;
-                                                                    var judgmentMeterPosition1 = drawingComponentValue.judgmentMeterPosition1;
-                                                                    var binJudgmentMeterLength = drawingComponentValue.binJudgmentMeterLength;
-                                                                    var binJudgmentMeterHeight = drawingComponentValue.binJudgmentMeterHeight;
-                                                                    var judgmentMeterFrontDrawingLength = drawingComponentValue.judgmentMeterFrontDrawingLength;
-                                                                    var judgmentMeterUnitDrawingLength = drawingComponentValue.judgmentMeterUnitDrawingLength;
+                                                                    var judgmentMeterPosition0 = drawingComponent.judgmentMeterPosition0;
+                                                                    var judgmentMeterPosition1 = drawingComponent.judgmentMeterPosition1;
+                                                                    var binJudgmentMeterLength = drawingComponent.binJudgmentMeterLength;
+                                                                    var binJudgmentMeterHeight = drawingComponent.binJudgmentMeterHeight;
+                                                                    var judgmentMeterFrontDrawingLength = drawingComponent.judgmentMeterFrontDrawingLength;
+                                                                    var judgmentMeterUnitDrawingLength = drawingComponent.judgmentMeterUnitDrawingLength;
                                                                     var judgmentMeters = defaultComputer.JudgmentMeters;
-                                                                    var judgmentMeterSystem = drawingComponentValue.judgmentMeterSystem;
-                                                                    var altJudgmentMeter = drawingComponentValue.altJudgmentMeter;
+                                                                    var judgmentMeterSystem = drawingComponent.judgmentMeterSystem;
+                                                                    var altJudgmentMeter = drawingComponent.altJudgmentMeter;
                                                                     var binJudgmentMeterMap = UI.Instance.BinJudgmentMeterMap;
                                                                     var drawingJudgmentMeterHigher = UI.Instance.JudgmentMererHigherDrawing;
                                                                     var drawingJudgmentMeterLower = UI.Instance.JudgmentMeterLowerDrawing;
@@ -758,8 +758,8 @@ namespace Qwilight
                                                                     for (var i = altJudgmentMeter >> 1; i >= altJudgmentMeter % 2; --i)
                                                                     {
                                                                         var judgmentMeter = judgmentMeters[i];
-                                                                        var judgmentMeterValue = (int)Math.Round(judgmentMeter);
-                                                                        var absJudgmentMeter = Math.Abs(judgmentMeterValue);
+                                                                        var judgmentMeterInt = (int)Math.Round(judgmentMeter);
+                                                                        var absJudgmentMeter = Math.Abs(judgmentMeterInt);
                                                                         if (absJudgmentMeter >= Configure.Instance.JudgmentMeterMillis)
                                                                         {
                                                                             var distanceJudgmentMeter = i == 1 && has2P ? distance2P : 0F;
@@ -796,15 +796,15 @@ namespace Qwilight
                                                                     var stand = defaultComputer.Stand.Value;
                                                                     var standDigit = Utility.GetDigit(stand);
                                                                     var standCommaDrawing = UI.Instance.CommaDrawing;
-                                                                    var standCommaDrawingLength = drawingComponentValue.standCommaDrawingLength;
+                                                                    var standCommaDrawingLength = drawingComponent.standCommaDrawingLength;
                                                                     var standCommaCount = (standDigit - 1) / 3;
-                                                                    var standPosition0 = drawingComponentValue.standPosition0;
-                                                                    var standPosition1 = drawingComponentValue.standPosition1;
-                                                                    var binStandLength = drawingComponentValue.binStandLength;
-                                                                    var binStandHeight = drawingComponentValue.binStandHeight;
-                                                                    var standSystem = drawingComponentValue.standSystem;
+                                                                    var standPosition0 = drawingComponent.standPosition0;
+                                                                    var standPosition1 = drawingComponent.standPosition1;
+                                                                    var binStandLength = drawingComponent.binStandLength;
+                                                                    var binStandHeight = drawingComponent.binStandHeight;
+                                                                    var standSystem = drawingComponent.standSystem;
                                                                     var binStandMap = UI.Instance.BinStandMap;
-                                                                    var altStand = drawingComponentValue.altStand;
+                                                                    var altStand = drawingComponent.altStand;
                                                                     for (var i = altStand >> 1; i >= altStand % 2; --i)
                                                                     {
                                                                         var distanceStand = i == 1 && has2P ? distance2P : 0F;
@@ -863,14 +863,14 @@ namespace Qwilight
                                                                     break;
                                                                 case PaintPipelineID.Point:
                                                                     var pointInt = (int)(10000 * defaultComputer.Point.Value);
-                                                                    var pointStopPointDrawingLength = drawingComponentValue.pointStopPointDrawingLength;
-                                                                    var pointPosition0 = drawingComponentValue.pointPosition0;
-                                                                    var pointPosition1 = drawingComponentValue.pointPosition1;
-                                                                    var binPointLength = drawingComponentValue.binPointLength;
-                                                                    var binPointHeight = drawingComponentValue.binPointHeight;
-                                                                    var pointUnitDrawingLength = drawingComponentValue.pointUnitDrawingLength;
-                                                                    var pointSystem = drawingComponentValue.pointSystem;
-                                                                    var altPoint = drawingComponentValue.altPoint;
+                                                                    var pointStopPointDrawingLength = drawingComponent.pointStopPointDrawingLength;
+                                                                    var pointPosition0 = drawingComponent.pointPosition0;
+                                                                    var pointPosition1 = drawingComponent.pointPosition1;
+                                                                    var binPointLength = drawingComponent.binPointLength;
+                                                                    var binPointHeight = drawingComponent.binPointHeight;
+                                                                    var pointUnitDrawingLength = drawingComponent.pointUnitDrawingLength;
+                                                                    var pointSystem = drawingComponent.pointSystem;
+                                                                    var altPoint = drawingComponent.altPoint;
                                                                     var binPointMap = UI.Instance.BinPointMap;
                                                                     var pointUnitDrawing = UI.Instance.PointUnitDrawing;
                                                                     var pointStopPointDrawing = UI.Instance.PointStopPointDrawing;
@@ -926,14 +926,14 @@ namespace Qwilight
                                                                         BPMVariety.Multiplier => defaultComputer.HandlingBPM * defaultComputer.AudioMultiplier * defaultComputer.ModeComponentValue.Multiplier,
                                                                         _ => default
                                                                     })), int.MaxValue));
-                                                                    var bpmPosition0 = drawingComponentValue.bpmPosition0;
-                                                                    var bpmPosition1 = drawingComponentValue.bpmPosition1;
-                                                                    var binBPMLength = drawingComponentValue.binBPMLength;
-                                                                    var binBPMHeight = drawingComponentValue.binBPMHeight;
-                                                                    var bpmUnitDrawingLength = drawingComponentValue.bpmUnitDrawingLength;
-                                                                    var bpmSystem = drawingComponentValue.bpmSystem;
+                                                                    var bpmPosition0 = drawingComponent.bpmPosition0;
+                                                                    var bpmPosition1 = drawingComponent.bpmPosition1;
+                                                                    var binBPMLength = drawingComponent.binBPMLength;
+                                                                    var binBPMHeight = drawingComponent.binBPMHeight;
+                                                                    var bpmUnitDrawingLength = drawingComponent.bpmUnitDrawingLength;
+                                                                    var bpmSystem = drawingComponent.bpmSystem;
                                                                     var bpmDigit = Utility.GetDigit(bpmInt);
-                                                                    var altBPM = drawingComponentValue.altBPM;
+                                                                    var altBPM = drawingComponent.altBPM;
                                                                     var binBPMMap = UI.Instance.BinBPMMap;
                                                                     var bpmUnitDrawing = UI.Instance.BPMUnitDrawing;
                                                                     for (var i = altBPM >> 1; i >= altBPM % 2; --i)
@@ -962,15 +962,15 @@ namespace Qwilight
                                                                     break;
                                                                 case PaintPipelineID.Multiplier:
                                                                     var multiplierInt = (int)Math.Round(10 * defaultComputer.ModeComponentValue.Multiplier);
-                                                                    var multiplierPosition0 = drawingComponentValue.multiplierPosition0;
-                                                                    var multiplierPosition1 = drawingComponentValue.multiplierPosition1;
-                                                                    var binMultiplierLength = drawingComponentValue.binMultiplierLength;
-                                                                    var binMultiplierHeight = drawingComponentValue.binMultiplierHeight;
-                                                                    var multiplierStopPointDrawingLength = drawingComponentValue.multiplierStopPointDrawingLength;
-                                                                    var multiplierUnitDrawingLength = drawingComponentValue.multiplierUnitDrawingLength;
+                                                                    var multiplierPosition0 = drawingComponent.multiplierPosition0;
+                                                                    var multiplierPosition1 = drawingComponent.multiplierPosition1;
+                                                                    var binMultiplierLength = drawingComponent.binMultiplierLength;
+                                                                    var binMultiplierHeight = drawingComponent.binMultiplierHeight;
+                                                                    var multiplierStopPointDrawingLength = drawingComponent.multiplierStopPointDrawingLength;
+                                                                    var multiplierUnitDrawingLength = drawingComponent.multiplierUnitDrawingLength;
                                                                     var multiplierDigit = multiplierInt < 10 ? 2 : Utility.GetDigit(multiplierInt);
-                                                                    var multiplierSystem = drawingComponentValue.multiplierSystem;
-                                                                    var altMultiplier = drawingComponentValue.altMultiplier;
+                                                                    var multiplierSystem = drawingComponent.multiplierSystem;
+                                                                    var altMultiplier = drawingComponent.altMultiplier;
                                                                     var binMultiplierMap = UI.Instance.BinMultiplierMap;
                                                                     var multiplierUnitDrawing = UI.Instance.MultiplierUnitDrawing;
                                                                     var multiplierStopPointDrawing = UI.Instance.MultiplierStopPointDrawing;
@@ -1007,7 +1007,7 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.JudgmentPaint:
-                                                                    var judgmentPaintComposition = (CanvasComposite)drawingComponentValue.judgmentPaintComposition;
+                                                                    var judgmentPaintComposition = (CanvasComposite)drawingComponent.judgmentPaintComposition;
                                                                     var judgmentPaints = defaultComputer.JudgmentPaints;
                                                                     lock (judgmentPaints)
                                                                     {
@@ -1018,7 +1018,7 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.HitNotePaint:
-                                                                    var hitNotePaintComposition = (CanvasComposite)drawingComponentValue.hitNotePaintComposition;
+                                                                    var hitNotePaintComposition = (CanvasComposite)drawingComponent.hitNotePaintComposition;
                                                                     var hitNotePaints = defaultComputer.HitNotePaints;
                                                                     lock (hitNotePaints)
                                                                     {
@@ -1046,10 +1046,10 @@ namespace Qwilight
                                                                             var netItemFaintInt = (int)(100 * netItemFaint);
                                                                             var levyingNetPosition = defaultComputer.LevyingNetPosition;
                                                                             var quitNetPosition = defaultComputer.QuitNetPosition;
-                                                                            var netSystem = drawingComponentValue.netSystem;
-                                                                            var netPosition0 = drawingComponentValue.netPosition0;
-                                                                            var netPosition1 = drawingComponentValue.netPosition1;
-                                                                            var altNet = drawingComponentValue.altNet;
+                                                                            var netSystem = drawingComponent.netSystem;
+                                                                            var netPosition0 = drawingComponent.netPosition0;
+                                                                            var netPosition1 = drawingComponent.netPosition1;
+                                                                            var altNet = drawingComponent.altNet;
                                                                             var netTextPaint = UI.Instance.NetTextPaints[netItemFaintInt];
                                                                             var netWallPaint = UI.Instance.NetWallPaints[netItemFaintInt];
                                                                             for (var i = quitNetPosition; i >= levyingNetPosition; --i)
@@ -1205,7 +1205,7 @@ namespace Qwilight
 
                                                                                                 r.Set(targetPosition0 + distanceNet + Levels.StandardEdgeFloat32 + highestNetLength + Levels.StandardEdgeFloat32 + Levels.StandardMarginFloat32, drawingPosition1, Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32, Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32);
                                                                                                 targetSession.DrawRectangle(r, (hasLastJudged ? d2dJudgmentPaints[(int)lastJudged] : FaintClearedPaints)[netItemFaintInt]);
-                                                                                                if (!isItemMode && !defaultComputer.IsPausingWindowOpened && 0.0 <= loopingCounter)
+                                                                                                if (!isPostableItemMode && !defaultComputer.IsPausingWindowOpened && 0.0 <= loopingCounter)
                                                                                                 {
                                                                                                     SetNetItemHandler(ref r, handleIONetItemImpl, netItem);
                                                                                                 }
@@ -1225,12 +1225,12 @@ namespace Qwilight
                                                                     var pauseCount = defaultComputer.PauseCount;
                                                                     if (pauseCount > 0)
                                                                     {
-                                                                        var pausePosition0 = drawingComponentValue.pausePosition0;
-                                                                        var pausePosition1 = drawingComponentValue.pausePosition1;
-                                                                        var pauseLength = drawingComponentValue.pauseLength;
-                                                                        var pauseHeight = drawingComponentValue.pauseHeight;
-                                                                        var pauseSystem = drawingComponentValue.pauseSystem;
-                                                                        var altPause = drawingComponentValue.altPause;
+                                                                        var pausePosition0 = drawingComponent.pausePosition0;
+                                                                        var pausePosition1 = drawingComponent.pausePosition1;
+                                                                        var pauseLength = drawingComponent.pauseLength;
+                                                                        var pauseHeight = drawingComponent.pauseHeight;
+                                                                        var pauseSystem = drawingComponent.pauseSystem;
+                                                                        var altPause = drawingComponent.altPause;
                                                                         var pauseDrawings = UI.Instance.PauseDrawings;
                                                                         for (var i = altPause >> 1; i >= altPause % 2; --i)
                                                                         {
@@ -1252,12 +1252,12 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.Status:
-                                                                    var statusPosition0 = drawingComponentValue.statusPosition0;
-                                                                    var statusPosition1 = drawingComponentValue.statusPosition1;
-                                                                    var statusLength = drawingComponentValue.statusLength;
-                                                                    var statusHeight = drawingComponentValue.statusHeight;
-                                                                    var statusSystem = drawingComponentValue.statusSystem;
-                                                                    var altStatus = drawingComponentValue.altStatus;
+                                                                    var statusPosition0 = drawingComponent.statusPosition0;
+                                                                    var statusPosition1 = drawingComponent.statusPosition1;
+                                                                    var statusLength = drawingComponent.statusLength;
+                                                                    var statusHeight = drawingComponent.statusHeight;
+                                                                    var statusSystem = drawingComponent.statusSystem;
+                                                                    var altStatus = drawingComponent.altStatus;
                                                                     var statusDrawing = UI.Instance.StatusDrawing;
                                                                     if (statusDrawing.HasValue)
                                                                     {
@@ -1298,18 +1298,18 @@ namespace Qwilight
                                                                     var wait = Math.Clamp((int)(loopingCounter / 1000.0), 0, length);
                                                                     var mWait = wait / 60;
                                                                     var sWait = wait % 60;
-                                                                    var hmsColonDrawingLength = drawingComponentValue.hmsColonDrawingLength;
-                                                                    var hmsSlashDrawingLength = drawingComponentValue.hmsSlashDrawingLength;
-                                                                    var hmsPosition0 = drawingComponentValue.hmsPosition0;
-                                                                    var hmsPosition1 = drawingComponentValue.hmsPosition1;
-                                                                    var binHmsLength = drawingComponentValue.binHmsLength;
-                                                                    var binHmsHeight = drawingComponentValue.binHmsHeight;
+                                                                    var hmsColonDrawingLength = drawingComponent.hmsColonDrawingLength;
+                                                                    var hmsSlashDrawingLength = drawingComponent.hmsSlashDrawingLength;
+                                                                    var hmsPosition0 = drawingComponent.hmsPosition0;
+                                                                    var hmsPosition1 = drawingComponent.hmsPosition1;
+                                                                    var binHmsLength = drawingComponent.binHmsLength;
+                                                                    var binHmsHeight = drawingComponent.binHmsHeight;
                                                                     var mWaitDigit = Utility.GetDigit(mWait);
                                                                     var mLengthDigit = Utility.GetDigit(mLength);
-                                                                    var hmsSystem = drawingComponentValue.hmsSystem;
+                                                                    var hmsSystem = drawingComponent.hmsSystem;
                                                                     var binHmsMap = UI.Instance.BinHmsMap;
-                                                                    var altHms = drawingComponentValue.altHms;
-                                                                    var hmsColonDrawimg = UI.Instance.ColonDrawing;
+                                                                    var altHms = drawingComponent.altHms;
+                                                                    var hmsColonDrawing = UI.Instance.ColonDrawing;
                                                                     var hmsSlashDrawing = UI.Instance.SlashDrawing;
                                                                     for (var i = altHms >> 1; i >= altHms % 2; --i)
                                                                     {
@@ -1332,7 +1332,7 @@ namespace Qwilight
                                                                         targetSession.PaintDrawing(ref r, binHmsMap[sLength / 10 % 10]);
                                                                         r.Position0 -= hmsColonDrawingLength;
                                                                         r.Length = hmsColonDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, hmsColonDrawimg);
+                                                                        targetSession.PaintDrawing(ref r, hmsColonDrawing);
                                                                         for (var j = 0; j < mLengthDigit; ++j)
                                                                         {
                                                                             r.Position0 -= binHmsLength;
@@ -1350,7 +1350,7 @@ namespace Qwilight
                                                                         }
                                                                         r.Position0 -= hmsColonDrawingLength;
                                                                         r.Length = hmsColonDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, hmsColonDrawimg);
+                                                                        targetSession.PaintDrawing(ref r, hmsColonDrawing);
                                                                         for (var j = 0; j < mWaitDigit; ++j)
                                                                         {
                                                                             r.Position0 -= binHmsLength;
@@ -1365,13 +1365,13 @@ namespace Qwilight
                                                                     {
                                                                         totalJudgmentPoints += judgment;
                                                                     }
-                                                                    var judgmentPointsPosition0 = drawingComponentValue.judgmentPointsPosition0;
-                                                                    var judgmentPointsPosition1 = drawingComponentValue.judgmentPointsPosition1;
-                                                                    var judgmentPointsLength = drawingComponentValue.judgmentPointsLength;
-                                                                    var judgmentPointsHeight = drawingComponentValue.judgmentPointsHeight;
+                                                                    var judgmentPointsPosition0 = drawingComponent.judgmentPointsPosition0;
+                                                                    var judgmentPointsPosition1 = drawingComponent.judgmentPointsPosition1;
+                                                                    var judgmentPointsLength = drawingComponent.judgmentPointsLength;
+                                                                    var judgmentPointsHeight = drawingComponent.judgmentPointsHeight;
                                                                     var judgmentPointsDrawings = UI.Instance.JudgmentPointsDrawings;
-                                                                    var altJudgmentPoints = drawingComponentValue.altJudgmentPoints;
-                                                                    var judgmentPointsSystem = drawingComponentValue.judgmentPointsSystem;
+                                                                    var altJudgmentPoints = drawingComponent.altJudgmentPoints;
+                                                                    var judgmentPointsSystem = drawingComponent.judgmentPointsSystem;
                                                                     var lastPosition = 0.0;
                                                                     for (var i = (int)Component.Judged.Highest; i <= (int)Component.Judged.Lowest; ++i)
                                                                     {
@@ -1414,8 +1414,8 @@ namespace Qwilight
                                                                 case PaintPipelineID.JudgmentMain:
                                                                     var judgmentMainDrawings = UI.Instance.JudgmentMainDrawings[(int)inputMode];
                                                                     var judgmentMainFrames = defaultComputer.JudgmentMainFrames;
-                                                                    var judgmentMainPosition1s = drawingComponentValue.judgmentMainPosition1s;
-                                                                    var judgmentMainHeights = drawingComponentValue.judgmentMainHeights;
+                                                                    var judgmentMainPosition1s = drawingComponent.judgmentMainPosition1s;
+                                                                    var judgmentMainHeights = drawingComponent.judgmentMainHeights;
                                                                     foreach (var drawingPipeline in drawingPipelines)
                                                                     {
                                                                         for (var i = inputCount; i > 0; --i)
@@ -1444,14 +1444,14 @@ namespace Qwilight
                                                                     break;
                                                                 case PaintPipelineID.AudioMultiplier:
                                                                     var audioMultiplierInt = (int)Math.Round(100 * defaultComputer.AudioMultiplier);
-                                                                    var audioMultiplierSystem = drawingComponentValue.audioMultiplierSystem;
-                                                                    var audioMultiplierPosition0 = drawingComponentValue.audioMultiplierPosition0;
-                                                                    var audioMultiplierPosition1 = drawingComponentValue.audioMultiplierPosition1;
-                                                                    var binAudioMultiplierLength = drawingComponentValue.binAudioMultiplierLength;
-                                                                    var binAudioMultiplierHeight = drawingComponentValue.binAudioMultiplierHeight;
-                                                                    var altAudioMultiplier = drawingComponentValue.altAudioMultiplier;
-                                                                    var audioMultiplierStopPointDrawingLength = drawingComponentValue.audioMultiplierStopPointDrawingLength;
-                                                                    var audioMultiplierUnitDrawingLength = drawingComponentValue.audioMultiplierUnitDrawingLength;
+                                                                    var audioMultiplierSystem = drawingComponent.audioMultiplierSystem;
+                                                                    var audioMultiplierPosition0 = drawingComponent.audioMultiplierPosition0;
+                                                                    var audioMultiplierPosition1 = drawingComponent.audioMultiplierPosition1;
+                                                                    var binAudioMultiplierLength = drawingComponent.binAudioMultiplierLength;
+                                                                    var binAudioMultiplierHeight = drawingComponent.binAudioMultiplierHeight;
+                                                                    var altAudioMultiplier = drawingComponent.altAudioMultiplier;
+                                                                    var audioMultiplierStopPointDrawingLength = drawingComponent.audioMultiplierStopPointDrawingLength;
+                                                                    var audioMultiplierUnitDrawingLength = drawingComponent.audioMultiplierUnitDrawingLength;
                                                                     var binAudioMultiplierMap = UI.Instance.BinAudioMultiplierMap;
                                                                     var audioMultiplierUnitDrawing = UI.Instance.AudioMultiplierUnitDrawing;
                                                                     var audioMultiplierStopPointDrawing = UI.Instance.AudioMultiplierStopPointDrawing;
@@ -1487,13 +1487,13 @@ namespace Qwilight
                                                                     break;
                                                                 case PaintPipelineID.HitPointsVisualizer:
                                                                     var hitPointsInt = (int)(100 * hitPoints);
-                                                                    var hitPointsVisualizerPosition0 = drawingComponentValue.hitPointsVisualizerPosition0;
-                                                                    var hitPointsVisualizerPosition1 = drawingComponentValue.hitPointsVisualizerPosition1;
-                                                                    var binHitPointsVisualizerLength = drawingComponentValue.binHitPointsVisualizerLength;
-                                                                    var binHitPointsVisualizerHeight = drawingComponentValue.binHitPointsVisualizerHeight;
-                                                                    var hitPointsVisualizerUnitDrawingLength = drawingComponentValue.hitPointsVisualizerUnitDrawingLength;
-                                                                    var hitPointsVisualizerSystem = drawingComponentValue.hitPointsVisualizerSystem;
-                                                                    var altHitPointsVisualizer = drawingComponentValue.altHitPointsVisualizer;
+                                                                    var hitPointsVisualizerPosition0 = drawingComponent.hitPointsVisualizerPosition0;
+                                                                    var hitPointsVisualizerPosition1 = drawingComponent.hitPointsVisualizerPosition1;
+                                                                    var binHitPointsVisualizerLength = drawingComponent.binHitPointsVisualizerLength;
+                                                                    var binHitPointsVisualizerHeight = drawingComponent.binHitPointsVisualizerHeight;
+                                                                    var hitPointsVisualizerUnitDrawingLength = drawingComponent.hitPointsVisualizerUnitDrawingLength;
+                                                                    var hitPointsVisualizerSystem = drawingComponent.hitPointsVisualizerSystem;
+                                                                    var altHitPointsVisualizer = drawingComponent.altHitPointsVisualizer;
                                                                     var binHitPointsVisualizerMap = UI.Instance.BinHitPointsVisualizerMap;
                                                                     var hitPointsVisualizerUnitDrawing = UI.Instance.HitPointsVisualizerUnitDrawing;
                                                                     var hitPointsDigit = Utility.GetDigit(hitPointsInt);
@@ -1522,30 +1522,30 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.HighestJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.Highest], drawingComponentValue.highestJudgmentValueSystem, drawingComponentValue.highestJudgmentValuePosition0, drawingComponentValue.highestJudgmentValuePosition1, drawingComponentValue.binHighestJudgmentValueLength, drawingComponentValue.binHighestJudgmentValueHeight, drawingComponentValue.altHighestJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Highest]);
+                                                                    PaintInt(judgments[(int)Component.Judged.Highest], drawingComponent.highestJudgmentValueSystem, drawingComponent.highestJudgmentValuePosition0, drawingComponent.highestJudgmentValuePosition1, drawingComponent.binHighestJudgmentValueLength, drawingComponent.binHighestJudgmentValueHeight, drawingComponent.altHighestJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Highest]);
                                                                     break;
                                                                 case PaintPipelineID.HigherJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.Higher], drawingComponentValue.higherJudgmentValueSystem, drawingComponentValue.higherJudgmentValuePosition0, drawingComponentValue.higherJudgmentValuePosition1, drawingComponentValue.binHigherJudgmentValueLength, drawingComponentValue.binHigherJudgmentValueHeight, drawingComponentValue.altHigherJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Higher]);
+                                                                    PaintInt(judgments[(int)Component.Judged.Higher], drawingComponent.higherJudgmentValueSystem, drawingComponent.higherJudgmentValuePosition0, drawingComponent.higherJudgmentValuePosition1, drawingComponent.binHigherJudgmentValueLength, drawingComponent.binHigherJudgmentValueHeight, drawingComponent.altHigherJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Higher]);
                                                                     break;
                                                                 case PaintPipelineID.HighJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.High], drawingComponentValue.highJudgmentValueSystem, drawingComponentValue.highJudgmentValuePosition0, drawingComponentValue.highJudgmentValuePosition1, drawingComponentValue.binHighJudgmentValueLength, drawingComponentValue.binHighJudgmentValueHeight, drawingComponentValue.altHighJudgmentValue, binJudgmentValueMap[(int)Component.Judged.High]);
+                                                                    PaintInt(judgments[(int)Component.Judged.High], drawingComponent.highJudgmentValueSystem, drawingComponent.highJudgmentValuePosition0, drawingComponent.highJudgmentValuePosition1, drawingComponent.binHighJudgmentValueLength, drawingComponent.binHighJudgmentValueHeight, drawingComponent.altHighJudgmentValue, binJudgmentValueMap[(int)Component.Judged.High]);
                                                                     break;
                                                                 case PaintPipelineID.LowJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.Low], drawingComponentValue.lowJudgmentValueSystem, drawingComponentValue.lowerJudgmentValuePosition0, drawingComponentValue.lowJudgmentValuePosition1, drawingComponentValue.binLowJudgmentValueLength, drawingComponentValue.binLowJudgmentValueHeight, drawingComponentValue.altLowJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Low]);
+                                                                    PaintInt(judgments[(int)Component.Judged.Low], drawingComponent.lowJudgmentValueSystem, drawingComponent.lowerJudgmentValuePosition0, drawingComponent.lowJudgmentValuePosition1, drawingComponent.binLowJudgmentValueLength, drawingComponent.binLowJudgmentValueHeight, drawingComponent.altLowJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Low]);
                                                                     break;
                                                                 case PaintPipelineID.LowerJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.Lower], drawingComponentValue.lowerJudgmentValueSystem, drawingComponentValue.lowerJudgmentValuePosition0, drawingComponentValue.lowerJudgmentValuePosition1, drawingComponentValue.binLowerJudgmentValueLength, drawingComponentValue.binLowerJudgmentValueHeight, drawingComponentValue.altLowerJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Lower]);
+                                                                    PaintInt(judgments[(int)Component.Judged.Lower], drawingComponent.lowerJudgmentValueSystem, drawingComponent.lowerJudgmentValuePosition0, drawingComponent.lowerJudgmentValuePosition1, drawingComponent.binLowerJudgmentValueLength, drawingComponent.binLowerJudgmentValueHeight, drawingComponent.altLowerJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Lower]);
                                                                     break;
                                                                 case PaintPipelineID.LowestJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.Lowest], drawingComponentValue.lowestJudgmentValueSystem, drawingComponentValue.lowestJudgmentValuePosition0, drawingComponentValue.lowestJudgmentValuePosition1, drawingComponentValue.binLowestJudgmentValueLength, drawingComponentValue.binLowestJudgmentValueHeight, drawingComponentValue.altLowestJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Lowest]);
+                                                                    PaintInt(judgments[(int)Component.Judged.Lowest], drawingComponent.lowestJudgmentValueSystem, drawingComponent.lowestJudgmentValuePosition0, drawingComponent.lowestJudgmentValuePosition1, drawingComponent.binLowestJudgmentValueLength, drawingComponent.binLowestJudgmentValueHeight, drawingComponent.altLowestJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Lowest]);
                                                                     break;
                                                                 case PaintPipelineID.HighestBand:
-                                                                    PaintInt(defaultComputer.HighestBand, drawingComponentValue.highestBandSystem, drawingComponentValue.highestBandPosition0, drawingComponentValue.highestBandPosition1, drawingComponentValue.binHighestBandLength, drawingComponentValue.binHighestBandHeight, drawingComponentValue.altHighestBand, UI.Instance.BinHighestBandMap);
+                                                                    PaintInt(defaultComputer.HighestBand, drawingComponent.highestBandSystem, drawingComponent.highestBandPosition0, drawingComponent.highestBandPosition1, drawingComponent.binHighestBandLength, drawingComponent.binHighestBandHeight, drawingComponent.altHighestBand, UI.Instance.BinHighestBandMap);
                                                                     break;
                                                                 case PaintPipelineID.Limiter:
-                                                                    var limiterPosition1 = drawingComponentValue.limiterPosition1;
-                                                                    var limiterLength = drawingComponentValue.limiterLength;
-                                                                    var limiterHeight = drawingComponentValue.limiterHeight;
+                                                                    var limiterPosition1 = drawingComponent.limiterPosition1;
+                                                                    var limiterLength = drawingComponent.limiterLength;
+                                                                    var limiterHeight = drawingComponent.limiterHeight;
                                                                     var limiterColor = Configure.Instance.LimiterColor;
                                                                     var inputMappingValue = (int)defaultComputer.InputMappingValue;
                                                                     if (Configure.Instance.TotalLimiterVariety)
@@ -1600,14 +1600,14 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.JudgmentVisualizer:
-                                                                    var judgmentVisualizerPosition0 = drawingComponentValue.judgmentVisualizerPosition0;
-                                                                    var judgmentVisualizerPosition1 = drawingComponentValue.judgmentVisualizerPosition1;
-                                                                    var judgmentVisualizerLength = drawingComponentValue.judgmentVisualizerLength;
-                                                                    var judgmentVisualizerHeight = drawingComponentValue.judgmentVisualizerHeight;
-                                                                    var judgmentVisualizerContentsLength = drawingComponentValue.judgmentVisualizerContentsLength;
-                                                                    var judgmentVisualizerContentsHeight = drawingComponentValue.judgmentVisualizerContentsHeight;
-                                                                    var judgmentVisualizerSystem = drawingComponentValue.judgmentVisualizerSystem;
-                                                                    var altJudgmentVisualizer = drawingComponentValue.altJudgmentVisualizer;
+                                                                    var judgmentVisualizerPosition0 = drawingComponent.judgmentVisualizerPosition0;
+                                                                    var judgmentVisualizerPosition1 = drawingComponent.judgmentVisualizerPosition1;
+                                                                    var judgmentVisualizerLength = drawingComponent.judgmentVisualizerLength;
+                                                                    var judgmentVisualizerHeight = drawingComponent.judgmentVisualizerHeight;
+                                                                    var judgmentVisualizerContentsLength = drawingComponent.judgmentVisualizerContentsLength;
+                                                                    var judgmentVisualizerContentsHeight = drawingComponent.judgmentVisualizerContentsHeight;
+                                                                    var judgmentVisualizerSystem = drawingComponent.judgmentVisualizerSystem;
+                                                                    var altJudgmentVisualizer = drawingComponent.altJudgmentVisualizer;
                                                                     var targetJudgmentVisualizerValues = defaultComputer.JudgmentVisualizerValues;
                                                                     for (var i = altJudgmentVisualizer >> 1; i >= altJudgmentVisualizer % 2; --i)
                                                                     {
@@ -1643,25 +1643,25 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.InputVisualizer:
-                                                                    PaintInt(defaultComputer.InputCountQueue.Count, drawingComponentValue.inputVisualizerSystem, drawingComponentValue.inputVisualizerPosition0, drawingComponentValue.inputVisualizerPosition1, drawingComponentValue.binInputVisualizerLength, drawingComponentValue.binInputVisualizerHeight, drawingComponentValue.altInputVisualizer, UI.Instance.BinInputVisualizerMap);
+                                                                    PaintInt(defaultComputer.InputCountQueue.Count, drawingComponent.inputVisualizerSystem, drawingComponent.inputVisualizerPosition0, drawingComponent.inputVisualizerPosition1, drawingComponent.binInputVisualizerLength, drawingComponent.binInputVisualizerHeight, drawingComponent.altInputVisualizer, UI.Instance.BinInputVisualizerMap);
                                                                     break;
                                                                 case PaintPipelineID.Hunter:
                                                                     var hunter = defaultComputer.Hunter.Value;
                                                                     if (hunter.HasValue)
                                                                     {
-                                                                        var hunterPosition0 = drawingComponentValue.hunterPosition0;
-                                                                        var hunterPosition1 = drawingComponentValue.hunterPosition1;
-                                                                        var binHunterLength = drawingComponentValue.binHunterLength;
-                                                                        var binHunterHeight = drawingComponentValue.binHunterHeight;
-                                                                        var hunterFrontDrawingLength = drawingComponentValue.hunterFrontDrawingLength;
-                                                                        var hunterSystem = drawingComponentValue.hunterSystem;
-                                                                        var altHunter = drawingComponentValue.altHunter;
+                                                                        var hunterPosition0 = drawingComponent.hunterPosition0;
+                                                                        var hunterPosition1 = drawingComponent.hunterPosition1;
+                                                                        var binHunterLength = drawingComponent.binHunterLength;
+                                                                        var binHunterHeight = drawingComponent.binHunterHeight;
+                                                                        var hunterFrontDrawingLength = drawingComponent.hunterFrontDrawingLength;
+                                                                        var hunterSystem = drawingComponent.hunterSystem;
+                                                                        var altHunter = drawingComponent.altHunter;
                                                                         var binHunterMap = UI.Instance.BinHunterMap;
-                                                                        var drawingHunterHigher = UI.Instance.HunterHigherDrawing;
-                                                                        var drawingHunterLower = UI.Instance.HunterLowerDrawing;
+                                                                        var hunterHigherDrawing = UI.Instance.HunterHigherDrawing;
+                                                                        var hunterLowerDrawing = UI.Instance.HunterLowerDrawing;
                                                                         var hunterValue = hunter.Value;
-                                                                        var absHunter = Math.Abs(hunterValue);
-                                                                        var hunterDigit = Utility.GetDigit(absHunter);
+                                                                        var absHunterValue = Math.Abs(hunterValue);
+                                                                        var hunterDigit = Utility.GetDigit(absHunterValue);
                                                                         for (var i = altHunter >> 1; i >= altHunter % 2; --i)
                                                                         {
                                                                             var distanceHunter = i == 1 && has2P ? distance2P : 0F;
@@ -1677,15 +1677,15 @@ namespace Qwilight
                                                                                     r.Set(hunterPosition0 - binHunterLength * hunterDigit - hunterFrontDrawingLength + distanceHunter, hunterPosition1, hunterFrontDrawingLength, binHunterHeight);
                                                                                     break;
                                                                             }
-                                                                            if (absHunter > 0)
+                                                                            if (absHunterValue > 0)
                                                                             {
-                                                                                targetSession.PaintDrawing(ref r, hunterValue > 0 ? drawingHunterHigher : drawingHunterLower);
+                                                                                targetSession.PaintDrawing(ref r, hunterValue > 0 ? hunterHigherDrawing : hunterLowerDrawing);
                                                                             }
                                                                             r.Position0 += hunterFrontDrawingLength;
                                                                             r.Length = binHunterLength;
                                                                             for (var j = hunterDigit - 1; j >= 0; --j)
                                                                             {
-                                                                                targetSession.PaintDrawing(ref r, binHunterMap[(int)(absHunter / Math.Pow(10, j) % 10)]);
+                                                                                targetSession.PaintDrawing(ref r, binHunterMap[(int)(absHunterValue / Math.Pow(10, j) % 10)]);
                                                                                 r.Position0 += binHunterLength;
                                                                             }
                                                                         }
@@ -1695,11 +1695,11 @@ namespace Qwilight
                                                                     var title = defaultComputer.Title;
                                                                     var titleFont = UI.Instance.TitleFont;
                                                                     var titleColor = UI.Instance.TitleColor;
-                                                                    var titlePosition0 = drawingComponentValue.titlePosition0;
-                                                                    var titlePosition1 = drawingComponentValue.titlePosition1;
-                                                                    var titleLength = drawingComponentValue.titleLength;
-                                                                    var titleHeight = drawingComponentValue.titleHeight;
-                                                                    var altTitle = drawingComponentValue.altTitle;
+                                                                    var titlePosition0 = drawingComponent.titlePosition0;
+                                                                    var titlePosition1 = drawingComponent.titlePosition1;
+                                                                    var titleLength = drawingComponent.titleLength;
+                                                                    var titleHeight = drawingComponent.titleHeight;
+                                                                    var altTitle = drawingComponent.altTitle;
                                                                     for (var i = altTitle >> 1; i >= altTitle % 2; --i)
                                                                     {
                                                                         var distanceTitle = i == 1 && has2P ? distance2P : 0F;
@@ -1711,11 +1711,11 @@ namespace Qwilight
                                                                     var artist = defaultComputer.Artist;
                                                                     var artistFont = UI.Instance.ArtistFont;
                                                                     var artistColor = UI.Instance.ArtistColor;
-                                                                    var artistPosition0 = drawingComponentValue.artistPosition0;
-                                                                    var artistPosition1 = drawingComponentValue.artistPosition1;
-                                                                    var artistLength = drawingComponentValue.artistLength;
-                                                                    var artistHeight = drawingComponentValue.artistHeight;
-                                                                    var altArtist = drawingComponentValue.altArtist;
+                                                                    var artistPosition0 = drawingComponent.artistPosition0;
+                                                                    var artistPosition1 = drawingComponent.artistPosition1;
+                                                                    var artistLength = drawingComponent.artistLength;
+                                                                    var artistHeight = drawingComponent.artistHeight;
+                                                                    var altArtist = drawingComponent.altArtist;
                                                                     for (var i = altArtist >> 1; i >= altArtist % 2; --i)
                                                                     {
                                                                         var distanceArtist = i == 1 && has2P ? distance2P : 0F;
@@ -1751,11 +1751,11 @@ namespace Qwilight
                                                                     var genre = defaultComputer.GenreText;
                                                                     var genreFont = UI.Instance.GenreFont;
                                                                     var genreColor = UI.Instance.GenreColor;
-                                                                    var genrePosition0 = drawingComponentValue.genrePosition0;
-                                                                    var genrePosition1 = drawingComponentValue.genrePosition1;
-                                                                    var genreLength = drawingComponentValue.genreLength;
-                                                                    var genreHeight = drawingComponentValue.genreHeight;
-                                                                    var altGenre = drawingComponentValue.altGenre;
+                                                                    var genrePosition0 = drawingComponent.genrePosition0;
+                                                                    var genrePosition1 = drawingComponent.genrePosition1;
+                                                                    var genreLength = drawingComponent.genreLength;
+                                                                    var genreHeight = drawingComponent.genreHeight;
+                                                                    var altGenre = drawingComponent.altGenre;
                                                                     for (var i = altGenre >> 1; i >= altGenre % 2; --i)
                                                                     {
                                                                         var distanceGenre = i == 1 && has2P ? distance2P : 0F;
@@ -1767,11 +1767,11 @@ namespace Qwilight
                                                                     var levelText = defaultComputer.LevelText;
                                                                     var levelTextFont = UI.Instance.LevelTextFont;
                                                                     var levelTextColor = BaseUI.Instance.D2DLevelColors[(int)defaultComputer.LevelValue];
-                                                                    var levelTextPosition0 = drawingComponentValue.levelTextPosition0;
-                                                                    var levelTextPosition1 = drawingComponentValue.levelTextPosition1;
-                                                                    var levelTextLength = drawingComponentValue.levelTextLength;
-                                                                    var levelTextHeight = drawingComponentValue.levelTextHeight;
-                                                                    var altLevelText = drawingComponentValue.altLevelText;
+                                                                    var levelTextPosition0 = drawingComponent.levelTextPosition0;
+                                                                    var levelTextPosition1 = drawingComponent.levelTextPosition1;
+                                                                    var levelTextLength = drawingComponent.levelTextLength;
+                                                                    var levelTextHeight = drawingComponent.levelTextHeight;
+                                                                    var altLevelText = drawingComponent.altLevelText;
                                                                     for (var i = altLevelText >> 1; i >= altLevelText % 2; --i)
                                                                     {
                                                                         var distanceLevelText = i == 1 && has2P ? distance2P : 0F;
@@ -1783,11 +1783,11 @@ namespace Qwilight
                                                                     var wantLevelID = defaultComputer.NoteFile.WantLevelID;
                                                                     var wantLevelFont = UI.Instance.WantLevelFont;
                                                                     var wantLevelIDColor = UI.Instance.WantLevelIDColor;
-                                                                    var wantLevelPosition0 = drawingComponentValue.wantLevelPosition0;
-                                                                    var wantLevelPosition1 = drawingComponentValue.wantLevelPosition1;
-                                                                    var wantLevelLength = drawingComponentValue.wantLevelLength;
-                                                                    var wantLevelHeight = drawingComponentValue.wantLevelHeight;
-                                                                    var altWantLevel = drawingComponentValue.altWantLevel;
+                                                                    var wantLevelPosition0 = drawingComponent.wantLevelPosition0;
+                                                                    var wantLevelPosition1 = drawingComponent.wantLevelPosition1;
+                                                                    var wantLevelLength = drawingComponent.wantLevelLength;
+                                                                    var wantLevelHeight = drawingComponent.wantLevelHeight;
+                                                                    var altWantLevel = drawingComponent.altWantLevel;
                                                                     for (var i = altWantLevel >> 1; i >= altWantLevel % 2; --i)
                                                                     {
                                                                         var distanceWantLevel = i == 1 && has2P ? distance2P : 0F;
@@ -1797,11 +1797,11 @@ namespace Qwilight
                                                                     break;
                                                                 case PaintPipelineID.Level:
                                                                     var levelDrawings = UI.Instance.LevelDrawings[(int)defaultComputer.LevelValue];
-                                                                    var levelPosition0 = drawingComponentValue.levelPosition0;
-                                                                    var levelPosition1 = drawingComponentValue.levelPosition1;
-                                                                    var levelLength = drawingComponentValue.levelLength;
-                                                                    var levelHeight = drawingComponentValue.levelHeight;
-                                                                    var altLevel = drawingComponentValue.altLevel;
+                                                                    var levelPosition0 = drawingComponent.levelPosition0;
+                                                                    var levelPosition1 = drawingComponent.levelPosition1;
+                                                                    var levelLength = drawingComponent.levelLength;
+                                                                    var levelHeight = drawingComponent.levelHeight;
+                                                                    var altLevel = drawingComponent.altLevel;
                                                                     var levelFrame = defaultComputer.LevelFrame;
                                                                     for (var i = altLevel >> 1; i >= altLevel % 2; --i)
                                                                     {
@@ -1814,12 +1814,12 @@ namespace Qwilight
                                                                     if (isAutoMode)
                                                                     {
                                                                         var autoMainDrawings = UI.Instance.AutoMainDrawings;
-                                                                        var autoMainPosition0 = drawingComponentValue.autoMainPosition0;
-                                                                        var autoMainPosition1 = drawingComponentValue.autoMainPosition1;
-                                                                        var autoMainLength = drawingComponentValue.autoMainLength;
-                                                                        var autoMainHeight = drawingComponentValue.autoMainHeight;
-                                                                        var autoMainSystem = drawingComponentValue.autoMainSystem;
-                                                                        var altAutoMain = drawingComponentValue.altAutoMain;
+                                                                        var autoMainPosition0 = drawingComponent.autoMainPosition0;
+                                                                        var autoMainPosition1 = drawingComponent.autoMainPosition1;
+                                                                        var autoMainLength = drawingComponent.autoMainLength;
+                                                                        var autoMainHeight = drawingComponent.autoMainHeight;
+                                                                        var autoMainSystem = drawingComponent.autoMainSystem;
+                                                                        var altAutoMain = drawingComponent.altAutoMain;
                                                                         var autoMainFrame = defaultComputer.AutoMainFrame;
                                                                         for (var i = altAutoMain >> 1; i >= altAutoMain % 2; --i)
                                                                         {
@@ -1841,23 +1841,23 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.EarlyValue:
-                                                                    PaintInt(defaultComputer.EarlyValue, drawingComponentValue.earlyValueSystem, drawingComponentValue.earlyValuePosition0, drawingComponentValue.earlyValuePosition1, drawingComponentValue.binEarlyValueLength, drawingComponentValue.binEarlyValueHeight, drawingComponentValue.altEarlyValue, UI.Instance.BinEarlyValueMap);
+                                                                    PaintInt(defaultComputer.EarlyValue, drawingComponent.earlyValueSystem, drawingComponent.earlyValuePosition0, drawingComponent.earlyValuePosition1, drawingComponent.binEarlyValueLength, drawingComponent.binEarlyValueHeight, drawingComponent.altEarlyValue, UI.Instance.BinEarlyValueMap);
                                                                     break;
                                                                 case PaintPipelineID.LateValue:
-                                                                    PaintInt(defaultComputer.LateValue, drawingComponentValue.lateValueSystem, drawingComponentValue.lateValuePosition0, drawingComponentValue.lateValuePosition1, drawingComponentValue.binLateValueLength, drawingComponentValue.binLateValueHeight, drawingComponentValue.altLateValue, UI.Instance.BinLateValueMap);
+                                                                    PaintInt(defaultComputer.LateValue, drawingComponent.lateValueSystem, drawingComponent.lateValuePosition0, drawingComponent.lateValuePosition1, drawingComponent.binLateValueLength, drawingComponent.binLateValueHeight, drawingComponent.altLateValue, UI.Instance.BinLateValueMap);
                                                                     break;
                                                                 case PaintPipelineID.JudgmentVSVisualizer:
                                                                     var vsJudgment = judgments[(int)Component.Judged.Higher] + judgments[(int)Component.Judged.High] + judgments[(int)Component.Judged.Low] + judgments[(int)Component.Judged.Lower] + judgments[(int)Component.Judged.Lowest];
                                                                     if (vsJudgment > 0)
                                                                     {
                                                                         var judgmentVSVisualizerInt = (int)(100 * judgments[(int)Component.Judged.Highest] / vsJudgment);
-                                                                        var judgmentVSVisualizerStopPointDrawingLength = drawingComponentValue.judgmentVSVisualizerStopPointDrawingLength;
-                                                                        var judgmentVSVisualizerPosition0 = drawingComponentValue.judgmentVSVisualizerPosition0;
-                                                                        var judgmentVSVisualizerPosition1 = drawingComponentValue.judgmentVSVisualizerPosition1;
-                                                                        var binJudgmentVSVisualizerLength = drawingComponentValue.binJudgmentVSVisualizerLength;
-                                                                        var binJudgmentVSVisualizerHeight = drawingComponentValue.binJudgmentVSVisualizerHeight;
-                                                                        var judgmentVSVisualizerSystem = drawingComponentValue.judgmentVSVisualizerSystem;
-                                                                        var altJudgmentVSVisualizer = drawingComponentValue.altJudgmentVSVisualizer;
+                                                                        var judgmentVSVisualizerStopPointDrawingLength = drawingComponent.judgmentVSVisualizerStopPointDrawingLength;
+                                                                        var judgmentVSVisualizerPosition0 = drawingComponent.judgmentVSVisualizerPosition0;
+                                                                        var judgmentVSVisualizerPosition1 = drawingComponent.judgmentVSVisualizerPosition1;
+                                                                        var binJudgmentVSVisualizerLength = drawingComponent.binJudgmentVSVisualizerLength;
+                                                                        var binJudgmentVSVisualizerHeight = drawingComponent.binJudgmentVSVisualizerHeight;
+                                                                        var judgmentVSVisualizerSystem = drawingComponent.judgmentVSVisualizerSystem;
+                                                                        var altJudgmentVSVisualizer = drawingComponent.altJudgmentVSVisualizer;
                                                                         var binJudgmentVSVisualizerMap = UI.Instance.BinJudgmentVSVisualizerMap;
                                                                         var judgmentVSVisualizerStopPointDrawing = UI.Instance.JudgmentVSVisualizerStopPointDrawing;
                                                                         var judgmentVSVisualizerDigit = judgmentVSVisualizerInt < 100 ? 3 : Utility.GetDigit(judgmentVSVisualizerInt);
@@ -1905,8 +1905,8 @@ namespace Qwilight
                                                                 case PaintPipelineID.MainJudgmentMeter:
                                                                     var mainJudgmentMeterDrawings = UI.Instance.MainJudgmentMeterDrawings[(int)inputMode];
                                                                     var mainJudgmentMeterFrames = defaultComputer.MainJudgmentMeterFrames;
-                                                                    var mainJudgmentMeterPosition1s = drawingComponentValue.mainJudgmentMeterPosition1s;
-                                                                    var mainJudgmentMeterHeights = drawingComponentValue.mainJudgmentMeterHeights;
+                                                                    var mainJudgmentMeterPosition1s = drawingComponent.mainJudgmentMeterPosition1s;
+                                                                    var mainJudgmentMeterHeights = drawingComponent.mainJudgmentMeterHeights;
                                                                     foreach (var drawingPipeline in drawingPipelines)
                                                                     {
                                                                         for (var i = inputCount; i > 0; --i)
@@ -1920,14 +1920,14 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.StatusSlider:
-                                                                    var statusSliderPosition0 = drawingComponentValue.statusSliderPosition0;
-                                                                    var statusSliderPosition1 = drawingComponentValue.statusSliderPosition1;
-                                                                    var statusSliderLength = drawingComponentValue.statusSliderLength;
-                                                                    var statusSliderHeight = drawingComponentValue.statusSliderHeight;
-                                                                    var statusSliderContentsLength = drawingComponentValue.statusSliderContentsLength;
-                                                                    var statusSliderContentsHeight = drawingComponentValue.statusSliderContentsHeight;
-                                                                    var statusSliderSystem = drawingComponentValue.statusSystem;
-                                                                    var altStatusSlider = drawingComponentValue.altStatusSlider;
+                                                                    var statusSliderPosition0 = drawingComponent.statusSliderPosition0;
+                                                                    var statusSliderPosition1 = drawingComponent.statusSliderPosition1;
+                                                                    var statusSliderLength = drawingComponent.statusSliderLength;
+                                                                    var statusSliderHeight = drawingComponent.statusSliderHeight;
+                                                                    var statusSliderContentsLength = drawingComponent.statusSliderContentsLength;
+                                                                    var statusSliderContentsHeight = drawingComponent.statusSliderContentsHeight;
+                                                                    var statusSliderSystem = drawingComponent.statusSystem;
+                                                                    var altStatusSlider = drawingComponent.altStatusSlider;
                                                                     var statusSliderDrawing = UI.Instance.StatusSliderDrawing;
                                                                     if (statusSliderDrawing.HasValue)
                                                                     {
@@ -1958,11 +1958,11 @@ namespace Qwilight
                                                                     }
                                                                     break;
                                                                 case PaintPipelineID.JudgmentInputVisualizer:
-                                                                    var judgmentInputVisualizerPosition0 = drawingComponentValue.judgmentInputVisualizerPosition0;
-                                                                    var judgmentInputVisualizerPosition1 = drawingComponentValue.judgmentInputVisualizerPosition1;
-                                                                    var judgmentInputVisualizerLength = drawingComponentValue.judgmentInputVisualizerLength;
-                                                                    var judgmentInputVisualizerHeight = drawingComponentValue.judgmentInputVisualizerHeight;
-                                                                    var altJudgmentInputVisualizer = drawingComponentValue.altJudgmentInputVisualizer;
+                                                                    var judgmentInputVisualizerPosition0 = drawingComponent.judgmentInputVisualizerPosition0;
+                                                                    var judgmentInputVisualizerPosition1 = drawingComponent.judgmentInputVisualizerPosition1;
+                                                                    var judgmentInputVisualizerLength = drawingComponent.judgmentInputVisualizerLength;
+                                                                    var judgmentInputVisualizerHeight = drawingComponent.judgmentInputVisualizerHeight;
+                                                                    var altJudgmentInputVisualizer = drawingComponent.altJudgmentInputVisualizer;
                                                                     var judgmentInputValues = defaultComputer.JudgmentInputValues;
                                                                     var targetJudgmentInputVisualizerLength = judgmentInputVisualizerLength / 100;
                                                                     var judgmentInputDrawings = UI.Instance.JudgmentInputDrawings;
@@ -2033,7 +2033,7 @@ namespace Qwilight
                                                     defaultComputer.IsValidNetDrawings = true;
                                                 }
 
-                                                var assistTextPosition1 = drawingComponentValue.assistTextPosition1;
+                                                var assistTextPosition1 = drawingComponent.assistTextPosition1;
                                                 if (defaultComputer.CanUndo && defaultComputer.IsPausingWindowOpened)
                                                 {
                                                     assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[3].ToString(), InputAssistFont), 100, FaintClearedPaints, FaintFilledPaints, null, 0, null, null, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.UndoContents, InputAssistFont), 100);
@@ -2053,7 +2053,7 @@ namespace Qwilight
                                                         assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.MediaMode].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, null, assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(Configure.Instance.Media ? "BGA ON" : "BGA OFF", InputAssistFont), assistTextFaint);
                                                     }
 
-                                                    if (isItemMode)
+                                                    if (isPostableItemMode)
                                                     {
                                                         assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem0].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem1].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.PostItemContents, InputAssistFont), assistTextFaint);
                                                     }
@@ -2159,8 +2159,8 @@ namespace Qwilight
                                                 var inputAssistTextFaint = assistTextFaint;
                                                 if (inputAssistTextFaint > 0)
                                                 {
-                                                    var inputAssistTextPosition1 = drawingComponentValue.inputAssistTextPosition1;
-                                                    var mainNoteLengthLevyingMap = drawingComponentValue.MainNoteLengthLevyingMap;
+                                                    var inputAssistTextPosition1 = drawingComponent.inputAssistTextPosition1;
+                                                    var mainNoteLengthLevyingMap = drawingComponent.MainNoteLengthLevyingMap;
                                                     for (var i = inputCount; i > 0; --i)
                                                     {
                                                         var inputAssistTextItem = PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.Inputs[(int)inputMode][i][0].ToString(), InputAssistFont);
@@ -2178,7 +2178,7 @@ namespace Qwilight
                                                     targetSession.FillRectangle(0F, 0F, defaultLength, defaultHeight, _lowHitPointsPaints[(int)(50 * (0.5 - defaultHitPoints))]);
                                                 }
 
-                                                if (faintNoteModeValue == ModeComponent.FaintNoteMode.TotalFading)
+                                                if (faintNoteMode == ModeComponent.FaintNoteMode.TotalFading)
                                                 {
                                                     targetSession.FillRectangle(0F, 0F, defaultLength, defaultHeight, FaintFilledPaints[(int)(100 * defaultComputer.FaintCosine)]);
                                                 }
@@ -2194,31 +2194,31 @@ namespace Qwilight
                                                     pauseNotify0Position1 += PaintNotify0Contents(mediaModifierContents, pauseNotify0Position0, pauseNotify0Position1, PauseNotifyFont, Colors.White) + Levels.StandardMarginFloat32;
                                                 }
 
-                                                var wwwLevelDataValue = defaultComputer.WwwLevelDataValue;
-                                                if (wwwLevelDataValue != null)
+                                                var wwwLevelData = defaultComputer.WwwLevelDataValue;
+                                                if (wwwLevelData != null)
                                                 {
-                                                    if (!string.IsNullOrWhiteSpace(wwwLevelDataValue.StandContents))
+                                                    if (!string.IsNullOrWhiteSpace(wwwLevelData.StandContents))
                                                     {
-                                                        pauseNotify1Position1 += PaintNotify1Contents(wwwLevelDataValue.StandContents, pauseNotify1Position0, pauseNotify1Position1, PauseNotifyFont, wwwLevelDataValue.IsStandSatisify ? Colors.Green : Colors.Red) + Levels.StandardMarginFloat32;
+                                                        pauseNotify1Position1 += PaintNotify1Contents(wwwLevelData.StandContents, pauseNotify1Position0, pauseNotify1Position1, PauseNotifyFont, wwwLevelData.IsStandSatisify ? Colors.Green : Colors.Red) + Levels.StandardMarginFloat32;
                                                     }
-                                                    if (!string.IsNullOrWhiteSpace(wwwLevelDataValue.PointContents))
+                                                    if (!string.IsNullOrWhiteSpace(wwwLevelData.PointContents))
                                                     {
-                                                        pauseNotify1Position1 += PaintNotify1Contents(wwwLevelDataValue.PointContents, pauseNotify1Position0, pauseNotify1Position1, PauseNotifyFont, wwwLevelDataValue.IsPointSatisify ? Colors.Green : Colors.Red) + Levels.StandardMarginFloat32;
+                                                        pauseNotify1Position1 += PaintNotify1Contents(wwwLevelData.PointContents, pauseNotify1Position0, pauseNotify1Position1, PauseNotifyFont, wwwLevelData.IsPointSatisify ? Colors.Green : Colors.Red) + Levels.StandardMarginFloat32;
                                                     }
-                                                    if (!string.IsNullOrWhiteSpace(wwwLevelDataValue.BandContents))
+                                                    if (!string.IsNullOrWhiteSpace(wwwLevelData.BandContents))
                                                     {
-                                                        pauseNotify1Position1 += PaintNotify1Contents(wwwLevelDataValue.BandContents, pauseNotify1Position0, pauseNotify1Position1, PauseNotifyFont, wwwLevelDataValue.IsBandSatisify ? Colors.Green : Colors.Red) + Levels.StandardMarginFloat32;
+                                                        pauseNotify1Position1 += PaintNotify1Contents(wwwLevelData.BandContents, pauseNotify1Position0, pauseNotify1Position1, PauseNotifyFont, wwwLevelData.IsBandSatisify ? Colors.Green : Colors.Red) + Levels.StandardMarginFloat32;
                                                     }
                                                     if (!defaultComputer.CanPause)
                                                     {
                                                         pauseNotify1Position1 += PaintNotify1Contents(LanguageSystem.Instance.NotAllowPauseText, pauseNotify1Position0, pauseNotify1Position1, PauseNotifyFont, Colors.Red) + Levels.StandardMarginFloat32;
                                                     }
-                                                    for (var i = wwwLevelDataValue.JudgmentContents.Length - 1; i >= 0; --i)
+                                                    for (var i = wwwLevelData.JudgmentContents.Length - 1; i >= 0; --i)
                                                     {
-                                                        var judgmentContents = wwwLevelDataValue.JudgmentContents[i];
+                                                        var judgmentContents = wwwLevelData.JudgmentContents[i];
                                                         if (!string.IsNullOrWhiteSpace(judgmentContents))
                                                         {
-                                                            pauseNotify1Position1 += PaintNotify1Contents(judgmentContents, pauseNotify1Position0, pauseNotify1Position1, PauseNotifyFont, wwwLevelDataValue.IsJudgmentsSatisify[i] ? Colors.Green : Colors.Red) + Levels.StandardMarginFloat32;
+                                                            pauseNotify1Position1 += PaintNotify1Contents(judgmentContents, pauseNotify1Position0, pauseNotify1Position1, PauseNotifyFont, wwwLevelData.IsJudgmentsSatisify[i] ? Colors.Green : Colors.Red) + Levels.StandardMarginFloat32;
                                                         }
                                                     }
                                                 }
@@ -2249,29 +2249,29 @@ namespace Qwilight
                                                     }, pauseNotify0Position0, pauseNotify0Position1, PauseNotifyFont, Colors.White) + Levels.StandardMarginFloat32;
                                                 }
 
-                                                if (!isItemMode && defaultComputer.IsTwilightNetItems && Configure.Instance.UIPipelineNet && defaultComputer.IsF)
+                                                if (!isPostableItemMode && defaultComputer.IsTwilightNetItems && Configure.Instance.UIPipelineNet && defaultComputer.IsF)
                                                 {
                                                     pauseNotify0Position1 += PaintNotify0Contents(LanguageSystem.Instance.TwilightCommentIOContents, pauseNotify0Position0, pauseNotify0Position1, PauseNotifyFont, Colors.White) + Levels.StandardMarginFloat32;
                                                 }
 
                                                 if (defaultComputer.IsPausingWindowOpened)
                                                 {
-                                                    var defaultSpinningModeValue = Configure.Instance.DefaultSpinningModeValue;
-                                                    r.Set(drawingComponentValue.pausedUnpausePosition0, drawingComponentValue.pausedUnpausePosition1, drawingComponentValue.pausedUnpauseLength, drawingComponentValue.pausedUnpauseHeight);
+                                                    var defaultSpinningMode = Configure.Instance.DefaultSpinningModeValue;
+                                                    r.Set(drawingComponent.pausedUnpausePosition0, drawingComponent.pausedUnpausePosition1, drawingComponent.pausedUnpauseLength, drawingComponent.pausedUnpauseHeight);
                                                     SetEventHandler(ref r, setDefaultSpinningModeUnpause);
-                                                    targetSession.PaintDrawing(ref r, UI.Instance.PausedUnpauseDrawings[defaultSpinningModeValue == Configure.DefaultSpinningMode.Unpause ? 1 : 0]);
+                                                    targetSession.PaintDrawing(ref r, UI.Instance.PausedUnpauseDrawings[defaultSpinningMode == Configure.DefaultSpinningMode.Unpause ? 1 : 0]);
 
-                                                    r.Set(drawingComponentValue.pausedConfigurePosition0, drawingComponentValue.pausedConfigurePosition1, drawingComponentValue.pausedConfigureLength, drawingComponentValue.pausedConfigureHeight);
+                                                    r.Set(drawingComponent.pausedConfigurePosition0, drawingComponent.pausedConfigurePosition1, drawingComponent.pausedConfigureLength, drawingComponent.pausedConfigureHeight);
                                                     SetEventHandler(ref r, setDefaultSpinningModeConfigure);
-                                                    targetSession.PaintDrawing(ref r, UI.Instance.PausedConfigureDrawings[defaultSpinningModeValue == Configure.DefaultSpinningMode.Configure ? 1 : 0]);
+                                                    targetSession.PaintDrawing(ref r, UI.Instance.PausedConfigureDrawings[defaultSpinningMode == Configure.DefaultSpinningMode.Configure ? 1 : 0]);
 
-                                                    r.Set(drawingComponentValue.pausedUndoPosition0, drawingComponentValue.pausedUndoPosition1, drawingComponentValue.pausedUndoLength, drawingComponentValue.pausedUndoHeight);
+                                                    r.Set(drawingComponent.pausedUndoPosition0, drawingComponent.pausedUndoPosition1, drawingComponent.pausedUndoLength, drawingComponent.pausedUndoHeight);
                                                     SetEventHandler(ref r, setDefaultSpinningModeUndo);
-                                                    targetSession.PaintDrawing(ref r, UI.Instance.PausedUndoDrawings[defaultSpinningModeValue == Configure.DefaultSpinningMode.Undo ? 1 : 0]);
+                                                    targetSession.PaintDrawing(ref r, UI.Instance.PausedUndoDrawings[defaultSpinningMode == Configure.DefaultSpinningMode.Undo ? 1 : 0]);
 
-                                                    r.Set(drawingComponentValue.pausedStopPosition0, drawingComponentValue.pausedStopPosition1, drawingComponentValue.pausedStopLength, drawingComponentValue.pausedStopHeight);
+                                                    r.Set(drawingComponent.pausedStopPosition0, drawingComponent.pausedStopPosition1, drawingComponent.pausedStopLength, drawingComponent.pausedStopHeight);
                                                     SetEventHandler(ref r, setDefaultSpinningModeStop);
-                                                    targetSession.PaintDrawing(ref r, UI.Instance.PausedStopDrawings[defaultSpinningModeValue == Configure.DefaultSpinningMode.Stop ? 1 : 0]);
+                                                    targetSession.PaintDrawing(ref r, UI.Instance.PausedStopDrawings[defaultSpinningMode == Configure.DefaultSpinningMode.Stop ? 1 : 0]);
                                                 }
 
                                                 PaintFadingProperty();
@@ -2323,7 +2323,7 @@ namespace Qwilight
                                 break;
                             case MainViewModel.Mode.Quit:
                                 defaultComputer = mainViewModel.Computer;
-                                modeComponentValue = defaultComputer.ModeComponentValue;
+                                modeComponent = defaultComputer.ModeComponentValue;
                                 var handlingComputer = mainViewModel.GetHandlingComputer();
                                 lock (_d2D1CSX)
                                 {
@@ -2524,31 +2524,31 @@ namespace Qwilight
                                                 targetSession.PaintVisibleText(textItem, ref r, BaseUI.Instance.BandStatusViewColor);
 
                                                 r.Set(BaseUI.Instance.AutoModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.AutoModeVariety][(int)modeComponentValue.AutoModeValue]?.Drawing, modeComponentValue.AutoModeValue == ModeComponent.AutoMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.AutoModeVariety][(int)modeComponent.AutoModeValue]?.Drawing, modeComponent.AutoModeValue == ModeComponent.AutoMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.NoteSaltModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.NoteSaltModeVariety][(int)modeComponentValue.NoteSaltModeValue]?.Drawing, modeComponentValue.NoteSaltModeValue == ModeComponent.NoteSaltMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.NoteSaltModeVariety][(int)modeComponent.NoteSaltModeValue]?.Drawing, modeComponent.NoteSaltModeValue == ModeComponent.NoteSaltMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.FaintNoteModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.FaintNoteModeVariety][(int)modeComponentValue.FaintNoteModeValue]?.Drawing, modeComponentValue.FaintNoteModeValue == ModeComponent.FaintNoteMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.FaintNoteModeVariety][(int)modeComponent.FaintNoteModeValue]?.Drawing, modeComponent.FaintNoteModeValue == ModeComponent.FaintNoteMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.JudgmentModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.JudgmentModeVariety][(int)modeComponentValue.JudgmentModeValue]?.Drawing, modeComponentValue.JudgmentModeValue == ModeComponent.JudgmentMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.JudgmentModeVariety][(int)modeComponent.JudgmentModeValue]?.Drawing, modeComponent.JudgmentModeValue == ModeComponent.JudgmentMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.HitPointsModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.HitPointsModeVariety][(int)modeComponentValue.HandlingHitPointsModeValue]?.Drawing, modeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.HitPointsModeVariety][(int)modeComponent.HandlingHitPointsModeValue]?.Drawing, modeComponent.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.NoteMobilityModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.NoteMobilityModeVariety][(int)modeComponentValue.NoteMobilityModeValue]?.Drawing, modeComponentValue.NoteMobilityModeValue == ModeComponent.NoteMobilityMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.NoteMobilityModeVariety][(int)modeComponent.NoteMobilityModeValue]?.Drawing, modeComponent.NoteMobilityModeValue == ModeComponent.NoteMobilityMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.InputFavorModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.InputFavorModeVariety][(int)modeComponentValue.InputFavorModeValue]?.Drawing, modeComponentValue.InputFavorModeValue == ModeComponent.InputFavorMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.InputFavorModeVariety][(int)modeComponent.InputFavorModeValue]?.Drawing, modeComponent.InputFavorModeValue == ModeComponent.InputFavorMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.LongNoteModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.LongNoteModeVariety][(int)modeComponentValue.LongNoteModeValue]?.Drawing, modeComponentValue.LongNoteModeValue == ModeComponent.LongNoteMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.LongNoteModeVariety][(int)modeComponent.LongNoteModeValue]?.Drawing, modeComponent.LongNoteModeValue == ModeComponent.LongNoteMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.NoteModifyModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.NoteModifyModeVariety][(int)modeComponentValue.NoteModifyModeValue]?.Drawing, modeComponentValue.NoteModifyModeValue == ModeComponent.NoteModifyMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.NoteModifyModeVariety][(int)modeComponent.NoteModifyModeValue]?.Drawing, modeComponent.NoteModifyModeValue == ModeComponent.NoteModifyMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.BPMModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.BPMModeVariety][(int)modeComponentValue.BPMModeValue]?.Drawing, modeComponentValue.BPMModeValue == ModeComponent.BPMMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.BPMModeVariety][(int)modeComponent.BPMModeValue]?.Drawing, modeComponent.BPMModeValue == ModeComponent.BPMMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.WaveModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.WaveModeVariety][(int)modeComponentValue.WaveModeValue]?.Drawing, modeComponentValue.WaveModeValue == ModeComponent.WaveMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.WaveModeVariety][(int)modeComponent.WaveModeValue]?.Drawing, modeComponent.WaveModeValue == ModeComponent.WaveMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.SetNoteModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.SetNoteModeVariety][(int)modeComponentValue.SetNoteModeValue]?.Drawing, modeComponentValue.SetNoteModeValue == ModeComponent.SetNoteMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.SetNoteModeVariety][(int)modeComponent.SetNoteModeValue]?.Drawing, modeComponent.SetNoteModeValue == ModeComponent.SetNoteMode.Default ? 0.125F : 1F);
                                                 r.Set(BaseUI.Instance.LowestJudgmentConditionModeQuitPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.LowestJudgmentConditionModeVariety][(int)modeComponentValue.LowestJudgmentConditionModeValue]?.Drawing, modeComponentValue.LowestJudgmentConditionModeValue == ModeComponent.LowestJudgmentConditionMode.Default ? 0.125F : 1F);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.ModeComponentDrawings[ModifyModeComponentViewModel.LowestJudgmentConditionModeVariety][(int)modeComponent.LowestJudgmentConditionModeValue]?.Drawing, modeComponent.LowestJudgmentConditionModeValue == ModeComponent.LowestJudgmentConditionMode.Default ? 0.125F : 1F);
 
                                                 r.Set(BaseUI.Instance.JudgmentStageQuitPoint);
                                                 targetSession.PaintDrawing(ref r, BaseUI.Instance.JudgmentStageQuitDrawing);
@@ -2647,12 +2647,12 @@ namespace Qwilight
                                 case MediaInputAreaStatus.Not:
                                     if (!defaultComputer.IsPausingWindowOpened && defaultComputer.CanSetPosition)
                                     {
-                                        var drawingComponentValue = defaultComputer.DrawingComponentValue;
+                                        var drawingComponent = defaultComputer.DrawingComponentValue;
                                         var has2P = defaultComputer.Has2P;
-                                        var distance2P = drawingComponentValue.p1BuiltLength + drawingComponentValue.p2Position;
-                                        if (!MoveStatus(drawingComponentValue.statusPosition0, drawingComponentValue.statusPosition1, drawingComponentValue.statusLength, drawingComponentValue.statusHeight, drawingComponentValue.statusSystem, drawingComponentValue.altStatus))
+                                        var distance2P = drawingComponent.p1BuiltLength + drawingComponent.p2Position;
+                                        if (!MoveStatus(drawingComponent.statusPosition0, drawingComponent.statusPosition1, drawingComponent.statusLength, drawingComponent.statusHeight, drawingComponent.statusSystem, drawingComponent.altStatus))
                                         {
-                                            MoveStatus(drawingComponentValue.statusSliderPosition0, drawingComponentValue.statusSliderPosition1, drawingComponentValue.statusSliderLength, drawingComponentValue.statusSliderHeight, drawingComponentValue.statusSliderSystem, drawingComponentValue.altStatusSlider);
+                                            MoveStatus(drawingComponent.statusSliderPosition0, drawingComponent.statusSliderPosition1, drawingComponent.statusSliderLength, drawingComponent.statusSliderHeight, drawingComponent.statusSliderSystem, drawingComponent.altStatusSlider);
                                         }
 
                                         bool MoveStatus(float position0, float position1, float length, float height, int system, int alt)
@@ -2765,7 +2765,7 @@ namespace Qwilight
                     {
                         if (fadingStatus > 0.0)
                         {
-                            BaseUI.Instance.FadingProperties[(int)mode]?[fadingValue.Layer].Paint(targetSession, fadingStatus);
+                            BaseUI.Instance.FadingProperties[(int)mode]?[fading.Layer].Paint(targetSession, fadingStatus);
                         }
                     }
 

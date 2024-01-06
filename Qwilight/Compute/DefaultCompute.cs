@@ -512,6 +512,8 @@ namespace Qwilight.Compute
 
         public double FaintCosine { get; set; }
 
+        public double QuitFaint { get; set; }
+
         public bool IsPausing
         {
             get => _isPausing;
@@ -571,7 +573,6 @@ namespace Qwilight.Compute
 
         public void Migrate(DefaultCompute targetMigrateComputer)
         {
-            AudioSystem.Instance.Migrate(this as IAudioHandler, targetMigrateComputer as IAudioHandler);
             AudioSystem.Instance.Migrate(TrailerAudioHandler, targetMigrateComputer.TrailerAudioHandler);
             targetMigrateComputer.TrailerAudioHandler.IsHandling = TrailerAudioHandler.IsHandling;
 
@@ -1621,7 +1622,7 @@ namespace Qwilight.Compute
         {
             var lastMultiplier = ModeComponentValue.Multiplier;
             var lastAudioMultiplier = AudioMultiplier;
-            var handledNotYet = true;
+            var isValidLoopingCounter = true;
             var wait100 = Length / 100;
             var rawJudgmentInputCounts = new int[100][];
             for (var i = rawJudgmentInputCounts.Length - 1; i >= 0; --i)
@@ -1755,9 +1756,9 @@ namespace Qwilight.Compute
                 var ioMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - IOMillis;
                 while (!SetStop && !SetUndo)
                 {
-                    if (LoopingCounter > HandledLength + Component.QuitWait && handledNotYet)
+                    if (LoopingCounter > HandledLength + Component.QuitWait && isValidLoopingCounter)
                     {
-                        handledNotYet = false;
+                        isValidLoopingCounter = false;
                         OnHandled();
                     }
 
@@ -2316,6 +2317,11 @@ namespace Qwilight.Compute
                         NoteMobilityValue += Utility.GetMove(IsPostableItemMode && !PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.Negative4D]].IsHandling ? 0.0 : 1.0, NoteMobilityValue, 1000.0 / millisLoopUnit);
                         FaintCosine += Utility.GetMove(IsPostableItemMode && !PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.NegativeFading]].IsHandling ? 1.0 : absSin, FaintCosine, 1000.0 / millisLoopUnit);
 
+                        if (!isValidLoopingCounter)
+                        {
+                            QuitFaint += Utility.GetMove(0.0, QuitFaint, 1000.0 / millisLoopUnit);
+                        }
+
                         if ((_isPassable = LoopingCounter < PassableWait) && SetPass)
                         {
                             LevyingWait = PassableWait;
@@ -2599,7 +2605,7 @@ namespace Qwilight.Compute
                                         break;
                                 }
                             }
-                            if (IsSuitableAsInput(absInput) && handledNotYet)
+                            if (IsSuitableAsInput(absInput) && isValidLoopingCounter)
                             {
                                 Comment.Inputs.Add(new InputEvent
                                 {
@@ -3489,7 +3495,7 @@ namespace Qwilight.Compute
                     }
                     if (lastMultiplier != ModeComponentValue.Multiplier)
                     {
-                        if (handledNotYet)
+                        if (isValidLoopingCounter)
                         {
                             Comment.Multipliers.Add(new MultiplierEvent
                             {
@@ -3533,7 +3539,7 @@ namespace Qwilight.Compute
                     }
                     if (lastAudioMultiplier != AudioMultiplier)
                     {
-                        if (handledNotYet)
+                        if (isValidLoopingCounter)
                         {
                             Comment.AudioMultipliers.Add(new AudioMultiplierEvent
                             {
@@ -4234,6 +4240,7 @@ namespace Qwilight.Compute
             NoteMobilityCosine = 1.0;
             NoteMobilityValue = 0.0;
             FaintCosine = 1.0;
+            QuitFaint = 1.0;
             ModeComponentValue.HandlingHitPointsModeValue = ModeComponentValue.HitPointsModeValue;
             _failedDrawingMillis = 0.0;
             _validJudgedNotes = 0;
@@ -4374,7 +4381,8 @@ namespace Qwilight.Compute
                 ModeComponentValue.ComputingValue = noteFile;
                 ModeComponentValue.SentMultiplier = ModeComponentValue.MultiplierValue / (ModeComponentValue.BPM * ModeComponentValue.AudioMultiplier);
                 ModeComponentValue.HitPointsModeValue = ModeComponentValue.HandlingHitPointsModeValue;
-                ViewModels.Instance.MainValue.SetComputingMode(this is CommentCompute ? new CommentCompute(NoteFiles,
+                ViewModels.Instance.MainValue.SetComputingMode(this is CommentCompute ? new CommentCompute(
+                    NoteFiles,
                     Comments,
                     DefaultModeComponentValue,
                     AvatarID,
@@ -4383,7 +4391,8 @@ namespace Qwilight.Compute
                     EventNoteEntryItem,
                     this,
                     double.NaN
-                ) : new DefaultCompute(NoteFiles,
+                ) : new DefaultCompute(
+                    NoteFiles,
                     Comments,
                     DefaultModeComponentValue,
                     AvatarID,
@@ -4391,7 +4400,8 @@ namespace Qwilight.Compute
                     WwwLevelDataValue,
                     HandlerID,
                     EventNoteEntryItem,
-                this));
+                    this)
+                );
             }
             else
             {

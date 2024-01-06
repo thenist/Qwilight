@@ -963,9 +963,9 @@ namespace Qwilight
                 s.CopyTo(rms);
                 ms = rms;
             }
+            _audioCSX.EnterReadLock();
             try
             {
-                _audioCSX.EnterReadLock();
                 if (_isAvailable)
                 {
                     if (_targetSystem.createSound(ms.GetBuffer(), LoadingAudioModes | (isLooping ? MODE.LOOP_NORMAL : MODE.LOOP_OFF), ref audioInfo, out var audioData) == RESULT.OK)

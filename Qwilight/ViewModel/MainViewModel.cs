@@ -3594,12 +3594,12 @@ namespace Qwilight.ViewModel
             {
                 var defaultComputer = Computer;
                 (AutoComputer ?? defaultComputer)?.Migrate(targetMigrateComputer);
+                targetMigrateComputer.NoteFile.SetConfigure();
                 Computer = targetMigrateComputer;
                 Computer.HandleCompiler();
                 ModeValue = Mode.Computing;
                 defaultComputer?.Close();
                 CloseAutoComputer();
-                targetMigrateComputer.NoteFile.SetConfigure();
             }
         }
 

@@ -11,7 +11,6 @@ using System.IO;
 using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Text;
-using Windows.Management.Deployment;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.WindowsAndMessaging;
@@ -54,18 +53,6 @@ namespace Qwilight.View
             ProfileOptimization.SetProfileRoot(QwilightComponent.QwilightEntryPath);
             ProfileOptimization.StartProfile("Qwilight.$");
 
-            var apt = new PackageManager();
-            void HandleMSIX(string fileName)
-            {
-                try
-                {
-                    Utility.Await(apt.AddPackageAsync(new(Path.Combine(QwilightComponent.MSIXAssetsEntryPath, fileName)), Enumerable.Empty<Uri>(), DeploymentOptions.None));
-                }
-                catch
-                {
-                }
-            }
-
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Microsoft.WindowsAppRuntime.Bootstrap.dll"), Path.Combine(AppContext.BaseDirectory, "Microsoft.WindowsAppRuntime.Bootstrap.dll"));
             if (!Bootstrap.TryInitialize(65540U, out _))
             {
@@ -80,7 +67,6 @@ namespace Qwilight.View
                     Bootstrap.Initialize(65540U, null, default, Bootstrap.InitializeOptions.OnNoMatch_ShowUI);
                 }
             }
-            HandleMSIX("Microsoft.HEVCVideoExtension.AppxBundle");
 
             try
             {
