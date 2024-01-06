@@ -514,6 +514,8 @@ namespace Qwilight.Compute
 
         public double FaintLayered { get; set; }
 
+        public double LengthLayered { get; set; }
+
         public bool IsPausing
         {
             get => _isPausing;
@@ -2317,7 +2319,7 @@ namespace Qwilight.Compute
                         NoteMobilityValue += Utility.GetMove(IsPostableItemMode && !PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.Negative4D]].IsHandling ? 0.0 : 1.0, NoteMobilityValue, 1000.0 / millisLoopUnit);
                         FaintCosine += Utility.GetMove(IsPostableItemMode && !PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.NegativeFading]].IsHandling ? 1.0 : absSin, FaintCosine, 1000.0 / millisLoopUnit);
 
-                        if (LoopingCounter > Length + Component.QuitWait)
+                        if (LoopingCounter > LengthLayered + Component.QuitWait)
                         {
                             FaintLayered += Utility.GetMove(1.0, FaintLayered, 1000.0 / millisLoopUnit);
                         }

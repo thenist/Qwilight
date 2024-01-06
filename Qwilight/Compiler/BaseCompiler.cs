@@ -798,6 +798,7 @@ namespace Qwilight.Compiler
                     waitAudioNotes.Length > 0 ? waitAudioNotes.Max(pair => pair.Key) : 0.0,
                     defaultComputer.WaitMediaNoteMap.Count > 0 ? defaultComputer.WaitMediaNoteMap.Keys.Max() : 0.0
             );
+            defaultComputer.LengthLayered = notes.Select(note => note.Wait + note.LongWait).DefaultIfEmpty(0.0).Max();
 
             var lastLevyingPosition = defaultComputer.Length;
             var lastLevyingPositions = new double[5];
