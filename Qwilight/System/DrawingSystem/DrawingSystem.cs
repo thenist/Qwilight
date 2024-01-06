@@ -437,1755 +437,1766 @@ namespace Qwilight
                                             {
                                                 var isPostableItemMode = defaultComputer.IsPostableItemMode;
                                                 var drawingComponent = defaultComputer.DrawingComponentValue;
-                                                var loopingCounter = defaultComputer.LoopingCounter;
-                                                var faintNoteMode = modeComponent.FaintNoteModeValue;
-                                                var inputMode = defaultComputer.InputMode;
-                                                var isIn2P = defaultComputer.IsIn2P;
-                                                var has2P = defaultComputer.Has2P;
-                                                var inputCount = Component.InputCounts[(int)inputMode];
-                                                var inputCount1P = defaultComputer.InputCount1P;
-                                                var mainPosition = drawingComponent.mainPosition;
-                                                var p2Position = drawingComponent.p2Position;
-                                                var p1Length = drawingComponent.p1BuiltLength;
-                                                var distance2P = p1Length + p2Position;
-                                                var isHandling = defaultComputer.IsHandling;
-                                                var hitPoints = defaultComputer.HitPoints.Value;
-                                                var status = defaultComputer.Status;
-                                                var comment = defaultComputer.Comment;
-                                                var setStop = defaultComputer.SetStop;
-                                                var isAutoMode = defaultComputer.IsAutoMode;
-                                                var d2dJudgmentPaints = BaseUI.Instance.D2DJudgmentPaints;
-                                                var isValidNetDrawings = defaultComputer.IsValidNetDrawings;
-                                                judgments[(int)Component.Judged.Highest] = defaultComputer.InheritedHighestJudgment + (setStop ? 0 : comment.HighestJudgment);
-                                                judgments[(int)Component.Judged.Higher] = defaultComputer.InheritedHigherJudgment + (setStop ? 0 : comment.HigherJudgment);
-                                                judgments[(int)Component.Judged.High] = defaultComputer.InheritedHighJudgment + (setStop ? 0 : comment.HighJudgment);
-                                                judgments[(int)Component.Judged.Low] = defaultComputer.InheritedLowJudgment + (setStop ? 0 : comment.LowJudgment);
-                                                judgments[(int)Component.Judged.Lower] = defaultComputer.InheritedLowerJudgment + (setStop ? 0 : comment.LowerJudgment);
-                                                judgments[(int)Component.Judged.Lowest] = defaultComputer.InheritedLowestJudgment + (setStop ? 0 : comment.LowestJudgment);
-                                                var drawingNoteLengthMap = drawingComponent.DrawingNoteLengthMap;
-                                                var mainPosition1 = drawingComponent.mainPosition1;
-                                                var mainHeight = drawingComponent.mainHeight;
-                                                var binJudgmentValueMap = UI.Instance.BinJudgmentValueMap;
-                                                var drawingInputModeMap = UI.Instance.DrawingInputModeMap[(int)inputMode];
-                                                var drawingPipelines = UI.Instance.DrawingPipeline;
-
-                                                var paintPipelines = UI.Instance.PaintPipelineValues;
-                                                foreach (var paintPipeline in paintPipelines)
+                                                var faintLayered = defaultComputer.FaintLayered;
+                                                if (faintLayered < 1.0)
                                                 {
-                                                    if (CanPaint(paintPipeline))
+                                                    var loopingCounter = defaultComputer.LoopingCounter;
+                                                    var faintNoteMode = modeComponent.FaintNoteModeValue;
+                                                    var inputMode = defaultComputer.InputMode;
+                                                    var isIn2P = defaultComputer.IsIn2P;
+                                                    var has2P = defaultComputer.Has2P;
+                                                    var inputCount = Component.InputCounts[(int)inputMode];
+                                                    var inputCount1P = defaultComputer.InputCount1P;
+                                                    var mainPosition = drawingComponent.mainPosition;
+                                                    var p2Position = drawingComponent.p2Position;
+                                                    var p1Length = drawingComponent.p1BuiltLength;
+                                                    var distance2P = p1Length + p2Position;
+                                                    var isHandling = defaultComputer.IsHandling;
+                                                    var hitPoints = defaultComputer.HitPoints.Value;
+                                                    var status = defaultComputer.Status;
+                                                    var comment = defaultComputer.Comment;
+                                                    var setStop = defaultComputer.SetStop;
+                                                    var isAutoMode = defaultComputer.IsAutoMode;
+                                                    var d2dJudgmentPaints = BaseUI.Instance.D2DJudgmentPaints;
+                                                    var isValidNetDrawings = defaultComputer.IsValidNetDrawings;
+                                                    judgments[(int)Component.Judged.Highest] = defaultComputer.InheritedHighestJudgment + (setStop ? 0 : comment.HighestJudgment);
+                                                    judgments[(int)Component.Judged.Higher] = defaultComputer.InheritedHigherJudgment + (setStop ? 0 : comment.HigherJudgment);
+                                                    judgments[(int)Component.Judged.High] = defaultComputer.InheritedHighJudgment + (setStop ? 0 : comment.HighJudgment);
+                                                    judgments[(int)Component.Judged.Low] = defaultComputer.InheritedLowJudgment + (setStop ? 0 : comment.LowJudgment);
+                                                    judgments[(int)Component.Judged.Lower] = defaultComputer.InheritedLowerJudgment + (setStop ? 0 : comment.LowerJudgment);
+                                                    judgments[(int)Component.Judged.Lowest] = defaultComputer.InheritedLowestJudgment + (setStop ? 0 : comment.LowestJudgment);
+                                                    var drawingNoteLengthMap = drawingComponent.DrawingNoteLengthMap;
+                                                    var mainPosition1 = drawingComponent.mainPosition1;
+                                                    var mainHeight = drawingComponent.mainHeight;
+                                                    var binJudgmentValueMap = UI.Instance.BinJudgmentValueMap;
+                                                    var drawingInputModeMap = UI.Instance.DrawingInputModeMap[(int)inputMode];
+                                                    var drawingPipelines = UI.Instance.DrawingPipeline;
+                                                    var paintPipelines = UI.Instance.PaintPipelineValues;
+                                                    foreach (var paintPipeline in paintPipelines)
                                                     {
-                                                        if (paintPipeline >= PaintPipelineID.PaintProperty0 && paintPipeline <= PaintPipelineID.PaintProperty255)
+                                                        if (CanPaint(paintPipeline))
                                                         {
-                                                            var paintPropertyID = (int)paintPipeline - (int)PaintPipelineID.PaintProperty0;
-                                                            lock (drawingComponent.PaintPropertyCSX)
+                                                            if (paintPipeline >= PaintPipelineID.PaintProperty0 && paintPipeline <= PaintPipelineID.PaintProperty255)
                                                             {
-                                                                if (drawingComponent.PaintPropertyIDs.Contains(paintPropertyID))
+                                                                var paintPropertyID = (int)paintPipeline - (int)PaintPipelineID.PaintProperty0;
+                                                                lock (drawingComponent.PaintPropertyCSX)
                                                                 {
-                                                                    var paintPropertyIntMap = drawingComponent.PaintPropertyIntMap[paintPropertyID];
-                                                                    var paintPropertyPipeline = (PaintPipelineID)paintPropertyIntMap[PaintProperty.ID.Pipeline];
-                                                                    if ((int)paintPropertyPipeline == -1 || paintPipelines.Contains(paintPropertyPipeline) && CanPaint(paintPropertyPipeline))
+                                                                    if (drawingComponent.PaintPropertyIDs.Contains(paintPropertyID))
                                                                     {
-                                                                        if (paintPropertyIntMap[PaintProperty.ID.Frame] > 0)
+                                                                        var paintPropertyIntMap = drawingComponent.PaintPropertyIntMap[paintPropertyID];
+                                                                        var paintPropertyPipeline = (PaintPipelineID)paintPropertyIntMap[PaintProperty.ID.Pipeline];
+                                                                        if ((int)paintPropertyPipeline == -1 || paintPipelines.Contains(paintPropertyPipeline) && CanPaint(paintPropertyPipeline))
                                                                         {
-                                                                            var paintPropertyAlt = paintPropertyIntMap[PaintProperty.ID.Alt];
-                                                                            var paintPropertyMap = drawingComponent.PaintPropertyMap[paintPropertyID];
-                                                                            var paintPropertyPosition0 = paintPropertyMap[PaintProperty.ID.Position0];
-                                                                            var paintPropertyPosition1 = paintPropertyMap[PaintProperty.ID.Position1];
-                                                                            var paintPropertyLength = paintPropertyMap[PaintProperty.ID.Length];
-                                                                            var paintPropertyHeight = paintPropertyMap[PaintProperty.ID.Height];
-                                                                            var paintPropertyDrawing = UI.Instance.PaintProperties[paintPropertyID].Drawings[defaultComputer.PaintPropertyFrames[paintPropertyID]];
-                                                                            for (var i = paintPropertyAlt >> 1; i >= paintPropertyAlt % 2; --i)
+                                                                            if (paintPropertyIntMap[PaintProperty.ID.Frame] > 0)
                                                                             {
-                                                                                var distancePaint = i == 1 && has2P ? distance2P : 0F;
-                                                                                r.Set(paintPropertyPosition0 + distancePaint, paintPropertyPosition1, paintPropertyLength, paintPropertyHeight);
-                                                                                targetSession.PaintDrawing(ref r, paintPropertyDrawing, 1F, (CanvasComposite)paintPropertyIntMap[PaintProperty.ID.Composition]);
+                                                                                var paintPropertyAlt = paintPropertyIntMap[PaintProperty.ID.Alt];
+                                                                                var paintPropertyMap = drawingComponent.PaintPropertyMap[paintPropertyID];
+                                                                                var paintPropertyPosition0 = paintPropertyMap[PaintProperty.ID.Position0];
+                                                                                var paintPropertyPosition1 = paintPropertyMap[PaintProperty.ID.Position1];
+                                                                                var paintPropertyLength = paintPropertyMap[PaintProperty.ID.Length];
+                                                                                var paintPropertyHeight = paintPropertyMap[PaintProperty.ID.Height];
+                                                                                var paintPropertyDrawing = UI.Instance.PaintProperties[paintPropertyID].Drawings[defaultComputer.PaintPropertyFrames[paintPropertyID]];
+                                                                                for (var i = paintPropertyAlt >> 1; i >= paintPropertyAlt % 2; --i)
+                                                                                {
+                                                                                    var distancePaint = i == 1 && has2P ? distance2P : 0F;
+                                                                                    r.Set(paintPropertyPosition0 + distancePaint, paintPropertyPosition1, paintPropertyLength, paintPropertyHeight);
+                                                                                    targetSession.PaintDrawing(ref r, paintPropertyDrawing, 1F, (CanvasComposite)paintPropertyIntMap[PaintProperty.ID.Composition]);
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
                                                                 }
                                                             }
-                                                        }
-                                                        else
-                                                        {
-                                                            switch (paintPipeline)
+                                                            else
                                                             {
-                                                                case PaintPipelineID.Media:
-                                                                    var mediaFaint = (float)Configure.Instance.UIConfigureValue.MediaFaintV2;
-                                                                    var mediaPosition0 = drawingComponent.mediaPosition0;
-                                                                    var mediaPosition1 = drawingComponent.mediaPosition1;
-                                                                    var mediaLength = drawingComponent.mediaLength;
-                                                                    var mediaHeight = drawingComponent.mediaHeight;
-                                                                    var altMedia = drawingComponent.altMedia;
-                                                                    for (var i = altMedia >> 1; i >= altMedia % 2; --i)
-                                                                    {
-                                                                        var distanceMedia = i == 1 && has2P ? distance2P : 0F;
-                                                                        r.Set(mediaPosition0 + distanceMedia, mediaPosition1, mediaLength, mediaHeight);
-                                                                        defaultComputer.PaintMedia(targetSession, ref r, mediaFaint);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.AudioVisualizer:
-                                                                    Utility.PaintAudioVisualizer(targetSession, ref r, (int)(100 * Configure.Instance.UIConfigureValue.AudioVisualizerFaintV2), drawingComponent.audioVisualizerPosition0, drawingComponent.audioVisualizerPosition1, drawingComponent.audioVisualizerLength, drawingComponent.audioVisualizerHeight);
-                                                                    break;
-                                                                case PaintPipelineID.MainWall:
-                                                                    var mainWalls = UI.Instance.MainWalls;
-                                                                    var mainWall0Position1 = drawingComponent.mainWall0Position1;
-                                                                    var mainWall0Length = drawingComponent.mainWall0Length;
-                                                                    var mainWall0Height = drawingComponent.mainWall0Height;
-                                                                    var altWall0 = drawingComponent.altWall0;
-                                                                    var mainWallDrawing0 = mainWalls[0];
-                                                                    for (var i = altWall0 >> 1; i >= altWall0 % 2; --i)
-                                                                    {
-                                                                        var distanceMainWall0 = i == 1 && has2P ? distance2P : 0F;
-                                                                        r.Set(mainPosition + distanceMainWall0 - mainWall0Length, mainWall0Position1, mainWall0Length, mainWall0Height);
-                                                                        targetSession.PaintDrawing(ref r, mainWallDrawing0);
-                                                                    }
-                                                                    var mainWall1Position1 = drawingComponent.mainWall1Position1;
-                                                                    var mainWall1Length = drawingComponent.mainWall1Length;
-                                                                    var mainWall1Height = drawingComponent.mainWall1Height;
-                                                                    var altWall1 = drawingComponent.altWall1;
-                                                                    var mainWallDrawing1 = mainWalls[1];
-                                                                    for (var i = altWall1 >> 1; i >= altWall1 % 2; --i)
-                                                                    {
-                                                                        var distanceMainWall1 = i == 1 && has2P ? distance2P : 0F;
-                                                                        r.Set(mainPosition + p1Length + distanceMainWall1, mainWall1Position1, mainWall1Length, mainWall1Height);
-                                                                        targetSession.PaintDrawing(ref r, mainWallDrawing1);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Main:
-                                                                    var mainDrawings = UI.Instance.MainDrawings[(int)inputMode];
-                                                                    var mainFaint = (float)Configure.Instance.UIConfigureValue.MainFaintV2;
-                                                                    foreach (var drawingPipeline in drawingPipelines)
-                                                                    {
-                                                                        for (var i = inputCount; i > 0; --i)
+                                                                switch (paintPipeline)
+                                                                {
+                                                                    case PaintPipelineID.Media:
+                                                                        var mediaFaint = (float)Configure.Instance.UIConfigureValue.MediaFaintV2;
+                                                                        var mediaPosition0 = drawingComponent.mediaPosition0;
+                                                                        var mediaPosition1 = drawingComponent.mediaPosition1;
+                                                                        var mediaLength = drawingComponent.mediaLength;
+                                                                        var mediaHeight = drawingComponent.mediaHeight;
+                                                                        var altMedia = drawingComponent.altMedia;
+                                                                        for (var i = altMedia >> 1; i >= altMedia % 2; --i)
                                                                         {
-                                                                            if (drawingPipeline == drawingInputModeMap[i])
-                                                                            {
-                                                                                var mainDrawing = mainDrawings?[i]?[Configure.Instance.UIPipelineMainDrawingPaint ? defaultComputer.MainFrames[i] : 0];
-                                                                                if (mainDrawing.HasValue)
-                                                                                {
-                                                                                    r.Set(defaultComputer.GetPosition(i), mainPosition1, drawingNoteLengthMap[i], mainHeight);
-                                                                                    targetSession.PaintDrawing(ref r, mainDrawing, mainFaint);
-                                                                                    defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Main, mainDrawing.Value.AverageColor, r.Position0 - drawingComponent.mainPosition, r.Position1, r.Length, r.Height);
-                                                                                }
-                                                                            }
+                                                                            var distanceMedia = i == 1 && has2P ? distance2P : 0F;
+                                                                            r.Set(mediaPosition0 + distanceMedia, mediaPosition1, mediaLength, mediaHeight);
+                                                                            defaultComputer.PaintMedia(targetSession, ref r, mediaFaint);
                                                                         }
-                                                                    }
-
-                                                                    if (isPostableItemMode)
-                                                                    {
-                                                                        for (var i = 1; i >= -1; --i)
+                                                                        break;
+                                                                    case PaintPipelineID.AudioVisualizer:
+                                                                        Utility.PaintAudioVisualizer(targetSession, ref r, (int)(100.0 * Configure.Instance.UIConfigureValue.AudioVisualizerFaintV2), drawingComponent.audioVisualizerPosition0, drawingComponent.audioVisualizerPosition1, drawingComponent.audioVisualizerLength, drawingComponent.audioVisualizerHeight);
+                                                                        break;
+                                                                    case PaintPipelineID.MainWall:
+                                                                        var mainWalls = UI.Instance.MainWalls;
+                                                                        var mainWall0Position1 = drawingComponent.mainWall0Position1;
+                                                                        var mainWall0Length = drawingComponent.mainWall0Length;
+                                                                        var mainWall0Height = drawingComponent.mainWall0Height;
+                                                                        var altWall0 = drawingComponent.altWall0;
+                                                                        var mainWallDrawing0 = mainWalls[0];
+                                                                        for (var i = altWall0 >> 1; i >= altWall0 % 2; --i)
                                                                         {
-                                                                            var postedItemFaint = defaultComputer.PostedItemFaints[i] / 5;
-                                                                            var faintItemPaint = FaintItemPaints[i][(int)(100 * postedItemFaint)];
-                                                                            r.Set(mainPosition, 0.0, p1Length, mainHeight);
-                                                                            targetSession.FillRectangle(r, faintItemPaint);
-                                                                            if (has2P)
-                                                                            {
-                                                                                r.Position0 += distance2P;
-                                                                                targetSession.FillRectangle(r, faintItemPaint);
-                                                                            }
+                                                                            var distanceMainWall0 = i == 1 && has2P ? distance2P : 0F;
+                                                                            r.Set(mainPosition + distanceMainWall0 - mainWall0Length, mainWall0Position1, mainWall0Length, mainWall0Height);
+                                                                            targetSession.PaintDrawing(ref r, mainWallDrawing0);
                                                                         }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.AutoInput:
-                                                                    if (!isAutoMode || UI.Instance.MaintainAutoInput)
-                                                                    {
-                                                                        var autoInputDrawings = UI.Instance.AutoInputDrawings[(int)inputMode];
-                                                                        var autoInputPosition1s = drawingComponent.autoInputPosition1s;
-                                                                        var autoInputHeights = drawingComponent.autoInputHeights;
+                                                                        var mainWall1Position1 = drawingComponent.mainWall1Position1;
+                                                                        var mainWall1Length = drawingComponent.mainWall1Length;
+                                                                        var mainWall1Height = drawingComponent.mainWall1Height;
+                                                                        var altWall1 = drawingComponent.altWall1;
+                                                                        var mainWallDrawing1 = mainWalls[1];
+                                                                        for (var i = altWall1 >> 1; i >= altWall1 % 2; --i)
+                                                                        {
+                                                                            var distanceMainWall1 = i == 1 && has2P ? distance2P : 0F;
+                                                                            r.Set(mainPosition + p1Length + distanceMainWall1, mainWall1Position1, mainWall1Length, mainWall1Height);
+                                                                            targetSession.PaintDrawing(ref r, mainWallDrawing1);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Main:
+                                                                        var mainDrawings = UI.Instance.MainDrawings[(int)inputMode];
+                                                                        var mainFaint = (float)Configure.Instance.UIConfigureValue.MainFaintV2;
                                                                         foreach (var drawingPipeline in drawingPipelines)
                                                                         {
                                                                             for (var i = inputCount; i > 0; --i)
                                                                             {
                                                                                 if (drawingPipeline == drawingInputModeMap[i])
                                                                                 {
-                                                                                    if (defaultComputer.IsSuitableAsAutoJudge(i))
+                                                                                    var mainDrawing = mainDrawings?[i]?[Configure.Instance.UIPipelineMainDrawingPaint ? defaultComputer.MainFrames[i] : 0];
+                                                                                    if (mainDrawing.HasValue)
                                                                                     {
-                                                                                        r.Set(defaultComputer.GetPosition(i), autoInputPosition1s[i], drawingNoteLengthMap[i], autoInputHeights[i]);
-                                                                                        targetSession.PaintDrawing(ref r, autoInputDrawings[i]);
+                                                                                        r.Set(defaultComputer.GetPosition(i), mainPosition1, drawingNoteLengthMap[i], mainHeight);
+                                                                                        targetSession.PaintDrawing(ref r, mainDrawing, mainFaint);
+                                                                                        defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Main, mainDrawing.Value.AverageColor, r.Position0 - drawingComponent.mainPosition, r.Position1, r.Length, r.Height);
                                                                                     }
                                                                                 }
                                                                             }
                                                                         }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.HitPoints:
-                                                                    var hitPointsPosition0 = drawingComponent.hitPointsPosition0;
-                                                                    var hitPointsPosition1 = drawingComponent.hitPointsPosition1;
-                                                                    var hitPointsLength = drawingComponent.hitPointsLength;
-                                                                    var hitPointsHeight = drawingComponent.hitPointsHeight;
-                                                                    var hitPointsDrawing = UI.Instance.HitPointsDrawings[(int)modeComponent.HandlingHitPointsModeValue];
-                                                                    var altHitPoints = drawingComponent.altHitPoints;
-                                                                    var hitPointsSystem = drawingComponent.hitPointsSystem;
-                                                                    for (var i = altHitPoints >> 1; i >= altHitPoints % 2; --i)
-                                                                    {
-                                                                        var distanceHitPoints = i == 1 && has2P ? distance2P : 0F;
-                                                                        if (hitPointsDrawing.HasValue)
+
+                                                                        if (isPostableItemMode)
                                                                         {
-                                                                            var hitPointsDrawingValue = hitPointsDrawing.Value;
-                                                                            var hitPointsDrawingBound = hitPointsDrawingValue.DrawingBound;
-                                                                            var hitPointsDrawingLength = hitPointsDrawingBound.Length;
-                                                                            var hitPointsDrawingHeight = hitPointsDrawingBound.Height;
-                                                                            switch (hitPointsSystem)
+                                                                            for (var i = 1; i >= -1; --i)
                                                                             {
-                                                                                case 0:
-                                                                                    r.Set(hitPointsPosition0 + distanceHitPoints, hitPointsPosition1 + hitPointsHeight * (1 - hitPoints), hitPointsLength, hitPointsHeight * hitPoints);
-                                                                                    s.Set(0.0, (1 - hitPoints) * hitPointsDrawingHeight, hitPointsDrawingLength, hitPointsDrawingHeight * hitPoints);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(hitPointsPosition0 + distanceHitPoints, hitPointsPosition1, hitPointsLength, hitPointsHeight * hitPoints);
-                                                                                    s.SetArea(hitPointsDrawingLength, hitPointsDrawingHeight * hitPoints);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(hitPointsPosition0 + distanceHitPoints + hitPointsLength * (1 - hitPoints), hitPointsPosition1, hitPointsLength * hitPoints, hitPointsHeight);
-                                                                                    s.Set((1 - hitPoints) * hitPointsDrawingLength, 0.0, hitPointsDrawingLength * hitPoints, hitPointsDrawingHeight);
-                                                                                    break;
-                                                                                case 3:
-                                                                                    r.Set(hitPointsPosition0 + distanceHitPoints, hitPointsPosition1, hitPointsLength * hitPoints, hitPointsHeight);
-                                                                                    s.SetArea(hitPointsDrawingLength * hitPoints, hitPointsDrawingHeight);
-                                                                                    break;
-                                                                            }
-                                                                            targetSession.PaintDrawing(ref r, ref s, hitPointsDrawingValue);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Note:
-                                                                    for (var i = BaseNote.LowestLayer; i <= BaseNote.HighestLayer; ++i)
-                                                                    {
-                                                                        foreach (var drawingPipeline in drawingPipelines)
-                                                                        {
-                                                                            var paintedNotes = defaultComputer.PaintedNotes;
-                                                                            lock (paintedNotes)
-                                                                            {
-                                                                                foreach (var paintedNote in paintedNotes)
+                                                                                var postedItemFaint = defaultComputer.PostedItemFaints[i] / 5;
+                                                                                var faintItemPaint = FaintItemPaints[i][(int)(100.0 * postedItemFaint)];
+                                                                                r.Set(mainPosition, 0.0, p1Length, mainHeight);
+                                                                                targetSession.FillRectangle(r, faintItemPaint);
+                                                                                if (has2P)
                                                                                 {
-                                                                                    if (paintedNote.Layer == i)
+                                                                                    r.Position0 += distance2P;
+                                                                                    targetSession.FillRectangle(r, faintItemPaint);
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.AutoInput:
+                                                                        if (!isAutoMode || UI.Instance.MaintainAutoInput)
+                                                                        {
+                                                                            var autoInputDrawings = UI.Instance.AutoInputDrawings[(int)inputMode];
+                                                                            var autoInputPosition1s = drawingComponent.autoInputPosition1s;
+                                                                            var autoInputHeights = drawingComponent.autoInputHeights;
+                                                                            foreach (var drawingPipeline in drawingPipelines)
+                                                                            {
+                                                                                for (var i = inputCount; i > 0; --i)
+                                                                                {
+                                                                                    if (drawingPipeline == drawingInputModeMap[i])
                                                                                     {
-                                                                                        if (drawingPipeline == drawingInputModeMap[paintedNote.TargetInput])
+                                                                                        if (defaultComputer.IsSuitableAsAutoJudge(i))
                                                                                         {
-                                                                                            paintedNote.Paint(targetSession, isValidNetDrawings, defaultComputer, ref r);
+                                                                                            r.Set(defaultComputer.GetPosition(i), autoInputPosition1s[i], drawingNoteLengthMap[i], autoInputHeights[i]);
+                                                                                            targetSession.PaintDrawing(ref r, autoInputDrawings[i]);
                                                                                         }
                                                                                     }
                                                                                 }
                                                                             }
                                                                         }
-                                                                    }
-
-                                                                    if (faintNoteMode == ModeComponent.FaintNoteMode.Faint)
-                                                                    {
-                                                                        r.Set(mainPosition, 0.0, p1Length, mainHeight);
-                                                                        targetSession.PaintDrawing(ref r, _faintNoteDrawing);
-                                                                        if (has2P)
+                                                                        break;
+                                                                    case PaintPipelineID.HitPoints:
+                                                                        var hitPointsPosition0 = drawingComponent.hitPointsPosition0;
+                                                                        var hitPointsPosition1 = drawingComponent.hitPointsPosition1;
+                                                                        var hitPointsLength = drawingComponent.hitPointsLength;
+                                                                        var hitPointsHeight = drawingComponent.hitPointsHeight;
+                                                                        var hitPointsDrawing = UI.Instance.HitPointsDrawings[(int)modeComponent.HandlingHitPointsModeValue];
+                                                                        var altHitPoints = drawingComponent.altHitPoints;
+                                                                        var hitPointsSystem = drawingComponent.hitPointsSystem;
+                                                                        for (var i = altHitPoints >> 1; i >= altHitPoints % 2; --i)
                                                                         {
-                                                                            r.Position0 += distance2P;
-                                                                            targetSession.PaintDrawing(ref r, _faintNoteDrawing);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Input:
-                                                                    var inputDrawings = UI.Instance.InputDrawings[(int)inputMode];
-                                                                    var inputPosition0s = drawingComponent.inputPosition0s;
-                                                                    var inputPosition1s = drawingComponent.inputPosition1s;
-                                                                    var inputLengths = drawingComponent.inputLengths;
-                                                                    var inputHeights = drawingComponent.inputHeights;
-                                                                    var inputFrames = defaultComputer.InputFrames;
-                                                                    foreach (var drawingPipeline in drawingPipelines)
-                                                                    {
-                                                                        for (var i = inputCount; i > 0; --i)
-                                                                        {
-                                                                            if (drawingPipeline == drawingInputModeMap[i])
+                                                                            var distanceHitPoints = i == 1 && has2P ? distance2P : 0F;
+                                                                            if (hitPointsDrawing.HasValue)
                                                                             {
-                                                                                var inputLength = inputLengths[i];
-                                                                                r.Set(defaultComputer.GetPosition(i) + inputPosition0s[i] - inputLength / 2, inputPosition1s[i], drawingNoteLengthMap[i] + inputLength, inputHeights[i]);
-                                                                                targetSession.PaintDrawing(ref r, inputDrawings?[i]?[defaultComputer.InputFrames[i]]);
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Band:
-                                                                    var binBandMap = UI.Instance.BinBandMap;
-                                                                    var band = defaultComputer.Band.Value;
-                                                                    if (band > 0)
-                                                                    {
-                                                                        var bandPosition0 = drawingComponent.bandPosition0;
-                                                                        var bandPosition1 = drawingComponent.bandPosition1;
-                                                                        var binBandLength = drawingComponent.binBandLength;
-                                                                        var binBandHeight = drawingComponent.binBandHeight;
-                                                                        var bandSystem = drawingComponent.bandSystem;
-                                                                        var altBand = drawingComponent.altBand;
-                                                                        var bandDrawingMap = defaultComputer.BandEnlargedMap;
-                                                                        var bandDrawingFrames = defaultComputer.BandDrawingFrames;
-                                                                        var bandDigit = Utility.GetDigit(band);
-                                                                        for (var i = altBand >> 1; i >= altBand % 2; --i)
-                                                                        {
-                                                                            var distanceBand = i == 1 && has2P ? distance2P : 0F;
-                                                                            for (var j = bandDigit - 1; j >= 0; --j)
-                                                                            {
-                                                                                var m = (int)(band / Math.Pow(10, j) % 10);
-                                                                                var enlarge = bandDrawingMap.TryGetValue(j, out var unlarge) ? 2 * unlarge : 0.0;
-                                                                                var binBandDrawing = binBandMap[m, bandDrawingFrames.TryGetValue(j, out var frame) ? frame : 0];
-                                                                                switch (bandSystem)
+                                                                                var hitPointsDrawingValue = hitPointsDrawing.Value;
+                                                                                var hitPointsDrawingBound = hitPointsDrawingValue.DrawingBound;
+                                                                                var hitPointsDrawingLength = hitPointsDrawingBound.Length;
+                                                                                var hitPointsDrawingHeight = hitPointsDrawingBound.Height;
+                                                                                switch (hitPointsSystem)
                                                                                 {
                                                                                     case 0:
-                                                                                        r.Set(bandPosition0 + binBandLength * (bandDigit - j - 1) + distanceBand - unlarge, bandPosition1 - unlarge, binBandLength + enlarge, binBandHeight + enlarge);
+                                                                                        r.Set(hitPointsPosition0 + distanceHitPoints, hitPointsPosition1 + hitPointsHeight * (1 - hitPoints), hitPointsLength, hitPointsHeight * hitPoints);
+                                                                                        s.Set(0.0, (1 - hitPoints) * hitPointsDrawingHeight, hitPointsDrawingLength, hitPointsDrawingHeight * hitPoints);
                                                                                         break;
                                                                                     case 1:
-                                                                                        r.Set(bandPosition0 + binBandLength * (0.5 * bandDigit - j - 1) + distanceBand - unlarge, bandPosition1 - unlarge, binBandLength + enlarge, binBandHeight + enlarge);
+                                                                                        r.Set(hitPointsPosition0 + distanceHitPoints, hitPointsPosition1, hitPointsLength, hitPointsHeight * hitPoints);
+                                                                                        s.SetArea(hitPointsDrawingLength, hitPointsDrawingHeight * hitPoints);
                                                                                         break;
                                                                                     case 2:
-                                                                                        r.Set(bandPosition0 - binBandLength * (j + 1) + distanceBand - unlarge, bandPosition1 - unlarge, binBandLength + enlarge, binBandHeight + enlarge);
+                                                                                        r.Set(hitPointsPosition0 + distanceHitPoints + hitPointsLength * (1 - hitPoints), hitPointsPosition1, hitPointsLength * hitPoints, hitPointsHeight);
+                                                                                        s.Set((1 - hitPoints) * hitPointsDrawingLength, 0.0, hitPointsDrawingLength * hitPoints, hitPointsDrawingHeight);
+                                                                                        break;
+                                                                                    case 3:
+                                                                                        r.Set(hitPointsPosition0 + distanceHitPoints, hitPointsPosition1, hitPointsLength * hitPoints, hitPointsHeight);
+                                                                                        s.SetArea(hitPointsDrawingLength * hitPoints, hitPointsDrawingHeight);
                                                                                         break;
                                                                                 }
-                                                                                targetSession.PaintDrawing(ref r, binBandDrawing);
+                                                                                targetSession.PaintDrawing(ref r, ref s, hitPointsDrawingValue);
                                                                             }
                                                                         }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.JudgmentMeter:
-                                                                    var judgmentMeterPosition0 = drawingComponent.judgmentMeterPosition0;
-                                                                    var judgmentMeterPosition1 = drawingComponent.judgmentMeterPosition1;
-                                                                    var binJudgmentMeterLength = drawingComponent.binJudgmentMeterLength;
-                                                                    var binJudgmentMeterHeight = drawingComponent.binJudgmentMeterHeight;
-                                                                    var judgmentMeterFrontDrawingLength = drawingComponent.judgmentMeterFrontDrawingLength;
-                                                                    var judgmentMeterUnitDrawingLength = drawingComponent.judgmentMeterUnitDrawingLength;
-                                                                    var judgmentMeters = defaultComputer.JudgmentMeters;
-                                                                    var judgmentMeterSystem = drawingComponent.judgmentMeterSystem;
-                                                                    var altJudgmentMeter = drawingComponent.altJudgmentMeter;
-                                                                    var binJudgmentMeterMap = UI.Instance.BinJudgmentMeterMap;
-                                                                    var drawingJudgmentMeterHigher = UI.Instance.JudgmentMererHigherDrawing;
-                                                                    var drawingJudgmentMeterLower = UI.Instance.JudgmentMeterLowerDrawing;
-                                                                    var drawingJudgmentMeterUnit = UI.Instance.JudgmentMeterUnitDrawing;
-                                                                    for (var i = altJudgmentMeter >> 1; i >= altJudgmentMeter % 2; --i)
-                                                                    {
-                                                                        var judgmentMeter = judgmentMeters[i];
-                                                                        var judgmentMeterInt = (int)Math.Round(judgmentMeter);
-                                                                        var absJudgmentMeter = Math.Abs(judgmentMeterInt);
-                                                                        if (absJudgmentMeter >= Configure.Instance.JudgmentMeterMillis)
+                                                                        break;
+                                                                    case PaintPipelineID.Note:
+                                                                        for (var i = BaseNote.LowestLayer; i <= BaseNote.HighestLayer; ++i)
                                                                         {
-                                                                            var distanceJudgmentMeter = i == 1 && has2P ? distance2P : 0F;
-                                                                            var judgmentMeterDigit = Utility.GetDigit(absJudgmentMeter);
-                                                                            switch (judgmentMeterSystem)
+                                                                            foreach (var drawingPipeline in drawingPipelines)
                                                                             {
-                                                                                case 0:
-                                                                                    r.Set(judgmentMeterPosition0 - binJudgmentMeterLength + distanceJudgmentMeter, judgmentMeterPosition1, judgmentMeterFrontDrawingLength, binJudgmentMeterHeight);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(judgmentMeterPosition0 - 0.5 * (binJudgmentMeterLength * judgmentMeterDigit + judgmentMeterFrontDrawingLength) + distanceJudgmentMeter, judgmentMeterPosition1, judgmentMeterFrontDrawingLength, binJudgmentMeterHeight);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(judgmentMeterPosition0 - binJudgmentMeterLength * judgmentMeterDigit - judgmentMeterFrontDrawingLength + distanceJudgmentMeter, judgmentMeterPosition1, judgmentMeterFrontDrawingLength, binJudgmentMeterHeight);
-                                                                                    break;
-                                                                            }
-                                                                            if (absJudgmentMeter > 0)
-                                                                            {
-                                                                                targetSession.PaintDrawing(ref r, judgmentMeter > 0 ? drawingJudgmentMeterHigher : drawingJudgmentMeterLower);
-                                                                            }
-                                                                            r.Position0 += judgmentMeterFrontDrawingLength;
-                                                                            r.Length = binJudgmentMeterLength;
-                                                                            for (var j = judgmentMeterDigit - 1; j >= 0; --j)
-                                                                            {
-                                                                                targetSession.PaintDrawing(ref r, binJudgmentMeterMap[(int)(absJudgmentMeter / Math.Pow(10, j) % 10)]);
-                                                                                r.Position0 += binJudgmentMeterLength;
-                                                                            }
-                                                                            r.Length = judgmentMeterUnitDrawingLength;
-                                                                            targetSession.PaintDrawing(ref r, drawingJudgmentMeterUnit);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Stand:
-                                                                    var stand = defaultComputer.Stand.Value;
-                                                                    var standDigit = Utility.GetDigit(stand);
-                                                                    var standCommaDrawing = UI.Instance.CommaDrawing;
-                                                                    var standCommaDrawingLength = drawingComponent.standCommaDrawingLength;
-                                                                    var standCommaCount = (standDigit - 1) / 3;
-                                                                    var standPosition0 = drawingComponent.standPosition0;
-                                                                    var standPosition1 = drawingComponent.standPosition1;
-                                                                    var binStandLength = drawingComponent.binStandLength;
-                                                                    var binStandHeight = drawingComponent.binStandHeight;
-                                                                    var standSystem = drawingComponent.standSystem;
-                                                                    var binStandMap = UI.Instance.BinStandMap;
-                                                                    var altStand = drawingComponent.altStand;
-                                                                    for (var i = altStand >> 1; i >= altStand % 2; --i)
-                                                                    {
-                                                                        var distanceStand = i == 1 && has2P ? distance2P : 0F;
-                                                                        switch (standSystem)
-                                                                        {
-                                                                            case 0:
-                                                                                r.Set(standPosition0 + (standDigit - 1) * binStandLength + standCommaCount * standCommaDrawingLength + distanceStand, standPosition1, binStandLength, binStandHeight);
-                                                                                break;
-                                                                            case 1:
-                                                                                r.Set(standPosition0 + (standDigit / 2 - 1) * binStandLength + (standCommaCount * standCommaDrawingLength) / 2 + distanceStand, standPosition1, binStandLength, binStandHeight);
-                                                                                break;
-                                                                            case 2:
-                                                                                r.Set(standPosition0 - binStandLength + distanceStand, standPosition1, binStandLength, binStandHeight);
-                                                                                break;
-                                                                        }
-                                                                        targetSession.PaintDrawing(ref r, binStandMap[stand % 10]);
-                                                                        if (standDigit >= 2)
-                                                                        {
-                                                                            r.Position0 -= binStandLength;
-                                                                            targetSession.PaintDrawing(ref r, binStandMap[stand / 10 % 10]);
-                                                                        }
-                                                                        if (standDigit >= 3)
-                                                                        {
-                                                                            r.Position0 -= binStandLength;
-                                                                            targetSession.PaintDrawing(ref r, binStandMap[stand / 100 % 10]);
-                                                                        }
-                                                                        if (standDigit >= 4)
-                                                                        {
-                                                                            r.Position0 -= standCommaDrawingLength;
-                                                                            r.Length = standCommaDrawingLength;
-                                                                            targetSession.PaintDrawing(ref r, standCommaDrawing);
-                                                                            r.Position0 -= binStandLength;
-                                                                            r.Length = binStandLength;
-                                                                            targetSession.PaintDrawing(ref r, binStandMap[stand / 1000 % 10]);
-                                                                        }
-                                                                        if (standDigit >= 5)
-                                                                        {
-                                                                            r.Position0 -= binStandLength;
-                                                                            targetSession.PaintDrawing(ref r, binStandMap[stand / 10000 % 10]);
-                                                                        }
-                                                                        if (standDigit >= 6)
-                                                                        {
-                                                                            r.Position0 -= binStandLength;
-                                                                            targetSession.PaintDrawing(ref r, binStandMap[stand / 100000 % 10]);
-                                                                        }
-                                                                        if (standDigit >= 7)
-                                                                        {
-                                                                            r.Position0 -= standCommaDrawingLength;
-                                                                            r.Length = standCommaDrawingLength;
-                                                                            targetSession.PaintDrawing(ref r, standCommaDrawing);
-                                                                            r.Position0 -= binStandLength;
-                                                                            r.Length = binStandLength;
-                                                                            targetSession.PaintDrawing(ref r, binStandMap[stand / 1000000 % 10]);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Point:
-                                                                    var pointInt = (int)(10000 * defaultComputer.Point.Value);
-                                                                    var pointStopPointDrawingLength = drawingComponent.pointStopPointDrawingLength;
-                                                                    var pointPosition0 = drawingComponent.pointPosition0;
-                                                                    var pointPosition1 = drawingComponent.pointPosition1;
-                                                                    var binPointLength = drawingComponent.binPointLength;
-                                                                    var binPointHeight = drawingComponent.binPointHeight;
-                                                                    var pointUnitDrawingLength = drawingComponent.pointUnitDrawingLength;
-                                                                    var pointSystem = drawingComponent.pointSystem;
-                                                                    var altPoint = drawingComponent.altPoint;
-                                                                    var binPointMap = UI.Instance.BinPointMap;
-                                                                    var pointUnitDrawing = UI.Instance.PointUnitDrawing;
-                                                                    var pointStopPointDrawing = UI.Instance.PointStopPointDrawing;
-                                                                    var pointDigit = pointInt < 100 ? 3 : Utility.GetDigit(pointInt);
-                                                                    for (var i = altPoint >> 1; i >= altPoint % 2; --i)
-                                                                    {
-                                                                        var distancePoint = i == 1 && has2P ? distance2P : 0F;
-                                                                        for (var j = pointDigit - 1; j >= 2; --j)
-                                                                        {
-                                                                            switch (pointSystem)
-                                                                            {
-                                                                                case 0:
-                                                                                    r.Set(pointPosition0 + binPointLength * (pointDigit - j - 1) + distancePoint, pointPosition1, binPointLength, binPointHeight);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(pointPosition0 + binPointLength * (0.5 * pointDigit - j - 1) - pointStopPointDrawingLength * 0.5 - pointUnitDrawingLength * 0.5 + distancePoint, pointPosition1, binPointLength, binPointHeight);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(pointPosition0 - binPointLength * (j + 1) - pointStopPointDrawingLength - pointUnitDrawingLength + distancePoint, pointPosition1, binPointLength, binPointHeight);
-                                                                                    break;
-                                                                            }
-                                                                            targetSession.PaintDrawing(ref r, binPointMap[(int)(pointInt / Math.Pow(10, j) % 10)]);
-                                                                        }
-                                                                        r.Position0 += binPointLength;
-                                                                        r.Length = pointStopPointDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, pointStopPointDrawing);
-                                                                        for (var j = 1; j >= 0; --j)
-                                                                        {
-                                                                            switch (pointSystem)
-                                                                            {
-                                                                                case 0:
-                                                                                    r.Set(pointPosition0 + binPointLength * (pointDigit - j - 1) + pointStopPointDrawingLength + distancePoint, pointPosition1, binPointLength, binPointHeight);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(pointPosition0 + binPointLength * (0.5 * pointDigit - j - 1) + 0.5 * pointStopPointDrawingLength - 0.5 * pointUnitDrawingLength + distancePoint, pointPosition1, binPointLength, binPointHeight);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(pointPosition0 - binPointLength * (j + 1) - pointUnitDrawingLength + distancePoint, pointPosition1, binPointLength, binPointHeight);
-                                                                                    break;
-                                                                            }
-                                                                            targetSession.PaintDrawing(ref r, binPointMap[(int)(pointInt / Math.Pow(10, j) % 10)]);
-                                                                        }
-                                                                        r.Position0 += binPointLength;
-                                                                        r.Length = pointUnitDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, pointUnitDrawing);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.BPM:
-                                                                    var bpmInt = (int)(Math.Min(Math.Round(Math.Abs(Configure.Instance.BPMVarietyValue.Data switch
-                                                                    {
-                                                                        BPMVariety.BPM => defaultComputer.HandlingBPM,
-                                                                        BPMVariety.AudioMultiplier => defaultComputer.HandlingBPM * defaultComputer.AudioMultiplier,
-                                                                        BPMVariety.Multiplier => defaultComputer.HandlingBPM * defaultComputer.AudioMultiplier * defaultComputer.ModeComponentValue.Multiplier,
-                                                                        _ => default
-                                                                    })), int.MaxValue));
-                                                                    var bpmPosition0 = drawingComponent.bpmPosition0;
-                                                                    var bpmPosition1 = drawingComponent.bpmPosition1;
-                                                                    var binBPMLength = drawingComponent.binBPMLength;
-                                                                    var binBPMHeight = drawingComponent.binBPMHeight;
-                                                                    var bpmUnitDrawingLength = drawingComponent.bpmUnitDrawingLength;
-                                                                    var bpmSystem = drawingComponent.bpmSystem;
-                                                                    var bpmDigit = Utility.GetDigit(bpmInt);
-                                                                    var altBPM = drawingComponent.altBPM;
-                                                                    var binBPMMap = UI.Instance.BinBPMMap;
-                                                                    var bpmUnitDrawing = UI.Instance.BPMUnitDrawing;
-                                                                    for (var i = altBPM >> 1; i >= altBPM % 2; --i)
-                                                                    {
-                                                                        var distanceBPM = i == 1 && has2P ? distance2P : 0F;
-                                                                        for (var j = bpmDigit - 1; j >= 0; --j)
-                                                                        {
-                                                                            switch (bpmSystem)
-                                                                            {
-                                                                                case 0:
-                                                                                    r.Set(bpmPosition0 + binBPMLength * (bpmDigit - j - 1) + distanceBPM, bpmPosition1, binBPMLength, binBPMHeight);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(bpmPosition0 + binBPMLength * (0.5 * bpmDigit - j - 1) + distanceBPM, bpmPosition1, binBPMLength, binBPMHeight);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(bpmPosition0 - binBPMLength * (j + 1) + distanceBPM, bpmPosition1, binBPMLength, binBPMHeight);
-                                                                                    break;
-                                                                            }
-                                                                            targetSession.PaintDrawing(ref r, binBPMMap[(int)(bpmInt / Math.Pow(10, j) % 10)]);
-                                                                        }
-                                                                        r.Position0 += binBPMLength;
-                                                                        r.Length = bpmUnitDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, bpmUnitDrawing);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Multiplier:
-                                                                    var multiplierInt = (int)Math.Round(10 * defaultComputer.ModeComponentValue.Multiplier);
-                                                                    var multiplierPosition0 = drawingComponent.multiplierPosition0;
-                                                                    var multiplierPosition1 = drawingComponent.multiplierPosition1;
-                                                                    var binMultiplierLength = drawingComponent.binMultiplierLength;
-                                                                    var binMultiplierHeight = drawingComponent.binMultiplierHeight;
-                                                                    var multiplierStopPointDrawingLength = drawingComponent.multiplierStopPointDrawingLength;
-                                                                    var multiplierUnitDrawingLength = drawingComponent.multiplierUnitDrawingLength;
-                                                                    var multiplierDigit = multiplierInt < 10 ? 2 : Utility.GetDigit(multiplierInt);
-                                                                    var multiplierSystem = drawingComponent.multiplierSystem;
-                                                                    var altMultiplier = drawingComponent.altMultiplier;
-                                                                    var binMultiplierMap = UI.Instance.BinMultiplierMap;
-                                                                    var multiplierUnitDrawing = UI.Instance.MultiplierUnitDrawing;
-                                                                    var multiplierStopPointDrawing = UI.Instance.MultiplierStopPointDrawing;
-                                                                    for (var i = altMultiplier >> 1; i >= altMultiplier % 2; --i)
-                                                                    {
-                                                                        var distanceMultiplier = i == 1 && has2P ? distance2P : 0F;
-                                                                        switch (multiplierSystem)
-                                                                        {
-                                                                            case 0:
-                                                                                r.Set(multiplierPosition0 + multiplierStopPointDrawingLength + (multiplierDigit - 1) * binMultiplierLength + distanceMultiplier, multiplierPosition1, binMultiplierLength, binMultiplierHeight);
-                                                                                break;
-                                                                            case 1:
-                                                                                r.Set(multiplierPosition0 + ((multiplierDigit / 2.0) - 1) * binMultiplierLength + multiplierStopPointDrawingLength / 2 + distanceMultiplier, multiplierPosition1, binMultiplierLength, binMultiplierHeight);
-                                                                                break;
-                                                                            case 2:
-                                                                                r.Set(multiplierPosition0 - binMultiplierLength + distanceMultiplier, multiplierPosition1, binMultiplierLength, binMultiplierHeight);
-                                                                                break;
-                                                                        }
-                                                                        targetSession.PaintDrawing(ref r, binMultiplierMap[multiplierInt % 10]);
-                                                                        r.Position0 -= multiplierStopPointDrawingLength;
-                                                                        r.Length = multiplierStopPointDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, multiplierStopPointDrawing);
-                                                                        r.Position0 -= binMultiplierLength;
-                                                                        r.Length = binMultiplierLength;
-                                                                        targetSession.PaintDrawing(ref r, binMultiplierMap[multiplierInt / 10 % 10]);
-                                                                        for (var j = 2; j < multiplierDigit; ++j)
-                                                                        {
-                                                                            r.Position0 -= binMultiplierLength;
-                                                                            targetSession.PaintDrawing(ref r, binMultiplierMap[multiplierInt / (int)Math.Pow(10, j) % 10]);
-                                                                        }
-                                                                        r.Position0 -= multiplierUnitDrawingLength;
-                                                                        r.Length = multiplierUnitDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, multiplierUnitDrawing);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.JudgmentPaint:
-                                                                    var judgmentPaintComposition = (CanvasComposite)drawingComponent.judgmentPaintComposition;
-                                                                    var judgmentPaints = defaultComputer.JudgmentPaints;
-                                                                    lock (judgmentPaints)
-                                                                    {
-                                                                        foreach (var judgmentPaint in judgmentPaints.Values)
-                                                                        {
-                                                                            judgmentPaint.Paint(ref r, targetSession, 1F, judgmentPaintComposition);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.HitNotePaint:
-                                                                    var hitNotePaintComposition = (CanvasComposite)drawingComponent.hitNotePaintComposition;
-                                                                    var hitNotePaints = defaultComputer.HitNotePaints;
-                                                                    lock (hitNotePaints)
-                                                                    {
-                                                                        foreach (var hitNotePaint in hitNotePaints.Values)
-                                                                        {
-                                                                            hitNotePaint.Paint(ref r, targetSession, 1F, hitNotePaintComposition);
-                                                                        }
-                                                                    }
-                                                                    var hitLongNotePaints = defaultComputer.HitLongNotePaints;
-                                                                    lock (hitLongNotePaints)
-                                                                    {
-                                                                        foreach (var hitLongNotePaint in hitLongNotePaints.Values)
-                                                                        {
-                                                                            hitLongNotePaint.Paint(ref r, targetSession, 1F, hitNotePaintComposition);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Net:
-                                                                    var netItemFaint = (float)Configure.Instance.UIConfigureValue.NetItemFaintV2;
-                                                                    if (netItemFaint > 0F)
-                                                                    {
-                                                                        var netItems = defaultComputer.NetItems;
-                                                                        if (netItems.Count > 0)
-                                                                        {
-                                                                            var netItemFaintInt = (int)(100 * netItemFaint);
-                                                                            var levyingNetPosition = defaultComputer.LevyingNetPosition;
-                                                                            var quitNetPosition = defaultComputer.QuitNetPosition;
-                                                                            var netSystem = drawingComponent.netSystem;
-                                                                            var netPosition0 = drawingComponent.netPosition0;
-                                                                            var netPosition1 = drawingComponent.netPosition1;
-                                                                            var altNet = drawingComponent.altNet;
-                                                                            var netTextPaint = UI.Instance.NetTextPaints[netItemFaintInt];
-                                                                            var netWallPaint = UI.Instance.NetWallPaints[netItemFaintInt];
-                                                                            for (var i = quitNetPosition; i >= levyingNetPosition; --i)
-                                                                            {
-                                                                                foreach (var netItem in netItems)
+                                                                                var paintedNotes = defaultComputer.PaintedNotes;
+                                                                                lock (paintedNotes)
                                                                                 {
-                                                                                    if (netItem.TargetPosition == i)
+                                                                                    foreach (var paintedNote in paintedNotes)
                                                                                     {
-                                                                                        var drawings = netItem.Drawings;
-                                                                                        var drawingPosition = netItem.DrawingPosition - levyingNetPosition;
-                                                                                        var d2dHitPointsPaint = BaseUI.Instance.D2DHitPointsPaints[(int)netItem.HitPointsModeValue][netItem.IsMyNetItem ? netItemFaintInt : netItemFaintInt / 2];
-                                                                                        var netItemValue = Math.Min(netItem.HitPoints, 1.0);
-                                                                                        var avatarNetStatusPaint = _avatarNetStatusPaints[(int)netItem.AvatarNetStatus][netItemFaintInt];
-                                                                                        var avatarID = netItem.AvatarID;
-                                                                                        var avatarDrawing = AvatarDrawingSystem.Instance.JustGetAvatarDrawing(avatarID);
-                                                                                        if (!avatarDrawing.HasValue && AvatarDrawingSystem.Instance.CanCallAPI(avatarID))
+                                                                                        if (paintedNote.Layer == i)
                                                                                         {
-                                                                                            Task.Factory.StartNew(getAvatarDrawing, avatarID);
-                                                                                        }
-                                                                                        var lowHitPointsPaint = _lowHitPointsPaints[(int)(netItem.IsFailedStatus * netItemFaintInt)];
-                                                                                        var avatarTitle = AvatarTitleSystem.Instance.JustGetAvatarTitle(avatarID);
-                                                                                        if (!avatarTitle.HasValue && AvatarTitleSystem.Instance.CanCallAPI(avatarID))
-                                                                                        {
-                                                                                            Task.Factory.StartNew(getAvatarTitle, avatarID);
-                                                                                        }
-                                                                                        var avatarEdge = AvatarEdgeSystem.Instance.JustGetAvatarEdge(avatarID);
-                                                                                        if (!avatarEdge.HasValue && AvatarEdgeSystem.Instance.CanCallAPI(avatarID))
-                                                                                        {
-                                                                                            Task.Factory.StartNew(getAvatarEdge, avatarID);
-                                                                                        }
-                                                                                        var hasAvatarTitle = !string.IsNullOrEmpty(avatarTitle?.Title);
-                                                                                        var textItem0 = hasAvatarTitle ? PoolSystem.Instance.GetTextItem(avatarTitle.Value.Title, NetFont) : null;
-                                                                                        var textBound0 = textItem0?.LayoutBounds ?? default;
-                                                                                        var textBound0Length = textBound0.Width;
-                                                                                        var textBound0Height = textBound0.Height;
-                                                                                        var textItem1 = PoolSystem.Instance.GetTextItem(netItem.AvatarName, NetFont);
-                                                                                        var textBound1 = textItem1.LayoutBounds;
-                                                                                        var textBound1Length = textBound1.Width;
-                                                                                        var textBound1Height = textBound1.Height;
-                                                                                        var textItem2 = PoolSystem.Instance.GetTextItem(netItem.Stand, NetFont);
-                                                                                        var textBound2 = textItem2.LayoutBounds;
-                                                                                        var textBound2Length = textBound2.Width;
-                                                                                        var textBound2Height = textBound2.Height;
-                                                                                        var textItem3 = PoolSystem.Instance.GetTextItem(netItem.Point, NetFont);
-                                                                                        var textBound3 = textItem3.LayoutBounds;
-                                                                                        var textBound3Length = textBound3.Width;
-                                                                                        var textBound3Height = textBound3.Height;
-                                                                                        var textItem4 = PoolSystem.Instance.GetTextItem(netItem.Band, NetFont);
-                                                                                        var textBound4 = textItem4.LayoutBounds;
-                                                                                        var textBound4Length = textBound4.Width;
-                                                                                        var textBound4Height = textBound4.Height;
-
-                                                                                        defaultComputer.HighestNetHeight = (float)Math.Max(defaultComputer.HighestNetHeight, Levels.StandardMargin + Math.Max(textBound0Height, textBound1Height) + Levels.StandardMargin + Utility.Max(textBound2Height, textBound3Height, textBound4Height) + Levels.StandardMarginFloat32);
-                                                                                        var highestNetHeight = defaultComputer.HighestNetHeight;
-
-                                                                                        defaultComputer.HighestNetLength = (float)Utility.Max(defaultComputer.HighestNetLength, highestNetHeight + Levels.StandardMargin + textBound0Length + Levels.StandardMargin + textBound1Length + Levels.StandardMargin + highestNetHeight, highestNetHeight + Levels.StandardMargin + textBound2Length + Levels.StandardMargin + textBound3Length + Levels.StandardMargin + textBound4Length + Levels.StandardMargin + highestNetHeight);
-                                                                                        var highestNetLength = defaultComputer.HighestNetLength;
-
-                                                                                        var lastJudged = netItem.LastJudged;
-                                                                                        var hasLastJudged = lastJudged != Component.Judged.Not;
-                                                                                        var drawingPosition1 = netPosition1 + (Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32 + Levels.StandardMarginFloat32) * drawingPosition;
-
-                                                                                        var targetPosition0 = netPosition0;
-                                                                                        if (netSystem == 2)
-                                                                                        {
-                                                                                            targetPosition0 -= Levels.StandardEdgeFloat32 + highestNetLength + Levels.StandardEdgeFloat32;
-                                                                                            if (drawings != null)
+                                                                                            if (drawingPipeline == drawingInputModeMap[paintedNote.TargetInput])
                                                                                             {
-                                                                                                targetPosition0 -= Levels.StandardMarginFloat32 + Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32;
+                                                                                                paintedNote.Paint(targetSession, isValidNetDrawings, defaultComputer, ref r);
                                                                                             }
                                                                                         }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
 
-                                                                                        for (var j = altNet >> 1; j >= altNet % 2; --j)
+                                                                        if (faintNoteMode == ModeComponent.FaintNoteMode.Faint)
+                                                                        {
+                                                                            r.Set(mainPosition, 0.0, p1Length, mainHeight);
+                                                                            targetSession.PaintDrawing(ref r, _faintNoteDrawing);
+                                                                            if (has2P)
+                                                                            {
+                                                                                r.Position0 += distance2P;
+                                                                                targetSession.PaintDrawing(ref r, _faintNoteDrawing);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Input:
+                                                                        var inputDrawings = UI.Instance.InputDrawings[(int)inputMode];
+                                                                        var inputPosition0s = drawingComponent.inputPosition0s;
+                                                                        var inputPosition1s = drawingComponent.inputPosition1s;
+                                                                        var inputLengths = drawingComponent.inputLengths;
+                                                                        var inputHeights = drawingComponent.inputHeights;
+                                                                        var inputFrames = defaultComputer.InputFrames;
+                                                                        foreach (var drawingPipeline in drawingPipelines)
+                                                                        {
+                                                                            for (var i = inputCount; i > 0; --i)
+                                                                            {
+                                                                                if (drawingPipeline == drawingInputModeMap[i])
+                                                                                {
+                                                                                    var inputLength = inputLengths[i];
+                                                                                    r.Set(defaultComputer.GetPosition(i) + inputPosition0s[i] - inputLength / 2, inputPosition1s[i], drawingNoteLengthMap[i] + inputLength, inputHeights[i]);
+                                                                                    targetSession.PaintDrawing(ref r, inputDrawings?[i]?[defaultComputer.InputFrames[i]]);
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Band:
+                                                                        var binBandMap = UI.Instance.BinBandMap;
+                                                                        var band = defaultComputer.Band.Value;
+                                                                        if (band > 0)
+                                                                        {
+                                                                            var bandPosition0 = drawingComponent.bandPosition0;
+                                                                            var bandPosition1 = drawingComponent.bandPosition1;
+                                                                            var binBandLength = drawingComponent.binBandLength;
+                                                                            var binBandHeight = drawingComponent.binBandHeight;
+                                                                            var bandSystem = drawingComponent.bandSystem;
+                                                                            var altBand = drawingComponent.altBand;
+                                                                            var bandDrawingMap = defaultComputer.BandEnlargedMap;
+                                                                            var bandDrawingFrames = defaultComputer.BandDrawingFrames;
+                                                                            var bandDigit = Utility.GetDigit(band);
+                                                                            for (var i = altBand >> 1; i >= altBand % 2; --i)
+                                                                            {
+                                                                                var distanceBand = i == 1 && has2P ? distance2P : 0F;
+                                                                                for (var j = bandDigit - 1; j >= 0; --j)
+                                                                                {
+                                                                                    var m = (int)(band / Math.Pow(10, j) % 10);
+                                                                                    var enlarge = bandDrawingMap.TryGetValue(j, out var unlarge) ? 2 * unlarge : 0.0;
+                                                                                    var binBandDrawing = binBandMap[m, bandDrawingFrames.TryGetValue(j, out var frame) ? frame : 0];
+                                                                                    switch (bandSystem)
+                                                                                    {
+                                                                                        case 0:
+                                                                                            r.Set(bandPosition0 + binBandLength * (bandDigit - j - 1) + distanceBand - unlarge, bandPosition1 - unlarge, binBandLength + enlarge, binBandHeight + enlarge);
+                                                                                            break;
+                                                                                        case 1:
+                                                                                            r.Set(bandPosition0 + binBandLength * (0.5 * bandDigit - j - 1) + distanceBand - unlarge, bandPosition1 - unlarge, binBandLength + enlarge, binBandHeight + enlarge);
+                                                                                            break;
+                                                                                        case 2:
+                                                                                            r.Set(bandPosition0 - binBandLength * (j + 1) + distanceBand - unlarge, bandPosition1 - unlarge, binBandLength + enlarge, binBandHeight + enlarge);
+                                                                                            break;
+                                                                                    }
+                                                                                    targetSession.PaintDrawing(ref r, binBandDrawing);
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.JudgmentMeter:
+                                                                        var judgmentMeterPosition0 = drawingComponent.judgmentMeterPosition0;
+                                                                        var judgmentMeterPosition1 = drawingComponent.judgmentMeterPosition1;
+                                                                        var binJudgmentMeterLength = drawingComponent.binJudgmentMeterLength;
+                                                                        var binJudgmentMeterHeight = drawingComponent.binJudgmentMeterHeight;
+                                                                        var judgmentMeterFrontDrawingLength = drawingComponent.judgmentMeterFrontDrawingLength;
+                                                                        var judgmentMeterUnitDrawingLength = drawingComponent.judgmentMeterUnitDrawingLength;
+                                                                        var judgmentMeters = defaultComputer.JudgmentMeters;
+                                                                        var judgmentMeterSystem = drawingComponent.judgmentMeterSystem;
+                                                                        var altJudgmentMeter = drawingComponent.altJudgmentMeter;
+                                                                        var binJudgmentMeterMap = UI.Instance.BinJudgmentMeterMap;
+                                                                        var drawingJudgmentMeterHigher = UI.Instance.JudgmentMererHigherDrawing;
+                                                                        var drawingJudgmentMeterLower = UI.Instance.JudgmentMeterLowerDrawing;
+                                                                        var drawingJudgmentMeterUnit = UI.Instance.JudgmentMeterUnitDrawing;
+                                                                        for (var i = altJudgmentMeter >> 1; i >= altJudgmentMeter % 2; --i)
+                                                                        {
+                                                                            var judgmentMeter = judgmentMeters[i];
+                                                                            var judgmentMeterInt = (int)Math.Round(judgmentMeter);
+                                                                            var absJudgmentMeter = Math.Abs(judgmentMeterInt);
+                                                                            if (absJudgmentMeter >= Configure.Instance.JudgmentMeterMillis)
+                                                                            {
+                                                                                var distanceJudgmentMeter = i == 1 && has2P ? distance2P : 0F;
+                                                                                var judgmentMeterDigit = Utility.GetDigit(absJudgmentMeter);
+                                                                                switch (judgmentMeterSystem)
+                                                                                {
+                                                                                    case 0:
+                                                                                        r.Set(judgmentMeterPosition0 - binJudgmentMeterLength + distanceJudgmentMeter, judgmentMeterPosition1, judgmentMeterFrontDrawingLength, binJudgmentMeterHeight);
+                                                                                        break;
+                                                                                    case 1:
+                                                                                        r.Set(judgmentMeterPosition0 - 0.5 * (binJudgmentMeterLength * judgmentMeterDigit + judgmentMeterFrontDrawingLength) + distanceJudgmentMeter, judgmentMeterPosition1, judgmentMeterFrontDrawingLength, binJudgmentMeterHeight);
+                                                                                        break;
+                                                                                    case 2:
+                                                                                        r.Set(judgmentMeterPosition0 - binJudgmentMeterLength * judgmentMeterDigit - judgmentMeterFrontDrawingLength + distanceJudgmentMeter, judgmentMeterPosition1, judgmentMeterFrontDrawingLength, binJudgmentMeterHeight);
+                                                                                        break;
+                                                                                }
+                                                                                if (absJudgmentMeter > 0)
+                                                                                {
+                                                                                    targetSession.PaintDrawing(ref r, judgmentMeter > 0 ? drawingJudgmentMeterHigher : drawingJudgmentMeterLower);
+                                                                                }
+                                                                                r.Position0 += judgmentMeterFrontDrawingLength;
+                                                                                r.Length = binJudgmentMeterLength;
+                                                                                for (var j = judgmentMeterDigit - 1; j >= 0; --j)
+                                                                                {
+                                                                                    targetSession.PaintDrawing(ref r, binJudgmentMeterMap[(int)(absJudgmentMeter / Math.Pow(10, j) % 10)]);
+                                                                                    r.Position0 += binJudgmentMeterLength;
+                                                                                }
+                                                                                r.Length = judgmentMeterUnitDrawingLength;
+                                                                                targetSession.PaintDrawing(ref r, drawingJudgmentMeterUnit);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Stand:
+                                                                        var stand = defaultComputer.Stand.Value;
+                                                                        var standDigit = Utility.GetDigit(stand);
+                                                                        var standCommaDrawing = UI.Instance.CommaDrawing;
+                                                                        var standCommaDrawingLength = drawingComponent.standCommaDrawingLength;
+                                                                        var standCommaCount = (standDigit - 1) / 3;
+                                                                        var standPosition0 = drawingComponent.standPosition0;
+                                                                        var standPosition1 = drawingComponent.standPosition1;
+                                                                        var binStandLength = drawingComponent.binStandLength;
+                                                                        var binStandHeight = drawingComponent.binStandHeight;
+                                                                        var standSystem = drawingComponent.standSystem;
+                                                                        var binStandMap = UI.Instance.BinStandMap;
+                                                                        var altStand = drawingComponent.altStand;
+                                                                        for (var i = altStand >> 1; i >= altStand % 2; --i)
+                                                                        {
+                                                                            var distanceStand = i == 1 && has2P ? distance2P : 0F;
+                                                                            switch (standSystem)
+                                                                            {
+                                                                                case 0:
+                                                                                    r.Set(standPosition0 + (standDigit - 1) * binStandLength + standCommaCount * standCommaDrawingLength + distanceStand, standPosition1, binStandLength, binStandHeight);
+                                                                                    break;
+                                                                                case 1:
+                                                                                    r.Set(standPosition0 + (standDigit / 2 - 1) * binStandLength + (standCommaCount * standCommaDrawingLength) / 2 + distanceStand, standPosition1, binStandLength, binStandHeight);
+                                                                                    break;
+                                                                                case 2:
+                                                                                    r.Set(standPosition0 - binStandLength + distanceStand, standPosition1, binStandLength, binStandHeight);
+                                                                                    break;
+                                                                            }
+                                                                            targetSession.PaintDrawing(ref r, binStandMap[stand % 10]);
+                                                                            if (standDigit >= 2)
+                                                                            {
+                                                                                r.Position0 -= binStandLength;
+                                                                                targetSession.PaintDrawing(ref r, binStandMap[stand / 10 % 10]);
+                                                                            }
+                                                                            if (standDigit >= 3)
+                                                                            {
+                                                                                r.Position0 -= binStandLength;
+                                                                                targetSession.PaintDrawing(ref r, binStandMap[stand / 100 % 10]);
+                                                                            }
+                                                                            if (standDigit >= 4)
+                                                                            {
+                                                                                r.Position0 -= standCommaDrawingLength;
+                                                                                r.Length = standCommaDrawingLength;
+                                                                                targetSession.PaintDrawing(ref r, standCommaDrawing);
+                                                                                r.Position0 -= binStandLength;
+                                                                                r.Length = binStandLength;
+                                                                                targetSession.PaintDrawing(ref r, binStandMap[stand / 1000 % 10]);
+                                                                            }
+                                                                            if (standDigit >= 5)
+                                                                            {
+                                                                                r.Position0 -= binStandLength;
+                                                                                targetSession.PaintDrawing(ref r, binStandMap[stand / 10000 % 10]);
+                                                                            }
+                                                                            if (standDigit >= 6)
+                                                                            {
+                                                                                r.Position0 -= binStandLength;
+                                                                                targetSession.PaintDrawing(ref r, binStandMap[stand / 100000 % 10]);
+                                                                            }
+                                                                            if (standDigit >= 7)
+                                                                            {
+                                                                                r.Position0 -= standCommaDrawingLength;
+                                                                                r.Length = standCommaDrawingLength;
+                                                                                targetSession.PaintDrawing(ref r, standCommaDrawing);
+                                                                                r.Position0 -= binStandLength;
+                                                                                r.Length = binStandLength;
+                                                                                targetSession.PaintDrawing(ref r, binStandMap[stand / 1000000 % 10]);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Point:
+                                                                        var pointInt = (int)(10000 * defaultComputer.Point.Value);
+                                                                        var pointStopPointDrawingLength = drawingComponent.pointStopPointDrawingLength;
+                                                                        var pointPosition0 = drawingComponent.pointPosition0;
+                                                                        var pointPosition1 = drawingComponent.pointPosition1;
+                                                                        var binPointLength = drawingComponent.binPointLength;
+                                                                        var binPointHeight = drawingComponent.binPointHeight;
+                                                                        var pointUnitDrawingLength = drawingComponent.pointUnitDrawingLength;
+                                                                        var pointSystem = drawingComponent.pointSystem;
+                                                                        var altPoint = drawingComponent.altPoint;
+                                                                        var binPointMap = UI.Instance.BinPointMap;
+                                                                        var pointUnitDrawing = UI.Instance.PointUnitDrawing;
+                                                                        var pointStopPointDrawing = UI.Instance.PointStopPointDrawing;
+                                                                        var pointDigit = pointInt < 100 ? 3 : Utility.GetDigit(pointInt);
+                                                                        for (var i = altPoint >> 1; i >= altPoint % 2; --i)
+                                                                        {
+                                                                            var distancePoint = i == 1 && has2P ? distance2P : 0F;
+                                                                            for (var j = pointDigit - 1; j >= 2; --j)
+                                                                            {
+                                                                                switch (pointSystem)
+                                                                                {
+                                                                                    case 0:
+                                                                                        r.Set(pointPosition0 + binPointLength * (pointDigit - j - 1) + distancePoint, pointPosition1, binPointLength, binPointHeight);
+                                                                                        break;
+                                                                                    case 1:
+                                                                                        r.Set(pointPosition0 + binPointLength * (0.5 * pointDigit - j - 1) - pointStopPointDrawingLength * 0.5 - pointUnitDrawingLength * 0.5 + distancePoint, pointPosition1, binPointLength, binPointHeight);
+                                                                                        break;
+                                                                                    case 2:
+                                                                                        r.Set(pointPosition0 - binPointLength * (j + 1) - pointStopPointDrawingLength - pointUnitDrawingLength + distancePoint, pointPosition1, binPointLength, binPointHeight);
+                                                                                        break;
+                                                                                }
+                                                                                targetSession.PaintDrawing(ref r, binPointMap[(int)(pointInt / Math.Pow(10, j) % 10)]);
+                                                                            }
+                                                                            r.Position0 += binPointLength;
+                                                                            r.Length = pointStopPointDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, pointStopPointDrawing);
+                                                                            for (var j = 1; j >= 0; --j)
+                                                                            {
+                                                                                switch (pointSystem)
+                                                                                {
+                                                                                    case 0:
+                                                                                        r.Set(pointPosition0 + binPointLength * (pointDigit - j - 1) + pointStopPointDrawingLength + distancePoint, pointPosition1, binPointLength, binPointHeight);
+                                                                                        break;
+                                                                                    case 1:
+                                                                                        r.Set(pointPosition0 + binPointLength * (0.5 * pointDigit - j - 1) + 0.5 * pointStopPointDrawingLength - 0.5 * pointUnitDrawingLength + distancePoint, pointPosition1, binPointLength, binPointHeight);
+                                                                                        break;
+                                                                                    case 2:
+                                                                                        r.Set(pointPosition0 - binPointLength * (j + 1) - pointUnitDrawingLength + distancePoint, pointPosition1, binPointLength, binPointHeight);
+                                                                                        break;
+                                                                                }
+                                                                                targetSession.PaintDrawing(ref r, binPointMap[(int)(pointInt / Math.Pow(10, j) % 10)]);
+                                                                            }
+                                                                            r.Position0 += binPointLength;
+                                                                            r.Length = pointUnitDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, pointUnitDrawing);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.BPM:
+                                                                        var bpmInt = (int)(Math.Min(Math.Round(Math.Abs(Configure.Instance.BPMVarietyValue.Data switch
+                                                                        {
+                                                                            BPMVariety.BPM => defaultComputer.HandlingBPM,
+                                                                            BPMVariety.AudioMultiplier => defaultComputer.HandlingBPM * defaultComputer.AudioMultiplier,
+                                                                            BPMVariety.Multiplier => defaultComputer.HandlingBPM * defaultComputer.AudioMultiplier * defaultComputer.ModeComponentValue.Multiplier,
+                                                                            _ => default
+                                                                        })), int.MaxValue));
+                                                                        var bpmPosition0 = drawingComponent.bpmPosition0;
+                                                                        var bpmPosition1 = drawingComponent.bpmPosition1;
+                                                                        var binBPMLength = drawingComponent.binBPMLength;
+                                                                        var binBPMHeight = drawingComponent.binBPMHeight;
+                                                                        var bpmUnitDrawingLength = drawingComponent.bpmUnitDrawingLength;
+                                                                        var bpmSystem = drawingComponent.bpmSystem;
+                                                                        var bpmDigit = Utility.GetDigit(bpmInt);
+                                                                        var altBPM = drawingComponent.altBPM;
+                                                                        var binBPMMap = UI.Instance.BinBPMMap;
+                                                                        var bpmUnitDrawing = UI.Instance.BPMUnitDrawing;
+                                                                        for (var i = altBPM >> 1; i >= altBPM % 2; --i)
+                                                                        {
+                                                                            var distanceBPM = i == 1 && has2P ? distance2P : 0F;
+                                                                            for (var j = bpmDigit - 1; j >= 0; --j)
+                                                                            {
+                                                                                switch (bpmSystem)
+                                                                                {
+                                                                                    case 0:
+                                                                                        r.Set(bpmPosition0 + binBPMLength * (bpmDigit - j - 1) + distanceBPM, bpmPosition1, binBPMLength, binBPMHeight);
+                                                                                        break;
+                                                                                    case 1:
+                                                                                        r.Set(bpmPosition0 + binBPMLength * (0.5 * bpmDigit - j - 1) + distanceBPM, bpmPosition1, binBPMLength, binBPMHeight);
+                                                                                        break;
+                                                                                    case 2:
+                                                                                        r.Set(bpmPosition0 - binBPMLength * (j + 1) + distanceBPM, bpmPosition1, binBPMLength, binBPMHeight);
+                                                                                        break;
+                                                                                }
+                                                                                targetSession.PaintDrawing(ref r, binBPMMap[(int)(bpmInt / Math.Pow(10, j) % 10)]);
+                                                                            }
+                                                                            r.Position0 += binBPMLength;
+                                                                            r.Length = bpmUnitDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, bpmUnitDrawing);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Multiplier:
+                                                                        var multiplierInt = (int)Math.Round(10 * defaultComputer.ModeComponentValue.Multiplier);
+                                                                        var multiplierPosition0 = drawingComponent.multiplierPosition0;
+                                                                        var multiplierPosition1 = drawingComponent.multiplierPosition1;
+                                                                        var binMultiplierLength = drawingComponent.binMultiplierLength;
+                                                                        var binMultiplierHeight = drawingComponent.binMultiplierHeight;
+                                                                        var multiplierStopPointDrawingLength = drawingComponent.multiplierStopPointDrawingLength;
+                                                                        var multiplierUnitDrawingLength = drawingComponent.multiplierUnitDrawingLength;
+                                                                        var multiplierDigit = multiplierInt < 10 ? 2 : Utility.GetDigit(multiplierInt);
+                                                                        var multiplierSystem = drawingComponent.multiplierSystem;
+                                                                        var altMultiplier = drawingComponent.altMultiplier;
+                                                                        var binMultiplierMap = UI.Instance.BinMultiplierMap;
+                                                                        var multiplierUnitDrawing = UI.Instance.MultiplierUnitDrawing;
+                                                                        var multiplierStopPointDrawing = UI.Instance.MultiplierStopPointDrawing;
+                                                                        for (var i = altMultiplier >> 1; i >= altMultiplier % 2; --i)
+                                                                        {
+                                                                            var distanceMultiplier = i == 1 && has2P ? distance2P : 0F;
+                                                                            switch (multiplierSystem)
+                                                                            {
+                                                                                case 0:
+                                                                                    r.Set(multiplierPosition0 + multiplierStopPointDrawingLength + (multiplierDigit - 1) * binMultiplierLength + distanceMultiplier, multiplierPosition1, binMultiplierLength, binMultiplierHeight);
+                                                                                    break;
+                                                                                case 1:
+                                                                                    r.Set(multiplierPosition0 + ((multiplierDigit / 2.0) - 1) * binMultiplierLength + multiplierStopPointDrawingLength / 2 + distanceMultiplier, multiplierPosition1, binMultiplierLength, binMultiplierHeight);
+                                                                                    break;
+                                                                                case 2:
+                                                                                    r.Set(multiplierPosition0 - binMultiplierLength + distanceMultiplier, multiplierPosition1, binMultiplierLength, binMultiplierHeight);
+                                                                                    break;
+                                                                            }
+                                                                            targetSession.PaintDrawing(ref r, binMultiplierMap[multiplierInt % 10]);
+                                                                            r.Position0 -= multiplierStopPointDrawingLength;
+                                                                            r.Length = multiplierStopPointDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, multiplierStopPointDrawing);
+                                                                            r.Position0 -= binMultiplierLength;
+                                                                            r.Length = binMultiplierLength;
+                                                                            targetSession.PaintDrawing(ref r, binMultiplierMap[multiplierInt / 10 % 10]);
+                                                                            for (var j = 2; j < multiplierDigit; ++j)
+                                                                            {
+                                                                                r.Position0 -= binMultiplierLength;
+                                                                                targetSession.PaintDrawing(ref r, binMultiplierMap[multiplierInt / (int)Math.Pow(10, j) % 10]);
+                                                                            }
+                                                                            r.Position0 -= multiplierUnitDrawingLength;
+                                                                            r.Length = multiplierUnitDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, multiplierUnitDrawing);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.JudgmentPaint:
+                                                                        var judgmentPaintComposition = (CanvasComposite)drawingComponent.judgmentPaintComposition;
+                                                                        var judgmentPaints = defaultComputer.JudgmentPaints;
+                                                                        lock (judgmentPaints)
+                                                                        {
+                                                                            foreach (var judgmentPaint in judgmentPaints.Values)
+                                                                            {
+                                                                                judgmentPaint.Paint(ref r, targetSession, 1F, judgmentPaintComposition);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.HitNotePaint:
+                                                                        var hitNotePaintComposition = (CanvasComposite)drawingComponent.hitNotePaintComposition;
+                                                                        var hitNotePaints = defaultComputer.HitNotePaints;
+                                                                        lock (hitNotePaints)
+                                                                        {
+                                                                            foreach (var hitNotePaint in hitNotePaints.Values)
+                                                                            {
+                                                                                hitNotePaint.Paint(ref r, targetSession, 1F, hitNotePaintComposition);
+                                                                            }
+                                                                        }
+                                                                        var hitLongNotePaints = defaultComputer.HitLongNotePaints;
+                                                                        lock (hitLongNotePaints)
+                                                                        {
+                                                                            foreach (var hitLongNotePaint in hitLongNotePaints.Values)
+                                                                            {
+                                                                                hitLongNotePaint.Paint(ref r, targetSession, 1F, hitNotePaintComposition);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Net:
+                                                                        var netItemFaint = (float)Configure.Instance.UIConfigureValue.NetItemFaintV2;
+                                                                        if (netItemFaint > 0F)
+                                                                        {
+                                                                            var netItems = defaultComputer.NetItems;
+                                                                            if (netItems.Count > 0)
+                                                                            {
+                                                                                var netItemFaintInt = (int)(100.0 * netItemFaint);
+                                                                                var levyingNetPosition = defaultComputer.LevyingNetPosition;
+                                                                                var quitNetPosition = defaultComputer.QuitNetPosition;
+                                                                                var netSystem = drawingComponent.netSystem;
+                                                                                var netPosition0 = drawingComponent.netPosition0;
+                                                                                var netPosition1 = drawingComponent.netPosition1;
+                                                                                var altNet = drawingComponent.altNet;
+                                                                                var netTextPaint = UI.Instance.NetTextPaints[netItemFaintInt];
+                                                                                var netWallPaint = UI.Instance.NetWallPaints[netItemFaintInt];
+                                                                                for (var i = quitNetPosition; i >= levyingNetPosition; --i)
+                                                                                {
+                                                                                    foreach (var netItem in netItems)
+                                                                                    {
+                                                                                        if (netItem.TargetPosition == i)
                                                                                         {
-                                                                                            var distanceNet = j == 1 && has2P ? distance2P : 0F;
-                                                                                            r.Set(targetPosition0 + distanceNet, drawingPosition1, Levels.StandardEdgeFloat32 + highestNetLength + Levels.StandardEdgeFloat32, Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32);
-                                                                                            targetSession.DrawRectangle(r, avatarNetStatusPaint);
-                                                                                            if (!defaultComputer.IsPausingWindowOpened && defaultComputer.CanSetPosition)
+                                                                                            var drawings = netItem.Drawings;
+                                                                                            var drawingPosition = netItem.DrawingPosition - levyingNetPosition;
+                                                                                            var d2dHitPointsPaint = BaseUI.Instance.D2DHitPointsPaints[(int)netItem.HitPointsModeValue][netItem.IsMyNetItem ? netItemFaintInt : netItemFaintInt / 2];
+                                                                                            var netItemValue = Math.Min(netItem.HitPoints, 1.0);
+                                                                                            var avatarNetStatusPaint = _avatarNetStatusPaints[(int)netItem.AvatarNetStatus][netItemFaintInt];
+                                                                                            var avatarID = netItem.AvatarID;
+                                                                                            var avatarDrawing = AvatarDrawingSystem.Instance.JustGetAvatarDrawing(avatarID);
+                                                                                            if (!avatarDrawing.HasValue && AvatarDrawingSystem.Instance.CanCallAPI(avatarID))
                                                                                             {
-                                                                                                SetNetItemHandler(ref r, handleCommentNetItemImpl, netItem);
+                                                                                                Task.Factory.StartNew(getAvatarDrawing, avatarID);
                                                                                             }
-
-                                                                                            r.Set(r.Position0 + Levels.StandardEdgeFloat32, r.Position1 + Levels.StandardEdgeFloat32, r.Length - 2 * Levels.StandardEdgeFloat32, r.Height - 2 * Levels.StandardEdgeFloat32);
-                                                                                            targetSession.FillRectangle(r, netWallPaint);
-
-                                                                                            r.Position0 += highestNetHeight;
-                                                                                            r.Length = (highestNetLength - 2 * highestNetHeight) * netItemValue;
-                                                                                            r.Height = highestNetHeight;
-                                                                                            targetSession.FillRectangle(r, d2dHitPointsPaint);
-
-                                                                                            r.Position0 += highestNetLength - 2 * highestNetHeight;
-                                                                                            r.Length = highestNetHeight;
-                                                                                            targetSession.PaintDrawing(ref r, BaseUI.Instance.QuitDrawings[(int)netItem.QuitValue][0]?.Drawing, netItemFaint);
-
-                                                                                            r.SetPosition(targetPosition0 + highestNetHeight + Levels.StandardMargin + distanceNet, drawingPosition1 + Levels.StandardMarginFloat32);
-                                                                                            if (hasAvatarTitle)
+                                                                                            var lowHitPointsPaint = _lowHitPointsPaints[(int)(netItem.IsFailedStatus * netItemFaintInt)];
+                                                                                            var avatarTitle = AvatarTitleSystem.Instance.JustGetAvatarTitle(avatarID);
+                                                                                            if (!avatarTitle.HasValue && AvatarTitleSystem.Instance.CanCallAPI(avatarID))
                                                                                             {
-                                                                                                var position0 = Levels.StandardMargin + textBound0Length;
-                                                                                                targetSession.PaintText(textItem0, ref r, avatarTitle.Value.TitleColor);
-                                                                                                r.Position0 += position0;
-                                                                                                targetSession.PaintText(textItem1, ref r, netTextPaint);
-                                                                                                r.Position0 -= position0;
+                                                                                                Task.Factory.StartNew(getAvatarTitle, avatarID);
                                                                                             }
-                                                                                            else
+                                                                                            var avatarEdge = AvatarEdgeSystem.Instance.JustGetAvatarEdge(avatarID);
+                                                                                            if (!avatarEdge.HasValue && AvatarEdgeSystem.Instance.CanCallAPI(avatarID))
                                                                                             {
-                                                                                                targetSession.PaintText(textItem1, ref r, netTextPaint);
+                                                                                                Task.Factory.StartNew(getAvatarEdge, avatarID);
                                                                                             }
-                                                                                            r.Position1 += Levels.StandardMargin + textBound1Height;
-                                                                                            targetSession.PaintText(textItem2, ref r, netTextPaint);
-                                                                                            r.Position0 += Levels.StandardMargin + textBound2Length;
-                                                                                            targetSession.PaintText(textItem3, ref r, netTextPaint);
-                                                                                            r.Position0 += Levels.StandardMargin + textBound3Length;
-                                                                                            targetSession.PaintText(textItem4, ref r, netTextPaint);
+                                                                                            var hasAvatarTitle = !string.IsNullOrEmpty(avatarTitle?.Title);
+                                                                                            var textItem0 = hasAvatarTitle ? PoolSystem.Instance.GetTextItem(avatarTitle.Value.Title, NetFont) : null;
+                                                                                            var textBound0 = textItem0?.LayoutBounds ?? default;
+                                                                                            var textBound0Length = textBound0.Width;
+                                                                                            var textBound0Height = textBound0.Height;
+                                                                                            var textItem1 = PoolSystem.Instance.GetTextItem(netItem.AvatarName, NetFont);
+                                                                                            var textBound1 = textItem1.LayoutBounds;
+                                                                                            var textBound1Length = textBound1.Width;
+                                                                                            var textBound1Height = textBound1.Height;
+                                                                                            var textItem2 = PoolSystem.Instance.GetTextItem(netItem.Stand, NetFont);
+                                                                                            var textBound2 = textItem2.LayoutBounds;
+                                                                                            var textBound2Length = textBound2.Width;
+                                                                                            var textBound2Height = textBound2.Height;
+                                                                                            var textItem3 = PoolSystem.Instance.GetTextItem(netItem.Point, NetFont);
+                                                                                            var textBound3 = textItem3.LayoutBounds;
+                                                                                            var textBound3Length = textBound3.Width;
+                                                                                            var textBound3Height = textBound3.Height;
+                                                                                            var textItem4 = PoolSystem.Instance.GetTextItem(netItem.Band, NetFont);
+                                                                                            var textBound4 = textItem4.LayoutBounds;
+                                                                                            var textBound4Length = textBound4.Width;
+                                                                                            var textBound4Height = textBound4.Height;
 
-                                                                                            r.Set(targetPosition0 + distanceNet + Levels.StandardEdgeFloat32, drawingPosition1 + Levels.StandardEdgeFloat32, highestNetHeight, highestNetHeight);
-                                                                                            targetSession.PaintDrawing(ref r, avatarDrawing?.Drawing, netItemFaint);
+                                                                                            defaultComputer.HighestNetHeight = (float)Math.Max(defaultComputer.HighestNetHeight, Levels.StandardMargin + Math.Max(textBound0Height, textBound1Height) + Levels.StandardMargin + Utility.Max(textBound2Height, textBound3Height, textBound4Height) + Levels.StandardMarginFloat32);
+                                                                                            var highestNetHeight = defaultComputer.HighestNetHeight;
 
-                                                                                            s.Set(r.Position0 + r.Length * Levels.EdgeXY, r.Position1 + r.Height * Levels.EdgeXY, r.Length * Levels.EdgeMargin, r.Height * Levels.EdgeMargin);
-                                                                                            targetSession.PaintDrawing(ref s, avatarEdge?.Drawing, netItemFaint);
+                                                                                            defaultComputer.HighestNetLength = (float)Utility.Max(defaultComputer.HighestNetLength, highestNetHeight + Levels.StandardMargin + textBound0Length + Levels.StandardMargin + textBound1Length + Levels.StandardMargin + highestNetHeight, highestNetHeight + Levels.StandardMargin + textBound2Length + Levels.StandardMargin + textBound3Length + Levels.StandardMargin + textBound4Length + Levels.StandardMargin + highestNetHeight);
+                                                                                            var highestNetLength = defaultComputer.HighestNetLength;
 
-                                                                                            targetSession.FillRectangle(r, lowHitPointsPaint);
+                                                                                            var lastJudged = netItem.LastJudged;
+                                                                                            var hasLastJudged = lastJudged != Component.Judged.Not;
+                                                                                            var drawingPosition1 = netPosition1 + (Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32 + Levels.StandardMarginFloat32) * drawingPosition;
 
-                                                                                            if (drawings != null && netItem.AvatarNetStatus == Event.Types.AvatarNetStatus.Default)
+                                                                                            var targetPosition0 = netPosition0;
+                                                                                            if (netSystem == 2)
                                                                                             {
-                                                                                                var valueLength = highestNetHeight / netItem.P2BuiltLength;
-                                                                                                var valueHeight = highestNetHeight / netItem.JudgmentMainPosition;
-                                                                                                var target = PoolSystem.Instance.GetTargetItem(highestNetHeight, highestNetHeight);
-                                                                                                using (var session = target.CreateDrawingSession())
+                                                                                                targetPosition0 -= Levels.StandardEdgeFloat32 + highestNetLength + Levels.StandardEdgeFloat32;
+                                                                                                if (drawings != null)
                                                                                                 {
-                                                                                                    session.Clear(Colors.Black);
-                                                                                                    foreach (var drawing in drawings)
-                                                                                                    {
-                                                                                                        var averageColor = drawing.Param;
-                                                                                                        var valueColor = Color.FromArgb((byte)(averageColor & 255), (byte)((averageColor & 65280) >> 8), (byte)((averageColor & 16711680) >> 16), (byte)((averageColor & 4278190080) >> 24));
-                                                                                                        switch (drawing.DrawingVariety)
-                                                                                                        {
-                                                                                                            case Event.Types.NetDrawing.Types.Variety.Note:
-                                                                                                                s.Set(drawing.Position0 * valueLength, drawing.Position1 * valueHeight, drawing.Length * valueLength, drawing.Height * valueHeight);
-                                                                                                                var ellipse = (float)Math.Min(s.Length / 2, s.Height / 2);
-                                                                                                                session.FillRoundedRectangle(s, ellipse, ellipse, valueColor);
-                                                                                                                break;
-                                                                                                            case Event.Types.NetDrawing.Types.Variety.Main:
-                                                                                                                s.Set(drawing.Position0 * valueLength, drawing.Position1 * valueHeight, drawing.Length * valueLength, drawing.Height * valueHeight);
-                                                                                                                session.FillRectangle(s, valueColor);
-                                                                                                                break;
-                                                                                                            case Event.Types.NetDrawing.Types.Variety.Meter:
-                                                                                                                s.Set(0F, drawing.Position1 * valueHeight, highestNetHeight, valueHeight);
-                                                                                                                session.FillRectangle(s, valueColor);
-                                                                                                                break;
-                                                                                                        }
-                                                                                                    }
+                                                                                                    targetPosition0 -= Levels.StandardMarginFloat32 + Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32;
                                                                                                 }
+                                                                                            }
 
-                                                                                                r.Set(targetPosition0 + distanceNet + Levels.StandardEdgeFloat32 + highestNetLength + Levels.StandardEdgeFloat32 + Levels.StandardMarginFloat32, drawingPosition1, Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32, Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32);
-                                                                                                targetSession.DrawRectangle(r, (hasLastJudged ? d2dJudgmentPaints[(int)lastJudged] : FaintClearedPaints)[netItemFaintInt]);
-                                                                                                if (!isPostableItemMode && !defaultComputer.IsPausingWindowOpened && 0.0 <= loopingCounter)
+                                                                                            for (var j = altNet >> 1; j >= altNet % 2; --j)
+                                                                                            {
+                                                                                                var distanceNet = j == 1 && has2P ? distance2P : 0F;
+                                                                                                r.Set(targetPosition0 + distanceNet, drawingPosition1, Levels.StandardEdgeFloat32 + highestNetLength + Levels.StandardEdgeFloat32, Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32);
+                                                                                                targetSession.DrawRectangle(r, avatarNetStatusPaint);
+                                                                                                if (!defaultComputer.IsPausingWindowOpened && defaultComputer.CanSetPosition)
                                                                                                 {
-                                                                                                    SetNetItemHandler(ref r, handleIONetItemImpl, netItem);
+                                                                                                    SetNetItemHandler(ref r, handleCommentNetItemImpl, netItem);
                                                                                                 }
 
                                                                                                 r.Set(r.Position0 + Levels.StandardEdgeFloat32, r.Position1 + Levels.StandardEdgeFloat32, r.Length - 2 * Levels.StandardEdgeFloat32, r.Height - 2 * Levels.StandardEdgeFloat32);
-                                                                                                targetSession.PaintDrawing(ref r, target, netItemFaint);
-                                                                                            }
-                                                                                        }
-                                                                                        break;
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Unpause:
-                                                                    var pauseCount = defaultComputer.PauseCount;
-                                                                    if (pauseCount > 0)
-                                                                    {
-                                                                        var pausePosition0 = drawingComponent.pausePosition0;
-                                                                        var pausePosition1 = drawingComponent.pausePosition1;
-                                                                        var pauseLength = drawingComponent.pauseLength;
-                                                                        var pauseHeight = drawingComponent.pauseHeight;
-                                                                        var pauseSystem = drawingComponent.pauseSystem;
-                                                                        var altPause = drawingComponent.altPause;
-                                                                        var pauseDrawings = UI.Instance.PauseDrawings;
-                                                                        for (var i = altPause >> 1; i >= altPause % 2; --i)
-                                                                        {
-                                                                            var distancePause = i == 1 && has2P ? distance2P : 0F;
-                                                                            switch (pauseSystem)
-                                                                            {
-                                                                                case 0:
-                                                                                    r.Set(pausePosition0 + distancePause, pausePosition1, pauseLength, pauseHeight);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(pausePosition0 - pauseLength / 2 + distancePause, pausePosition1, pauseLength, pauseHeight);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(pausePosition0 - pauseLength + distancePause, pausePosition1, pauseLength, pauseHeight);
-                                                                                    break;
-                                                                            }
-                                                                            targetSession.PaintDrawing(ref r, pauseDrawings[pauseCount - 1][defaultComputer.PauseFrames[pauseCount - 1]]);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Status:
-                                                                    var statusPosition0 = drawingComponent.statusPosition0;
-                                                                    var statusPosition1 = drawingComponent.statusPosition1;
-                                                                    var statusLength = drawingComponent.statusLength;
-                                                                    var statusHeight = drawingComponent.statusHeight;
-                                                                    var statusSystem = drawingComponent.statusSystem;
-                                                                    var altStatus = drawingComponent.altStatus;
-                                                                    var statusDrawing = UI.Instance.StatusDrawing;
-                                                                    if (statusDrawing.HasValue)
-                                                                    {
-                                                                        var statusDrawingValue = statusDrawing.Value;
-                                                                        var statusDrawingBound = statusDrawingValue.DrawingBound;
-                                                                        var statusDrawingLength = statusDrawingBound.Length;
-                                                                        var statusDrawingHeight = statusDrawingBound.Height;
-                                                                        for (var i = altStatus >> 1; i >= altStatus % 2; --i)
-                                                                        {
-                                                                            var distanceStatus = i == 1 && has2P ? distance2P : 0F;
-                                                                            switch (statusSystem)
-                                                                            {
-                                                                                case 0:
-                                                                                    r.Set(statusPosition0 + distanceStatus, statusPosition1 + statusHeight * (1 - status), statusLength, statusHeight * status);
-                                                                                    s.Set(0.0, (1 - status) * statusDrawingHeight, statusDrawingLength, statusDrawingHeight * status);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(statusPosition0 + distanceStatus, statusPosition1, statusLength, statusHeight * status);
-                                                                                    s.SetArea(statusDrawingLength, statusDrawingHeight * status);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(statusPosition0 + distanceStatus + statusLength * (1 - status), statusPosition1, statusLength * status, statusHeight);
-                                                                                    s.Set((1 - status) * statusDrawingLength, 0.0, statusDrawingLength * status, statusDrawingHeight);
-                                                                                    break;
-                                                                                case 3:
-                                                                                    r.Set(statusPosition0 + distanceStatus, statusPosition1, statusLength * status, statusHeight);
-                                                                                    s.SetArea(statusDrawingLength * status, statusDrawingHeight);
-                                                                                    break;
-                                                                            }
-                                                                            targetSession.PaintDrawing(ref r, ref s, statusDrawingValue);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Hms:
-                                                                    var length = (int)(defaultComputer.Length / 1000.0);
-                                                                    var mLength = length / 60;
-                                                                    var sLength = length % 60;
-                                                                    var wait = Math.Clamp((int)(loopingCounter / 1000.0), 0, length);
-                                                                    var mWait = wait / 60;
-                                                                    var sWait = wait % 60;
-                                                                    var hmsColonDrawingLength = drawingComponent.hmsColonDrawingLength;
-                                                                    var hmsSlashDrawingLength = drawingComponent.hmsSlashDrawingLength;
-                                                                    var hmsPosition0 = drawingComponent.hmsPosition0;
-                                                                    var hmsPosition1 = drawingComponent.hmsPosition1;
-                                                                    var binHmsLength = drawingComponent.binHmsLength;
-                                                                    var binHmsHeight = drawingComponent.binHmsHeight;
-                                                                    var mWaitDigit = Utility.GetDigit(mWait);
-                                                                    var mLengthDigit = Utility.GetDigit(mLength);
-                                                                    var hmsSystem = drawingComponent.hmsSystem;
-                                                                    var binHmsMap = UI.Instance.BinHmsMap;
-                                                                    var altHms = drawingComponent.altHms;
-                                                                    var hmsColonDrawing = UI.Instance.ColonDrawing;
-                                                                    var hmsSlashDrawing = UI.Instance.SlashDrawing;
-                                                                    for (var i = altHms >> 1; i >= altHms % 2; --i)
-                                                                    {
-                                                                        var distanceHms = i == 1 && has2P ? distance2P : 0F;
-                                                                        switch (hmsSystem)
-                                                                        {
-                                                                            case 0:
-                                                                                r.Set(hmsPosition0 + 2 * hmsColonDrawingLength + hmsSlashDrawingLength + (mWaitDigit + mLengthDigit + 3) * binHmsLength + distanceHms, hmsPosition1, binHmsLength, binHmsHeight);
-                                                                                break;
-                                                                            case 1:
-                                                                                r.Set(hmsPosition0 + (mWaitDigit / 2.0 + mLengthDigit / 2.0 + 1) * binHmsLength + hmsColonDrawingLength / 2 + hmsSlashDrawingLength / 2 + distanceHms, hmsPosition1, binHmsLength, binHmsHeight);
-                                                                                break;
-                                                                            case 2:
-                                                                                r.Set(hmsPosition0 - binHmsLength + distanceHms, hmsPosition1, binHmsLength, binHmsHeight);
-                                                                                break;
-                                                                        }
-                                                                        targetSession.PaintDrawing(ref r, binHmsMap[sLength / 1 % 10]);
-                                                                        r.Position0 -= binHmsLength;
-                                                                        r.Length = binHmsLength;
-                                                                        targetSession.PaintDrawing(ref r, binHmsMap[sLength / 10 % 10]);
-                                                                        r.Position0 -= hmsColonDrawingLength;
-                                                                        r.Length = hmsColonDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, hmsColonDrawing);
-                                                                        for (var j = 0; j < mLengthDigit; ++j)
-                                                                        {
-                                                                            r.Position0 -= binHmsLength;
-                                                                            r.Length = binHmsLength;
-                                                                            targetSession.PaintDrawing(ref r, binHmsMap[(int)(mLength / Math.Pow(10, j) % 10)]);
-                                                                        }
-                                                                        r.Position0 -= hmsSlashDrawingLength;
-                                                                        r.Length = hmsSlashDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, hmsSlashDrawing);
-                                                                        r.Length = binHmsLength;
-                                                                        for (var j = 1; j <= 10; j *= 10)
-                                                                        {
-                                                                            r.Position0 -= binHmsLength;
-                                                                            targetSession.PaintDrawing(ref r, binHmsMap[sWait / j % 10]);
-                                                                        }
-                                                                        r.Position0 -= hmsColonDrawingLength;
-                                                                        r.Length = hmsColonDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, hmsColonDrawing);
-                                                                        for (var j = 0; j < mWaitDigit; ++j)
-                                                                        {
-                                                                            r.Position0 -= binHmsLength;
-                                                                            r.Length = binHmsLength;
-                                                                            targetSession.PaintDrawing(ref r, binHmsMap[(int)(mWait / Math.Pow(10, j) % 10)]);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.JudgmentPoints:
-                                                                    var totalJudgmentPoints = 0.0;
-                                                                    foreach (var judgment in judgments)
-                                                                    {
-                                                                        totalJudgmentPoints += judgment;
-                                                                    }
-                                                                    var judgmentPointsPosition0 = drawingComponent.judgmentPointsPosition0;
-                                                                    var judgmentPointsPosition1 = drawingComponent.judgmentPointsPosition1;
-                                                                    var judgmentPointsLength = drawingComponent.judgmentPointsLength;
-                                                                    var judgmentPointsHeight = drawingComponent.judgmentPointsHeight;
-                                                                    var judgmentPointsDrawings = UI.Instance.JudgmentPointsDrawings;
-                                                                    var altJudgmentPoints = drawingComponent.altJudgmentPoints;
-                                                                    var judgmentPointsSystem = drawingComponent.judgmentPointsSystem;
-                                                                    var lastPosition = 0.0;
-                                                                    for (var i = (int)Component.Judged.Highest; i <= (int)Component.Judged.Lowest; ++i)
-                                                                    {
-                                                                        var judgmentPoint = judgments[i] / totalJudgmentPoints;
-                                                                        var judgmentPointDrawing = judgmentPointsDrawings[i];
-                                                                        if (judgmentPointDrawing.HasValue)
-                                                                        {
-                                                                            var judgmentPointDrawingValue = judgmentPointDrawing.Value;
-                                                                            var judgmentPointDrawingBound = judgmentPointDrawingValue.DrawingBound;
-                                                                            var judgmentPointDrawingLength = judgmentPointDrawingBound.Length;
-                                                                            var judgmentPointDrawingHeight = judgmentPointDrawingBound.Height;
-                                                                            for (var j = altJudgmentPoints >> 1; j >= altJudgmentPoints % 2; --j)
-                                                                            {
-                                                                                var distanceJudgmentPoints = j == 1 && has2P ? distance2P : 0F;
-                                                                                switch (judgmentPointsSystem)
-                                                                                {
-                                                                                    case 0:
-                                                                                        r.Set(judgmentPointsPosition0 + distanceJudgmentPoints, judgmentPointsPosition1 + judgmentPointsHeight * lastPosition, judgmentPointsLength, judgmentPointsHeight * judgmentPoint);
-                                                                                        s.Set(0.0, lastPosition * judgmentPointDrawingHeight, judgmentPointDrawingLength, judgmentPointDrawingHeight * judgmentPoint);
-                                                                                        break;
-                                                                                    case 1:
-                                                                                        r.Set(judgmentPointsPosition0 + distanceJudgmentPoints, judgmentPointsPosition1 + judgmentPointsHeight * (1 - lastPosition - judgmentPoint), judgmentPointsLength, judgmentPointsHeight * judgmentPoint);
-                                                                                        s.Set(0.0, judgmentPointDrawingHeight * (1 - lastPosition - judgmentPoint), judgmentPointDrawingLength, judgmentPointDrawingHeight * judgmentPoint);
-                                                                                        break;
-                                                                                    case 2:
-                                                                                        r.Set(judgmentPointsPosition0 + distanceJudgmentPoints + judgmentPointsLength * lastPosition, judgmentPointsPosition1, judgmentPointsLength * judgmentPoint, judgmentPointsHeight);
-                                                                                        s.Set(judgmentPointDrawingLength * lastPosition, 0.0, judgmentPointDrawingLength * judgmentPoint, judgmentPointDrawingHeight);
-                                                                                        break;
-                                                                                    case 3:
-                                                                                        r.Set(judgmentPointsPosition0 + distanceJudgmentPoints + judgmentPointsLength * (1 - lastPosition - judgmentPoint), judgmentPointsPosition1, judgmentPointsLength * judgmentPoint, judgmentPointsHeight);
-                                                                                        s.Set(judgmentPointDrawingLength * (1 - lastPosition - judgmentPoint), 0.0, judgmentPointDrawingLength * judgmentPoint, judgmentPointDrawingHeight);
-                                                                                        break;
-                                                                                }
-                                                                                targetSession.PaintDrawing(ref r, ref s, judgmentPointDrawingValue);
-                                                                            }
-                                                                            lastPosition += judgmentPoint;
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.JudgmentMain:
-                                                                    var judgmentMainDrawings = UI.Instance.JudgmentMainDrawings[(int)inputMode];
-                                                                    var judgmentMainFrames = defaultComputer.JudgmentMainFrames;
-                                                                    var judgmentMainPosition1s = drawingComponent.judgmentMainPosition1s;
-                                                                    var judgmentMainHeights = drawingComponent.judgmentMainHeights;
-                                                                    foreach (var drawingPipeline in drawingPipelines)
-                                                                    {
-                                                                        for (var i = inputCount; i > 0; --i)
-                                                                        {
-                                                                            if (drawingPipeline == drawingInputModeMap[i])
-                                                                            {
-                                                                                r.Set(defaultComputer.GetPosition(i), judgmentMainPosition1s[i], drawingNoteLengthMap[i], judgmentMainHeights[i]);
-                                                                                targetSession.PaintDrawing(ref r, judgmentMainDrawings[i][judgmentMainFrames[i]]);
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.MainAreaFaint:
-                                                                    var mainAreaFaint = Configure.Instance.MainAreaFaint;
-                                                                    if (mainAreaFaint > 0.0)
-                                                                    {
-                                                                        var mainAreaFaintPaint = FaintFilledPaints[(int)(100 * mainAreaFaint)];
-                                                                        r.Set(mainPosition, mainPosition1, p1Length, mainHeight);
-                                                                        targetSession.FillRectangle(r, mainAreaFaintPaint);
-                                                                        if (has2P)
-                                                                        {
-                                                                            r.Position0 += distance2P;
-                                                                            targetSession.FillRectangle(r, mainAreaFaintPaint);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.AudioMultiplier:
-                                                                    var audioMultiplierInt = (int)Math.Round(100 * defaultComputer.AudioMultiplier);
-                                                                    var audioMultiplierSystem = drawingComponent.audioMultiplierSystem;
-                                                                    var audioMultiplierPosition0 = drawingComponent.audioMultiplierPosition0;
-                                                                    var audioMultiplierPosition1 = drawingComponent.audioMultiplierPosition1;
-                                                                    var binAudioMultiplierLength = drawingComponent.binAudioMultiplierLength;
-                                                                    var binAudioMultiplierHeight = drawingComponent.binAudioMultiplierHeight;
-                                                                    var altAudioMultiplier = drawingComponent.altAudioMultiplier;
-                                                                    var audioMultiplierStopPointDrawingLength = drawingComponent.audioMultiplierStopPointDrawingLength;
-                                                                    var audioMultiplierUnitDrawingLength = drawingComponent.audioMultiplierUnitDrawingLength;
-                                                                    var binAudioMultiplierMap = UI.Instance.BinAudioMultiplierMap;
-                                                                    var audioMultiplierUnitDrawing = UI.Instance.AudioMultiplierUnitDrawing;
-                                                                    var audioMultiplierStopPointDrawing = UI.Instance.AudioMultiplierStopPointDrawing;
-                                                                    for (var i = altAudioMultiplier >> 1; i >= altAudioMultiplier % 2; --i)
-                                                                    {
-                                                                        var distanceAudioMultiplier = i == 1 && has2P ? distance2P : 0F;
-                                                                        switch (audioMultiplierSystem)
-                                                                        {
-                                                                            case 0:
-                                                                                r.Set(audioMultiplierPosition0 + audioMultiplierStopPointDrawingLength + 2 * binAudioMultiplierLength + distanceAudioMultiplier, audioMultiplierPosition1, binAudioMultiplierLength, binAudioMultiplierHeight);
-                                                                                break;
-                                                                            case 1:
-                                                                                r.Set(audioMultiplierPosition0 + 0.5 * binAudioMultiplierLength + audioMultiplierStopPointDrawingLength / 2 + distanceAudioMultiplier, audioMultiplierPosition1, binAudioMultiplierLength, binAudioMultiplierHeight);
-                                                                                break;
-                                                                            case 2:
-                                                                                r.Set(audioMultiplierPosition0 - binAudioMultiplierLength + distanceAudioMultiplier, audioMultiplierPosition1, binAudioMultiplierLength, binAudioMultiplierHeight);
-                                                                                break;
-                                                                        }
-                                                                        targetSession.PaintDrawing(ref r, binAudioMultiplierMap[audioMultiplierInt / 1 % 10]);
-                                                                        r.Position0 -= binAudioMultiplierLength;
-                                                                        r.Length = binAudioMultiplierLength;
-                                                                        targetSession.PaintDrawing(ref r, binAudioMultiplierMap[audioMultiplierInt / 10 % 10]);
-                                                                        r.Position0 -= audioMultiplierStopPointDrawingLength;
-                                                                        r.Length = audioMultiplierStopPointDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, audioMultiplierStopPointDrawing);
-                                                                        r.Position0 -= binAudioMultiplierLength;
-                                                                        r.Length = binAudioMultiplierLength;
-                                                                        targetSession.PaintDrawing(ref r, binAudioMultiplierMap[audioMultiplierInt / 100 % 10]);
-                                                                        r.Position0 -= audioMultiplierUnitDrawingLength;
-                                                                        r.Length = audioMultiplierUnitDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, audioMultiplierUnitDrawing);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.HitPointsVisualizer:
-                                                                    var hitPointsInt = (int)(100 * hitPoints);
-                                                                    var hitPointsVisualizerPosition0 = drawingComponent.hitPointsVisualizerPosition0;
-                                                                    var hitPointsVisualizerPosition1 = drawingComponent.hitPointsVisualizerPosition1;
-                                                                    var binHitPointsVisualizerLength = drawingComponent.binHitPointsVisualizerLength;
-                                                                    var binHitPointsVisualizerHeight = drawingComponent.binHitPointsVisualizerHeight;
-                                                                    var hitPointsVisualizerUnitDrawingLength = drawingComponent.hitPointsVisualizerUnitDrawingLength;
-                                                                    var hitPointsVisualizerSystem = drawingComponent.hitPointsVisualizerSystem;
-                                                                    var altHitPointsVisualizer = drawingComponent.altHitPointsVisualizer;
-                                                                    var binHitPointsVisualizerMap = UI.Instance.BinHitPointsVisualizerMap;
-                                                                    var hitPointsVisualizerUnitDrawing = UI.Instance.HitPointsVisualizerUnitDrawing;
-                                                                    var hitPointsDigit = Utility.GetDigit(hitPointsInt);
-                                                                    for (var i = altHitPointsVisualizer >> 1; i >= altHitPointsVisualizer % 2; --i)
-                                                                    {
-                                                                        var distanceHitPointsVisualizer = i == 1 && has2P ? distance2P : 0F;
-                                                                        for (var j = hitPointsDigit - 1; j >= 0; --j)
-                                                                        {
-                                                                            switch (hitPointsVisualizerSystem)
-                                                                            {
-                                                                                case 0:
-                                                                                    r.Set(hitPointsVisualizerPosition0 + binHitPointsVisualizerLength * (hitPointsDigit - j - 1) + distanceHitPointsVisualizer, hitPointsVisualizerPosition1, binHitPointsVisualizerLength, binHitPointsVisualizerHeight);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(hitPointsVisualizerPosition0 + binHitPointsVisualizerLength * (0.5 * hitPointsDigit - j - 1) + distanceHitPointsVisualizer, hitPointsVisualizerPosition1, binHitPointsVisualizerLength, binHitPointsVisualizerHeight);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(hitPointsVisualizerPosition0 - binHitPointsVisualizerLength * (j + 1) + distanceHitPointsVisualizer, hitPointsVisualizerPosition1, binHitPointsVisualizerLength, binHitPointsVisualizerHeight);
-                                                                                    break;
-                                                                            }
-                                                                            targetSession.PaintDrawing(ref r, binHitPointsVisualizerMap[(int)(hitPointsInt / Math.Pow(10, j) % 10)]);
-                                                                        }
-                                                                        r.Position0 += binHitPointsVisualizerLength;
-                                                                        r.Length = hitPointsVisualizerUnitDrawingLength;
-                                                                        targetSession.PaintDrawing(ref r, hitPointsVisualizerUnitDrawing);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.HighestJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.Highest], drawingComponent.highestJudgmentValueSystem, drawingComponent.highestJudgmentValuePosition0, drawingComponent.highestJudgmentValuePosition1, drawingComponent.binHighestJudgmentValueLength, drawingComponent.binHighestJudgmentValueHeight, drawingComponent.altHighestJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Highest]);
-                                                                    break;
-                                                                case PaintPipelineID.HigherJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.Higher], drawingComponent.higherJudgmentValueSystem, drawingComponent.higherJudgmentValuePosition0, drawingComponent.higherJudgmentValuePosition1, drawingComponent.binHigherJudgmentValueLength, drawingComponent.binHigherJudgmentValueHeight, drawingComponent.altHigherJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Higher]);
-                                                                    break;
-                                                                case PaintPipelineID.HighJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.High], drawingComponent.highJudgmentValueSystem, drawingComponent.highJudgmentValuePosition0, drawingComponent.highJudgmentValuePosition1, drawingComponent.binHighJudgmentValueLength, drawingComponent.binHighJudgmentValueHeight, drawingComponent.altHighJudgmentValue, binJudgmentValueMap[(int)Component.Judged.High]);
-                                                                    break;
-                                                                case PaintPipelineID.LowJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.Low], drawingComponent.lowJudgmentValueSystem, drawingComponent.lowerJudgmentValuePosition0, drawingComponent.lowJudgmentValuePosition1, drawingComponent.binLowJudgmentValueLength, drawingComponent.binLowJudgmentValueHeight, drawingComponent.altLowJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Low]);
-                                                                    break;
-                                                                case PaintPipelineID.LowerJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.Lower], drawingComponent.lowerJudgmentValueSystem, drawingComponent.lowerJudgmentValuePosition0, drawingComponent.lowerJudgmentValuePosition1, drawingComponent.binLowerJudgmentValueLength, drawingComponent.binLowerJudgmentValueHeight, drawingComponent.altLowerJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Lower]);
-                                                                    break;
-                                                                case PaintPipelineID.LowestJudgment:
-                                                                    PaintInt(judgments[(int)Component.Judged.Lowest], drawingComponent.lowestJudgmentValueSystem, drawingComponent.lowestJudgmentValuePosition0, drawingComponent.lowestJudgmentValuePosition1, drawingComponent.binLowestJudgmentValueLength, drawingComponent.binLowestJudgmentValueHeight, drawingComponent.altLowestJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Lowest]);
-                                                                    break;
-                                                                case PaintPipelineID.HighestBand:
-                                                                    PaintInt(defaultComputer.HighestBand, drawingComponent.highestBandSystem, drawingComponent.highestBandPosition0, drawingComponent.highestBandPosition1, drawingComponent.binHighestBandLength, drawingComponent.binHighestBandHeight, drawingComponent.altHighestBand, UI.Instance.BinHighestBandMap);
-                                                                    break;
-                                                                case PaintPipelineID.Limiter:
-                                                                    var limiterPosition1 = drawingComponent.limiterPosition1;
-                                                                    var limiterLength = drawingComponent.limiterLength;
-                                                                    var limiterHeight = drawingComponent.limiterHeight;
-                                                                    var limiterColor = Configure.Instance.LimiterColor;
-                                                                    var inputMappingValue = (int)defaultComputer.InputMappingValue;
-                                                                    if (Configure.Instance.TotalLimiterVariety)
-                                                                    {
-                                                                        var defaultPaintValues = Component.BasePaintMap[inputMappingValue, (int)inputMode];
-                                                                        for (var i = inputCount; i > 1; --i)
-                                                                        {
-                                                                            var limiterPosition0 = defaultComputer.GetPosition(defaultPaintValues[i]);
-                                                                            targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
-                                                                        }
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (Configure.Instance.AutoableLimiterVariety)
-                                                                        {
-                                                                            var autoableInputs = Component.AutoableInputs[(int)inputMode];
-                                                                            for (var i = inputCount; i > 0; --i)
-                                                                            {
-                                                                                if (Array.IndexOf(autoableInputs, i) != -1)
-                                                                                {
-                                                                                    var limiterPosition0 = defaultComputer.GetPosition(i);
-                                                                                    targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
-                                                                                    limiterPosition0 += drawingNoteLengthMap[i];
-                                                                                    targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        if (Configure.Instance.CenterLimiterVariety)
-                                                                        {
-                                                                            var limiterCenterValues = Component.LimiterCenterMap[inputMappingValue, (int)inputMode, has2P ? 1 : 0];
-                                                                            for (var i = inputCount; i > 0; --i)
-                                                                            {
-                                                                                for (var j = limiterCenterValues[i] - 1; j >= 0; --j)
-                                                                                {
-                                                                                    var limiterPosition0 = defaultComputer.GetPosition(i) + j * drawingNoteLengthMap[i];
-                                                                                    targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        if (Configure.Instance.Limiter57Variety && (inputMode == Component.InputMode._24_2 || inputMode == Component.InputMode._48_4))
-                                                                        {
-                                                                            var limiter57Values = Component.Limiter57Map[(int)inputMode];
-                                                                            for (var i = inputCount; i > 0; --i)
-                                                                            {
-                                                                                if (limiter57Values[i])
-                                                                                {
-                                                                                    var limiterPosition0 = defaultComputer.GetPosition(i);
-                                                                                    targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.JudgmentVisualizer:
-                                                                    var judgmentVisualizerPosition0 = drawingComponent.judgmentVisualizerPosition0;
-                                                                    var judgmentVisualizerPosition1 = drawingComponent.judgmentVisualizerPosition1;
-                                                                    var judgmentVisualizerLength = drawingComponent.judgmentVisualizerLength;
-                                                                    var judgmentVisualizerHeight = drawingComponent.judgmentVisualizerHeight;
-                                                                    var judgmentVisualizerContentsLength = drawingComponent.judgmentVisualizerContentsLength;
-                                                                    var judgmentVisualizerContentsHeight = drawingComponent.judgmentVisualizerContentsHeight;
-                                                                    var judgmentVisualizerSystem = drawingComponent.judgmentVisualizerSystem;
-                                                                    var altJudgmentVisualizer = drawingComponent.altJudgmentVisualizer;
-                                                                    var targetJudgmentVisualizerValues = defaultComputer.JudgmentVisualizerValues;
-                                                                    for (var i = altJudgmentVisualizer >> 1; i >= altJudgmentVisualizer % 2; --i)
-                                                                    {
-                                                                        var distanceJudgmentVisualizer = i == 1 && has2P ? distance2P : 0F;
-                                                                        var judgmentVisualizerPosition0Float = judgmentVisualizerPosition0 + distanceJudgmentVisualizer;
-                                                                        var judgmentVisualizerValues = targetJudgmentVisualizerValues[i];
-                                                                        lock (judgmentVisualizerValues)
-                                                                        {
-                                                                            foreach (var judgmentVisualizerValue in judgmentVisualizerValues)
-                                                                            {
-                                                                                var judgmentColorPaint = d2dJudgmentPaints[(int)judgmentVisualizerValue.Judged][(int)(100 * judgmentVisualizerValue.Status)];
-                                                                                switch (judgmentVisualizerSystem)
-                                                                                {
-                                                                                    case 0:
-                                                                                        var judgmentVisualizerPosition1Value = (float)(judgmentVisualizerPosition1 + judgmentVisualizerHeight * (1 - judgmentVisualizerValue.Judgment));
-                                                                                        targetSession.DrawLine(judgmentVisualizerPosition0Float, judgmentVisualizerPosition1Value, judgmentVisualizerPosition0Float + judgmentVisualizerContentsLength, judgmentVisualizerPosition1Value, judgmentColorPaint, judgmentVisualizerContentsHeight);
-                                                                                        break;
-                                                                                    case 1:
-                                                                                        judgmentVisualizerPosition1Value = (float)(judgmentVisualizerPosition1 + judgmentVisualizerHeight * judgmentVisualizerValue.Judgment);
-                                                                                        targetSession.DrawLine(judgmentVisualizerPosition0Float, judgmentVisualizerPosition1Value, judgmentVisualizerPosition0Float + judgmentVisualizerContentsLength, judgmentVisualizerPosition1Value, judgmentColorPaint, judgmentVisualizerContentsHeight);
-                                                                                        break;
-                                                                                    case 2:
-                                                                                        var judgmentVisualizerPosition0Value = (float)(judgmentVisualizerPosition0Float + judgmentVisualizerLength * (1 - judgmentVisualizerValue.Judgment));
-                                                                                        targetSession.DrawLine(judgmentVisualizerPosition0Value, judgmentVisualizerPosition1, judgmentVisualizerPosition0Value, judgmentVisualizerPosition1 + judgmentVisualizerContentsHeight, judgmentColorPaint, judgmentVisualizerContentsLength);
-                                                                                        break;
-                                                                                    case 3:
-                                                                                        judgmentVisualizerPosition0Value = (float)(judgmentVisualizerPosition0Float + judgmentVisualizerLength * judgmentVisualizerValue.Judgment);
-                                                                                        targetSession.DrawLine(judgmentVisualizerPosition0Value, judgmentVisualizerPosition1, judgmentVisualizerPosition0Value, judgmentVisualizerPosition1 + judgmentVisualizerContentsHeight, judgmentColorPaint, judgmentVisualizerContentsLength);
-                                                                                        break;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.InputVisualizer:
-                                                                    PaintInt(defaultComputer.InputCountQueue.Count, drawingComponent.inputVisualizerSystem, drawingComponent.inputVisualizerPosition0, drawingComponent.inputVisualizerPosition1, drawingComponent.binInputVisualizerLength, drawingComponent.binInputVisualizerHeight, drawingComponent.altInputVisualizer, UI.Instance.BinInputVisualizerMap);
-                                                                    break;
-                                                                case PaintPipelineID.Hunter:
-                                                                    var hunter = defaultComputer.Hunter.Value;
-                                                                    if (hunter.HasValue)
-                                                                    {
-                                                                        var hunterPosition0 = drawingComponent.hunterPosition0;
-                                                                        var hunterPosition1 = drawingComponent.hunterPosition1;
-                                                                        var binHunterLength = drawingComponent.binHunterLength;
-                                                                        var binHunterHeight = drawingComponent.binHunterHeight;
-                                                                        var hunterFrontDrawingLength = drawingComponent.hunterFrontDrawingLength;
-                                                                        var hunterSystem = drawingComponent.hunterSystem;
-                                                                        var altHunter = drawingComponent.altHunter;
-                                                                        var binHunterMap = UI.Instance.BinHunterMap;
-                                                                        var hunterHigherDrawing = UI.Instance.HunterHigherDrawing;
-                                                                        var hunterLowerDrawing = UI.Instance.HunterLowerDrawing;
-                                                                        var hunterValue = hunter.Value;
-                                                                        var absHunterValue = Math.Abs(hunterValue);
-                                                                        var hunterDigit = Utility.GetDigit(absHunterValue);
-                                                                        for (var i = altHunter >> 1; i >= altHunter % 2; --i)
-                                                                        {
-                                                                            var distanceHunter = i == 1 && has2P ? distance2P : 0F;
-                                                                            switch (hunterSystem)
-                                                                            {
-                                                                                case 0:
-                                                                                    r.Set(hunterPosition0 - binHunterLength + distanceHunter, hunterPosition1, hunterFrontDrawingLength, binHunterHeight);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(hunterPosition0 - 0.5 * (binHunterLength * hunterDigit + hunterFrontDrawingLength) + distanceHunter, hunterPosition1, hunterFrontDrawingLength, binHunterHeight);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(hunterPosition0 - binHunterLength * hunterDigit - hunterFrontDrawingLength + distanceHunter, hunterPosition1, hunterFrontDrawingLength, binHunterHeight);
-                                                                                    break;
-                                                                            }
-                                                                            if (absHunterValue > 0)
-                                                                            {
-                                                                                targetSession.PaintDrawing(ref r, hunterValue > 0 ? hunterHigherDrawing : hunterLowerDrawing);
-                                                                            }
-                                                                            r.Position0 += hunterFrontDrawingLength;
-                                                                            r.Length = binHunterLength;
-                                                                            for (var j = hunterDigit - 1; j >= 0; --j)
-                                                                            {
-                                                                                targetSession.PaintDrawing(ref r, binHunterMap[(int)(absHunterValue / Math.Pow(10, j) % 10)]);
-                                                                                r.Position0 += binHunterLength;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Title:
-                                                                    var title = defaultComputer.Title;
-                                                                    var titleFont = UI.Instance.TitleFont;
-                                                                    var titleColor = UI.Instance.TitleColor;
-                                                                    var titlePosition0 = drawingComponent.titlePosition0;
-                                                                    var titlePosition1 = drawingComponent.titlePosition1;
-                                                                    var titleLength = drawingComponent.titleLength;
-                                                                    var titleHeight = drawingComponent.titleHeight;
-                                                                    var altTitle = drawingComponent.altTitle;
-                                                                    for (var i = altTitle >> 1; i >= altTitle % 2; --i)
-                                                                    {
-                                                                        var distanceTitle = i == 1 && has2P ? distance2P : 0F;
-                                                                        r.Set(titlePosition0 + distanceTitle, titlePosition1, titleLength, titleHeight);
-                                                                        targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(title, titleFont, (float)r.Length, (float)r.Height), ref r, titleColor);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Artist:
-                                                                    var artist = defaultComputer.Artist;
-                                                                    var artistFont = UI.Instance.ArtistFont;
-                                                                    var artistColor = UI.Instance.ArtistColor;
-                                                                    var artistPosition0 = drawingComponent.artistPosition0;
-                                                                    var artistPosition1 = drawingComponent.artistPosition1;
-                                                                    var artistLength = drawingComponent.artistLength;
-                                                                    var artistHeight = drawingComponent.artistHeight;
-                                                                    var altArtist = drawingComponent.altArtist;
-                                                                    for (var i = altArtist >> 1; i >= altArtist % 2; --i)
-                                                                    {
-                                                                        var distanceArtist = i == 1 && has2P ? distance2P : 0F;
-                                                                        r.Set(artistPosition0 + distanceArtist, artistPosition1, artistLength, artistHeight);
-                                                                        targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(artist, artistFont, (float)r.Length, (float)r.Height), ref r, artistColor);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.MediaInput:
-                                                                    var mediaInputFaint = Configure.Instance.MediaInputFaint;
-                                                                    if (mediaInputFaint > 0.0)
-                                                                    {
-                                                                        r.Set(Configure.Instance.MediaInputPosition0, Configure.Instance.MediaInputPosition1, Configure.Instance.MediaInputLength, Configure.Instance.MediaInputHeight);
-                                                                        MediaInputSystem.Instance.PaintMediaInput(targetSession, ref r, (float)mediaInputFaint);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.VeilDrawing:
-                                                                    var veilDrawing = VeilDrawing.Drawing;
-                                                                    if (veilDrawing != null)
-                                                                    {
-                                                                        var veilDrawingValue = veilDrawing.Value;
-                                                                        var veilDrawingBound = veilDrawingValue.DrawingBound;
-                                                                        var veilDrawingHeight = veilDrawingBound.Height * p1Length / veilDrawingBound.Length;
-                                                                        r.Set(mainPosition, Configure.Instance.VeilDrawingHeight - veilDrawingHeight, p1Length, veilDrawingHeight);
-                                                                        targetSession.PaintDrawing(ref r, veilDrawing);
-                                                                        if (has2P)
-                                                                        {
-                                                                            r.Position0 += distance2P;
-                                                                            targetSession.PaintDrawing(ref r, veilDrawing);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Genre:
-                                                                    var genre = defaultComputer.GenreText;
-                                                                    var genreFont = UI.Instance.GenreFont;
-                                                                    var genreColor = UI.Instance.GenreColor;
-                                                                    var genrePosition0 = drawingComponent.genrePosition0;
-                                                                    var genrePosition1 = drawingComponent.genrePosition1;
-                                                                    var genreLength = drawingComponent.genreLength;
-                                                                    var genreHeight = drawingComponent.genreHeight;
-                                                                    var altGenre = drawingComponent.altGenre;
-                                                                    for (var i = altGenre >> 1; i >= altGenre % 2; --i)
-                                                                    {
-                                                                        var distanceGenre = i == 1 && has2P ? distance2P : 0F;
-                                                                        r.Set(genrePosition0 + distanceGenre, genrePosition1, genreLength, genreHeight);
-                                                                        targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(genre, genreFont, (float)r.Length, (float)r.Height), ref r, genreColor);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.LevelText:
-                                                                    var levelText = defaultComputer.LevelText;
-                                                                    var levelTextFont = UI.Instance.LevelTextFont;
-                                                                    var levelTextColor = BaseUI.Instance.D2DLevelColors[(int)defaultComputer.LevelValue];
-                                                                    var levelTextPosition0 = drawingComponent.levelTextPosition0;
-                                                                    var levelTextPosition1 = drawingComponent.levelTextPosition1;
-                                                                    var levelTextLength = drawingComponent.levelTextLength;
-                                                                    var levelTextHeight = drawingComponent.levelTextHeight;
-                                                                    var altLevelText = drawingComponent.altLevelText;
-                                                                    for (var i = altLevelText >> 1; i >= altLevelText % 2; --i)
-                                                                    {
-                                                                        var distanceLevelText = i == 1 && has2P ? distance2P : 0F;
-                                                                        r.Set(levelTextPosition0 + distanceLevelText, levelTextPosition1, levelTextLength, levelTextHeight);
-                                                                        targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(levelText, levelTextFont, (float)r.Length, (float)r.Height), ref r, levelTextColor);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.WantLevel:
-                                                                    var wantLevelID = defaultComputer.NoteFile.WantLevelID;
-                                                                    var wantLevelFont = UI.Instance.WantLevelFont;
-                                                                    var wantLevelIDColor = UI.Instance.WantLevelIDColor;
-                                                                    var wantLevelPosition0 = drawingComponent.wantLevelPosition0;
-                                                                    var wantLevelPosition1 = drawingComponent.wantLevelPosition1;
-                                                                    var wantLevelLength = drawingComponent.wantLevelLength;
-                                                                    var wantLevelHeight = drawingComponent.wantLevelHeight;
-                                                                    var altWantLevel = drawingComponent.altWantLevel;
-                                                                    for (var i = altWantLevel >> 1; i >= altWantLevel % 2; --i)
-                                                                    {
-                                                                        var distanceWantLevel = i == 1 && has2P ? distance2P : 0F;
-                                                                        r.Set(wantLevelPosition0 + distanceWantLevel, wantLevelPosition1, wantLevelLength, wantLevelHeight);
-                                                                        targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(wantLevelID, wantLevelFont, (float)r.Length, (float)r.Height), ref r, wantLevelIDColor);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.Level:
-                                                                    var levelDrawings = UI.Instance.LevelDrawings[(int)defaultComputer.LevelValue];
-                                                                    var levelPosition0 = drawingComponent.levelPosition0;
-                                                                    var levelPosition1 = drawingComponent.levelPosition1;
-                                                                    var levelLength = drawingComponent.levelLength;
-                                                                    var levelHeight = drawingComponent.levelHeight;
-                                                                    var altLevel = drawingComponent.altLevel;
-                                                                    var levelFrame = defaultComputer.LevelFrame;
-                                                                    for (var i = altLevel >> 1; i >= altLevel % 2; --i)
-                                                                    {
-                                                                        var distanceLevel = i == 1 && has2P ? distance2P : 0F;
-                                                                        r.Set(levelPosition0 + distanceLevel, levelPosition1, levelLength, levelHeight);
-                                                                        targetSession.PaintDrawing(ref r, levelDrawings[levelFrame]);
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.AutoMain:
-                                                                    if (isAutoMode)
-                                                                    {
-                                                                        var autoMainDrawings = UI.Instance.AutoMainDrawings;
-                                                                        var autoMainPosition0 = drawingComponent.autoMainPosition0;
-                                                                        var autoMainPosition1 = drawingComponent.autoMainPosition1;
-                                                                        var autoMainLength = drawingComponent.autoMainLength;
-                                                                        var autoMainHeight = drawingComponent.autoMainHeight;
-                                                                        var autoMainSystem = drawingComponent.autoMainSystem;
-                                                                        var altAutoMain = drawingComponent.altAutoMain;
-                                                                        var autoMainFrame = defaultComputer.AutoMainFrame;
-                                                                        for (var i = altAutoMain >> 1; i >= altAutoMain % 2; --i)
-                                                                        {
-                                                                            var distanceAutoMain = i == 1 && has2P ? distance2P : 0F;
-                                                                            switch (autoMainSystem)
-                                                                            {
-                                                                                case 0:
-                                                                                    r.Set(autoMainPosition0 + distanceAutoMain, autoMainPosition1, autoMainLength, autoMainHeight);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(autoMainPosition0 - autoMainLength / 2 + distanceAutoMain, autoMainPosition1, autoMainLength, autoMainHeight);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(autoMainPosition0 - autoMainLength + distanceAutoMain, autoMainPosition1, autoMainLength, autoMainHeight);
-                                                                                    break;
-                                                                            }
-                                                                            targetSession.PaintDrawing(ref r, autoMainDrawings[autoMainFrame]);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.EarlyValue:
-                                                                    PaintInt(defaultComputer.EarlyValue, drawingComponent.earlyValueSystem, drawingComponent.earlyValuePosition0, drawingComponent.earlyValuePosition1, drawingComponent.binEarlyValueLength, drawingComponent.binEarlyValueHeight, drawingComponent.altEarlyValue, UI.Instance.BinEarlyValueMap);
-                                                                    break;
-                                                                case PaintPipelineID.LateValue:
-                                                                    PaintInt(defaultComputer.LateValue, drawingComponent.lateValueSystem, drawingComponent.lateValuePosition0, drawingComponent.lateValuePosition1, drawingComponent.binLateValueLength, drawingComponent.binLateValueHeight, drawingComponent.altLateValue, UI.Instance.BinLateValueMap);
-                                                                    break;
-                                                                case PaintPipelineID.JudgmentVSVisualizer:
-                                                                    var vsJudgment = judgments[(int)Component.Judged.Higher] + judgments[(int)Component.Judged.High] + judgments[(int)Component.Judged.Low] + judgments[(int)Component.Judged.Lower] + judgments[(int)Component.Judged.Lowest];
-                                                                    if (vsJudgment > 0)
-                                                                    {
-                                                                        var judgmentVSVisualizerInt = (int)(100 * judgments[(int)Component.Judged.Highest] / vsJudgment);
-                                                                        var judgmentVSVisualizerStopPointDrawingLength = drawingComponent.judgmentVSVisualizerStopPointDrawingLength;
-                                                                        var judgmentVSVisualizerPosition0 = drawingComponent.judgmentVSVisualizerPosition0;
-                                                                        var judgmentVSVisualizerPosition1 = drawingComponent.judgmentVSVisualizerPosition1;
-                                                                        var binJudgmentVSVisualizerLength = drawingComponent.binJudgmentVSVisualizerLength;
-                                                                        var binJudgmentVSVisualizerHeight = drawingComponent.binJudgmentVSVisualizerHeight;
-                                                                        var judgmentVSVisualizerSystem = drawingComponent.judgmentVSVisualizerSystem;
-                                                                        var altJudgmentVSVisualizer = drawingComponent.altJudgmentVSVisualizer;
-                                                                        var binJudgmentVSVisualizerMap = UI.Instance.BinJudgmentVSVisualizerMap;
-                                                                        var judgmentVSVisualizerStopPointDrawing = UI.Instance.JudgmentVSVisualizerStopPointDrawing;
-                                                                        var judgmentVSVisualizerDigit = judgmentVSVisualizerInt < 100 ? 3 : Utility.GetDigit(judgmentVSVisualizerInt);
-                                                                        for (var i = altJudgmentVSVisualizer >> 1; i >= altJudgmentVSVisualizer % 2; --i)
-                                                                        {
-                                                                            var distancePoint = i == 1 && has2P ? distance2P : 0F;
-                                                                            for (var j = judgmentVSVisualizerDigit - 1; j >= 2; --j)
-                                                                            {
-                                                                                switch (judgmentVSVisualizerSystem)
-                                                                                {
-                                                                                    case 0:
-                                                                                        r.Set(judgmentVSVisualizerPosition0 + binJudgmentVSVisualizerLength * (judgmentVSVisualizerDigit - j - 1) + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
-                                                                                        break;
-                                                                                    case 1:
-                                                                                        r.Set(judgmentVSVisualizerPosition0 + binJudgmentVSVisualizerLength * (0.5 * judgmentVSVisualizerDigit - j - 1) - judgmentVSVisualizerStopPointDrawingLength * 0.5 + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
-                                                                                        break;
-                                                                                    case 2:
-                                                                                        r.Set(judgmentVSVisualizerPosition0 - binJudgmentVSVisualizerLength * (j + 1) - judgmentVSVisualizerStopPointDrawingLength + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
-                                                                                        break;
-                                                                                }
-                                                                                targetSession.PaintDrawing(ref r, binJudgmentVSVisualizerMap[(int)(judgmentVSVisualizerInt / Math.Pow(10, j) % 10)]);
-                                                                            }
-                                                                            r.Position0 += binJudgmentVSVisualizerLength;
-                                                                            r.Length = judgmentVSVisualizerStopPointDrawingLength;
-                                                                            targetSession.PaintDrawing(ref r, judgmentVSVisualizerStopPointDrawing);
-                                                                            for (var j = 1; j >= 0; --j)
-                                                                            {
-                                                                                switch (judgmentVSVisualizerSystem)
-                                                                                {
-                                                                                    case 0:
-                                                                                        r.Set(judgmentVSVisualizerPosition0 + binJudgmentVSVisualizerLength * (judgmentVSVisualizerDigit - j - 1) + judgmentVSVisualizerStopPointDrawingLength + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
-                                                                                        break;
-                                                                                    case 1:
-                                                                                        r.Set(judgmentVSVisualizerPosition0 + binJudgmentVSVisualizerLength * (0.5 * judgmentVSVisualizerDigit - j - 1) + 0.5 * judgmentVSVisualizerStopPointDrawingLength + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
-                                                                                        break;
-                                                                                    case 2:
-                                                                                        r.Set(judgmentVSVisualizerPosition0 - binJudgmentVSVisualizerLength * (j + 1) + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
-                                                                                        break;
-                                                                                }
-                                                                                targetSession.PaintDrawing(ref r, binJudgmentVSVisualizerMap[(int)(judgmentVSVisualizerInt / Math.Pow(10, j) % 10)]);
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.MainJudgmentMeter:
-                                                                    var mainJudgmentMeterDrawings = UI.Instance.MainJudgmentMeterDrawings[(int)inputMode];
-                                                                    var mainJudgmentMeterFrames = defaultComputer.MainJudgmentMeterFrames;
-                                                                    var mainJudgmentMeterPosition1s = drawingComponent.mainJudgmentMeterPosition1s;
-                                                                    var mainJudgmentMeterHeights = drawingComponent.mainJudgmentMeterHeights;
-                                                                    foreach (var drawingPipeline in drawingPipelines)
-                                                                    {
-                                                                        for (var i = inputCount; i > 0; --i)
-                                                                        {
-                                                                            if (drawingPipeline == drawingInputModeMap[i])
-                                                                            {
-                                                                                r.Set(defaultComputer.GetPosition(i), mainJudgmentMeterPosition1s[i], drawingNoteLengthMap[i], mainJudgmentMeterHeights[i]);
-                                                                                targetSession.PaintDrawing(ref r, mainJudgmentMeterDrawings[i].GetValueOrDefault(mainJudgmentMeterFrames[i]));
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.StatusSlider:
-                                                                    var statusSliderPosition0 = drawingComponent.statusSliderPosition0;
-                                                                    var statusSliderPosition1 = drawingComponent.statusSliderPosition1;
-                                                                    var statusSliderLength = drawingComponent.statusSliderLength;
-                                                                    var statusSliderHeight = drawingComponent.statusSliderHeight;
-                                                                    var statusSliderContentsLength = drawingComponent.statusSliderContentsLength;
-                                                                    var statusSliderContentsHeight = drawingComponent.statusSliderContentsHeight;
-                                                                    var statusSliderSystem = drawingComponent.statusSystem;
-                                                                    var altStatusSlider = drawingComponent.altStatusSlider;
-                                                                    var statusSliderDrawing = UI.Instance.StatusSliderDrawing;
-                                                                    if (statusSliderDrawing.HasValue)
-                                                                    {
-                                                                        var statusSliderDrawingValue = statusSliderDrawing.Value;
-                                                                        var statusSliderDrawingBound = statusSliderDrawingValue.DrawingBound;
-                                                                        var statusSliderDrawingLength = statusSliderDrawingBound.Length;
-                                                                        var statusSliderDrawingHeight = statusSliderDrawingBound.Height;
-                                                                        for (var i = altStatusSlider >> 1; i >= altStatusSlider % 2; --i)
-                                                                        {
-                                                                            var distanceStatusSlider = i == 1 && has2P ? distance2P : 0F;
-                                                                            switch (statusSliderSystem)
-                                                                            {
-                                                                                case 0:
-                                                                                    r.Set(statusSliderPosition0 + distanceStatusSlider, statusSliderPosition1 + statusSliderHeight * (1 - status) - statusSliderContentsHeight / 2, statusSliderContentsLength, statusSliderContentsHeight);
-                                                                                    break;
-                                                                                case 1:
-                                                                                    r.Set(statusSliderPosition0 + distanceStatusSlider, statusSliderPosition1 + statusSliderHeight * status - statusSliderContentsHeight / 2, statusSliderContentsLength, statusSliderContentsHeight);
-                                                                                    break;
-                                                                                case 2:
-                                                                                    r.Set(statusSliderPosition0 + distanceStatusSlider + statusSliderLength * (1 - status) - statusSliderContentsLength / 2, statusSliderPosition1, statusSliderContentsLength, statusSliderContentsHeight);
-                                                                                    break;
-                                                                                case 3:
-                                                                                    r.Set(statusSliderPosition0 + distanceStatusSlider + statusSliderLength * status - statusSliderContentsLength / 2, statusSliderPosition1, statusSliderContentsLength, statusSliderContentsHeight);
-                                                                                    break;
-                                                                            }
-                                                                            targetSession.PaintDrawing(ref r, statusSliderDrawingValue);
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                                case PaintPipelineID.JudgmentInputVisualizer:
-                                                                    var judgmentInputVisualizerPosition0 = drawingComponent.judgmentInputVisualizerPosition0;
-                                                                    var judgmentInputVisualizerPosition1 = drawingComponent.judgmentInputVisualizerPosition1;
-                                                                    var judgmentInputVisualizerLength = drawingComponent.judgmentInputVisualizerLength;
-                                                                    var judgmentInputVisualizerHeight = drawingComponent.judgmentInputVisualizerHeight;
-                                                                    var altJudgmentInputVisualizer = drawingComponent.altJudgmentInputVisualizer;
-                                                                    var judgmentInputValues = defaultComputer.JudgmentInputValues;
-                                                                    var targetJudgmentInputVisualizerLength = judgmentInputVisualizerLength / 100;
-                                                                    var judgmentInputDrawings = UI.Instance.JudgmentInputDrawings;
-                                                                    for (var i = altJudgmentInputVisualizer >> 1; i >= altJudgmentInputVisualizer % 2; --i)
-                                                                    {
-                                                                        var distanceJudgmentInputVisualizer = i == 1 && has2P ? distance2P : 0F;
-                                                                        var judgmentInputVisualizerPosition0Float = judgmentInputVisualizerPosition0 + distanceJudgmentInputVisualizer;
-                                                                        var judgmentInputValuesLength = judgmentInputValues.Length;
-                                                                        for (var j = 0; j < judgmentInputValuesLength; ++j)
-                                                                        {
-                                                                            var lastJudgmentInputValue = 1.0;
-                                                                            var judgmentInputValue = judgmentInputValues[j];
-                                                                            r.Set(judgmentInputVisualizerPosition0 + j * targetJudgmentInputVisualizerLength, judgmentInputVisualizerPosition1 + judgmentInputVisualizerHeight, targetJudgmentInputVisualizerLength, 0.0);
-                                                                            for (var m = judgmentInputValue.Length - 1; m >= 0; --m)
-                                                                            {
-                                                                                var value = judgmentInputValue[m];
-                                                                                lastJudgmentInputValue -= value;
-                                                                                r.Height = judgmentInputVisualizerHeight * value;
-                                                                                if (r.Height > 0.0)
-                                                                                {
-                                                                                    var judgmentInputDrawing = judgmentInputDrawings[m];
-                                                                                    if (judgmentInputDrawing.HasValue)
-                                                                                    {
-                                                                                        var judgmentInputDrawingBound = judgmentInputDrawing.Value.DrawingBound;
-                                                                                        var judgmentInputDrawingHeight = judgmentInputDrawingBound.Height;
-                                                                                        r.Position1 -= r.Height;
-                                                                                        s.Set(0.0, lastJudgmentInputValue * judgmentInputDrawingHeight, judgmentInputDrawingBound.Length, judgmentInputDrawingHeight * value);
-                                                                                        targetSession.PaintDrawing(ref r, ref s, judgmentInputDrawing);
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    break;
-                                                            }
+                                                                                                targetSession.FillRectangle(r, netWallPaint);
 
-                                                            void PaintInt(int value, int system, double position0, double position1, double length, double height, int alt, DrawingItem?[] drawingItems)
-                                                            {
-                                                                var digit = Utility.GetDigit(value);
-                                                                for (var i = alt >> 1; i >= alt % 2; --i)
-                                                                {
-                                                                    var distance = i == 1 && has2P ? distance2P : 0F;
-                                                                    for (var j = digit - 1; j >= 0; --j)
-                                                                    {
-                                                                        var drawingItem = drawingItems[(int)(value / Math.Pow(10, j) % 10)];
-                                                                        switch (system)
-                                                                        {
-                                                                            case 0:
-                                                                                r.Set(position0 + length * (digit - j - 1) + distance, position1, length, height);
-                                                                                break;
-                                                                            case 1:
-                                                                                r.Set(position0 + length * (0.5 * digit - j - 1) + distance, position1, length, height);
-                                                                                break;
-                                                                            case 2:
-                                                                                r.Set(position0 - length * (j + 1) + distance, position1, length, height);
-                                                                                break;
+                                                                                                r.Position0 += highestNetHeight;
+                                                                                                r.Length = (highestNetLength - 2 * highestNetHeight) * netItemValue;
+                                                                                                r.Height = highestNetHeight;
+                                                                                                targetSession.FillRectangle(r, d2dHitPointsPaint);
+
+                                                                                                r.Position0 += highestNetLength - 2 * highestNetHeight;
+                                                                                                r.Length = highestNetHeight;
+                                                                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.QuitDrawings[(int)netItem.QuitValue][0]?.Drawing, netItemFaint);
+
+                                                                                                r.SetPosition(targetPosition0 + highestNetHeight + Levels.StandardMargin + distanceNet, drawingPosition1 + Levels.StandardMarginFloat32);
+                                                                                                if (hasAvatarTitle)
+                                                                                                {
+                                                                                                    var position0 = Levels.StandardMargin + textBound0Length;
+                                                                                                    targetSession.PaintText(textItem0, ref r, avatarTitle.Value.TitleColor);
+                                                                                                    r.Position0 += position0;
+                                                                                                    targetSession.PaintText(textItem1, ref r, netTextPaint);
+                                                                                                    r.Position0 -= position0;
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    targetSession.PaintText(textItem1, ref r, netTextPaint);
+                                                                                                }
+                                                                                                r.Position1 += Levels.StandardMargin + textBound1Height;
+                                                                                                targetSession.PaintText(textItem2, ref r, netTextPaint);
+                                                                                                r.Position0 += Levels.StandardMargin + textBound2Length;
+                                                                                                targetSession.PaintText(textItem3, ref r, netTextPaint);
+                                                                                                r.Position0 += Levels.StandardMargin + textBound3Length;
+                                                                                                targetSession.PaintText(textItem4, ref r, netTextPaint);
+
+                                                                                                r.Set(targetPosition0 + distanceNet + Levels.StandardEdgeFloat32, drawingPosition1 + Levels.StandardEdgeFloat32, highestNetHeight, highestNetHeight);
+                                                                                                targetSession.PaintDrawing(ref r, avatarDrawing?.Drawing, netItemFaint);
+
+                                                                                                s.Set(r.Position0 + r.Length * Levels.EdgeXY, r.Position1 + r.Height * Levels.EdgeXY, r.Length * Levels.EdgeMargin, r.Height * Levels.EdgeMargin);
+                                                                                                targetSession.PaintDrawing(ref s, avatarEdge?.Drawing, netItemFaint);
+
+                                                                                                targetSession.FillRectangle(r, lowHitPointsPaint);
+
+                                                                                                if (drawings != null && netItem.AvatarNetStatus == Event.Types.AvatarNetStatus.Default)
+                                                                                                {
+                                                                                                    var valueLength = highestNetHeight / netItem.P2BuiltLength;
+                                                                                                    var valueHeight = highestNetHeight / netItem.JudgmentMainPosition;
+                                                                                                    var target = PoolSystem.Instance.GetTargetItem(highestNetHeight, highestNetHeight);
+                                                                                                    using (var session = target.CreateDrawingSession())
+                                                                                                    {
+                                                                                                        session.Clear(Colors.Black);
+                                                                                                        foreach (var drawing in drawings)
+                                                                                                        {
+                                                                                                            var averageColor = drawing.Param;
+                                                                                                            var valueColor = Color.FromArgb((byte)(averageColor & 255), (byte)((averageColor & 65280) >> 8), (byte)((averageColor & 16711680) >> 16), (byte)((averageColor & 4278190080) >> 24));
+                                                                                                            switch (drawing.DrawingVariety)
+                                                                                                            {
+                                                                                                                case Event.Types.NetDrawing.Types.Variety.Note:
+                                                                                                                    s.Set(drawing.Position0 * valueLength, drawing.Position1 * valueHeight, drawing.Length * valueLength, drawing.Height * valueHeight);
+                                                                                                                    var ellipse = (float)Math.Min(s.Length / 2, s.Height / 2);
+                                                                                                                    session.FillRoundedRectangle(s, ellipse, ellipse, valueColor);
+                                                                                                                    break;
+                                                                                                                case Event.Types.NetDrawing.Types.Variety.Main:
+                                                                                                                    s.Set(drawing.Position0 * valueLength, drawing.Position1 * valueHeight, drawing.Length * valueLength, drawing.Height * valueHeight);
+                                                                                                                    session.FillRectangle(s, valueColor);
+                                                                                                                    break;
+                                                                                                                case Event.Types.NetDrawing.Types.Variety.Meter:
+                                                                                                                    s.Set(0F, drawing.Position1 * valueHeight, highestNetHeight, valueHeight);
+                                                                                                                    session.FillRectangle(s, valueColor);
+                                                                                                                    break;
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+
+                                                                                                    r.Set(targetPosition0 + distanceNet + Levels.StandardEdgeFloat32 + highestNetLength + Levels.StandardEdgeFloat32 + Levels.StandardMarginFloat32, drawingPosition1, Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32, Levels.StandardEdgeFloat32 + highestNetHeight + Levels.StandardEdgeFloat32);
+                                                                                                    targetSession.DrawRectangle(r, (hasLastJudged ? d2dJudgmentPaints[(int)lastJudged] : FaintClearedPaints)[netItemFaintInt]);
+                                                                                                    if (!isPostableItemMode && !defaultComputer.IsPausingWindowOpened && 0.0 <= loopingCounter)
+                                                                                                    {
+                                                                                                        SetNetItemHandler(ref r, handleIONetItemImpl, netItem);
+                                                                                                    }
+
+                                                                                                    r.Set(r.Position0 + Levels.StandardEdgeFloat32, r.Position1 + Levels.StandardEdgeFloat32, r.Length - 2 * Levels.StandardEdgeFloat32, r.Height - 2 * Levels.StandardEdgeFloat32);
+                                                                                                    targetSession.PaintDrawing(ref r, target, netItemFaint);
+                                                                                                }
+                                                                                            }
+                                                                                            break;
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
                                                                         }
-                                                                        targetSession.PaintDrawing(ref r, drawingItem);
+                                                                        break;
+                                                                    case PaintPipelineID.Unpause:
+                                                                        var pauseCount = defaultComputer.PauseCount;
+                                                                        if (pauseCount > 0)
+                                                                        {
+                                                                            var pausePosition0 = drawingComponent.pausePosition0;
+                                                                            var pausePosition1 = drawingComponent.pausePosition1;
+                                                                            var pauseLength = drawingComponent.pauseLength;
+                                                                            var pauseHeight = drawingComponent.pauseHeight;
+                                                                            var pauseSystem = drawingComponent.pauseSystem;
+                                                                            var altPause = drawingComponent.altPause;
+                                                                            var pauseDrawings = UI.Instance.PauseDrawings;
+                                                                            for (var i = altPause >> 1; i >= altPause % 2; --i)
+                                                                            {
+                                                                                var distancePause = i == 1 && has2P ? distance2P : 0F;
+                                                                                switch (pauseSystem)
+                                                                                {
+                                                                                    case 0:
+                                                                                        r.Set(pausePosition0 + distancePause, pausePosition1, pauseLength, pauseHeight);
+                                                                                        break;
+                                                                                    case 1:
+                                                                                        r.Set(pausePosition0 - pauseLength / 2 + distancePause, pausePosition1, pauseLength, pauseHeight);
+                                                                                        break;
+                                                                                    case 2:
+                                                                                        r.Set(pausePosition0 - pauseLength + distancePause, pausePosition1, pauseLength, pauseHeight);
+                                                                                        break;
+                                                                                }
+                                                                                targetSession.PaintDrawing(ref r, pauseDrawings[pauseCount - 1][defaultComputer.PauseFrames[pauseCount - 1]]);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Status:
+                                                                        var statusPosition0 = drawingComponent.statusPosition0;
+                                                                        var statusPosition1 = drawingComponent.statusPosition1;
+                                                                        var statusLength = drawingComponent.statusLength;
+                                                                        var statusHeight = drawingComponent.statusHeight;
+                                                                        var statusSystem = drawingComponent.statusSystem;
+                                                                        var altStatus = drawingComponent.altStatus;
+                                                                        var statusDrawing = UI.Instance.StatusDrawing;
+                                                                        if (statusDrawing.HasValue)
+                                                                        {
+                                                                            var statusDrawingValue = statusDrawing.Value;
+                                                                            var statusDrawingBound = statusDrawingValue.DrawingBound;
+                                                                            var statusDrawingLength = statusDrawingBound.Length;
+                                                                            var statusDrawingHeight = statusDrawingBound.Height;
+                                                                            for (var i = altStatus >> 1; i >= altStatus % 2; --i)
+                                                                            {
+                                                                                var distanceStatus = i == 1 && has2P ? distance2P : 0F;
+                                                                                switch (statusSystem)
+                                                                                {
+                                                                                    case 0:
+                                                                                        r.Set(statusPosition0 + distanceStatus, statusPosition1 + statusHeight * (1 - status), statusLength, statusHeight * status);
+                                                                                        s.Set(0.0, (1 - status) * statusDrawingHeight, statusDrawingLength, statusDrawingHeight * status);
+                                                                                        break;
+                                                                                    case 1:
+                                                                                        r.Set(statusPosition0 + distanceStatus, statusPosition1, statusLength, statusHeight * status);
+                                                                                        s.SetArea(statusDrawingLength, statusDrawingHeight * status);
+                                                                                        break;
+                                                                                    case 2:
+                                                                                        r.Set(statusPosition0 + distanceStatus + statusLength * (1 - status), statusPosition1, statusLength * status, statusHeight);
+                                                                                        s.Set((1 - status) * statusDrawingLength, 0.0, statusDrawingLength * status, statusDrawingHeight);
+                                                                                        break;
+                                                                                    case 3:
+                                                                                        r.Set(statusPosition0 + distanceStatus, statusPosition1, statusLength * status, statusHeight);
+                                                                                        s.SetArea(statusDrawingLength * status, statusDrawingHeight);
+                                                                                        break;
+                                                                                }
+                                                                                targetSession.PaintDrawing(ref r, ref s, statusDrawingValue);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Hms:
+                                                                        var length = (int)(defaultComputer.Length / 1000.0);
+                                                                        var mLength = length / 60;
+                                                                        var sLength = length % 60;
+                                                                        var wait = Math.Clamp((int)(loopingCounter / 1000.0), 0, length);
+                                                                        var mWait = wait / 60;
+                                                                        var sWait = wait % 60;
+                                                                        var hmsColonDrawingLength = drawingComponent.hmsColonDrawingLength;
+                                                                        var hmsSlashDrawingLength = drawingComponent.hmsSlashDrawingLength;
+                                                                        var hmsPosition0 = drawingComponent.hmsPosition0;
+                                                                        var hmsPosition1 = drawingComponent.hmsPosition1;
+                                                                        var binHmsLength = drawingComponent.binHmsLength;
+                                                                        var binHmsHeight = drawingComponent.binHmsHeight;
+                                                                        var mWaitDigit = Utility.GetDigit(mWait);
+                                                                        var mLengthDigit = Utility.GetDigit(mLength);
+                                                                        var hmsSystem = drawingComponent.hmsSystem;
+                                                                        var binHmsMap = UI.Instance.BinHmsMap;
+                                                                        var altHms = drawingComponent.altHms;
+                                                                        var hmsColonDrawing = UI.Instance.ColonDrawing;
+                                                                        var hmsSlashDrawing = UI.Instance.SlashDrawing;
+                                                                        for (var i = altHms >> 1; i >= altHms % 2; --i)
+                                                                        {
+                                                                            var distanceHms = i == 1 && has2P ? distance2P : 0F;
+                                                                            switch (hmsSystem)
+                                                                            {
+                                                                                case 0:
+                                                                                    r.Set(hmsPosition0 + 2 * hmsColonDrawingLength + hmsSlashDrawingLength + (mWaitDigit + mLengthDigit + 3) * binHmsLength + distanceHms, hmsPosition1, binHmsLength, binHmsHeight);
+                                                                                    break;
+                                                                                case 1:
+                                                                                    r.Set(hmsPosition0 + (mWaitDigit / 2.0 + mLengthDigit / 2.0 + 1) * binHmsLength + hmsColonDrawingLength / 2 + hmsSlashDrawingLength / 2 + distanceHms, hmsPosition1, binHmsLength, binHmsHeight);
+                                                                                    break;
+                                                                                case 2:
+                                                                                    r.Set(hmsPosition0 - binHmsLength + distanceHms, hmsPosition1, binHmsLength, binHmsHeight);
+                                                                                    break;
+                                                                            }
+                                                                            targetSession.PaintDrawing(ref r, binHmsMap[sLength / 1 % 10]);
+                                                                            r.Position0 -= binHmsLength;
+                                                                            r.Length = binHmsLength;
+                                                                            targetSession.PaintDrawing(ref r, binHmsMap[sLength / 10 % 10]);
+                                                                            r.Position0 -= hmsColonDrawingLength;
+                                                                            r.Length = hmsColonDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, hmsColonDrawing);
+                                                                            for (var j = 0; j < mLengthDigit; ++j)
+                                                                            {
+                                                                                r.Position0 -= binHmsLength;
+                                                                                r.Length = binHmsLength;
+                                                                                targetSession.PaintDrawing(ref r, binHmsMap[(int)(mLength / Math.Pow(10, j) % 10)]);
+                                                                            }
+                                                                            r.Position0 -= hmsSlashDrawingLength;
+                                                                            r.Length = hmsSlashDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, hmsSlashDrawing);
+                                                                            r.Length = binHmsLength;
+                                                                            for (var j = 1; j <= 10; j *= 10)
+                                                                            {
+                                                                                r.Position0 -= binHmsLength;
+                                                                                targetSession.PaintDrawing(ref r, binHmsMap[sWait / j % 10]);
+                                                                            }
+                                                                            r.Position0 -= hmsColonDrawingLength;
+                                                                            r.Length = hmsColonDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, hmsColonDrawing);
+                                                                            for (var j = 0; j < mWaitDigit; ++j)
+                                                                            {
+                                                                                r.Position0 -= binHmsLength;
+                                                                                r.Length = binHmsLength;
+                                                                                targetSession.PaintDrawing(ref r, binHmsMap[(int)(mWait / Math.Pow(10, j) % 10)]);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.JudgmentPoints:
+                                                                        var totalJudgmentPoints = 0.0;
+                                                                        foreach (var judgment in judgments)
+                                                                        {
+                                                                            totalJudgmentPoints += judgment;
+                                                                        }
+                                                                        var judgmentPointsPosition0 = drawingComponent.judgmentPointsPosition0;
+                                                                        var judgmentPointsPosition1 = drawingComponent.judgmentPointsPosition1;
+                                                                        var judgmentPointsLength = drawingComponent.judgmentPointsLength;
+                                                                        var judgmentPointsHeight = drawingComponent.judgmentPointsHeight;
+                                                                        var judgmentPointsDrawings = UI.Instance.JudgmentPointsDrawings;
+                                                                        var altJudgmentPoints = drawingComponent.altJudgmentPoints;
+                                                                        var judgmentPointsSystem = drawingComponent.judgmentPointsSystem;
+                                                                        var lastPosition = 0.0;
+                                                                        for (var i = (int)Component.Judged.Highest; i <= (int)Component.Judged.Lowest; ++i)
+                                                                        {
+                                                                            var judgmentPoint = judgments[i] / totalJudgmentPoints;
+                                                                            var judgmentPointDrawing = judgmentPointsDrawings[i];
+                                                                            if (judgmentPointDrawing.HasValue)
+                                                                            {
+                                                                                var judgmentPointDrawingValue = judgmentPointDrawing.Value;
+                                                                                var judgmentPointDrawingBound = judgmentPointDrawingValue.DrawingBound;
+                                                                                var judgmentPointDrawingLength = judgmentPointDrawingBound.Length;
+                                                                                var judgmentPointDrawingHeight = judgmentPointDrawingBound.Height;
+                                                                                for (var j = altJudgmentPoints >> 1; j >= altJudgmentPoints % 2; --j)
+                                                                                {
+                                                                                    var distanceJudgmentPoints = j == 1 && has2P ? distance2P : 0F;
+                                                                                    switch (judgmentPointsSystem)
+                                                                                    {
+                                                                                        case 0:
+                                                                                            r.Set(judgmentPointsPosition0 + distanceJudgmentPoints, judgmentPointsPosition1 + judgmentPointsHeight * lastPosition, judgmentPointsLength, judgmentPointsHeight * judgmentPoint);
+                                                                                            s.Set(0.0, lastPosition * judgmentPointDrawingHeight, judgmentPointDrawingLength, judgmentPointDrawingHeight * judgmentPoint);
+                                                                                            break;
+                                                                                        case 1:
+                                                                                            r.Set(judgmentPointsPosition0 + distanceJudgmentPoints, judgmentPointsPosition1 + judgmentPointsHeight * (1 - lastPosition - judgmentPoint), judgmentPointsLength, judgmentPointsHeight * judgmentPoint);
+                                                                                            s.Set(0.0, judgmentPointDrawingHeight * (1 - lastPosition - judgmentPoint), judgmentPointDrawingLength, judgmentPointDrawingHeight * judgmentPoint);
+                                                                                            break;
+                                                                                        case 2:
+                                                                                            r.Set(judgmentPointsPosition0 + distanceJudgmentPoints + judgmentPointsLength * lastPosition, judgmentPointsPosition1, judgmentPointsLength * judgmentPoint, judgmentPointsHeight);
+                                                                                            s.Set(judgmentPointDrawingLength * lastPosition, 0.0, judgmentPointDrawingLength * judgmentPoint, judgmentPointDrawingHeight);
+                                                                                            break;
+                                                                                        case 3:
+                                                                                            r.Set(judgmentPointsPosition0 + distanceJudgmentPoints + judgmentPointsLength * (1 - lastPosition - judgmentPoint), judgmentPointsPosition1, judgmentPointsLength * judgmentPoint, judgmentPointsHeight);
+                                                                                            s.Set(judgmentPointDrawingLength * (1 - lastPosition - judgmentPoint), 0.0, judgmentPointDrawingLength * judgmentPoint, judgmentPointDrawingHeight);
+                                                                                            break;
+                                                                                    }
+                                                                                    targetSession.PaintDrawing(ref r, ref s, judgmentPointDrawingValue);
+                                                                                }
+                                                                                lastPosition += judgmentPoint;
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.JudgmentMain:
+                                                                        var judgmentMainDrawings = UI.Instance.JudgmentMainDrawings[(int)inputMode];
+                                                                        var judgmentMainFrames = defaultComputer.JudgmentMainFrames;
+                                                                        var judgmentMainPosition1s = drawingComponent.judgmentMainPosition1s;
+                                                                        var judgmentMainHeights = drawingComponent.judgmentMainHeights;
+                                                                        foreach (var drawingPipeline in drawingPipelines)
+                                                                        {
+                                                                            for (var i = inputCount; i > 0; --i)
+                                                                            {
+                                                                                if (drawingPipeline == drawingInputModeMap[i])
+                                                                                {
+                                                                                    r.Set(defaultComputer.GetPosition(i), judgmentMainPosition1s[i], drawingNoteLengthMap[i], judgmentMainHeights[i]);
+                                                                                    targetSession.PaintDrawing(ref r, judgmentMainDrawings[i][judgmentMainFrames[i]]);
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.MainAreaFaint:
+                                                                        var mainAreaFaint = Configure.Instance.MainAreaFaint;
+                                                                        if (mainAreaFaint > 0.0)
+                                                                        {
+                                                                            var mainAreaFaintPaint = FaintFilledPaints[(int)(100.0 * mainAreaFaint)];
+                                                                            r.Set(mainPosition, mainPosition1, p1Length, mainHeight);
+                                                                            targetSession.FillRectangle(r, mainAreaFaintPaint);
+                                                                            if (has2P)
+                                                                            {
+                                                                                r.Position0 += distance2P;
+                                                                                targetSession.FillRectangle(r, mainAreaFaintPaint);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.AudioMultiplier:
+                                                                        var audioMultiplierInt = (int)Math.Round(100.0 * defaultComputer.AudioMultiplier);
+                                                                        var audioMultiplierSystem = drawingComponent.audioMultiplierSystem;
+                                                                        var audioMultiplierPosition0 = drawingComponent.audioMultiplierPosition0;
+                                                                        var audioMultiplierPosition1 = drawingComponent.audioMultiplierPosition1;
+                                                                        var binAudioMultiplierLength = drawingComponent.binAudioMultiplierLength;
+                                                                        var binAudioMultiplierHeight = drawingComponent.binAudioMultiplierHeight;
+                                                                        var altAudioMultiplier = drawingComponent.altAudioMultiplier;
+                                                                        var audioMultiplierStopPointDrawingLength = drawingComponent.audioMultiplierStopPointDrawingLength;
+                                                                        var audioMultiplierUnitDrawingLength = drawingComponent.audioMultiplierUnitDrawingLength;
+                                                                        var binAudioMultiplierMap = UI.Instance.BinAudioMultiplierMap;
+                                                                        var audioMultiplierUnitDrawing = UI.Instance.AudioMultiplierUnitDrawing;
+                                                                        var audioMultiplierStopPointDrawing = UI.Instance.AudioMultiplierStopPointDrawing;
+                                                                        for (var i = altAudioMultiplier >> 1; i >= altAudioMultiplier % 2; --i)
+                                                                        {
+                                                                            var distanceAudioMultiplier = i == 1 && has2P ? distance2P : 0F;
+                                                                            switch (audioMultiplierSystem)
+                                                                            {
+                                                                                case 0:
+                                                                                    r.Set(audioMultiplierPosition0 + audioMultiplierStopPointDrawingLength + 2 * binAudioMultiplierLength + distanceAudioMultiplier, audioMultiplierPosition1, binAudioMultiplierLength, binAudioMultiplierHeight);
+                                                                                    break;
+                                                                                case 1:
+                                                                                    r.Set(audioMultiplierPosition0 + 0.5 * binAudioMultiplierLength + audioMultiplierStopPointDrawingLength / 2 + distanceAudioMultiplier, audioMultiplierPosition1, binAudioMultiplierLength, binAudioMultiplierHeight);
+                                                                                    break;
+                                                                                case 2:
+                                                                                    r.Set(audioMultiplierPosition0 - binAudioMultiplierLength + distanceAudioMultiplier, audioMultiplierPosition1, binAudioMultiplierLength, binAudioMultiplierHeight);
+                                                                                    break;
+                                                                            }
+                                                                            targetSession.PaintDrawing(ref r, binAudioMultiplierMap[audioMultiplierInt / 1 % 10]);
+                                                                            r.Position0 -= binAudioMultiplierLength;
+                                                                            r.Length = binAudioMultiplierLength;
+                                                                            targetSession.PaintDrawing(ref r, binAudioMultiplierMap[audioMultiplierInt / 10 % 10]);
+                                                                            r.Position0 -= audioMultiplierStopPointDrawingLength;
+                                                                            r.Length = audioMultiplierStopPointDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, audioMultiplierStopPointDrawing);
+                                                                            r.Position0 -= binAudioMultiplierLength;
+                                                                            r.Length = binAudioMultiplierLength;
+                                                                            targetSession.PaintDrawing(ref r, binAudioMultiplierMap[audioMultiplierInt / 100 % 10]);
+                                                                            r.Position0 -= audioMultiplierUnitDrawingLength;
+                                                                            r.Length = audioMultiplierUnitDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, audioMultiplierUnitDrawing);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.HitPointsVisualizer:
+                                                                        var hitPointsInt = (int)(100.0 * hitPoints);
+                                                                        var hitPointsVisualizerPosition0 = drawingComponent.hitPointsVisualizerPosition0;
+                                                                        var hitPointsVisualizerPosition1 = drawingComponent.hitPointsVisualizerPosition1;
+                                                                        var binHitPointsVisualizerLength = drawingComponent.binHitPointsVisualizerLength;
+                                                                        var binHitPointsVisualizerHeight = drawingComponent.binHitPointsVisualizerHeight;
+                                                                        var hitPointsVisualizerUnitDrawingLength = drawingComponent.hitPointsVisualizerUnitDrawingLength;
+                                                                        var hitPointsVisualizerSystem = drawingComponent.hitPointsVisualizerSystem;
+                                                                        var altHitPointsVisualizer = drawingComponent.altHitPointsVisualizer;
+                                                                        var binHitPointsVisualizerMap = UI.Instance.BinHitPointsVisualizerMap;
+                                                                        var hitPointsVisualizerUnitDrawing = UI.Instance.HitPointsVisualizerUnitDrawing;
+                                                                        var hitPointsDigit = Utility.GetDigit(hitPointsInt);
+                                                                        for (var i = altHitPointsVisualizer >> 1; i >= altHitPointsVisualizer % 2; --i)
+                                                                        {
+                                                                            var distanceHitPointsVisualizer = i == 1 && has2P ? distance2P : 0F;
+                                                                            for (var j = hitPointsDigit - 1; j >= 0; --j)
+                                                                            {
+                                                                                switch (hitPointsVisualizerSystem)
+                                                                                {
+                                                                                    case 0:
+                                                                                        r.Set(hitPointsVisualizerPosition0 + binHitPointsVisualizerLength * (hitPointsDigit - j - 1) + distanceHitPointsVisualizer, hitPointsVisualizerPosition1, binHitPointsVisualizerLength, binHitPointsVisualizerHeight);
+                                                                                        break;
+                                                                                    case 1:
+                                                                                        r.Set(hitPointsVisualizerPosition0 + binHitPointsVisualizerLength * (0.5 * hitPointsDigit - j - 1) + distanceHitPointsVisualizer, hitPointsVisualizerPosition1, binHitPointsVisualizerLength, binHitPointsVisualizerHeight);
+                                                                                        break;
+                                                                                    case 2:
+                                                                                        r.Set(hitPointsVisualizerPosition0 - binHitPointsVisualizerLength * (j + 1) + distanceHitPointsVisualizer, hitPointsVisualizerPosition1, binHitPointsVisualizerLength, binHitPointsVisualizerHeight);
+                                                                                        break;
+                                                                                }
+                                                                                targetSession.PaintDrawing(ref r, binHitPointsVisualizerMap[(int)(hitPointsInt / Math.Pow(10, j) % 10)]);
+                                                                            }
+                                                                            r.Position0 += binHitPointsVisualizerLength;
+                                                                            r.Length = hitPointsVisualizerUnitDrawingLength;
+                                                                            targetSession.PaintDrawing(ref r, hitPointsVisualizerUnitDrawing);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.HighestJudgment:
+                                                                        PaintInt(judgments[(int)Component.Judged.Highest], drawingComponent.highestJudgmentValueSystem, drawingComponent.highestJudgmentValuePosition0, drawingComponent.highestJudgmentValuePosition1, drawingComponent.binHighestJudgmentValueLength, drawingComponent.binHighestJudgmentValueHeight, drawingComponent.altHighestJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Highest]);
+                                                                        break;
+                                                                    case PaintPipelineID.HigherJudgment:
+                                                                        PaintInt(judgments[(int)Component.Judged.Higher], drawingComponent.higherJudgmentValueSystem, drawingComponent.higherJudgmentValuePosition0, drawingComponent.higherJudgmentValuePosition1, drawingComponent.binHigherJudgmentValueLength, drawingComponent.binHigherJudgmentValueHeight, drawingComponent.altHigherJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Higher]);
+                                                                        break;
+                                                                    case PaintPipelineID.HighJudgment:
+                                                                        PaintInt(judgments[(int)Component.Judged.High], drawingComponent.highJudgmentValueSystem, drawingComponent.highJudgmentValuePosition0, drawingComponent.highJudgmentValuePosition1, drawingComponent.binHighJudgmentValueLength, drawingComponent.binHighJudgmentValueHeight, drawingComponent.altHighJudgmentValue, binJudgmentValueMap[(int)Component.Judged.High]);
+                                                                        break;
+                                                                    case PaintPipelineID.LowJudgment:
+                                                                        PaintInt(judgments[(int)Component.Judged.Low], drawingComponent.lowJudgmentValueSystem, drawingComponent.lowerJudgmentValuePosition0, drawingComponent.lowJudgmentValuePosition1, drawingComponent.binLowJudgmentValueLength, drawingComponent.binLowJudgmentValueHeight, drawingComponent.altLowJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Low]);
+                                                                        break;
+                                                                    case PaintPipelineID.LowerJudgment:
+                                                                        PaintInt(judgments[(int)Component.Judged.Lower], drawingComponent.lowerJudgmentValueSystem, drawingComponent.lowerJudgmentValuePosition0, drawingComponent.lowerJudgmentValuePosition1, drawingComponent.binLowerJudgmentValueLength, drawingComponent.binLowerJudgmentValueHeight, drawingComponent.altLowerJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Lower]);
+                                                                        break;
+                                                                    case PaintPipelineID.LowestJudgment:
+                                                                        PaintInt(judgments[(int)Component.Judged.Lowest], drawingComponent.lowestJudgmentValueSystem, drawingComponent.lowestJudgmentValuePosition0, drawingComponent.lowestJudgmentValuePosition1, drawingComponent.binLowestJudgmentValueLength, drawingComponent.binLowestJudgmentValueHeight, drawingComponent.altLowestJudgmentValue, binJudgmentValueMap[(int)Component.Judged.Lowest]);
+                                                                        break;
+                                                                    case PaintPipelineID.HighestBand:
+                                                                        PaintInt(defaultComputer.HighestBand, drawingComponent.highestBandSystem, drawingComponent.highestBandPosition0, drawingComponent.highestBandPosition1, drawingComponent.binHighestBandLength, drawingComponent.binHighestBandHeight, drawingComponent.altHighestBand, UI.Instance.BinHighestBandMap);
+                                                                        break;
+                                                                    case PaintPipelineID.Limiter:
+                                                                        var limiterPosition1 = drawingComponent.limiterPosition1;
+                                                                        var limiterLength = drawingComponent.limiterLength;
+                                                                        var limiterHeight = drawingComponent.limiterHeight;
+                                                                        var limiterColor = Configure.Instance.LimiterColor;
+                                                                        var inputMappingValue = (int)defaultComputer.InputMappingValue;
+                                                                        if (Configure.Instance.TotalLimiterVariety)
+                                                                        {
+                                                                            var defaultPaintValues = Component.BasePaintMap[inputMappingValue, (int)inputMode];
+                                                                            for (var i = inputCount; i > 1; --i)
+                                                                            {
+                                                                                var limiterPosition0 = defaultComputer.GetPosition(defaultPaintValues[i]);
+                                                                                targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            if (Configure.Instance.AutoableLimiterVariety)
+                                                                            {
+                                                                                var autoableInputs = Component.AutoableInputs[(int)inputMode];
+                                                                                for (var i = inputCount; i > 0; --i)
+                                                                                {
+                                                                                    if (Array.IndexOf(autoableInputs, i) != -1)
+                                                                                    {
+                                                                                        var limiterPosition0 = defaultComputer.GetPosition(i);
+                                                                                        targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
+                                                                                        limiterPosition0 += drawingNoteLengthMap[i];
+                                                                                        targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                            if (Configure.Instance.CenterLimiterVariety)
+                                                                            {
+                                                                                var limiterCenterValues = Component.LimiterCenterMap[inputMappingValue, (int)inputMode, has2P ? 1 : 0];
+                                                                                for (var i = inputCount; i > 0; --i)
+                                                                                {
+                                                                                    for (var j = limiterCenterValues[i] - 1; j >= 0; --j)
+                                                                                    {
+                                                                                        var limiterPosition0 = defaultComputer.GetPosition(i) + j * drawingNoteLengthMap[i];
+                                                                                        targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                            if (Configure.Instance.Limiter57Variety && (inputMode == Component.InputMode._24_2 || inputMode == Component.InputMode._48_4))
+                                                                            {
+                                                                                var limiter57Values = Component.Limiter57Map[(int)inputMode];
+                                                                                for (var i = inputCount; i > 0; --i)
+                                                                                {
+                                                                                    if (limiter57Values[i])
+                                                                                    {
+                                                                                        var limiterPosition0 = defaultComputer.GetPosition(i);
+                                                                                        targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.JudgmentVisualizer:
+                                                                        var judgmentVisualizerPosition0 = drawingComponent.judgmentVisualizerPosition0;
+                                                                        var judgmentVisualizerPosition1 = drawingComponent.judgmentVisualizerPosition1;
+                                                                        var judgmentVisualizerLength = drawingComponent.judgmentVisualizerLength;
+                                                                        var judgmentVisualizerHeight = drawingComponent.judgmentVisualizerHeight;
+                                                                        var judgmentVisualizerContentsLength = drawingComponent.judgmentVisualizerContentsLength;
+                                                                        var judgmentVisualizerContentsHeight = drawingComponent.judgmentVisualizerContentsHeight;
+                                                                        var judgmentVisualizerSystem = drawingComponent.judgmentVisualizerSystem;
+                                                                        var altJudgmentVisualizer = drawingComponent.altJudgmentVisualizer;
+                                                                        var targetJudgmentVisualizerValues = defaultComputer.JudgmentVisualizerValues;
+                                                                        for (var i = altJudgmentVisualizer >> 1; i >= altJudgmentVisualizer % 2; --i)
+                                                                        {
+                                                                            var distanceJudgmentVisualizer = i == 1 && has2P ? distance2P : 0F;
+                                                                            var judgmentVisualizerPosition0Float = judgmentVisualizerPosition0 + distanceJudgmentVisualizer;
+                                                                            var judgmentVisualizerValues = targetJudgmentVisualizerValues[i];
+                                                                            lock (judgmentVisualizerValues)
+                                                                            {
+                                                                                foreach (var judgmentVisualizerValue in judgmentVisualizerValues)
+                                                                                {
+                                                                                    var judgmentColorPaint = d2dJudgmentPaints[(int)judgmentVisualizerValue.Judged][(int)(100.0 * judgmentVisualizerValue.Status)];
+                                                                                    switch (judgmentVisualizerSystem)
+                                                                                    {
+                                                                                        case 0:
+                                                                                            var judgmentVisualizerPosition1Value = (float)(judgmentVisualizerPosition1 + judgmentVisualizerHeight * (1 - judgmentVisualizerValue.Judgment));
+                                                                                            targetSession.DrawLine(judgmentVisualizerPosition0Float, judgmentVisualizerPosition1Value, judgmentVisualizerPosition0Float + judgmentVisualizerContentsLength, judgmentVisualizerPosition1Value, judgmentColorPaint, judgmentVisualizerContentsHeight);
+                                                                                            break;
+                                                                                        case 1:
+                                                                                            judgmentVisualizerPosition1Value = (float)(judgmentVisualizerPosition1 + judgmentVisualizerHeight * judgmentVisualizerValue.Judgment);
+                                                                                            targetSession.DrawLine(judgmentVisualizerPosition0Float, judgmentVisualizerPosition1Value, judgmentVisualizerPosition0Float + judgmentVisualizerContentsLength, judgmentVisualizerPosition1Value, judgmentColorPaint, judgmentVisualizerContentsHeight);
+                                                                                            break;
+                                                                                        case 2:
+                                                                                            var judgmentVisualizerPosition0Value = (float)(judgmentVisualizerPosition0Float + judgmentVisualizerLength * (1 - judgmentVisualizerValue.Judgment));
+                                                                                            targetSession.DrawLine(judgmentVisualizerPosition0Value, judgmentVisualizerPosition1, judgmentVisualizerPosition0Value, judgmentVisualizerPosition1 + judgmentVisualizerContentsHeight, judgmentColorPaint, judgmentVisualizerContentsLength);
+                                                                                            break;
+                                                                                        case 3:
+                                                                                            judgmentVisualizerPosition0Value = (float)(judgmentVisualizerPosition0Float + judgmentVisualizerLength * judgmentVisualizerValue.Judgment);
+                                                                                            targetSession.DrawLine(judgmentVisualizerPosition0Value, judgmentVisualizerPosition1, judgmentVisualizerPosition0Value, judgmentVisualizerPosition1 + judgmentVisualizerContentsHeight, judgmentColorPaint, judgmentVisualizerContentsLength);
+                                                                                            break;
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.InputVisualizer:
+                                                                        PaintInt(defaultComputer.InputCountQueue.Count, drawingComponent.inputVisualizerSystem, drawingComponent.inputVisualizerPosition0, drawingComponent.inputVisualizerPosition1, drawingComponent.binInputVisualizerLength, drawingComponent.binInputVisualizerHeight, drawingComponent.altInputVisualizer, UI.Instance.BinInputVisualizerMap);
+                                                                        break;
+                                                                    case PaintPipelineID.Hunter:
+                                                                        var hunter = defaultComputer.Hunter.Value;
+                                                                        if (hunter.HasValue)
+                                                                        {
+                                                                            var hunterPosition0 = drawingComponent.hunterPosition0;
+                                                                            var hunterPosition1 = drawingComponent.hunterPosition1;
+                                                                            var binHunterLength = drawingComponent.binHunterLength;
+                                                                            var binHunterHeight = drawingComponent.binHunterHeight;
+                                                                            var hunterFrontDrawingLength = drawingComponent.hunterFrontDrawingLength;
+                                                                            var hunterSystem = drawingComponent.hunterSystem;
+                                                                            var altHunter = drawingComponent.altHunter;
+                                                                            var binHunterMap = UI.Instance.BinHunterMap;
+                                                                            var hunterHigherDrawing = UI.Instance.HunterHigherDrawing;
+                                                                            var hunterLowerDrawing = UI.Instance.HunterLowerDrawing;
+                                                                            var hunterValue = hunter.Value;
+                                                                            var absHunterValue = Math.Abs(hunterValue);
+                                                                            var hunterDigit = Utility.GetDigit(absHunterValue);
+                                                                            for (var i = altHunter >> 1; i >= altHunter % 2; --i)
+                                                                            {
+                                                                                var distanceHunter = i == 1 && has2P ? distance2P : 0F;
+                                                                                switch (hunterSystem)
+                                                                                {
+                                                                                    case 0:
+                                                                                        r.Set(hunterPosition0 - binHunterLength + distanceHunter, hunterPosition1, hunterFrontDrawingLength, binHunterHeight);
+                                                                                        break;
+                                                                                    case 1:
+                                                                                        r.Set(hunterPosition0 - 0.5 * (binHunterLength * hunterDigit + hunterFrontDrawingLength) + distanceHunter, hunterPosition1, hunterFrontDrawingLength, binHunterHeight);
+                                                                                        break;
+                                                                                    case 2:
+                                                                                        r.Set(hunterPosition0 - binHunterLength * hunterDigit - hunterFrontDrawingLength + distanceHunter, hunterPosition1, hunterFrontDrawingLength, binHunterHeight);
+                                                                                        break;
+                                                                                }
+                                                                                if (absHunterValue > 0)
+                                                                                {
+                                                                                    targetSession.PaintDrawing(ref r, hunterValue > 0 ? hunterHigherDrawing : hunterLowerDrawing);
+                                                                                }
+                                                                                r.Position0 += hunterFrontDrawingLength;
+                                                                                r.Length = binHunterLength;
+                                                                                for (var j = hunterDigit - 1; j >= 0; --j)
+                                                                                {
+                                                                                    targetSession.PaintDrawing(ref r, binHunterMap[(int)(absHunterValue / Math.Pow(10, j) % 10)]);
+                                                                                    r.Position0 += binHunterLength;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Title:
+                                                                        var title = defaultComputer.Title;
+                                                                        var titleFont = UI.Instance.TitleFont;
+                                                                        var titleColor = UI.Instance.TitleColor;
+                                                                        var titlePosition0 = drawingComponent.titlePosition0;
+                                                                        var titlePosition1 = drawingComponent.titlePosition1;
+                                                                        var titleLength = drawingComponent.titleLength;
+                                                                        var titleHeight = drawingComponent.titleHeight;
+                                                                        var altTitle = drawingComponent.altTitle;
+                                                                        for (var i = altTitle >> 1; i >= altTitle % 2; --i)
+                                                                        {
+                                                                            var distanceTitle = i == 1 && has2P ? distance2P : 0F;
+                                                                            r.Set(titlePosition0 + distanceTitle, titlePosition1, titleLength, titleHeight);
+                                                                            targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(title, titleFont, (float)r.Length, (float)r.Height), ref r, titleColor);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Artist:
+                                                                        var artist = defaultComputer.Artist;
+                                                                        var artistFont = UI.Instance.ArtistFont;
+                                                                        var artistColor = UI.Instance.ArtistColor;
+                                                                        var artistPosition0 = drawingComponent.artistPosition0;
+                                                                        var artistPosition1 = drawingComponent.artistPosition1;
+                                                                        var artistLength = drawingComponent.artistLength;
+                                                                        var artistHeight = drawingComponent.artistHeight;
+                                                                        var altArtist = drawingComponent.altArtist;
+                                                                        for (var i = altArtist >> 1; i >= altArtist % 2; --i)
+                                                                        {
+                                                                            var distanceArtist = i == 1 && has2P ? distance2P : 0F;
+                                                                            r.Set(artistPosition0 + distanceArtist, artistPosition1, artistLength, artistHeight);
+                                                                            targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(artist, artistFont, (float)r.Length, (float)r.Height), ref r, artistColor);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.MediaInput:
+                                                                        var mediaInputFaint = Configure.Instance.MediaInputFaint;
+                                                                        if (mediaInputFaint > 0.0)
+                                                                        {
+                                                                            r.Set(Configure.Instance.MediaInputPosition0, Configure.Instance.MediaInputPosition1, Configure.Instance.MediaInputLength, Configure.Instance.MediaInputHeight);
+                                                                            MediaInputSystem.Instance.PaintMediaInput(targetSession, ref r, (float)mediaInputFaint);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.VeilDrawing:
+                                                                        var veilDrawing = VeilDrawing.Drawing;
+                                                                        if (veilDrawing != null)
+                                                                        {
+                                                                            var veilDrawingValue = veilDrawing.Value;
+                                                                            var veilDrawingBound = veilDrawingValue.DrawingBound;
+                                                                            var veilDrawingHeight = veilDrawingBound.Height * p1Length / veilDrawingBound.Length;
+                                                                            r.Set(mainPosition, Configure.Instance.VeilDrawingHeight - veilDrawingHeight, p1Length, veilDrawingHeight);
+                                                                            targetSession.PaintDrawing(ref r, veilDrawing);
+                                                                            if (has2P)
+                                                                            {
+                                                                                r.Position0 += distance2P;
+                                                                                targetSession.PaintDrawing(ref r, veilDrawing);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Genre:
+                                                                        var genre = defaultComputer.GenreText;
+                                                                        var genreFont = UI.Instance.GenreFont;
+                                                                        var genreColor = UI.Instance.GenreColor;
+                                                                        var genrePosition0 = drawingComponent.genrePosition0;
+                                                                        var genrePosition1 = drawingComponent.genrePosition1;
+                                                                        var genreLength = drawingComponent.genreLength;
+                                                                        var genreHeight = drawingComponent.genreHeight;
+                                                                        var altGenre = drawingComponent.altGenre;
+                                                                        for (var i = altGenre >> 1; i >= altGenre % 2; --i)
+                                                                        {
+                                                                            var distanceGenre = i == 1 && has2P ? distance2P : 0F;
+                                                                            r.Set(genrePosition0 + distanceGenre, genrePosition1, genreLength, genreHeight);
+                                                                            targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(genre, genreFont, (float)r.Length, (float)r.Height), ref r, genreColor);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.LevelText:
+                                                                        var levelText = defaultComputer.LevelText;
+                                                                        var levelTextFont = UI.Instance.LevelTextFont;
+                                                                        var levelTextColor = BaseUI.Instance.D2DLevelColors[(int)defaultComputer.LevelValue];
+                                                                        var levelTextPosition0 = drawingComponent.levelTextPosition0;
+                                                                        var levelTextPosition1 = drawingComponent.levelTextPosition1;
+                                                                        var levelTextLength = drawingComponent.levelTextLength;
+                                                                        var levelTextHeight = drawingComponent.levelTextHeight;
+                                                                        var altLevelText = drawingComponent.altLevelText;
+                                                                        for (var i = altLevelText >> 1; i >= altLevelText % 2; --i)
+                                                                        {
+                                                                            var distanceLevelText = i == 1 && has2P ? distance2P : 0F;
+                                                                            r.Set(levelTextPosition0 + distanceLevelText, levelTextPosition1, levelTextLength, levelTextHeight);
+                                                                            targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(levelText, levelTextFont, (float)r.Length, (float)r.Height), ref r, levelTextColor);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.WantLevel:
+                                                                        var wantLevelID = defaultComputer.NoteFile.WantLevelID;
+                                                                        var wantLevelFont = UI.Instance.WantLevelFont;
+                                                                        var wantLevelIDColor = UI.Instance.WantLevelIDColor;
+                                                                        var wantLevelPosition0 = drawingComponent.wantLevelPosition0;
+                                                                        var wantLevelPosition1 = drawingComponent.wantLevelPosition1;
+                                                                        var wantLevelLength = drawingComponent.wantLevelLength;
+                                                                        var wantLevelHeight = drawingComponent.wantLevelHeight;
+                                                                        var altWantLevel = drawingComponent.altWantLevel;
+                                                                        for (var i = altWantLevel >> 1; i >= altWantLevel % 2; --i)
+                                                                        {
+                                                                            var distanceWantLevel = i == 1 && has2P ? distance2P : 0F;
+                                                                            r.Set(wantLevelPosition0 + distanceWantLevel, wantLevelPosition1, wantLevelLength, wantLevelHeight);
+                                                                            targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(wantLevelID, wantLevelFont, (float)r.Length, (float)r.Height), ref r, wantLevelIDColor);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.Level:
+                                                                        var levelDrawings = UI.Instance.LevelDrawings[(int)defaultComputer.LevelValue];
+                                                                        var levelPosition0 = drawingComponent.levelPosition0;
+                                                                        var levelPosition1 = drawingComponent.levelPosition1;
+                                                                        var levelLength = drawingComponent.levelLength;
+                                                                        var levelHeight = drawingComponent.levelHeight;
+                                                                        var altLevel = drawingComponent.altLevel;
+                                                                        var levelFrame = defaultComputer.LevelFrame;
+                                                                        for (var i = altLevel >> 1; i >= altLevel % 2; --i)
+                                                                        {
+                                                                            var distanceLevel = i == 1 && has2P ? distance2P : 0F;
+                                                                            r.Set(levelPosition0 + distanceLevel, levelPosition1, levelLength, levelHeight);
+                                                                            targetSession.PaintDrawing(ref r, levelDrawings[levelFrame]);
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.AutoMain:
+                                                                        if (isAutoMode)
+                                                                        {
+                                                                            var autoMainDrawings = UI.Instance.AutoMainDrawings;
+                                                                            var autoMainPosition0 = drawingComponent.autoMainPosition0;
+                                                                            var autoMainPosition1 = drawingComponent.autoMainPosition1;
+                                                                            var autoMainLength = drawingComponent.autoMainLength;
+                                                                            var autoMainHeight = drawingComponent.autoMainHeight;
+                                                                            var autoMainSystem = drawingComponent.autoMainSystem;
+                                                                            var altAutoMain = drawingComponent.altAutoMain;
+                                                                            var autoMainFrame = defaultComputer.AutoMainFrame;
+                                                                            for (var i = altAutoMain >> 1; i >= altAutoMain % 2; --i)
+                                                                            {
+                                                                                var distanceAutoMain = i == 1 && has2P ? distance2P : 0F;
+                                                                                switch (autoMainSystem)
+                                                                                {
+                                                                                    case 0:
+                                                                                        r.Set(autoMainPosition0 + distanceAutoMain, autoMainPosition1, autoMainLength, autoMainHeight);
+                                                                                        break;
+                                                                                    case 1:
+                                                                                        r.Set(autoMainPosition0 - autoMainLength / 2 + distanceAutoMain, autoMainPosition1, autoMainLength, autoMainHeight);
+                                                                                        break;
+                                                                                    case 2:
+                                                                                        r.Set(autoMainPosition0 - autoMainLength + distanceAutoMain, autoMainPosition1, autoMainLength, autoMainHeight);
+                                                                                        break;
+                                                                                }
+                                                                                targetSession.PaintDrawing(ref r, autoMainDrawings[autoMainFrame]);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.EarlyValue:
+                                                                        PaintInt(defaultComputer.EarlyValue, drawingComponent.earlyValueSystem, drawingComponent.earlyValuePosition0, drawingComponent.earlyValuePosition1, drawingComponent.binEarlyValueLength, drawingComponent.binEarlyValueHeight, drawingComponent.altEarlyValue, UI.Instance.BinEarlyValueMap);
+                                                                        break;
+                                                                    case PaintPipelineID.LateValue:
+                                                                        PaintInt(defaultComputer.LateValue, drawingComponent.lateValueSystem, drawingComponent.lateValuePosition0, drawingComponent.lateValuePosition1, drawingComponent.binLateValueLength, drawingComponent.binLateValueHeight, drawingComponent.altLateValue, UI.Instance.BinLateValueMap);
+                                                                        break;
+                                                                    case PaintPipelineID.JudgmentVSVisualizer:
+                                                                        var vsJudgment = judgments[(int)Component.Judged.Higher] + judgments[(int)Component.Judged.High] + judgments[(int)Component.Judged.Low] + judgments[(int)Component.Judged.Lower] + judgments[(int)Component.Judged.Lowest];
+                                                                        if (vsJudgment > 0)
+                                                                        {
+                                                                            var judgmentVSVisualizerInt = (int)(100.0 * judgments[(int)Component.Judged.Highest] / vsJudgment);
+                                                                            var judgmentVSVisualizerStopPointDrawingLength = drawingComponent.judgmentVSVisualizerStopPointDrawingLength;
+                                                                            var judgmentVSVisualizerPosition0 = drawingComponent.judgmentVSVisualizerPosition0;
+                                                                            var judgmentVSVisualizerPosition1 = drawingComponent.judgmentVSVisualizerPosition1;
+                                                                            var binJudgmentVSVisualizerLength = drawingComponent.binJudgmentVSVisualizerLength;
+                                                                            var binJudgmentVSVisualizerHeight = drawingComponent.binJudgmentVSVisualizerHeight;
+                                                                            var judgmentVSVisualizerSystem = drawingComponent.judgmentVSVisualizerSystem;
+                                                                            var altJudgmentVSVisualizer = drawingComponent.altJudgmentVSVisualizer;
+                                                                            var binJudgmentVSVisualizerMap = UI.Instance.BinJudgmentVSVisualizerMap;
+                                                                            var judgmentVSVisualizerStopPointDrawing = UI.Instance.JudgmentVSVisualizerStopPointDrawing;
+                                                                            var judgmentVSVisualizerDigit = judgmentVSVisualizerInt < 100 ? 3 : Utility.GetDigit(judgmentVSVisualizerInt);
+                                                                            for (var i = altJudgmentVSVisualizer >> 1; i >= altJudgmentVSVisualizer % 2; --i)
+                                                                            {
+                                                                                var distancePoint = i == 1 && has2P ? distance2P : 0F;
+                                                                                for (var j = judgmentVSVisualizerDigit - 1; j >= 2; --j)
+                                                                                {
+                                                                                    switch (judgmentVSVisualizerSystem)
+                                                                                    {
+                                                                                        case 0:
+                                                                                            r.Set(judgmentVSVisualizerPosition0 + binJudgmentVSVisualizerLength * (judgmentVSVisualizerDigit - j - 1) + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
+                                                                                            break;
+                                                                                        case 1:
+                                                                                            r.Set(judgmentVSVisualizerPosition0 + binJudgmentVSVisualizerLength * (0.5 * judgmentVSVisualizerDigit - j - 1) - judgmentVSVisualizerStopPointDrawingLength * 0.5 + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
+                                                                                            break;
+                                                                                        case 2:
+                                                                                            r.Set(judgmentVSVisualizerPosition0 - binJudgmentVSVisualizerLength * (j + 1) - judgmentVSVisualizerStopPointDrawingLength + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
+                                                                                            break;
+                                                                                    }
+                                                                                    targetSession.PaintDrawing(ref r, binJudgmentVSVisualizerMap[(int)(judgmentVSVisualizerInt / Math.Pow(10, j) % 10)]);
+                                                                                }
+                                                                                r.Position0 += binJudgmentVSVisualizerLength;
+                                                                                r.Length = judgmentVSVisualizerStopPointDrawingLength;
+                                                                                targetSession.PaintDrawing(ref r, judgmentVSVisualizerStopPointDrawing);
+                                                                                for (var j = 1; j >= 0; --j)
+                                                                                {
+                                                                                    switch (judgmentVSVisualizerSystem)
+                                                                                    {
+                                                                                        case 0:
+                                                                                            r.Set(judgmentVSVisualizerPosition0 + binJudgmentVSVisualizerLength * (judgmentVSVisualizerDigit - j - 1) + judgmentVSVisualizerStopPointDrawingLength + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
+                                                                                            break;
+                                                                                        case 1:
+                                                                                            r.Set(judgmentVSVisualizerPosition0 + binJudgmentVSVisualizerLength * (0.5 * judgmentVSVisualizerDigit - j - 1) + 0.5 * judgmentVSVisualizerStopPointDrawingLength + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
+                                                                                            break;
+                                                                                        case 2:
+                                                                                            r.Set(judgmentVSVisualizerPosition0 - binJudgmentVSVisualizerLength * (j + 1) + distancePoint, judgmentVSVisualizerPosition1, binJudgmentVSVisualizerLength, binJudgmentVSVisualizerHeight);
+                                                                                            break;
+                                                                                    }
+                                                                                    targetSession.PaintDrawing(ref r, binJudgmentVSVisualizerMap[(int)(judgmentVSVisualizerInt / Math.Pow(10, j) % 10)]);
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.MainJudgmentMeter:
+                                                                        var mainJudgmentMeterDrawings = UI.Instance.MainJudgmentMeterDrawings[(int)inputMode];
+                                                                        var mainJudgmentMeterFrames = defaultComputer.MainJudgmentMeterFrames;
+                                                                        var mainJudgmentMeterPosition1s = drawingComponent.mainJudgmentMeterPosition1s;
+                                                                        var mainJudgmentMeterHeights = drawingComponent.mainJudgmentMeterHeights;
+                                                                        foreach (var drawingPipeline in drawingPipelines)
+                                                                        {
+                                                                            for (var i = inputCount; i > 0; --i)
+                                                                            {
+                                                                                if (drawingPipeline == drawingInputModeMap[i])
+                                                                                {
+                                                                                    r.Set(defaultComputer.GetPosition(i), mainJudgmentMeterPosition1s[i], drawingNoteLengthMap[i], mainJudgmentMeterHeights[i]);
+                                                                                    targetSession.PaintDrawing(ref r, mainJudgmentMeterDrawings[i].GetValueOrDefault(mainJudgmentMeterFrames[i]));
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.StatusSlider:
+                                                                        var statusSliderPosition0 = drawingComponent.statusSliderPosition0;
+                                                                        var statusSliderPosition1 = drawingComponent.statusSliderPosition1;
+                                                                        var statusSliderLength = drawingComponent.statusSliderLength;
+                                                                        var statusSliderHeight = drawingComponent.statusSliderHeight;
+                                                                        var statusSliderContentsLength = drawingComponent.statusSliderContentsLength;
+                                                                        var statusSliderContentsHeight = drawingComponent.statusSliderContentsHeight;
+                                                                        var statusSliderSystem = drawingComponent.statusSystem;
+                                                                        var altStatusSlider = drawingComponent.altStatusSlider;
+                                                                        var statusSliderDrawing = UI.Instance.StatusSliderDrawing;
+                                                                        if (statusSliderDrawing.HasValue)
+                                                                        {
+                                                                            var statusSliderDrawingValue = statusSliderDrawing.Value;
+                                                                            var statusSliderDrawingBound = statusSliderDrawingValue.DrawingBound;
+                                                                            var statusSliderDrawingLength = statusSliderDrawingBound.Length;
+                                                                            var statusSliderDrawingHeight = statusSliderDrawingBound.Height;
+                                                                            for (var i = altStatusSlider >> 1; i >= altStatusSlider % 2; --i)
+                                                                            {
+                                                                                var distanceStatusSlider = i == 1 && has2P ? distance2P : 0F;
+                                                                                switch (statusSliderSystem)
+                                                                                {
+                                                                                    case 0:
+                                                                                        r.Set(statusSliderPosition0 + distanceStatusSlider, statusSliderPosition1 + statusSliderHeight * (1 - status) - statusSliderContentsHeight / 2, statusSliderContentsLength, statusSliderContentsHeight);
+                                                                                        break;
+                                                                                    case 1:
+                                                                                        r.Set(statusSliderPosition0 + distanceStatusSlider, statusSliderPosition1 + statusSliderHeight * status - statusSliderContentsHeight / 2, statusSliderContentsLength, statusSliderContentsHeight);
+                                                                                        break;
+                                                                                    case 2:
+                                                                                        r.Set(statusSliderPosition0 + distanceStatusSlider + statusSliderLength * (1 - status) - statusSliderContentsLength / 2, statusSliderPosition1, statusSliderContentsLength, statusSliderContentsHeight);
+                                                                                        break;
+                                                                                    case 3:
+                                                                                        r.Set(statusSliderPosition0 + distanceStatusSlider + statusSliderLength * status - statusSliderContentsLength / 2, statusSliderPosition1, statusSliderContentsLength, statusSliderContentsHeight);
+                                                                                        break;
+                                                                                }
+                                                                                targetSession.PaintDrawing(ref r, statusSliderDrawingValue);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case PaintPipelineID.JudgmentInputVisualizer:
+                                                                        var judgmentInputVisualizerPosition0 = drawingComponent.judgmentInputVisualizerPosition0;
+                                                                        var judgmentInputVisualizerPosition1 = drawingComponent.judgmentInputVisualizerPosition1;
+                                                                        var judgmentInputVisualizerLength = drawingComponent.judgmentInputVisualizerLength;
+                                                                        var judgmentInputVisualizerHeight = drawingComponent.judgmentInputVisualizerHeight;
+                                                                        var altJudgmentInputVisualizer = drawingComponent.altJudgmentInputVisualizer;
+                                                                        var judgmentInputValues = defaultComputer.JudgmentInputValues;
+                                                                        var targetJudgmentInputVisualizerLength = judgmentInputVisualizerLength / 100;
+                                                                        var judgmentInputDrawings = UI.Instance.JudgmentInputDrawings;
+                                                                        for (var i = altJudgmentInputVisualizer >> 1; i >= altJudgmentInputVisualizer % 2; --i)
+                                                                        {
+                                                                            var distanceJudgmentInputVisualizer = i == 1 && has2P ? distance2P : 0F;
+                                                                            var judgmentInputVisualizerPosition0Float = judgmentInputVisualizerPosition0 + distanceJudgmentInputVisualizer;
+                                                                            var judgmentInputValuesLength = judgmentInputValues.Length;
+                                                                            for (var j = 0; j < judgmentInputValuesLength; ++j)
+                                                                            {
+                                                                                var lastJudgmentInputValue = 1.0;
+                                                                                var judgmentInputValue = judgmentInputValues[j];
+                                                                                r.Set(judgmentInputVisualizerPosition0 + j * targetJudgmentInputVisualizerLength, judgmentInputVisualizerPosition1 + judgmentInputVisualizerHeight, targetJudgmentInputVisualizerLength, 0.0);
+                                                                                for (var m = judgmentInputValue.Length - 1; m >= 0; --m)
+                                                                                {
+                                                                                    var value = judgmentInputValue[m];
+                                                                                    lastJudgmentInputValue -= value;
+                                                                                    r.Height = judgmentInputVisualizerHeight * value;
+                                                                                    if (r.Height > 0.0)
+                                                                                    {
+                                                                                        var judgmentInputDrawing = judgmentInputDrawings[m];
+                                                                                        if (judgmentInputDrawing.HasValue)
+                                                                                        {
+                                                                                            var judgmentInputDrawingBound = judgmentInputDrawing.Value.DrawingBound;
+                                                                                            var judgmentInputDrawingHeight = judgmentInputDrawingBound.Height;
+                                                                                            r.Position1 -= r.Height;
+                                                                                            s.Set(0.0, lastJudgmentInputValue * judgmentInputDrawingHeight, judgmentInputDrawingBound.Length, judgmentInputDrawingHeight * value);
+                                                                                            targetSession.PaintDrawing(ref r, ref s, judgmentInputDrawing);
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                }
+
+                                                                void PaintInt(int value, int system, double position0, double position1, double length, double height, int alt, DrawingItem?[] drawingItems)
+                                                                {
+                                                                    var digit = Utility.GetDigit(value);
+                                                                    for (var i = alt >> 1; i >= alt % 2; --i)
+                                                                    {
+                                                                        var distance = i == 1 && has2P ? distance2P : 0F;
+                                                                        for (var j = digit - 1; j >= 0; --j)
+                                                                        {
+                                                                            var drawingItem = drawingItems[(int)(value / Math.Pow(10, j) % 10)];
+                                                                            switch (system)
+                                                                            {
+                                                                                case 0:
+                                                                                    r.Set(position0 + length * (digit - j - 1) + distance, position1, length, height);
+                                                                                    break;
+                                                                                case 1:
+                                                                                    r.Set(position0 + length * (0.5 * digit - j - 1) + distance, position1, length, height);
+                                                                                    break;
+                                                                                case 2:
+                                                                                    r.Set(position0 - length * (j + 1) + distance, position1, length, height);
+                                                                                    break;
+                                                                            }
+                                                                            targetSession.PaintDrawing(ref r, drawingItem);
+                                                                        }
                                                                     }
                                                                 }
                                                             }
                                                         }
                                                     }
-                                                }
 
-                                                if (!isValidNetDrawings)
-                                                {
-                                                    defaultComputer.IsValidNetDrawings = true;
-                                                }
-
-                                                var assistTextPosition1 = drawingComponent.assistTextPosition1;
-                                                if (defaultComputer.CanUndo && defaultComputer.IsPausingWindowOpened)
-                                                {
-                                                    assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[3].ToString(), InputAssistFont), 100, FaintClearedPaints, FaintFilledPaints, null, 0, null, null, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.UndoContents, InputAssistFont), 100);
-                                                }
-                                                else if (defaultComputer.IsPassable)
-                                                {
-                                                    assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem("ENTER", InputAssistFont), 100, FaintClearedPaints, FaintFilledPaints, null, 0, null, null, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.PassContents, InputAssistFont), 100);
-                                                }
-
-                                                var assistTextFaint = loopingCounter < 0.0 ? (int)(100 * Math.Sqrt(-loopingCounter / Component.LevyingWait)) : 0;
-                                                if (assistTextFaint > 0)
-                                                {
-                                                    assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.LowerMultiplier].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HigherMultiplier].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.MultiplierContents, InputAssistFont), assistTextFaint);
-
-                                                    if (defaultComputer.LoadedMedia)
+                                                    if (!isValidNetDrawings)
                                                     {
-                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.MediaMode].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, null, assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(Configure.Instance.Media ? "BGA ON" : "BGA OFF", InputAssistFont), assistTextFaint);
+                                                        defaultComputer.IsValidNetDrawings = true;
+                                                    }
+
+                                                    var assistTextPosition1 = drawingComponent.assistTextPosition1;
+                                                    if (defaultComputer.CanUndo && defaultComputer.IsPausingWindowOpened)
+                                                    {
+                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[3].ToString(), InputAssistFont), 100, FaintClearedPaints, FaintFilledPaints, null, 0, null, null, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.UndoContents, InputAssistFont), 100);
+                                                    }
+                                                    else if (defaultComputer.IsPassable)
+                                                    {
+                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem("ENTER", InputAssistFont), 100, FaintClearedPaints, FaintFilledPaints, null, 0, null, null, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.PassContents, InputAssistFont), 100);
+                                                    }
+
+                                                    var assistTextFaint = loopingCounter < 0.0 ? (int)(100.0 * Math.Sqrt(-loopingCounter / Component.LevyingWait)) : 0;
+                                                    if (assistTextFaint > 0)
+                                                    {
+                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.LowerMultiplier].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HigherMultiplier].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.MultiplierContents, InputAssistFont), assistTextFaint);
+
+                                                        if (defaultComputer.LoadedMedia)
+                                                        {
+                                                            assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.MediaMode].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, null, assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(Configure.Instance.Media ? "BGA ON" : "BGA OFF", InputAssistFont), assistTextFaint);
+                                                        }
+
+                                                        if (isPostableItemMode)
+                                                        {
+                                                            assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem0].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem1].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.PostItemContents, InputAssistFont), assistTextFaint);
+                                                        }
                                                     }
 
                                                     if (isPostableItemMode)
                                                     {
-                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem0].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem1].ToString(), InputAssistFont), assistTextFaint, FaintClearedPaints, FaintFilledPaints, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.PostItemContents, InputAssistFont), assistTextFaint);
-                                                    }
-                                                }
-
-                                                if (defaultComputer.IsPostableItemMode)
-                                                {
-                                                    var lastPostableItems = defaultComputer.LastPostableItems;
-                                                    if (lastPostableItems != null)
-                                                    {
-                                                        var assistFaint0 = (int)(100 * defaultComputer.PostableItemFaints[0].Value);
-                                                        var assistFaint1 = (int)(100 * defaultComputer.PostableItemFaints[1].Value);
-                                                        var assistTextItem0 = assistFaint0 > 0.0 ? PoolSystem.Instance.GetTextItem(lastPostableItems[0]?.ToString(), InputAssistFont) : null;
-                                                        var assistTextItem1 = assistFaint1 > 0.0 ? PoolSystem.Instance.GetTextItem(lastPostableItems[1]?.ToString(), InputAssistFont) : null;
-                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, assistTextItem0, assistFaint0, lastPostableItems[0]?.ItemPaints, FaintClearedPaints, assistTextItem1, assistFaint1, lastPostableItems[1]?.ItemPaints, FaintClearedPaints, null, 0);
-                                                    }
-
-                                                    var postedItemVariety = defaultComputer.PostedItemVariety;
-                                                    var postedItemFaint = (int)(100 * defaultComputer.PostedItemFaints[postedItemVariety]);
-                                                    if (postedItemFaint > 0.0)
-                                                    {
-                                                        var postedItemTextItem = PoolSystem.Instance.GetTextItem(defaultComputer.PostedItemText, InputAssistFont);
-                                                        var postedItemTextBound = postedItemTextItem.LayoutBounds;
-                                                        var postedItemTextBoundLength = postedItemTextBound.Width;
-                                                        var postedItemTextBoundHeight = postedItemTextBound.Height;
-                                                        r.Set(mainPosition + (p1Length - postedItemTextBoundLength) / 2, assistTextPosition1 - postedItemTextBoundHeight / 2, postedItemTextBoundLength, postedItemTextBoundHeight);
-                                                        targetSession.PaintVisibleText(postedItemTextItem, ref r, FaintItemPaints[postedItemVariety][postedItemFaint], FaintFilledPaints[postedItemFaint]);
-                                                        assistTextPosition1 += (float)(Levels.StandardMargin + Utility.Max(postedItemTextBoundHeight, postedItemTextBoundLength, postedItemTextBoundHeight));
-                                                    }
-
-                                                    var valueItemPosition0 = 0F;
-                                                    foreach (var (valueItem, valueItemStatus) in defaultComputer.PostableItemStatusMap)
-                                                    {
-                                                        if (valueItemStatus.IsHandling)
+                                                        var lastPostableItems = defaultComputer.LastPostableItems;
+                                                        if (lastPostableItems != null)
                                                         {
-                                                            var valueItemTextBoundHeight = 24F;
-                                                            var valueItemTextItem = PoolSystem.Instance.GetTextItem(PoolSystem.Instance.GetFormattedText("{0} ({1})", valueItem.ToString(), valueItemStatus.AvatarName), NotifyXamlFont, 0F, valueItemTextBoundHeight);
-                                                            var valueItemTextBound = valueItemTextItem.LayoutBounds;
-                                                            var valueItemHeight = Levels.StandardMarginFloat32 + valueItemTextBoundHeight + Levels.StandardMarginFloat32;
+                                                            var assistFaint0 = (int)(100.0 * defaultComputer.PostableItemFaints[0].Value);
+                                                            var assistFaint1 = (int)(100.0 * defaultComputer.PostableItemFaints[1].Value);
+                                                            var assistTextItem0 = assistFaint0 > 0.0 ? PoolSystem.Instance.GetTextItem(lastPostableItems[0]?.ToString(), InputAssistFont) : null;
+                                                            var assistTextItem1 = assistFaint1 > 0.0 ? PoolSystem.Instance.GetTextItem(lastPostableItems[1]?.ToString(), InputAssistFont) : null;
+                                                            assistTextPosition1 += PaintAssistText(assistTextPosition1, assistTextItem0, assistFaint0, lastPostableItems[0]?.ItemPaints, FaintClearedPaints, assistTextItem1, assistFaint1, lastPostableItems[1]?.ItemPaints, FaintClearedPaints, null, 0);
+                                                        }
 
-                                                            valueItemPosition0 += Levels.StandardMarginFloat32;
-                                                            var valueItemLength = Levels.StandardMarginFloat32 + valueItemTextBound.Width + Levels.StandardMarginFloat32;
-                                                            r.Set(valueItemPosition0, Levels.StandardMarginFloat32, Levels.StandardEdgeFloat32 + valueItemLength + Levels.StandardEdgeFloat32, Levels.StandardEdgeFloat32 + valueItemHeight + Levels.StandardEdgeFloat32);
-                                                            targetSession.DrawRoundedRectangle(r, Levels.StandardEllipseFloat32, Levels.StandardEllipseFloat32, Colors.White);
+                                                        var postedItemVariety = defaultComputer.PostedItemVariety;
+                                                        var postedItemFaint = (int)(100.0 * defaultComputer.PostedItemFaints[postedItemVariety]);
+                                                        if (postedItemFaint > 0.0)
+                                                        {
+                                                            var postedItemTextItem = PoolSystem.Instance.GetTextItem(defaultComputer.PostedItemText, InputAssistFont);
+                                                            var postedItemTextBound = postedItemTextItem.LayoutBounds;
+                                                            var postedItemTextBoundLength = postedItemTextBound.Width;
+                                                            var postedItemTextBoundHeight = postedItemTextBound.Height;
+                                                            r.Set(mainPosition + (p1Length - postedItemTextBoundLength) / 2, assistTextPosition1 - postedItemTextBoundHeight / 2, postedItemTextBoundLength, postedItemTextBoundHeight);
+                                                            targetSession.PaintVisibleText(postedItemTextItem, ref r, FaintItemPaints[postedItemVariety][postedItemFaint], FaintFilledPaints[postedItemFaint]);
+                                                            assistTextPosition1 += (float)(Levels.StandardMargin + Utility.Max(postedItemTextBoundHeight, postedItemTextBoundLength, postedItemTextBoundHeight));
+                                                        }
 
-                                                            r.Set(r.Position0 + Levels.StandardEdgeFloat32, r.Position1 + Levels.StandardEdgeFloat32, valueItemLength, r.Height - 2 * Levels.StandardEdgeFloat32);
-                                                            targetSession.FillRoundedRectangle(r, Levels.StandardEllipseFloat32, Levels.StandardEllipseFloat32, FaintFilledPaints[50]);
+                                                        var postableItemPosition0 = 0F;
+                                                        foreach (var (postableItem, postableItemStatus) in defaultComputer.PostableItemStatusMap)
+                                                        {
+                                                            if (postableItemStatus.IsHandling)
+                                                            {
+                                                                var valueItemTextBoundHeight = 24F;
+                                                                var valueItemTextItem = PoolSystem.Instance.GetTextItem(PoolSystem.Instance.GetFormattedText("{0} ({1})", postableItem.ToString(), postableItemStatus.AvatarName), NotifyXamlFont, 0F, valueItemTextBoundHeight);
+                                                                var valueItemTextBound = valueItemTextItem.LayoutBounds;
+                                                                var valueItemHeight = Levels.StandardMarginFloat32 + valueItemTextBoundHeight + Levels.StandardMarginFloat32;
 
-                                                            r.Length *= valueItemStatus.Wait / valueItemStatus.TotalWait;
-                                                            targetSession.FillRoundedRectangle(r, Levels.StandardEllipseFloat32, Levels.StandardEllipseFloat32, valueItem.ItemColor);
+                                                                postableItemPosition0 += Levels.StandardMarginFloat32;
+                                                                var valueItemLength = Levels.StandardMarginFloat32 + valueItemTextBound.Width + Levels.StandardMarginFloat32;
+                                                                r.Set(postableItemPosition0, Levels.StandardMarginFloat32, Levels.StandardEdgeFloat32 + valueItemLength + Levels.StandardEdgeFloat32, Levels.StandardEdgeFloat32 + valueItemHeight + Levels.StandardEdgeFloat32);
+                                                                targetSession.DrawRoundedRectangle(r, Levels.StandardEllipseFloat32, Levels.StandardEllipseFloat32, Colors.White);
 
-                                                            r.SetPosition(r.Position0 + Levels.StandardMarginFloat32, r.Position1 + Levels.StandardMarginFloat32);
-                                                            targetSession.PaintText(valueItemTextItem, ref r, Colors.White);
-                                                            valueItemPosition0 += (float)(Levels.StandardEdgeFloat32 + valueItemLength + Levels.StandardEdgeFloat32 + Levels.StandardMarginFloat32);
+                                                                r.Set(r.Position0 + Levels.StandardEdgeFloat32, r.Position1 + Levels.StandardEdgeFloat32, valueItemLength, r.Height - 2 * Levels.StandardEdgeFloat32);
+                                                                targetSession.FillRoundedRectangle(r, Levels.StandardEllipseFloat32, Levels.StandardEllipseFloat32, FaintFilledPaints[50]);
+
+                                                                r.Length *= postableItemStatus.Wait / postableItemStatus.TotalWait;
+                                                                targetSession.FillRoundedRectangle(r, Levels.StandardEllipseFloat32, Levels.StandardEllipseFloat32, postableItem.ItemColor);
+
+                                                                r.SetPosition(r.Position0 + Levels.StandardMarginFloat32, r.Position1 + Levels.StandardMarginFloat32);
+                                                                targetSession.PaintText(valueItemTextItem, ref r, Colors.White);
+                                                                postableItemPosition0 += (float)(Levels.StandardEdgeFloat32 + valueItemLength + Levels.StandardEdgeFloat32 + Levels.StandardMarginFloat32);
+                                                            }
                                                         }
                                                     }
-                                                }
 
-                                                float PaintAssistText(float assistTextPosition1, CanvasTextLayout assistTextItem0, int assistFaint0, ICanvasBrush[] assistTextItem0Paints, ICanvasBrush[] assistTextItem0TextPaints, CanvasTextLayout assistTextItem1, int assistFaint1, ICanvasBrush[] assistTextItem1Paints, ICanvasBrush[] assistTextItem1TextPaints, CanvasTextLayout assistTextItem2, int assistFaint2)
-                                                {
-                                                    var assistTextBound0 = assistTextItem0?.LayoutBounds;
-                                                    var assistTextBound0Length = assistTextBound0.HasValue ? Levels.StandardMargin + assistTextBound0.Value.Width + Levels.StandardMargin : 0F;
-                                                    var assistTextBound0Height = assistTextBound0.HasValue ? Levels.StandardMargin + assistTextBound0.Value.Height + Levels.StandardMargin : 0F;
-                                                    var assistTextBound1 = assistTextItem1?.LayoutBounds;
-                                                    var assistTextBound1Length = assistTextBound1.HasValue ? Levels.StandardMargin + assistTextBound1.Value.Width + Levels.StandardMargin : 0F;
-                                                    var assistTextBound1Height = assistTextBound1.HasValue ? Levels.StandardMargin + assistTextBound1.Value.Height + Levels.StandardMargin : 0F;
-                                                    var assistTextBound2 = assistTextItem2?.LayoutBounds;
-                                                    var assistTextBound2Length = assistTextBound2.HasValue ? assistTextBound2.Value.Width : 0.0;
-                                                    var assistTextBound2Height = assistTextBound2.HasValue ? assistTextBound2.Value.Height : 0.0;
-
-                                                    var assistTextPosition0 = mainPosition + (p1Length - assistTextBound0Length - Levels.StandardMarginFloat32 - assistTextBound1Length - Levels.StandardMarginFloat32 - assistTextBound2Length) / 2;
-                                                    if (assistTextItem0 != null)
+                                                    float PaintAssistText(float assistTextPosition1, CanvasTextLayout assistTextItem0, int assistFaint0, ICanvasBrush[] assistTextItem0Paints, ICanvasBrush[] assistTextItem0TextPaints, CanvasTextLayout assistTextItem1, int assistFaint1, ICanvasBrush[] assistTextItem1Paints, ICanvasBrush[] assistTextItem1TextPaints, CanvasTextLayout assistTextItem2, int assistFaint2)
                                                     {
-                                                        r.Set(assistTextPosition0, assistTextPosition1 - assistTextBound0Height / 2, assistTextBound0Length, assistTextBound0Height);
-                                                        targetSession.FillRoundedRectangle(r, Levels.StandardEllipseFloat32, Levels.StandardEllipseFloat32, assistTextItem0Paints[assistFaint0]);
-                                                        r.Position0 += Levels.StandardMargin;
-                                                        r.Position1 += Levels.StandardMargin;
-                                                        targetSession.PaintText(assistTextItem0, ref r, assistTextItem0TextPaints[assistFaint0]);
+                                                        var assistTextBound0 = assistTextItem0?.LayoutBounds;
+                                                        var assistTextBound0Length = assistTextBound0.HasValue ? Levels.StandardMargin + assistTextBound0.Value.Width + Levels.StandardMargin : 0F;
+                                                        var assistTextBound0Height = assistTextBound0.HasValue ? Levels.StandardMargin + assistTextBound0.Value.Height + Levels.StandardMargin : 0F;
+                                                        var assistTextBound1 = assistTextItem1?.LayoutBounds;
+                                                        var assistTextBound1Length = assistTextBound1.HasValue ? Levels.StandardMargin + assistTextBound1.Value.Width + Levels.StandardMargin : 0F;
+                                                        var assistTextBound1Height = assistTextBound1.HasValue ? Levels.StandardMargin + assistTextBound1.Value.Height + Levels.StandardMargin : 0F;
+                                                        var assistTextBound2 = assistTextItem2?.LayoutBounds;
+                                                        var assistTextBound2Length = assistTextBound2.HasValue ? assistTextBound2.Value.Width : 0.0;
+                                                        var assistTextBound2Height = assistTextBound2.HasValue ? assistTextBound2.Value.Height : 0.0;
 
-                                                        assistTextPosition0 += Levels.StandardMarginFloat32 + assistTextBound0Length;
+                                                        var assistTextPosition0 = mainPosition + (p1Length - assistTextBound0Length - Levels.StandardMarginFloat32 - assistTextBound1Length - Levels.StandardMarginFloat32 - assistTextBound2Length) / 2;
+                                                        if (assistTextItem0 != null)
+                                                        {
+                                                            r.Set(assistTextPosition0, assistTextPosition1 - assistTextBound0Height / 2, assistTextBound0Length, assistTextBound0Height);
+                                                            targetSession.FillRoundedRectangle(r, Levels.StandardEllipseFloat32, Levels.StandardEllipseFloat32, assistTextItem0Paints[assistFaint0]);
+                                                            r.Position0 += Levels.StandardMargin;
+                                                            r.Position1 += Levels.StandardMargin;
+                                                            targetSession.PaintText(assistTextItem0, ref r, assistTextItem0TextPaints[assistFaint0]);
+
+                                                            assistTextPosition0 += Levels.StandardMarginFloat32 + assistTextBound0Length;
+                                                        }
+
+                                                        if (assistTextItem1 != null)
+                                                        {
+                                                            r.Set(assistTextPosition0, assistTextPosition1 - assistTextBound1Height / 2, assistTextBound1Length, assistTextBound1Height);
+                                                            targetSession.FillRoundedRectangle(r, Levels.StandardEllipseFloat32, Levels.StandardEllipseFloat32, assistTextItem1Paints[assistFaint1]);
+                                                            r.Position0 += Levels.StandardMargin;
+                                                            r.Position1 += Levels.StandardMargin;
+                                                            targetSession.PaintText(assistTextItem1, ref r, assistTextItem1TextPaints[assistFaint1]);
+
+                                                            assistTextPosition0 += Levels.StandardMarginFloat32 + assistTextBound1Length;
+                                                        }
+
+                                                        if (assistTextItem2 != null)
+                                                        {
+                                                            r.Set(assistTextPosition0, assistTextPosition1 - assistTextBound2Height / 2, assistTextBound2Length, assistTextBound2Height);
+                                                            targetSession.PaintVisibleText(assistTextItem2, ref r, FaintClearedPaints[assistFaint2], FaintFilledPaints[assistFaint2]);
+                                                        }
+
+                                                        return (float)(Levels.StandardMargin + Utility.Max(assistTextBound0Height, assistTextBound1Height, assistTextBound2Height));
                                                     }
 
-                                                    if (assistTextItem1 != null)
+                                                    var inputAssistTextFaint = assistTextFaint;
+                                                    if (inputAssistTextFaint > 0)
                                                     {
-                                                        r.Set(assistTextPosition0, assistTextPosition1 - assistTextBound1Height / 2, assistTextBound1Length, assistTextBound1Height);
-                                                        targetSession.FillRoundedRectangle(r, Levels.StandardEllipseFloat32, Levels.StandardEllipseFloat32, assistTextItem1Paints[assistFaint1]);
-                                                        r.Position0 += Levels.StandardMargin;
-                                                        r.Position1 += Levels.StandardMargin;
-                                                        targetSession.PaintText(assistTextItem1, ref r, assistTextItem1TextPaints[assistFaint1]);
-
-                                                        assistTextPosition0 += Levels.StandardMarginFloat32 + assistTextBound1Length;
+                                                        var inputAssistTextPosition1 = drawingComponent.inputAssistTextPosition1;
+                                                        var mainNoteLengthLevyingMap = drawingComponent.MainNoteLengthLevyingMap;
+                                                        for (var i = inputCount; i > 0; --i)
+                                                        {
+                                                            var inputAssistTextItem = PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.Inputs[(int)inputMode][i][0].ToString(), InputAssistFont);
+                                                            var inputAssistTextBound = inputAssistTextItem.LayoutBounds;
+                                                            var inputAssistTextLength = inputAssistTextBound.Width;
+                                                            var inputAssistTextHeight = inputAssistTextBound.Height;
+                                                            r.Set(mainPosition + (isIn2P[i] ? p2Position : 0.0) + mainNoteLengthLevyingMap[i] + (drawingNoteLengthMap[i] - inputAssistTextLength) / 2, inputAssistTextPosition1 - inputAssistTextHeight / 2, inputAssistTextLength, inputAssistTextHeight);
+                                                            targetSession.PaintVisibleText(inputAssistTextItem, ref r, FaintClearedPaints[inputAssistTextFaint], FaintFilledPaints[inputAssistTextFaint]);
+                                                        }
                                                     }
 
-                                                    if (assistTextItem2 != null)
+                                                    r.Set(0F, 0F, defaultLength, defaultHeight);
+                                                    var defaultHitPoints = defaultComputer.DefaultHitPoints;
+                                                    if (Configure.Instance.LowHitPointsFaintUI && defaultHitPoints < 0.5 && isHandling && defaultComputer.IsFailMode)
                                                     {
-                                                        r.Set(assistTextPosition0, assistTextPosition1 - assistTextBound2Height / 2, assistTextBound2Length, assistTextBound2Height);
-                                                        targetSession.PaintVisibleText(assistTextItem2, ref r, FaintClearedPaints[assistFaint2], FaintFilledPaints[assistFaint2]);
+                                                        targetSession.FillRectangle(r, _lowHitPointsPaints[(int)(50 * (0.5 - defaultHitPoints))]);
                                                     }
 
-                                                    return (float)(Levels.StandardMargin + Utility.Max(assistTextBound0Height, assistTextBound1Height, assistTextBound2Height));
-                                                }
-
-                                                var inputAssistTextFaint = assistTextFaint;
-                                                if (inputAssistTextFaint > 0)
-                                                {
-                                                    var inputAssistTextPosition1 = drawingComponent.inputAssistTextPosition1;
-                                                    var mainNoteLengthLevyingMap = drawingComponent.MainNoteLengthLevyingMap;
-                                                    for (var i = inputCount; i > 0; --i)
+                                                    if (faintNoteMode == ModeComponent.FaintNoteMode.TotalFading)
                                                     {
-                                                        var inputAssistTextItem = PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.Inputs[(int)inputMode][i][0].ToString(), InputAssistFont);
-                                                        var inputAssistTextBound = inputAssistTextItem.LayoutBounds;
-                                                        var inputAssistTextLength = inputAssistTextBound.Width;
-                                                        var inputAssistTextHeight = inputAssistTextBound.Height;
-                                                        r.Set(mainPosition + (isIn2P[i] ? p2Position : 0.0) + mainNoteLengthLevyingMap[i] + (drawingNoteLengthMap[i] - inputAssistTextLength) / 2, inputAssistTextPosition1 - inputAssistTextHeight / 2, inputAssistTextLength, inputAssistTextHeight);
-                                                        targetSession.PaintVisibleText(inputAssistTextItem, ref r, FaintClearedPaints[inputAssistTextFaint], FaintFilledPaints[inputAssistTextFaint]);
+                                                        targetSession.FillRectangle(r, FaintFilledPaints[(int)(100.0 * defaultComputer.FaintCosine)]);
                                                     }
                                                 }
 
-                                                var defaultHitPoints = defaultComputer.DefaultHitPoints;
-                                                if (Configure.Instance.LowHitPointsFaintUI && defaultHitPoints < 0.5 && isHandling && defaultComputer.IsFailMode)
+                                                r.Set(0F, 0F, defaultLength, defaultHeight);
+                                                if (faintLayered > 0.0)
                                                 {
-                                                    targetSession.FillRectangle(0F, 0F, defaultLength, defaultHeight, _lowHitPointsPaints[(int)(50 * (0.5 - defaultHitPoints))]);
-                                                }
-
-                                                if (faintNoteMode == ModeComponent.FaintNoteMode.TotalFading)
-                                                {
-                                                    targetSession.FillRectangle(0F, 0F, defaultLength, defaultHeight, FaintFilledPaints[(int)(100 * defaultComputer.FaintCosine)]);
+                                                    targetSession.FillRectangle(r, FaintFilledPaints[(int)(100.0 * faintLayered)]);
+                                                    defaultComputer.PaintMedia(targetSession, ref r, (float)faintLayered);
                                                 }
 
                                                 if (defaultComputer.IsPausingWindowOpened)
                                                 {
-                                                    targetSession.FillRectangle(0F, 0F, defaultLength, defaultHeight, FaintFilledPaints[50]);
+                                                    targetSession.FillRectangle(r, FaintFilledPaints[50]);
                                                 }
 
                                                 var mediaModifierContents = defaultComputer.MediaModifierValue.Text;

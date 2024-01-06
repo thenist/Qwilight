@@ -512,7 +512,7 @@ namespace Qwilight.Compute
 
         public double FaintCosine { get; set; }
 
-        public double QuitFaint { get; set; }
+        public double FaintLayered { get; set; }
 
         public bool IsPausing
         {
@@ -2317,9 +2317,9 @@ namespace Qwilight.Compute
                         NoteMobilityValue += Utility.GetMove(IsPostableItemMode && !PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.Negative4D]].IsHandling ? 0.0 : 1.0, NoteMobilityValue, 1000.0 / millisLoopUnit);
                         FaintCosine += Utility.GetMove(IsPostableItemMode && !PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.NegativeFading]].IsHandling ? 1.0 : absSin, FaintCosine, 1000.0 / millisLoopUnit);
 
-                        if (!isValidLoopingCounter)
+                        if (LoopingCounter > Length + Component.QuitWait)
                         {
-                            QuitFaint += Utility.GetMove(0.0, QuitFaint, 1000.0 / millisLoopUnit);
+                            FaintLayered += Utility.GetMove(1.0, FaintLayered, 1000.0 / millisLoopUnit);
                         }
 
                         if ((_isPassable = LoopingCounter < PassableWait) && SetPass)
@@ -4240,7 +4240,7 @@ namespace Qwilight.Compute
             NoteMobilityCosine = 1.0;
             NoteMobilityValue = 0.0;
             FaintCosine = 1.0;
-            QuitFaint = 1.0;
+            FaintLayered = 0.0;
             ModeComponentValue.HandlingHitPointsModeValue = ModeComponentValue.HitPointsModeValue;
             _failedDrawingMillis = 0.0;
             _validJudgedNotes = 0;
