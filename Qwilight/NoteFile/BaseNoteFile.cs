@@ -214,7 +214,7 @@ namespace Qwilight.NoteFile
 
         public override int GetHashCode() => GetNoteID512().GetHashCode();
 
-        public void SetJudgmentMillisTexts(ModeComponent modeComponentValue)
+        public void SetJudgmentMillisTexts(ModeComponent modeComponent)
         {
             HighestJudgmentMillisText = GetMillisText(Component.Judged.Highest);
             HigherJudgmentMillisText = GetMillisText(Component.Judged.Higher);
@@ -225,8 +225,8 @@ namespace Qwilight.NoteFile
 
             string GetMillisText(Component.Judged judged)
             {
-                var judgment0 = Math.Round(Component.GetJudgmentMillis(judged, modeComponentValue, JudgmentStage, Component.LatestJudgmentModeDate, Component.LatestJudgmentMapDate, Component.LatestLongNoteAssistDate, 0), 3);
-                var judgment1 = Math.Round(Component.GetJudgmentMillis(judged, modeComponentValue, JudgmentStage, Component.LatestJudgmentModeDate, Component.LatestJudgmentMapDate, Component.LatestLongNoteAssistDate, 1), 3);
+                var judgment0 = Math.Round(Component.GetJudgmentMillis(judged, modeComponent, JudgmentStage, Component.LatestJudgmentModeDate, Component.LatestJudgmentMapDate, Component.LatestLongNoteAssistDate, 0), 3);
+                var judgment1 = Math.Round(Component.GetJudgmentMillis(judged, modeComponent, JudgmentStage, Component.LatestJudgmentModeDate, Component.LatestJudgmentMapDate, Component.LatestLongNoteAssistDate, 1), 3);
                 return Math.Abs(judgment0) != Math.Abs(judgment1) ? $"{judgment0} ~ {judgment1} ms" : $"{judgment1} ms";
             }
         }

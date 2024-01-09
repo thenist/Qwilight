@@ -543,8 +543,7 @@ namespace Qwilight.Utilities
         public static IEnumerable<ManagementBaseObject> GetWMI(string textWMI)
         {
             using var targetWMI = new ManagementObjectSearcher(textWMI);
-            using var dataWMI = targetWMI.Get();
-            return dataWMI.Cast<ManagementBaseObject>();
+            return targetWMI.Get().Cast<ManagementBaseObject>();
         }
     }
 }

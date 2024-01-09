@@ -2044,7 +2044,7 @@ namespace Qwilight.ViewModel
                             }
                             catch (Exception e)
                             {
-                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Save, $"{Path.GetFileName(noteFilePath)} ({e.Message})");
+                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Save, $"{Path.GetFileName(noteFilePath)} ({e.Message})", true, null, () => Utility.OpenAs(Path.GetDirectoryName(noteFilePath)));
                             }
                         }
                     }
@@ -2076,7 +2076,7 @@ namespace Qwilight.ViewModel
                             }
                             catch (Exception e)
                             {
-                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Save, $"{Path.GetFileName(noteFile.NoteFilePath)}:{noteFile.DataID} ({e.Message})");
+                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Save, $"{Path.GetFileName(noteFile.NoteFilePath)}:{noteFile.DataID} ({e.Message})", true, null, () => Utility.OpenAs(Path.GetDirectoryName(noteFilePath)));
                             }
                             finally
                             {

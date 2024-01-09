@@ -427,8 +427,8 @@ namespace Qwilight
                             }
                         }
 
-                        var modeComponentValue = mainViewModel.ModeComponentValue;
-                        if (valueConfigureViewModel.IsOpened && valueConfigureViewModel.TabPosition == 0 && valueConfigureViewModel.TabPositionComputing == 0 && (mainViewModel.CanModifyModeComponent || modeComponentValue.CanModifyMultiplier || modeComponentValue.CanModifyAudioMultiplier))
+                        var modeComponent = mainViewModel.ModeComponentValue;
+                        if (valueConfigureViewModel.IsOpened && valueConfigureViewModel.TabPosition == 0 && valueConfigureViewModel.TabPositionComputing == 0 && (mainViewModel.CanModifyModeComponent || modeComponent.CanModifyMultiplier || modeComponent.CanModifyAudioMultiplier))
                         {
                             SetInputColor(VirtualKey.F1, defaultColor);
                             SetInputColor(VirtualKey.F2, defaultColor);

@@ -20,18 +20,18 @@ namespace Qwilight.Note
         {
             if (Configure.Instance.UICommentNote)
             {
-                var modeComponentValue = defaultComputer.ModeComponentValue;
+                var modeComponent = defaultComputer.ModeComponentValue;
                 var drawingComponentValue = defaultComputer.DrawingComponentValue;
                 var noteHeight = GetNoteHeight(defaultComputer);
-                r.Set(GetPosition(defaultComputer), GetY(defaultComputer, GetMultiplierAsNoteMobility(modeComponentValue, defaultComputer.NoteMobilityCosine, defaultComputer.NoteMobilityValue)) - noteHeight + drawingComponentValue.noteHeightJudgments[TargetInput], GetNoteLength(defaultComputer), noteHeight);
+                r.Set(GetPosition(defaultComputer), GetY(defaultComputer, GetMultiplierAsNoteMobility(modeComponent, defaultComputer.NoteMobilityCosine, defaultComputer.NoteMobilityValue)) - noteHeight + drawingComponentValue.noteHeightJudgments[TargetInput], GetNoteLength(defaultComputer), noteHeight);
                 if (r.Position1 + r.Height > 0.0)
                 {
-                    targetSession.PaintDrawing(ref r, UI.Instance.NoteDrawings[(int)defaultComputer.InputMode][TargetInput][defaultComputer.NoteFrame][CommentNoteContents][LongNote.LongNoteBefore], GetFaint(modeComponentValue, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
+                    targetSession.PaintDrawing(ref r, UI.Instance.NoteDrawings[(int)defaultComputer.InputMode][TargetInput][defaultComputer.NoteFrame][CommentNoteContents][LongNote.LongNoteBefore], GetFaint(modeComponent, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
                 }
             }
         }
 
-        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote) => default;
+        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponent, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote) => default;
 
         public override JudgedNoteData? AutoJudge(double wait)
         {

@@ -40,13 +40,13 @@ namespace Qwilight.ViewModel
                 inputPwViewModel.IsInputEditable = true;
                 inputPwViewModel.HandleOK = new Action<string, string>((input, inputCipher) =>
                 {
-                    var modeComponentValue = mainViewModel.ModeComponentValue;
+                    var modeComponent = mainViewModel.ModeComponentValue;
                     TwilightSystem.Instance.SendParallel(Event.Types.EventID.NewSite, new
                     {
                         siteName = input,
                         siteCipher = inputCipher,
                         isNetSite = true,
-                        data = modeComponentValue.GetJSON(),
+                        data = modeComponent.GetJSON(),
                         noteID = noteFile.GetNoteID512(),
                         noteIDs = noteFile.EntryItem.CompatibleNoteFiles.Select(noteFile => noteFile.GetNoteID512()),
                         title = noteFile.Title,

@@ -948,9 +948,9 @@
             Limiter57Map[(int)InputMode._48_4] = [default, false, false, false, false, false, false, false, true, false, false, false, false, false, false, true, false, false, false, false, true, false, false, false, false, false, false, true, false, false, false, false, true, false, false, false, false, false, false, true, false, false, false, false, true, false, false, false, false, false, false, false, false];
         }
 
-        public static double GetJudgmentMillis(Judged judged, ModeComponent modeComponentValue, double judgmentStage, JudgmentModeDate judgmentModeDate, JudgmentMapDate judgmentMapDate, LongNoteAssistDate longNoteAssistDate, int i, JudgmentAssist judgmentAssist = JudgmentAssist.Default)
+        public static double GetJudgmentMillis(Judged judged, ModeComponent modeComponent, double judgmentStage, JudgmentModeDate judgmentModeDate, JudgmentMapDate judgmentMapDate, LongNoteAssistDate longNoteAssistDate, int i, JudgmentAssist judgmentAssist = JudgmentAssist.Default)
         {
-            var judgmentModeValue = (int)modeComponentValue.JudgmentModeValue;
+            var judgmentModeValue = (int)modeComponent.JudgmentModeValue;
             var judgmentMillis = 0.0;
             switch (judgmentModeDate)
             {
@@ -962,9 +962,9 @@
                     }
                     break;
                 case JudgmentModeDate._1_6_7:
-                    if (modeComponentValue.JudgmentModeValue == ModeComponent.JudgmentMode.Favor)
+                    if (modeComponent.JudgmentModeValue == ModeComponent.JudgmentMode.Favor)
                     {
-                        judgmentMillis = modeComponentValue.FavorJudgments[(int)judged][i];
+                        judgmentMillis = modeComponent.FavorJudgments[(int)judged][i];
                     }
                     else
                     {
@@ -972,9 +972,9 @@
                     }
                     break;
                 case JudgmentModeDate._1_10_34:
-                    if (modeComponentValue.JudgmentModeValue == ModeComponent.JudgmentMode.Favor)
+                    if (modeComponent.JudgmentModeValue == ModeComponent.JudgmentMode.Favor)
                     {
-                        judgmentMillis = modeComponentValue.FavorJudgments[(int)judged][i];
+                        judgmentMillis = modeComponent.FavorJudgments[(int)judged][i];
                     }
                     else
                     {
@@ -986,9 +986,9 @@
                     }
                     break;
                 case JudgmentModeDate._1_10_35:
-                    if (modeComponentValue.JudgmentModeValue == ModeComponent.JudgmentMode.Favor)
+                    if (modeComponent.JudgmentModeValue == ModeComponent.JudgmentMode.Favor)
                     {
-                        judgmentMillis = modeComponentValue.FavorJudgments[(int)judged][i];
+                        judgmentMillis = modeComponent.FavorJudgments[(int)judged][i];
                     }
                     else
                     {
@@ -1000,9 +1000,9 @@
                     }
                     break;
                 case JudgmentModeDate._1_14_6:
-                    if (modeComponentValue.JudgmentModeValue == ModeComponent.JudgmentMode.Favor)
+                    if (modeComponent.JudgmentModeValue == ModeComponent.JudgmentMode.Favor)
                     {
-                        judgmentMillis = modeComponentValue.FavorJudgments[(int)judged][i];
+                        judgmentMillis = modeComponent.FavorJudgments[(int)judged][i];
                     }
                     else
                     {
@@ -1019,31 +1019,31 @@
             return judgmentMillis;
         }
 
-        public static bool GetIsJudgment(double loopingCounter, Judged judged, ModeComponent modeComponentValue, double judgmentStage, JudgmentModeDate judgmentModeDate, JudgmentMapDate judgmentMapDate, LongNoteAssistDate longNoteAssistDate, JudgmentAssist judgmentAssist) => GetJudgmentMillis(judged, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, 0, judgmentAssist) <= loopingCounter && loopingCounter <= GetJudgmentMillis(judged, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, 1, judgmentAssist);
+        public static bool GetIsJudgment(double loopingCounter, Judged judged, ModeComponent modeComponent, double judgmentStage, JudgmentModeDate judgmentModeDate, JudgmentMapDate judgmentMapDate, LongNoteAssistDate longNoteAssistDate, JudgmentAssist judgmentAssist) => GetJudgmentMillis(judged, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, 0, judgmentAssist) <= loopingCounter && loopingCounter <= GetJudgmentMillis(judged, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, 1, judgmentAssist);
 
-        public static Judged GetJudged(double judgmentMeter, ModeComponent modeComponentValue, double judgmentStage, JudgmentModeDate judgmentModeDate, JudgmentMapDate judgmentMapDate, LongNoteAssistDate longNoteAssistDate, JudgmentAssist judgmentAssist = JudgmentAssist.Default)
+        public static Judged GetJudged(double judgmentMeter, ModeComponent modeComponent, double judgmentStage, JudgmentModeDate judgmentModeDate, JudgmentMapDate judgmentMapDate, LongNoteAssistDate longNoteAssistDate, JudgmentAssist judgmentAssist = JudgmentAssist.Default)
         {
-            if (GetIsJudgment(judgmentMeter, Judged.Highest, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
+            if (GetIsJudgment(judgmentMeter, Judged.Highest, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
             {
                 return Judged.Highest;
             }
-            else if (GetIsJudgment(judgmentMeter, Judged.Higher, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
+            else if (GetIsJudgment(judgmentMeter, Judged.Higher, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
             {
                 return Judged.Higher;
             }
-            else if (GetIsJudgment(judgmentMeter, Judged.High, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
+            else if (GetIsJudgment(judgmentMeter, Judged.High, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
             {
                 return Judged.High;
             }
-            else if (GetIsJudgment(judgmentMeter, Judged.Low, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
+            else if (GetIsJudgment(judgmentMeter, Judged.Low, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
             {
                 return Judged.Low;
             }
-            else if (GetIsJudgment(judgmentMeter, Judged.Lower, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
+            else if (GetIsJudgment(judgmentMeter, Judged.Lower, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
             {
                 return Judged.Lower;
             }
-            else if (GetIsJudgment(judgmentMeter, Judged.Lowest, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
+            else if (GetIsJudgment(judgmentMeter, Judged.Lowest, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, judgmentAssist))
             {
                 return Judged.Lowest;
             }

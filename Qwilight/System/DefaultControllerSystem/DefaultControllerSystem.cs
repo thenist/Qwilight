@@ -136,24 +136,24 @@ namespace Qwilight
                                 case VirtualKey.F6 when atModeComponentWindow:
                                 case VirtualKey.F7 when atModeComponentWindow:
                                 case VirtualKey.F8 when atModeComponentWindow:
-                                    var modeComponentValue = mainViewModel.ModeComponentValue;
+                                    var modeComponent = mainViewModel.ModeComponentValue;
                                     var i = rawInput - VirtualKey.F1;
                                     var modeComponentBundle = Configure.Instance.ModeComponentBundles[i];
                                     var modeComponentBundleValue = modeComponentBundle.Value;
                                     if (mainViewModel.CanModifyModeComponent)
                                     {
-                                        modeComponentValue.CopyAs(modeComponentBundleValue);
+                                        modeComponent.CopyAs(modeComponentBundleValue);
                                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.LoadedModeComponent, i + 1, modeComponentBundle.Name), true, null, null, NotifySystem.ModeComponentID);
                                     }
-                                    else if (modeComponentValue.CanModifyMultiplier || modeComponentValue.CanModifyAudioMultiplier)
+                                    else if (modeComponent.CanModifyMultiplier || modeComponent.CanModifyAudioMultiplier)
                                     {
-                                        if (modeComponentValue.CanModifyMultiplier)
+                                        if (modeComponent.CanModifyMultiplier)
                                         {
-                                            modeComponentValue.MultiplierValue = modeComponentBundleValue.MultiplierValue;
+                                            modeComponent.MultiplierValue = modeComponentBundleValue.MultiplierValue;
                                         }
-                                        if (modeComponentValue.CanModifyAudioMultiplier)
+                                        if (modeComponent.CanModifyAudioMultiplier)
                                         {
-                                            modeComponentValue.AudioMultiplier = modeComponentBundleValue.AudioMultiplier;
+                                            modeComponent.AudioMultiplier = modeComponentBundleValue.AudioMultiplier;
                                         }
                                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.LoadedMultiplier, i + 1, modeComponentBundle.Name), true, null, null, NotifySystem.ModeComponentID);
                                     }

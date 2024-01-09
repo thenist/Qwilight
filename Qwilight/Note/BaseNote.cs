@@ -87,7 +87,7 @@ namespace Qwilight.Note
 
         public double GetY(DefaultCompute defaultComputer, double multiplier) => (Y - Component.StandardHeight) * multiplier + defaultComputer.DrawingComponentValue.judgmentMainPosition + Configure.Instance.UIConfigureValue.NoteWait;
 
-        public float GetFaint(ModeComponent modeComponentValue, double judgmentMainPosition, double faintCosine) => modeComponentValue.FaintNoteModeValue switch
+        public float GetFaint(ModeComponent modeComponent, double judgmentMainPosition, double faintCosine) => modeComponent.FaintNoteModeValue switch
         {
             ModeComponent.FaintNoteMode.Fading => (float)faintCosine,
             _ => 1F,
@@ -95,13 +95,13 @@ namespace Qwilight.Note
 
         public bool IsClose(double wait) => Wait - wait <= 5000.0;
 
-        public double GetMultiplierAsNoteMobility(ModeComponent modeComponentValue, double noteMobilityCosine, double noteMobilityValue) => modeComponentValue.NoteMobilityModeValue switch
+        public double GetMultiplierAsNoteMobility(ModeComponent modeComponent, double noteMobilityCosine, double noteMobilityValue) => modeComponent.NoteMobilityModeValue switch
         {
-            ModeComponent.NoteMobilityMode._4D => modeComponentValue.Multiplier + modeComponentValue.Multiplier * ((InputSalt % 11 + 5) / 10 - 1) * noteMobilityValue,
-            ModeComponent.NoteMobilityMode._4DHD => modeComponentValue.Multiplier + modeComponentValue.Multiplier * ((Salt % 11 + 5) / 10 - 1) * noteMobilityValue,
-            ModeComponent.NoteMobilityMode.Zip => Math.Max(1.0, modeComponentValue.Multiplier * noteMobilityCosine),
-            ModeComponent.NoteMobilityMode.ZipHD => modeComponentValue.Multiplier * noteMobilityCosine,
-            _ => modeComponentValue.Multiplier
+            ModeComponent.NoteMobilityMode._4D => modeComponent.Multiplier + modeComponent.Multiplier * ((InputSalt % 11 + 5) / 10 - 1) * noteMobilityValue,
+            ModeComponent.NoteMobilityMode._4DHD => modeComponent.Multiplier + modeComponent.Multiplier * ((Salt % 11 + 5) / 10 - 1) * noteMobilityValue,
+            ModeComponent.NoteMobilityMode.Zip => Math.Max(1.0, modeComponent.Multiplier * noteMobilityCosine),
+            ModeComponent.NoteMobilityMode.ZipHD => modeComponent.Multiplier * noteMobilityCosine,
+            _ => modeComponent.Multiplier
         };
 
         public void InitY(double logicalY) => Y = LogicalY - logicalY;
@@ -131,15 +131,15 @@ namespace Qwilight.Note
             return 0;
         }
 
-        public virtual bool IsFailedAsTooLate(double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate) => false;
+        public virtual bool IsFailedAsTooLate(double wait, ModeComponent modeComponent, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate) => false;
 
-        public virtual bool IsTooLong(double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate) => false;
+        public virtual bool IsTooLong(double wait, ModeComponent modeComponent, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate) => false;
 
         public abstract void MoveInputMillis(double millisLoopUnit, DefaultCompute defaultComputer);
 
         public abstract void SetLayer(DefaultCompute defaultComputer);
 
-        public abstract JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote);
+        public abstract JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponent, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote);
 
         public abstract JudgedNoteData? AutoJudge(double wait);
 

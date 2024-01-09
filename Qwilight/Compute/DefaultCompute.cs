@@ -191,7 +191,7 @@ namespace Qwilight.Compute
 
         public Comment EventComment { get; set; }
 
-        public double GetIIDXMultiplierMillis(ModeComponent modeComponentValue) => Math.Max(0.0, (DrawingComponentValue.judgmentMainPosition - Configure.Instance.VeilDrawingHeight) / (modeComponentValue.Multiplier * modeComponentValue.AudioMultiplier * modeComponentValue.ComponentValue.LogicalYMillis));
+        public double GetIIDXMultiplierMillis(ModeComponent modeComponent) => Math.Max(0.0, (DrawingComponentValue.judgmentMainPosition - Configure.Instance.VeilDrawingHeight) / (modeComponent.Multiplier * modeComponent.AudioMultiplier * modeComponent.ComponentValue.LogicalYMillis));
 
         public WwwLevelData WwwLevelDataValue { get; set; }
 
@@ -1434,9 +1434,9 @@ namespace Qwilight.Compute
             IsFs = new Primitive<bool>[NoteFiles.Length];
             Array.Fill(IsFs, new(false));
             ModeComponentValues = new ModeComponent[NoteFiles.Length];
-            var modeComponentValue = ViewModels.Instance.MainValue.ModeComponentValue;
-            CompatibleModeComponentValue = modeComponentValue.Clone();
-            Array.Fill(ModeComponentValues, modeComponentValue);
+            var modeComponent = ViewModels.Instance.MainValue.ModeComponentValue;
+            CompatibleModeComponentValue = modeComponent.Clone();
+            Array.Fill(ModeComponentValues, modeComponent);
             AvatarIDs = new string[NoteFiles.Length];
             Array.Fill(AvatarIDs, avatarID);
             AvatarNames = new string[NoteFiles.Length];

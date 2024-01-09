@@ -107,61 +107,61 @@ namespace Qwilight.ViewModel
             ViewModels.Instance.WwwLevelValue.Close();
             var mainViewModel = ViewModels.Instance.MainValue;
             var defaultModeComponentValue = mainViewModel.ModeComponentValue.Clone();
-            var modeComponentValue = mainViewModel.ModeComponentValue;
+            var modeComponent = mainViewModel.ModeComponentValue;
             if (!IsAutoModeCompatible)
             {
-                modeComponentValue.AutoModeValue = AutoModes.First().Value;
+                modeComponent.AutoModeValue = AutoModes.First().Value;
             }
             if (!IsNoteSaltModeCompatible)
             {
-                modeComponentValue.NoteSaltModeValue = NoteSaltModes.First().Value;
+                modeComponent.NoteSaltModeValue = NoteSaltModes.First().Value;
             }
-            modeComponentValue.AudioMultiplier = Math.Clamp(modeComponentValue.AudioMultiplier, _audioMultipliers[0], _audioMultipliers[1]);
+            modeComponent.AudioMultiplier = Math.Clamp(modeComponent.AudioMultiplier, _audioMultipliers[0], _audioMultipliers[1]);
             if (!IsFaintNoteModeCompatible)
             {
-                modeComponentValue.FaintNoteModeValue = FaintNoteModes.First().Value;
+                modeComponent.FaintNoteModeValue = FaintNoteModes.First().Value;
             }
             if (!IsJudgmentModeCompatible)
             {
-                modeComponentValue.JudgmentModeValue = JudgmentModes.First().Value;
+                modeComponent.JudgmentModeValue = JudgmentModes.First().Value;
             }
             if (!IsHitPointsModeCompatible)
             {
-                modeComponentValue.HitPointsModeValue = HitPointsModes.First().Value;
+                modeComponent.HitPointsModeValue = HitPointsModes.First().Value;
             }
             if (!IsNoteMobilityModeCompatible)
             {
-                modeComponentValue.NoteMobilityModeValue = NoteMobilityModes.First().Value;
+                modeComponent.NoteMobilityModeValue = NoteMobilityModes.First().Value;
             }
             if (!IsLongNoteModeCompatible)
             {
-                modeComponentValue.LongNoteModeValue = LongNoteModes.First().Value;
+                modeComponent.LongNoteModeValue = LongNoteModes.First().Value;
             }
             if (!IsInputFavorModeCompatible)
             {
-                modeComponentValue.InputFavorModeValue = InputFavorModes.First().Value;
+                modeComponent.InputFavorModeValue = InputFavorModes.First().Value;
             }
             if (!IsNoteModifyModeCompatible)
             {
-                modeComponentValue.NoteModifyModeValue = NoteModifyModes.First().Value;
+                modeComponent.NoteModifyModeValue = NoteModifyModes.First().Value;
             }
             if (!IsBPMModeCompatible)
             {
-                modeComponentValue.BPMModeValue = BPMModes.First().Value;
+                modeComponent.BPMModeValue = BPMModes.First().Value;
             }
             if (!IsWaveModeCompatible)
             {
-                modeComponentValue.WaveModeValue = WaveModes.First().Value;
+                modeComponent.WaveModeValue = WaveModes.First().Value;
             }
             if (!IsSetNoteModeCompatible)
             {
-                modeComponentValue.SetNoteModeValue = SetNoteModes.First().Value;
+                modeComponent.SetNoteModeValue = SetNoteModes.First().Value;
             }
             if (!IsLowestJudgmentConditionModeCompatible)
             {
-                modeComponentValue.LowestJudgmentConditionModeValue = LowestJudgmentConditionModes.First().Value;
+                modeComponent.LowestJudgmentConditionModeValue = LowestJudgmentConditionModes.First().Value;
             }
-            modeComponentValue.PutCopyNotesValueV2 = ModeComponent.PutCopyNotes.Default;
+            modeComponent.PutCopyNotesValueV2 = ModeComponent.PutCopyNotes.Default;
             var entryItem = mainViewModel.EventNoteEntryItems[GetEventNoteID()];
             mainViewModel.HandleLevyNoteFile(entryItem.NoteFile, entryItem, _wwwLevelDataValue, defaultModeComponentValue);
         }
@@ -430,7 +430,7 @@ namespace Qwilight.ViewModel
                             AutoModes.Clear();
                             if (twilightWwwLevelValue.autoMode != null)
                             {
-                                foreach (var autoMode in twilightWwwLevelValue.autoMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.AutoModeVariety].FindIndex(modeComponentValue => (ModeComponent.AutoMode)modeComponentValue.Value == value)))
+                                foreach (var autoMode in twilightWwwLevelValue.autoMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.AutoModeVariety].FindIndex(modeComponent => (ModeComponent.AutoMode)modeComponent.Value == value)))
                                 {
                                     AutoModes.Add(new()
                                     {
@@ -448,7 +448,7 @@ namespace Qwilight.ViewModel
                             NoteSaltModes.Clear();
                             if (twilightWwwLevelValue.noteSaltMode != null)
                             {
-                                foreach (var noteSaltMode in twilightWwwLevelValue.noteSaltMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.NoteSaltModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteSaltMode)modeComponentValue.Value == value)))
+                                foreach (var noteSaltMode in twilightWwwLevelValue.noteSaltMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.NoteSaltModeVariety].FindIndex(modeComponent => (ModeComponent.NoteSaltMode)modeComponent.Value == value)))
                                 {
                                     NoteSaltModes.Add(new()
                                     {
@@ -467,7 +467,7 @@ namespace Qwilight.ViewModel
                             FaintNoteModes.Clear();
                             if (twilightWwwLevelValue.faintNoteMode != null)
                             {
-                                foreach (var faintNoteMode in twilightWwwLevelValue.faintNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.FaintNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.FaintNoteMode)modeComponentValue.Value == value)))
+                                foreach (var faintNoteMode in twilightWwwLevelValue.faintNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.FaintNoteModeVariety].FindIndex(modeComponent => (ModeComponent.FaintNoteMode)modeComponent.Value == value)))
                                 {
                                     FaintNoteModes.Add(new()
                                     {
@@ -485,7 +485,7 @@ namespace Qwilight.ViewModel
                             JudgmentModes.Clear();
                             if (twilightWwwLevelValue.judgmentMode != null)
                             {
-                                foreach (var judgmentMode in twilightWwwLevelValue.judgmentMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.JudgmentModeVariety].FindIndex(modeComponentValue => (ModeComponent.JudgmentMode)modeComponentValue.Value == value)))
+                                foreach (var judgmentMode in twilightWwwLevelValue.judgmentMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.JudgmentModeVariety].FindIndex(modeComponent => (ModeComponent.JudgmentMode)modeComponent.Value == value)))
                                 {
                                     JudgmentModes.Add(new()
                                     {
@@ -504,7 +504,7 @@ namespace Qwilight.ViewModel
                             HitPointsModes.Clear();
                             if (twilightWwwLevelValue.hitPointsMode != null)
                             {
-                                foreach (var hitPointsMode in twilightWwwLevelValue.hitPointsMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.HitPointsModeVariety].FindIndex(modeComponentValue => (ModeComponent.HitPointsMode)modeComponentValue.Value == value)))
+                                foreach (var hitPointsMode in twilightWwwLevelValue.hitPointsMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.HitPointsModeVariety].FindIndex(modeComponent => (ModeComponent.HitPointsMode)modeComponent.Value == value)))
                                 {
                                     HitPointsModes.Add(new()
                                     {
@@ -522,7 +522,7 @@ namespace Qwilight.ViewModel
                             NoteMobilityModes.Clear();
                             if (twilightWwwLevelValue.noteMobilityMode != null)
                             {
-                                foreach (var noteMobilityMode in twilightWwwLevelValue.noteMobilityMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.NoteMobilityModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteMobilityMode)modeComponentValue.Value == value)))
+                                foreach (var noteMobilityMode in twilightWwwLevelValue.noteMobilityMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.NoteMobilityModeVariety].FindIndex(modeComponent => (ModeComponent.NoteMobilityMode)modeComponent.Value == value)))
                                 {
                                     NoteMobilityModes.Add(new()
                                     {
@@ -540,7 +540,7 @@ namespace Qwilight.ViewModel
                             LongNoteModes.Clear();
                             if (twilightWwwLevelValue.longNoteMode != null)
                             {
-                                foreach (var longNoteMode in twilightWwwLevelValue.longNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.LongNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.LongNoteMode)modeComponentValue.Value == value)))
+                                foreach (var longNoteMode in twilightWwwLevelValue.longNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.LongNoteModeVariety].FindIndex(modeComponent => (ModeComponent.LongNoteMode)modeComponent.Value == value)))
                                 {
                                     LongNoteModes.Add(new()
                                     {
@@ -559,7 +559,7 @@ namespace Qwilight.ViewModel
                             InputFavorModes.Clear();
                             if (twilightWwwLevelValue.inputFavorMode != null)
                             {
-                                foreach (var inputFavorMode in twilightWwwLevelValue.inputFavorMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.InputFavorModeVariety].FindIndex(modeComponentValue => (ModeComponent.InputFavorMode)modeComponentValue.Value == value)))
+                                foreach (var inputFavorMode in twilightWwwLevelValue.inputFavorMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.InputFavorModeVariety].FindIndex(modeComponent => (ModeComponent.InputFavorMode)modeComponent.Value == value)))
                                 {
                                     InputFavorModes.Add(new()
                                     {
@@ -578,7 +578,7 @@ namespace Qwilight.ViewModel
                             NoteModifyModes.Clear();
                             if (twilightWwwLevelValue.noteModifyMode != null)
                             {
-                                foreach (var noteModifyMode in twilightWwwLevelValue.noteModifyMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.NoteModifyModeVariety].FindIndex(modeComponentValue => (ModeComponent.NoteModifyMode)modeComponentValue.Value == value)))
+                                foreach (var noteModifyMode in twilightWwwLevelValue.noteModifyMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.NoteModifyModeVariety].FindIndex(modeComponent => (ModeComponent.NoteModifyMode)modeComponent.Value == value)))
                                 {
                                     NoteModifyModes.Add(new()
                                     {
@@ -597,7 +597,7 @@ namespace Qwilight.ViewModel
                             BPMModes.Clear();
                             if (twilightWwwLevelValue.bpmMode != null)
                             {
-                                foreach (var bpmMode in twilightWwwLevelValue.bpmMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.BPMModeVariety].FindIndex(modeComponentValue => (ModeComponent.BPMMode)modeComponentValue.Value == value)))
+                                foreach (var bpmMode in twilightWwwLevelValue.bpmMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.BPMModeVariety].FindIndex(modeComponent => (ModeComponent.BPMMode)modeComponent.Value == value)))
                                 {
                                     BPMModes.Add(new()
                                     {
@@ -616,7 +616,7 @@ namespace Qwilight.ViewModel
                             WaveModes.Clear();
                             if (twilightWwwLevelValue.waveMode != null)
                             {
-                                foreach (var waveMode in twilightWwwLevelValue.waveMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.WaveModeVariety].FindIndex(modeComponentValue => (ModeComponent.WaveMode)modeComponentValue.Value == value)))
+                                foreach (var waveMode in twilightWwwLevelValue.waveMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.WaveModeVariety].FindIndex(modeComponent => (ModeComponent.WaveMode)modeComponent.Value == value)))
                                 {
                                     WaveModes.Add(new()
                                     {
@@ -635,7 +635,7 @@ namespace Qwilight.ViewModel
                             SetNoteModes.Clear();
                             if (twilightWwwLevelValue.setNoteMode != null)
                             {
-                                foreach (var setNoteMode in twilightWwwLevelValue.setNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.SetNoteModeVariety].FindIndex(modeComponentValue => (ModeComponent.SetNoteMode)modeComponentValue.Value == value)))
+                                foreach (var setNoteMode in twilightWwwLevelValue.setNoteMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.SetNoteModeVariety].FindIndex(modeComponent => (ModeComponent.SetNoteMode)modeComponent.Value == value)))
                                 {
                                     SetNoteModes.Add(new()
                                     {
@@ -654,7 +654,7 @@ namespace Qwilight.ViewModel
                             LowestJudgmentConditionModes.Clear();
                             if (twilightWwwLevelValue.lowestJudgmentConditionMode != null)
                             {
-                                foreach (var lowestJudgmentConditionMode in twilightWwwLevelValue.lowestJudgmentConditionMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.LowestJudgmentConditionModeVariety].FindIndex(modeComponentValue => (ModeComponent.LowestJudgmentConditionMode)modeComponentValue.Value == value)))
+                                foreach (var lowestJudgmentConditionMode in twilightWwwLevelValue.lowestJudgmentConditionMode.OrderBy(value => toModifyModeComponentViewModel.ModifyModeComponentItems[ModifyModeComponentViewModel.LowestJudgmentConditionModeVariety].FindIndex(modeComponent => (ModeComponent.LowestJudgmentConditionMode)modeComponent.Value == value)))
                                 {
                                     LowestJudgmentConditionModes.Add(new()
                                     {

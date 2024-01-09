@@ -951,50 +951,50 @@ namespace Qwilight
 
         public ModeComponent Clone()
         {
-            var modeComponentValue = new ModeComponent();
-            modeComponentValue.CopyAs(this);
-            return modeComponentValue;
+            var modeComponent = new ModeComponent();
+            modeComponent.CopyAs(this);
+            return modeComponent;
         }
 
-        public bool IsCompatible(ModeComponent modeComponentValue)
+        public bool IsCompatible(ModeComponent modeComponent)
         {
-            if (NoteSaltModeValue != modeComponentValue.NoteSaltModeValue)
+            if (NoteSaltModeValue != modeComponent.NoteSaltModeValue)
             {
                 return false;
             }
-            if (LongNoteModeValue != modeComponentValue.LongNoteModeValue)
+            if (LongNoteModeValue != modeComponent.LongNoteModeValue)
             {
                 return false;
             }
-            if (InputFavorModeValue != modeComponentValue.InputFavorModeValue)
+            if (InputFavorModeValue != modeComponent.InputFavorModeValue)
             {
                 return false;
             }
-            if (NoteModifyModeValue != modeComponentValue.NoteModifyModeValue)
+            if (NoteModifyModeValue != modeComponent.NoteModifyModeValue)
             {
                 return false;
             }
-            if (BPMModeValue != modeComponentValue.BPMModeValue)
+            if (BPMModeValue != modeComponent.BPMModeValue)
             {
                 return false;
             }
-            if (WaveModeValue != modeComponentValue.WaveModeValue)
+            if (WaveModeValue != modeComponent.WaveModeValue)
             {
                 return false;
             }
-            if (SetNoteModeValue != modeComponentValue.SetNoteModeValue)
+            if (SetNoteModeValue != modeComponent.SetNoteModeValue)
             {
                 return false;
             }
-            if (PutCopyNotesValueV2 != modeComponentValue.PutCopyNotesValueV2)
+            if (PutCopyNotesValueV2 != modeComponent.PutCopyNotesValueV2)
             {
                 return false;
             }
             if (InputFavorMode.Labelled4 <= InputFavorModeValue && InputFavorModeValue <= InputFavorMode.Labelled48_4)
             {
-                if (InputFavorMode.Labelled4 <= modeComponentValue.InputFavorModeValue && modeComponentValue.InputFavorModeValue <= InputFavorMode.Labelled48_4)
+                if (InputFavorMode.Labelled4 <= modeComponent.InputFavorModeValue && modeComponent.InputFavorModeValue <= InputFavorMode.Labelled48_4)
                 {
-                    if (InputFavorLabelledMillis != modeComponentValue.InputFavorLabelledMillis)
+                    if (InputFavorLabelledMillis != modeComponent.InputFavorLabelledMillis)
                     {
                         return false;
                     }
@@ -1002,9 +1002,9 @@ namespace Qwilight
             }
             if (NoteModifyModeValue == NoteModifyMode.LongNote)
             {
-                if (modeComponentValue.NoteModifyModeValue == NoteModifyMode.LongNote)
+                if (modeComponent.NoteModifyModeValue == NoteModifyMode.LongNote)
                 {
-                    if (LowestLongNoteModify != modeComponentValue.LowestLongNoteModify || HighestLongNoteModify != modeComponentValue.HighestLongNoteModify)
+                    if (LowestLongNoteModify != modeComponent.LowestLongNoteModify || HighestLongNoteModify != modeComponent.HighestLongNoteModify)
                     {
                         return false;
                     }
@@ -1012,9 +1012,9 @@ namespace Qwilight
             }
             if (SetNoteModeValue != SetNoteMode.Default)
             {
-                if (modeComponentValue.SetNoteModeValue != SetNoteMode.Default)
+                if (modeComponent.SetNoteModeValue != SetNoteMode.Default)
                 {
-                    if (SetNotePut != modeComponentValue.SetNotePut || SetNotePutMillis != modeComponentValue.SetNotePutMillis)
+                    if (SetNotePut != modeComponent.SetNotePut || SetNotePutMillis != modeComponent.SetNotePutMillis)
                     {
                         return false;
                     }
@@ -1022,9 +1022,9 @@ namespace Qwilight
             }
             if (NoteSaltModeValue != NoteSaltMode.Default && NoteSaltModeValue != NoteSaltMode.Symmetric)
             {
-                if (modeComponentValue.NoteSaltModeValue != NoteSaltMode.Default && modeComponentValue.NoteSaltModeValue != NoteSaltMode.Symmetric)
+                if (modeComponent.NoteSaltModeValue != NoteSaltMode.Default && modeComponent.NoteSaltModeValue != NoteSaltMode.Symmetric)
                 {
-                    if (Salt != modeComponentValue.Salt)
+                    if (Salt != modeComponent.Salt)
                     {
                         return false;
                     }
@@ -1032,9 +1032,9 @@ namespace Qwilight
             }
             if (NoteMobilityModeValue == NoteMobilityMode._4DHD || NoteMobilityModeValue == NoteMobilityMode._4D)
             {
-                if (modeComponentValue.NoteMobilityModeValue == NoteMobilityMode._4DHD || modeComponentValue.NoteMobilityModeValue == NoteMobilityMode._4D)
+                if (modeComponent.NoteMobilityModeValue == NoteMobilityMode._4DHD || modeComponent.NoteMobilityModeValue == NoteMobilityMode._4D)
                 {
-                    if (Salt != modeComponentValue.Salt)
+                    if (Salt != modeComponent.Salt)
                     {
                         return false;
                     }
@@ -1042,9 +1042,9 @@ namespace Qwilight
             }
             if (SetNoteModeValue != SetNoteMode.Default)
             {
-                if (modeComponentValue.SetNoteModeValue != SetNoteMode.Default)
+                if (modeComponent.SetNoteModeValue != SetNoteMode.Default)
                 {
-                    if (Salt != modeComponentValue.Salt)
+                    if (Salt != modeComponent.Salt)
                     {
                         return false;
                     }
@@ -1052,9 +1052,9 @@ namespace Qwilight
             }
             if (IsSalt)
             {
-                if (modeComponentValue.IsSalt)
+                if (modeComponent.IsSalt)
                 {
-                    if (Salt != modeComponentValue.Salt)
+                    if (Salt != modeComponent.Salt)
                     {
                         return false;
                     }
@@ -1063,25 +1063,25 @@ namespace Qwilight
             return true;
         }
 
-        public void CopyAs(ModeComponent modeComponentValue, Computing valueComputing = null, bool? setSalt = null)
+        public void CopyAs(ModeComponent modeComponent, Computing valueComputing = null, bool? setSalt = null)
         {
-            AutoModeValue = modeComponentValue.AutoModeValue;
-            NoteSaltModeValue = modeComponentValue.NoteSaltModeValue;
-            AudioMultiplier = modeComponentValue.AudioMultiplier;
-            FaintNoteModeValue = modeComponentValue.FaintNoteModeValue;
-            JudgmentModeValue = modeComponentValue.JudgmentModeValue;
-            var handlingHitPointsMode = modeComponentValue.HandlingHitPointsModeValue;
-            HitPointsModeValue = modeComponentValue.HitPointsModeValue;
+            AutoModeValue = modeComponent.AutoModeValue;
+            NoteSaltModeValue = modeComponent.NoteSaltModeValue;
+            AudioMultiplier = modeComponent.AudioMultiplier;
+            FaintNoteModeValue = modeComponent.FaintNoteModeValue;
+            JudgmentModeValue = modeComponent.JudgmentModeValue;
+            var handlingHitPointsMode = modeComponent.HandlingHitPointsModeValue;
+            HitPointsModeValue = modeComponent.HitPointsModeValue;
             HandlingHitPointsModeValue = handlingHitPointsMode;
-            NoteMobilityModeValue = modeComponentValue.NoteMobilityModeValue;
-            LongNoteModeValue = modeComponentValue.LongNoteModeValue;
-            InputFavorModeValue = modeComponentValue.InputFavorModeValue;
-            NoteModifyModeValue = modeComponentValue.NoteModifyModeValue;
-            BPMModeValue = modeComponentValue.BPMModeValue;
-            WaveModeValue = modeComponentValue.WaveModeValue;
-            SetNoteModeValue = modeComponentValue.SetNoteModeValue;
-            LowestJudgmentConditionModeValue = modeComponentValue.LowestJudgmentConditionModeValue;
-            var favorJudgments = modeComponentValue.FavorJudgments;
+            NoteMobilityModeValue = modeComponent.NoteMobilityModeValue;
+            LongNoteModeValue = modeComponent.LongNoteModeValue;
+            InputFavorModeValue = modeComponent.InputFavorModeValue;
+            NoteModifyModeValue = modeComponent.NoteModifyModeValue;
+            BPMModeValue = modeComponent.BPMModeValue;
+            WaveModeValue = modeComponent.WaveModeValue;
+            SetNoteModeValue = modeComponent.SetNoteModeValue;
+            LowestJudgmentConditionModeValue = modeComponent.LowestJudgmentConditionModeValue;
+            var favorJudgments = modeComponent.FavorJudgments;
             for (var i = favorJudgments.Length - 1; i >= 0; --i)
             {
                 for (var j = favorJudgments[i].Length - 1; j >= 0; --j)
@@ -1101,7 +1101,7 @@ namespace Qwilight
             OnPropertyChanged(nameof(LowJudgment1));
             OnPropertyChanged(nameof(LowerJudgment1));
             OnPropertyChanged(nameof(LowestJudgment1));
-            var favorHitPoints = modeComponentValue.FavorHitPoints;
+            var favorHitPoints = modeComponent.FavorHitPoints;
             for (var i = favorHitPoints.Length - 1; i >= 0; --i)
             {
                 for (var j = favorHitPoints[i].Length - 1; j >= 0; --j)
@@ -1121,21 +1121,21 @@ namespace Qwilight
             OnPropertyChanged(nameof(HigherHitPoints1));
             OnPropertyChanged(nameof(HighestHitPoints0));
             OnPropertyChanged(nameof(HighestHitPoints1));
-            InputFavorLabelledMillis = modeComponentValue.InputFavorLabelledMillis;
-            LowestLongNoteModify = modeComponentValue.LowestLongNoteModify;
-            HighestLongNoteModify = modeComponentValue.HighestLongNoteModify;
-            SetNotePut = modeComponentValue.SetNotePut;
-            SetNotePutMillis = modeComponentValue.SetNotePutMillis;
-            PutCopyNotesValueV2 = modeComponentValue.PutCopyNotesValueV2;
-            CanModifyMultiplier = modeComponentValue.CanModifyMultiplier;
-            SentMultiplier = modeComponentValue.SentMultiplier;
-            MultiplierValue = modeComponentValue.MultiplierValue;
-            CanModifyAudioMultiplier = modeComponentValue.CanModifyAudioMultiplier;
+            InputFavorLabelledMillis = modeComponent.InputFavorLabelledMillis;
+            LowestLongNoteModify = modeComponent.LowestLongNoteModify;
+            HighestLongNoteModify = modeComponent.HighestLongNoteModify;
+            SetNotePut = modeComponent.SetNotePut;
+            SetNotePutMillis = modeComponent.SetNotePutMillis;
+            PutCopyNotesValueV2 = modeComponent.PutCopyNotesValueV2;
+            CanModifyMultiplier = modeComponent.CanModifyMultiplier;
+            SentMultiplier = modeComponent.SentMultiplier;
+            MultiplierValue = modeComponent.MultiplierValue;
+            CanModifyAudioMultiplier = modeComponent.CanModifyAudioMultiplier;
             if (!(setSalt ?? Configure.Instance.SetSalt))
             {
-                Salt = modeComponentValue.Salt;
+                Salt = modeComponent.Salt;
             }
-            ComputingValue = valueComputing ?? modeComponentValue.ComputingValue;
+            ComputingValue = valueComputing ?? modeComponent.ComputingValue;
         }
 
         public bool HigherMultiplier()

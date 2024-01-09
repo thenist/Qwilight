@@ -20,7 +20,7 @@ namespace Qwilight.ViewModel
         public const int SetNoteModeVariety = 11;
         public const int LowestJudgmentConditionModeVariety = 12;
 
-        int _modeComponentValueVariety;
+        int _modeComponentVariety;
         ModifyModeComponentItem _modeComponentItem;
         List<ModifyModeComponentItem> _modeComponentItems;
 
@@ -41,11 +41,11 @@ namespace Qwilight.ViewModel
 
         public int ModeComponentVariety
         {
-            get => _modeComponentValueVariety;
+            get => _modeComponentVariety;
 
             set
             {
-                _modeComponentValueVariety = value;
+                _modeComponentVariety = value;
                 ModeComponentItems = ModifyModeComponentItems[value];
                 var targetModeValue = value switch
                 {
@@ -76,48 +76,48 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _modeComponentItem, value, nameof(ModeComponentItem)))
                 {
-                    var modeComponentValue = ViewModels.Instance.MainValue.ModeComponentValue;
+                    var modeComponent = ViewModels.Instance.MainValue.ModeComponentValue;
                     switch (ModeComponentVariety)
                     {
                         case AutoModeVariety:
-                            modeComponentValue.AutoModeValue = (ModeComponent.AutoMode)value.Value;
+                            modeComponent.AutoModeValue = (ModeComponent.AutoMode)value.Value;
                             break;
                         case NoteSaltModeVariety:
-                            modeComponentValue.NoteSaltModeValue = (ModeComponent.NoteSaltMode)value.Value;
+                            modeComponent.NoteSaltModeValue = (ModeComponent.NoteSaltMode)value.Value;
                             break;
                         case FaintNoteModeVariety:
-                            modeComponentValue.FaintNoteModeValue = (ModeComponent.FaintNoteMode)value.Value;
+                            modeComponent.FaintNoteModeValue = (ModeComponent.FaintNoteMode)value.Value;
                             break;
                         case JudgmentModeVariety:
-                            modeComponentValue.JudgmentModeValue = (ModeComponent.JudgmentMode)value.Value;
+                            modeComponent.JudgmentModeValue = (ModeComponent.JudgmentMode)value.Value;
                             break;
                         case HitPointsModeVariety:
-                            modeComponentValue.HitPointsModeValue = (ModeComponent.HitPointsMode)value.Value;
+                            modeComponent.HitPointsModeValue = (ModeComponent.HitPointsMode)value.Value;
                             SetHitPointsMode();
                             break;
                         case NoteMobilityModeVariety:
-                            modeComponentValue.NoteMobilityModeValue = (ModeComponent.NoteMobilityMode)value.Value;
+                            modeComponent.NoteMobilityModeValue = (ModeComponent.NoteMobilityMode)value.Value;
                             break;
                         case LongNoteModeVariety:
-                            modeComponentValue.LongNoteModeValue = (ModeComponent.LongNoteMode)value.Value;
+                            modeComponent.LongNoteModeValue = (ModeComponent.LongNoteMode)value.Value;
                             break;
                         case InputFavorModeVariety:
-                            modeComponentValue.InputFavorModeValue = (ModeComponent.InputFavorMode)value.Value;
+                            modeComponent.InputFavorModeValue = (ModeComponent.InputFavorMode)value.Value;
                             break;
                         case NoteModifyModeVariety:
-                            modeComponentValue.NoteModifyModeValue = (ModeComponent.NoteModifyMode)value.Value;
+                            modeComponent.NoteModifyModeValue = (ModeComponent.NoteModifyMode)value.Value;
                             break;
                         case BPMModeVariety:
-                            modeComponentValue.BPMModeValue = (ModeComponent.BPMMode)value.Value;
+                            modeComponent.BPMModeValue = (ModeComponent.BPMMode)value.Value;
                             break;
                         case WaveModeVariety:
-                            modeComponentValue.WaveModeValue = (ModeComponent.WaveMode)value.Value;
+                            modeComponent.WaveModeValue = (ModeComponent.WaveMode)value.Value;
                             break;
                         case SetNoteModeVariety:
-                            modeComponentValue.SetNoteModeValue = (ModeComponent.SetNoteMode)value.Value;
+                            modeComponent.SetNoteModeValue = (ModeComponent.SetNoteMode)value.Value;
                             break;
                         case LowestJudgmentConditionModeVariety:
-                            modeComponentValue.LowestJudgmentConditionModeValue = (ModeComponent.LowestJudgmentConditionMode)value.Value;
+                            modeComponent.LowestJudgmentConditionModeValue = (ModeComponent.LowestJudgmentConditionMode)value.Value;
                             break;
                     }
                 }

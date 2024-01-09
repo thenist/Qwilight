@@ -19,15 +19,15 @@ namespace Qwilight.Note
             _isPowered = isPowered;
         }
 
-        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote)
+        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponent, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote)
         {
             switch (trapNoteJudgmentDate)
             {
                 case Component.TrapNoteJudgmentDate._1_14_6:
                     if (_isPowered && input > 0)
                     {
-                        var judgmentMeter = (wait - Wait) / modeComponentValue.AudioMultiplier;
-                        var judged = Component.GetJudged(judgmentMeter, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, Component.JudgmentAssist.Default);
+                        var judgmentMeter = (wait - Wait) / modeComponent.AudioMultiplier;
+                        var judged = Component.GetJudged(judgmentMeter, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, Component.JudgmentAssist.Default);
                         if (Component.Judged.Highest <= judged && judged <= Component.Judged.Lower)
                         {
                             return new JudgedNoteData
@@ -57,16 +57,16 @@ namespace Qwilight.Note
 
         public override void Paint(CanvasDrawingSession targetSession, bool isValidNetDrawings, DefaultCompute defaultComputer, ref Bound r)
         {
-            var modeComponentValue = defaultComputer.ModeComponentValue;
+            var modeComponent = defaultComputer.ModeComponentValue;
             var drawingComponentValue = defaultComputer.DrawingComponentValue;
             var noteHeight = GetNoteHeight(defaultComputer);
-            r.Set(GetPosition(defaultComputer), GetY(defaultComputer, GetMultiplierAsNoteMobility(modeComponentValue, defaultComputer.NoteMobilityCosine, defaultComputer.NoteMobilityValue)) - noteHeight + drawingComponentValue.noteHeightJudgments[TargetInput], GetNoteLength(defaultComputer), noteHeight);
+            r.Set(GetPosition(defaultComputer), GetY(defaultComputer, GetMultiplierAsNoteMobility(modeComponent, defaultComputer.NoteMobilityCosine, defaultComputer.NoteMobilityValue)) - noteHeight + drawingComponentValue.noteHeightJudgments[TargetInput], GetNoteLength(defaultComputer), noteHeight);
             if (r.Position1 + r.Height > 0.0)
             {
                 var trapNoteDrawing = UI.Instance.NoteDrawings[(int)defaultComputer.InputMode]?.ElementAt(TargetInput)?.ElementAt(defaultComputer.NoteFrame)?.ElementAt(TrapNoteContents)?.ElementAt(LongNote.LongNoteBefore);
                 if (trapNoteDrawing.HasValue)
                 {
-                    targetSession.PaintDrawing(ref r, trapNoteDrawing, GetFaint(modeComponentValue, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
+                    targetSession.PaintDrawing(ref r, trapNoteDrawing, GetFaint(modeComponent, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
                     defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Note, trapNoteDrawing.Value.AverageColor, r.Position0 - drawingComponentValue.mainPosition, r.Position1, r.Length, r.Height * trapNoteDrawing.Value.AverageHeight);
                 }
             }

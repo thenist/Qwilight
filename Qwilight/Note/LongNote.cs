@@ -28,14 +28,14 @@ namespace Qwilight.Note
             LongHeight = longHeight;
         }
 
-        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote)
+        public override JudgedNoteData? Judge(int input, double wait, ModeComponent modeComponent, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate, Component.TrapNoteJudgmentDate trapNoteJudgmentDate, bool isAutoLongNote)
         {
             if (input > 0)
             {
                 if (Judged == Component.Judged.Not)
                 {
-                    var judgmentMeter = (wait - Wait) / modeComponentValue.AudioMultiplier;
-                    var judged = Component.GetJudged(judgmentMeter, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate);
+                    var judgmentMeter = (wait - Wait) / modeComponent.AudioMultiplier;
+                    var judged = Component.GetJudged(judgmentMeter, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate);
                     if (judged != Component.Judged.Not)
                     {
                         return new JudgedNoteData
@@ -49,10 +49,10 @@ namespace Qwilight.Note
             }
             else if (Judged != Component.Judged.Not)
             {
-                var longJudgmentMeter = (wait - (Wait + LongWait)) / modeComponentValue.AudioMultiplier;
-                if ((isAutoLongNote && modeComponentValue.LongNoteModeValue != ModeComponent.LongNoteMode.Input) || modeComponentValue.LongNoteModeValue == ModeComponent.LongNoteMode.Auto)
+                var longJudgmentMeter = (wait - (Wait + LongWait)) / modeComponent.AudioMultiplier;
+                if ((isAutoLongNote && modeComponent.LongNoteModeValue != ModeComponent.LongNoteMode.Input) || modeComponent.LongNoteModeValue == ModeComponent.LongNoteMode.Auto)
                 {
-                    if (Component.GetIsJudgment(longJudgmentMeter, Component.Judged.Lower, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, Component.JudgmentAssist.LongNoteUp))
+                    if (Component.GetIsJudgment(longJudgmentMeter, Component.Judged.Lower, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, Component.JudgmentAssist.LongNoteUp))
                     {
                         return new JudgedNoteData
                         {
@@ -68,7 +68,7 @@ namespace Qwilight.Note
                 }
                 else
                 {
-                    var judged = Component.GetJudged(longJudgmentMeter, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, Component.JudgmentAssist.LongNoteUp);
+                    var judged = Component.GetJudged(longJudgmentMeter, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, Component.JudgmentAssist.LongNoteUp);
                     if (judged != Component.Judged.Not)
                     {
                         return new JudgedNoteData
@@ -88,12 +88,12 @@ namespace Qwilight.Note
             return null;
         }
 
-        public override bool IsTooLong(double wait, ModeComponent modeComponentValue, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate) => (wait - (Wait + LongWait)) / modeComponentValue.AudioMultiplier > Component.GetJudgmentMillis(Component.Judged.Lower, modeComponentValue, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, 1, Component.JudgmentAssist.LongNoteUp);
+        public override bool IsTooLong(double wait, ModeComponent modeComponent, double judgmentStage, Component.JudgmentModeDate judgmentModeDate, Component.JudgmentMapDate judgmentMapDate, Component.LongNoteAssistDate longNoteAssistDate) => (wait - (Wait + LongWait)) / modeComponent.AudioMultiplier > Component.GetJudgmentMillis(Component.Judged.Lower, modeComponent, judgmentStage, judgmentModeDate, judgmentMapDate, longNoteAssistDate, 1, Component.JudgmentAssist.LongNoteUp);
 
         public override void Paint(CanvasDrawingSession targetSession, bool isValidNetDrawings, DefaultCompute defaultComputer, ref Bound r)
         {
-            var modeComponentValue = defaultComputer.ModeComponentValue;
-            var multiplier = GetMultiplierAsNoteMobility(modeComponentValue, defaultComputer.NoteMobilityCosine, defaultComputer.NoteMobilityValue);
+            var modeComponent = defaultComputer.ModeComponentValue;
+            var multiplier = GetMultiplierAsNoteMobility(modeComponent, defaultComputer.NoteMobilityCosine, defaultComputer.NoteMobilityValue);
             var drawingComponentValue = defaultComputer.DrawingComponentValue;
             var judgmentMainPosition = drawingComponentValue.judgmentMainPosition;
             var y = GetY(defaultComputer, multiplier);
@@ -104,7 +104,7 @@ namespace Qwilight.Note
             var longNoteTailEdgePosition = drawingComponentValue.longNoteTailEdgePositions[TargetInput];
             var noteLength = GetNoteLength(defaultComputer);
             var notePosition = GetPosition(defaultComputer);
-            var faint = GetFaint(modeComponentValue, judgmentMainPosition, defaultComputer.FaintCosine);
+            var faint = GetFaint(modeComponent, judgmentMainPosition, defaultComputer.FaintCosine);
             var longNoteTailContentsHeight = drawingComponentValue.longNoteTailContentsHeights[TargetInput];
             var longNoteFrontContentsHeight = drawingComponentValue.longNoteFrontContentsHeights[TargetInput];
             var longNoteContentsHeight = pointHeight + longNoteTailContentsHeight + longNoteFrontContentsHeight;
@@ -168,7 +168,7 @@ namespace Qwilight.Note
                             var postableItemNoteDrawingValue = postableItemNoteDrawing.Value;
                             var postableItemNoteDrawingBound = postableItemNoteDrawingValue.DrawingBound;
                             r.Height = r.Length * postableItemNoteDrawingBound.Height / postableItemNoteDrawingBound.Length;
-                            targetSession.PaintDrawing(ref r, postableItemNoteDrawingValue, GetFaint(modeComponentValue, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
+                            targetSession.PaintDrawing(ref r, postableItemNoteDrawingValue, GetFaint(modeComponent, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
                         }
                     }
                 }

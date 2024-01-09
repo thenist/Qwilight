@@ -548,32 +548,32 @@ namespace Qwilight
                                             toLevyModeComponentValue.CopyAsJSON(twilightLevyNet.modeComponentData);
 
                                             mainViewModel.IsCommentMode = false;
-                                            var modeComponentValue = mainViewModel.ModeComponentValue;
-                                            var defaultModeComponentValue = modeComponentValue.Clone();
-                                            var defaultMultiplierValue = modeComponentValue.MultiplierValue;
-                                            modeComponentValue.ComputingValue = toLevyNoteFile;
+                                            var modeComponent = mainViewModel.ModeComponentValue;
+                                            var defaultModeComponentValue = modeComponent.Clone();
+                                            var defaultMultiplierValue = modeComponent.MultiplierValue;
+                                            modeComponent.ComputingValue = toLevyNoteFile;
                                             if (!isFavorModeComponent)
                                             {
-                                                modeComponentValue.CopyAs(toLevyModeComponentValue);
+                                                modeComponent.CopyAs(toLevyModeComponentValue);
                                             }
-                                            modeComponentValue.CanModifyMultiplier = true;
-                                            modeComponentValue.MultiplierValue = defaultMultiplierValue;
-                                            modeComponentValue.CanModifyAudioMultiplier = toLevyNetSiteViewModel.IsFavorAudioMultiplier;
-                                            if (modeComponentValue.CanModifyAudioMultiplier)
+                                            modeComponent.CanModifyMultiplier = true;
+                                            modeComponent.MultiplierValue = defaultMultiplierValue;
+                                            modeComponent.CanModifyAudioMultiplier = toLevyNetSiteViewModel.IsFavorAudioMultiplier;
+                                            if (modeComponent.CanModifyAudioMultiplier)
                                             {
-                                                modeComponentValue.AudioMultiplier = mainViewModel.ModeComponentValue.AudioMultiplier;
+                                                modeComponent.AudioMultiplier = mainViewModel.ModeComponentValue.AudioMultiplier;
                                             }
                                             else
                                             {
-                                                modeComponentValue.AudioMultiplier = toLevyModeComponentValue.AudioMultiplier;
+                                                modeComponent.AudioMultiplier = toLevyModeComponentValue.AudioMultiplier;
                                             }
                                             if (twilightLevyNet.validNetMode > 0)
                                             {
-                                                modeComponentValue.AudioMultiplier = 1.0;
-                                                modeComponentValue.FaintNoteModeValue = ModeComponent.FaintNoteMode.Default;
-                                                modeComponentValue.JudgmentModeValue = ModeComponent.JudgmentMode.Default;
-                                                modeComponentValue.HitPointsModeValue = ModeComponent.HitPointsMode.Default;
-                                                modeComponentValue.NoteMobilityModeValue = ModeComponent.NoteMobilityMode.Default;
+                                                modeComponent.AudioMultiplier = 1.0;
+                                                modeComponent.FaintNoteModeValue = ModeComponent.FaintNoteMode.Default;
+                                                modeComponent.JudgmentModeValue = ModeComponent.JudgmentMode.Default;
+                                                modeComponent.HitPointsModeValue = ModeComponent.HitPointsMode.Default;
+                                                modeComponent.NoteMobilityModeValue = ModeComponent.NoteMobilityMode.Default;
                                             }
                                             Utility.HandleUIAudio("Levy Note File");
                                             mainViewModel.SetComputingMode(new NetCompute([toLevyNoteFile], twilightLevyNet.validNetMode == 0 && isFavorModeComponent ? null : defaultModeComponentValue, AvatarID, GetAvatarName(), twilightLevyNet));
@@ -1145,12 +1145,12 @@ namespace Qwilight
                                     if (mainViewModel.NoteID512s.TryGetValue(twilightCallIOComponent.noteID, out var ioNoteFile))
                                     {
                                         mainViewModel.IsCommentMode = false;
-                                        var modeComponentValue = mainViewModel.ModeComponentValue;
-                                        var defaultModeComponentValue = modeComponentValue.Clone();
-                                        modeComponentValue.ComputingValue = ioNoteFile;
-                                        modeComponentValue.CopyAsJSON(twilightCallIOComponent.data);
-                                        modeComponentValue.CanModifyMultiplier = false;
-                                        modeComponentValue.CanModifyAudioMultiplier = false;
+                                        var modeComponent = mainViewModel.ModeComponentValue;
+                                        var defaultModeComponentValue = modeComponent.Clone();
+                                        modeComponent.ComputingValue = ioNoteFile;
+                                        modeComponent.CopyAsJSON(twilightCallIOComponent.data);
+                                        modeComponent.CanModifyMultiplier = false;
+                                        modeComponent.CanModifyAudioMultiplier = false;
                                         mainViewModel.SetComputingMode(new IOCompute([ioNoteFile], defaultModeComponentValue, twilightCallIOComponent));
                                     }
                                     else
@@ -1338,7 +1338,7 @@ namespace Qwilight
                 {
                     if (!wasMITM)
                     {
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.MITMFaultText, e.Message));
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.MITMFaultText, e.Message), false);
                         wasMITM = true;
                     }
                 }
