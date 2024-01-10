@@ -23,6 +23,10 @@
 		<SelfContained>true</SelfContained>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<RuntimeHostConfigurationOption Include="System.Runtime.Loader.UseRidGraph" Value="true" />
+	</ItemGroup>
+
 	<PropertyGroup Condition="'$(Platform)'=='x64'">
 		<DefineConstants>$(DefineConstants);X64</DefineConstants>
 		<PlatformTarget>x64</PlatformTarget>
@@ -52,7 +56,6 @@
 		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.49-beta">
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231219000" />
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
 		<PackageReference Include="OpusDotNet" Version="1.0.3" />
@@ -278,6 +281,9 @@
 		</None>
 		<None Update="Assets\x64\Igniter.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\x64\Microsoft.WindowsAppRuntime.Bootstrap.dll">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\msvcp140_1_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
