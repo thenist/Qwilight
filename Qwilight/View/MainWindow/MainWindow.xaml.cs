@@ -49,7 +49,7 @@ namespace Qwilight.View
 
             _handle = (HWND)new WindowInteropHelper(this).EnsureHandle();
             _windowXamlView.Initialize(Win32Interop.GetWindowIdFromWindow(_handle));
-            _d2DView = new CanvasSwapChainPanel();
+            _d2DView = new();
             _d2DView.PointerPressed += OnD2DPointLower;
             _d2DView.PointerMoved += OnD2DPointMove;
             _d2DView.PointerReleased += OnD2DPointHigher;
@@ -213,7 +213,7 @@ namespace Qwilight.View
                         _d2DView.Height = windowAreaHeight / windowDPI;
                     }
                 }
-                _siteView.MoveAndResize(new RectInt32(0, 0, windowAreaLength, windowAreaHeight));
+                _siteView.MoveAndResize(new(0, 0, windowAreaLength, windowAreaHeight));
             }));
             StrongReferenceMessenger.Default.Register<SetD2DViewVisibility>(this, (recipient, message) => SetD2DViewVisibility(message.IsVisible));
         }
@@ -239,7 +239,6 @@ namespace Qwilight.View
             {
                 UIHandler.Instance.HandleParallel(() =>
                 {
-                    _siteView.Enable();
                     _siteView.Show();
                 });
             }
@@ -248,7 +247,6 @@ namespace Qwilight.View
                 UIHandler.Instance.HandleParallel(() =>
                 {
                     _siteView.Hide();
-                    _siteView.Disable();
                 });
             }
         }
