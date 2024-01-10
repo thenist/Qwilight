@@ -53,7 +53,6 @@ namespace Qwilight.View
             ProfileOptimization.SetProfileRoot(QwilightComponent.QwilightEntryPath);
             ProfileOptimization.StartProfile("Qwilight.$");
 
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Microsoft.WindowsAppRuntime.Bootstrap.dll"), Path.Combine(AppContext.BaseDirectory, "Microsoft.WindowsAppRuntime.Bootstrap.dll"));
             if (!Bootstrap.TryInitialize(65540U, out _))
             {
 #if X64

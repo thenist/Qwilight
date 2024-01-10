@@ -23,10 +23,6 @@
 		<SelfContained>true</SelfContained>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<RuntimeHostConfigurationOption Include="System.Runtime.Loader.UseRidGraph" Value="true" />
-	</ItemGroup>
-
 	<PropertyGroup Condition="'$(Platform)'=='x64'">
 		<DefineConstants>$(DefineConstants);X64</DefineConstants>
 		<PlatformTarget>x64</PlatformTarget>
@@ -282,9 +278,6 @@
 		</None>
 		<None Update="Assets\x64\Igniter.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\x64\Microsoft.WindowsAppRuntime.Bootstrap.dll">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\msvcp140_1_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
