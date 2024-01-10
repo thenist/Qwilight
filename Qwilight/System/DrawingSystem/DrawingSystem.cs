@@ -2985,8 +2985,9 @@ namespace Qwilight
                 }
                 finally
                 {
-                    AvatarDrawingSystem.Instance.ClosePendingAvatarDrawings();
-                    AvatarEdgeSystem.Instance.ClosePendingAvatarEdges();
+                    AvatarDrawingSystem.Instance.ClosePendingClosables();
+                    AvatarEdgeSystem.Instance.ClosePendingClosables();
+                    PoolSystem.Instance.ClosePendingClosables();
                 }
             }
         }

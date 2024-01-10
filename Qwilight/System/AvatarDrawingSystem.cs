@@ -9,13 +9,13 @@ namespace Qwilight
 
         readonly ConcurrentDictionary<string, HandledDrawingItem> _avatarDrawings = new();
         readonly ConcurrentDictionary<string, SemaphoreSlim> _avatarCSXs = new();
-        readonly ConcurrentQueue<HandledDrawingItem> _pendingAvatarDrawings = new();
+        readonly ConcurrentQueue<IDisposable> _pendingClosables = new();
 
         public void WipeAvatarDrawing(string avatarID)
         {
             if (_avatarDrawings.TryRemove(avatarID, out var avatarDrawing))
             {
-                _pendingAvatarDrawings.Enqueue(avatarDrawing);
+                _pendingClosables.Enqueue(avatarDrawing);
             }
         }
 
@@ -27,9 +27,9 @@ namespace Qwilight
             }
         }
 
-        public void ClosePendingAvatarDrawings()
+        public void ClosePendingClosables()
         {
-            while (_pendingAvatarDrawings.TryDequeue(out var pendingAvatarDrawing))
+            while (_pendingClosables.TryDequeue(out var pendingAvatarDrawing))
             {
                 pendingAvatarDrawing.Dispose();
             }

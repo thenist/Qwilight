@@ -32,6 +32,7 @@ namespace Qwilight
         readonly ConcurrentDictionary<ValueTextID<double>, string> _valueFloat64Texts = new();
         readonly ConcurrentDictionary<FormattedTextID, string> _formattedTexts = new();
         readonly ConcurrentDictionary<long, string> _formattedUnitTexts = new();
+        readonly ConcurrentQueue<IDisposable> _pendingClosables = new();
 
         public void Wipe(bool isWPFViewVisible)
         {
@@ -44,18 +45,18 @@ namespace Qwilight
             }
             else
             {
-                foreach (var (textID, textItem) in _textItems)
+                foreach (var textID in _textItems.Keys)
                 {
-                    using (textItem)
+                    if (_textItems.TryRemove(textID, out var textItem))
                     {
-                        _textItems.TryRemove(textID, out _);
+                        _pendingClosables.Enqueue(textItem);
                     }
                 }
-                foreach (var (targetID, targetItem) in _targetItems)
+                foreach (var targetID in _targetItems.Keys)
                 {
-                    using (targetItem)
+                    if (_targetItems.TryRemove(targetID, out var targetItem))
                     {
-                        _targetItems.TryRemove(targetID, out _);
+                        _pendingClosables.Enqueue(targetItem);
                     }
                 }
             }
@@ -70,6 +71,14 @@ namespace Qwilight
             foreach (var (value, text) in _formattedUnitTexts)
             {
                 _formattedUnitTexts.TryRemove(value, out _);
+            }
+        }
+
+        public void ClosePendingClosables()
+        {
+            while (_pendingClosables.TryDequeue(out var pendingAvatarEdge))
+            {
+                pendingAvatarEdge.Dispose();
             }
         }
 
