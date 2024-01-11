@@ -3025,8 +3025,8 @@ namespace Qwilight
             var mainViewModel = ViewModels.Instance.MainValue;
             var defaultLength = (float)mainViewModel.DefaultLength;
             var defaultHeight = (float)mainViewModel.DefaultHeight;
-            var drawingQuality = new Vector2((float)(96.0 * windowAreaLength / defaultLength), (float)(96.0 * windowAreaHeight / defaultHeight));
-            var targetWindowDPI = Math.Max(drawingQuality.X, drawingQuality.Y);
+            var drawingQuality = new Vector2(windowAreaLength / defaultLength, windowAreaHeight / defaultHeight);
+            var targetWindowDPI = 96F * Math.Max(drawingQuality.X, drawingQuality.Y);
             var dataCount = Configure.Instance.DataCount;
             if (_rawTargetSystem == null)
             {

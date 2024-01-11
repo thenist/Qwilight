@@ -4,6 +4,7 @@ using Microsoft.UI;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Content;
 using Microsoft.UI.Input;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
@@ -41,6 +42,7 @@ namespace Qwilight.View
         readonly Dictionary<uint, Point> _pointIDPointPositionMap = new();
         readonly DesktopWindowXamlSource _windowXamlView = new();
         readonly DesktopChildSiteBridge _siteView;
+        readonly Viewbox _mainView;
         readonly CanvasSwapChainPanel _d2DView;
 
         public MainWindow()
@@ -56,7 +58,12 @@ namespace Qwilight.View
             _d2DView.PointerEntered += OnD2DPointEnter;
             _d2DView.PointerExited += OnD2DPointExit;
             _d2DView.PointerWheelChanged += OnD2DPointSpin;
-            _windowXamlView.Content = _d2DView;
+            _mainView = new()
+            {
+                Child = _d2DView,
+                Stretch = Configure.Instance.D2DFillMode
+            };
+            _windowXamlView.Content = _mainView;
             _windowXamlView.SystemBackdrop = new MicaBackdrop
             {
                 Kind = MicaKind.BaseAlt
@@ -187,33 +194,13 @@ namespace Qwilight.View
             StrongReferenceMessenger.Default.Register<GetWindowArea>(this, (recipient, message) => message.Reply(GetWindowArea()));
             StrongReferenceMessenger.Default.Register<GetWindowHandle>(this, (recipient, message) => message.Reply(_handle));
             StrongReferenceMessenger.Default.Register<SetD2DView>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() => _d2DView.SwapChain = message.D2DView));
+            StrongReferenceMessenger.Default.Register<SetD2DViewFill>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() => _mainView.Stretch = Configure.Instance.D2DFillMode));
             StrongReferenceMessenger.Default.Register<SetD2DViewArea>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() =>
             {
+                _d2DView.Width = _d2DView.SwapChain.Size.Width;
+                _d2DView.Height = _d2DView.SwapChain.Size.Height;
                 var windowArea = GetWindowArea();
-                var windowAreaLength = windowArea.Width;
-                var windowAreaHeight = windowArea.Height;
-                var defaultLength = _d2DView.SwapChain.Size.Width;
-                var defaultHeight = _d2DView.SwapChain.Size.Height;
-                var windowDPI = PInvoke.GetDpiForWindow(_handle) / 96.0;
-                if (Configure.Instance.IsQwilightFill)
-                {
-                    _d2DView.Width = windowAreaLength / windowDPI;
-                    _d2DView.Height = windowAreaHeight / windowDPI;
-                }
-                else
-                {
-                    if (defaultLength / windowAreaLength > defaultHeight / windowAreaHeight)
-                    {
-                        _d2DView.Width = windowAreaLength / windowDPI;
-                        _d2DView.Height = (windowAreaLength * defaultHeight / defaultLength) / windowDPI;
-                    }
-                    else
-                    {
-                        _d2DView.Width = (windowAreaHeight * defaultLength / defaultHeight) / windowDPI;
-                        _d2DView.Height = windowAreaHeight / windowDPI;
-                    }
-                }
-                _siteView.MoveAndResize(new(0, 0, windowAreaLength, windowAreaHeight));
+                _siteView.MoveAndResize(new(0, 0, windowArea.Width, windowArea.Height));
             }));
             StrongReferenceMessenger.Default.Register<SetD2DViewVisibility>(this, (recipient, message) => SetD2DViewVisibility(message.IsVisible));
         }

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using FMOD;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.Win32;
 using Qwilight.MSG;
 using Qwilight.NoteFile;
@@ -15,11 +16,13 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows;
-using System.Windows.Media;
 using Windows.Gaming.Input;
 using Windows.System;
 using Windows.Win32;
 using Windows.Win32.Graphics.Gdi;
+using Brush = System.Windows.Media.Brush;
+using FontFamily = System.Windows.Media.FontFamily;
+using Typeface = System.Windows.Media.Typeface;
 
 namespace Qwilight
 {
@@ -378,7 +381,7 @@ namespace Qwilight
         {
             if (_isLoaded)
             {
-                StrongReferenceMessenger.Default.Send<SetD2DViewArea>();
+                StrongReferenceMessenger.Default.Send<SetD2DViewFill>();
             }
         }
 
@@ -386,7 +389,9 @@ namespace Qwilight
 
         public string IsQwilightFillContents => IsQwilightFill ? LanguageSystem.Instance.QwilightFillContents : LanguageSystem.Instance.NotQwilightFillContents;
 
-        public Stretch QwilightFillMode => IsQwilightFill ? Stretch.Fill : Stretch.Uniform;
+        public System.Windows.Media.Stretch QwilightFillMode => IsQwilightFill ? System.Windows.Media.Stretch.Fill : System.Windows.Media.Stretch.Uniform;
+
+        public Stretch D2DFillMode => IsQwilightFill ? Stretch.Fill : Stretch.Uniform;
 
         public double JudgmentMeterMillis
         {
