@@ -52,17 +52,17 @@ namespace Qwilight.View
             _handle = (HWND)new WindowInteropHelper(this).EnsureHandle();
             _windowXamlView.Initialize(Win32Interop.GetWindowIdFromWindow(_handle));
             _d2DView = new();
-            _d2DView.PointerPressed += OnD2DPointLower;
-            _d2DView.PointerMoved += OnD2DPointMove;
-            _d2DView.PointerReleased += OnD2DPointHigher;
-            _d2DView.PointerEntered += OnD2DPointEnter;
-            _d2DView.PointerExited += OnD2DPointExit;
-            _d2DView.PointerWheelChanged += OnD2DPointSpin;
             _mainView = new()
             {
                 Child = _d2DView,
                 Stretch = Configure.Instance.D2DFillMode
             };
+            _mainView.PointerPressed += OnD2DPointLower;
+            _mainView.PointerMoved += OnD2DPointMove;
+            _mainView.PointerReleased += OnD2DPointHigher;
+            _mainView.PointerEntered += OnD2DPointEnter;
+            _mainView.PointerExited += OnD2DPointExit;
+            _mainView.PointerWheelChanged += OnD2DPointSpin;
             _windowXamlView.Content = _mainView;
             _windowXamlView.SystemBackdrop = new MicaBackdrop
             {
