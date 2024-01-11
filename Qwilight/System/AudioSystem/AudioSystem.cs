@@ -271,7 +271,6 @@ namespace Qwilight
         public AudioSystem()
         {
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "fmod.dll"), Path.Combine(AppContext.BaseDirectory, "fmod.dll"));
-
             _onModified = (system, type, commanddata1, commanddata2, userdata) =>
             {
                 _targetSystem.getNumDrivers(out var audioValueCount);

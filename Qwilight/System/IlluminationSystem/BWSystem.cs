@@ -127,6 +127,7 @@ namespace Qwilight
 
         public override bool Init()
         {
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "CChromaEditorLibrary64.dll"), Path.Combine(AppContext.BaseDirectory, "CChromaEditorLibrary64.dll"));
             try
             {
                 var data = new APPINFOTYPE

@@ -22,7 +22,7 @@ namespace Qwilight.View
 {
     public sealed partial class QwilightClass
     {
-        static SplashScreen _wpfLoadingAsset = new SplashScreen("Assets/Drawing/Loading.png");
+        static SplashScreen _wpfLoadingAsset = new("Assets/Drawing/Loading.png");
 
         [STAThread]
         static void Main()
