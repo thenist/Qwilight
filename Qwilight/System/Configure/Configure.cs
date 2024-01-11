@@ -2590,12 +2590,12 @@ namespace Qwilight
                         Name = "LR2 EZ",
                         Value = new double[6][]
                         {
-                            new double[] { -21.0, 21.0 },
-                            new double[] { -40.5, 40.5 },
-                            new double[] { -60.0, 60.0 },
-                            new double[] { -120.0, 120.0 },
-                            new double[] { -200.0, 200.0 },
-                            new double[] { -1000.0, 200.0 }
+                            [ -21.0, 21.0 ],
+                            [ -40.5, 40.5 ],
+                            [ -60.0, 60.0 ],
+                            [ -120.0, 120.0 ],
+                            [ -200.0, 200.0 ],
+                            [ -1000.0, 200.0 ]
                         },
                         IsDefault = true
                     },
@@ -2604,12 +2604,12 @@ namespace Qwilight
                         Name = "LR2 NM",
                         Value = new double[6][]
                         {
-                            new double[] { -18.0, 18.0 },
-                            new double[] { -29.0, 29.0 },
-                            new double[] { -40.0, 40.0 },
-                            new double[] { -100.0, 100.0 },
-                            new double[] { -200.0, 200.0 },
-                            new double[] { -1000.0, 200.0 }
+                            [ -18.0, 18.0 ],
+                            [ -29.0, 29.0 ],
+                            [ -40.0, 40.0 ],
+                            [ -100.0, 100.0 ],
+                            [ -200.0, 200.0 ],
+                            [ -1000.0, 200.0 ]
                         },
                         IsDefault = true
                     },
@@ -2618,12 +2618,12 @@ namespace Qwilight
                         Name = "LR2 HD",
                         Value = new double[6][]
                         {
-                            new double[] { -15.0, 15.0 },
-                            new double[] { -22.5, 22.5 },
-                            new double[] { -30.0, 30.0 },
-                            new double[] { -60.0, 60.0 },
-                            new double[] { -200.0, 200.0 },
-                            new double[] { -1000.0, 200.0 }
+                            [ -15.0, 15.0 ],
+                            [ -22.5, 22.5 ],
+                            [ -30.0, 30.0 ],
+                            [ -60.0, 60.0 ],
+                            [ -200.0, 200.0 ],
+                            [ -1000.0, 200.0 ]
                         },
                         IsDefault = true
                     },
@@ -2632,12 +2632,12 @@ namespace Qwilight
                         Name = "LR2 VHD",
                         Value = new double[6][]
                         {
-                            new double[] { -8.0, 8.0 },
-                            new double[] { -16.0, 16.0 },
-                            new double[] { -24.0, 24.0 },
-                            new double[] { -40.0, 40.0 },
-                            new double[] { -200.0, 200.0 },
-                            new double[] { -1000.0, 200.0 }
+                            [ -8.0, 8.0 ],
+                            [ -16.0, 16.0 ],
+                            [ -24.0, 24.0 ],
+                            [ -40.0, 40.0 ],
+                            [ -200.0, 200.0 ],
+                            [ -1000.0, 200.0 ]
                         },
                         IsDefault = true
                     },
@@ -2646,12 +2646,12 @@ namespace Qwilight
                         Name = "BEATORAJA EZ",
                         Value = new double[6][]
                         {
-                            new double[] { -20.0, 20.0 },
-                            new double[] { -40.0, 40.0 },
-                            new double[] { -60.0, 60.0 },
-                            new double[] { -150.0, 150.0 },
-                            new double[] { -220.0, 280.0 },
-                            new double[] { -500.0, 280.0 }
+                            [ -20.0, 20.0 ],
+                            [ -40.0, 40.0 ],
+                            [ -60.0, 60.0 ],
+                            [ -150.0, 150.0 ],
+                            [ -220.0, 280.0 ],
+                            [ -500.0, 280.0 ]
                         },
                         IsDefault = true
                     },
@@ -2660,12 +2660,12 @@ namespace Qwilight
                         Name = "BEATORAJA NM",
                         Value =  new double[6][]
                         {
-                            new double[] { -15.0, 15.0 },
-                            new double[] { -30.0, 30.0 },
-                            new double[] { -45.0, 45.0 },
-                            new double[] { -112.5, 112.5 },
-                            new double[] { -275.0, 350.0 },
-                            new double[] { -500.0, 350.0 }
+                            [ -15.0, 15.0 ],
+                            [ -30.0, 30.0 ],
+                            [ -45.0, 45.0 ],
+                            [ -112.5, 112.5 ],
+                            [ -275.0, 350.0 ],
+                            [ -500.0, 350.0 ]
                         },
                         IsDefault = true
                     },
@@ -2674,12 +2674,12 @@ namespace Qwilight
                         Name = "BEATORAJA HD",
                         Value = new double[6][]
                         {
-                            new double[] { -10.0, 10.0 },
-                            new double[] { -20.0, 20.0 },
-                            new double[] { -30.0, 30.0 },
-                            new double[] { -75.0, 75.0 },
-                            new double[] { -330.0, 420.0 },
-                            new double[] { -500.0, 420.0 }
+                            [ -10.0, 10.0 ],
+                            [ -20.0, 20.0 ],
+                            [ -30.0, 30.0 ],
+                            [ -75.0, 75.0 ],
+                            [ -330.0, 420.0 ],
+                            [ -500.0, 420.0 ]
                         },
                         IsDefault = true
                     },
@@ -2688,12 +2688,12 @@ namespace Qwilight
                         Name = "BEATORAJA VHD",
                         Value = new double[6][]
                         {
-                            new double[] { -5.0, 5.0 },
-                            new double[] { -10.0, 10.0 },
-                            new double[] { -15.0, 15.0 },
-                            new double[] { -37.5, 37.5 },
-                            new double[] { -385.0, 490.0 },
-                            new double[] { -500.0, 490.0 }
+                            [ -5.0, 5.0 ],
+                            [ -10.0, 10.0 ],
+                            [ -15.0, 15.0 ],
+                            [ -37.5, 37.5 ],
+                            [ -385.0, 490.0 ],
+                            [ -500.0, 490.0 ]
                         },
                         IsDefault = true
                     }
@@ -2705,12 +2705,12 @@ namespace Qwilight
                         Name = "LR2 EZ",
                         Value = new double[6][]
                         {
-                            new double[] { 120.0, 0.0 },
-                            new double[] { 120.0, 0.0 },
-                            new double[] { 120.0, 0.0 },
-                            new double[] { 60.0, 0.0 },
-                            new double[] { 0.0, -4.8 },
-                            new double[] { 0.0, -3.2 }
+                            [ 120.0, 0.0 ],
+                            [ 120.0, 0.0 ],
+                            [ 120.0, 0.0 ],
+                            [ 60.0, 0.0 ],
+                            [ 0.0, -4.8 ],
+                            [ 0.0, -3.2 ]
                         },
                         IsDefault = true
                     },
@@ -2719,12 +2719,12 @@ namespace Qwilight
                         Name = "LR2 NM",
                         Value = new double[6][]
                         {
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 50.0, 0.0 },
-                            new double[] { 0.0, -6.0 },
-                            new double[] { 0.0, -4.0 }
+                            [ 100.0, 0.0 ],
+                            [ 100.0, 0.0 ],
+                            [ 100.0, 0.0 ],
+                            [ 50.0, 0.0 ],
+                            [ 0.0, -6.0 ],
+                            [ 0.0, -4.0 ]
                         },
                         IsDefault = true
                     },
@@ -2733,13 +2733,13 @@ namespace Qwilight
                         Name = "LR2 HD",
                         Value = new double[6][]
                         {
-                            new double[] { 0.0, 0.1 },
-                            new double[] { 0.0, 0.1 },
-                            new double[] { 0.0, 0.1 },
-                            new double[] { 0.0, 0.05 },
-                            new double[] { 0.0, -10.0 },
-                            new double[] { 0.0, -6.0 }
-                        },
+                            [ 0.0, 0.1 ],
+                            [ 0.0, 0.1 ],
+                            [ 0.0, 0.1 ],
+                            [ 0.0, 0.05 ],
+                            [ 0.0, -10.0 ],
+                            [ 0.0, -6.0 ]
+},
                         IsDefault = true
                     },
                     new()
@@ -2747,12 +2747,12 @@ namespace Qwilight
                         Name = "BEATORAJA EZ",
                         Value = new double[6][]
                         {
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 50.0, 0.0 },
-                            new double[] { 0.0, -1.0 },
-                            new double[] { 0.0, -2.0 }
+                            [ 100.0, 0.0 ],
+                            [ 100.0, 0.0 ],
+                            [ 100.0, 0.0 ],
+                            [ 50.0, 0.0 ],
+                            [ 0.0, -1.0 ],
+                            [ 0.0, -2.0 ]
                         },
                         IsDefault = true
                     },
@@ -2761,12 +2761,12 @@ namespace Qwilight
                         Name = "BEATORAJA NM",
                         Value = new double[6][]
                         {
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 50.0, 0.0 },
-                            new double[] { 0.0, -1.0 },
-                            new double[] { 0.0, -3.0 }
+                            [ 100.0, 0.0 ],
+                            [ 100.0, 0.0 ],
+                            [ 100.0, 0.0 ],
+                            [ 50.0, 0.0 ],
+                            [ 0.0, -1.0 ],
+                            [ 0.0, -3.0 ]
                         },
                         IsDefault = true
                     },
@@ -2775,12 +2775,12 @@ namespace Qwilight
                         Name = "BEATORAJA HD",
                         Value = new double[6][]
                         {
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 100.0, 0.0 },
-                            new double[] { 50.0, 0.0 },
-                            new double[] { 0.0, -2.0 },
-                            new double[] { 0.0, -6.0 }
+                            [ 100.0, 0.0 ],
+                            [ 100.0, 0.0 ],
+                            [ 100.0, 0.0 ],
+                            [ 50.0, 0.0 ],
+                            [ 0.0, -2.0 ],
+                            [ 0.0, -6.0 ]
                         },
                         IsDefault = true
                     },
@@ -2789,12 +2789,12 @@ namespace Qwilight
                         Name = "BEATORAJA VHD",
                         Value = new double[6][]
                         {
-                            new double[] { 0.0, 0.15 },
-                            new double[] { 0.0, 0.135 },
-                            new double[] { 0.0, 0.12 },
-                            new double[] { 0, 0.03 },
-                            new double[] { 0.0, -5.0 },
-                            new double[] { 0.0, -10.0 }
+                            [ 0.0, 0.15 ],
+                            [ 0.0, 0.135 ],
+                            [ 0.0, 0.12 ],
+                            [ 0.0, 0.03 ],
+                            [ 0.0, -5.0 ],
+                            [ 0.0, -10.0 ]
                         },
                         IsDefault = true
                     },
@@ -2803,12 +2803,12 @@ namespace Qwilight
                         Name = "BEATORAJA UHD",
                         Value = new double[6][]
                         {
-                            new double[] { 0.0, 0.15 },
-                            new double[] { 0.0, 0.105 },
-                            new double[] { 0.0, 0.06 },
-                            new double[] { 0, 0.0 },
-                            new double[] { 0.0, -10.0 },
-                            new double[] { 0.0, -15.0 }
+                            [ 0.0, 0.15 ],
+                            [ 0.0, 0.105 ],
+                            [ 0.0, 0.06 ],
+                            [ 0.0, 0.0 ],
+                            [ 0.0, -10.0 ],
+                            [ 0.0, -15.0 ]
                         },
                         IsDefault = true
                     }

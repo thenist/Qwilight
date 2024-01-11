@@ -1,3 +1,3 @@
-protoc --plugin=.\protoc-gen-js --csharp_out=. --java_out=../../../../IdeaProjects/Twilight/src/main/java --kotlin_out=../../../../IdeaProjects/Twilight/src/main/kotlin --js_out=import_style=commonjs,binary:../../taehui/qwilight-fe/src Event.proto
+protoc --plugin=.\protoc-gen-js --csharp_out=. --java_out=../../../../IdeaProjects/Twilight/src/main/java --kotlin_out=../../../../IdeaProjects/Twilight/src/main/kotlin --js_out=import_style=commonjs,binary:../../../../WebStormProjects/taehui/qwilight-fe/src Event.proto
 protoc --csharp_out=. --java_out=../../../../IdeaProjects/Twilight/src/main/java --kotlin_out=../../../../IdeaProjects/Twilight/src/main/kotlin Comment.proto
 PAUSE
