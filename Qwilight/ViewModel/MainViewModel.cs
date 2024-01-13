@@ -3010,6 +3010,10 @@ namespace Qwilight.ViewModel
                             {
                                 Computer.SetPass = true;
                             }
+                            if (Computer.IsEscapable && !Computer.IsPausing)
+                            {
+                                Computer.SetEscape = true;
+                            }
                         }
                         break;
                     case Mode.Quit:

@@ -2040,7 +2040,7 @@ namespace Qwilight
                                                     {
                                                         assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[3].ToString(), InputAssistFont), 100, FaintClearedPaints, FaintFilledPaints, null, 0, null, null, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.UndoContents, InputAssistFont), 100);
                                                     }
-                                                    else if (defaultComputer.IsPassable)
+                                                    else if (defaultComputer.IsPassable || defaultComputer.IsEscapable)
                                                     {
                                                         assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem("ENTER", InputAssistFont), 100, FaintClearedPaints, FaintFilledPaints, null, 0, null, null, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.PassContents, InputAssistFont), 100);
                                                     }

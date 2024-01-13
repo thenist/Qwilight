@@ -154,6 +154,7 @@ namespace Qwilight.Compute
         CompilerStatus _targetCompilerStatus = CompilerStatus.Not;
         double _standMultiplier;
         bool _isPassable;
+        bool _isEscapable;
         LastStatus _lastStatus = LastStatus.Not;
         bool _paintEnlargedLastBand;
         double _millisMeter;
@@ -417,6 +418,8 @@ namespace Qwilight.Compute
 
         public virtual bool IsPassable => _isPassable;
 
+        public virtual bool IsEscapable => _isEscapable;
+
         public virtual bool IsMeterVisible => false;
 
         /// <summary>
@@ -528,6 +531,8 @@ namespace Qwilight.Compute
         }
 
         public bool SetPass { get; set; }
+
+        public bool SetEscape { get; set; }
 
         public bool IsSilent { get; set; }
 
@@ -1762,6 +1767,7 @@ namespace Qwilight.Compute
                     {
                         isValidLoopingCounter = false;
                         OnHandled();
+                        continue;
                     }
 
                     if (!IsPausing && SetPause)
@@ -2332,6 +2338,12 @@ namespace Qwilight.Compute
                             continue;
                         }
 
+                        if (SetEscape)
+                        {
+                            OnHandled();
+                            continue;
+                        }
+
                         while (endNoteID >= handlingNoteID)
                         {
                             var note = Notes[handlingNoteID];
@@ -2803,6 +2815,7 @@ namespace Qwilight.Compute
                         if (LastStatusValue == LastStatus.Not && ValidatedTotalNotes > 0 && ValidatedTotalNotes == _validJudgedNotes)
                         {
                             _lastStatus = Comment.LowestJudgment > 0 ? LastStatus.Last : LastStatus.Band1;
+                            _isEscapable = true;
                         }
 
                         void HandleJudged(BaseNote judgedNote, JudgedNoteData? judgedNoteData, double loopingCounter)
@@ -3256,7 +3269,6 @@ namespace Qwilight.Compute
                         atLoopingCounter1000 += millisLoopUnit;
                         if (atLoopingCounter1000 >= 1000.0)
                         {
-
                             atLoopingCounter1000 %= 1000.0;
                             MediaSystem.Instance.SetMediaPosition(this);
                             if (WaitingTwilightLevel == WaitingTwilight.CallIO)
@@ -4379,8 +4391,7 @@ namespace Qwilight.Compute
             {
                 SetStop = true;
                 SetInheritedValues();
-                var noteFile = NoteFiles[LevyingComputingPosition + 1];
-                ModeComponentValue.ComputingValue = noteFile;
+                ModeComponentValue.ComputingValue = NoteFiles[LevyingComputingPosition + 1];
                 ModeComponentValue.SentMultiplier = ModeComponentValue.MultiplierValue / (ModeComponentValue.BPM * ModeComponentValue.AudioMultiplier);
                 ModeComponentValue.HitPointsModeValue = ModeComponentValue.HandlingHitPointsModeValue;
                 ViewModels.Instance.MainValue.SetComputingMode(this is CommentCompute ? new CommentCompute(

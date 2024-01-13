@@ -18,6 +18,8 @@ namespace Qwilight.Compute
 
         public override bool IsPassable => false;
 
+        public override bool IsEscapable => false;
+
         public override QuitStatus QuitStatusValue => Utility.GetQuitStatusValue(Point.TargetValue, Stand.TargetValue, IsF ? 0.0 : HitPoints.TargetValue, 1);
 
         public override string TotalNotesInQuit => TotalNotes.ToString();

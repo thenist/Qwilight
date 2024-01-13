@@ -15,6 +15,8 @@ namespace Qwilight.Compute
 
         public override bool IsPassable => false;
 
+        public override bool IsEscapable => false;
+
         public override bool CanIO => false;
 
         public override Configure.InputAudioVariety InputAudioVarietyValue => Configure.InputAudioVariety.IIDX;
