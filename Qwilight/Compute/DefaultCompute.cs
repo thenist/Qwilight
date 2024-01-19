@@ -4070,9 +4070,26 @@ namespace Qwilight.Compute
                     }
                     else
                     {
-                        if (NoteFile.HandledValue == BaseNoteFile.Handled.Not || NoteFile.HandledValue == BaseNoteFile.Handled.F)
+                        if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
                         {
-                            NoteFile.HandledValue = BaseNoteFile.Handled.AssistClear;
+                            if (IsP)
+                            {
+                                NoteFile.HandledValue = BaseNoteFile.Handled.AssistClear;
+                            }
+                            else
+                            {
+                                if (IsF)
+                                {
+                                    if (NoteFile.HandledValue == BaseNoteFile.Handled.Not)
+                                    {
+                                        NoteFile.HandledValue = BaseNoteFile.Handled.F;
+                                    }
+                                }
+                                else
+                                {
+                                    NoteFile.HandledValue = BaseNoteFile.Handled.AssistClear;
+                                }
+                            }
                             DB.Instance.SetHandled(NoteFile);
                         }
                     }
