@@ -4,6 +4,7 @@ using Qwilight.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Qwilight.View
 {

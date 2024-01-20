@@ -93,7 +93,6 @@ namespace Qwilight.ViewModel
         int? _lastLowerMillis;
         bool _wasLowerMillis = true;
         bool _isUILoading;
-        bool _isDefaultEntryLoading;
         bool _isInputWantPointed;
         bool _isTwilightCommentaryPointed;
         bool _isDefaultCommentLoading;
@@ -480,18 +479,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public bool IsDefaultEntryLoading
-        {
-            get => _isDefaultEntryLoading;
-
-            set
-            {
-                if (SetProperty(ref _isDefaultEntryLoading, value, nameof(IsDefaultEntryLoading)) && !value)
-                {
-                    PointEntryView();
-                }
-            }
-        }
+        public bool IsDefaultEntryLoading { get; set; }
 
         public bool IsUILoading
         {
@@ -829,7 +817,6 @@ namespace Qwilight.ViewModel
                                 DefaultEntryVarietyValue = DefaultEntryItem.DefaultEntryVariety.Default,
                                 DefaultEntryPath = filePath
                             };
-                            UIHandler.Instance.HandleParallel(() => ViewModels.Instance.ModifyDefaultEntryValue.DefaultEntryItemCollection.Add(defaultEntryItem));
                             if (!Configure.Instance.DefaultEntryItems.Contains(defaultEntryItem))
                             {
                                 Configure.Instance.DefaultEntryItems.Add(defaultEntryItem);
@@ -852,14 +839,8 @@ namespace Qwilight.ViewModel
                     }
                     if (lastDefaultEntryItem != null)
                     {
-                        UIHandler.Instance.HandleParallel(() =>
-                        {
-                            if (!IsDefaultEntryLoading)
-                            {
-                                Configure.Instance.LastDefaultEntryItem = lastDefaultEntryItem;
-                                SetDefaultEntryItems();
-                            }
-                        });
+                        Configure.Instance.LastDefaultEntryItem = lastDefaultEntryItem;
+                        SetDefaultEntryItems();
                     }
                 });
             }
@@ -1029,6 +1010,7 @@ namespace Qwilight.ViewModel
             switch (e.Key)
             {
                 case Key.System when e.SystemKey != Key.F4:
+                case Key.Back:
                 case Key.Escape:
                 case Key.Space:
                     e.Handled = true;
@@ -2162,7 +2144,7 @@ namespace Qwilight.ViewModel
         public void Want(EntryItem wantEntryItem = null)
         {
             _wantHandler.Stop();
-            if (IsNoteFileMode && !IsDefaultEntryLoading)
+            if (IsNoteFileMode)
             {
                 UIHandler.Instance.HandleParallel(() =>
                 {

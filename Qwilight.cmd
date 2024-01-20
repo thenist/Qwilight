@@ -52,7 +52,7 @@ IF %VALVE% == 1 (
 	SET /P PW=PW: 
 )
 IF %VALVE% == 1 (
-	Qwilight\sdk\tools\ContentBuilder\builder\steamcmd +login %ID% %PW% +run_app_build ..\scripts\simple_app_build.vdf +quit
+	sdk\tools\ContentBuilder\builder\steamcmd +login %ID% %PW% +run_app_build ..\scripts\simple_app_build.vdf +quit
 )
 IF %VALVE% == 1 (
 	IF %ERRORLEVEL% == 0  (

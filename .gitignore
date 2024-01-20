@@ -345,6 +345,11 @@ healthchecksdb
 !/FMODCoreAPI/Assets/ARM64
 !/FMODCoreAPI/Assets/x64
 
+/Language/Assets/Client.json
+
+!/LedCSharp/Assets/ARM64
+!/LedCSharp/Assets/x64
+
 !/Qwilight/Assets/ARM64
 /Qwilight/Assets/ARM64/Flint.exe
 /Qwilight/Assets/ARM64/Igniter.exe
@@ -356,19 +361,14 @@ healthchecksdb
 /Qwilight/Assets/x64/NVIDIA.dll
 /Qwilight/Assets/x64/Xwindow.exe
 
-/Language/Assets/Client.json
-
-!/LedCSharp/Assets/ARM64
-!/LedCSharp/Assets/x64
-
 !/Qwilight/Protobuf/protoc.exe
 !/Qwilight/Protobuf/protoc-gen-js.exe
 
-!/Qwilight/sdk/tools/ContentBuilder/builder/steamcmd
-!/Qwilight/sdk/tools/ContentBuilder/scripts/simple_app_build.vdf
-/Qwilight/sdk/tools/ContentBuilder/builder
-/Qwilight/sdk/tools/ContentBuilder/output
+/Test/qpdgo
+
+!/sdk/tools/ContentBuilder/builder/steamcmd.exe
+!/sdk/tools/ContentBuilder/scripts/simple_app_build.vdf
+/sdk/tools/ContentBuilder/builder
+/sdk/tools/ContentBuilder/output
 
 /Qwilight.zip
-
-/Test/qpdgo
