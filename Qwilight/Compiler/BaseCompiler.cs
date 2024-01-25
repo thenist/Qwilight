@@ -364,8 +364,9 @@ namespace Qwilight.Compiler
                                 }
                                 break;
                             case ModeComponent.PutCopyNotes.P1Symmetric:
-                                foreach (var note in Notes)
+                                for (var i = Notes.Count - 1; i >= 0; --i)
                                 {
+                                    var note = Notes[i];
                                     var targetNote = CopyNote(note);
                                     if (targetNote != null)
                                     {
@@ -373,7 +374,6 @@ namespace Qwilight.Compiler
                                         {
                                             note.LevyingInput = 10 - note.LevyingInput;
                                         }
-
                                         if (targetNote.LevyingInput == 1)
                                         {
                                             targetNote.LevyingInput = 16;
@@ -387,8 +387,9 @@ namespace Qwilight.Compiler
                                 }
                                 break;
                             case ModeComponent.PutCopyNotes.P2Symmetric:
-                                foreach (var note in Notes)
+                                for (var i = Notes.Count - 1; i >= 0; --i)
                                 {
+                                    var note = Notes[i];
                                     var targetNote = CopyNote(note);
                                     if (targetNote != null)
                                     {

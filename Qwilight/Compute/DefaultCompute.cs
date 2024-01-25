@@ -2173,6 +2173,7 @@ namespace Qwilight.Compute
                         {
                             LoopingCounter += millisLoopUnit * AudioMultiplier;
                         }
+                        _isPassable = LoopingCounter < PassableWait;
 
                         while (TwilightCompiledIOQueue.TryDequeue(out var twilightCompiledIO))
                         {
@@ -2330,15 +2331,14 @@ namespace Qwilight.Compute
                             FaintLayered += Utility.GetMove(1.0, FaintLayered, 1000.0 / millisLoopUnit);
                         }
 
-                        if ((_isPassable = LoopingCounter < PassableWait) && SetPass)
+                        if (SetPass)
                         {
-                            LevyingWait = PassableWait;
                             HandleUIAudio("Pass");
+                            LevyingWait = PassableWait;
                             SetUndo = true;
                             continue;
                         }
-
-                        if (SetEscape)
+                        else if (SetEscape)
                         {
                             OnHandled();
                             continue;

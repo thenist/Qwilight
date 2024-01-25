@@ -2986,13 +2986,13 @@ namespace Qwilight.ViewModel
                                     break;
                             }
                         }
-                        else
+                        else if (!Computer.IsPausing)
                         {
-                            if (Computer.IsPassable && !Computer.IsPausing)
+                            if (Computer.IsPassable)
                             {
                                 Computer.SetPass = true;
                             }
-                            if (Computer.IsEscapable && !Computer.IsPausing)
+                            else if (Computer.IsEscapable)
                             {
                                 Computer.SetEscape = true;
                             }

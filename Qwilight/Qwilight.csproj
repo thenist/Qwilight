@@ -36,6 +36,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Assets\UI\%40Default\%40Default.zip.old" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AuraServiceLib.NET" Version="1.0.1" />
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
@@ -64,7 +68,7 @@
 		<PackageReference Include="UTF.Unknown" Version="2.5.1" />
 		<PackageReference Include="Vortice.DirectInput" Version="3.3.4" />
 		<PackageReference Include="Vortice.XInput" Version="3.3.4" />
-		<PackageReference Include="YamlDotNet" Version="13.7.1" />
+		<PackageReference Include="YamlDotNet" Version="15.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
