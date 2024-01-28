@@ -578,7 +578,7 @@ namespace Qwilight
                 public double multiplier;
                 public Component.InputMode inputMode;
                 public int stand;
-                public int band;
+                public int highestBand;
                 public double point;
                 public double hitPoints;
                 public bool isF;

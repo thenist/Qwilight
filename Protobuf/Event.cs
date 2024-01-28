@@ -22,7 +22,7 @@ public static partial class EventReflection {
   static EventReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "CgtFdmVudC5wcm90byL3MAoFRXZlbnQSDgoGbWlsbGlzGAEgASgDEhAKCGF2",
+          "CgtFdmVudC5wcm90byKMMQoFRXZlbnQSDgoGbWlsbGlzGAEgASgDEhAKCGF2",
           "YXRhcklEGAIgASgJEh8KB2V2ZW50SUQYAyABKA4yDi5FdmVudC5FdmVudElE",
           "EgwKBHRleHQYBCABKAkSDAoEZGF0YRgFIAMoDBIxCg9xd2lsaWdodENhbGxO",
           "ZXQYBiABKAsyFi5FdmVudC5Rd2lsaWdodENhbGxOZXRIABIxCg90d2lsaWdo",
@@ -56,117 +56,118 @@ public static partial class EventReflection {
           "CBISCgpsYXN0SnVkZ2VkGAkgASgFEhUKDWhpdFBvaW50c01vZGUYCiABKAUS",
           "FgoOdGFyZ2V0UG9zaXRpb24YCyABKAUSIwoIZHJhd2luZ3MYDCADKAsyES5F",
           "dmVudC5OZXREcmF3aW5nEjEKEGRyYXdpbmdDb21wb25lbnQYDSABKAsyFy5F",
-          "dmVudC5EcmF3aW5nQ29tcG9uZW50GpgKCg9Rd2lsaWdodENhbGxOZXQSDgoG",
+          "dmVudC5EcmF3aW5nQ29tcG9uZW50Gq0KCg9Rd2lsaWdodENhbGxOZXQSDgoG",
           "c2l0ZUlEGAEgASgJEhEKCWhhbmRsZXJJRBgCIAEoCRIvCg9hdmF0YXJOZXRT",
           "dGF0dXMYAyABKA4yFi5FdmVudC5BdmF0YXJOZXRTdGF0dXMSDQoFc3RhbmQY",
-          "BCABKAUSDAoEYmFuZBgFIAEoBRINCgVwb2ludBgGIAEoARIRCgloaXRQb2lu",
-          "dHMYByABKAESEAoIaXNGYWlsZWQYCCABKAgSEgoKbGFzdEp1ZGdlZBgJIAEo",
-          "BRIjCghkcmF3aW5ncxgKIAMoCzIRLkV2ZW50Lk5ldERyYXdpbmcSMQoQZHJh",
-          "d2luZ0NvbXBvbmVudBgLIAEoCzIXLkV2ZW50LkRyYXdpbmdDb21wb25lbnQS",
-          "DQoFdGl0bGUYDCABKAkSDgoGYXJ0aXN0GA0gASgJEg0KBWdlbnJlGA4gASgJ",
-          "Eg0KBWxldmVsGA8gASgFEhEKCWxldmVsVGV4dBgQIAEoCRITCgt3YW50TGV2",
-          "ZWxJRBgRIAEoCRIQCghhdXRvTW9kZRgSIAEoBRIUCgxub3RlU2FsdE1vZGUY",
-          "EyABKAUSFwoPYXVkaW9NdWx0aXBsaWVyGBQgASgBEhUKDWZhaW50Tm90ZU1v",
-          "ZGUYFSABKAUSFAoManVkZ21lbnRNb2RlGBYgASgFEhUKDWhpdFBvaW50c01v",
-          "ZGUYFyABKAUSGAoQbm90ZU1vYmlsaXR5TW9kZRgYIAEoBRIUCgxsb25nTm90",
-          "ZU1vZGUYGSABKAUSFgoOaW5wdXRGYXZvck1vZGUYGiABKAUSFgoObm90ZU1v",
-          "ZGlmeU1vZGUYGyABKAUSDwoHYnBtTW9kZRgcIAEoBRIQCgh3YXZlTW9kZRgd",
-          "IAEoBRITCgtzZXROb3RlTW9kZRgeIAEoBRIjChtsb3dlc3RKdWRnbWVudENv",
-          "bmRpdGlvbk1vZGUYHyABKAUSEgoKdG90YWxOb3RlcxggIAEoBRIVCg1qdWRn",
-          "bWVudFN0YWdlGCEgASgBEhYKDmhpdFBvaW50c1ZhbHVlGCIgASgBEhkKEWhp",
-          "Z2hlc3RJbnB1dENvdW50GCMgASgFEg4KBmxlbmd0aBgkIAEoARILCgNicG0Y",
-          "JSABKAESEgoKbXVsdGlwbGllchgmIAEoARIRCglpbnB1dE1vZGUYJyABKAUS",
-          "GAoQaGlnaGVzdEp1ZGdtZW50MBgoIAEoARIXCg9oaWdoZXJKdWRnbWVudDAY",
-          "KSABKAESFQoNaGlnaEp1ZGdtZW50MBgqIAEoARIUCgxsb3dKdWRnbWVudDAY",
-          "KyABKAESFgoObG93ZXJKdWRnbWVudDAYLCABKAESFwoPbG93ZXN0SnVkZ21l",
-          "bnQwGC0gASgBEhgKEGhpZ2hlc3RKdWRnbWVudDEYLiABKAESFwoPaGlnaGVy",
-          "SnVkZ21lbnQxGC8gASgBEhUKDWhpZ2hKdWRnbWVudDEYMCABKAESFAoMbG93",
-          "SnVkZ21lbnQxGDEgASgBEhYKDmxvd2VySnVkZ21lbnQxGDIgASgBEhcKD2xv",
-          "d2VzdEp1ZGdtZW50MRgzIAEoARIXCg9oaWdoZXN0SnVkZ21lbnQYNCABKAUS",
-          "FgoOaGlnaGVySnVkZ21lbnQYNSABKAUSFAoMaGlnaEp1ZGdtZW50GDYgASgF",
-          "EhMKC2xvd0p1ZGdtZW50GDcgASgFEhUKDWxvd2VySnVkZ21lbnQYOCABKAUS",
-          "FgoObG93ZXN0SnVkZ21lbnQYOSABKAUavgEKCk5ldERyYXdpbmcSMQoOZHJh",
-          "d2luZ1ZhcmlldHkYASABKA4yGS5FdmVudC5OZXREcmF3aW5nLlZhcmlldHkS",
-          "DQoFcGFyYW0YAiABKA0SEQoJcG9zaXRpb24wGAMgASgBEhEKCXBvc2l0aW9u",
-          "MRgEIAEoARIOCgZsZW5ndGgYBSABKAESDgoGaGVpZ2h0GAYgASgBIigKB1Zh",
-          "cmlldHkSCAoETm90ZRAAEggKBE1haW4QARIJCgVNZXRlchACGkcKEERyYXdp",
-          "bmdDb21wb25lbnQSFQoNcDJCdWlsdExlbmd0aBgBIAEoAhIcChRqdWRnbWVu",
-          "dE1haW5Qb3NpdGlvbhgCIAEoAhpVCg9Rd2lsaWdodElPSW5wdXQSEQoJYXZh",
-          "dGFySURzGAEgAygJEhEKCWhhbmRsZXJJRBgCIAEoCRINCgVpbnB1dBgDIAEo",
-          "BRINCgVwb3dlchgEIAEoBRpCCg9Ud2lsaWdodElPSW5wdXQSEQoJaGFuZGxl",
-          "cklEGAEgASgJEg0KBWlucHV0GAIgASgFEg0KBXBvd2VyGAMgASgFGlcKD1F3",
-          "aWxpZ2h0SU9KdWRnZRIRCglhdmF0YXJJRHMYASADKAkSEQoJaGFuZGxlcklE",
-          "GAIgASgJEg4KBm5vdGVJRBgDIAEoBRIOCgZqdWRnZWQYBCABKAUaRAoPVHdp",
-          "bGlnaHRJT0p1ZGdlEhEKCWhhbmRsZXJJRBgBIAEoCRIOCgZub3RlSUQYAiAB",
-          "KAUSDgoGanVkZ2VkGAMgASgFGnUKF1F3aWxpZ2h0SU9KdWRnbWVudE1ldGVy",
-          "EhEKCWF2YXRhcklEcxgBIAMoCRIRCgloYW5kbGVySUQYAiABKAkSDQoFaW5w",
-          "dXQYAyABKAUSFQoNanVkZ21lbnRNZXRlchgEIAEoARIOCgZhc3Npc3QYBSAB",
-          "KAUaYgoXVHdpbGlnaHRJT0p1ZGdtZW50TWV0ZXISEQoJaGFuZGxlcklEGAEg",
-          "ASgJEg0KBWlucHV0GAIgASgFEhUKDWp1ZGdtZW50TWV0ZXIYAyABKAESDgoG",
-          "YXNzaXN0GAQgASgFGoQBChhRd2lsaWdodElPTm90ZVZpc2liaWxpdHkSEQoJ",
-          "YXZhdGFySURzGAEgAygJEhEKCWhhbmRsZXJJRBgCIAEoCRIOCgZub3RlSUQY",
-          "AyABKAUSGwoTc2V0VmFsaWRKdWRnZWROb3RlcxgEIAEoCBIVCg1zZXROb3Rl",
-          "RmFpbGVkGAUgASgIGnEKGFR3aWxpZ2h0SU9Ob3RlVmlzaWJpbGl0eRIRCglo",
-          "YW5kbGVySUQYASABKAkSDgoGbm90ZUlEGAIgASgFEhsKE3NldFZhbGlkSnVk",
-          "Z2VkTm90ZXMYAyABKAgSFQoNc2V0Tm90ZUZhaWxlZBgEIAEoCBpQChRRd2ls",
-          "aWdodElPTXVsdGlwbGllchIRCglhdmF0YXJJRHMYASADKAkSEQoJaGFuZGxl",
-          "cklEGAIgASgJEhIKCm11bHRpcGxpZXIYAyABKAEaPQoUVHdpbGlnaHRJT011",
-          "bHRpcGxpZXISEQoJaGFuZGxlcklEGAEgASgJEhIKCm11bHRpcGxpZXIYAiAB",
-          "KAEaWgoZUXdpbGlnaHRJT0F1ZGlvTXVsdGlwbGllchIRCglhdmF0YXJJRHMY",
-          "ASADKAkSEQoJaGFuZGxlcklEGAIgASgJEhcKD2F1ZGlvTXVsdGlwbGllchgD",
-          "IAEoARpHChlUd2lsaWdodElPQXVkaW9NdWx0aXBsaWVyEhEKCWhhbmRsZXJJ",
-          "RBgBIAEoCRIXCg9hdWRpb011bHRpcGxpZXIYAiABKAEaNgoSVHdpbGlnaHRB",
-          "dWRpb0lucHV0Eg4KBnNpdGVJRBgBIAEoCRIQCghhdmF0YXJJRBgCIAEoCRqG",
-          "AQoQUXdpbGlnaHRQb3N0SXRlbRIOCgZzaXRlSUQYASABKAkSEQoJaGFuZGxl",
-          "cklEGAIgASgJEhIKCnBvc3RlZEl0ZW0YAyABKAUSEgoKaXNQb3NpdGl2ZRgE",
-          "IAEoBRISCgpsb3dlc3RXYWl0GAUgASgBEhMKC2hpZ2hlc3RXYWl0GAYgASgB",
-          "GlsKEFR3aWxpZ2h0UG9zdEl0ZW0SEQoJaGFuZGxlcklEGAEgASgJEhIKCnBv",
-          "c3RlZEl0ZW0YAiABKAUSEgoKYXZhdGFyTmFtZRgDIAEoCRIMCgR3YWl0GAQg",
-          "ASgBIjUKD0F2YXRhck5ldFN0YXR1cxILCgdEZWZhdWx0EAASCQoFQ2xlYXIQ",
-          "ARIKCgZGYWlsZWQQAiKqDQoHRXZlbnRJRBILCgdTSUdOX0lOEAASDwoLTk9U",
-          "X1NJR05fSU4QARILCgdXQVJOSU5HEAISDQoJU0lURV9ZRUxMEAMSDwoLQ0FM",
-          "TF9CVU5ETEUQBBISCg5TQVZFX0FTX0JVTkRMRRAFEhEKDVNBVklOR19CVU5E",
-          "TEUQBhIPCgtXSVBFX0JVTkRMRRAHEg4KClNFVF9CVU5ETEUQCBIPCgtDQUxM",
-          "X1VCVU5UVRAJEhQKEENBTExfU0lURV9BVkFUQVIQChILCgdDT01NRU5UEAsS",
-          "EQoNU0VUX1NJVFVBVElPThAMEg0KCU5FV19USVRMRRANEhYKElNUT1BfU0FW",
-          "SU5HX0JVTkRMRRAOEhAKDFNBVkVEX0JVTkRMRRAPEg8KC1NBVkVfQlVORExF",
-          "EBASDgoKRU5URVJfU0lURRAREg0KCVFVSVRfU0lURRASEg8KC1dJUEVfVUJV",
-          "TlRVEBMSDAoITkVXX1NJVEUQFBIOCgpORVdfVUJVTlRVEBUSEAoMRVhJTEVf",
-          "QVZBVEFSEBYSEwoPTkVXX1NJTEVOVF9TSVRFEBcSDQoJRVNUQUJMSVNIEBgS",
-          "EgoOQ0FMTF9DT05GSUdVUkUQGRIRCg1TRVRfQ09ORklHVVJFEBoSDwoLTk9U",
-          "SUZZX0lORk8QGxIMCghMRVZZX05FVBAcEgwKCENPTVBJTEVEEB0SDAoIQ0FM",
-          "TF9ORVQQHhIWChJTRVRfTU9ERV9DT01QT05FTlQQHxIcChhTRVRfRkFWT1Jf",
-          "TU9ERV9DT01QT05FTlQQIBIZChVTRVRfVkFMSURfSFVOVEVSX01PREUQIRIa",
-          "ChZDQUxMX05FVF9TSVRFX0NPTU1FTlRTECISEQoNU0VUX05PVEVfRklMRRAj",
-          "EhEKDVNFVF9TSVRFX05BTUUQJBIRCg1TRVRfU0lURV9IQU5EECUSDAoIUVVJ",
-          "VF9ORVQQJhIUChBTQVZJTkdfQVNfQlVORExFECcSEwoPU0FWRURfQVNfQlVO",
-          "RExFECgSGQoVU1RPUF9TQVZJTkdfQVNfQlVORExFECkSFQoRU0FWRV9ERUZB",
-          "VUxUX05PVEUQKhINCglQT1NUX0ZJTEUQKxITCg9TQVZFX0RFRkFVTFRfVUkQ",
-          "LBIeChpTRVRfRkFWT1JfQVVESU9fTVVMVElQTElFUhAtEhEKDUNBTExfU0lU",
-          "RV9ORVQQLhIOCgpOT1RJRllfWUVTEC8SCwoHQ0FMTF9JTxAwEhUKEUNBTExf",
-          "SU9fQ09NUE9ORU5UEDESDwoLQ09NUElMRURfSU8QMhILCgdMRVZZX0lPEDMS",
-          "DAoISU9fSU5QVVQQNBIMCghJT19KVURHRRA1EhYKEklPX05PVEVfVklTSUJJ",
-          "TElUWRA2EhUKEUlPX0pVREdNRU5UX01FVEVSEDgSEQoNSU9fTVVMVElQTElF",
-          "UhA5EhcKE0lPX0FVRElPX01VTFRJUExJRVIQOhIMCghJT19QQVVTRRA7EgsK",
-          "B0lPX1FVSVQQPBIKCgZJT19OT1QQPRIPCgtBVURJT19JTlBVVBA+EhwKGENB",
-          "TExfU0lURV9NT0RFX0NPTVBPTkVOVBA/Eg4KCkNPTU1FTlRBUlkQQRINCglX",
-          "V1dfTEVWRUwQQhIQCgxBVkFUQVJfVElUTEUQQxIdChlJTlZBTElEQVRFX0FW",
-          "QVRBUl9EUkFXSU5HEEQSGwoXSU5WQUxJREFURV9BVkFUQVJfVElUTEUQRRIM",
-          "CghMRVZFTF9VUBBGEhcKE1NFVF9GQVZPUl9OT1RFX0ZJTEUQRxISCg5HRVRf",
-          "U0lURV9ZRUxMUxBIEhAKDFNFVF9MQU5HVUFHRRBJEhEKDVZBTFZFX0NPTU1F",
-          "TlQQShIOCgpBQklMSVRZX1VQEEsSCQoFQ0xPU0UQTBIUChBVTkFWQUlMQUJM",
-          "RV9EQVRFEE0SDwoLQVZBVEFSX0VER0UQThIaChZJTlZBTElEQVRFX0FWQVRB",
-          "Ul9FREdFEE8SGQoVRkFJTEVEX1ZBTElEQVRFX1RPVEVNEFASFAoQTU9ESUZZ",
-          "X1NJVEVfWUVMTBBREhIKDldJUEVfU0lURV9ZRUxMEFISGgoWQUxSRUFEWV9M",
-          "T0FESU5HX0JVTkRMRRBTEg0KCVNFVF9GQVZPUhBUEhYKElNFVF9BVVRPX1NJ",
-          "VEVfSEFORBBVEhQKEFNFVF9BVkFUQVJfR1JPVVAQVhINCglQT1NUX0lURU0Q",
-          "VxIWChJTRVRfVkFMSURfTkVUX01PREUQWBIeChpTRVRfQUxMT1dFRF9QT1NU",
-          "QUJMRV9JVEVNUxBZQgoKCGZhc3RUZXh0YgZwcm90bzM="));
+          "BCABKAUSDAoEYmFuZBgFIAEoBRITCgtoaWdoZXN0QmFuZBgGIAEoBRINCgVw",
+          "b2ludBgHIAEoARIRCgloaXRQb2ludHMYCCABKAESEAoIaXNGYWlsZWQYCSAB",
+          "KAgSEgoKbGFzdEp1ZGdlZBgKIAEoBRIjCghkcmF3aW5ncxgLIAMoCzIRLkV2",
+          "ZW50Lk5ldERyYXdpbmcSMQoQZHJhd2luZ0NvbXBvbmVudBgMIAEoCzIXLkV2",
+          "ZW50LkRyYXdpbmdDb21wb25lbnQSDQoFdGl0bGUYDSABKAkSDgoGYXJ0aXN0",
+          "GA4gASgJEg0KBWdlbnJlGA8gASgJEg0KBWxldmVsGBAgASgFEhEKCWxldmVs",
+          "VGV4dBgRIAEoCRITCgt3YW50TGV2ZWxJRBgSIAEoCRIQCghhdXRvTW9kZRgT",
+          "IAEoBRIUCgxub3RlU2FsdE1vZGUYFCABKAUSFwoPYXVkaW9NdWx0aXBsaWVy",
+          "GBUgASgBEhUKDWZhaW50Tm90ZU1vZGUYFiABKAUSFAoManVkZ21lbnRNb2Rl",
+          "GBcgASgFEhUKDWhpdFBvaW50c01vZGUYGCABKAUSGAoQbm90ZU1vYmlsaXR5",
+          "TW9kZRgZIAEoBRIUCgxsb25nTm90ZU1vZGUYGiABKAUSFgoOaW5wdXRGYXZv",
+          "ck1vZGUYGyABKAUSFgoObm90ZU1vZGlmeU1vZGUYHCABKAUSDwoHYnBtTW9k",
+          "ZRgdIAEoBRIQCgh3YXZlTW9kZRgeIAEoBRITCgtzZXROb3RlTW9kZRgfIAEo",
+          "BRIjChtsb3dlc3RKdWRnbWVudENvbmRpdGlvbk1vZGUYICABKAUSEgoKdG90",
+          "YWxOb3RlcxghIAEoBRIVCg1qdWRnbWVudFN0YWdlGCIgASgBEhYKDmhpdFBv",
+          "aW50c1ZhbHVlGCMgASgBEhkKEWhpZ2hlc3RJbnB1dENvdW50GCQgASgFEg4K",
+          "Bmxlbmd0aBglIAEoARILCgNicG0YJiABKAESEgoKbXVsdGlwbGllchgnIAEo",
+          "ARIRCglpbnB1dE1vZGUYKCABKAUSGAoQaGlnaGVzdEp1ZGdtZW50MBgpIAEo",
+          "ARIXCg9oaWdoZXJKdWRnbWVudDAYKiABKAESFQoNaGlnaEp1ZGdtZW50MBgr",
+          "IAEoARIUCgxsb3dKdWRnbWVudDAYLCABKAESFgoObG93ZXJKdWRnbWVudDAY",
+          "LSABKAESFwoPbG93ZXN0SnVkZ21lbnQwGC4gASgBEhgKEGhpZ2hlc3RKdWRn",
+          "bWVudDEYLyABKAESFwoPaGlnaGVySnVkZ21lbnQxGDAgASgBEhUKDWhpZ2hK",
+          "dWRnbWVudDEYMSABKAESFAoMbG93SnVkZ21lbnQxGDIgASgBEhYKDmxvd2Vy",
+          "SnVkZ21lbnQxGDMgASgBEhcKD2xvd2VzdEp1ZGdtZW50MRg0IAEoARIXCg9o",
+          "aWdoZXN0SnVkZ21lbnQYNSABKAUSFgoOaGlnaGVySnVkZ21lbnQYNiABKAUS",
+          "FAoMaGlnaEp1ZGdtZW50GDcgASgFEhMKC2xvd0p1ZGdtZW50GDggASgFEhUK",
+          "DWxvd2VySnVkZ21lbnQYOSABKAUSFgoObG93ZXN0SnVkZ21lbnQYOiABKAUa",
+          "vgEKCk5ldERyYXdpbmcSMQoOZHJhd2luZ1ZhcmlldHkYASABKA4yGS5FdmVu",
+          "dC5OZXREcmF3aW5nLlZhcmlldHkSDQoFcGFyYW0YAiABKA0SEQoJcG9zaXRp",
+          "b24wGAMgASgBEhEKCXBvc2l0aW9uMRgEIAEoARIOCgZsZW5ndGgYBSABKAES",
+          "DgoGaGVpZ2h0GAYgASgBIigKB1ZhcmlldHkSCAoETm90ZRAAEggKBE1haW4Q",
+          "ARIJCgVNZXRlchACGkcKEERyYXdpbmdDb21wb25lbnQSFQoNcDJCdWlsdExl",
+          "bmd0aBgBIAEoAhIcChRqdWRnbWVudE1haW5Qb3NpdGlvbhgCIAEoAhpVCg9R",
+          "d2lsaWdodElPSW5wdXQSEQoJYXZhdGFySURzGAEgAygJEhEKCWhhbmRsZXJJ",
+          "RBgCIAEoCRINCgVpbnB1dBgDIAEoBRINCgVwb3dlchgEIAEoBRpCCg9Ud2ls",
+          "aWdodElPSW5wdXQSEQoJaGFuZGxlcklEGAEgASgJEg0KBWlucHV0GAIgASgF",
+          "Eg0KBXBvd2VyGAMgASgFGlcKD1F3aWxpZ2h0SU9KdWRnZRIRCglhdmF0YXJJ",
+          "RHMYASADKAkSEQoJaGFuZGxlcklEGAIgASgJEg4KBm5vdGVJRBgDIAEoBRIO",
+          "CgZqdWRnZWQYBCABKAUaRAoPVHdpbGlnaHRJT0p1ZGdlEhEKCWhhbmRsZXJJ",
+          "RBgBIAEoCRIOCgZub3RlSUQYAiABKAUSDgoGanVkZ2VkGAMgASgFGnUKF1F3",
+          "aWxpZ2h0SU9KdWRnbWVudE1ldGVyEhEKCWF2YXRhcklEcxgBIAMoCRIRCglo",
+          "YW5kbGVySUQYAiABKAkSDQoFaW5wdXQYAyABKAUSFQoNanVkZ21lbnRNZXRl",
+          "chgEIAEoARIOCgZhc3Npc3QYBSABKAUaYgoXVHdpbGlnaHRJT0p1ZGdtZW50",
+          "TWV0ZXISEQoJaGFuZGxlcklEGAEgASgJEg0KBWlucHV0GAIgASgFEhUKDWp1",
+          "ZGdtZW50TWV0ZXIYAyABKAESDgoGYXNzaXN0GAQgASgFGoQBChhRd2lsaWdo",
+          "dElPTm90ZVZpc2liaWxpdHkSEQoJYXZhdGFySURzGAEgAygJEhEKCWhhbmRs",
+          "ZXJJRBgCIAEoCRIOCgZub3RlSUQYAyABKAUSGwoTc2V0VmFsaWRKdWRnZWRO",
+          "b3RlcxgEIAEoCBIVCg1zZXROb3RlRmFpbGVkGAUgASgIGnEKGFR3aWxpZ2h0",
+          "SU9Ob3RlVmlzaWJpbGl0eRIRCgloYW5kbGVySUQYASABKAkSDgoGbm90ZUlE",
+          "GAIgASgFEhsKE3NldFZhbGlkSnVkZ2VkTm90ZXMYAyABKAgSFQoNc2V0Tm90",
+          "ZUZhaWxlZBgEIAEoCBpQChRRd2lsaWdodElPTXVsdGlwbGllchIRCglhdmF0",
+          "YXJJRHMYASADKAkSEQoJaGFuZGxlcklEGAIgASgJEhIKCm11bHRpcGxpZXIY",
+          "AyABKAEaPQoUVHdpbGlnaHRJT011bHRpcGxpZXISEQoJaGFuZGxlcklEGAEg",
+          "ASgJEhIKCm11bHRpcGxpZXIYAiABKAEaWgoZUXdpbGlnaHRJT0F1ZGlvTXVs",
+          "dGlwbGllchIRCglhdmF0YXJJRHMYASADKAkSEQoJaGFuZGxlcklEGAIgASgJ",
+          "EhcKD2F1ZGlvTXVsdGlwbGllchgDIAEoARpHChlUd2lsaWdodElPQXVkaW9N",
+          "dWx0aXBsaWVyEhEKCWhhbmRsZXJJRBgBIAEoCRIXCg9hdWRpb011bHRpcGxp",
+          "ZXIYAiABKAEaNgoSVHdpbGlnaHRBdWRpb0lucHV0Eg4KBnNpdGVJRBgBIAEo",
+          "CRIQCghhdmF0YXJJRBgCIAEoCRqGAQoQUXdpbGlnaHRQb3N0SXRlbRIOCgZz",
+          "aXRlSUQYASABKAkSEQoJaGFuZGxlcklEGAIgASgJEhIKCnBvc3RlZEl0ZW0Y",
+          "AyABKAUSEgoKaXNQb3NpdGl2ZRgEIAEoBRISCgpsb3dlc3RXYWl0GAUgASgB",
+          "EhMKC2hpZ2hlc3RXYWl0GAYgASgBGlsKEFR3aWxpZ2h0UG9zdEl0ZW0SEQoJ",
+          "aGFuZGxlcklEGAEgASgJEhIKCnBvc3RlZEl0ZW0YAiABKAUSEgoKYXZhdGFy",
+          "TmFtZRgDIAEoCRIMCgR3YWl0GAQgASgBIjUKD0F2YXRhck5ldFN0YXR1cxIL",
+          "CgdEZWZhdWx0EAASCQoFQ2xlYXIQARIKCgZGYWlsZWQQAiKqDQoHRXZlbnRJ",
+          "RBILCgdTSUdOX0lOEAASDwoLTk9UX1NJR05fSU4QARILCgdXQVJOSU5HEAIS",
+          "DQoJU0lURV9ZRUxMEAMSDwoLQ0FMTF9CVU5ETEUQBBISCg5TQVZFX0FTX0JV",
+          "TkRMRRAFEhEKDVNBVklOR19CVU5ETEUQBhIPCgtXSVBFX0JVTkRMRRAHEg4K",
+          "ClNFVF9CVU5ETEUQCBIPCgtDQUxMX1VCVU5UVRAJEhQKEENBTExfU0lURV9B",
+          "VkFUQVIQChILCgdDT01NRU5UEAsSEQoNU0VUX1NJVFVBVElPThAMEg0KCU5F",
+          "V19USVRMRRANEhYKElNUT1BfU0FWSU5HX0JVTkRMRRAOEhAKDFNBVkVEX0JV",
+          "TkRMRRAPEg8KC1NBVkVfQlVORExFEBASDgoKRU5URVJfU0lURRAREg0KCVFV",
+          "SVRfU0lURRASEg8KC1dJUEVfVUJVTlRVEBMSDAoITkVXX1NJVEUQFBIOCgpO",
+          "RVdfVUJVTlRVEBUSEAoMRVhJTEVfQVZBVEFSEBYSEwoPTkVXX1NJTEVOVF9T",
+          "SVRFEBcSDQoJRVNUQUJMSVNIEBgSEgoOQ0FMTF9DT05GSUdVUkUQGRIRCg1T",
+          "RVRfQ09ORklHVVJFEBoSDwoLTk9USUZZX0lORk8QGxIMCghMRVZZX05FVBAc",
+          "EgwKCENPTVBJTEVEEB0SDAoIQ0FMTF9ORVQQHhIWChJTRVRfTU9ERV9DT01Q",
+          "T05FTlQQHxIcChhTRVRfRkFWT1JfTU9ERV9DT01QT05FTlQQIBIZChVTRVRf",
+          "VkFMSURfSFVOVEVSX01PREUQIRIaChZDQUxMX05FVF9TSVRFX0NPTU1FTlRT",
+          "ECISEQoNU0VUX05PVEVfRklMRRAjEhEKDVNFVF9TSVRFX05BTUUQJBIRCg1T",
+          "RVRfU0lURV9IQU5EECUSDAoIUVVJVF9ORVQQJhIUChBTQVZJTkdfQVNfQlVO",
+          "RExFECcSEwoPU0FWRURfQVNfQlVORExFECgSGQoVU1RPUF9TQVZJTkdfQVNf",
+          "QlVORExFECkSFQoRU0FWRV9ERUZBVUxUX05PVEUQKhINCglQT1NUX0ZJTEUQ",
+          "KxITCg9TQVZFX0RFRkFVTFRfVUkQLBIeChpTRVRfRkFWT1JfQVVESU9fTVVM",
+          "VElQTElFUhAtEhEKDUNBTExfU0lURV9ORVQQLhIOCgpOT1RJRllfWUVTEC8S",
+          "CwoHQ0FMTF9JTxAwEhUKEUNBTExfSU9fQ09NUE9ORU5UEDESDwoLQ09NUElM",
+          "RURfSU8QMhILCgdMRVZZX0lPEDMSDAoISU9fSU5QVVQQNBIMCghJT19KVURH",
+          "RRA1EhYKEklPX05PVEVfVklTSUJJTElUWRA2EhUKEUlPX0pVREdNRU5UX01F",
+          "VEVSEDgSEQoNSU9fTVVMVElQTElFUhA5EhcKE0lPX0FVRElPX01VTFRJUExJ",
+          "RVIQOhIMCghJT19QQVVTRRA7EgsKB0lPX1FVSVQQPBIKCgZJT19OT1QQPRIP",
+          "CgtBVURJT19JTlBVVBA+EhwKGENBTExfU0lURV9NT0RFX0NPTVBPTkVOVBA/",
+          "Eg4KCkNPTU1FTlRBUlkQQRINCglXV1dfTEVWRUwQQhIQCgxBVkFUQVJfVElU",
+          "TEUQQxIdChlJTlZBTElEQVRFX0FWQVRBUl9EUkFXSU5HEEQSGwoXSU5WQUxJ",
+          "REFURV9BVkFUQVJfVElUTEUQRRIMCghMRVZFTF9VUBBGEhcKE1NFVF9GQVZP",
+          "Ul9OT1RFX0ZJTEUQRxISCg5HRVRfU0lURV9ZRUxMUxBIEhAKDFNFVF9MQU5H",
+          "VUFHRRBJEhEKDVZBTFZFX0NPTU1FTlQQShIOCgpBQklMSVRZX1VQEEsSCQoF",
+          "Q0xPU0UQTBIUChBVTkFWQUlMQUJMRV9EQVRFEE0SDwoLQVZBVEFSX0VER0UQ",
+          "ThIaChZJTlZBTElEQVRFX0FWQVRBUl9FREdFEE8SGQoVRkFJTEVEX1ZBTElE",
+          "QVRFX1RPVEVNEFASFAoQTU9ESUZZX1NJVEVfWUVMTBBREhIKDldJUEVfU0lU",
+          "RV9ZRUxMEFISGgoWQUxSRUFEWV9MT0FESU5HX0JVTkRMRRBTEg0KCVNFVF9G",
+          "QVZPUhBUEhYKElNFVF9BVVRPX1NJVEVfSEFORBBVEhQKEFNFVF9BVkFUQVJf",
+          "R1JPVVAQVhINCglQT1NUX0lURU0QVxIWChJTRVRfVkFMSURfTkVUX01PREUQ",
+          "WBIeChpTRVRfQUxMT1dFRF9QT1NUQUJMRV9JVEVNUxBZQgoKCGZhc3RUZXh0",
+          "YgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Event), global::Event.Parser, new[]{ "Millis", "AvatarID", "EventID", "Text", "Data", "QwilightCallNet", "TwilightCallNet", "QwilightIOInput", "TwilightIOInput", "QwilightIOJudge", "TwilightIOJudge", "QwilightIOJudgmentMeter", "TwilightIOJudgmentMeter", "QwilightIONoteVisibility", "TwilightIONoteVisibility", "QwilightIOMultiplier", "TwilightIOMultiplier", "QwilightIOAudioMultiplier", "TwilightIOAudioMultiplier", "TwilightAudioInput", "QwilightPostItem", "TwilightPostItem" }, new[]{ "FastText" }, new[]{ typeof(global::Event.Types.AvatarNetStatus), typeof(global::Event.Types.EventID) }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Event.Types.TwilightCallNet), global::Event.Types.TwilightCallNet.Parser, new[]{ "HandlerID", "Data" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Event.Types.TwilightCallNet.Types.CallNetItem), global::Event.Types.TwilightCallNet.Types.CallNetItem.Parser, new[]{ "AvatarNetStatus", "AvatarID", "AvatarName", "Stand", "Band", "Point", "HitPoints", "IsFailed", "LastJudged", "HitPointsMode", "TargetPosition", "Drawings", "DrawingComponent" }, null, null, null, null)}),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Event.Types.QwilightCallNet), global::Event.Types.QwilightCallNet.Parser, new[]{ "SiteID", "HandlerID", "AvatarNetStatus", "Stand", "Band", "Point", "HitPoints", "IsFailed", "LastJudged", "Drawings", "DrawingComponent", "Title", "Artist", "Genre", "Level", "LevelText", "WantLevelID", "AutoMode", "NoteSaltMode", "AudioMultiplier", "FaintNoteMode", "JudgmentMode", "HitPointsMode", "NoteMobilityMode", "LongNoteMode", "InputFavorMode", "NoteModifyMode", "BpmMode", "WaveMode", "SetNoteMode", "LowestJudgmentConditionMode", "TotalNotes", "JudgmentStage", "HitPointsValue", "HighestInputCount", "Length", "Bpm", "Multiplier", "InputMode", "HighestJudgment0", "HigherJudgment0", "HighJudgment0", "LowJudgment0", "LowerJudgment0", "LowestJudgment0", "HighestJudgment1", "HigherJudgment1", "HighJudgment1", "LowJudgment1", "LowerJudgment1", "LowestJudgment1", "HighestJudgment", "HigherJudgment", "HighJudgment", "LowJudgment", "LowerJudgment", "LowestJudgment" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Event.Types.QwilightCallNet), global::Event.Types.QwilightCallNet.Parser, new[]{ "SiteID", "HandlerID", "AvatarNetStatus", "Stand", "Band", "HighestBand", "Point", "HitPoints", "IsFailed", "LastJudged", "Drawings", "DrawingComponent", "Title", "Artist", "Genre", "Level", "LevelText", "WantLevelID", "AutoMode", "NoteSaltMode", "AudioMultiplier", "FaintNoteMode", "JudgmentMode", "HitPointsMode", "NoteMobilityMode", "LongNoteMode", "InputFavorMode", "NoteModifyMode", "BpmMode", "WaveMode", "SetNoteMode", "LowestJudgmentConditionMode", "TotalNotes", "JudgmentStage", "HitPointsValue", "HighestInputCount", "Length", "Bpm", "Multiplier", "InputMode", "HighestJudgment0", "HigherJudgment0", "HighJudgment0", "LowJudgment0", "LowerJudgment0", "LowestJudgment0", "HighestJudgment1", "HigherJudgment1", "HighJudgment1", "LowJudgment1", "LowerJudgment1", "LowestJudgment1", "HighestJudgment", "HigherJudgment", "HighJudgment", "LowJudgment", "LowerJudgment", "LowestJudgment" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Event.Types.NetDrawing), global::Event.Types.NetDrawing.Parser, new[]{ "DrawingVariety", "Param", "Position0", "Position1", "Length", "Height" }, null, new[]{ typeof(global::Event.Types.NetDrawing.Types.Variety) }, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Event.Types.DrawingComponent), global::Event.Types.DrawingComponent.Parser, new[]{ "P2BuiltLength", "JudgmentMainPosition" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Event.Types.QwilightIOInput), global::Event.Types.QwilightIOInput.Parser, new[]{ "AvatarIDs", "HandlerID", "Input", "Power" }, null, null, null, null),
@@ -2441,6 +2442,7 @@ public sealed partial class Event : pb::IMessage<Event>
         avatarNetStatus_ = other.avatarNetStatus_;
         stand_ = other.stand_;
         band_ = other.band_;
+        highestBand_ = other.highestBand_;
         point_ = other.point_;
         hitPoints_ = other.hitPoints_;
         isFailed_ = other.isFailed_;
@@ -2562,8 +2564,20 @@ public sealed partial class Event : pb::IMessage<Event>
         }
       }
 
+      /// <summary>Field number for the "highestBand" field.</summary>
+      public const int HighestBandFieldNumber = 6;
+      private int highestBand_;
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+      public int HighestBand {
+        get { return highestBand_; }
+        set {
+          highestBand_ = value;
+        }
+      }
+
       /// <summary>Field number for the "point" field.</summary>
-      public const int PointFieldNumber = 6;
+      public const int PointFieldNumber = 7;
       private double point_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2575,7 +2589,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "hitPoints" field.</summary>
-      public const int HitPointsFieldNumber = 7;
+      public const int HitPointsFieldNumber = 8;
       private double hitPoints_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2587,7 +2601,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "isFailed" field.</summary>
-      public const int IsFailedFieldNumber = 8;
+      public const int IsFailedFieldNumber = 9;
       private bool isFailed_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2599,7 +2613,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lastJudged" field.</summary>
-      public const int LastJudgedFieldNumber = 9;
+      public const int LastJudgedFieldNumber = 10;
       private int lastJudged_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2611,9 +2625,9 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "drawings" field.</summary>
-      public const int DrawingsFieldNumber = 10;
+      public const int DrawingsFieldNumber = 11;
       private static readonly pb::FieldCodec<global::Event.Types.NetDrawing> _repeated_drawings_codec
-          = pb::FieldCodec.ForMessage(82, global::Event.Types.NetDrawing.Parser);
+          = pb::FieldCodec.ForMessage(90, global::Event.Types.NetDrawing.Parser);
       private readonly pbc::RepeatedField<global::Event.Types.NetDrawing> drawings_ = new pbc::RepeatedField<global::Event.Types.NetDrawing>();
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2622,7 +2636,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "drawingComponent" field.</summary>
-      public const int DrawingComponentFieldNumber = 11;
+      public const int DrawingComponentFieldNumber = 12;
       private global::Event.Types.DrawingComponent drawingComponent_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2634,7 +2648,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "title" field.</summary>
-      public const int TitleFieldNumber = 12;
+      public const int TitleFieldNumber = 13;
       private string title_ = "";
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2646,7 +2660,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "artist" field.</summary>
-      public const int ArtistFieldNumber = 13;
+      public const int ArtistFieldNumber = 14;
       private string artist_ = "";
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2658,7 +2672,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "genre" field.</summary>
-      public const int GenreFieldNumber = 14;
+      public const int GenreFieldNumber = 15;
       private string genre_ = "";
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2670,7 +2684,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "level" field.</summary>
-      public const int LevelFieldNumber = 15;
+      public const int LevelFieldNumber = 16;
       private int level_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2682,7 +2696,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "levelText" field.</summary>
-      public const int LevelTextFieldNumber = 16;
+      public const int LevelTextFieldNumber = 17;
       private string levelText_ = "";
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2694,7 +2708,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "wantLevelID" field.</summary>
-      public const int WantLevelIDFieldNumber = 17;
+      public const int WantLevelIDFieldNumber = 18;
       private string wantLevelID_ = "";
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2706,7 +2720,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "autoMode" field.</summary>
-      public const int AutoModeFieldNumber = 18;
+      public const int AutoModeFieldNumber = 19;
       private int autoMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2718,7 +2732,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "noteSaltMode" field.</summary>
-      public const int NoteSaltModeFieldNumber = 19;
+      public const int NoteSaltModeFieldNumber = 20;
       private int noteSaltMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2730,7 +2744,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "audioMultiplier" field.</summary>
-      public const int AudioMultiplierFieldNumber = 20;
+      public const int AudioMultiplierFieldNumber = 21;
       private double audioMultiplier_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2742,7 +2756,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "faintNoteMode" field.</summary>
-      public const int FaintNoteModeFieldNumber = 21;
+      public const int FaintNoteModeFieldNumber = 22;
       private int faintNoteMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2754,7 +2768,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "judgmentMode" field.</summary>
-      public const int JudgmentModeFieldNumber = 22;
+      public const int JudgmentModeFieldNumber = 23;
       private int judgmentMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2766,7 +2780,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "hitPointsMode" field.</summary>
-      public const int HitPointsModeFieldNumber = 23;
+      public const int HitPointsModeFieldNumber = 24;
       private int hitPointsMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2778,7 +2792,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "noteMobilityMode" field.</summary>
-      public const int NoteMobilityModeFieldNumber = 24;
+      public const int NoteMobilityModeFieldNumber = 25;
       private int noteMobilityMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2790,7 +2804,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "longNoteMode" field.</summary>
-      public const int LongNoteModeFieldNumber = 25;
+      public const int LongNoteModeFieldNumber = 26;
       private int longNoteMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2802,7 +2816,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "inputFavorMode" field.</summary>
-      public const int InputFavorModeFieldNumber = 26;
+      public const int InputFavorModeFieldNumber = 27;
       private int inputFavorMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2814,7 +2828,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "noteModifyMode" field.</summary>
-      public const int NoteModifyModeFieldNumber = 27;
+      public const int NoteModifyModeFieldNumber = 28;
       private int noteModifyMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2826,7 +2840,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "bpmMode" field.</summary>
-      public const int BpmModeFieldNumber = 28;
+      public const int BpmModeFieldNumber = 29;
       private int bpmMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2838,7 +2852,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "waveMode" field.</summary>
-      public const int WaveModeFieldNumber = 29;
+      public const int WaveModeFieldNumber = 30;
       private int waveMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2850,7 +2864,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "setNoteMode" field.</summary>
-      public const int SetNoteModeFieldNumber = 30;
+      public const int SetNoteModeFieldNumber = 31;
       private int setNoteMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2862,7 +2876,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lowestJudgmentConditionMode" field.</summary>
-      public const int LowestJudgmentConditionModeFieldNumber = 31;
+      public const int LowestJudgmentConditionModeFieldNumber = 32;
       private int lowestJudgmentConditionMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2874,7 +2888,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "totalNotes" field.</summary>
-      public const int TotalNotesFieldNumber = 32;
+      public const int TotalNotesFieldNumber = 33;
       private int totalNotes_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2886,7 +2900,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "judgmentStage" field.</summary>
-      public const int JudgmentStageFieldNumber = 33;
+      public const int JudgmentStageFieldNumber = 34;
       private double judgmentStage_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2898,7 +2912,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "hitPointsValue" field.</summary>
-      public const int HitPointsValueFieldNumber = 34;
+      public const int HitPointsValueFieldNumber = 35;
       private double hitPointsValue_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2910,7 +2924,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "highestInputCount" field.</summary>
-      public const int HighestInputCountFieldNumber = 35;
+      public const int HighestInputCountFieldNumber = 36;
       private int highestInputCount_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2922,7 +2936,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "length" field.</summary>
-      public const int LengthFieldNumber = 36;
+      public const int LengthFieldNumber = 37;
       private double length_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2934,7 +2948,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "bpm" field.</summary>
-      public const int BpmFieldNumber = 37;
+      public const int BpmFieldNumber = 38;
       private double bpm_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2946,7 +2960,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "multiplier" field.</summary>
-      public const int MultiplierFieldNumber = 38;
+      public const int MultiplierFieldNumber = 39;
       private double multiplier_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2958,7 +2972,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "inputMode" field.</summary>
-      public const int InputModeFieldNumber = 39;
+      public const int InputModeFieldNumber = 40;
       private int inputMode_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2970,7 +2984,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "highestJudgment0" field.</summary>
-      public const int HighestJudgment0FieldNumber = 40;
+      public const int HighestJudgment0FieldNumber = 41;
       private double highestJudgment0_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2982,7 +2996,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "higherJudgment0" field.</summary>
-      public const int HigherJudgment0FieldNumber = 41;
+      public const int HigherJudgment0FieldNumber = 42;
       private double higherJudgment0_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2994,7 +3008,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "highJudgment0" field.</summary>
-      public const int HighJudgment0FieldNumber = 42;
+      public const int HighJudgment0FieldNumber = 43;
       private double highJudgment0_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3006,7 +3020,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lowJudgment0" field.</summary>
-      public const int LowJudgment0FieldNumber = 43;
+      public const int LowJudgment0FieldNumber = 44;
       private double lowJudgment0_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3018,7 +3032,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lowerJudgment0" field.</summary>
-      public const int LowerJudgment0FieldNumber = 44;
+      public const int LowerJudgment0FieldNumber = 45;
       private double lowerJudgment0_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3030,7 +3044,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lowestJudgment0" field.</summary>
-      public const int LowestJudgment0FieldNumber = 45;
+      public const int LowestJudgment0FieldNumber = 46;
       private double lowestJudgment0_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3042,7 +3056,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "highestJudgment1" field.</summary>
-      public const int HighestJudgment1FieldNumber = 46;
+      public const int HighestJudgment1FieldNumber = 47;
       private double highestJudgment1_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3054,7 +3068,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "higherJudgment1" field.</summary>
-      public const int HigherJudgment1FieldNumber = 47;
+      public const int HigherJudgment1FieldNumber = 48;
       private double higherJudgment1_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3066,7 +3080,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "highJudgment1" field.</summary>
-      public const int HighJudgment1FieldNumber = 48;
+      public const int HighJudgment1FieldNumber = 49;
       private double highJudgment1_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3078,7 +3092,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lowJudgment1" field.</summary>
-      public const int LowJudgment1FieldNumber = 49;
+      public const int LowJudgment1FieldNumber = 50;
       private double lowJudgment1_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3090,7 +3104,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lowerJudgment1" field.</summary>
-      public const int LowerJudgment1FieldNumber = 50;
+      public const int LowerJudgment1FieldNumber = 51;
       private double lowerJudgment1_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3102,7 +3116,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lowestJudgment1" field.</summary>
-      public const int LowestJudgment1FieldNumber = 51;
+      public const int LowestJudgment1FieldNumber = 52;
       private double lowestJudgment1_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3114,7 +3128,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "highestJudgment" field.</summary>
-      public const int HighestJudgmentFieldNumber = 52;
+      public const int HighestJudgmentFieldNumber = 53;
       private int highestJudgment_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3126,7 +3140,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "higherJudgment" field.</summary>
-      public const int HigherJudgmentFieldNumber = 53;
+      public const int HigherJudgmentFieldNumber = 54;
       private int higherJudgment_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3138,7 +3152,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "highJudgment" field.</summary>
-      public const int HighJudgmentFieldNumber = 54;
+      public const int HighJudgmentFieldNumber = 55;
       private int highJudgment_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3150,7 +3164,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lowJudgment" field.</summary>
-      public const int LowJudgmentFieldNumber = 55;
+      public const int LowJudgmentFieldNumber = 56;
       private int lowJudgment_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3162,7 +3176,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lowerJudgment" field.</summary>
-      public const int LowerJudgmentFieldNumber = 56;
+      public const int LowerJudgmentFieldNumber = 57;
       private int lowerJudgment_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3174,7 +3188,7 @@ public sealed partial class Event : pb::IMessage<Event>
       }
 
       /// <summary>Field number for the "lowestJudgment" field.</summary>
-      public const int LowestJudgmentFieldNumber = 57;
+      public const int LowestJudgmentFieldNumber = 58;
       private int lowestJudgment_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3205,6 +3219,7 @@ public sealed partial class Event : pb::IMessage<Event>
         if (AvatarNetStatus != other.AvatarNetStatus) return false;
         if (Stand != other.Stand) return false;
         if (Band != other.Band) return false;
+        if (HighestBand != other.HighestBand) return false;
         if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Point, other.Point)) return false;
         if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(HitPoints, other.HitPoints)) return false;
         if (IsFailed != other.IsFailed) return false;
@@ -3269,6 +3284,7 @@ public sealed partial class Event : pb::IMessage<Event>
         if (AvatarNetStatus != global::Event.Types.AvatarNetStatus.Default) hash ^= AvatarNetStatus.GetHashCode();
         if (Stand != 0) hash ^= Stand.GetHashCode();
         if (Band != 0) hash ^= Band.GetHashCode();
+        if (HighestBand != 0) hash ^= HighestBand.GetHashCode();
         if (Point != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Point);
         if (HitPoints != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(HitPoints);
         if (IsFailed != false) hash ^= IsFailed.GetHashCode();
@@ -3359,209 +3375,213 @@ public sealed partial class Event : pb::IMessage<Event>
           output.WriteRawTag(40);
           output.WriteInt32(Band);
         }
+        if (HighestBand != 0) {
+          output.WriteRawTag(48);
+          output.WriteInt32(HighestBand);
+        }
         if (Point != 0D) {
-          output.WriteRawTag(49);
+          output.WriteRawTag(57);
           output.WriteDouble(Point);
         }
         if (HitPoints != 0D) {
-          output.WriteRawTag(57);
+          output.WriteRawTag(65);
           output.WriteDouble(HitPoints);
         }
         if (IsFailed != false) {
-          output.WriteRawTag(64);
+          output.WriteRawTag(72);
           output.WriteBool(IsFailed);
         }
         if (LastJudged != 0) {
-          output.WriteRawTag(72);
+          output.WriteRawTag(80);
           output.WriteInt32(LastJudged);
         }
         drawings_.WriteTo(output, _repeated_drawings_codec);
         if (drawingComponent_ != null) {
-          output.WriteRawTag(90);
+          output.WriteRawTag(98);
           output.WriteMessage(DrawingComponent);
         }
         if (Title.Length != 0) {
-          output.WriteRawTag(98);
+          output.WriteRawTag(106);
           output.WriteString(Title);
         }
         if (Artist.Length != 0) {
-          output.WriteRawTag(106);
+          output.WriteRawTag(114);
           output.WriteString(Artist);
         }
         if (Genre.Length != 0) {
-          output.WriteRawTag(114);
+          output.WriteRawTag(122);
           output.WriteString(Genre);
         }
         if (Level != 0) {
-          output.WriteRawTag(120);
+          output.WriteRawTag(128, 1);
           output.WriteInt32(Level);
         }
         if (LevelText.Length != 0) {
-          output.WriteRawTag(130, 1);
+          output.WriteRawTag(138, 1);
           output.WriteString(LevelText);
         }
         if (WantLevelID.Length != 0) {
-          output.WriteRawTag(138, 1);
+          output.WriteRawTag(146, 1);
           output.WriteString(WantLevelID);
         }
         if (AutoMode != 0) {
-          output.WriteRawTag(144, 1);
+          output.WriteRawTag(152, 1);
           output.WriteInt32(AutoMode);
         }
         if (NoteSaltMode != 0) {
-          output.WriteRawTag(152, 1);
+          output.WriteRawTag(160, 1);
           output.WriteInt32(NoteSaltMode);
         }
         if (AudioMultiplier != 0D) {
-          output.WriteRawTag(161, 1);
+          output.WriteRawTag(169, 1);
           output.WriteDouble(AudioMultiplier);
         }
         if (FaintNoteMode != 0) {
-          output.WriteRawTag(168, 1);
+          output.WriteRawTag(176, 1);
           output.WriteInt32(FaintNoteMode);
         }
         if (JudgmentMode != 0) {
-          output.WriteRawTag(176, 1);
+          output.WriteRawTag(184, 1);
           output.WriteInt32(JudgmentMode);
         }
         if (HitPointsMode != 0) {
-          output.WriteRawTag(184, 1);
+          output.WriteRawTag(192, 1);
           output.WriteInt32(HitPointsMode);
         }
         if (NoteMobilityMode != 0) {
-          output.WriteRawTag(192, 1);
+          output.WriteRawTag(200, 1);
           output.WriteInt32(NoteMobilityMode);
         }
         if (LongNoteMode != 0) {
-          output.WriteRawTag(200, 1);
+          output.WriteRawTag(208, 1);
           output.WriteInt32(LongNoteMode);
         }
         if (InputFavorMode != 0) {
-          output.WriteRawTag(208, 1);
+          output.WriteRawTag(216, 1);
           output.WriteInt32(InputFavorMode);
         }
         if (NoteModifyMode != 0) {
-          output.WriteRawTag(216, 1);
+          output.WriteRawTag(224, 1);
           output.WriteInt32(NoteModifyMode);
         }
         if (BpmMode != 0) {
-          output.WriteRawTag(224, 1);
+          output.WriteRawTag(232, 1);
           output.WriteInt32(BpmMode);
         }
         if (WaveMode != 0) {
-          output.WriteRawTag(232, 1);
+          output.WriteRawTag(240, 1);
           output.WriteInt32(WaveMode);
         }
         if (SetNoteMode != 0) {
-          output.WriteRawTag(240, 1);
+          output.WriteRawTag(248, 1);
           output.WriteInt32(SetNoteMode);
         }
         if (LowestJudgmentConditionMode != 0) {
-          output.WriteRawTag(248, 1);
+          output.WriteRawTag(128, 2);
           output.WriteInt32(LowestJudgmentConditionMode);
         }
         if (TotalNotes != 0) {
-          output.WriteRawTag(128, 2);
+          output.WriteRawTag(136, 2);
           output.WriteInt32(TotalNotes);
         }
         if (JudgmentStage != 0D) {
-          output.WriteRawTag(137, 2);
+          output.WriteRawTag(145, 2);
           output.WriteDouble(JudgmentStage);
         }
         if (HitPointsValue != 0D) {
-          output.WriteRawTag(145, 2);
+          output.WriteRawTag(153, 2);
           output.WriteDouble(HitPointsValue);
         }
         if (HighestInputCount != 0) {
-          output.WriteRawTag(152, 2);
+          output.WriteRawTag(160, 2);
           output.WriteInt32(HighestInputCount);
         }
         if (Length != 0D) {
-          output.WriteRawTag(161, 2);
+          output.WriteRawTag(169, 2);
           output.WriteDouble(Length);
         }
         if (Bpm != 0D) {
-          output.WriteRawTag(169, 2);
+          output.WriteRawTag(177, 2);
           output.WriteDouble(Bpm);
         }
         if (Multiplier != 0D) {
-          output.WriteRawTag(177, 2);
+          output.WriteRawTag(185, 2);
           output.WriteDouble(Multiplier);
         }
         if (InputMode != 0) {
-          output.WriteRawTag(184, 2);
+          output.WriteRawTag(192, 2);
           output.WriteInt32(InputMode);
         }
         if (HighestJudgment0 != 0D) {
-          output.WriteRawTag(193, 2);
+          output.WriteRawTag(201, 2);
           output.WriteDouble(HighestJudgment0);
         }
         if (HigherJudgment0 != 0D) {
-          output.WriteRawTag(201, 2);
+          output.WriteRawTag(209, 2);
           output.WriteDouble(HigherJudgment0);
         }
         if (HighJudgment0 != 0D) {
-          output.WriteRawTag(209, 2);
+          output.WriteRawTag(217, 2);
           output.WriteDouble(HighJudgment0);
         }
         if (LowJudgment0 != 0D) {
-          output.WriteRawTag(217, 2);
+          output.WriteRawTag(225, 2);
           output.WriteDouble(LowJudgment0);
         }
         if (LowerJudgment0 != 0D) {
-          output.WriteRawTag(225, 2);
+          output.WriteRawTag(233, 2);
           output.WriteDouble(LowerJudgment0);
         }
         if (LowestJudgment0 != 0D) {
-          output.WriteRawTag(233, 2);
+          output.WriteRawTag(241, 2);
           output.WriteDouble(LowestJudgment0);
         }
         if (HighestJudgment1 != 0D) {
-          output.WriteRawTag(241, 2);
+          output.WriteRawTag(249, 2);
           output.WriteDouble(HighestJudgment1);
         }
         if (HigherJudgment1 != 0D) {
-          output.WriteRawTag(249, 2);
+          output.WriteRawTag(129, 3);
           output.WriteDouble(HigherJudgment1);
         }
         if (HighJudgment1 != 0D) {
-          output.WriteRawTag(129, 3);
+          output.WriteRawTag(137, 3);
           output.WriteDouble(HighJudgment1);
         }
         if (LowJudgment1 != 0D) {
-          output.WriteRawTag(137, 3);
+          output.WriteRawTag(145, 3);
           output.WriteDouble(LowJudgment1);
         }
         if (LowerJudgment1 != 0D) {
-          output.WriteRawTag(145, 3);
+          output.WriteRawTag(153, 3);
           output.WriteDouble(LowerJudgment1);
         }
         if (LowestJudgment1 != 0D) {
-          output.WriteRawTag(153, 3);
+          output.WriteRawTag(161, 3);
           output.WriteDouble(LowestJudgment1);
         }
         if (HighestJudgment != 0) {
-          output.WriteRawTag(160, 3);
+          output.WriteRawTag(168, 3);
           output.WriteInt32(HighestJudgment);
         }
         if (HigherJudgment != 0) {
-          output.WriteRawTag(168, 3);
+          output.WriteRawTag(176, 3);
           output.WriteInt32(HigherJudgment);
         }
         if (HighJudgment != 0) {
-          output.WriteRawTag(176, 3);
+          output.WriteRawTag(184, 3);
           output.WriteInt32(HighJudgment);
         }
         if (LowJudgment != 0) {
-          output.WriteRawTag(184, 3);
+          output.WriteRawTag(192, 3);
           output.WriteInt32(LowJudgment);
         }
         if (LowerJudgment != 0) {
-          output.WriteRawTag(192, 3);
+          output.WriteRawTag(200, 3);
           output.WriteInt32(LowerJudgment);
         }
         if (LowestJudgment != 0) {
-          output.WriteRawTag(200, 3);
+          output.WriteRawTag(208, 3);
           output.WriteInt32(LowestJudgment);
         }
         if (_unknownFields != null) {
@@ -3594,209 +3614,213 @@ public sealed partial class Event : pb::IMessage<Event>
           output.WriteRawTag(40);
           output.WriteInt32(Band);
         }
+        if (HighestBand != 0) {
+          output.WriteRawTag(48);
+          output.WriteInt32(HighestBand);
+        }
         if (Point != 0D) {
-          output.WriteRawTag(49);
+          output.WriteRawTag(57);
           output.WriteDouble(Point);
         }
         if (HitPoints != 0D) {
-          output.WriteRawTag(57);
+          output.WriteRawTag(65);
           output.WriteDouble(HitPoints);
         }
         if (IsFailed != false) {
-          output.WriteRawTag(64);
+          output.WriteRawTag(72);
           output.WriteBool(IsFailed);
         }
         if (LastJudged != 0) {
-          output.WriteRawTag(72);
+          output.WriteRawTag(80);
           output.WriteInt32(LastJudged);
         }
         drawings_.WriteTo(ref output, _repeated_drawings_codec);
         if (drawingComponent_ != null) {
-          output.WriteRawTag(90);
+          output.WriteRawTag(98);
           output.WriteMessage(DrawingComponent);
         }
         if (Title.Length != 0) {
-          output.WriteRawTag(98);
+          output.WriteRawTag(106);
           output.WriteString(Title);
         }
         if (Artist.Length != 0) {
-          output.WriteRawTag(106);
+          output.WriteRawTag(114);
           output.WriteString(Artist);
         }
         if (Genre.Length != 0) {
-          output.WriteRawTag(114);
+          output.WriteRawTag(122);
           output.WriteString(Genre);
         }
         if (Level != 0) {
-          output.WriteRawTag(120);
+          output.WriteRawTag(128, 1);
           output.WriteInt32(Level);
         }
         if (LevelText.Length != 0) {
-          output.WriteRawTag(130, 1);
+          output.WriteRawTag(138, 1);
           output.WriteString(LevelText);
         }
         if (WantLevelID.Length != 0) {
-          output.WriteRawTag(138, 1);
+          output.WriteRawTag(146, 1);
           output.WriteString(WantLevelID);
         }
         if (AutoMode != 0) {
-          output.WriteRawTag(144, 1);
+          output.WriteRawTag(152, 1);
           output.WriteInt32(AutoMode);
         }
         if (NoteSaltMode != 0) {
-          output.WriteRawTag(152, 1);
+          output.WriteRawTag(160, 1);
           output.WriteInt32(NoteSaltMode);
         }
         if (AudioMultiplier != 0D) {
-          output.WriteRawTag(161, 1);
+          output.WriteRawTag(169, 1);
           output.WriteDouble(AudioMultiplier);
         }
         if (FaintNoteMode != 0) {
-          output.WriteRawTag(168, 1);
+          output.WriteRawTag(176, 1);
           output.WriteInt32(FaintNoteMode);
         }
         if (JudgmentMode != 0) {
-          output.WriteRawTag(176, 1);
+          output.WriteRawTag(184, 1);
           output.WriteInt32(JudgmentMode);
         }
         if (HitPointsMode != 0) {
-          output.WriteRawTag(184, 1);
+          output.WriteRawTag(192, 1);
           output.WriteInt32(HitPointsMode);
         }
         if (NoteMobilityMode != 0) {
-          output.WriteRawTag(192, 1);
+          output.WriteRawTag(200, 1);
           output.WriteInt32(NoteMobilityMode);
         }
         if (LongNoteMode != 0) {
-          output.WriteRawTag(200, 1);
+          output.WriteRawTag(208, 1);
           output.WriteInt32(LongNoteMode);
         }
         if (InputFavorMode != 0) {
-          output.WriteRawTag(208, 1);
+          output.WriteRawTag(216, 1);
           output.WriteInt32(InputFavorMode);
         }
         if (NoteModifyMode != 0) {
-          output.WriteRawTag(216, 1);
+          output.WriteRawTag(224, 1);
           output.WriteInt32(NoteModifyMode);
         }
         if (BpmMode != 0) {
-          output.WriteRawTag(224, 1);
+          output.WriteRawTag(232, 1);
           output.WriteInt32(BpmMode);
         }
         if (WaveMode != 0) {
-          output.WriteRawTag(232, 1);
+          output.WriteRawTag(240, 1);
           output.WriteInt32(WaveMode);
         }
         if (SetNoteMode != 0) {
-          output.WriteRawTag(240, 1);
+          output.WriteRawTag(248, 1);
           output.WriteInt32(SetNoteMode);
         }
         if (LowestJudgmentConditionMode != 0) {
-          output.WriteRawTag(248, 1);
+          output.WriteRawTag(128, 2);
           output.WriteInt32(LowestJudgmentConditionMode);
         }
         if (TotalNotes != 0) {
-          output.WriteRawTag(128, 2);
+          output.WriteRawTag(136, 2);
           output.WriteInt32(TotalNotes);
         }
         if (JudgmentStage != 0D) {
-          output.WriteRawTag(137, 2);
+          output.WriteRawTag(145, 2);
           output.WriteDouble(JudgmentStage);
         }
         if (HitPointsValue != 0D) {
-          output.WriteRawTag(145, 2);
+          output.WriteRawTag(153, 2);
           output.WriteDouble(HitPointsValue);
         }
         if (HighestInputCount != 0) {
-          output.WriteRawTag(152, 2);
+          output.WriteRawTag(160, 2);
           output.WriteInt32(HighestInputCount);
         }
         if (Length != 0D) {
-          output.WriteRawTag(161, 2);
+          output.WriteRawTag(169, 2);
           output.WriteDouble(Length);
         }
         if (Bpm != 0D) {
-          output.WriteRawTag(169, 2);
+          output.WriteRawTag(177, 2);
           output.WriteDouble(Bpm);
         }
         if (Multiplier != 0D) {
-          output.WriteRawTag(177, 2);
+          output.WriteRawTag(185, 2);
           output.WriteDouble(Multiplier);
         }
         if (InputMode != 0) {
-          output.WriteRawTag(184, 2);
+          output.WriteRawTag(192, 2);
           output.WriteInt32(InputMode);
         }
         if (HighestJudgment0 != 0D) {
-          output.WriteRawTag(193, 2);
+          output.WriteRawTag(201, 2);
           output.WriteDouble(HighestJudgment0);
         }
         if (HigherJudgment0 != 0D) {
-          output.WriteRawTag(201, 2);
+          output.WriteRawTag(209, 2);
           output.WriteDouble(HigherJudgment0);
         }
         if (HighJudgment0 != 0D) {
-          output.WriteRawTag(209, 2);
+          output.WriteRawTag(217, 2);
           output.WriteDouble(HighJudgment0);
         }
         if (LowJudgment0 != 0D) {
-          output.WriteRawTag(217, 2);
+          output.WriteRawTag(225, 2);
           output.WriteDouble(LowJudgment0);
         }
         if (LowerJudgment0 != 0D) {
-          output.WriteRawTag(225, 2);
+          output.WriteRawTag(233, 2);
           output.WriteDouble(LowerJudgment0);
         }
         if (LowestJudgment0 != 0D) {
-          output.WriteRawTag(233, 2);
+          output.WriteRawTag(241, 2);
           output.WriteDouble(LowestJudgment0);
         }
         if (HighestJudgment1 != 0D) {
-          output.WriteRawTag(241, 2);
+          output.WriteRawTag(249, 2);
           output.WriteDouble(HighestJudgment1);
         }
         if (HigherJudgment1 != 0D) {
-          output.WriteRawTag(249, 2);
+          output.WriteRawTag(129, 3);
           output.WriteDouble(HigherJudgment1);
         }
         if (HighJudgment1 != 0D) {
-          output.WriteRawTag(129, 3);
+          output.WriteRawTag(137, 3);
           output.WriteDouble(HighJudgment1);
         }
         if (LowJudgment1 != 0D) {
-          output.WriteRawTag(137, 3);
+          output.WriteRawTag(145, 3);
           output.WriteDouble(LowJudgment1);
         }
         if (LowerJudgment1 != 0D) {
-          output.WriteRawTag(145, 3);
+          output.WriteRawTag(153, 3);
           output.WriteDouble(LowerJudgment1);
         }
         if (LowestJudgment1 != 0D) {
-          output.WriteRawTag(153, 3);
+          output.WriteRawTag(161, 3);
           output.WriteDouble(LowestJudgment1);
         }
         if (HighestJudgment != 0) {
-          output.WriteRawTag(160, 3);
+          output.WriteRawTag(168, 3);
           output.WriteInt32(HighestJudgment);
         }
         if (HigherJudgment != 0) {
-          output.WriteRawTag(168, 3);
+          output.WriteRawTag(176, 3);
           output.WriteInt32(HigherJudgment);
         }
         if (HighJudgment != 0) {
-          output.WriteRawTag(176, 3);
+          output.WriteRawTag(184, 3);
           output.WriteInt32(HighJudgment);
         }
         if (LowJudgment != 0) {
-          output.WriteRawTag(184, 3);
+          output.WriteRawTag(192, 3);
           output.WriteInt32(LowJudgment);
         }
         if (LowerJudgment != 0) {
-          output.WriteRawTag(192, 3);
+          output.WriteRawTag(200, 3);
           output.WriteInt32(LowerJudgment);
         }
         if (LowestJudgment != 0) {
-          output.WriteRawTag(200, 3);
+          output.WriteRawTag(208, 3);
           output.WriteInt32(LowestJudgment);
         }
         if (_unknownFields != null) {
@@ -3824,6 +3848,9 @@ public sealed partial class Event : pb::IMessage<Event>
         if (Band != 0) {
           size += 1 + pb::CodedOutputStream.ComputeInt32Size(Band);
         }
+        if (HighestBand != 0) {
+          size += 1 + pb::CodedOutputStream.ComputeInt32Size(HighestBand);
+        }
         if (Point != 0D) {
           size += 1 + 8;
         }
@@ -3850,7 +3877,7 @@ public sealed partial class Event : pb::IMessage<Event>
           size += 1 + pb::CodedOutputStream.ComputeStringSize(Genre);
         }
         if (Level != 0) {
-          size += 1 + pb::CodedOutputStream.ComputeInt32Size(Level);
+          size += 2 + pb::CodedOutputStream.ComputeInt32Size(Level);
         }
         if (LevelText.Length != 0) {
           size += 2 + pb::CodedOutputStream.ComputeStringSize(LevelText);
@@ -4004,6 +4031,9 @@ public sealed partial class Event : pb::IMessage<Event>
         }
         if (other.Band != 0) {
           Band = other.Band;
+        }
+        if (other.HighestBand != 0) {
+          HighestBand = other.HighestBand;
         }
         if (other.Point != 0D) {
           Point = other.Point;
@@ -4197,214 +4227,218 @@ public sealed partial class Event : pb::IMessage<Event>
               Band = input.ReadInt32();
               break;
             }
-            case 49: {
-              Point = input.ReadDouble();
+            case 48: {
+              HighestBand = input.ReadInt32();
               break;
             }
             case 57: {
+              Point = input.ReadDouble();
+              break;
+            }
+            case 65: {
               HitPoints = input.ReadDouble();
               break;
             }
-            case 64: {
+            case 72: {
               IsFailed = input.ReadBool();
               break;
             }
-            case 72: {
+            case 80: {
               LastJudged = input.ReadInt32();
               break;
             }
-            case 82: {
+            case 90: {
               drawings_.AddEntriesFrom(input, _repeated_drawings_codec);
               break;
             }
-            case 90: {
+            case 98: {
               if (drawingComponent_ == null) {
                 DrawingComponent = new global::Event.Types.DrawingComponent();
               }
               input.ReadMessage(DrawingComponent);
               break;
             }
-            case 98: {
+            case 106: {
               Title = input.ReadString();
               break;
             }
-            case 106: {
+            case 114: {
               Artist = input.ReadString();
               break;
             }
-            case 114: {
+            case 122: {
               Genre = input.ReadString();
               break;
             }
-            case 120: {
+            case 128: {
               Level = input.ReadInt32();
               break;
             }
-            case 130: {
+            case 138: {
               LevelText = input.ReadString();
               break;
             }
-            case 138: {
+            case 146: {
               WantLevelID = input.ReadString();
               break;
             }
-            case 144: {
+            case 152: {
               AutoMode = input.ReadInt32();
               break;
             }
-            case 152: {
+            case 160: {
               NoteSaltMode = input.ReadInt32();
               break;
             }
-            case 161: {
+            case 169: {
               AudioMultiplier = input.ReadDouble();
               break;
             }
-            case 168: {
+            case 176: {
               FaintNoteMode = input.ReadInt32();
               break;
             }
-            case 176: {
+            case 184: {
               JudgmentMode = input.ReadInt32();
               break;
             }
-            case 184: {
+            case 192: {
               HitPointsMode = input.ReadInt32();
               break;
             }
-            case 192: {
+            case 200: {
               NoteMobilityMode = input.ReadInt32();
               break;
             }
-            case 200: {
+            case 208: {
               LongNoteMode = input.ReadInt32();
               break;
             }
-            case 208: {
+            case 216: {
               InputFavorMode = input.ReadInt32();
               break;
             }
-            case 216: {
+            case 224: {
               NoteModifyMode = input.ReadInt32();
               break;
             }
-            case 224: {
+            case 232: {
               BpmMode = input.ReadInt32();
               break;
             }
-            case 232: {
+            case 240: {
               WaveMode = input.ReadInt32();
               break;
             }
-            case 240: {
+            case 248: {
               SetNoteMode = input.ReadInt32();
               break;
             }
-            case 248: {
+            case 256: {
               LowestJudgmentConditionMode = input.ReadInt32();
               break;
             }
-            case 256: {
+            case 264: {
               TotalNotes = input.ReadInt32();
               break;
             }
-            case 265: {
+            case 273: {
               JudgmentStage = input.ReadDouble();
               break;
             }
-            case 273: {
+            case 281: {
               HitPointsValue = input.ReadDouble();
               break;
             }
-            case 280: {
+            case 288: {
               HighestInputCount = input.ReadInt32();
               break;
             }
-            case 289: {
+            case 297: {
               Length = input.ReadDouble();
               break;
             }
-            case 297: {
+            case 305: {
               Bpm = input.ReadDouble();
               break;
             }
-            case 305: {
+            case 313: {
               Multiplier = input.ReadDouble();
               break;
             }
-            case 312: {
+            case 320: {
               InputMode = input.ReadInt32();
               break;
             }
-            case 321: {
+            case 329: {
               HighestJudgment0 = input.ReadDouble();
               break;
             }
-            case 329: {
+            case 337: {
               HigherJudgment0 = input.ReadDouble();
               break;
             }
-            case 337: {
+            case 345: {
               HighJudgment0 = input.ReadDouble();
               break;
             }
-            case 345: {
+            case 353: {
               LowJudgment0 = input.ReadDouble();
               break;
             }
-            case 353: {
+            case 361: {
               LowerJudgment0 = input.ReadDouble();
               break;
             }
-            case 361: {
+            case 369: {
               LowestJudgment0 = input.ReadDouble();
               break;
             }
-            case 369: {
+            case 377: {
               HighestJudgment1 = input.ReadDouble();
               break;
             }
-            case 377: {
+            case 385: {
               HigherJudgment1 = input.ReadDouble();
               break;
             }
-            case 385: {
+            case 393: {
               HighJudgment1 = input.ReadDouble();
               break;
             }
-            case 393: {
+            case 401: {
               LowJudgment1 = input.ReadDouble();
               break;
             }
-            case 401: {
+            case 409: {
               LowerJudgment1 = input.ReadDouble();
               break;
             }
-            case 409: {
+            case 417: {
               LowestJudgment1 = input.ReadDouble();
               break;
             }
-            case 416: {
+            case 424: {
               HighestJudgment = input.ReadInt32();
               break;
             }
-            case 424: {
+            case 432: {
               HigherJudgment = input.ReadInt32();
               break;
             }
-            case 432: {
+            case 440: {
               HighJudgment = input.ReadInt32();
               break;
             }
-            case 440: {
+            case 448: {
               LowJudgment = input.ReadInt32();
               break;
             }
-            case 448: {
+            case 456: {
               LowerJudgment = input.ReadInt32();
               break;
             }
-            case 456: {
+            case 464: {
               LowestJudgment = input.ReadInt32();
               break;
             }
@@ -4443,214 +4477,218 @@ public sealed partial class Event : pb::IMessage<Event>
               Band = input.ReadInt32();
               break;
             }
-            case 49: {
-              Point = input.ReadDouble();
+            case 48: {
+              HighestBand = input.ReadInt32();
               break;
             }
             case 57: {
+              Point = input.ReadDouble();
+              break;
+            }
+            case 65: {
               HitPoints = input.ReadDouble();
               break;
             }
-            case 64: {
+            case 72: {
               IsFailed = input.ReadBool();
               break;
             }
-            case 72: {
+            case 80: {
               LastJudged = input.ReadInt32();
               break;
             }
-            case 82: {
+            case 90: {
               drawings_.AddEntriesFrom(ref input, _repeated_drawings_codec);
               break;
             }
-            case 90: {
+            case 98: {
               if (drawingComponent_ == null) {
                 DrawingComponent = new global::Event.Types.DrawingComponent();
               }
               input.ReadMessage(DrawingComponent);
               break;
             }
-            case 98: {
+            case 106: {
               Title = input.ReadString();
               break;
             }
-            case 106: {
+            case 114: {
               Artist = input.ReadString();
               break;
             }
-            case 114: {
+            case 122: {
               Genre = input.ReadString();
               break;
             }
-            case 120: {
+            case 128: {
               Level = input.ReadInt32();
               break;
             }
-            case 130: {
+            case 138: {
               LevelText = input.ReadString();
               break;
             }
-            case 138: {
+            case 146: {
               WantLevelID = input.ReadString();
               break;
             }
-            case 144: {
+            case 152: {
               AutoMode = input.ReadInt32();
               break;
             }
-            case 152: {
+            case 160: {
               NoteSaltMode = input.ReadInt32();
               break;
             }
-            case 161: {
+            case 169: {
               AudioMultiplier = input.ReadDouble();
               break;
             }
-            case 168: {
+            case 176: {
               FaintNoteMode = input.ReadInt32();
               break;
             }
-            case 176: {
+            case 184: {
               JudgmentMode = input.ReadInt32();
               break;
             }
-            case 184: {
+            case 192: {
               HitPointsMode = input.ReadInt32();
               break;
             }
-            case 192: {
+            case 200: {
               NoteMobilityMode = input.ReadInt32();
               break;
             }
-            case 200: {
+            case 208: {
               LongNoteMode = input.ReadInt32();
               break;
             }
-            case 208: {
+            case 216: {
               InputFavorMode = input.ReadInt32();
               break;
             }
-            case 216: {
+            case 224: {
               NoteModifyMode = input.ReadInt32();
               break;
             }
-            case 224: {
+            case 232: {
               BpmMode = input.ReadInt32();
               break;
             }
-            case 232: {
+            case 240: {
               WaveMode = input.ReadInt32();
               break;
             }
-            case 240: {
+            case 248: {
               SetNoteMode = input.ReadInt32();
               break;
             }
-            case 248: {
+            case 256: {
               LowestJudgmentConditionMode = input.ReadInt32();
               break;
             }
-            case 256: {
+            case 264: {
               TotalNotes = input.ReadInt32();
               break;
             }
-            case 265: {
+            case 273: {
               JudgmentStage = input.ReadDouble();
               break;
             }
-            case 273: {
+            case 281: {
               HitPointsValue = input.ReadDouble();
               break;
             }
-            case 280: {
+            case 288: {
               HighestInputCount = input.ReadInt32();
               break;
             }
-            case 289: {
+            case 297: {
               Length = input.ReadDouble();
               break;
             }
-            case 297: {
+            case 305: {
               Bpm = input.ReadDouble();
               break;
             }
-            case 305: {
+            case 313: {
               Multiplier = input.ReadDouble();
               break;
             }
-            case 312: {
+            case 320: {
               InputMode = input.ReadInt32();
               break;
             }
-            case 321: {
+            case 329: {
               HighestJudgment0 = input.ReadDouble();
               break;
             }
-            case 329: {
+            case 337: {
               HigherJudgment0 = input.ReadDouble();
               break;
             }
-            case 337: {
+            case 345: {
               HighJudgment0 = input.ReadDouble();
               break;
             }
-            case 345: {
+            case 353: {
               LowJudgment0 = input.ReadDouble();
               break;
             }
-            case 353: {
+            case 361: {
               LowerJudgment0 = input.ReadDouble();
               break;
             }
-            case 361: {
+            case 369: {
               LowestJudgment0 = input.ReadDouble();
               break;
             }
-            case 369: {
+            case 377: {
               HighestJudgment1 = input.ReadDouble();
               break;
             }
-            case 377: {
+            case 385: {
               HigherJudgment1 = input.ReadDouble();
               break;
             }
-            case 385: {
+            case 393: {
               HighJudgment1 = input.ReadDouble();
               break;
             }
-            case 393: {
+            case 401: {
               LowJudgment1 = input.ReadDouble();
               break;
             }
-            case 401: {
+            case 409: {
               LowerJudgment1 = input.ReadDouble();
               break;
             }
-            case 409: {
+            case 417: {
               LowestJudgment1 = input.ReadDouble();
               break;
             }
-            case 416: {
+            case 424: {
               HighestJudgment = input.ReadInt32();
               break;
             }
-            case 424: {
+            case 432: {
               HigherJudgment = input.ReadInt32();
               break;
             }
-            case 432: {
+            case 440: {
               HighJudgment = input.ReadInt32();
               break;
             }
-            case 440: {
+            case 448: {
               LowJudgment = input.ReadInt32();
               break;
             }
-            case 448: {
+            case 456: {
               LowerJudgment = input.ReadInt32();
               break;
             }
-            case 456: {
+            case 464: {
               LowestJudgment = input.ReadInt32();
               break;
             }

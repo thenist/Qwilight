@@ -168,19 +168,20 @@ namespace Qwilight.Compute
                 qwilightCallNet.HitPointsMode = (int)ModeComponentValue.HandlingHitPointsModeValue;
                 qwilightCallNet.AvatarNetStatus = avatarNetStatus;
                 qwilightCallNet.Stand = Stand.TargetValue;
-                qwilightCallNet.Band = Band.TargetValue;
                 qwilightCallNet.Point = Point.TargetValue;
                 qwilightCallNet.HitPoints = HitPoints.TargetValue;
                 qwilightCallNet.IsFailed = _hasPendingFailed;
                 qwilightCallNet.LastJudged = (int)LastJudged;
                 if (avatarNetStatus == Event.Types.AvatarNetStatus.Default)
                 {
+                    qwilightCallNet.Band = Band.TargetValue;
                     qwilightCallNet.Drawings.AddRange(NetDrawings);
                     NetDrawings.Clear();
                     IsValidNetDrawings = false;
                 }
                 else
                 {
+                    qwilightCallNet.HighestBand = HighestBand;
                     qwilightCallNet.Title = Title;
                     qwilightCallNet.Artist = Artist;
                     qwilightCallNet.Genre = Genre;

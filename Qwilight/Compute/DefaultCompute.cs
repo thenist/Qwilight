@@ -752,7 +752,7 @@ namespace Qwilight.Compute
                 InheritedTotalNotes = TotalNotes;
                 InheritedLowestJudgment = Comment.LowestJudgment;
                 IsF.SetValue(quitNetItem.isF);
-                HighestBand = quitNetItem.band;
+                HighestBand = quitNetItem.highestBand;
                 LevyingMultiplier = quitNetItem.multiplier;
                 LevyingAudioMultiplier = quitNetItem.audioMultiplier;
                 NetPosition = quitNetItem.netPosition;
@@ -1657,6 +1657,7 @@ namespace Qwilight.Compute
             var commentInputID = 0;
             var commentMultiplierID = 0;
             var commentAudioMultiplierID = 0;
+            var randomDefaultInputs = Component.DefaultInputs[(int)InputMode].ToArray();
             var inputCount = Component.InputCounts[(int)InputMode];
             _valueComponent = new(NoteFile.LevyingBPM, Comment.LoopUnit);
 
@@ -1989,7 +1990,7 @@ namespace Qwilight.Compute
                                                 while (postedTrapNotesMillis >= 60.0)
                                                 {
                                                     postedTrapNotesMillis -= 60.0;
-                                                    var input = Utility.GetSaltedValue(Component.DefaultInputs[(int)InputMode].ToArray());
+                                                    var input = Utility.GetSaltedValue(randomDefaultInputs);
                                                     var wait = Math.Floor(Math.Min(LoopingCounter + 1000.0 * Random.Shared.Next(1000 / 60) / (1000 / 60), Length + Component.QuitWait));
                                                     var isTrapNote = true;
                                                     foreach (var handlingNote in _handlingNotes)
@@ -2046,7 +2047,7 @@ namespace Qwilight.Compute
                                                 while (postedSaltNotesMillis >= 60.0)
                                                 {
                                                     postedSaltNotesMillis -= 60.0;
-                                                    var input = Utility.GetSaltedValue(Component.DefaultInputs[(int)InputMode]);
+                                                    var input = Utility.GetSaltedValue(randomDefaultInputs);
                                                     foreach (var handlingNote in _handlingNotes)
                                                     {
                                                         if (handlingNote.HasStand && handlingNote.Judged == Component.Judged.Not && handlingNote.IsVisibleHalf(this) && handlingNote.TargetInput == handlingNote.LevyingInput)
