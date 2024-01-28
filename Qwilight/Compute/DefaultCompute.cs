@@ -151,16 +151,16 @@ namespace Qwilight.Compute
         bool _wasGetNetItems;
         bool _wasGetNetComments;
         int _validJudgedNotes;
-        CompilerStatus _targetCompilerStatus = CompilerStatus.Not;
+        CompilerStatus _targetCompilerStatus;
         double _standMultiplier;
         bool _isPassable;
         bool _isEscapable;
-        LastStatus _lastStatus = LastStatus.Not;
+        LastStatus _lastStatus;
         bool _paintEnlargedLastBand;
         double _millisMeter;
         double _millisStandardMeter;
         bool _isPaused;
-        InputFlag _inputFlags = InputFlag.Not;
+        InputFlag _inputFlags;
 
         public readonly DrawingComponent DrawingComponentValue = new();
 
@@ -4276,6 +4276,8 @@ namespace Qwilight.Compute
             ModeComponentValue.HandlingHitPointsModeValue = ModeComponentValue.HitPointsModeValue;
             _failedDrawingMillis = 0.0;
             _validJudgedNotes = 0;
+            _isPassable = false;
+            _isEscapable = false;
             _lastStatus = LastStatus.Not;
             SetJudgmentMillis();
             SetStandMultiplier();
