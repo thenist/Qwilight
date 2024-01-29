@@ -101,35 +101,37 @@ namespace Qwilight
                 return handledMediaItem;
             }
 
-            var mediaSrc = MediaSource.CreateFromUri(new Uri(mediaFilePath));
-            var mediaLength = GetMediaLength(mediaFilePath);
             var mediaModifierValue = mediaContainer.MediaModifierValue;
             if (mediaModifierValue != null)
             {
                 lock (_exeCSX)
                 {
+                    var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || (Array.IndexOf(_validMedia, hash) == -1 && QwilightComponent.ModifiedMediaFileFormats.Any(format => mediaFilePath.IsTailCaselsss(format)));
                     var hashFilePath = Utility.GetFilePath(Path.Combine(QwilightComponent.MediaEntryPath, hash), Utility.FileFormatFlag.Media);
                     if (File.Exists(hashFilePath))
                     {
-                        mediaFilePath = hashFilePath;
+                        using var hashSrc = MediaSource.CreateFromUri(new Uri(hashFilePath));
+                        hashSrc.OpenAsync().Await();
+                        isWrongMedia = !(hashSrc.Duration > TimeSpan.Zero);
                     }
-                    else
+                    if (isWrongMedia)
                     {
-                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || (Array.IndexOf(_validMedia, hash) == -1 && QwilightComponent.ModifiedMediaFileFormats.Any(format => mediaFilePath.IsTailCaselsss(format)));
                         var hasAudio = HasAudio(mediaFilePath);
                         if (isWrongMedia || hasAudio || isCounterWave)
                         {
-                            mediaSrc.Dispose();
-                            mediaSrc = null;
                             hashFilePath = Path.ChangeExtension(Path.Combine(QwilightComponent.MediaEntryPath, hash), isWrongMedia || isCounterWave ? ".mkv" : Path.GetExtension(mediaFilePath));
                             mediaModifierValue.ModifyMedia(mediaFilePath, hashFilePath, isWrongMedia, isCounterWave);
                             mediaFilePath = hashFilePath;
                         }
                     }
+                    else
+                    {
+                        mediaFilePath = hashFilePath;
+                    }
                 }
             }
-            mediaSrc = MediaSource.CreateFromUri(new Uri(mediaFilePath));
-            mediaLength = GetMediaLength(mediaFilePath);
+            var mediaSrc = MediaSource.CreateFromUri(new Uri(mediaFilePath));
+            mediaSrc.OpenAsync().Await();
             handledMediaItem = new()
             {
                 Media = new()
@@ -140,7 +142,7 @@ namespace Qwilight
                     IsLoopingEnabled = isLooping
                 },
                 MediaFilePath = mediaFilePath,
-                Length = mediaLength,
+                Length = mediaSrc.Duration?.TotalMilliseconds ?? 0.0,
                 IsLooping = isLooping
             };
             handledMediaItem.Media.CommandManager.IsEnabled = false;
@@ -336,35 +338,6 @@ namespace Qwilight
             {
                 _mediaMap[target] = audioItems;
             }
-        }
-
-        static double GetMediaLength(string fileName)
-        {
-            var mediaLength = 0.0;
-            using (var exe = new Process
-            {
-                StartInfo = new(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffprobe.exe"), $"""
-                    -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "{fileName}"
-                """)
-                {
-                    CreateNoWindow = true,
-                    RedirectStandardOutput = true
-                }
-            })
-            {
-                exe.OutputDataReceived += (sender, e) =>
-                {
-                    if (!string.IsNullOrEmpty(e.Data))
-                    {
-                        Utility.ToFloat64(e.Data, out mediaLength);
-                    }
-                };
-                exe.Start();
-                exe.PriorityClass = ProcessPriorityClass.Idle;
-                exe.BeginOutputReadLine();
-                exe.WaitForExit();
-            }
-            return 1000.0 * mediaLength;
         }
 
         static bool HasAudio(string fileName)
