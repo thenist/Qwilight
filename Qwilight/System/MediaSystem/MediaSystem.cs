@@ -1,4 +1,5 @@
-﻿using Qwilight.Utilities;
+﻿using FFmpegInteropX;
+using Qwilight.Utilities;
 using Qwilight.ViewModel;
 using System.Collections.Concurrent;
 using System.Diagnostics;
@@ -110,30 +111,9 @@ namespace Qwilight
                     var hashFilePath = Utility.GetFilePath(Path.Combine(QwilightComponent.MediaEntryPath, hash), Utility.FileFormatFlag.Media);
                     if (File.Exists(hashFilePath))
                     {
-                        mediaSrc = MediaSource.CreateFromUri(new(hashFilePath));
-                        try
-                        {
-                            mediaSrc.OpenAsync().Await();
-                            if (!(mediaSrc.Duration > TimeSpan.Zero))
-                            {
-                                mediaSrc.Dispose();
-                                mediaSrc = null;
-                                ModifyMedia();
-                            }
-                        }
-                        catch
-                        {
-                            mediaSrc.Dispose();
-                            mediaSrc = null;
-                            ModifyMedia();
-                        }
+                        mediaFilePath = hashFilePath;
                     }
                     else
-                    {
-                        ModifyMedia();
-                    }
-
-                    void ModifyMedia()
                     {
                         var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || (Array.IndexOf(_validMedia, hash) == -1 && QwilightComponent.ModifiedMediaFileFormats.Any(format => mediaFilePath.IsTailCaselsss(format)));
                         var hasAudio = HasAudio(mediaFilePath);
@@ -146,22 +126,18 @@ namespace Qwilight
                     }
                 }
             }
-            if (mediaSrc == null)
-            {
-                mediaSrc = MediaSource.CreateFromUri(new(mediaFilePath));
-                mediaSrc.OpenAsync().Await();
-            }
+            var mediaSrc = FFmpegMediaSource.CreateFromUriAsync(new(mediaFilePath)).Await();
             handledMediaItem = new()
             {
                 Media = new()
                 {
-                    Source = new MediaPlaybackItem(MediaSource.CreateFromUri(new(mediaFilePath))),
+                    Source = mediaSrc.PlaybackItem,
                     IsMuted = true,
                     IsVideoFrameServerEnabled = true,
                     IsLoopingEnabled = isLooping
                 },
                 MediaFilePath = mediaFilePath,
-                Length = mediaSrc.Duration?.TotalMilliseconds ?? 0.0,
+                Length = mediaSrc.Duration.TotalMilliseconds,
                 IsLooping = isLooping
             };
             handledMediaItem.Media.CommandManager.IsEnabled = false;
