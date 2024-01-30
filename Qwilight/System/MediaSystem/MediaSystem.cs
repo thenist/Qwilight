@@ -108,7 +108,8 @@ namespace Qwilight
                 {
                     var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || (Array.IndexOf(_validMedia, hash) == -1 && QwilightComponent.ModifiedMediaFileFormats.Any(format => mediaFilePath.IsTailCaselsss(format)));
                     var hashFilePath = Utility.GetFilePath(Path.Combine(QwilightComponent.MediaEntryPath, hash), Utility.FileFormatFlag.Media);
-                    if (File.Exists(hashFilePath))
+                    var hasHashFile = File.Exists(hashFilePath);
+                    if (hasHashFile)
                     {
                         using var hashSrc = MediaSource.CreateFromUri(new Uri(hashFilePath));
                         hashSrc.OpenAsync().Await();
@@ -124,7 +125,7 @@ namespace Qwilight
                             mediaFilePath = hashFilePath;
                         }
                     }
-                    else
+                    else if (hasHashFile)
                     {
                         mediaFilePath = hashFilePath;
                     }
