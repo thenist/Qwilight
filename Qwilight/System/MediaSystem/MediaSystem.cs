@@ -101,22 +101,41 @@ namespace Qwilight
                 return handledMediaItem;
             }
 
+            MediaSource mediaSrc = null;
             var mediaModifierValue = mediaContainer.MediaModifierValue;
             if (mediaModifierValue != null)
             {
                 lock (_exeCSX)
                 {
-                    var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || (Array.IndexOf(_validMedia, hash) == -1 && QwilightComponent.ModifiedMediaFileFormats.Any(format => mediaFilePath.IsTailCaselsss(format)));
                     var hashFilePath = Utility.GetFilePath(Path.Combine(QwilightComponent.MediaEntryPath, hash), Utility.FileFormatFlag.Media);
-                    var hasHashFile = File.Exists(hashFilePath);
-                    if (hasHashFile)
+                    if (File.Exists(hashFilePath))
                     {
-                        using var hashSrc = MediaSource.CreateFromUri(new Uri(hashFilePath));
-                        hashSrc.OpenAsync().Await();
-                        isWrongMedia = !(hashSrc.Duration > TimeSpan.Zero);
+                        mediaSrc = MediaSource.CreateFromUri(new(hashFilePath));
+                        try
+                        {
+                            mediaSrc.OpenAsync().Await();
+                            if (!(mediaSrc.Duration > TimeSpan.Zero))
+                            {
+                                mediaSrc.Dispose();
+                                mediaSrc = null;
+                                ModifyMedia();
+                            }
+                        }
+                        catch
+                        {
+                            mediaSrc.Dispose();
+                            mediaSrc = null;
+                            ModifyMedia();
+                        }
                     }
-                    if (isWrongMedia)
+                    else
                     {
+                        ModifyMedia();
+                    }
+
+                    void ModifyMedia()
+                    {
+                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || (Array.IndexOf(_validMedia, hash) == -1 && QwilightComponent.ModifiedMediaFileFormats.Any(format => mediaFilePath.IsTailCaselsss(format)));
                         var hasAudio = HasAudio(mediaFilePath);
                         if (isWrongMedia || hasAudio || isCounterWave)
                         {
@@ -125,14 +144,13 @@ namespace Qwilight
                             mediaFilePath = hashFilePath;
                         }
                     }
-                    else if (hasHashFile)
-                    {
-                        mediaFilePath = hashFilePath;
-                    }
                 }
             }
-            var mediaSrc = MediaSource.CreateFromUri(new Uri(mediaFilePath));
-            mediaSrc.OpenAsync().Await();
+            if (mediaSrc == null)
+            {
+                mediaSrc = MediaSource.CreateFromUri(new(mediaFilePath));
+                mediaSrc.OpenAsync().Await();
+            }
             handledMediaItem = new()
             {
                 Media = new()
