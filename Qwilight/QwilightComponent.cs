@@ -46,7 +46,6 @@ namespace Qwilight
         public static readonly string[] AudioFileFormats = [".aif", ".aiff", ".asf", ".flac", ".m4a", ".mid", ".midi", ".mp2", ".mp3", ".ogg", ".opus", ".raw", ".wav", ".wma"];
         public static readonly string[] DrawingFileFormats = [".bmp", ".gif", ".jpeg", ".jpg", ".png"];
         public static readonly string[] MediaFileFormats = [".avi", ".flv", ".m1v", ".mkv", ".mov", ".mp4", ".mpeg", ".mpg", ".wmv"];
-        public static readonly string[] ModifiedMediaFileFormats = [".avi", ".flv", ".m1v", ".mpeg", ".mpg"];
         public static readonly string HashText = Utility.GetID512(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Qwilight.dll")));
         public static readonly Version Date = Assembly.GetEntryAssembly().GetName().Version;
         public static readonly string DateText = $"{Date.Major}.{Date.Minor}.{Date.Build}";

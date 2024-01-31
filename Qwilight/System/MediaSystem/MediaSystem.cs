@@ -102,7 +102,6 @@ namespace Qwilight
                 return handledMediaItem;
             }
 
-            MediaSource mediaSrc = null;
             var mediaModifierValue = mediaContainer.MediaModifierValue;
             if (mediaModifierValue != null)
             {
@@ -115,7 +114,7 @@ namespace Qwilight
                     }
                     else
                     {
-                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || (Array.IndexOf(_validMedia, hash) == -1 && QwilightComponent.ModifiedMediaFileFormats.Any(format => mediaFilePath.IsTailCaselsss(format)));
+                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || Array.IndexOf(_validMedia, hash) == -1;
                         var hasAudio = HasAudio(mediaFilePath);
                         if (isWrongMedia || hasAudio || isCounterWave)
                         {
