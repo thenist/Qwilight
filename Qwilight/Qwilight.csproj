@@ -233,6 +233,9 @@
 		<None Update="Assets\ARM64\msvcp140_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\ARM64\msvcp140_atomic_wait_app.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\ARM64\vcamp140_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -243,6 +246,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\ARM64\vcruntime140_app.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\vcruntime140_1_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\ARM64\windowsappruntimeinstall-arm64.exe">
@@ -291,6 +297,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\msvcp140_app.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\x64\msvcp140_atomic_wait_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\NVIDIA.dll">
