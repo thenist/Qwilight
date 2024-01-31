@@ -2246,8 +2246,11 @@ namespace Qwilight
                 void OnLoaded()
                 {
                     HandlePaintProperties();
+                    DrawingSystem.Instance.OnModified();
                     DrawingSystem.Instance.LoadDefaultDrawing();
+                    AvatarTitleSystem.Instance.WipeAvatarTitles();
                     ViewModels.Instance.NotifyWindowViewModels();
+                    ViewModels.Instance.ModifyModeComponentValue.SetModeComponentItems();
                     mainViewModel.NotifyModel();
                 }
             }

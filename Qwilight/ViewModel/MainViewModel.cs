@@ -3516,7 +3516,6 @@ namespace Qwilight.ViewModel
         {
             base.NotifyModel();
             StrongReferenceMessenger.Default.Send<SetFitInputs>();
-            DrawingSystem.Instance.OnModified();
             BaseUI.Instance.NotifyModel();
             UI.Instance.NotifyModel();
             TwilightSystem.Instance.NotifyModel();
@@ -3525,8 +3524,6 @@ namespace Qwilight.ViewModel
             ControllerSystem.Instance.NotifyModel();
             MIDISystem.Instance.NotifyModel();
             Configure.Instance.NotifyModel();
-            AvatarTitleSystem.Instance.WipeAvatarTitles();
-            ViewModels.Instance.ModifyModeComponentValue.SetModeComponentItems();
         }
 
         public void SetNoteFileMode(string faultText = null)
