@@ -153,6 +153,18 @@ namespace Qwilight.View
 
             Utility.CopyEntry(Path.Combine(QwilightComponent.AssetsEntryPath, "UI"), Path.Combine(QwilightComponent.UIEntryPath));
 
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "concrt140_app.dll"), Path.Combine(AppContext.BaseDirectory, "concrt140_app.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "msvcp140_1_app.dll"), Path.Combine(AppContext.BaseDirectory, "msvcp140_1_app.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "msvcp140_2_app.dll"), Path.Combine(AppContext.BaseDirectory, "msvcp140_2_app.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "msvcp140_app.dll"), Path.Combine(AppContext.BaseDirectory, "msvcp140_app.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "vcamp140_app.dll"), Path.Combine(AppContext.BaseDirectory, "vcamp140_app.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "vccorlib140_app.dll"), Path.Combine(AppContext.BaseDirectory, "vccorlib140_app.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "vcomp140_app.dll"), Path.Combine(AppContext.BaseDirectory, "vcomp140_app.dll"));
+#if X64
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "vcruntime140_1_app.dll"), Path.Combine(AppContext.BaseDirectory, "vcruntime140_1_app.dll"));
+#endif
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "vcruntime140_app.dll"), Path.Combine(AppContext.BaseDirectory, "vcruntime140_app.dll"));
+
             var qwilightBundleFilePath = Path.Combine(QwilightComponent.QwilightEntryPath, "Qwilight.zip");
             if (File.Exists(qwilightBundleFilePath))
             {
