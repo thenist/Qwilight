@@ -89,6 +89,7 @@ namespace Qwilight
         FaintNoteMode _faintNoteMode;
         JudgmentMode _judgmentMode = JudgmentMode.Default;
         HitPointsMode _hitPointsMode = HitPointsMode.Highest;
+        HitPointsMode _handlingHitPointsMode = HitPointsMode.Highest;
         NoteMobilityMode _noteMobilityMode;
         LongNoteMode _longNoteMode;
         InputFavorMode _inputFavorMode;
@@ -113,27 +114,27 @@ namespace Qwilight
 
         public ModeComponent()
         {
-            ComponentValue = new Component(BPM);
+            ComponentValue = new(BPM);
         }
 
         public ModeComponent(Computing valueComputing, JSON.TwilightQuitNet.QuitNetItem quitNetItem)
         {
-            ComponentValue = new Component(quitNetItem.bpm);
+            ComponentValue = new(quitNetItem.bpm);
             ComputingValue = valueComputing;
-            AutoModeValue = (AutoMode)quitNetItem.autoMode;
-            NoteSaltModeValue = (NoteSaltMode)quitNetItem.noteSaltMode;
+            AutoModeValue = quitNetItem.autoMode;
+            NoteSaltModeValue = quitNetItem.noteSaltMode;
             AudioMultiplier = quitNetItem.audioMultiplier;
-            FaintNoteModeValue = (FaintNoteMode)quitNetItem.faintNoteMode;
-            JudgmentModeValue = (JudgmentMode)quitNetItem.judgmentMode;
-            HitPointsModeValue = (HitPointsMode)quitNetItem.hitPointsMode;
-            NoteMobilityModeValue = (NoteMobilityMode)quitNetItem.noteMobilityMode;
-            LongNoteModeValue = (LongNoteMode)quitNetItem.longNoteMode;
-            InputFavorModeValue = (InputFavorMode)quitNetItem.inputFavorMode;
-            NoteModifyModeValue = (NoteModifyMode)quitNetItem.noteModifyMode;
-            BPMModeValue = (BPMMode)quitNetItem.bpmMode;
-            WaveModeValue = (WaveMode)quitNetItem.waveMode;
-            SetNoteModeValue = (SetNoteMode)quitNetItem.setNoteMode;
-            LowestJudgmentConditionModeValue = (LowestJudgmentConditionMode)quitNetItem.lowestJudgmentConditionMode;
+            FaintNoteModeValue = quitNetItem.faintNoteMode;
+            JudgmentModeValue = quitNetItem.judgmentMode;
+            HitPointsModeValue = quitNetItem.hitPointsMode;
+            NoteMobilityModeValue = quitNetItem.noteMobilityMode;
+            LongNoteModeValue = quitNetItem.longNoteMode;
+            InputFavorModeValue = quitNetItem.inputFavorMode;
+            NoteModifyModeValue = quitNetItem.noteModifyMode;
+            BPMModeValue = quitNetItem.bpmMode;
+            WaveModeValue = quitNetItem.waveMode;
+            SetNoteModeValue = quitNetItem.setNoteMode;
+            LowestJudgmentConditionModeValue = quitNetItem.lowestJudgmentConditionMode;
             SentMultiplier = quitNetItem.multiplier;
             MultiplierValue = BPM * AudioMultiplier * SentMultiplier;
             HighestJudgment0 = quitNetItem.highestJudgment0;
@@ -390,7 +391,6 @@ namespace Qwilight
                 if (SetProperty(ref _hitPointsMode, value, nameof(HitPointsModeValue)))
                 {
                     OnPropertyChanged(nameof(HitPointsModeContents));
-                    OnPropertyChanged(nameof(CanBeTwilightCommentContents));
                 }
                 HandlingHitPointsModeValue = value;
             }
@@ -399,7 +399,18 @@ namespace Qwilight
         public string HitPointsModeContents => LanguageSystem.Instance.HitPointsModeTexts[(int)HitPointsModeValue];
 
         [JsonIgnore]
-        public HitPointsMode HandlingHitPointsModeValue { get; set; }
+        public HitPointsMode HandlingHitPointsModeValue
+        {
+            get => _handlingHitPointsMode;
+
+            set
+            {
+                if (SetProperty(ref _handlingHitPointsMode, value))
+                {
+                    OnPropertyChanged(nameof(CanBeTwilightCommentContents));
+                }
+            }
+        }
 
         public Color HandlingHitPointsColor => BaseUI.Instance.HitPointsColor[(int)HandlingHitPointsModeValue];
 

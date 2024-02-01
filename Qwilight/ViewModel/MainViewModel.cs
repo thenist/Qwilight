@@ -76,7 +76,7 @@ namespace Qwilight.ViewModel
         {
             EnableRaisingEvents = true
         };
-        int _randomMillis = Environment.TickCount;
+        long _randomMillis = Environment.TickCount64;
         DispatcherTimer _fadeInHandler;
         bool _isAvailable = true;
         string _twilightCommentText0 = string.Empty;
@@ -90,7 +90,7 @@ namespace Qwilight.ViewModel
         int _entryItemPosition;
         EntryItem _entryItemValue;
         CancellationTokenSource _setCancelDefaultEntryLoading;
-        int? _lastLowerMillis;
+        long? _lastLowerMillis;
         bool _wasLowerMillis = true;
         bool _isUILoading;
         bool _isInputWantPointed;
@@ -568,7 +568,7 @@ namespace Qwilight.ViewModel
                     {
                         ViewModels.Instance.HandleSilentlyClosableViewModels(silentlyClosableViewModel => silentlyClosableViewModel.OpenSilently());
                         NotifySystem.Instance.NotifyPending();
-                        _randomMillis = Environment.TickCount;
+                        _randomMillis = Environment.TickCount64;
                     }
                     else
                     {
@@ -2919,10 +2919,10 @@ namespace Qwilight.ViewModel
                     if (_wasLowerMillis && !IsCommentMode)
                     {
                         _wasLowerMillis = false;
-                        var millis = Environment.TickCount;
+                        var millis = Environment.TickCount64;
                         if (_lastLowerMillis.HasValue)
                         {
-                            if (millis - _lastLowerMillis.Value > 500)
+                            if (millis - _lastLowerMillis.Value > 500L)
                             {
                                 _lastLowerMillis = millis;
                             }
