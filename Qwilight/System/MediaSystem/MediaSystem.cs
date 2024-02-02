@@ -101,7 +101,6 @@ namespace Qwilight
                 return handledMediaItem;
             }
 
-            MediaSource mediaSrc = null;
             var mediaModifierValue = mediaContainer.MediaModifierValue;
             if (mediaModifierValue != null)
             {
@@ -110,32 +109,11 @@ namespace Qwilight
                     var hashFilePath = Utility.GetFilePath(Path.Combine(QwilightComponent.MediaEntryPath, hash), Utility.FileFormatFlag.Media);
                     if (File.Exists(hashFilePath))
                     {
-                        mediaSrc = MediaSource.CreateFromUri(new(hashFilePath));
-                        try
-                        {
-                            mediaSrc.OpenAsync().Await();
-                            if (!(mediaSrc.Duration > TimeSpan.Zero))
-                            {
-                                mediaSrc.Dispose();
-                                mediaSrc = null;
-                                ModifyMedia();
-                            }
-                        }
-                        catch
-                        {
-                            mediaSrc.Dispose();
-                            mediaSrc = null;
-                            ModifyMedia();
-                        }
+                        mediaFilePath = hashFilePath;
                     }
                     else
                     {
-                        ModifyMedia();
-                    }
-
-                    void ModifyMedia()
-                    {
-                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || (Array.IndexOf(_validMedia, hash) == -1 && QwilightComponent.ModifiedMediaFileFormats.Any(format => mediaFilePath.IsTailCaselsss(format)));
+                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || Array.IndexOf(_validMedia, hash) == -1;
                         var hasAudio = HasAudio(mediaFilePath);
                         if (isWrongMedia || hasAudio || isCounterWave)
                         {
@@ -145,11 +123,6 @@ namespace Qwilight
                         }
                     }
                 }
-            }
-            if (mediaSrc == null)
-            {
-                mediaSrc = MediaSource.CreateFromUri(new(mediaFilePath));
-                mediaSrc.OpenAsync().Await();
             }
             handledMediaItem = new()
             {
@@ -161,7 +134,7 @@ namespace Qwilight
                     IsLoopingEnabled = isLooping
                 },
                 MediaFilePath = mediaFilePath,
-                Length = mediaSrc.Duration?.TotalMilliseconds ?? 0.0,
+                Length = GetMediaLength(mediaFilePath),
                 IsLooping = isLooping
             };
             handledMediaItem.Media.CommandManager.IsEnabled = false;
@@ -357,6 +330,35 @@ namespace Qwilight
             {
                 _mediaMap[target] = audioItems;
             }
+        }
+
+        static double GetMediaLength(string fileName)
+        {
+            var mediaLength = 0.0;
+            using (var exe = new Process
+            {
+                StartInfo = new(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffprobe.exe"), $"""
+                    -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "{fileName}"
+                """)
+                {
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true
+                }
+            })
+            {
+                exe.OutputDataReceived += (sender, e) =>
+                {
+                    if (!string.IsNullOrEmpty(e.Data))
+                    {
+                        Utility.ToFloat64(e.Data, out mediaLength);
+                    }
+                };
+                exe.Start();
+                exe.PriorityClass = ProcessPriorityClass.Idle;
+                exe.BeginOutputReadLine();
+                exe.WaitForExit();
+            }
+            return 1000.0 * mediaLength;
         }
 
         static bool HasAudio(string fileName)
