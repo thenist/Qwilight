@@ -36,10 +36,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Assets\UI\%40Default\%40Default.zip.old" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="AuraServiceLib.NET" Version="1.0.1" />
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
@@ -52,7 +48,7 @@
 		<PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
 		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.1.1" />
 		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="3.0.0" />
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2210.55" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2277.86" />
 		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.49-beta">
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
@@ -66,7 +62,7 @@
 		<PackageReference Include="UTF.Unknown" Version="2.5.1" />
 		<PackageReference Include="Vortice.DirectInput" Version="3.3.4" />
 		<PackageReference Include="Vortice.XInput" Version="3.3.4" />
-		<PackageReference Include="YamlDotNet" Version="15.1.0" />
+		<PackageReference Include="YamlDotNet" Version="15.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>

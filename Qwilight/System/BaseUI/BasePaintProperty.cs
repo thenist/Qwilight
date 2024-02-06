@@ -278,7 +278,7 @@ namespace Qwilight
                                 if (hasAvatarTitle)
                                 {
                                     var avatarTitleValue = avatarTitle.Value;
-                                    targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(avatarTitleValue.Title, Font), ref r, avatarTitleValue.TitleColor);
+                                    targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(avatarTitleValue.Title, Font), ref r, avatarTitleValue.TitlePaints[100], DrawingSystem.Instance.FaintFilledPaints[100]);
                                 }
                             }
                             break;

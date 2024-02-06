@@ -1,4 +1,6 @@
-﻿using Windows.UI;
+﻿using Microsoft.Graphics.Canvas.Brushes;
+using System.Collections.Concurrent;
+using Windows.UI;
 using Brush = System.Windows.Media.Brush;
 
 namespace Qwilight.UIComponent
@@ -11,13 +13,13 @@ namespace Qwilight.UIComponent
 
         public Brush TitlePaint { get; init; }
 
-        public Color TitleColor { get; init; }
+        public ICanvasBrush[] TitlePaints { get; init; }
 
         public AvatarTitle(string title, Brush titlePaint, Color titleColor)
         {
             Title = title;
             TitlePaint = titlePaint;
-            TitleColor = titleColor;
+            TitlePaints = PoolSystem.Instance.GetFaintPaint(titleColor);
         }
     }
 }

@@ -236,7 +236,6 @@ namespace Qwilight.ViewModel
                     {
                         DrawingSystem.Instance.OnModified();
                     }
-                    PoolSystem.Instance.Wipe(value);
                     StrongReferenceMessenger.Default.Send(new SetD2DViewVisibility
                     {
                         IsVisible = !value

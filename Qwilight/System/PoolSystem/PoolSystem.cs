@@ -1,4 +1,5 @@
 ﻿using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.IO;
 using Qwilight.Utilities;
@@ -6,8 +7,10 @@ using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Media;
 using Windows.Graphics.DirectX;
+using Windows.UI;
+using Brush = System.Windows.Media.Brush;
+using FormattedText = System.Windows.Media.FormattedText;
 
 namespace Qwilight
 {
@@ -28,35 +31,40 @@ namespace Qwilight
         readonly ConcurrentDictionary<TextID, CanvasTextLayout> _textItems = new();
         readonly ConcurrentDictionary<DefaultTextID, FormattedText> _defaultTextItems = new();
         readonly ConcurrentDictionary<TargetID, CanvasRenderTarget> _targetItems = new();
+        readonly ConcurrentDictionary<Color, ICanvasBrush[]> _faintPaints = new();
         readonly ConcurrentDictionary<ValueTextID<int>, string> _valueIntTexts = new();
         readonly ConcurrentDictionary<ValueTextID<double>, string> _valueFloat64Texts = new();
         readonly ConcurrentDictionary<FormattedTextID, string> _formattedTexts = new();
         readonly ConcurrentDictionary<long, string> _formattedUnitTexts = new();
         readonly ConcurrentQueue<IDisposable> _pendingClosables = new();
 
-        public void Wipe(bool isWPFViewVisible)
+        public void Wipe()
         {
-            if (isWPFViewVisible)
+            foreach (var textID in _textItems.Keys)
             {
-                foreach (var (defaultTextID, defaultTextItem) in _defaultTextItems)
+                if (_textItems.TryRemove(textID, out var textItem))
                 {
-                    _defaultTextItems.TryRemove(defaultTextID, out _);
+                    _pendingClosables.Enqueue(textItem);
                 }
             }
-            else
+            foreach (var (defaultTextID, defaultTextItem) in _defaultTextItems)
             {
-                foreach (var textID in _textItems.Keys)
+                _defaultTextItems.TryRemove(defaultTextID, out _);
+            }
+            foreach (var targetID in _targetItems.Keys)
+            {
+                if (_targetItems.TryRemove(targetID, out var targetItem))
                 {
-                    if (_textItems.TryRemove(textID, out var textItem))
-                    {
-                        _pendingClosables.Enqueue(textItem);
-                    }
+                    _pendingClosables.Enqueue(targetItem);
                 }
-                foreach (var targetID in _targetItems.Keys)
+            }
+            foreach (var faintColor in _faintPaints.Keys)
+            {
+                if (_faintPaints.TryRemove(faintColor, out var faintPaints))
                 {
-                    if (_targetItems.TryRemove(targetID, out var targetItem))
+                    foreach (var faintPaint in faintPaints)
                     {
-                        _pendingClosables.Enqueue(targetItem);
+                        _pendingClosables.Enqueue(faintPaint);
                     }
                 }
             }
@@ -67,6 +75,10 @@ namespace Qwilight
             foreach (var (valueTextID, text) in _valueFloat64Texts)
             {
                 _valueFloat64Texts.TryRemove(valueTextID, out _);
+            }
+            foreach (var (value, text) in _formattedTexts)
+            {
+                _formattedTexts.TryRemove(value, out _);
             }
             foreach (var (value, text) in _formattedUnitTexts)
             {
@@ -105,6 +117,16 @@ namespace Qwilight
                 targetHeight = targetHeight
             };
             return _targetItems.GetOrAdd(targetID, targetID => new(CanvasDevice.GetSharedDevice(), targetID.targetLength, targetID.targetHeight, 96F, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore));
+        }
+
+        public ICanvasBrush[] GetFaintPaint(Color faintColor)
+        {
+            if (!_faintPaints.TryGetValue(faintColor, out var faintPaints))
+            {
+                faintPaints = new ICanvasBrush[101];
+                DrawingSystem.Instance.SetFaintPaints(null, faintPaints, faintColor);
+            }
+            return faintPaints;
         }
 
         public CanvasTextLayout GetTextItem(string text, CanvasTextFormat font, float textLength = 0F, float textHeight = 0F)

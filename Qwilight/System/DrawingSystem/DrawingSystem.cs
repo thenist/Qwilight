@@ -1103,6 +1103,7 @@ namespace Qwilight
                                                                                             var textBound4 = textItem4.LayoutBounds;
                                                                                             var textBound4Length = textBound4.Width;
                                                                                             var textBound4Height = textBound4.Height;
+                                                                                            var titlePaint = hasAvatarTitle ? avatarTitle.Value.TitlePaints[netItemFaintInt] : null;
 
                                                                                             defaultComputer.HighestNetHeight = (float)Math.Max(defaultComputer.HighestNetHeight, Levels.StandardMargin + Math.Max(textBound0Height, textBound1Height) + Levels.StandardMargin + Utility.Max(textBound2Height, textBound3Height, textBound4Height) + Levels.StandardMarginFloat32);
                                                                                             var highestNetHeight = defaultComputer.HighestNetHeight;
@@ -1150,7 +1151,7 @@ namespace Qwilight
                                                                                                 if (hasAvatarTitle)
                                                                                                 {
                                                                                                     var position0 = Levels.StandardMargin + textBound0Length;
-                                                                                                    targetSession.PaintText(textItem0, ref r, avatarTitle.Value.TitleColor);
+                                                                                                    targetSession.PaintText(textItem0, ref r, titlePaint);
                                                                                                     r.Position0 += position0;
                                                                                                     targetSession.PaintText(textItem1, ref r, netTextPaint);
                                                                                                     r.Position0 -= position0;
