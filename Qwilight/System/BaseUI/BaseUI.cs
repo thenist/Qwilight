@@ -1320,7 +1320,7 @@ namespace Qwilight
                     if (!string.IsNullOrEmpty(text) && QwilightComponent.GetCallComputer().IsMatch(text))
                     {
                         var values = text.Split("(").Select(value => value.Trim()).ToArray();
-                        return lsCaller.Call(lsCaller.Globals[values[0]], values[1][0..^1].Split(',').Where(value => !string.IsNullOrEmpty(value)).Select(value => Utility.ToFloat64(value) as object).ToArray()).ToObject().ToString();
+                        return lsCaller.Call(lsCaller.Globals[values[0]], values[1][0..^1].Split(',').Where(value => !string.IsNullOrEmpty(value)).Select(value => Utility.ToFloat64(value) as object).ToArray()).ToString();
                     }
                     else
                     {
