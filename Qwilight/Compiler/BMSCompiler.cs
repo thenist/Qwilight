@@ -804,7 +804,7 @@ namespace Qwilight.Compiler
                                     var audioFilePath = Utility.GetFilePath(Path.Combine(NoteFile.EntryItem.EntryPath, data), Utility.FileFormatFlag.Audio);
                                     if (!string.IsNullOrEmpty(audioFilePath))
                                     {
-                                        bmsIDAudioItemMap[property.Substring(3, 2)] = AudioSystem.Instance.Load(audioFilePath, defaultComputer, 1F, data);
+                                        bmsIDAudioItemMap[property.Substring(3, 2)] = AudioSystem.Instance.Load(audioFilePath, defaultComputer, 1F);
                                     }
                                 }
                                 catch
@@ -881,7 +881,8 @@ namespace Qwilight.Compiler
                                 bmsIDAudioItemMap.TryGetValue(bmsID, out var audioItem);
                                 var audioNote = new AudioNote
                                 {
-                                    AudioItem = audioItem
+                                    AudioItem = audioItem,
+                                    BMSID = bmsID
                                 };
                                 bmsIDHandledItemMap.TryGetValue(bmsID, out mediaItem);
                                 var hasContents = defaultComputer.LoadedMedia;

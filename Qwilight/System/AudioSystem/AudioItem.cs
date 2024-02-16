@@ -8,8 +8,6 @@ namespace Qwilight
 
         public Sound AudioData { get; set; }
 
-        public string BMSID { get; set; }
-
         public float AudioVolume { get; set; }
 
         public uint Length { get; set; }

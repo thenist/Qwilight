@@ -731,7 +731,7 @@ namespace Qwilight
                     try
                     {
                         var audioFilePath = Path.Combine(QwilightComponent.AssetsEntryPath, "System 16", "Audio", "1221.mp3");
-                        _audioItemMap[audioFilePath] = AudioSystem.Instance.Load(audioFilePath, this, 1F, null, true);
+                        _audioItemMap[audioFilePath] = AudioSystem.Instance.Load(audioFilePath, this, 1F, true);
                     }
                     catch
                     {
@@ -745,7 +745,7 @@ namespace Qwilight
                     try
                     {
                         var audioFilePath = Path.Combine(QwilightComponent.AssetsEntryPath, "System 16", "Audio", "1225.mp3");
-                        _audioItemMap[audioFilePath] = AudioSystem.Instance.Load(audioFilePath, this, 1F, null, true);
+                        _audioItemMap[audioFilePath] = AudioSystem.Instance.Load(audioFilePath, this, 1F, true);
                     }
                     catch
                     {
@@ -1379,7 +1379,7 @@ namespace Qwilight
                                     {
                                         using (rms)
                                         {
-                                            _audioItemMap[justFileName] = AudioSystem.Instance.Load(rms, this, 1F, null, QwilightComponent.GetLoopingAudioComputer().IsMatch(justFileName));
+                                            _audioItemMap[justFileName] = AudioSystem.Instance.Load(rms, this, 1F, QwilightComponent.GetLoopingAudioComputer().IsMatch(justFileName));
                                         }
                                     }
                                     catch
@@ -1394,7 +1394,7 @@ namespace Qwilight
                                     {
                                         using (rms)
                                         {
-                                            _defaultAudioItemMap[$"{nameof(BaseUI)}://{justFileName}"] = AudioSystem.Instance.Load(rms, this, 1F, null, true);
+                                            _defaultAudioItemMap[$"{nameof(BaseUI)}://{justFileName}"] = AudioSystem.Instance.Load(rms, this, 1F, true);
                                         }
                                     }
                                     catch
@@ -1410,6 +1410,7 @@ namespace Qwilight
                                         using (rms)
                                         {
                                             var hash = Utility.GetID128(rms);
+                                            fileName = fileName.Replace("\"", string.Empty);
                                             var hashMediaFilePath = Path.Combine(QwilightComponent.MediaEntryPath, $"{hash}{Path.GetExtension(fileName)}");
                                             if (!File.Exists(hashMediaFilePath))
                                             {
@@ -1609,6 +1610,7 @@ namespace Qwilight
                     var etc = paintProperty.Etc;
                     paintProperty.HandledMediaItems = (GetMultipleMediaFilePathsComputer().IsMatch(etc) ? etc.Substring(etc.IndexOf('[') + 1, etc.LastIndexOf(']') - 1).Split(',').Select(text => text.Trim()) : [etc]).Select(mediaFileName =>
                     {
+                        mediaFileName = mediaFileName.Replace("\"", string.Empty);
                         if (handledMediaValues.TryGetValue(mediaFileName, out var handledMediaItem))
                         {
                             return handledMediaItem;

@@ -295,7 +295,7 @@ namespace Qwilight
                 }
                 if (wasHandled)
                 {
-                    AudioSystem.Instance.Handle(new AudioNote
+                    AudioSystem.Instance.Handle(new()
                     {
                         AudioLevyingPosition = pausableAudioHandler?.GetAudioPosition() ?? 0U,
                         AudioItem = audioItem
@@ -1438,7 +1438,7 @@ namespace Qwilight
                             {
                                 using (s)
                                 {
-                                    audioValues[fileName] = AudioSystem.Instance.Load(s, this, 1F, null, QwilightComponent.GetLoopingAudioComputer().IsMatch(justFileName));
+                                    audioValues[fileName] = AudioSystem.Instance.Load(s, this, 1F, QwilightComponent.GetLoopingAudioComputer().IsMatch(justFileName));
                                 }
                             }
                             catch

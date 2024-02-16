@@ -1672,7 +1672,7 @@ namespace Qwilight.Compute
                         var audioItemValue = audioItem.Value;
                         if (LoopingCounter <= waitModified + (audioLength ?? audioItemValue.Length))
                         {
-                            var bmsID = audioItemValue.BMSID;
+                            var bmsID = audioNote.BMSID;
                             StopLastEqualAudioItem(bmsID);
                             lock (LoadedCSX)
                             {
@@ -1682,7 +1682,8 @@ namespace Qwilight.Compute
                                     {
                                         AudioItem = audioItemValue,
                                         AudioLevyingPosition = (uint)(LoopingCounter - waitModified + audioNote.AudioLevyingPosition),
-                                        Length = audioLength != null ? (uint?)(waitModified + audioLength - LoopingCounter) : null
+                                        Length = audioLength != null ? (uint?)(waitModified + audioLength - LoopingCounter) : null,
+                                        BMSID = bmsID
                                     }, AudioSystem.MainAudio, AudioMultiplier, IsCounterWave, this);
                                     if (!string.IsNullOrEmpty(bmsID))
                                     {
@@ -2703,7 +2704,7 @@ namespace Qwilight.Compute
                                                     var lastEventPosition = IsInEvents ? _eventPositions.Last() : LoopingCounter;
                                                     if (lastEventPosition < LoopingCounter + audioItemValue.Length)
                                                     {
-                                                        var bmsID = audioItemValue.BMSID;
+                                                        var bmsID = audioNote.BMSID;
                                                         StopLastEqualAudioItem(bmsID);
                                                         lock (LoadedCSX)
                                                         {
@@ -2714,7 +2715,8 @@ namespace Qwilight.Compute
                                                                     AudioItem = audioItem,
                                                                     Length = audioNote.Length,
                                                                     AudioLevyingPosition = (uint)(audioNote.AudioLevyingPosition + lastEventPosition - LoopingCounter),
-                                                                    Salt = audioNote.Salt
+                                                                    Salt = audioNote.Salt,
+                                                                    BMSID = bmsID
                                                                 }, AudioSystem.InputAudio, AudioMultiplier, IsCounterWave, this, 0.0, inputPower);
                                                                 if (!string.IsNullOrEmpty(bmsID))
                                                                 {
@@ -2744,7 +2746,7 @@ namespace Qwilight.Compute
                                             var lastEventPosition = IsInEvents ? _eventPositions.Last() : LoopingCounter;
                                             if (lastEventPosition < LoopingCounter + (audioNote.Length ?? audioItemValue.Length))
                                             {
-                                                var bmsID = audioItemValue.BMSID;
+                                                var bmsID = audioNote.BMSID;
                                                 StopLastEqualAudioItem(bmsID);
                                                 lock (LoadedCSX)
                                                 {
@@ -2755,7 +2757,8 @@ namespace Qwilight.Compute
                                                             AudioItem = audioItem,
                                                             Length = audioNote.Length,
                                                             AudioLevyingPosition = (uint)(audioNote.AudioLevyingPosition + lastEventPosition - LoopingCounter),
-                                                            Salt = audioNote.Salt
+                                                            Salt = audioNote.Salt,
+                                                            BMSID = bmsID
                                                         }, AudioSystem.InputAudio, AudioMultiplier, IsCounterWave, this, 0.0, inputPower);
                                                         note.AudioChannels.Add(audioChannel);
                                                         if (!string.IsNullOrEmpty(bmsID))

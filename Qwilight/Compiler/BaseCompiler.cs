@@ -577,7 +577,7 @@ namespace Qwilight.Compiler
             var audioNoteSaltComputer = new Random(defaultComputer.ModeComponentValue.Salt);
             foreach (var (wait, audioNotes) in defaultComputer.WaitAudioNoteMap.ToArray())
             {
-                defaultComputer.WaitAudioNoteMap[wait] = audioNotes.Select(audioNote => new AudioNote()
+                defaultComputer.WaitAudioNoteMap[wait] = audioNotes.Select(audioNote => new AudioNote
                 {
                     AudioItem = audioNote.AudioItem,
                     Length = audioNote.Length,

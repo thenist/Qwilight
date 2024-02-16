@@ -17,6 +17,8 @@ namespace Qwilight.Note
 
         public double LogicalY { get; set; }
 
+        public string BMSID { get; init; }
+
         public int ID { get; set; }
 
         public double Wait { get; set; }

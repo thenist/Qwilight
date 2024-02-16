@@ -197,7 +197,7 @@ namespace Qwilight
             {
                 if (File.Exists(filePath))
                 {
-                    DefaultAudioItemMap[$"{nameof(AudioSystem)}://{filePath}"] = Load(filePath, null, 1F, null, true);
+                    DefaultAudioItemMap[$"{nameof(AudioSystem)}://{filePath}"] = Load(filePath, null, 1F, true);
                 }
             }
             catch
@@ -935,13 +935,13 @@ namespace Qwilight
             }
         }
 
-        public AudioItem Load(string audioFilePath, IAudioContainer audioContainer, float audioVolume, string bmsID = null, bool isLooping = false)
+        public AudioItem Load(string audioFilePath, IAudioContainer audioContainer, float audioVolume, bool isLooping = false)
         {
             using var rms = PoolSystem.Instance.GetDataFlow(File.ReadAllBytes(audioFilePath));
-            return Load(rms, audioContainer, audioVolume, bmsID, isLooping);
+            return Load(rms, audioContainer, audioVolume, isLooping);
         }
 
-        public AudioItem Load(Stream s, IAudioContainer audioContainer, float audioVolume, string bmsID = null, bool isLooping = false)
+        public AudioItem Load(Stream s, IAudioContainer audioContainer, float audioVolume, bool isLooping = false)
         {
             var hash = Utility.GetID128(s);
             var audioItem = new AudioItem();
@@ -969,7 +969,6 @@ namespace Qwilight
                 {
                     if (_targetSystem.createSound(ms.GetBuffer(), LoadingAudioModes | (isLooping ? MODE.LOOP_NORMAL : MODE.LOOP_OFF), ref audioInfo, out var audioData) == RESULT.OK)
                     {
-                        audioItem.BMSID = bmsID;
                         audioItem.System = _targetSystem.handle;
                         audioItem.AudioData = audioData;
                         audioItem.AudioVolume = audioVolume;
