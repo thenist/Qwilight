@@ -20,6 +20,9 @@
                     </StackPanel>
                 </StackPanel>
                 <TabControl Style="{StaticResource StandardPageView}" Grid.Row="1" TabStripPlacement="Left">
+                    <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding NoteFilesBundleText, Source={StaticResource LanguageSystem}}">
+                        <view:BundleView BundleItemCollection="{Binding NoteFilesBundleItemCollection}" />
+                    </TabItem>
                     <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding NoteFileBundleText, Source={StaticResource LanguageSystem}}">
                         <view:BundleView BundleItemCollection="{Binding NoteFileBundleItemCollection}" />
                     </TabItem>

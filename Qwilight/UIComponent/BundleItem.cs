@@ -11,11 +11,12 @@ namespace Qwilight.UIComponent
         public enum BundleVariety
         {
             DefaultUI = -2,
-            DefaultNotes = -1,
+            DefaultNoteFiles = -1,
+            NoteFiles = 0,
             UI = 1,
             Qwilight = 2,
             EventNote = 3,
-            Note = 4,
+            NoteFile = 4,
             Net = 5
         }
 

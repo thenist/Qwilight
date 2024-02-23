@@ -117,7 +117,15 @@
                     </Button>
                     <Button Style="{StaticResource StandardInput}" Content="{Binding NewEventNote, Source={StaticResource LanguageSystem}}" Command="{Binding NewEventNoteCommand}" Visibility="{Binding MainValue.IsNoteFileNotLogical,Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" />
                     <Button Style="{StaticResource StandardInput}" Content="{Binding ModifyEventNoteName, Source={StaticResource LanguageSystem}}" Command="{Binding ModifyEventNoteNameCommand}" Visibility="{Binding MainValue.IsEntryItemEventNote, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}" />
-                    <Button Style="{StaticResource StandardInput}" Content="{Binding SaveAsBundle, Source={StaticResource LanguageSystem}}" Command="{Binding SaveAsBundleCommand}" Visibility="{Binding MainValue.CanSaveAsBundle, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}" />
+                    <Button Style="{StaticResource StandardInput}" Content="{Binding SaveAsBundle, Source={StaticResource LanguageSystem}}" PreviewMouseDown="OnViewItems" Visibility="{Binding MainValue.CanSaveAsBundle, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}">
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="{Binding SaveAsNoteFilesBundleCommand}" Header="{Binding NoteFilesBundleText, Source={StaticResource LanguageSystem}}" Visibility="{Binding MainValue.IsEntryItemEventNote, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityNotModifier}}" />
+                                <MenuItem Command="{Binding SaveAsNoteFileBundleCommand}" Header="{Binding NoteFileBundleText, Source={StaticResource LanguageSystem}}" />
+                                <MenuItem Command="{Binding SaveAsEventNoteBundleCommand}" Header="{Binding EventNoteBundleText, Source={StaticResource LanguageSystem}}" Visibility="{Binding MainValue.IsEntryItemEventNote, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
                     <Button Style="{StaticResource StandardInput}" Content="{Binding NoteFormat, Source={StaticResource LanguageSystem}}" PreviewMouseDown="OnViewItems" Visibility="{Binding MainValue.IsNoteFileNotLogical, Source={StaticResource ViewModels},Converter={StaticResource VisibilityModifier}}">
                         <Button.ContextMenu>
                             <ContextMenu>

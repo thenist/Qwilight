@@ -9,6 +9,8 @@ namespace Qwilight.ViewModel
     {
         string _targetBundleAvatar = string.Empty;
 
+        public ObservableCollection<BundleItem> NoteFilesBundleItemCollection { get; } = new();
+
         public ObservableCollection<BundleItem> NoteFileBundleItemCollection { get; } = new();
 
         public ObservableCollection<BundleItem> UIBundleItemCollection { get; } = new();

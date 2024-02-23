@@ -2323,6 +2323,10 @@
     "ko-KR": "노트 파일 목록 탐색 중… ({0})",
     "en-US": "Navigating chart list… ({0})"
   },
+  "NoteFilesBundleText": {
+    "ko-KR": "BMS 폴더",
+    "en-US": "BMS folder"
+  },
   "NoteFilesLevelText": {
     "ko-KR": "동봉 사이트",
     "en-US": "Enclosed Site"
@@ -2806,10 +2810,6 @@
   "QwilightFillText": {
     "ko-KR": "스트레치 화면",
     "en-US": "Stretch screen"
-  },
-  "RAMWarning": {
-    "ko-KR": "남은 메모리가 {0} 만큼 부족하여 공격적으로 GC가 수행되므로 게임 성능이 감소됩니다.",
-    "en-US": "Game performance is reduced because GC is aggressively performed due to lack of remaining memory by {0}."
   },
   "SaltContents": {
     "ko-KR": "BMS 랜덤이나 게임 모드 등에 사용되는 시드입니다.",

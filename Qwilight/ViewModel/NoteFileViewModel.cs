@@ -307,33 +307,43 @@ Qwilight
         }
 
         [RelayCommand]
-        void OnSaveAsBundle()
+        void OnSaveAsNoteFilesBundle()
         {
-            if (string.IsNullOrEmpty(EntryItemValue.EventNoteID))
+            TwilightSystem.Instance.SendParallel(Event.Types.EventID.SaveAsBundle, new
             {
-                TwilightSystem.Instance.SendParallel(Event.Types.EventID.SaveAsBundle, new
-                {
-                    bundleVariety = BundleItem.BundleVariety.Note,
-                    bundleName = EntryItemValue.NoteFile.Title,
-                    bundleEntryPath = EntryItemValue.NoteFile.NoteFilePath,
-                    etc = string.Join('/', EntryItemValue.CompatibleNoteFiles.Select(noteFile => noteFile.GetNoteID512()))
-                });
-            }
-            else
+                bundleVariety = BundleItem.BundleVariety.NoteFiles,
+                bundleName = EntryItemValue.Title,
+                bundleEntryPath = EntryItemValue.EntryPath
+            });
+        }
+
+        [RelayCommand]
+        void OnSaveAsNoteFileBundle()
+        {
+            TwilightSystem.Instance.SendParallel(Event.Types.EventID.SaveAsBundle, new
             {
-                TwilightSystem.Instance.SendParallel(Event.Types.EventID.SaveAsBundle, new
+                bundleVariety = BundleItem.BundleVariety.NoteFile,
+                bundleName = EntryItemValue.NoteFile.Title,
+                bundleEntryPath = EntryItemValue.NoteFile.NoteFilePath,
+                etc = string.Join('/', EntryItemValue.NoteFile.EntryItem.CompatibleNoteFiles.Select(noteFile => noteFile.GetNoteID512()))
+            });
+        }
+
+        [RelayCommand]
+        void OnSaveAsEventNoteBundle()
+        {
+            TwilightSystem.Instance.SendParallel(Event.Types.EventID.SaveAsBundle, new
+            {
+                bundleVariety = BundleItem.BundleVariety.EventNote,
+                bundleName = EntryItemValue.EventNoteName,
+                bundleEntryPath = EntryItemValue.EventNoteID,
+                etc = EntryItemValue.EventNoteVariety switch
                 {
-                    bundleVariety = BundleItem.BundleVariety.EventNote,
-                    bundleName = EntryItemValue.EventNoteName,
-                    bundleEntryPath = EntryItemValue.EventNoteID,
-                    etc = EntryItemValue.EventNoteVariety switch
-                    {
-                        DB.EventNoteVariety.MD5 => "MD5",
-                        DB.EventNoteVariety.Qwilight => "Qwilight",
-                        _ => default
-                    }
-                });
-            }
+                    DB.EventNoteVariety.MD5 => "MD5",
+                    DB.EventNoteVariety.Qwilight => "Qwilight",
+                    _ => default
+                }
+            });
         }
 
         [RelayCommand]

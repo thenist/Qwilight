@@ -279,7 +279,7 @@ namespace Qwilight
                                             });
                                         }
                                     }
-                                    _ = GetDefaultNoteDate(Configure.Instance.DefaultNoteDate, Configure.Instance.AutoGetDefaultNote);
+                                    _ = GetDefaultNoteDate(Configure.Instance.DefaultNoteFileDate, Configure.Instance.AutoGetDefaultNote);
                                     _ = GetDefaultUIDate(Configure.Instance.DefaultUIDate, Configure.Instance.AutoGetDefaultUI);
                                     break;
                                 case Event.Types.EventID.UnavailableDate:
@@ -429,7 +429,8 @@ namespace Qwilight
                                         {
                                             ((BundleItem.BundleVariety)bundleDataItem.bundleVariety switch
                                             {
-                                                BundleItem.BundleVariety.Note => noteFileBundleItems,
+                                                BundleItem.BundleVariety.NoteFiles => noteFilesBundleItems,
+                                                BundleItem.BundleVariety.NoteFile => noteFileBundleItems,
                                                 BundleItem.BundleVariety.UI => valueUIBundleItems,
                                                 BundleItem.BundleVariety.Qwilight => qwilightBundleItems,
                                                 BundleItem.BundleVariety.EventNote => eventNoteBundleItems,
@@ -446,12 +447,19 @@ namespace Qwilight
                                                 Variety = (BundleItem.BundleVariety)bundleDataItem.bundleVariety
                                             });
                                         }
+                                        var noteFilesBundleItemCollection = bundleViewModel.NoteFilesBundleItemCollection;
                                         var noteFileBundleItemCollection = bundleViewModel.NoteFileBundleItemCollection;
                                         var valueUIBundleItemCollection = bundleViewModel.UIBundleItemCollection;
                                         var qwilightBundleItemCollection = bundleViewModel.QwilightBundleItemCollection;
                                         var eventNoteBundleItemCollection = bundleViewModel.EventNoteBundleItemCollection;
                                         UIHandler.Instance.HandleParallel(() =>
                                         {
+                                            noteFilesBundleItemCollection.Clear();
+                                            foreach (var noteFilesBundleItem in noteFilesBundleItems)
+                                            {
+                                                noteFilesBundleItem.BundleItemCollection = noteFilesBundleItemCollection;
+                                                noteFilesBundleItemCollection.Add(noteFilesBundleItem);
+                                            }
                                             noteFileBundleItemCollection.Clear();
                                             foreach (var noteFileBundleItem in noteFileBundleItems)
                                             {
@@ -749,6 +757,7 @@ namespace Qwilight
                                                 switch (saveAsBundleVariety)
                                                 {
                                                     case BundleItem.BundleVariety.Net:
+                                                    case BundleItem.BundleVariety.NoteFiles:
                                                         zipFile.AddDirectory(bundleEntryPath);
                                                         zipFile.SaveProgress += OnSavingZipFile;
                                                         zipFile.Save(rms);
@@ -809,7 +818,7 @@ namespace Qwilight
                                                         var eventNoteData = Encoding.UTF8.GetBytes(bundleEntryPath);
                                                         rms.Write(eventNoteData, 0, eventNoteData.Length);
                                                         break;
-                                                    case BundleItem.BundleVariety.Note:
+                                                    case BundleItem.BundleVariety.NoteFile:
                                                         twilightSaveAsBundle.bundleEntryPath = Path.GetDirectoryName(bundleEntryPath)!;
                                                         zipFile.AddFile(bundleEntryPath, string.Empty);
                                                         zipFile.SaveProgress += OnSavingZipFile;
@@ -918,7 +927,7 @@ namespace Qwilight
                                     };
                                     _savingBundleItems[saveBundleID] = savingBundleItem;
                                     UIHandler.Instance.HandleParallel(() => toNotifyViewModel.NotifyItemCollection.Insert(0, savingBundleItem));
-                                    if (saveBundleVariety != BundleItem.BundleVariety.DefaultNotes && saveBundleVariety != BundleItem.BundleVariety.DefaultUI)
+                                    if (saveBundleVariety != BundleItem.BundleVariety.DefaultNoteFiles && saveBundleVariety != BundleItem.BundleVariety.DefaultUI)
                                     {
                                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
                                     }
@@ -954,12 +963,13 @@ namespace Qwilight
                                                 var dataFlow = savingBundleItem.DataFlow;
                                                 dataFlow.Position = 0;
                                                 var bundleVariety = (BundleItem.BundleVariety)twilightSavedBundle.bundleVariety;
-                                                var isNotDefaultBundle = bundleVariety != BundleItem.BundleVariety.DefaultNotes && bundleVariety != BundleItem.BundleVariety.DefaultUI;
+                                                var isNotDefaultBundle = bundleVariety != BundleItem.BundleVariety.DefaultNoteFiles && bundleVariety != BundleItem.BundleVariety.DefaultUI;
                                                 try
                                                 {
                                                     switch (bundleVariety)
                                                     {
-                                                        case BundleItem.BundleVariety.DefaultNotes:
+                                                        case BundleItem.BundleVariety.NoteFiles:
+                                                        case BundleItem.BundleVariety.DefaultNoteFiles:
                                                         case BundleItem.BundleVariety.Net:
                                                             var bundleEntryPath = Path.Combine(QwilightComponent.BundleEntryPath, twilightSavedBundle.bundleName);
                                                             using (var zipFile = ZipFile.Read(dataFlow))
@@ -1046,7 +1056,7 @@ namespace Qwilight
                                                                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.BeforeEventNoteContents);
                                                             }
                                                             break;
-                                                        case BundleItem.BundleVariety.Note:
+                                                        case BundleItem.BundleVariety.NoteFile:
                                                             var noteID = twilightSavedBundle.etc.Split('/').FirstOrDefault(noteID512s => mainViewModel.NoteID512s.ContainsKey(noteID512s));
                                                             if (noteID != null && mainViewModel.NoteID512s.TryGetValue(noteID, out var noteFile))
                                                             {
@@ -1547,7 +1557,7 @@ namespace Qwilight
             if (twilightWwwDefaultDate.HasValue)
             {
                 var date = twilightWwwDefaultDate.Value.date;
-                Configure.Instance.DefaultNoteDate = date;
+                Configure.Instance.DefaultNoteFileDate = date;
                 if (isSilent)
                 {
                     GetDefaultNote();

@@ -1607,10 +1607,9 @@ namespace Qwilight
             {
                 if (paintProperty?.DrawingVariety == 11)
                 {
-                    var etc = paintProperty.Etc;
+                    var etc = paintProperty.Etc.Replace("\"", string.Empty);
                     paintProperty.HandledMediaItems = (GetMultipleMediaFilePathsComputer().IsMatch(etc) ? etc.Substring(etc.IndexOf('[') + 1, etc.LastIndexOf(']') - 1).Split(',').Select(text => text.Trim()) : [etc]).Select(mediaFileName =>
                     {
-                        mediaFileName = mediaFileName.Replace("\"", string.Empty);
                         if (handledMediaValues.TryGetValue(mediaFileName, out var handledMediaItem))
                         {
                             return handledMediaItem;

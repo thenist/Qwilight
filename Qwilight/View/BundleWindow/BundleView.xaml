@@ -21,13 +21,18 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button Style="{StaticResource StandardInput}" Command="{Binding SaveCommand}" Content="{Binding SaveBundle, Source={StaticResource LanguageSystem}}" />
                                 <Button Style="{StaticResource StandardInput}" Command="{Binding WipeCommand}" Visibility="{Binding BundleValue.IsMe, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" Content="{Binding WipeBundleText, Source={StaticResource LanguageSystem}}" />
-                                <ComboBox Style="{StaticResource StandardItemsInput}" IsEnabled="{Binding BundleValue.IsMe, Source={StaticResource ViewModels}}" SelectedItem="{Binding BundleCompetence, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding BundleCompetence.Paint}" HorizontalAlignment="Left">
+                                <ComboBox Style="{StaticResource StandardItemsInput}" IsEnabled="{Binding BundleValue.IsMe, Source={StaticResource ViewModels}}" SelectedItem="{Binding BundleCompetence, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
                                     <ComboBox.Items>
                                         <quic:BundleCompetence Data="{StaticResource BundleCallable}" />
                                         <quic:BundleCompetence Data="{StaticResource BundleAvatar}" />
                                         <quic:BundleCompetence Data="{StaticResource BundleUbuntu}" />
                                         <quic:BundleCompetence Data="{StaticResource BundleVoid}" />
                                     </ComboBox.Items>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" Foreground="{Binding Paint}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </StackPanel>
                         </StackPanel>

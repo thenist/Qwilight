@@ -11,10 +11,5 @@
         public int Salt { get; init; }
 
         public string BMSID { get; init; }
-
-        public AudioNote()
-        {
-
-        }
     }
 }

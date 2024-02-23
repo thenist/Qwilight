@@ -583,6 +583,7 @@ namespace Qwilight
         public string NoteFileBundleText { get; set; }
         public string NoteFileLevelText { get; set; }
         public string NoteFileModeSituationContents { get; set; }
+        public string NoteFilesBundleText { get; set; }
         public string NoteFilesLevelText { get; set; }
         public string NoteFormat { get; set; }
         public string NoteFormatIDText65001 { get; set; }
@@ -704,7 +705,6 @@ namespace Qwilight
         public string QwilightBundleText { get; set; }
         public string QwilightFillContents { get; set; }
         public string QwilightFillText { get; set; }
-        public string RAMWarning { get; set; }
         public string SaltContents { get; set; }
         public string SaltModeContents { get; set; }
         public string SaveAsBundle { get; set; }

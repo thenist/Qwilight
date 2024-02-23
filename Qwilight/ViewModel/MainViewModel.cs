@@ -257,17 +257,6 @@ namespace Qwilight.ViewModel
                 if (value)
                 {
                     var lazyGC = Configure.Instance.LazyGCV2 * 1000L * 1000L;
-                    try
-                    {
-                        var eagerRAM = 0.1 * QwilightComponent.RAM - (1000L * (long)Utility.GetWMI("SELECT FreePhysicalMemory FROM Win32_OperatingSystem").Select(o => (ulong)o["FreePhysicalMemory"]).Single() - lazyGC);
-                        if (eagerRAM > 0.0)
-                        {
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.RAMWarning, Utility.FormatLength((long)eagerRAM)));
-                        }
-                    }
-                    catch
-                    {
-                    }
                     if (lazyGC > 0L)
                     {
                         try
