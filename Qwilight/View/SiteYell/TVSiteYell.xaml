@@ -7,7 +7,7 @@
         <ColumnDefinition Width="Auto" />
         <ColumnDefinition />
     </Grid.ColumnDefinitions>
-    <Image Style="{StaticResource StandardView}" Source="{StaticResource TVDrawing}" Width="48" Height="48" />
+    <Image Style="{StaticResource StandardView}" Source="{Binding Drawing}" Width="48" Height="48" />
     <Grid Grid.Column="1">
         <Grid.RowDefinitions>
             <RowDefinition />

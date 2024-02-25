@@ -177,6 +177,11 @@ namespace Qwilight
 
         void AutoEnter(Func<int, bool> onAutoEnter)
         {
+            SendParallel(Event.Types.EventID.EnterSite, new
+            {
+                siteID = "00000000-0000-0000-0000-000000000003",
+                siteCipher = string.Empty
+            });
             if (onAutoEnter(Configure.Instance.AutoEnterNotifySite.Data))
             {
                 SendParallel(Event.Types.EventID.EnterSite, new
@@ -279,7 +284,7 @@ namespace Qwilight
                                             });
                                         }
                                     }
-                                    _ = GetDefaultNoteDate(Configure.Instance.DefaultNoteFileDate, Configure.Instance.AutoGetDefaultNote);
+                                    _ = GetDefaultNoteDate(Configure.Instance.DefaultNotesDate, Configure.Instance.AutoGetDefaultNote);
                                     _ = GetDefaultUIDate(Configure.Instance.DefaultUIDate, Configure.Instance.AutoGetDefaultUI);
                                     break;
                                 case Event.Types.EventID.UnavailableDate:
@@ -1557,7 +1562,7 @@ namespace Qwilight
             if (twilightWwwDefaultDate.HasValue)
             {
                 var date = twilightWwwDefaultDate.Value.date;
-                Configure.Instance.DefaultNoteFileDate = date;
+                Configure.Instance.DefaultNotesDate = date;
                 if (isSilent)
                 {
                     GetDefaultNote();
@@ -1577,7 +1582,7 @@ namespace Qwilight
                 void GetDefaultNote()
                 {
                     SendParallel(Event.Types.EventID.SaveDefaultNote, Utility.GetEntry(QwilightComponent.BundleEntryPath).Select(bundleEntryPath => Path.GetFileName(bundleEntryPath)));
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.SavingDefaultNoteContents);
+                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.SavingDefaultNotesContents);
                 }
             }
         }

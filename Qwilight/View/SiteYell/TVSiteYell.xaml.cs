@@ -1,5 +1,6 @@
 ﻿using Qwilight.Utilities;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Qwilight.View.SiteYell
 {
@@ -18,6 +19,25 @@ namespace Qwilight.View.SiteYell
         public string Date { get; }
 
         public string SiteYellTV { get; }
+
+        public ImageSource Drawing
+        {
+            get
+            {
+                if (_href.StartsWith("https://www.twitch.tv"))
+                {
+                    return QwilightComponent.GetBuiltInData<ImageSource>("TV0Drawing");
+                }
+                else if (_href.StartsWith("https://chzzk.naver.com"))
+                {
+                    return QwilightComponent.GetBuiltInData<ImageSource>("TV1Drawing");
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
         public TVSiteYell(string avatarID, string siteYell, string date, int siteYellID)
         {

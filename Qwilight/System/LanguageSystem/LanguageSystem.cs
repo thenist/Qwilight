@@ -25,6 +25,7 @@ namespace Qwilight
         public string GetSiteName(string siteName) => siteName switch
         {
             "@Comment" => CommentSiteName,
+            "@Notify" => NotifySiteName,
             "@Default" => DefaultSiteName,
             "@Platform" => PlatformSiteName,
             _ => siteName

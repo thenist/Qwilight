@@ -756,7 +756,7 @@ namespace Qwilight
 
         public Version Date { get; set; }
 
-        public long DefaultNoteFileDate { get; set; }
+        public long DefaultNotesDate { get; set; }
 
         public long DefaultUIDate { get; set; }
 

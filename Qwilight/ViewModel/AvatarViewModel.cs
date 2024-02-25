@@ -27,10 +27,11 @@ namespace Qwilight.ViewModel
 
             public new void OnLevyNoteFile(MouseButtonEventArgs e)
             {
-                if (e.ClickCount >= 2)
+                var mainViewModel = ViewModels.Instance.MainValue;
+                if (mainViewModel.NoteID512s.TryGetValue(GetNoteID512(), out var noteFile))
                 {
-                    var mainViewModel = ViewModels.Instance.MainValue;
-                    if (mainViewModel.NoteID512s.TryGetValue(GetNoteID512(), out var noteFile))
+                    mainViewModel.EntryItemValue = noteFile.EntryItem;
+                    if (e.ClickCount >= 2)
                     {
                         mainViewModel.HandleLevyNoteFile(noteFile, noteFile.EntryItem);
                     }

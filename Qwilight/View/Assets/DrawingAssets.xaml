@@ -7,6 +7,7 @@
     <BitmapImage x:Key="InputMapping3Drawing" UriSource="pack://siteoforigin:,,,/Assets/Drawing/Assist/Input Mapping 3.png" />
     <BitmapImage x:Key="PlatformDrawing" UriSource="pack://siteoforigin:,,,/Assets/Drawing/Platform.png" />
     <BitmapImage x:Key="QwilightDrawing" UriSource="pack://siteoforigin:,,,/Assets/Drawing/Qwilight.png" />
-    <BitmapImage x:Key="TVDrawing" UriSource="pack://siteoforigin:,,,/Assets/Drawing/TV.png" />
+    <BitmapImage x:Key="TV0Drawing" UriSource="pack://siteoforigin:,,,/Assets/Drawing/TV 0.png" />
+    <BitmapImage x:Key="TV1Drawing" UriSource="pack://siteoforigin:,,,/Assets/Drawing/TV 1.png" />
     <BitmapImage x:Key="ValveDrawing" UriSource="pack://siteoforigin:,,,/Assets/Drawing/Valve.png" />
 </ResourceDictionary>

@@ -611,6 +611,7 @@ namespace Qwilight
         public string NotifySaveBundleCompetenceContents { get; set; }
         public string NotifySaveBundleUbuntuContents { get; set; }
         public string NotifySaveBundleVoidContents { get; set; }
+        public string NotifySiteName { get; set; }
         public string NotifySiteYellInvite { get; set; }
         public string NotifySiteYellTV { get; set; }
         public string NotifyText { get; set; }
@@ -738,7 +739,7 @@ namespace Qwilight
         public string SaveUIFault { get; set; }
         public string SavingAsBundleContents { get; set; }
         public string SavingBundleContents { get; set; }
-        public string SavingDefaultNoteContents { get; set; }
+        public string SavingDefaultNotesContents { get; set; }
         public string SavingDefaultUIContents { get; set; }
         public string SavingFileContents { get; set; }
         public string SavingLevelContents { get; set; }

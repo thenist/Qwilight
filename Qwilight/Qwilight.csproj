@@ -10,9 +10,9 @@
 		<ApplicationIcon>Qwilight.ico</ApplicationIcon>
 		<Authors>Taehui</Authors>
 		<Company>불로그</Company>
-		<AssemblyVersion>1.16.17.575</AssemblyVersion>
-		<FileVersion>1.16.17.575</FileVersion>
-		<Version>1.16.17</Version>
+		<AssemblyVersion>1.16.18.576</AssemblyVersion>
+		<FileVersion>1.16.18.576</FileVersion>
+		<Version>1.16.18</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableMsixTooling>true</EnableMsixTooling>
@@ -133,7 +133,10 @@
 		<None Update="Assets\Drawing\Qwilight.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\Drawing\TV.png">
+		<None Update="Assets\Drawing\TV 1.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\Drawing\TV 0.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\Drawing\Valve.png">

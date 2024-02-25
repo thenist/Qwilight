@@ -2435,6 +2435,10 @@
     "ko-KR": "모든 꾸러미 다운로드 알림을 받지 받음",
     "en-US": "Receive notifications for downloading all packages"
   },
+  "NotifySiteName": {
+    "ko-KR": "알림방",
+    "en-US": "Notification room"
+  },
   "NotifySiteYellInvite": {
     "ko-KR": "{0} 에서 멀티 플레이가 시작됩니다.",
     "en-US": "Multiplay starts at {0}."
@@ -2943,7 +2947,7 @@
     "ko-KR": "꾸러미 압축 푸는 중…",
     "en-US": "Uncompressing Packages…"
   },
-  "SavingDefaultNoteContents": {
+  "SavingDefaultNotesContents": {
     "ko-KR": "기본곡을 백그라운드에서 받습니다.",
     "en-US": "Downloading default songs in the background."
   },
