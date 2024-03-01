@@ -26,7 +26,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void PutNotify(NotifyXamlItem toNotifyXamlItem)
+        public void NewNotify(NotifyXamlItem toNotifyXamlItem)
         {
             var targetNotifyXamlItem = NotifyXamlItemUICollection.SingleOrDefault(targetNotifyXamlItem => targetNotifyXamlItem.ID == toNotifyXamlItem.ID);
             if (targetNotifyXamlItem != null)

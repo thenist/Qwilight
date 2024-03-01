@@ -104,7 +104,8 @@ namespace Qwilight
                         Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
                     }) == MESSAGEBOX_RESULT.IDYES)
                     {
-                        i = DefaultEntryItemCollection.IndexOf(DefaultEntryItemValue);
+                        var defaultEntryItem = DefaultEntryItemValue;
+                        i = DefaultEntryItemCollection.IndexOf(defaultEntryItem);
                         DefaultEntryItemCollection.RemoveAt(i);
                         if (i < DefaultEntryItemCollection.Count)
                         {
@@ -114,6 +115,11 @@ namespace Qwilight
                         {
                             Target = DefaultEntryItemValue
                         });
+                        if (Configure.Instance.LastDefaultEntryItem == defaultEntryItem)
+                        {
+                            Configure.Instance.LastDefaultEntryItem = null;
+                            ViewModels.Instance.MainValue.SetDefaultEntryItems();
+                        }
                     }
                     break;
             }

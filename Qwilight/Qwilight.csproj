@@ -22,10 +22,6 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<SelfContained>true</SelfContained>
 	</PropertyGroup>
-	
-	<ItemGroup>
-		<RuntimeHostConfigurationOption Include="System.GC.HighMemoryPercent" Value="100" />
-	</ItemGroup>
 
 	<PropertyGroup Condition="'$(Platform)'=='x64'">
 		<DefineConstants>$(DefineConstants);X64</DefineConstants>

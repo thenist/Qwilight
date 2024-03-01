@@ -744,7 +744,7 @@ namespace Qwilight.ViewModel
 
             set
             {
-                if (SetProperty(ref _wwwLevelAvatar, value, nameof(WwwLevelAvatarValue)) && value.HasValue)
+                if (SetProperty(ref _wwwLevelAvatar, value, nameof(WwwLevelAvatarValue)))
                 {
                     _lastWwwLevelAvatar = value;
                     _lastLevelName = null;
@@ -752,7 +752,7 @@ namespace Qwilight.ViewModel
                     _ = Awaitable();
                     async Task Awaitable()
                     {
-                        var avatarID = value.Value.AvatarWwwValue.AvatarID;
+                        var avatarID = value?.AvatarWwwValue?.AvatarID ?? string.Empty;
                         IsLevelNamesLoading = true;
                         var levelNames = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/level?avatarID={WebUtility.UrlEncode(avatarID)}");
                         if (levelNames != null && (WwwLevelAvatarValue?.AvatarWwwValue?.AvatarID ?? string.Empty) == avatarID)

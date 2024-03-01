@@ -7,6 +7,7 @@ namespace Qwilight
     {
         public const int ModeComponentID = 0;
         public const int SetFavoritesID = 1;
+        public const int UIID = 2;
 
         public enum NotifyVariety
         {
@@ -20,7 +21,7 @@ namespace Qwilight
 
         public static readonly NotifySystem Instance = new();
 
-        int _toNotifyID = 1;
+        int _toNotifyID = 2;
 
         public void NotifyPending() => UIHandler.Instance.HandleParallel(() =>
         {
@@ -76,7 +77,7 @@ namespace Qwilight
                                 break;
                         }
                     }
-                    ViewModels.Instance.NotifyXamlValue.PutNotify(new()
+                    ViewModels.Instance.NotifyXamlValue.NewNotify(new()
                     {
                         Variety = toNotifyVariety,
                         Paint = toNotifyVariety switch
@@ -103,6 +104,7 @@ namespace Qwilight
                 }
                 return false;
             }
+
             void Save(NotifyVariety toNotifyVariety, string toNotify, bool isNew)
             {
                 var toNotifyCollection = ViewModels.Instance.NotifyValue.NotifyItemCollection;

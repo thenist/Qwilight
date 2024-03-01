@@ -333,8 +333,10 @@ namespace Qwilight.ViewModel
         void OnEnterAutoComputeUIConfigure()
         {
             var mainViewModel = ViewModels.Instance.MainValue;
-            if (mainViewModel.AutoComputer?.IsHandling == true)
+            var autoComputer = mainViewModel.AutoComputer;
+            if (autoComputer?.IsHandling == true)
             {
+                autoComputer.Unpause();
                 mainViewModel.EnterAutoComputingMode();
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.EnterAutoComputeUIConfigure);
             }
