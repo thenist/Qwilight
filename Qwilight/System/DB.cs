@@ -566,7 +566,7 @@ namespace Qwilight
                 {
                     NoteFileCount = noteFileCount,
                     Date = date,
-                    DateText = date.ToString("yyyy-MM-dd HH:mm:ss"),
+                    DateText = Utility.GetDateText(date),
                     CommentID = rows.GetString("Comment"),
                     AvatarName = rows.GetString("Name"),
                     ModeComponentValue = new()

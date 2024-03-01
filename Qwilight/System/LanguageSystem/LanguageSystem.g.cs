@@ -179,6 +179,10 @@ namespace Qwilight
         public string DataCount3Contents { get; set; }
         public string DataCount3Text { get; set; }
         public string DateAssistText { get; set; }
+        public string DateText0 { get; set; }
+        public string DateText1 { get; set; }
+        public string DateText2 { get; set; }
+        public string DateText3 { get; set; }
         public string DBConfigure { get; set; }
         public string DefaultAudioFilePathText { get; set; }
         public string DefaultAudioVarietyContents { get; set; }

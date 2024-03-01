@@ -707,6 +707,22 @@
     "ko-KR": "업데이트 내역",
     "en-US": "Update History"
   },
+  "DateText0": {
+    "ko-KR": "{0}초 전",
+    "en-US": "$200 seconds before"
+  },
+  "DateText1": {
+    "ko-KR": "{0}분 전",
+    "en-US": "$200 minutes ago"
+  },
+  "DateText2": {
+    "ko-KR": "{0}시간 전",
+    "en-US": "$200 hours ago"
+  },
+  "DateText3": {
+    "ko-KR": "{0}일 전",
+    "en-US": "$200 days ago"
+  },
   "DBConfigure": {
     "ko-KR": "데이터베이스 설정",
     "en-US": "Database Settings"

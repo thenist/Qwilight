@@ -1,6 +1,6 @@
 ﻿namespace Language
 {
-    public static class JSON
+    public struct JSON
     {
         public struct Client
         {
@@ -14,7 +14,7 @@
 
         public struct N2MT
         {
-            public MSG message = new MSG();
+            public MSG message = new();
 
             public N2MT()
             {
@@ -22,7 +22,7 @@
 
             public struct MSG
             {
-                public Data result = new Data();
+                public Data result = new();
 
                 public MSG()
                 {

@@ -6,12 +6,16 @@ using System.Text.Json;
 
 var wwwClient = new HttpClient();
 
+var defaultJSONConfigure = new JsonSerializerOptions
+{
+    IncludeFields = true
+};
 var assetsClientJSON = JsonSerializer.Deserialize<JSON.Client>(await File.ReadAllBytesAsync(Path.Combine(AppContext.BaseDirectory, "Assets", "Client.json")), new JsonSerializerOptions
 {
     IncludeFields = true
 });
-wwwClient.DefaultRequestHeaders.Add("X-Naver-Client-Id", assetsClientJSON.nhnID);
-wwwClient.DefaultRequestHeaders.Add("X-Naver-Client-Secret", assetsClientJSON.nhnPw);
+wwwClient.DefaultRequestHeaders.Add("X-NCP-APIGW-API-KEY-ID", assetsClientJSON.nhnID);
+wwwClient.DefaultRequestHeaders.Add("X-NCP-APIGW-API-KEY", assetsClientJSON.nhnPw);
 
 var qwilightEntryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "source", "repos", "Qwilight");
 var twilightEntryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "IdeaProjects", "Twilight");
@@ -272,7 +276,7 @@ namespace {{languageSystemName}}
 
 async ValueTask<string> N2Mt(string targetLanguage, string src)
 {
-    var t = await wwwClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, "https://openapi.naver.com/v1/papago/n2mt")
+    var t = await wwwClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, "https://naveropenapi.apigw.ntruss.com/nmt/v1/translation")
     {
         Content = new FormUrlEncodedContent(new[] { KeyValuePair.Create("source", "ko"), KeyValuePair.Create("target", targetLanguage), KeyValuePair.Create("text", src) }),
         Version = HttpVersion.Version20
@@ -280,10 +284,7 @@ async ValueTask<string> N2Mt(string targetLanguage, string src)
     var text = await t.Content.ReadAsStringAsync().ConfigureAwait(false);
     if (t.IsSuccessStatusCode)
     {
-        return JsonSerializer.Deserialize<JSON.N2MT>(text, new JsonSerializerOptions
-        {
-            IncludeFields = true
-        }).message.result.translatedText;
+        return JsonSerializer.Deserialize<JSON.N2MT>(text, defaultJSONConfigure).message.result.translatedText;
     }
     else
     {

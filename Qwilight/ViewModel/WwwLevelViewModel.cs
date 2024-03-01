@@ -841,7 +841,7 @@ namespace Qwilight.ViewModel
                         AvatarWwwValue = new(avatar.avatarID),
                         AvatarName = avatar.avatarName
                     }).ToArray());
-                    WwwLevelAvatarValue ??= _lastWwwLevelAvatar ?? WwwLevelAvatarCollection.FirstOrDefault();
+                    WwwLevelAvatarValue ??= _lastWwwLevelAvatar;
                 }
                 IsAvatarIDsLoading = false;
             });

@@ -360,7 +360,7 @@ namespace Qwilight.Utilities
                     IsTwilightComment = true,
                     NoteFileCount = 1,
                     Date = dateValue ?? DateTime.MinValue,
-                    DateText = dateValue?.ToString("yyyy-MM-dd HH:mm:ss") ?? "❌",
+                    DateText = dateValue != null ? Utility.GetDateText(dateValue.Value) : "❌",
                     CommentID = data.commentID,
                     AvatarName = data.avatarName,
                     ModeComponentValue = new()
@@ -544,6 +544,29 @@ namespace Qwilight.Utilities
         {
             using var targetWMI = new ManagementObjectSearcher(textWMI);
             return targetWMI.Get().Cast<ManagementBaseObject>();
+        }
+
+        public static string GetDateText(DateTime date)
+        {
+            var value = DateTime.Now - date;
+            var total = value.TotalSeconds;
+            if (total < 60)
+            {
+                return string.Format(LanguageSystem.Instance.DateText0, value.Seconds);
+            }
+            if (total < 60 * 60)
+            {
+                return string.Format(LanguageSystem.Instance.DateText1, value.Minutes);
+            }
+            if (total < 60 * 60 * 24)
+            {
+                return string.Format(LanguageSystem.Instance.DateText2, value.Hours);
+            }
+            if (total < 60 * 60 * 24 * 30)
+            {
+                return string.Format(LanguageSystem.Instance.DateText3, value.Days);
+            }
+            return date.ToString("yyyy-MM-dd HH:mm:ss");
         }
     }
 }
