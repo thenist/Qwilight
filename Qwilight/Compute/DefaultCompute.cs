@@ -3424,7 +3424,7 @@ namespace Qwilight.Compute
 
                         GetNetItems();
                         GetNetComments();
-                        HandleNetItems();
+                        HandleNetItems(millisLoopUnit);
                     }
 
                     if (!wasLastStatus && LastStatusValue != LastStatus.Not)
@@ -4455,7 +4455,7 @@ namespace Qwilight.Compute
             }
         }
 
-        public virtual void HandleNetItems()
+        public virtual void HandleNetItems(double millisLoopUnit)
         {
             foreach (var netItem in NetItems)
             {
@@ -4463,6 +4463,11 @@ namespace Qwilight.Compute
                 {
                     netItem.SetValue(Stand.TargetValue, Band.TargetValue, Point.TargetValue, HitPoints.TargetValue, NoteFiles.Length);
                     netItem.HitPointsModeValue = ModeComponentValue.HandlingHitPointsModeValue;
+                }
+                else if (netItem.IsFavorNetItem)
+                {
+                    var netItemStatus = (double)_validJudgedNotes / ValidatedTotalNotes;
+                    netItem.SetValue((int)(Configure.Instance.FavorHunterStand * (LevyingComputingPosition + netItemStatus)), (int)(TotalNotes * netItemStatus), 1.0, 1.0, NoteFiles.Length);
                 }
                 else
                 {
@@ -4505,16 +4510,7 @@ namespace Qwilight.Compute
                         }
                     }
                 }
-            }
-
-            foreach (var netItem in NetItems)
-            {
-                if (netItem.IsFavorNetItem)
-                {
-                    var status = (double)_validJudgedNotes / ValidatedTotalNotes;
-                    netItem.SetValue((int)(Configure.Instance.FavorHunterStand * (LevyingComputingPosition + status)), (int)(TotalNotes * status), 1.0, 1.0, NoteFiles.Length);
-                    break;
-                }
+                netItem.TargetPositionStatus = Utility.GetMove(0.0, netItem.TargetPositionStatus, 1000.0 / millisLoopUnit);
             }
 
             var targetPosition = SetValidNetItems();

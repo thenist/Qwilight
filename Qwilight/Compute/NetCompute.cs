@@ -82,7 +82,7 @@ namespace Qwilight.Compute
             _hasPendingFailed = true;
         }
 
-        public override void HandleNetItems()
+        public override void HandleNetItems(double millisLoopUnit)
         {
             if (!IsF)
             {

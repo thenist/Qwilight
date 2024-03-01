@@ -809,6 +809,13 @@ namespace Qwilight.ViewModel
                             {
                                 Configure.Instance.DefaultEntryItems.Add(defaultEntryItem);
                             }
+                            UIHandler.Instance.HandleParallel(() =>
+                            {
+                                if (!ViewModels.Instance.ModifyDefaultEntryValue.DefaultEntryItemCollection.Contains(defaultEntryItem))
+                                {
+                                    ViewModels.Instance.ModifyDefaultEntryValue.DefaultEntryItemCollection.Add(defaultEntryItem);
+                                }
+                            });
                             lastDefaultEntryItem = defaultEntryItem;
                         }
                     }

@@ -22,6 +22,10 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<SelfContained>true</SelfContained>
 	</PropertyGroup>
+	
+	<ItemGroup>
+		<RuntimeHostConfigurationOption Include="System.GC.HighMemoryPercent" Value="100" />
+	</ItemGroup>
 
 	<PropertyGroup Condition="'$(Platform)'=='x64'">
 		<DefineConstants>$(DefineConstants);X64</DefineConstants>
@@ -48,11 +52,11 @@
 		<PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
 		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.1.1" />
 		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="3.0.0" />
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2277.86" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2365.46" />
 		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.49-beta">
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.240211001" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240227000" />
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
 		<PackageReference Include="OpusDotNet" Version="1.0.3" />
@@ -62,7 +66,7 @@
 		<PackageReference Include="UTF.Unknown" Version="2.5.1" />
 		<PackageReference Include="Vortice.DirectInput" Version="3.3.4" />
 		<PackageReference Include="Vortice.XInput" Version="3.3.4" />
-		<PackageReference Include="YamlDotNet" Version="15.1.1" />
+		<PackageReference Include="YamlDotNet" Version="15.1.2" />
 	</ItemGroup>
 
 	<ItemGroup>

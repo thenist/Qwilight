@@ -64,14 +64,17 @@ namespace Qwilight.ViewModel
             }
         }
 
-        readonly WwwLevelData _wwwLevelDataValue = new();
+        readonly WwwLevelData _wwwLevelData = new();
         readonly double[] _audioMultipliers = new double[2];
-        WwwLevelAvatar? _wwwLevelAvatarValue;
+        WwwLevelAvatar? _wwwLevelAvatar;
+        WwwLevelAvatar? _lastWwwLevelAvatar;
         string _levelName;
+        string _lastLevelName;
         bool _isAvatarIDsLoading;
         bool _isLevelNamesLoading;
         bool _isLevelNameLoading;
         WwwLevelItem _wwwLevelItem;
+        WwwLevelItem _lastWwwLevelItem;
         string _levelID;
         string _title;
         string _comment;
@@ -163,7 +166,7 @@ namespace Qwilight.ViewModel
             }
             modeComponent.PutCopyNotesValueV2 = ModeComponent.PutCopyNotes.Default;
             var entryItem = mainViewModel.EventNoteEntryItems[GetEventNoteID()];
-            mainViewModel.HandleLevyNoteFile(entryItem.NoteFile, entryItem, _wwwLevelDataValue, defaultModeComponentValue);
+            mainViewModel.HandleLevyNoteFile(entryItem.NoteFile, entryItem, _wwwLevelData, defaultModeComponentValue);
         }
 
         string GetEventNoteID() => string.Join('/', WwwLevelComputingCollection.Select(wwwLevelComputing => wwwLevelComputing.GetNoteID512()));
@@ -296,6 +299,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _wwwLevelItem, value, nameof(WwwLevelItemValue)) && value != null)
                 {
+                    _lastWwwLevelItem = value;
                     _ = Awaitable();
                     async Task Awaitable()
                     {
@@ -324,8 +328,8 @@ namespace Qwilight.ViewModel
                                 }
                             }
                             OnPropertyChanged(nameof(StandContents));
-                            _wwwLevelDataValue.Stand = twilightWwwLevelValue.stand;
-                            _wwwLevelDataValue.StandContents = string.Join(" ", StandContents).Trim();
+                            _wwwLevelData.Stand = twilightWwwLevelValue.stand;
+                            _wwwLevelData.StandContents = string.Join(" ", StandContents).Trim();
 
                             Array.Fill(PointContents, null);
                             if (twilightWwwLevelValue.point != null)
@@ -340,8 +344,8 @@ namespace Qwilight.ViewModel
                                 }
                             }
                             OnPropertyChanged(nameof(PointContents));
-                            _wwwLevelDataValue.Point = twilightWwwLevelValue.point;
-                            _wwwLevelDataValue.PointContents = string.Join(" ", PointContents).Trim();
+                            _wwwLevelData.Point = twilightWwwLevelValue.point;
+                            _wwwLevelData.PointContents = string.Join(" ", PointContents).Trim();
 
                             Array.Fill(BandContents, null);
                             if (twilightWwwLevelValue.band != null)
@@ -356,8 +360,8 @@ namespace Qwilight.ViewModel
                                 }
                             }
                             OnPropertyChanged(nameof(BandContents));
-                            _wwwLevelDataValue.Band = twilightWwwLevelValue.band;
-                            _wwwLevelDataValue.BandContents = string.Join(" ", BandContents).Trim();
+                            _wwwLevelData.Band = twilightWwwLevelValue.band;
+                            _wwwLevelData.BandContents = string.Join(" ", BandContents).Trim();
 
                             Array.Fill(AudioMultiplierContents, null);
                             if (twilightWwwLevelValue.audioMultiplier != null)
@@ -382,8 +386,8 @@ namespace Qwilight.ViewModel
                                 }
                             }
                             OnPropertyChanged(nameof(AudioMultiplierContents));
-                            _wwwLevelDataValue.LowestAudioMultiplier = (twilightWwwLevelValue.audioMultiplier?[0] == -1.0 ? null : twilightWwwLevelValue.audioMultiplier?[0] as double?) ?? 0.5;
-                            _wwwLevelDataValue.HighestAudioMultiplier = (twilightWwwLevelValue.audioMultiplier?[1] == -1.0 ? null : twilightWwwLevelValue.audioMultiplier?[1] as double?) ?? 2.0;
+                            _wwwLevelData.LowestAudioMultiplier = (twilightWwwLevelValue.audioMultiplier?[0] == -1.0 ? null : twilightWwwLevelValue.audioMultiplier?[0] as double?) ?? 0.5;
+                            _wwwLevelData.HighestAudioMultiplier = (twilightWwwLevelValue.audioMultiplier?[1] == -1.0 ? null : twilightWwwLevelValue.audioMultiplier?[1] as double?) ?? 2.0;
 
                             Array.Fill(JudgmentContents, null);
                             if (twilightWwwLevelValue.judgments != null)
@@ -405,16 +409,16 @@ namespace Qwilight.ViewModel
                                 }
                             }
                             OnPropertyChanged(nameof(JudgmentContents));
-                            _wwwLevelDataValue.Judgments = twilightWwwLevelValue.judgments;
-                            _wwwLevelDataValue.JudgmentContents[(int)Component.Judged.Highest] = JudgmentContents[(int)Component.Judged.Highest] != null ? $"Yell! {string.Join(" ", JudgmentContents[(int)Component.Judged.Highest]).Trim()}" : null;
-                            _wwwLevelDataValue.JudgmentContents[(int)Component.Judged.Higher] = JudgmentContents[(int)Component.Judged.Higher] != null ? $"Yell {string.Join(" ", JudgmentContents[(int)Component.Judged.Higher]).Trim()}" : null;
-                            _wwwLevelDataValue.JudgmentContents[(int)Component.Judged.High] = JudgmentContents[(int)Component.Judged.High] != null ? $"Cool {string.Join(" ", JudgmentContents[(int)Component.Judged.High]).Trim()}" : null;
-                            _wwwLevelDataValue.JudgmentContents[(int)Component.Judged.Low] = JudgmentContents[(int)Component.Judged.Low] != null ? $"Good {string.Join(" ", JudgmentContents[(int)Component.Judged.Low]).Trim()}" : null;
-                            _wwwLevelDataValue.JudgmentContents[(int)Component.Judged.Lower] = JudgmentContents[(int)Component.Judged.Lower] != null ? $"Poor {string.Join(" ", JudgmentContents[(int)Component.Judged.Lower]).Trim()}" : null;
-                            _wwwLevelDataValue.JudgmentContents[(int)Component.Judged.Lowest] = JudgmentContents[(int)Component.Judged.Lowest] != null ? $"Failed {string.Join(" ", JudgmentContents[(int)Component.Judged.Lowest]).Trim()}" : null;
+                            _wwwLevelData.Judgments = twilightWwwLevelValue.judgments;
+                            _wwwLevelData.JudgmentContents[(int)Component.Judged.Highest] = JudgmentContents[(int)Component.Judged.Highest] != null ? $"Yell! {string.Join(" ", JudgmentContents[(int)Component.Judged.Highest]).Trim()}" : null;
+                            _wwwLevelData.JudgmentContents[(int)Component.Judged.Higher] = JudgmentContents[(int)Component.Judged.Higher] != null ? $"Yell {string.Join(" ", JudgmentContents[(int)Component.Judged.Higher]).Trim()}" : null;
+                            _wwwLevelData.JudgmentContents[(int)Component.Judged.High] = JudgmentContents[(int)Component.Judged.High] != null ? $"Cool {string.Join(" ", JudgmentContents[(int)Component.Judged.High]).Trim()}" : null;
+                            _wwwLevelData.JudgmentContents[(int)Component.Judged.Low] = JudgmentContents[(int)Component.Judged.Low] != null ? $"Good {string.Join(" ", JudgmentContents[(int)Component.Judged.Low]).Trim()}" : null;
+                            _wwwLevelData.JudgmentContents[(int)Component.Judged.Lower] = JudgmentContents[(int)Component.Judged.Lower] != null ? $"Poor {string.Join(" ", JudgmentContents[(int)Component.Judged.Lower]).Trim()}" : null;
+                            _wwwLevelData.JudgmentContents[(int)Component.Judged.Lowest] = JudgmentContents[(int)Component.Judged.Lowest] != null ? $"Failed {string.Join(" ", JudgmentContents[(int)Component.Judged.Lowest]).Trim()}" : null;
 
                             AllowPause = twilightWwwLevelValue.allowPause;
-                            _wwwLevelDataValue.AllowPause = twilightWwwLevelValue.allowPause;
+                            _wwwLevelData.AllowPause = twilightWwwLevelValue.allowPause;
 
                             var mainViewModel = ViewModels.Instance.MainValue;
                             var siteContainerViewModel = ViewModels.Instance.SiteContainerValue;
@@ -736,22 +740,25 @@ namespace Qwilight.ViewModel
 
         public WwwLevelAvatar? WwwLevelAvatarValue
         {
-            get => _wwwLevelAvatarValue;
+            get => _wwwLevelAvatar;
 
             set
             {
-                if (SetProperty(ref _wwwLevelAvatarValue, value, nameof(WwwLevelAvatarValue)))
+                if (SetProperty(ref _wwwLevelAvatar, value, nameof(WwwLevelAvatarValue)) && value.HasValue)
                 {
+                    _lastWwwLevelAvatar = value;
+                    _lastLevelName = null;
+                    _lastWwwLevelItem = null;
                     _ = Awaitable();
                     async Task Awaitable()
                     {
-                        var avatarID = value?.AvatarWwwValue?.AvatarID ?? string.Empty;
+                        var avatarID = value.Value.AvatarWwwValue.AvatarID;
                         IsLevelNamesLoading = true;
                         var levelNames = await TwilightSystem.Instance.GetWwwParallel<string[]>($"{QwilightComponent.QwilightAPI}/level?avatarID={WebUtility.UrlEncode(avatarID)}");
                         if (levelNames != null && (WwwLevelAvatarValue?.AvatarWwwValue?.AvatarID ?? string.Empty) == avatarID)
                         {
                             Utility.SetUICollection(LevelNameCollection, levelNames);
-                            LevelName ??= LevelNameCollection.FirstOrDefault();
+                            LevelName ??= _lastLevelName ?? LevelNameCollection.FirstOrDefault();
                         }
                         IsLevelNamesLoading = false;
                     }
@@ -783,8 +790,10 @@ namespace Qwilight.ViewModel
 
             set
             {
-                if (SetProperty(ref _levelName, value, nameof(LevelName)) && value != null)
+                if (SetProperty(ref _levelName, value, nameof(LevelName)) && !string.IsNullOrEmpty(value))
                 {
+                    _lastLevelName = value;
+                    _lastWwwLevelItem = null;
                     _ = Awaitable();
                     async Task Awaitable()
                     {
@@ -806,7 +815,7 @@ namespace Qwilight.ViewModel
                                     Avatars = twilightWwwLevel.avatars
                                 };
                             }).ToArray());
-                            WwwLevelItemValue ??= WwwLevelItemCollection.FirstOrDefault();
+                            WwwLevelItemValue ??= _lastWwwLevelItem ?? WwwLevelItemCollection.FirstOrDefault();
                         }
                         IsLevelNameLoading = false;
                     }
@@ -832,7 +841,7 @@ namespace Qwilight.ViewModel
                         AvatarWwwValue = new(avatar.avatarID),
                         AvatarName = avatar.avatarName
                     }).ToArray());
-                    WwwLevelAvatarValue ??= WwwLevelAvatarCollection.FirstOrDefault();
+                    WwwLevelAvatarValue ??= _lastWwwLevelAvatar ?? WwwLevelAvatarCollection.FirstOrDefault();
                 }
                 IsAvatarIDsLoading = false;
             });

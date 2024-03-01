@@ -47,36 +47,40 @@ namespace Qwilight.NoteFile
             },
             new[]
             {
-                new EZ2DJMAXNoteFile("https://store.steampowered.com/app/1386612")
+                new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
-                    Title = "ALiCE NORMAL",
-                    Artist = "seibin",
+                    Title = "Shining Light (feat. Shabel Tonya) NORMAL",
+                    Artist = "INFX / MIIM",
                     LevelValue = BaseNoteFile.Level.Level2,
                     LevelText = "LV. 5",
+                    Genre = "J-Rock",
                     HandledValue = BaseNoteFile.Handled.HighestClear
                 },
-                new EZ2DJMAXNoteFile("https://store.steampowered.com/app/1386612")
+                new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
-                    Title = "ALiCE HARD",
-                    Artist = "seibin",
+                    Title = "Shining Light (feat. Shabel Tonya) HARD",
+                    Artist = "INFX / MIIM",
                     LevelValue = BaseNoteFile.Level.Level3,
                     LevelText = "LV. 9",
+                    Genre = "J-Rock",
                     HandledValue = BaseNoteFile.Handled.HigherClear
                 },
-                new EZ2DJMAXNoteFile("https://store.steampowered.com/app/1386612")
+                new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
-                    Title = "ALiCE MAXIMUM",
-                    Artist = "seibin",
+                    Title = "Shining Light (feat. Shabel Tonya) MAXIMUM",
+                    Artist = "INFX / MIIM",
                     LevelValue = BaseNoteFile.Level.Level4,
                     LevelText = "LV. 11",
+                    Genre = "J-Rock",
                     HandledValue = BaseNoteFile.Handled.Clear
                 },
-                new EZ2DJMAXNoteFile("https://store.steampowered.com/app/1386612")
+                new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
-                    Title = "ALiCE SC",
-                    Artist = "seibin",
+                    Title = "Shining Light (feat. Shabel Tonya) SC",
+                    Artist = "INFX / MIIM",
                     LevelValue = BaseNoteFile.Level.Level5,
-                    LevelText = "LV. 11",
+                    LevelText = "LV. 7",
+                    Genre = "J-Rock",
                     HandledValue = BaseNoteFile.Handled.AssistClear
                 }
             },

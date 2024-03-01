@@ -226,8 +226,10 @@ namespace Qwilight.Compiler
         {
             CompileImpl(defaultComputer, noteFileContents, loadParallelItems);
 
-            for (var i = Notes.Count - 1; i >= 0; --i)
+            var notesCount = Notes.Count;
+            for (var i = notesCount - 1; i >= 0; --i)
             {
+                SetCancelCompiler?.Token.ThrowIfCancellationRequested();
                 var inputNote = Notes[i];
                 if (inputNote.HasStand && inputNote.LongWait == 0.0)
                 {
@@ -236,6 +238,7 @@ namespace Qwilight.Compiler
                         Notes.RemoveAt(i);
                     }
                 }
+                defaultComputer.SetCompilingStatus((double)i / notesCount);
             }
 
             if (defaultComputer.IsLongNoteStand1)
@@ -430,14 +433,15 @@ namespace Qwilight.Compiler
                 var inputFavorMap = Component.InputFavorMap[(int)InputMode, (int)inputMode];
                 if (ModeComponent.InputFavorMode._4 <= inputFavorMode && inputFavorMode <= ModeComponent.InputFavorMode._48_4)
                 {
-                    foreach (var note in Notes.ToArray())
+                    for (var i = Notes.Count - 1; i >= 0; --i)
                     {
-                        if (note.HasInput)
+                        var inputeNote = Notes[i];
+                        if (inputeNote.HasInput)
                         {
-                            note.LevyingInput = inputFavorMap[note.LevyingInput];
-                            if (note.LevyingInput == 0)
+                            inputeNote.LevyingInput = inputFavorMap[inputeNote.LevyingInput];
+                            if (inputeNote.LevyingInput == 0)
                             {
-                                WipeNote(note);
+                                WipeNote(inputeNote);
                             }
                         }
                     }
@@ -587,11 +591,11 @@ namespace Qwilight.Compiler
             }
 
             Notes.Sort();
-            var hasInputNotes = Notes.Where(note => note.HasInput).ToArray();
-            if (hasInputNotes.Length > 0)
+            var inputNotes = Notes.Where(note => note.HasInput).ToArray();
+            if (inputNotes.Length > 0)
             {
                 var saltComputer = new Random(defaultComputer.ModeComponentValue.Salt);
-                foreach (var inputNote in hasInputNotes)
+                foreach (var inputNote in inputNotes)
                 {
                     inputNote.Salt = saltComputer.Next();
                 }
@@ -601,7 +605,7 @@ namespace Qwilight.Compiler
                 {
                     inputSalts[i] = inputSaltComputer.Next();
                 }
-                foreach (var toSaltNote in hasInputNotes)
+                foreach (var toSaltNote in inputNotes)
                 {
                     toSaltNote.InputSalt = inputSalts[toSaltNote.LevyingInput];
                 }
@@ -613,7 +617,7 @@ namespace Qwilight.Compiler
                     {
                         case ModeComponent.NoteSaltMode.InputSalt:
                         case ModeComponent.NoteSaltMode.HalfInputSalt:
-                            SaltInput(hasInputNotes);
+                            SaltInput(inputNotes);
                             break;
                         case ModeComponent.NoteSaltMode.MeterSalt:
                             var meterWaitCount = defaultComputer.MeterWaitMap.Count;
@@ -624,7 +628,7 @@ namespace Qwilight.Compiler
                                     for (var i = 1; i < meterWaitCount; ++i)
                                     {
                                         var endMeterWait = defaultComputer.MeterWaitMap[i];
-                                        var inputNotesInMeter = hasInputNotes.Where(note =>
+                                        var inputNotesInMeter = inputNotes.Where(note =>
                                         {
                                             var wait = note.Wait;
                                             return levyingMeterWait <= wait && wait < endMeterWait;
@@ -634,7 +638,7 @@ namespace Qwilight.Compiler
                                             SaltInput(Array.Empty<BaseNote>());
                                             continue;
                                         }
-                                        SaltInput(hasInputNotes.Where(note =>
+                                        SaltInput(inputNotes.Where(note =>
                                         {
                                             var wait = note.Wait;
                                             return levyingMeterWait <= wait && wait < endMeterWait;
@@ -646,7 +650,7 @@ namespace Qwilight.Compiler
                                     for (var i = 1; i <= meterWaitCount; ++i)
                                     {
                                         var endMeterWait = i < meterWaitCount ? defaultComputer.MeterWaitMap[i] : double.PositiveInfinity;
-                                        var inputNotesInMeter = hasInputNotes.Where(note =>
+                                        var inputNotesInMeter = inputNotes.Where(note =>
                                         {
                                             var wait = note.Wait;
                                             return levyingMeterWait <= wait && wait < endMeterWait;
@@ -661,7 +665,7 @@ namespace Qwilight.Compiler
                             }
                             break;
                         case ModeComponent.NoteSaltMode.Symmetric:
-                            foreach (var inputNote in hasInputNotes)
+                            foreach (var inputNote in inputNotes)
                             {
                                 var input = inputNote.LevyingInput;
                                 if (!autoableInputs.Contains(input))
@@ -675,7 +679,7 @@ namespace Qwilight.Compiler
                             switch (defaultComputer.NoteSaltModeDate)
                             {
                                 case Component.NoteSaltModeDate._1_14_27:
-                                    foreach (var inputNote in hasInputNotes)
+                                    foreach (var inputNote in inputNotes)
                                     {
                                         var input = inputNote.LevyingInput;
                                         if (!autoableInputs.Contains(input))
@@ -709,7 +713,7 @@ namespace Qwilight.Compiler
                                     }
                                     break;
                                 case Component.NoteSaltModeDate._1_6_11:
-                                    foreach (var inputNote in hasInputNotes)
+                                    foreach (var inputNote in inputNotes)
                                     {
                                         var input = inputNote.LevyingInput;
                                         if (!autoableInputs.Contains(input))
@@ -997,7 +1001,7 @@ namespace Qwilight.Compiler
                     var distanceLongNoteModify = highestLongNoteModify - lowestLongNoteModify;
                     for (var i = inputCount; i > 0; --i)
                     {
-                        var inputNotes = Notes.Where(note => note.HasStand && note.LevyingInput == i).ToArray();
+                        inputNotes = Notes.Where(note => note.HasStand && note.LevyingInput == i).ToArray();
                         var inputNotesLength = inputNotes.Length;
                         for (var j = 0; j < inputNotesLength; ++j)
                         {
@@ -1093,11 +1097,11 @@ namespace Qwilight.Compiler
 
             // 건너뛰기와 하이라이트 계산
             Notes.Sort();
-            hasInputNotes = Notes.Where(note => note.HasInput).Where(note => note.HasStand).ToArray();
-            if (hasInputNotes.Length > 0)
+            inputNotes = Notes.Where(note => note.HasInput).Where(note => note.HasStand).ToArray();
+            if (inputNotes.Length > 0)
             {
-                defaultComputer.PassableWait = Math.Round(hasInputNotes.First().Wait - Component.PassableWait);
-                var lastNoteWait = hasInputNotes.Max(note => note.Wait + note.LongWait);
+                defaultComputer.PassableWait = Math.Round(inputNotes.First().Wait - Component.PassableWait);
+                var lastNoteWait = inputNotes.Max(note => note.Wait + note.LongWait);
                 if (double.IsNaN(defaultComputer.AudioLevyingPosition))
                 {
                     var targetValue = double.NegativeInfinity;

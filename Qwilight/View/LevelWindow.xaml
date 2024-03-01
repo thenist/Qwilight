@@ -51,12 +51,14 @@
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="⑦K" />
                                     </GroupBox.Header>
                                     <StackPanel>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://darksabun.github.io/table/archive/normal1" HorizontalAlignment="Right">☆</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table.html" HorizontalAlignment="Right">▽</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://darksabun.github.io/table/archive/insane1" HorizontalAlignment="Right">★</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_insane.html" HorizontalAlignment="Right">▼</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_overjoy.html" HorizontalAlignment="Right">★★</Button>
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/sl/table.html" HorizontalAlignment="Right">sl</Button>
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/st/table.html" HorizontalAlignment="Right">st</Button>
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://stellabms.xyz/fr/table.html" HorizontalAlignment="Right">fr</Button>
-                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table.html" HorizontalAlignment="Right">▽</Button>
-                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_insane.html" HorizontalAlignment="Right">▼</Button>
-                                        <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="http://rattoto10.jounin.jp/table_overjoy.html" HorizontalAlignment="Right">★★</Button>
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://mqppppp.neocities.org/ChartView" HorizontalAlignment="Right">ξ</Button>
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}" CommandParameter="https://djkuroakari.github.io/starlighttable.html" HorizontalAlignment="Right">sr</Button>
                                     </StackPanel>

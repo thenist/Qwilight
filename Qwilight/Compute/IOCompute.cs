@@ -86,11 +86,11 @@ namespace Qwilight.Compute
             }
         }
 
-        public override void HandleNetItems()
+        public override void HandleNetItems(double millisLoopUnit)
         {
             if (!IsTwilightNetItems)
             {
-                base.HandleNetItems();
+                base.HandleNetItems(millisLoopUnit);
             }
         }
 

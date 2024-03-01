@@ -1623,10 +1623,10 @@ namespace Qwilight
                         var longNoteContents = Utility.ToInt32(fileNameContents.ElementAtOrDefault(4));
                         if (fileNameContents[0] == getNote([main, frame, text, longNoteContents]))
                         {
-                            var status = fileNameContents.Length > 4 ? longNoteContents : LongNote.LongNoteBefore;
+                            var longNoteStatus = fileNameContents.Length > 4 ? longNoteContents : LongNote.LongNoteBefore;
                             foreach (var drawing in drawingMap[main])
                             {
-                                noteDrawings.SetValue(drawing, frame, text, status, drawingItem);
+                                noteDrawings.SetValue(drawing, frame, text, longNoteStatus, drawingItem);
                             }
                         }
                         break;

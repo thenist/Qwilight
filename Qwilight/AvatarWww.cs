@@ -106,6 +106,10 @@ namespace Qwilight
 
         public override int GetHashCode() => AvatarID.GetHashCode();
 
+        public static bool operator ==(AvatarWww left, AvatarWww right) => left.Equals(right);
+
+        public static bool operator !=(AvatarWww left, AvatarWww right) => !(left == right);
+
         public AvatarWww(string avatarID, AvatarTitle? avatarTitle = null, ImageSource avatarEdge = null, bool allowNotAvatarTitle = false)
         {
             _allowNotAvatarTitle = allowNotAvatarTitle;

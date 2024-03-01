@@ -5,11 +5,26 @@ namespace Qwilight.UIComponent
 {
     public sealed class NetItem : IComparable<NetItem>
     {
+        int _targetPosition;
         Comment _comment;
 
         public double DrawingPosition { get; set; }
 
-        public int TargetPosition { get; set; }
+        public double TargetPositionStatus { get; set; }
+
+        public int TargetPosition
+        {
+            get => _targetPosition;
+
+            set
+            {
+                if (_targetPosition != value)
+                {
+                    _targetPosition = value;
+                    TargetPositionStatus = 1.0;
+                }
+            }
+        }
 
         public int SetTargetPosition { get; set; }
 
