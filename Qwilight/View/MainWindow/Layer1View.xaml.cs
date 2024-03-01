@@ -33,16 +33,20 @@ namespace Qwilight.View
         {
             if ((bool)e.NewValue)
             {
-                CompositionTarget.Rendering += OnPaint;
+                WPF.Paint += OnPaint;
             }
             else
             {
-                CompositionTarget.Rendering -= OnPaint;
+                WPF.Paint -= OnPaint;
             }
         }
 
         void OnPaint(object sender, object e)
         {
+            var millis = _loopingHandler.GetMillis();
+            _distanceMillis = millis - _lastMillis;
+            _lastMillis = millis;
+
             var allowFramerate = TelnetSystem.Instance.IsAvailable;
             using (var targetSession = _target.Open())
             {
@@ -98,10 +102,6 @@ namespace Qwilight.View
                     targetSession.PaintText(textItem, ref r);
                 }
             }
-
-            var millis = _loopingHandler.GetMillis();
-            _distanceMillis = millis - _lastMillis;
-            _lastMillis = millis;
 
             if (allowFramerate)
             {

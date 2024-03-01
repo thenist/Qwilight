@@ -238,7 +238,7 @@ namespace Qwilight.Compiler
                         Notes.RemoveAt(i);
                     }
                 }
-                defaultComputer.SetCompilingStatus((double)i / notesCount);
+                defaultComputer.SetCompilingStatus((double)(notesCount - i) / notesCount);
             }
 
             if (defaultComputer.IsLongNoteStand1)

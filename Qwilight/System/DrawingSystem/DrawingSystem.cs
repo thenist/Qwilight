@@ -385,6 +385,10 @@ namespace Qwilight
             {
                 try
                 {
+                    var millis = loopingHandler.GetMillis();
+                    distanceMillis = millis - lastMillis;
+                    lastMillis = millis;
+
                     var wasLastPointed = LastPointedQueue.TryDequeue(out var lastPointed);
                     var wasLastMoved = LastMovedQueue.TryDequeue(out var lastMoved);
                     var wasLastNotPointed = LastNotPointedQueue.TryDequeue(out var lastNotPointed);
@@ -400,40 +404,40 @@ namespace Qwilight
                     pauseNotify0Position1 = Levels.StandardMarginFloat32;
                     pauseNotify1Position0 = defaultLength - Levels.StandardMarginFloat32;
                     pauseNotify1Position1 = Levels.StandardMarginFloat32;
-                    if (fadingStatus < 1.0)
+                    ModeComponent modeComponent;
+                    switch (mode)
                     {
-                        ModeComponent modeComponent;
-                        switch (mode)
-                        {
-                            case MainViewModel.Mode.NoteFile:
-                                lock (_d2D1CSX)
+                        case MainViewModel.Mode.NoteFile:
+                            lock (_d2D1CSX)
+                            {
+                                using (targetSession = _rawTargetSystem.CreateDrawingSession(Colors.Black))
                                 {
-                                    using (targetSession = _rawTargetSystem.CreateDrawingSession(Colors.Black))
+                                    lock (UI.Instance.LoadedCSX)
                                     {
-                                        lock (UI.Instance.LoadedCSX)
-                                        {
-                                            PaintFadingProperty();
-                                            PaintNotifyXamlItems();
-                                        }
-                                        PaintFramerate();
+                                        PaintFadingProperty();
+                                        PaintNotifyXamlItems();
                                     }
+                                    PaintFramerate();
                                 }
+                            }
 
-                                _rawTargetSystem.Present();
-                                break;
-                            case MainViewModel.Mode.Computing:
-                                defaultComputer = mainViewModel.Computer;
-                                modeComponent = defaultComputer.ModeComponentValue;
-                                lock (_d2D1CSX)
+                            _rawTargetSystem.Present();
+                            break;
+                        case MainViewModel.Mode.Computing:
+                            defaultComputer = mainViewModel.Computer;
+                            modeComponent = defaultComputer.ModeComponentValue;
+                            lock (_d2D1CSX)
+                            {
+                                using (targetSession = _targetSystem.CreateDrawingSession())
                                 {
-                                    using (targetSession = _targetSystem.CreateDrawingSession())
-                                    {
-                                        targetSession.Clear(Colors.Black);
+                                    targetSession.Clear(Colors.Black);
 
-                                        lock (UI.Instance.LoadedCSX)
+                                    lock (UI.Instance.LoadedCSX)
+                                    {
+                                        var faultText = UI.Instance.FaultText;
+                                        if (string.IsNullOrEmpty(faultText))
                                         {
-                                            var faultText = UI.Instance.FaultText;
-                                            if (string.IsNullOrEmpty(faultText))
+                                            if (fadingStatus < 1.0)
                                             {
                                                 var isPostableItemMode = defaultComputer.IsPostableItemMode;
                                                 var drawingComponent = defaultComputer.DrawingComponentValue;
@@ -2287,68 +2291,74 @@ namespace Qwilight
                                                     SetEventHandler(ref r, setDefaultSpinningModeStop);
                                                     targetSession.PaintDrawing(ref r, UI.Instance.PausedStopDrawings[defaultSpinningMode == Configure.DefaultSpinningMode.Stop ? 1 : 0]);
                                                 }
-
-                                                PaintFadingProperty();
-                                                PaintNotifyXamlItems();
                                             }
-                                            else
+                                        }
+                                        else
+                                        {
+                                            if (fadingStatus < 1.0)
                                             {
                                                 pauseNotify0Position1 += PaintNotify0Contents(faultText, pauseNotify0Position0, pauseNotify0Position1, PauseNotifyFont, Colors.Red) + Levels.StandardMarginFloat32;
                                             }
                                         }
-                                        PaintFramerate();
+
+                                        PaintFadingProperty();
+                                        PaintNotifyXamlItems();
                                     }
-
-                                    CopyD3D9Drawing();
-
-                                    using (targetSession = _rawTargetSystem.CreateDrawingSession(Colors.Black))
-                                    {
-                                        targetSession.DrawImage(_targetSystem);
-
-                                        SetNVLLFlagIf(ReflexMarker.eSimulationEnd);
-                                        SetNVLLFlagIf(ReflexMarker.eRenderSubmitStart);
-                                    }
-                                    SetNVLLFlagIf(ReflexMarker.eRenderSubmitEnd);
+                                    PaintFramerate();
                                 }
 
+                                CopyD3D9Drawing();
+
+                                using (targetSession = _rawTargetSystem.CreateDrawingSession(Colors.Black))
+                                {
+                                    targetSession.DrawImage(_targetSystem);
+
+                                    SetNVLLFlagIf(ReflexMarker.eSimulationEnd);
+                                    SetNVLLFlagIf(ReflexMarker.eRenderSubmitStart);
+                                }
+                                SetNVLLFlagIf(ReflexMarker.eRenderSubmitEnd);
+                            }
+
+                            if (isNVLL)
+                            {
+                                WaitNVLL();
+                            }
+
+                            SetNVLLFlagIf(ReflexMarker.ePresentStart);
+                            var vesa = Configure.Instance.VESAV2;
+                            _rawTargetSystem.Present(vesa ? 1 : 0);
+                            SetNVLLFlagIf(ReflexMarker.ePresentEnd);
+
+                            if (isNVLL)
+                            {
+                                GetNVLLFrame();
+                            }
+                            SetNVLLFlagIf(ReflexMarker.eSimulationStart);
+
+                            void SetNVLLFlagIf(ReflexMarker setFlag)
+                            {
                                 if (isNVLL)
                                 {
-                                    WaitNVLL();
+                                    SetNVLLFlag(setFlag);
                                 }
-
-                                SetNVLLFlagIf(ReflexMarker.ePresentStart);
-                                var vesa = Configure.Instance.VESAV2;
-                                _rawTargetSystem.Present(vesa ? 1 : 0);
-                                SetNVLLFlagIf(ReflexMarker.ePresentEnd);
-
-                                if (isNVLL)
+                            }
+                            break;
+                        case MainViewModel.Mode.Quit:
+                            defaultComputer = mainViewModel.Computer;
+                            modeComponent = defaultComputer.ModeComponentValue;
+                            var handlingComputer = mainViewModel.GetHandlingComputer();
+                            lock (_d2D1CSX)
+                            {
+                                using (targetSession = _targetSystem.CreateDrawingSession())
                                 {
-                                    GetNVLLFrame();
-                                }
-                                SetNVLLFlagIf(ReflexMarker.eSimulationStart);
+                                    targetSession.Clear(Colors.Black);
 
-                                void SetNVLLFlagIf(ReflexMarker setFlag)
-                                {
-                                    if (isNVLL)
+                                    lock (UI.Instance.LoadedCSX)
                                     {
-                                        SetNVLLFlag(setFlag);
-                                    }
-                                }
-                                break;
-                            case MainViewModel.Mode.Quit:
-                                defaultComputer = mainViewModel.Computer;
-                                modeComponent = defaultComputer.ModeComponentValue;
-                                var handlingComputer = mainViewModel.GetHandlingComputer();
-                                lock (_d2D1CSX)
-                                {
-                                    using (targetSession = _targetSystem.CreateDrawingSession())
-                                    {
-                                        targetSession.Clear(Colors.Black);
-
-                                        lock (UI.Instance.LoadedCSX)
+                                        var faultText = BaseUI.Instance.FaultText;
+                                        if (string.IsNullOrEmpty(faultText))
                                         {
-                                            var faultText = BaseUI.Instance.FaultText;
-                                            if (string.IsNullOrEmpty(faultText))
+                                            if (fadingStatus < 1.0)
                                             {
                                                 var judgmentQuitColors = BaseUI.Instance.JudgmentQuitColors;
                                                 var judgmentColors = BaseUI.Instance.JudgmentColors;
@@ -2610,9 +2620,6 @@ namespace Qwilight
 
                                                 PaintBaseProperty(1);
 
-                                                PaintFadingProperty();
-                                                PaintNotifyXamlItems();
-
                                                 void PaintBaseProperty(int layer)
                                                 {
                                                     foreach (var paintProperty in BaseUI.Instance.PaintProperties)
@@ -2624,30 +2631,33 @@ namespace Qwilight
                                                     }
                                                 }
                                             }
-                                            else
+
+                                        }
+                                        else
+                                        {
+                                            if (fadingStatus < 1.0)
                                             {
                                                 PaintNotify0Contents(faultText, pauseNotify0Position0, pauseNotify0Position1, PauseNotifyFont, Colors.Red);
                                             }
                                         }
-                                        PaintFramerate();
-                                    }
 
-                                    CopyD3D9Drawing();
-
-                                    using (targetSession = _rawTargetSystem.CreateDrawingSession(Colors.Black))
-                                    {
-                                        targetSession.DrawImage(_targetSystem);
+                                        PaintFadingProperty();
+                                        PaintNotifyXamlItems();
                                     }
+                                    PaintFramerate();
                                 }
 
-                                _rawTargetSystem.Present();
-                                break;
-                        }
-                    }
+                                CopyD3D9Drawing();
 
-                    var millis = loopingHandler.GetMillis();
-                    distanceMillis = millis - lastMillis;
-                    lastMillis = millis;
+                                using (targetSession = _rawTargetSystem.CreateDrawingSession(Colors.Black))
+                                {
+                                    targetSession.DrawImage(_targetSystem);
+                                }
+                            }
+
+                            _rawTargetSystem.Present();
+                            break;
+                    }
 
                     if (wasLastPointed && !HandleLastPointed())
                     {
@@ -2748,10 +2758,6 @@ namespace Qwilight
                         }
                     }
 
-                    _eventHandler = null;
-                    _netItemHandler = null;
-                    _toNotifyXamlItemHandler = null;
-
                     if (allowFramerate)
                     {
                         distanceMillisMax = Math.Max(distanceMillisMax, distanceMillis);
@@ -2777,9 +2783,13 @@ namespace Qwilight
 
                     void PaintFadingProperty()
                     {
-                        if (fadingStatus > 0.0)
+                        var faultText = BaseUI.Instance.FaultText;
+                        if (string.IsNullOrEmpty(faultText))
                         {
-                            BaseUI.Instance.FadingProperties[(int)mode]?[fading.Layer].Paint(targetSession, fadingStatus);
+                            if (fadingStatus > 0.0)
+                            {
+                                BaseUI.Instance.FadingProperties[(int)mode]?[fading.Layer].Paint(targetSession, fadingStatus);
+                            }
                         }
                     }
 
@@ -2886,7 +2896,8 @@ namespace Qwilight
                         var textBoundHeight = textBound.Height;
 
                         r.Set(toNotifyPosition0, toNotifyPosition1, Levels.StandardEdgeFloat32 + Levels.StandardMarginFloat32 + textBoundLength + Levels.StandardMarginFloat32 + Levels.StandardEdgeFloat32, Levels.StandardEdgeFloat32 + Levels.StandardMarginFloat32 + textBoundHeight + Levels.StandardMarginFloat32 + Levels.StandardEdgeFloat32);
-                        r.Position0 -= r.Length; if (onHandled != null)
+                        r.Position0 -= r.Length;
+                        if (onHandled != null)
                         {
                             SetEventHandler(ref r, onHandled);
                         }
@@ -2932,16 +2943,19 @@ namespace Qwilight
                         if (_eventHandler != null)
                         {
                             _eventHandler();
+                            _eventHandler = null;
                             return true;
                         }
                         else if (_netItemHandler != null)
                         {
                             _netItemHandler(_netItemParam);
+                            _netItemHandler = null;
                             return true;
                         }
                         else if (_toNotifyXamlItemHandler != null)
                         {
                             _toNotifyXamlItemHandler(_toNotifyXamlItemParam);
+                            _toNotifyXamlItemHandler = null;
                             return true;
                         }
                         else

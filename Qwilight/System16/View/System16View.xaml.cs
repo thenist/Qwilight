@@ -86,11 +86,11 @@ namespace Qwilight.System16.View
         {
             if ((bool)e.NewValue)
             {
-                CompositionTarget.Rendering += OnPaint;
+                WPF.Paint += OnPaint;
             }
             else
             {
-                CompositionTarget.Rendering -= OnPaint;
+                WPF.Paint -= OnPaint;
             }
         }
 
