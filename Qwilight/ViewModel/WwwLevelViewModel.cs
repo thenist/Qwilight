@@ -66,6 +66,7 @@ namespace Qwilight.ViewModel
 
         readonly WwwLevelData _wwwLevelData = new();
         readonly double[] _audioMultipliers = new double[2];
+        bool _isLoaded;
         WwwLevelAvatar? _wwwLevelAvatar;
         WwwLevelAvatar? _lastWwwLevelAvatar;
         string _levelName;
@@ -300,6 +301,7 @@ namespace Qwilight.ViewModel
                 if (SetProperty(ref _wwwLevelItem, value, nameof(WwwLevelItemValue)) && value != null)
                 {
                     _lastWwwLevelItem = value;
+
                     _ = Awaitable();
                     async Task Awaitable()
                     {
@@ -744,11 +746,14 @@ namespace Qwilight.ViewModel
 
             set
             {
-                if (SetProperty(ref _wwwLevelAvatar, value, nameof(WwwLevelAvatarValue)))
+                if (!_isLoaded || SetProperty(ref _wwwLevelAvatar, value, nameof(WwwLevelAvatarValue)))
                 {
+                    _isLoaded = true;
+
                     _lastWwwLevelAvatar = value;
                     _lastLevelName = null;
                     _lastWwwLevelItem = null;
+
                     _ = Awaitable();
                     async Task Awaitable()
                     {
@@ -794,6 +799,7 @@ namespace Qwilight.ViewModel
                 {
                     _lastLevelName = value;
                     _lastWwwLevelItem = null;
+
                     _ = Awaitable();
                     async Task Awaitable()
                     {

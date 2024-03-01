@@ -6,12 +6,12 @@
 
 using namespace std;
 
-LRESULT lpfn(int code, WPARAM wParam, LPARAM lParam) {
+static LRESULT lpfn(int code, WPARAM wParam, LPARAM lParam) {
 	auto vkCode = ((KBDLLHOOKSTRUCT*)lParam)->vkCode;
 	return vkCode == VK_LWIN || vkCode == VK_RWIN ? TRUE : FALSE;
 }
 
-DWORD lpStartAddress(LPVOID lpThreadParameter) {
+static DWORD lpStartAddress(LPVOID lpThreadParameter) {
 	auto idThread = (DWORD*)lpThreadParameter;
 	while (true)
 	{

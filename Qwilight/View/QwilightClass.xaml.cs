@@ -53,7 +53,7 @@ namespace Qwilight.View
             ProfileOptimization.SetProfileRoot(QwilightComponent.QwilightEntryPath);
             ProfileOptimization.StartProfile("Qwilight.$");
 
-            if (!Bootstrap.TryInitialize(65540U, out _))
+            if (!Bootstrap.TryInitialize(65541U, out _))
             {
 #if X64
                 using var exe = Process.Start(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "windowsappruntimeinstall-x64.exe"));
@@ -61,9 +61,9 @@ namespace Qwilight.View
                 using var exe = Process.Start(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "windowsappruntimeinstall-arm64.exe"));
 #endif
                 exe.WaitForExit();
-                if (!Bootstrap.TryInitialize(65540U, out _))
+                if (!Bootstrap.TryInitialize(65541U, out _))
                 {
-                    Bootstrap.Initialize(65540U, null, default, Bootstrap.InitializeOptions.OnNoMatch_ShowUI);
+                    Bootstrap.Initialize(65541U, null, default, Bootstrap.InitializeOptions.OnNoMatch_ShowUI);
                 }
             }
 
