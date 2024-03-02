@@ -6,7 +6,7 @@ namespace Qwilight.Compute
 {
     public sealed class QuitCompute : DefaultCompute
     {
-        public QuitCompute(BaseNoteFile[] noteFiles, Comment[] comments, ModeComponent defaultModeComponentValue, CommentItem commentItem, EntryItem eventNoteEntryItem) : base(noteFiles, comments, defaultModeComponentValue, commentItem.AvatarWwwValue.AvatarID, commentItem.AvatarName, default, null, eventNoteEntryItem)
+        public QuitCompute(BaseNoteFile[] noteFiles, Comment[] comments, ModeComponent defaultModeComponentValue, CommentItem commentItem, EntryItem eventNoteEntryItem) : base(noteFiles, comments, defaultModeComponentValue, commentItem.AvatarWwwValue.AvatarID, commentItem.AvatarName, null, null, null, eventNoteEntryItem)
         {
             HighestComputingPosition = noteFiles.Length - 1;
             foreach (var noteFile in noteFiles)

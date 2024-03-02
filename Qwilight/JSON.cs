@@ -156,6 +156,8 @@ namespace Qwilight
             public int totalFavor;
             public BaseNoteFile.Handled? handled;
             public Comment[] comments;
+            public int commentPlace;
+            public int totalComments;
 
             public struct Comment
             {

@@ -25,7 +25,7 @@ namespace Qwilight.Compute
             }
         }
 
-        public CommentCompute(BaseNoteFile[] noteFiles, Comment[] comments, ModeComponent defaultModeComponentValue, string avatarID, string avatarName, string handlerID, EntryItem eventNoteEntryItem, DefaultCompute lastComputer, double levyingWait) : base(noteFiles, comments, defaultModeComponentValue, avatarID, avatarName, null, handlerID, eventNoteEntryItem, lastComputer)
+        public CommentCompute(BaseNoteFile[] noteFiles, Comment[] comments, ModeComponent defaultModeComponentValue, string avatarID, string avatarName, string ubuntuID, string handlerID, EntryItem eventNoteEntryItem, DefaultCompute lastComputer, double levyingWait) : base(noteFiles, comments, defaultModeComponentValue, avatarID, avatarName, ubuntuID, null, handlerID, eventNoteEntryItem, lastComputer)
         {
             if (Utility.IsLowerDate(Version.Parse(Comment.Date), 1, 1, 0))
             {

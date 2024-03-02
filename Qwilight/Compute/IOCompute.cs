@@ -21,7 +21,7 @@ namespace Qwilight.Compute
 
         public override Configure.InputAudioVariety InputAudioVarietyValue => Configure.InputAudioVariety.IIDX;
 
-        public IOCompute(BaseNoteFile[] noteFiles, ModeComponent defaultModeComponentValue, JSON.TwilightCallIOComponent twilightCallIOComponent) : base(noteFiles, null, defaultModeComponentValue, twilightCallIOComponent.avatarID, twilightCallIOComponent.avatarName, null, twilightCallIOComponent.handlerID)
+        public IOCompute(BaseNoteFile[] noteFiles, ModeComponent defaultModeComponentValue, JSON.TwilightCallIOComponent twilightCallIOComponent) : base(noteFiles, null, defaultModeComponentValue, twilightCallIOComponent.avatarID, twilightCallIOComponent.avatarName, null, null, twilightCallIOComponent.handlerID)
         {
             IsFailMode = twilightCallIOComponent.isFailMode;
             WaitingTwilightLevel = WaitingTwilight.WaitIO;

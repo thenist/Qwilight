@@ -1438,7 +1438,7 @@ namespace Qwilight.ViewModel
                 var noteID = EntryItemValue?.NoteFile?.GetNoteID512();
                 if (!string.IsNullOrEmpty(noteID))
                 {
-                    var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={(TwilightSystem.Instance.IsSignedIn ? TwilightSystem.Instance.AvatarID : string.Empty)}&language={Configure.Instance.Language}&isUbuntu={Configure.Instance.UbuntuNetItemTarget}");
+                    var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={(TwilightSystem.Instance.IsSignedIn ? TwilightSystem.Instance.AvatarID : string.Empty)}&language={Configure.Instance.Language}&isUbuntu={Configure.Instance.UbuntuNetItemTarget}&viewUnit=50");
                     var noteFile = EntryItemValue?.NoteFile;
                     if (noteFile?.GetNoteID512() == noteID)
                     {
@@ -1462,11 +1462,11 @@ namespace Qwilight.ViewModel
                                 {
                                     TwilightCommentItemCollection.Add(commentItem);
                                 }
-                                var targetComment = commentItems.Where(comment => comment.AvatarWwwValue.AvatarID == TwilightSystem.Instance.AvatarID).SingleOrDefault();
-                                if (targetComment != null)
+                                var commentPlace = twilightWwwCommentValue.commentPlace;
+                                if (commentPlace != -1)
                                 {
-                                    TwilightCommentText0 = (Array.IndexOf(commentItems, targetComment) + 1).ToString("＃#,##0");
-                                    TwilightCommentText1 = commentItems.Length.ToString("／#,##0");
+                                    TwilightCommentText0 = (commentPlace + 1).ToString("＃#,##0");
+                                    TwilightCommentText1 = twilightWwwCommentValue.totalComments.ToString("／#,##0");
                                 }
                                 var handled = twilightWwwCommentValue.handled;
                                 if (handled.HasValue)
@@ -1529,7 +1529,7 @@ namespace Qwilight.ViewModel
             };
         }
 
-        public void HandleLevyNoteFile(BaseNoteFile noteFile = null, EntryItem entryItem = null, WwwLevelData wwwLevelDataValue = null, ModeComponent defaultModeComponentValue = null)
+        public void HandleLevyNoteFile(BaseNoteFile noteFile = null, EntryItem entryItem = null, string ubuntuID = null, WwwLevelData wwwLevelDataValue = null, ModeComponent defaultModeComponentValue = null)
         {
             if ((noteFile != null && entryItem != null) || HasNotInput())
             {
@@ -1566,7 +1566,7 @@ namespace Qwilight.ViewModel
                                 ModeComponentValue.ComputingValue = noteFile;
                                 ModeComponentValue.CanModifyMultiplier = true;
                                 ModeComponentValue.CanModifyAudioMultiplier = true;
-                                SetComputingMode(new([noteFile], null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), wwwLevelDataValue, null, null, null));
+                                SetComputingMode(new([noteFile], null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), ubuntuID, wwwLevelDataValue, null, null, null));
                             }
                             else
                             {
@@ -1582,7 +1582,7 @@ namespace Qwilight.ViewModel
                                     ModeComponentValue.ComputingValue = noteFiles.First();
                                     ModeComponentValue.CanModifyMultiplier = true;
                                     ModeComponentValue.CanModifyAudioMultiplier = true;
-                                    SetComputingMode(new(noteFiles, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), wwwLevelDataValue, null, entryItem, null));
+                                    SetComputingMode(new(noteFiles, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), ubuntuID, wwwLevelDataValue, null, entryItem, null));
                                 }
                             }
                         }
@@ -3017,7 +3017,7 @@ namespace Qwilight.ViewModel
                     ModeComponentValue.CanModifyMultiplier = true;
                     ModeComponentValue.MultiplierValue = defaultMultiplierValue;
                     ModeComponentValue.CanModifyAudioMultiplier = true;
-                    SetComputingMode(new(Computer.MyNoteFiles, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), Computer.WwwLevelDataValue, null, Computer.EventNoteEntryItem));
+                    SetComputingMode(new(Computer.MyNoteFiles, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), Computer.UbuntuID, Computer.WwwLevelDataValue, null, Computer.EventNoteEntryItem));
                 }
             }
         }
@@ -3039,7 +3039,7 @@ namespace Qwilight.ViewModel
                     ModeComponentValue.CanModifyMultiplier = false;
                     ModeComponentValue.AudioMultiplier = Computer.TotallyLevyingAudioMultiplier;
                     ModeComponentValue.CanModifyAudioMultiplier = false;
-                    SetComputingMode(new CommentCompute(Computer.MyNoteFiles, Computer.Comments, defaultModeComponentValue, Computer.AvatarID, Computer.AvatarName, null, Computer.EventNoteEntryItem, null, double.NaN));
+                    SetComputingMode(new CommentCompute(Computer.MyNoteFiles, Computer.Comments, defaultModeComponentValue, Computer.AvatarID, Computer.AvatarName, Computer.UbuntuID, null, Computer.EventNoteEntryItem, null, double.NaN));
                 }
             }
         }
@@ -3051,7 +3051,7 @@ namespace Qwilight.ViewModel
                 IsCommentMode = false;
                 var defaultModeComponentValue = Computer.DefaultModeComponentValue ?? ModeComponentValue.Clone();
                 ModeComponentValue.CopyAs(netItem.CommentItem.ModeComponentValue, Computer.NoteFile, false);
-                SetComputingMode(new CommentCompute([Computer.NoteFile], [netItem.Comment], defaultModeComponentValue, netItem.AvatarID, netItem.AvatarName, null, null, null, Computer.LoopingCounter));
+                SetComputingMode(new CommentCompute([Computer.NoteFile], [netItem.Comment], defaultModeComponentValue, netItem.AvatarID, netItem.AvatarName, Computer.UbuntuID, null, null, null, Computer.LoopingCounter));
             }
         }
 

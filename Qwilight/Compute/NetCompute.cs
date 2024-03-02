@@ -36,7 +36,7 @@ namespace Qwilight.Compute
 
         public override string LowestJudgmentInQuit => Comment.LowestJudgment.ToString();
 
-        public NetCompute(BaseNoteFile[] noteFiles, ModeComponent modeComponent, string avatarID, string avatarName, JSON.TwilightLevyNet twilightLevyNet) : base(noteFiles, null, modeComponent, avatarID, avatarName, default, twilightLevyNet.handlerID)
+        public NetCompute(BaseNoteFile[] noteFiles, ModeComponent modeComponent, string avatarID, string avatarName, JSON.TwilightLevyNet twilightLevyNet) : base(noteFiles, null, modeComponent, avatarID, avatarName, null, null, twilightLevyNet.handlerID)
         {
             WaitingTwilightLevel = WaitingTwilight.Net;
             NetDrawings = new Queue<Event.Types.NetDrawing>();

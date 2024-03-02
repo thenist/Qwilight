@@ -280,6 +280,8 @@ namespace Qwilight.Compute
 
         public string AvatarName => AvatarNames[LevyingComputingPosition];
 
+        public string UbuntuID { get; }
+
         public virtual string TotalNotesInQuit => NoteFiles.Length > 1 ? $"{TotalNotes} / {InheritedTotalNotes}" : $"{TotalNotes}";
 
         public virtual string HighestJudgmentInQuit => NoteFiles.Length > 1 ? $"{Comment.HighestJudgment} / {InheritedHighestJudgment}" : $"{Comment.HighestJudgment}";
@@ -1424,7 +1426,7 @@ namespace Qwilight.Compute
             }
         }
 
-        public DefaultCompute(BaseNoteFile[] noteFiles, Comment[] comments, ModeComponent defaultModeComponentValue, string avatarID, string avatarName, WwwLevelData wwwLevelDataValue = null, string handlerID = "", EntryItem eventNoteEntryItem = null, DefaultCompute lastComputer = null)
+        public DefaultCompute(BaseNoteFile[] noteFiles, Comment[] comments, ModeComponent defaultModeComponentValue, string avatarID, string avatarName, string ubuntuID = null, WwwLevelData wwwLevelDataValue = null, string handlerID = "", EntryItem eventNoteEntryItem = null, DefaultCompute lastComputer = null)
         {
             NoteFiles = noteFiles;
             MyNoteFiles = noteFiles;
@@ -1446,6 +1448,7 @@ namespace Qwilight.Compute
             Array.Fill(AvatarIDs, avatarID);
             AvatarNames = new string[NoteFiles.Length];
             Array.Fill(AvatarNames, avatarName);
+            UbuntuID = ubuntuID;
             LevyingMultiplier = ModeComponentValue.Multiplier;
             LevyingAudioMultiplier = AudioMultiplier;
             InheritTotalStand = 1000000 * NoteFiles.Length;
@@ -4423,6 +4426,7 @@ namespace Qwilight.Compute
                     DefaultModeComponentValue,
                     AvatarID,
                     AvatarName,
+                    UbuntuID,
                     HandlerID,
                     EventNoteEntryItem,
                     this,
@@ -4433,6 +4437,7 @@ namespace Qwilight.Compute
                     DefaultModeComponentValue,
                     AvatarID,
                     AvatarName,
+                    UbuntuID,
                     WwwLevelDataValue,
                     HandlerID,
                     EventNoteEntryItem,
@@ -4577,7 +4582,7 @@ namespace Qwilight.Compute
                             break;
                         case 1:
                         case 2:
-                            var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&isUbuntu={Configure.Instance.UbuntuNetItemTarget}").ConfigureAwait(false);
+                            var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&isUbuntu={Configure.Instance.UbuntuNetItemTarget || !string.IsNullOrEmpty(UbuntuID)}&ubuntuID={UbuntuID}&viewUnit=50").ConfigureAwait(false);
                             if (twilightWwwComment.HasValue)
                             {
                                 netItems.AddRange(GetNetItemsImpl(HandleTwilightNetItems(Utility.GetCommentItems(twilightWwwComment.Value.comments, NoteFile))));

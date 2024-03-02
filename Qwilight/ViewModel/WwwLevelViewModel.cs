@@ -167,7 +167,7 @@ namespace Qwilight.ViewModel
             }
             modeComponent.PutCopyNotesValueV2 = ModeComponent.PutCopyNotes.Default;
             var entryItem = mainViewModel.EventNoteEntryItems[GetEventNoteID()];
-            mainViewModel.HandleLevyNoteFile(entryItem.NoteFile, entryItem, _wwwLevelData, defaultModeComponentValue);
+            mainViewModel.HandleLevyNoteFile(entryItem.NoteFile, entryItem, null, _wwwLevelData, defaultModeComponentValue);
         }
 
         string GetEventNoteID() => string.Join('/', WwwLevelComputingCollection.Select(wwwLevelComputing => wwwLevelComputing.GetNoteID512()));
