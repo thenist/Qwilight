@@ -290,7 +290,7 @@ namespace Qwilight
 
                                 SetInputColor(VirtualKey.F1, assistViewModel.IsOpened ? handlingColor : defaultColor);
                                 SetInputColor(VirtualKey.F5, mainViewModel.IsDefaultEntryLoading ? handlingColor : defaultColor);
-                                SetInputColor(VirtualKey.F9, mainViewModel.EntryItemValue.NoteFile.HasFavoriteEntryItem ? handlingColor : defaultColor);
+                                SetInputColor(VirtualKey.F9, mainViewModel.EntryItemValue?.NoteFile?.HasFavoriteEntryItem == true ? handlingColor : defaultColor);
                                 break;
                             case MainViewModel.Mode.Computing:
                                 PaintEtc();

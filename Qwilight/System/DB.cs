@@ -547,6 +547,7 @@ namespace Qwilight
                 FROM comment
                 WHERE {(string.IsNullOrEmpty(eventNoteID) ? "Note_ID = @noteID" : "Event_Note_ID = @eventNoteID")}
                 ORDER BY Stand DESC
+                LIMIT 50
             """);
             if (string.IsNullOrEmpty(eventNoteID))
             {

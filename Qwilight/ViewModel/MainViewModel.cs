@@ -968,11 +968,11 @@ namespace Qwilight.ViewModel
                             2 => 1 - (pointPositionX - statusPosition0) / statusLength,
                             3 => (pointPositionX - statusPosition0) / statusLength,
                             _ => default,
-                        }, e.ClickCount == 2);
+                        }, e.ClickCount >= 2);
                     }
                     else if (inputNoteCountViewPoint?.Length >= 4 && new Bound(inputNoteCountViewPoint).IsPoint(pointPosition))
                     {
-                        MoveStatus(isAlt ? -Component.LevyingWait : (pointPositionX - inputNoteCountViewPoint[0]) / inputNoteCountViewPoint[2], e.ClickCount == 2);
+                        MoveStatus(isAlt ? -Component.LevyingWait : (pointPositionX - inputNoteCountViewPoint[0]) / inputNoteCountViewPoint[2], e.ClickCount >= 2);
                     }
                 }
                 if (pointInput == MouseButton.Middle)
