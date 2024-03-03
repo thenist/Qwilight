@@ -4515,7 +4515,6 @@ namespace Qwilight.Compute
                         }
                     }
                 }
-                netItem.TargetPositionStatus = Utility.GetMove(0.0, netItem.TargetPositionStatus, 1000.0 / millisLoopUnit);
             }
 
             var targetPosition = SetValidNetItems();

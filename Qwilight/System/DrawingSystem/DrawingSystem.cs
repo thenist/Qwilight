@@ -1064,7 +1064,6 @@ namespace Qwilight
                                                                                     {
                                                                                         if (netItem.TargetPosition == i)
                                                                                         {
-                                                                                            var targetPositionStatus = netItem.TargetPositionStatus;
                                                                                             var drawings = netItem.Drawings;
                                                                                             var drawingPosition = netItem.DrawingPosition - levyingNetPosition;
                                                                                             var d2dHitPointsPaint = BaseUI.Instance.D2DHitPointsPaints[(int)netItem.HitPointsModeValue][netItem.IsMyNetItem ? netItemFaintInt : netItemFaintInt / 2];
@@ -1142,7 +1141,6 @@ namespace Qwilight
 
                                                                                                 r.Set(r.Position0 + Levels.StandardEdgeFloat32, r.Position1 + Levels.StandardEdgeFloat32, r.Length - 2 * Levels.StandardEdgeFloat32, r.Height - 2 * Levels.StandardEdgeFloat32);
                                                                                                 targetSession.FillRectangle(r, netWallPaint);
-                                                                                                targetSession.FillRectangle(r, FaintClearedPaints[(int)(100.0 * targetPositionStatus)]);
 
                                                                                                 r.Position0 += highestNetHeight;
                                                                                                 r.Length = (highestNetLength - 2 * highestNetHeight) * netItemValue;
