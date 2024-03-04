@@ -12,10 +12,10 @@
     <Thickness x:Key="StandardMargin">5.0</Thickness>
     <Thickness x:Key="HNarrowMargin">0.0 5.0</Thickness>
     <Thickness x:Key="VNarrowMargin">5.0 0.0</Thickness>
-    <Thickness x:Key="StandardInputEdge">0 0 1 1</Thickness>
+    <Thickness x:Key="StandardInputEdge">0 0 1.0 1.0</Thickness>
 
     <system:Double x:Key="FontLevel0">12.0</system:Double>
-    <system:Double x:Key="FontLevel1">20.0</system:Double>
+    <system:Double x:Key="FontLevel1">16.0</system:Double>
 
     <Color x:Key="NotPointedColor">DeepPink</Color>
     <Color x:Key="PointedColor">DeepSkyBlue</Color>
@@ -204,7 +204,7 @@
     </Style>
 
     <!-- Slider -->
-    <Style x:Key="StandardSlider" TargetType="Slider" BasedOn="{StaticResource MaterialDesignSlider}">
+    <Style x:Key="StandardSlider" TargetType="Slider" BasedOn="{StaticResource MaterialDesign3.MaterialDesignSlider}">
         <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
         <Setter Property="IsSnapToTickEnabled" Value="True" />
         <Setter Property="IsMoveToPointEnabled" Value="True" />
@@ -270,7 +270,7 @@
 
     <!-- Separator -->
     <Style x:Key="StandardHr" TargetType="Separator" BasedOn="{StaticResource MaterialDesignSeparator}">
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="25" />
 
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />

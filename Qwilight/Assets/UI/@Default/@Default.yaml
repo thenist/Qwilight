@@ -118,8 +118,8 @@ paint:
     quit6: Red
 
 point:
-    noteFileMargin: 31.5
-    entryViewTitleMargin: 58, 0, 0, 0
+    noteFileMargin: 25.5
+    entryViewTitleMargin: 0.0, 0.0, 0.0, 0.0
 
     signIn: AutoModePosition0(-5), 12, 34, 34, 1, 1, 0
     configure: AutoModePosition0(-5), 56, 34, 34, 1, 1, 0
@@ -127,8 +127,8 @@ point:
     stopAuto: CommentViewLength(-12), InputNoteCountViewPosition1(5), 24, 24, 1, 1, 0
     saltAuto: CommentViewLength(-12), InputNoteCountViewPosition1(39), 24, 24, 1, 1, 0
 
-    handledWallLength: 10
-    entryItemHeight: 60
+    handledWallLength: 8
+    entryItemHeight: 48
     commentItemHeight: 48
 
     commentView: 13, 13, CommentViewLength(-2), CommentViewHeight(-2)
@@ -318,12 +318,12 @@ point:
     handleUndo: HandleUndoPosition0(), ViewCommentPosition1(), 97.3, 40.3
 
 font:
-    eventNoteNameLevel: 20.0
-    titleLevel: 20.0
+    eventNoteNameLevel: 16.0
+    titleLevel: 16.0
     artistLevel: 12.0
     genreLevel: 12.0
-    levelLevel: 20.0
-    wantLevelIDLevel: 20.0
+    levelLevel: 16.0
+    wantLevelIDLevel: 16.0
     entryItemPositionLevel: 12.0
     fittedTextLevel: 12.0
 

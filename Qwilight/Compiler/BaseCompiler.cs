@@ -586,6 +586,7 @@ namespace Qwilight.Compiler
                     AudioItem = audioNote.AudioItem,
                     Length = audioNote.Length,
                     AudioLevyingPosition = audioNote.AudioLevyingPosition,
+                    BMSID = audioNote.BMSID,
                     Salt = audioNoteSaltComputer.Next()
                 }).ToList();
             }

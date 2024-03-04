@@ -14,7 +14,6 @@ using System.Text;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.WindowsAndMessaging;
-using BaseCompatibilityPreferences = System.Windows.BaseCompatibilityPreferences;
 using SplashScreen = System.Windows.SplashScreen;
 using StartupEventArgs = System.Windows.StartupEventArgs;
 using VirtualKey = Windows.System.VirtualKey;
@@ -83,7 +82,6 @@ namespace Qwilight.View
             {
             }
 
-            BaseCompatibilityPreferences.HandleDispatcherRequestProcessingFailure = BaseCompatibilityPreferences.HandleDispatcherRequestProcessingFailureOptions.Reset;
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _ = PInvoke.timeBeginPeriod(1);
             ThreadPool.GetMaxThreads(out var tw, out var tIOCP);
