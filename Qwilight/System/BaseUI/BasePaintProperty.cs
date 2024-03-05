@@ -48,7 +48,7 @@ namespace Qwilight
             Font?.Dispose();
         }
 
-        public void Paint(DrawingContext targetSession, BaseNoteFile noteFile, AutoCompute autoComputer, double millis)
+        public void Paint(DrawingContext targetSession, double millis, BaseNoteFile noteFile, AutoCompute autoComputer)
         {
             if (Mode == 0)
             {

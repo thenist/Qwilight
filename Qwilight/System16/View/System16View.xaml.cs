@@ -47,13 +47,17 @@ namespace Qwilight.System16.View
             }
         }
 
-        readonly DrawingGroup _target = new();
+        readonly VisualCollection _targets;
+        readonly DrawingVisual _target = new();
         readonly List<FallingItem> _fallingItems = new(64);
 
         public ImageSource Falling { get; set; }
 
         public System16View()
         {
+            _targets = new(this);
+            _targets.Add(_target);
+
             InitializeComponent();
 
             if (System16Components.Is1221)
@@ -82,6 +86,10 @@ namespace Qwilight.System16.View
             });
         }
 
+        protected override int VisualChildrenCount => _targets.Count;
+
+        protected override Visual GetVisualChild(int index) => _targets[index];
+
         void OnVisibilityModified(object sender, DependencyPropertyChangedEventArgs e)
         {
             if ((bool)e.NewValue)
@@ -96,23 +104,19 @@ namespace Qwilight.System16.View
 
         void OnPaint(object sender, EventArgs e)
         {
-            using (var targetSession = _target.Open())
+            using var targetSession = _target.RenderOpen();
+            for (var i = _fallingItems.Count - 1; i >= 0; --i)
             {
-                for (var i = _fallingItems.Count - 1; i >= 0; --i)
+                var fallingItem = _fallingItems[i];
+                targetSession.PushTransform(fallingItem.Transform);
+                targetSession.DrawImage(Falling, fallingItem.Area);
+                targetSession.Pop();
+                if (fallingItem.Move())
                 {
-                    var fallingItem = _fallingItems[i];
-                    targetSession.PushTransform(fallingItem.Transform);
-                    targetSession.DrawImage(Falling, fallingItem.Area);
-                    targetSession.Pop();
-                    if (fallingItem.Move())
-                    {
-                        _fallingItems.RemoveAt(i);
-                        _fallingItems.Add(new(Falling.Width, Falling.Height));
-                    }
+                    _fallingItems.RemoveAt(i);
+                    _fallingItems.Add(new(Falling.Width, Falling.Height));
                 }
             }
         }
-
-        protected override void OnRender(DrawingContext dc) => dc.DrawDrawing(_target);
     }
 }

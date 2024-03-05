@@ -8,26 +8,32 @@ namespace Qwilight.View
 {
     public sealed partial class Layer1View
     {
-        readonly DrawingGroup _target = new();
+        readonly VisualCollection _targets;
+        readonly DrawingVisual _target = new();
         readonly Stopwatch _loopingHandler = Stopwatch.StartNew();
         readonly string[] _textGCs = new string[QwilightComponent.HeapCount];
         double _distanceMillisMax = double.MinValue;
-        double _frametime = 0.0;
-        double _frameCount = 0;
+        double _frametime;
+        double _frameCount;
         string _framerate = string.Empty;
         string _framerateLowest = string.Empty;
         string _textHeap = string.Empty;
-        double _lastMillis = 0.0;
-        long _lastHeap = 0L;
-        double _distanceMillis = 0.0;
+        double _lastMillis;
+        long _lastHeap;
 
         public Layer1View()
         {
-            Array.Fill(_textGCs, string.Empty);
-            InitializeComponent();
+            _targets = new(this);
+            _targets.Add(_target);
 
-            IsVisibleChanged += OnVisibilityModified;
+            Array.Fill(_textGCs, string.Empty);
+
+            InitializeComponent();
         }
+
+        protected override int VisualChildrenCount => _targets.Count;
+
+        protected override Visual GetVisualChild(int index) => _targets[index];
 
         void OnVisibilityModified(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -44,11 +50,11 @@ namespace Qwilight.View
         void OnPaint(object sender, object e)
         {
             var millis = _loopingHandler.GetMillis();
-            _distanceMillis = millis - _lastMillis;
+            var distanceMillis = millis - _lastMillis;
             _lastMillis = millis;
 
             var allowFramerate = TelnetSystem.Instance.IsAvailable;
-            using (var targetSession = _target.Open())
+            using (var targetSession = _target.RenderOpen())
             {
                 var mainViewModel = (DataContext as MainViewModel);
                 var defaultLength = mainViewModel.DefaultLength;
@@ -67,7 +73,7 @@ namespace Qwilight.View
                         {
                             if (paintProperty?.Layer == 1)
                             {
-                                paintProperty.Paint(targetSession, noteFile, autoComputer, _distanceMillis);
+                                paintProperty.Paint(targetSession, distanceMillis, noteFile, autoComputer);
                             }
                         }
                     }
@@ -105,9 +111,9 @@ namespace Qwilight.View
 
             if (allowFramerate)
             {
-                _distanceMillisMax = Math.Max(_distanceMillisMax, _distanceMillis);
+                _distanceMillisMax = Math.Max(_distanceMillisMax, distanceMillis);
                 ++_frameCount;
-                _frametime += _distanceMillis;
+                _frametime += distanceMillis;
                 if (_frametime >= 1000.0)
                 {
                     _framerate = PoolSystem.Instance.GetValueText(Math.Round(1000.0 * _frameCount / _frametime), "0 frame/s");
@@ -125,12 +131,6 @@ namespace Qwilight.View
                     _lastHeap = valueHeap;
                 }
             }
-        }
-
-        protected override void OnRender(DrawingContext dc)
-        {
-            base.OnRender(dc);
-            dc.DrawDrawing(_target);
         }
     }
 }

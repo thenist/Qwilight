@@ -20,17 +20,22 @@ namespace Qwilight
                 {
                     if (_isAvailable)
                     {
-                        _exe = Process.Start(new ProcessStartInfo(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffmpeg.exe"), $"""
-                            -i "{mediaFilePath}" -y -an {(isWrongMedia || isCounterWave ? string.Empty : "-vcodec copy")} {(isCounterWave ? "-vf reverse" : string.Empty)} -preset ultrafast "{hashMediaFilePath}"
-                        """)
+                        Text = LanguageSystem.Instance.MediaModifierContents;
+                        _exe = new()
                         {
-                            CreateNoWindow = true
-                        });
+                            StartInfo = new(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffmpeg.exe"), $"""
+                                -i "{mediaFilePath}" -y -an {(isWrongMedia || isCounterWave ? string.Empty : "-vcodec copy")} {(isCounterWave ? "-vf reverse" : string.Empty)} -preset ultrafast "{hashMediaFilePath}"
+                            """)
+                            {
+                                CreateNoWindow = true
+                            }
+                        };
+                        _exe.Start();
+                        _exe.PriorityClass = ProcessPriorityClass.Idle;
                     }
                 }
                 if (_isAvailable)
                 {
-                    Text = LanguageSystem.Instance.MediaModifierContents;
                     _exe.WaitForExit();
                     if (_exe.ExitCode != 0)
                     {

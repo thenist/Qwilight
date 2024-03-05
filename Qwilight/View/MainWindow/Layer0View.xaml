@@ -4,4 +4,5 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     DataContext="{Binding MainValue, Source={StaticResource ViewModels}}"
     IsHitTestVisible="False"
+    IsVisibleChanged="OnVisibilityModified"
     RenderOptions.EdgeMode="Aliased" />
