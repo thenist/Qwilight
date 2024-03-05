@@ -15,6 +15,7 @@ namespace Qwilight
         static readonly object _exeCSX = new();
         static readonly string[] _validMedia = new string[]
         {
+            "25da64204262bc0636baa0622e2aed80", // Can't it be true
             "e82d6a96a58c9a01098fa4a53f95c5ad"
         };
         static readonly string[] _wrongMedia = new string[]

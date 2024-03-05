@@ -226,6 +226,7 @@ namespace Qwilight.Compiler
         {
             CompileImpl(defaultComputer, noteFileContents, loadParallelItems);
 
+            var standNotes = Notes.Where(note => note.HasStand).ToArray();
             var notesCount = Notes.Count;
             for (var i = notesCount - 1; i >= 0; --i)
             {
@@ -233,7 +234,7 @@ namespace Qwilight.Compiler
                 var inputNote = Notes[i];
                 if (inputNote.HasStand && inputNote.LongWait == 0.0)
                 {
-                    if (Notes.Any(note => note != inputNote && note.LevyingInput == inputNote.LevyingInput && note.IsCollided(inputNote)))
+                    if (standNotes.Any(note => note != inputNote && note.LevyingInput == inputNote.LevyingInput && note.IsCollided(inputNote)))
                     {
                         Notes.RemoveAt(i);
                     }
