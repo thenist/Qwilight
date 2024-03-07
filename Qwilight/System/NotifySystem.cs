@@ -5,9 +5,15 @@ namespace Qwilight
 {
     public sealed class NotifySystem
     {
-        public const int ModeComponentID = 0;
-        public const int SetFavoritesID = 1;
-        public const int UIID = 2;
+        public const int ModeComponentID = -1;
+        public const int SetFavoritesID = -2;
+        public const int LoadUIID = -3;
+        public const int SaveLevelID = -4;
+        public const int SaveQwilightID = -5;
+        public const int SaveBundleID = -6;
+        public const int SaveAsBundleID = -7;
+        public const int SaveFileID = -8;
+        public const int SaveUIID = -9;
 
         public enum NotifyVariety
         {
@@ -21,7 +27,7 @@ namespace Qwilight
 
         public static readonly NotifySystem Instance = new();
 
-        int _toNotifyID = 2;
+        int _toNotifyID;
 
         public void NotifyPending() => UIHandler.Instance.HandleParallel(() =>
         {
@@ -37,7 +43,7 @@ namespace Qwilight
             }
         });
 
-        public void Notify(NotifyVariety toNotifyVariety, NotifyConfigure toNotifyConfigure, string toNotify, bool allowComputingMode = true, string audioAlt = null, Action onHandle = null, int toNotifyID = -1)
+        public void Notify(NotifyVariety toNotifyVariety, NotifyConfigure toNotifyConfigure, string toNotify, bool allowComputingMode = true, string audioAlt = null, Action onHandle = null, int? toNotifyID = null)
         {
             UIHandler.Instance.HandleParallel(() =>
             {
@@ -98,7 +104,7 @@ namespace Qwilight
                         },
                         Contents = toNotify,
                         OnHandle = onHandle,
-                        ID = toNotifyID != -1 ? toNotifyID : ++_toNotifyID
+                        ID = toNotifyID ?? ++_toNotifyID
                     });
                     return true;
                 }

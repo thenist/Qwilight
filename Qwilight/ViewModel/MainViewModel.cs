@@ -742,7 +742,7 @@ namespace Qwilight.ViewModel
                                     try
                                     {
                                         UIHandler.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingUIItem));
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingUIItem.Text);
+                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingUIItem.Text, true, null, null, NotifySystem.SaveUIID);
                                         zipFile.ExtractProgress += (sender, e) =>
                                         {
                                             if (e.EntriesTotal > 0)
@@ -754,14 +754,14 @@ namespace Qwilight.ViewModel
                                         zipFile.ExtractAll(string.IsNullOrEmpty(Path.GetDirectoryName(yamlFileName)) ? Path.Combine(QwilightComponent.UIEntryPath, yamlFileName) : QwilightComponent.UIEntryPath, ExtractExistingFileAction.OverwriteSilently);
                                         savingUIItem.Variety = NotifySystem.NotifyVariety.Quit;
                                         savingUIItem.Text = LanguageSystem.Instance.SavedUIContents;
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, savingUIItem.Text);
+                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, savingUIItem.Text, true, null, null, NotifySystem.SaveUIID);
                                         lastYamlFileName = yamlFileName;
                                     }
                                     catch (Exception e)
                                     {
                                         savingUIItem.Variety = NotifySystem.NotifyVariety.Stopped;
                                         savingUIItem.Text = string.Format(LanguageSystem.Instance.SaveUIFault, e.Message);
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, savingUIItem.Text);
+                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, savingUIItem.Text, true, null, null, NotifySystem.SaveUIID);
                                     }
                                     finally
                                     {
@@ -1726,7 +1726,7 @@ namespace Qwilight.ViewModel
             try
             {
                 UIHandler.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingFileItem));
-                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingFileItem.Text);
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingFileItem.Text, true, null, null, NotifySystem.SaveFileID);
                 var bundleEntryItem = Configure.Instance.LastDefaultEntryItem ?? DefaultEntryItem.EssentialBundle;
                 if (bundleEntryItem.DefaultEntryVarietyValue != DefaultEntryItem.DefaultEntryVariety.Default && bundleEntryItem.DefaultEntryVarietyValue != DefaultEntryItem.DefaultEntryVariety.Essential)
                 {
@@ -1772,13 +1772,13 @@ namespace Qwilight.ViewModel
                 LoadEntryItem(bundleEntryItem, bundleEntryPath);
                 savingFileItem.Variety = NotifySystem.NotifyVariety.Quit;
                 savingFileItem.Text = LanguageSystem.Instance.SavedFileContents;
-                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, savingFileItem.Text);
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, savingFileItem.Text, true, null, null, NotifySystem.SaveFileID);
             }
             catch (Exception e)
             {
                 savingFileItem.Variety = NotifySystem.NotifyVariety.Stopped;
                 savingFileItem.Text = string.Format(LanguageSystem.Instance.SaveFileFault, e.Message);
-                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, savingFileItem.Text);
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, savingFileItem.Text, true, null, null, NotifySystem.SaveFileID);
             }
             finally
             {
@@ -3146,7 +3146,7 @@ namespace Qwilight.ViewModel
                         try
                         {
                             UIHandler.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingQwilightItem));
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingQwilightItem.Text);
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingQwilightItem.Text, true, null, null, NotifySystem.SaveQwilightID);
                             var title = taehuiQwilightValue.title;
                             var tmpFileName = Path.GetTempFileName();
                             var target = $"{QwilightComponent.TaehuiNetFE}/qwilight/{title}";
@@ -3415,7 +3415,7 @@ namespace Qwilight.ViewModel
         {
             IsCommentMode = false;
             VerifyNoteFile(Configure.Instance.SetSalt ? ModeComponentValue.Salt : Environment.TickCount);
-            LoadCommentItemCollection();
+            LoadCommentItemCollection(false);
             TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetSituation, new
             {
                 situationValue = (int)UbuntuItem.UbuntuSituation.NoteFileMode,
@@ -3423,7 +3423,7 @@ namespace Qwilight.ViewModel
             });
         }
 
-        public void LoadCommentItemCollection()
+        public void LoadCommentItemCollection(bool doCallHOFAPI = true)
         {
             if (!BaseUI.Instance.HasCommentPoint || ViewModels.Instance.CommentValue.IsOpened)
             {
@@ -3435,7 +3435,7 @@ namespace Qwilight.ViewModel
                     case 1:
                         LoadTwilightCommentItemCollection();
                         break;
-                    case 2:
+                    case 2 when doCallHOFAPI:
                         _ = CallHOFAPI();
                         break;
                 }

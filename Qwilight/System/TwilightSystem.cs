@@ -747,7 +747,7 @@ namespace Qwilight
                                     };
                                     _savingBundleItems[saveAsBundleID] = savingBundleItem;
                                     UIHandler.Instance.HandleParallel(() => toNotifyViewModel.NotifyItemCollection.Insert(0, savingBundleItem));
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveAsBundleID);
                                     Task.Run(() =>
                                     {
                                         try
@@ -835,7 +835,7 @@ namespace Qwilight
                                             if (!savingBundleItem.IsStopped)
                                             {
                                                 savingBundleItem.Text = LanguageSystem.Instance.SavingAsBundleContents;
-                                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveAsBundleID);
                                                 savingBundleItem.MaxStatus = rms.Length;
                                                 rms.Position = 0;
                                                 while (_savingBundleItems.TryGetValue(saveAsBundleID, out var savingBundleItem))
@@ -850,7 +850,7 @@ namespace Qwilight
                                                         {
                                                             savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                                             savingBundleItem.Text = LanguageSystem.Instance.SavedAsBundleContents;
-                                                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveAsBundleID);
                                                         }
                                                         break;
                                                     }
@@ -881,7 +881,7 @@ namespace Qwilight
                                         catch (Exception e)
                                         {
                                             savingBundleItem.OnStop(false);
-                                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SaveAsBundleFault, e.Message));
+                                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SaveAsBundleFault, e.Message), true, null, null, NotifySystem.SaveAsBundleID);
                                         }
                                         finally
                                         {
@@ -934,7 +934,7 @@ namespace Qwilight
                                     UIHandler.Instance.HandleParallel(() => toNotifyViewModel.NotifyItemCollection.Insert(0, savingBundleItem));
                                     if (saveBundleVariety != BundleItem.BundleVariety.DefaultNoteFiles && saveBundleVariety != BundleItem.BundleVariety.DefaultUI)
                                     {
-                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveBundleID);
                                     }
                                     SendParallel(Event.Types.EventID.SavingBundle, saveBundleID);
                                     break;
@@ -982,7 +982,7 @@ namespace Qwilight
                                                                 savingBundleItem.Text = LanguageSystem.Instance.SavingBundleContents;
                                                                 if (isNotDefaultBundle)
                                                                 {
-                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveBundleID);
                                                                 }
                                                                 zipFile.ExtractProgress += OnSavingZipFile;
                                                                 zipFile.ExtractAll(bundleEntryPath, ExtractExistingFileAction.OverwriteSilently);
@@ -994,11 +994,11 @@ namespace Qwilight
                                                                 savingBundleItem.Text = LanguageSystem.Instance.SavedBundleContents;
                                                                 if (isNotDefaultBundle)
                                                                 {
-                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveBundleID);
                                                                 }
                                                                 else if (twilightSavedBundle.isLastDefault)
                                                                 {
-                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedDefaultNoteContents);
+                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedDefaultNoteContents, true, null, null, NotifySystem.SaveBundleID);
                                                                 }
                                                             }
                                                             break;
@@ -1009,7 +1009,7 @@ namespace Qwilight
                                                                 savingBundleItem.Text = LanguageSystem.Instance.SavingBundleContents;
                                                                 if (isNotDefaultBundle)
                                                                 {
-                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveBundleID);
                                                                 }
                                                                 zipFile.ExtractProgress += OnSavingZipFile;
                                                                 zipFile.ExtractAll(string.IsNullOrEmpty(Path.GetDirectoryName(zipFile.Where(zipEntry => zipEntry.FileName.IsTailCaselsss(".yaml")).OrderBy(zipEntry => zipEntry.FileName).FirstOrDefault().FileName)) ? Path.Combine(QwilightComponent.UIEntryPath, twilightSavedBundle.bundleName) : QwilightComponent.UIEntryPath, ExtractExistingFileAction.OverwriteSilently);
@@ -1020,11 +1020,11 @@ namespace Qwilight
                                                                 savingBundleItem.Text = LanguageSystem.Instance.SavedBundleContents;
                                                                 if (isNotDefaultBundle)
                                                                 {
-                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveBundleID);
                                                                 }
                                                                 else if (twilightSavedBundle.isLastDefault)
                                                                 {
-                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedDefaultUIContents);
+                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedDefaultUIContents, true, null, null, NotifySystem.SaveBundleID);
                                                                 }
                                                             }
                                                             break;
@@ -1035,7 +1035,7 @@ namespace Qwilight
                                                             }
                                                             savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                                             savingBundleItem.Text = LanguageSystem.Instance.SavedQwilightBundleContents;
-                                                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveBundleID);
                                                             break;
                                                         case BundleItem.BundleVariety.EventNote:
                                                             try
@@ -1052,13 +1052,13 @@ namespace Qwilight
                                                                 DB.Instance.SetEventNote(eventNoteID, eventNoteName, date, eventNoteVariety);
                                                                 savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                                                 savingBundleItem.Text = LanguageSystem.Instance.SavedBundleContents;
-                                                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveBundleID);
                                                                 mainViewModel.LoadEventNoteEntryItems();
                                                                 mainViewModel.Want();
                                                             }
                                                             catch (SQLiteException)
                                                             {
-                                                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.BeforeEventNoteContents);
+                                                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.BeforeEventNoteContents, true, null, null, NotifySystem.SaveBundleID);
                                                             }
                                                             break;
                                                         case BundleItem.BundleVariety.NoteFile:
@@ -1068,7 +1068,7 @@ namespace Qwilight
                                                                 using (var zipFile = ZipFile.Read(dataFlow))
                                                                 {
                                                                     savingBundleItem.Text = LanguageSystem.Instance.SavingBundleContents;
-                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveBundleID);
                                                                     zipFile.ExtractProgress += OnSavingZipFile;
                                                                     zipFile.ExtractAll(noteFile.EntryItem.EntryPath, ExtractExistingFileAction.OverwriteSilently);
                                                                 }
@@ -1077,13 +1077,13 @@ namespace Qwilight
                                                                     mainViewModel.LoadEntryItem(noteFile.DefaultEntryItem, noteFile.EntryItem.EntryPath);
                                                                     savingBundleItem.Variety = NotifySystem.NotifyVariety.Quit;
                                                                     savingBundleItem.Text = LanguageSystem.Instance.SavedBundleContents;
-                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveBundleID);
                                                                 }
                                                             }
                                                             else
                                                             {
                                                                 savingBundleItem.Text = LanguageSystem.Instance.NotHaveNoteFileEntryText;
-                                                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text);
+                                                                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.NotSave, savingBundleItem.Text, true, null, null, NotifySystem.SaveBundleID);
                                                             }
                                                             break;
                                                     }
@@ -1107,7 +1107,7 @@ namespace Qwilight
                                                 catch (Exception e)
                                                 {
                                                     savingBundleItem.OnStop(false);
-                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SaveBundleFault, e.Message));
+                                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SaveBundleFault, e.Message), true, null, null, NotifySystem.SaveBundleID);
                                                 }
                                                 finally
                                                 {

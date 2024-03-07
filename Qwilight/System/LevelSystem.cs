@@ -131,7 +131,7 @@ namespace Qwilight
                             OnStop = wipeTotal => false
                         };
                         UIHandler.Instance.HandleParallel(() => ViewModels.Instance.NotifyValue.NotifyItemCollection.Insert(0, savingLevelItem));
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingLevelItem.Text);
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, savingLevelItem.Text, true, null, null, NotifySystem.SaveLevelID);
                         var target = ModifyDataValue(levelTableValue.data_url);
                         var levelTableFileName = levelTableValue.name;
                         foreach (var targetFileName in Path.GetInvalidFileNameChars())
@@ -164,7 +164,7 @@ namespace Qwilight
                         savingLevelItem.Variety = NotifySystem.NotifyVariety.Quit;
                         savingLevelItem.Text = LanguageSystem.Instance.SavedLevelContents;
                         savingLevelItem.OnStop = wipeTotal => true;
-                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedLevelContents);
+                        NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedLevelContents, true, null, null, NotifySystem.SaveLevelID);
                         Configure.Instance.LevelTargetMap[levelTableFileName] = www;
                         LoadLevelFiles();
                         Configure.Instance.WantLevelName = levelTableFileName;
@@ -192,7 +192,7 @@ namespace Qwilight
             }
             catch (Exception e)
             {
-                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.NotValidNetLevelContents, e.Message));
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.NotValidNetLevelContents, e.Message), true, null, null, NotifySystem.SaveLevelID);
             }
             finally
             {

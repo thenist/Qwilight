@@ -20,7 +20,7 @@
                     <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding AvatarID, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding AvatarID, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
                     <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" materialDesign:HintAssist.Hint="{Binding AvatarCipher, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
                     <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipherTest" materialDesign:HintAssist.Hint="{Binding AvatarCipherTest, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
-                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding AvatarName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding AvatarName, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" />
+                    <TextBox Style="{StaticResource StandardTextInput}" Text="{Binding AvatarName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{Binding AvatarName, Source={StaticResource LanguageSystem}}" KeyDown="OnInputLower" MaxLength="16" />
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />

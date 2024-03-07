@@ -2174,7 +2174,7 @@ namespace Qwilight
                 mainViewModel.IsUILoading = true;
                 if (isParallel)
                 {
-                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpeningUIFileContents, true, null, null, NotifySystem.UIID);
+                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpeningUIFileContents, true, null, null, NotifySystem.LoadUIID);
                     Task.Run(() =>
                     {
                         try
@@ -2184,17 +2184,17 @@ namespace Qwilight
                                 LoadUIImpl(src, target);
                             }
                             OnLoaded();
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedUIFileContents, true, null, null, NotifySystem.UIID);
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedUIFileContents, true, null, null, NotifySystem.LoadUIID);
                         }
                         catch (YamlException e)
                         {
                             FaultText = string.Format(LanguageSystem.Instance.YAMLCompileFault, e.Message);
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, FaultText, true, null, null, NotifySystem.UIID);
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, FaultText, true, null, null, NotifySystem.LoadUIID);
                         }
                         catch (Exception e)
                         {
                             FaultText = string.Format(LanguageSystem.Instance.UIFaultText, e.Message);
-                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, FaultText, true, null, null, NotifySystem.UIID);
+                            NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, FaultText, true, null, null, NotifySystem.LoadUIID);
                         }
                         finally
                         {

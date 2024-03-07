@@ -31,23 +31,28 @@ namespace Qwilight.ViewModel
             var targetNotifyXamlItem = NotifyXamlItemUICollection.SingleOrDefault(targetNotifyXamlItem => targetNotifyXamlItem.ID == toNotifyXamlItem.ID);
             if (targetNotifyXamlItem != null)
             {
+                SetHandler(targetNotifyXamlItem);
                 targetNotifyXamlItem.Set(toNotifyXamlItem);
-                targetNotifyXamlItem.Handler.Stop();
             }
             else
             {
+                SetHandler(toNotifyXamlItem);
                 NotifyXamlItemUICollection.Add(toNotifyXamlItem);
                 lock (NotifyXamlItemCollection)
                 {
                     NotifyXamlItemCollection.Add(toNotifyXamlItem);
                 }
-                targetNotifyXamlItem = toNotifyXamlItem;
             }
-            targetNotifyXamlItem.Handler = new DispatcherTimer(TimeSpan.FromSeconds(5), DispatcherPriority.Background, (sender, e) =>
+
+            void SetHandler(NotifyXamlItem toNotifyXamlItem)
             {
-                (sender as DispatcherTimer).Stop();
-                WipeNotify(targetNotifyXamlItem);
-            }, UIHandler.Instance.Handler);
+                toNotifyXamlItem.Handler?.Stop();
+                toNotifyXamlItem.Handler = new(TimeSpan.FromSeconds(5), DispatcherPriority.Background, (sender, e) =>
+                {
+                    (sender as DispatcherTimer).Stop();
+                    WipeNotify(toNotifyXamlItem);
+                }, UIHandler.Instance.Handler);
+            }
         }
 
         public void WipeNotify(NotifyXamlItem toNotifyXamlItem)

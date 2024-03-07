@@ -226,20 +226,14 @@ namespace Qwilight.Compiler
         {
             CompileImpl(defaultComputer, noteFileContents, loadParallelItems);
 
-            var standNotes = Notes.Where(note => note.HasStand).ToArray();
-            var notesCount = Notes.Count;
-            for (var i = notesCount - 1; i >= 0; --i)
+            var standNotes = Notes.Where(note => note.HasStand).ToList();
+            foreach (var standInputNote in standNotes.Where(note => note.LongWait == 0.0).ToArray())
             {
-                SetCancelCompiler?.Token.ThrowIfCancellationRequested();
-                var inputNote = Notes[i];
-                if (inputNote.HasStand && inputNote.LongWait == 0.0)
+                if (standNotes.Any(standNote => standNote != standInputNote && standNote.LevyingInput == standInputNote.LevyingInput && standNote.IsCollided(standInputNote)))
                 {
-                    if (standNotes.Any(note => note != inputNote && note.LevyingInput == inputNote.LevyingInput && note.IsCollided(inputNote)))
-                    {
-                        Notes.RemoveAt(i);
-                    }
+                    Notes.Remove(standInputNote);
+                    standNotes.Remove(standInputNote);
                 }
-                defaultComputer.SetCompilingStatus((double)(notesCount - i) / notesCount);
             }
 
             if (defaultComputer.IsLongNoteStand1)
