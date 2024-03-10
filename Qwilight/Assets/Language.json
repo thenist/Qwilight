@@ -847,10 +847,6 @@
     "ko-KR": "일반 대화방",
     "en-US": "General chat room"
   },
-  "DefaultUIAssister": {
-    "ko-KR": "추가 스킨 제공",
-    "en-US": "Additional skin provided"
-  },
   "DefaultWaveModeContents": {
     "ko-KR": "앞으로 플레이합니다.",
     "en-US": "Play forwards"
@@ -3330,6 +3326,10 @@
   "UbuntuText": {
     "ko-KR": "친구 목록",
     "en-US": "List of friends"
+  },
+  "UIAssister": {
+    "ko-KR": "이미지 제공",
+    "en-US": "Image provided"
   },
   "UIBinText": {
     "ko-KR": "스킨 파일을 불러올 때 사용할 스레드 개수입니다.",

@@ -161,6 +161,7 @@ namespace Qwilight.Compute
         double _millisStandardMeter;
         bool _isPaused;
         InputFlag _inputFlags;
+        int _totalComments;
 
         public readonly DrawingComponent DrawingComponentValue = new();
 
@@ -723,7 +724,7 @@ namespace Qwilight.Compute
             if (NetItems.Count > 0)
             {
                 CommentPlace0Text = $"＃{NetItems.Single(netItem => netItem.IsMyNetItem).TargetPosition + 1}";
-                CommentPlace1Text = $"／{NetItems.Count}";
+                CommentPlace1Text = $"／{_totalComments + 1}";
             }
             else
             {
@@ -4300,6 +4301,7 @@ namespace Qwilight.Compute
             HasFailedJudgment = false;
             _isPaused = false;
             _inputFlags = InputFlag.Not;
+            _totalComments = 0;
             AudioSystem.Instance.Stop(this);
             MediaSystem.Instance.Stop(this);
             foreach (var note in Notes)
@@ -4578,12 +4580,14 @@ namespace Qwilight.Compute
                     {
                         case 0:
                             netItems.AddRange(GetNetItemsImpl(DB.Instance.GetCommentItems(NoteFiles[0], eventNoteID, NoteFiles.Length)));
+                            _totalComments = netItems.Count;
                             break;
                         case 1:
                         case 2:
                             var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={NoteFile.GetNoteID512()}&avatarID={Configure.Instance.AvatarID}&isUbuntu={Configure.Instance.UbuntuNetItemTarget || !string.IsNullOrEmpty(UbuntuID)}&ubuntuID={UbuntuID}&viewUnit=50").ConfigureAwait(false);
                             if (twilightWwwComment.HasValue)
                             {
+                                _totalComments = twilightWwwComment.Value.totalComments;
                                 netItems.AddRange(GetNetItemsImpl(HandleTwilightNetItems(Utility.GetCommentItems(twilightWwwComment.Value.comments, NoteFile))));
                             }
                             break;

@@ -1109,7 +1109,7 @@ namespace Qwilight
             {
                 if (SetProperty(ref _hofViewTabPosition, value, nameof(HOFViewTabPosition)) && _isLoaded)
                 {
-                    _ = ViewModels.Instance.MainValue.CallHOFAPI();
+                    ViewModels.Instance.MainValue.CallHOFAPI();
                 }
             }
         }
@@ -1122,7 +1122,7 @@ namespace Qwilight
             {
                 if (SetProperty(ref _hofViewTotalTabPosition, value, nameof(HOFViewTotalTabPosition)) && _isLoaded)
                 {
-                    _ = ViewModels.Instance.MainValue.CallHOFAPI();
+                    ViewModels.Instance.MainValue.CallHOFAPI();
                 }
             }
         }
@@ -1135,7 +1135,7 @@ namespace Qwilight
             {
                 if (SetProperty(ref _hofViewAtTabPosition, value, nameof(HOFViewAtTabPosition)) && _isLoaded)
                 {
-                    _ = ViewModels.Instance.MainValue.CallHOFAPI();
+                    ViewModels.Instance.MainValue.CallHOFAPI();
                 }
             }
         }
@@ -1148,7 +1148,7 @@ namespace Qwilight
             {
                 if (SetProperty(ref _hofViewAbilityTabPosition, value, nameof(HOFViewAbilityTabPosition)) && _isLoaded)
                 {
-                    _ = ViewModels.Instance.MainValue.CallHOFAPI();
+                    ViewModels.Instance.MainValue.CallHOFAPI();
                 }
             }
         }

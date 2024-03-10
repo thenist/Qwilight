@@ -218,7 +218,15 @@
                                     </Grid>
                                 </StackPanel>
                                 <Separator Style="{StaticResource StandardHr}" />
-                                <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding DefaultUIAssister, Source={StaticResource LanguageSystem}}" />
+                                <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding UIAssister, Source={StaticResource LanguageSystem}}" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="COOKI" HorizontalAlignment="Right" />
+                                    <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://discord.gg/b84DYqQx4P" HorizontalAlignment="Left">Discord</Button>
+                                </Grid>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
@@ -240,25 +248,6 @@
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://www.instagram.com/d_y_k_w_i_m">Instagram</Button>
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/dykwim">SoundCloud</Button>
                                     </StackPanel>
-                                </Grid>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="KOTDARI" HorizontalAlignment="Right" />
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/kot-dari">SoundCloud</Button>
-                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/kotdari_forward">X</Button>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="oSeann" HorizontalAlignment="Right" />
-                                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://linktr.ee/oSeann" HorizontalAlignment="Left">Linktree</Button>
                                 </Grid>
                                 <Separator Style="{StaticResource StandardHr}" />
                                 <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding Library, Source={StaticResource LanguageSystem}}" />

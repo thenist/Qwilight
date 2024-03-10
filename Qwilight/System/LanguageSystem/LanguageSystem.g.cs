@@ -214,7 +214,6 @@ namespace Qwilight
         public string DefaultSaltModeContents { get; set; }
         public string DefaultSetNoteModeContents { get; set; }
         public string DefaultSiteName { get; set; }
-        public string DefaultUIAssister { get; set; }
         public string DefaultWaveModeContents { get; set; }
         public string DetailedConfigure { get; set; }
         public string DetailedConfigureText { get; set; }
@@ -835,6 +834,7 @@ namespace Qwilight
         public string UbuntuAssist { get; set; }
         public string UbuntuNetItemTargetAssist { get; set; }
         public string UbuntuText { get; set; }
+        public string UIAssister { get; set; }
         public string UIBinText { get; set; }
         public string UIBundleText { get; set; }
         public string UICommentNote { get; set; }

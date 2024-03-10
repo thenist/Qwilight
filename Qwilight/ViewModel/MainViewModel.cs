@@ -232,6 +232,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _isWPFViewVisible, value, nameof(IsWPFViewVisible)))
                 {
+                    PoolSystem.Instance.Wipe(value);
                     if (!value)
                     {
                         DrawingSystem.Instance.OnModified();
@@ -3233,182 +3234,185 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public async Task CallHOFAPI()
+        public void CallHOFAPI()
         {
-            switch (Configure.Instance.HOFViewTabPosition)
+            UIHandler.Instance.HandleParallel(async () =>
             {
-                case 3:
-                    IsHOFLevelLoading = true;
-                    var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/level");
-                    if (twilightWwwHOF != null)
-                    {
-                        LevelHOFItemCollection.Clear();
-                        foreach (var data in twilightWwwHOF)
+                switch (Configure.Instance.HOFViewTabPosition)
+                {
+                    case 3:
+                        IsHOFLevelLoading = true;
+                        var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/level");
+                        if (twilightWwwHOF != null)
                         {
-                            LevelHOFItemCollection.Add(new(data, value => $"LV. {value}"));
+                            LevelHOFItemCollection.Clear();
+                            foreach (var data in twilightWwwHOF)
+                            {
+                                LevelHOFItemCollection.Add(new(data, value => $"LV. {value}"));
+                            }
                         }
-                    }
-                    IsHOFLevelLoading = false;
-                    break;
-                case 0:
-                    switch (Configure.Instance.HOFViewTotalTabPosition)
-                    {
-                        case 0:
-                            IsHOFTotalTotalLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalTotal");
-                            if (twilightWwwHOF != null)
-                            {
-                                TotalTotalHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                        IsHOFLevelLoading = false;
+                        break;
+                    case 0:
+                        switch (Configure.Instance.HOFViewTotalTabPosition)
+                        {
+                            case 0:
+                                IsHOFTotalTotalLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalTotal");
+                                if (twilightWwwHOF != null)
                                 {
-                                    TotalTotalHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
+                                    TotalTotalHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        TotalTotalHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
+                                    }
                                 }
-                            }
-                            IsHOFTotalTotalLoading = false;
-                            break;
-                        case 1:
-                            IsHOFTotalHighestLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalHighest");
-                            if (twilightWwwHOF != null)
-                            {
-                                TotalHighestHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                                IsHOFTotalTotalLoading = false;
+                                break;
+                            case 1:
+                                IsHOFTotalHighestLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalHighest");
+                                if (twilightWwwHOF != null)
                                 {
-                                    TotalHighestHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
+                                    TotalHighestHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        TotalHighestHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
+                                    }
                                 }
-                            }
-                            IsHOFTotalHighestLoading = false;
-                            break;
-                        case 2:
-                            IsHOFTotalStandLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalStand");
-                            if (twilightWwwHOF != null)
-                            {
-                                TotalStandHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                                IsHOFTotalHighestLoading = false;
+                                break;
+                            case 2:
+                                IsHOFTotalStandLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalStand");
+                                if (twilightWwwHOF != null)
                                 {
-                                    TotalStandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
+                                    TotalStandHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        TotalStandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
+                                    }
                                 }
-                            }
-                            IsHOFTotalStandLoading = false;
-                            break;
-                        case 3:
-                            IsHOFTotalBandLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalBand");
-                            if (twilightWwwHOF != null)
-                            {
-                                TotalBandHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                                IsHOFTotalStandLoading = false;
+                                break;
+                            case 3:
+                                IsHOFTotalBandLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalBand");
+                                if (twilightWwwHOF != null)
                                 {
-                                    TotalBandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
+                                    TotalBandHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        TotalBandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
+                                    }
                                 }
-                            }
-                            IsHOFTotalBandLoading = false;
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (Configure.Instance.HOFViewAtTabPosition)
-                    {
-                        case 0:
-                            IsHOFAtTotalLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atTotal");
-                            if (twilightWwwHOF != null)
-                            {
-                                AtTotalHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                                IsHOFTotalBandLoading = false;
+                                break;
+                        }
+                        break;
+                    case 1:
+                        switch (Configure.Instance.HOFViewAtTabPosition)
+                        {
+                            case 0:
+                                IsHOFAtTotalLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atTotal");
+                                if (twilightWwwHOF != null)
                                 {
-                                    AtTotalHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
+                                    AtTotalHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        AtTotalHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
+                                    }
                                 }
-                            }
-                            IsHOFAtTotalLoading = false;
-                            break;
-                        case 1:
-                            IsHOFAtHighestLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atHighest");
-                            if (twilightWwwHOF != null)
-                            {
-                                AtHighestHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                                IsHOFAtTotalLoading = false;
+                                break;
+                            case 1:
+                                IsHOFAtHighestLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atHighest");
+                                if (twilightWwwHOF != null)
                                 {
-                                    AtHighestHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
+                                    AtHighestHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        AtHighestHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
+                                    }
                                 }
-                            }
-                            IsHOFAtHighestLoading = false;
-                            break;
-                        case 2:
-                            IsHOFAtStandLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atStand");
-                            if (twilightWwwHOF != null)
-                            {
-                                AtStandHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                                IsHOFAtHighestLoading = false;
+                                break;
+                            case 2:
+                                IsHOFAtStandLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atStand");
+                                if (twilightWwwHOF != null)
                                 {
-                                    AtStandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
+                                    AtStandHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        AtStandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
+                                    }
                                 }
-                            }
-                            IsHOFAtStandLoading = false;
-                            break;
-                        case 3:
-                            IsHOFAtBandLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atBand");
-                            if (twilightWwwHOF != null)
-                            {
-                                AtBandHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                                IsHOFAtStandLoading = false;
+                                break;
+                            case 3:
+                                IsHOFAtBandLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atBand");
+                                if (twilightWwwHOF != null)
                                 {
-                                    AtBandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
+                                    AtBandHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        AtBandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
+                                    }
                                 }
-                            }
-                            IsHOFAtBandLoading = false;
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (Configure.Instance.HOFViewAbilityTabPosition)
-                    {
-                        case 0:
-                            IsHOFAbility5KLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/5K");
-                            if (twilightWwwHOF != null)
-                            {
-                                Ability5KHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                                IsHOFAtBandLoading = false;
+                                break;
+                        }
+                        break;
+                    case 2:
+                        switch (Configure.Instance.HOFViewAbilityTabPosition)
+                        {
+                            case 0:
+                                IsHOFAbility5KLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/5K");
+                                if (twilightWwwHOF != null)
                                 {
-                                    Ability5KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                                    Ability5KHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        Ability5KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                                    }
                                 }
-                            }
-                            IsHOFAbility5KLoading = false;
-                            break;
-                        case 1:
-                            IsHOFAbility7KLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/7K");
-                            if (twilightWwwHOF != null)
-                            {
-                                Ability7KHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                                IsHOFAbility5KLoading = false;
+                                break;
+                            case 1:
+                                IsHOFAbility7KLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/7K");
+                                if (twilightWwwHOF != null)
                                 {
-                                    Ability7KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                                    Ability7KHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        Ability7KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                                    }
                                 }
-                            }
-                            IsHOFAbility7KLoading = false;
-                            break;
-                        case 2:
-                            IsHOFAbility9KLoading = true;
-                            twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/9K");
-                            if (twilightWwwHOF != null)
-                            {
-                                Ability9KHOFItemCollection.Clear();
-                                foreach (var data in twilightWwwHOF)
+                                IsHOFAbility7KLoading = false;
+                                break;
+                            case 2:
+                                IsHOFAbility9KLoading = true;
+                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/9K");
+                                if (twilightWwwHOF != null)
                                 {
-                                    Ability9KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                                    Ability9KHOFItemCollection.Clear();
+                                    foreach (var data in twilightWwwHOF)
+                                    {
+                                        Ability9KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                                    }
                                 }
-                            }
-                            IsHOFAbility9KLoading = false;
-                            break;
-                    }
-                    break;
-            }
+                                IsHOFAbility9KLoading = false;
+                                break;
+                        }
+                        break;
+                }
+            });
         }
 
         public void NotifyNoteFile()
@@ -3436,7 +3440,7 @@ namespace Qwilight.ViewModel
                         LoadTwilightCommentItemCollection();
                         break;
                     case 2 when doCallHOFAPI:
-                        _ = CallHOFAPI();
+                        CallHOFAPI();
                         break;
                 }
             }
