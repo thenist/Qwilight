@@ -605,9 +605,9 @@ namespace Qwilight
         public struct TwilightCallNetSiteComments
         {
             public long date;
-            public CallNetSIteCommentItem[] data;
+            public CallNetSiteCommentItem[] data;
 
-            public struct CallNetSIteCommentItem
+            public struct CallNetSiteCommentItem
             {
                 public int avatarNetStatus;
                 public string avatarID;
@@ -841,10 +841,10 @@ namespace Qwilight
         {
             public int avatarLevelVSCount;
             public int targetLevelVSCount;
-            public LevelVSItem[] avatarLevelVSItems;
-            public LevelVSItem[] targetLevelVSItems;
+            public LevelVSitem[] avatarLevelVSitems;
+            public LevelVSitem[] targetLevelVSitems;
 
-            public sealed class LevelVSItem : Computing
+            public sealed class LevelVSitem : Computing
             {
                 public int stand;
                 public int levelVSStand;

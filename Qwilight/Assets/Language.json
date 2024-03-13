@@ -3043,6 +3043,10 @@
     "ko-KR": "리버브 활성화",
     "en-US": "Enable Reverb"
   },
+  "SignedInContents": {
+    "ko-KR": "{0}님 환영합니다.",
+    "en-US": "Welcome, {0}!"
+  },
   "SignIn": {
     "ko-KR": "로그인",
     "en-US": "Login"
@@ -3190,10 +3194,6 @@
   "StopSiteNetText": {
     "ko-KR": "강제 중단",
     "en-US": "Forced stop"
-  },
-  "SuccessfullySignedInContents": {
-    "ko-KR": "{0}님 환영합니다.",
-    "en-US": "Welcome, {0}!"
   },
   "SymmetricModeContents": {
     "ko-KR": "노트를 반전시킵니다. (미러)",

@@ -28,7 +28,7 @@
             <view:InputStandardControllerWindow />
             <view:InputStandardWindow />
             <view:NotifyWindow />
-            <view:NetSIteCommentWindow />
+            <view:NetSiteCommentWindow />
             <view:FavoriteEntryWindow />
             <view:EqualizerWindow />
             <view:FavorJudgmentWindow />

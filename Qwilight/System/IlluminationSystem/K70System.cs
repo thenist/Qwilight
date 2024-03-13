@@ -10,7 +10,7 @@ namespace Qwilight
     {
         public static readonly K70System Instance = new();
 
-        static CorsairLedId GetInput(VirtualKey input) => input switch
+        static CorsairLedId GetInput(VirtualKey rawInput) => rawInput switch
         {
             VirtualKey.Escape => CorsairLedId.KeyboardEscape,
             VirtualKey.F1 => CorsairLedId.KeyboardF1,

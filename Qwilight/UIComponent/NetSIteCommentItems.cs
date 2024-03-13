@@ -1,8 +1,8 @@
 ﻿namespace Qwilight.UIComponent
 {
-    public struct NetSIteCommentItems
+    public struct NetSiteCommentItems
     {
-        public List<NetSiteCommentItem> NetSiteCommentItems { get; init; }
+        public List<NetSiteCommentItem> Values { get; init; }
 
         public long Date { get; set; }
 

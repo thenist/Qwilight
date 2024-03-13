@@ -3,7 +3,6 @@
 using Ionic.Zip;
 using System.Data;
 using System.Data.SQLite;
-using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using YamlDotNet.RepresentationModel;
@@ -1022,8 +1021,6 @@ namespace Compatible
             {
             }
         }
-
-        static int ModifyInt(object o) => Convert.ToInt32(o, CultureInfo.InvariantCulture);
 
         static string GetText(YamlNode yamlNode, string target, string defaultValue = null)
         {

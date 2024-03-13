@@ -50,10 +50,7 @@ namespace Qwilight.ViewModel
         {
             get => _faint;
 
-            set
-            {
-                SetProperty(ref _faint, value, nameof(Faint));
-            }
+            set => SetProperty(ref _faint, value, nameof(Faint));
         }
 
         public int Zvalue

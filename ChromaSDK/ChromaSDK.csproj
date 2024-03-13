@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Platforms>x64;ARM64</Platforms>
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Platform)'=='x64'">
@@ -16,9 +16,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Update="Assets\x64\CChromaEditorLibrary64.dll">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
+		<None Update="Assets\x64\CChromaEditorLibrary64.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
-
 </Project>

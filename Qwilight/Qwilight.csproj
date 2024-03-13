@@ -10,9 +10,7 @@
 		<ApplicationIcon>Qwilight.ico</ApplicationIcon>
 		<Authors>Taehui</Authors>
 		<Company>불로그</Company>
-		<AssemblyVersion>1.16.18.576</AssemblyVersion>
-		<FileVersion>1.16.18.576</FileVersion>
-		<Version>1.16.18</Version>
+		<VersionPrefix>1.16.18</VersionPrefix>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableMsixTooling>true</EnableMsixTooling>
@@ -21,6 +19,7 @@
 		<StartupObject>Qwilight.View.QwilightClass</StartupObject>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<SelfContained>true</SelfContained>
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Platform)'=='x64'">
@@ -46,13 +45,12 @@
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
 		<PackageReference Include="ini-parser-new" Version="2.6.2" />
 		<PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.1.1" />
+		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.2.0" />
 		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="3.0.0" />
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2365.46" />
 		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.49-beta">
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240227000" />
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
 		<PackageReference Include="OpusDotNet" Version="1.0.3" />

@@ -289,7 +289,7 @@
                             <Button Style="{StaticResource StandardInput}" Command="{Binding StopSiteNetCommand}" Content="{Binding StopSiteNetText, Source={StaticResource LanguageSystem}}" Visibility="{Binding CanStopSiteNet, Converter={StaticResource VisibilityModifier}}" />
                             <Button Style="{StaticResource StandardInput}" Command="{Binding SaveAsNetBundleCommand}" Content="{Binding SaveAsNetBundle, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityModifier}}" IsEnabled="{Binding IsIdle}" />
                             <Button Style="{StaticResource StandardInput}" Command="{Binding SaveNetBundleCommand}" Content="{Binding SaveNetBundle, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityNotModifier}}" IsEnabled="{Binding CanSaveNetBundle, Converter={StaticResource BoolModifier}}" />
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding NetSIteCommentsCommand}" Content="{Binding NetSiteCommentsText, Source={StaticResource LanguageSystem}}" />
+                            <Button Style="{StaticResource StandardInput}" Command="{Binding NetSiteCommentsCommand}" Content="{Binding NetSiteCommentsText, Source={StaticResource LanguageSystem}}" />
                             <Button Style="{StaticResource StandardInput}" Command="{Binding SetValidHunterModeCommand}" Content="{Binding ValidHunterModeText}" IsEnabled="{Binding CanSetTwilightConfigures}" />
                         </StackPanel>
                         <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding BundleName}" HorizontalAlignment="Left" />

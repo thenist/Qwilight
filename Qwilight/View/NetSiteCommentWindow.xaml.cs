@@ -1,7 +1,7 @@
 ﻿namespace Qwilight.View
 {
-    public sealed partial class NetSIteCommentWindow
+    public sealed partial class NetSiteCommentWindow
     {
-        public NetSIteCommentWindow() => InitializeComponent();
+        public NetSiteCommentWindow() => InitializeComponent();
     }
 }

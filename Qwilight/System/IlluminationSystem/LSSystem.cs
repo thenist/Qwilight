@@ -11,7 +11,7 @@ namespace Qwilight
     {
         public static readonly LSSystem Instance = new();
 
-        static keyboardNames GetInput(VirtualKey input) => input switch
+        static keyboardNames GetInput(VirtualKey rawInput) => rawInput switch
         {
             VirtualKey.Escape => keyboardNames.ESC,
             VirtualKey.F1 => keyboardNames.F1,
@@ -109,7 +109,7 @@ namespace Qwilight
             VirtualKey.PageUp => keyboardNames.PAGE_UP,
             VirtualKey.End => keyboardNames.END,
             VirtualKey.PageDown => keyboardNames.PAGE_DOWN,
-            _ => 0
+            _ => default
         };
 
         readonly keyboardNames[] _inputs = (Enum.GetValues(typeof(keyboardNames)) as keyboardNames[]);
@@ -142,7 +142,7 @@ namespace Qwilight
         public override void SetInputColor(VirtualKey rawInput, uint value)
         {
             var input = GetInput(rawInput);
-            if (input != 0)
+            if (input != default)
             {
                 _illuminatedIDs[input] = value;
             }

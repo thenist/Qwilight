@@ -41,7 +41,7 @@ namespace Qwilight.UIComponent
 
         public ImageSource QuitDrawing => BaseUI.Instance.QuitDrawings[(int)Utility.GetQuitStatusValue(PointValue, StandValue, AvatarNetStatus == Event.Types.AvatarNetStatus.Failed ? 0.0 : 1.0, 1)][LowestJudgmentValue > 0 ? 0 : 1]?.DefaultDrawing;
 
-        public NetSiteCommentItem(JSON.TwilightCallNetSiteComments.CallNetSIteCommentItem toCallNetSiteCommentItem)
+        public NetSiteCommentItem(JSON.TwilightCallNetSiteComments.CallNetSiteCommentItem toCallNetSiteCommentItem)
         {
             AvatarID = toCallNetSiteCommentItem.avatarID;
             AvatarWwwValue = new AvatarWww(AvatarID);

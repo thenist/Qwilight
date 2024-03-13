@@ -301,7 +301,7 @@ namespace Qwilight
                                     AvatarName = twilightSignIn.avatarName;
                                     TwilightSituation = SignedIn;
                                     NotifyAvatarWwwValue();
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SuccessfullySignedInContents, GetAvatarName()), false, "Sign in");
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SignedInContents, GetAvatarName()), false, "Sign in");
                                     BaseUI.Instance.HandleEvent(BaseUI.EventItem.SignIn);
                                     AutoEnter(autoEnter => autoEnter != AutoEnterSite.WaitSite);
                                     break;
@@ -679,29 +679,29 @@ namespace Qwilight
                                     var twilightCallNetSiteComments = Utility.GetJSON<JSON.TwilightCallNetSiteComments[]>(eventItemText);
                                     if (twilightCallNetSiteComments != null)
                                     {
-                                        var netSIteCommentItemCollection = new Dictionary<long, NetSIteCommentItems>();
+                                        var netSiteCommentItemCollection = new Dictionary<long, NetSiteCommentItems>();
                                         foreach (var twilightCallNetSiteComment in twilightCallNetSiteComments)
                                         {
                                             var date = twilightCallNetSiteComment.date;
-                                            if (!netSIteCommentItemCollection.TryGetValue(date, out var netSiteCommentItems))
+                                            if (!netSiteCommentItemCollection.TryGetValue(date, out var netSiteCommentItems))
                                             {
                                                 netSiteCommentItems = new()
                                                 {
-                                                    NetSiteCommentItems = new(),
+                                                    Values = new(),
                                                     Date = date
                                                 };
                                             }
                                             foreach (var toCallNetSiteCommentItem in twilightCallNetSiteComment.data)
                                             {
-                                                netSiteCommentItems.NetSiteCommentItems.Add(new(toCallNetSiteCommentItem));
+                                                netSiteCommentItems.Values.Add(new(toCallNetSiteCommentItem));
                                             }
-                                            netSIteCommentItemCollection[date] = netSiteCommentItems;
+                                            netSiteCommentItemCollection[date] = netSiteCommentItems;
                                         }
                                         var netSiteCommentItemsCollection = netSiteCommentViewModel.NetSiteCommentItemsCollection;
                                         UIHandler.Instance.HandleParallel(() =>
                                         {
                                             netSiteCommentItemsCollection.Clear();
-                                            foreach (var date in netSIteCommentItemCollection.Values)
+                                            foreach (var date in netSiteCommentItemCollection.Values)
                                             {
                                                 netSiteCommentItemsCollection.Add(date);
                                             }

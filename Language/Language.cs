@@ -10,10 +10,7 @@ var defaultJSONConfigure = new JsonSerializerOptions
 {
     IncludeFields = true
 };
-var assetsClientJSON = JsonSerializer.Deserialize<JSON.Client>(await File.ReadAllBytesAsync(Path.Combine(AppContext.BaseDirectory, "Assets", "Client.json")), new JsonSerializerOptions
-{
-    IncludeFields = true
-});
+var assetsClientJSON = JsonSerializer.Deserialize<JSON.Client>(await File.ReadAllBytesAsync(Path.Combine(AppContext.BaseDirectory, "Assets", "Client.json")), defaultJSONConfigure);
 wwwClient.DefaultRequestHeaders.Add("X-NCP-APIGW-API-KEY-ID", assetsClientJSON.nhnID);
 wwwClient.DefaultRequestHeaders.Add("X-NCP-APIGW-API-KEY", assetsClientJSON.nhnPw);
 

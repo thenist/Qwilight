@@ -363,14 +363,14 @@ namespace Qwilight.ViewModel
                     if (value != null)
                     {
                         var twilightWwwAvatarLevelVS = _twilightWwwAvatarLevelVSMap[value.LevelID];
-                        foreach (var data in twilightWwwAvatarLevelVS.avatarLevelVSItems)
+                        foreach (var data in twilightWwwAvatarLevelVS.avatarLevelVSitems)
                         {
                             LevelVSMyAvatarComputingCollection.Add(new(_avatarID, data)
                             {
                                 FittedText = string.Format(LanguageSystem.Instance.LevelVSStandContents, data.stand.ToString("#,##0"), data.levelVSStand.ToString("+#,##0;-#,##0"))
                             });
                         }
-                        foreach (var data in twilightWwwAvatarLevelVS.targetLevelVSItems)
+                        foreach (var data in twilightWwwAvatarLevelVS.targetLevelVSitems)
                         {
                             LevelVSTargetAvatarComputingCollection.Add(new(_avatarID, data)
                             {

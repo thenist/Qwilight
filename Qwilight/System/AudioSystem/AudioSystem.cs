@@ -3,6 +3,7 @@ using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using Qwilight.ViewModel;
 using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -13,89 +14,59 @@ namespace Qwilight
     {
         static readonly string FaultEntryPath = Path.Combine(QwilightComponent.FaultEntryPath, nameof(AudioSystem));
 
-        static readonly Dictionary<string, AudioConfigure> _audioConfigureValues = new()
+        static readonly FrozenDictionary<string, AudioConfigure> _audioConfigureValues = new[]
         {
+            KeyValuePair.Create("Beats Flex", new AudioConfigure
             {
-                "Beats Flex",
-                new()
-                {
-                    AudioWait = -173.0,
-                    HandleInputAudio = false
-                }
-            },
+                AudioWait = -173.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("Buds2 Pro", new AudioConfigure
             {
-                "Buds2 Pro",
-                new()
-                {
-                    AudioWait = -250.0,
-                    HandleInputAudio = false
-                }
-            },
+                AudioWait = -250.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("Buds2 Stereo", new AudioConfigure
             {
-                "Buds2 Stereo",
-                new()
-                {
-                    AudioWait = -250.0,
-                    HandleInputAudio = false
-                }
-            },
+                AudioWait = -250.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("direm W1", new AudioConfigure
             {
-                "direm W1",
-                new()
-                {
-                    AudioWait = -48.0,
-                    HandleInputAudio = false
-                }
-            },
+                AudioWait = -48.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("Galaxy Buds Pro", new AudioConfigure
             {
-                "Galaxy Buds Pro",
-                new()
-                {
-                    AudioWait = -337.0,
-                    HandleInputAudio = false
-                }
-            },
+                AudioWait = -337.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("MOMENTUM 4", new AudioConfigure
             {
-                "MOMENTUM 4",
-                new()
-                {
-                    AudioWait = -249.0,
-                    HandleInputAudio = false
-                }
-            },
+                AudioWait = -249.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("Razer Hammerhead TWS (2nd Gen)", new AudioConfigure
             {
-                "Razer Hammerhead TWS (2nd Gen)",
-                new()
-                {
-                    AudioWait = -275.0,
-                    HandleInputAudio = false
-                }
-            },
+                AudioWait = -275.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("Razer Hammerhead TWS Pro", new AudioConfigure
             {
-                "Razer Hammerhead TWS Pro",
-                new()
-                {
-                    AudioWait = -259.0,
-                    HandleInputAudio = false
-                }
-            },
+                AudioWait = -259.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("WF-1000XM5", new AudioConfigure
             {
-                "WF-1000XM5",
-                new()
-                {
-                    AudioWait = -216.0,
-                    HandleInputAudio = false
-                }
-            },
+                AudioWait = -216.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("WH-1000XM5", new AudioConfigure
             {
-                "WH-1000XM5",
-                new()
-                {
-                    AudioWait = -216.0,
-                    HandleInputAudio = false
-                }
-            }
-        };
+                AudioWait = -216.0,
+                HandleInputAudio = false
+            })
+        }.ToFrozenDictionary();
 
         public static readonly AudioSystem Instance = QwilightComponent.GetBuiltInData<AudioSystem>(nameof(AudioSystem));
 

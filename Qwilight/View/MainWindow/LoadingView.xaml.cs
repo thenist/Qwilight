@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Qwilight.MSG;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
 namespace Qwilight.View
@@ -18,9 +19,9 @@ namespace Qwilight.View
                 };
                 var fadingViewComputer = new Storyboard();
                 fadingViewComputer.Children.Add(fadingElement);
-                Storyboard.SetTarget(fadingElement, this);
-                Storyboard.SetTargetProperty(fadingElement, new PropertyPath(OpacityProperty));
-                fadingViewComputer.Completed += (sender, e) => Visibility = Visibility.Collapsed;
+                Storyboard.SetTarget(fadingElement, recipient as DependencyObject);
+                Storyboard.SetTargetProperty(fadingElement, new(OpacityProperty));
+                fadingViewComputer.Completed += (sender, e) => (Parent as Panel).Children.Remove(this);
                 fadingViewComputer.Begin();
             }));
         }

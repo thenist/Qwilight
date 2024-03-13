@@ -763,6 +763,7 @@ namespace Qwilight
         public string SetTotalText { get; set; }
         public string SFXContents { get; set; }
         public string SFXText { get; set; }
+        public string SignedInContents { get; set; }
         public string SignIn { get; set; }
         public string SignUp { get; set; }
         public string SilentSiteAvatarContents { get; set; }
@@ -800,7 +801,6 @@ namespace Qwilight
         public string StopSavingAsBundleContents { get; set; }
         public string StopSavingBundleContents { get; set; }
         public string StopSiteNetText { get; set; }
-        public string SuccessfullySignedInContents { get; set; }
         public string SymmetricModeContents { get; set; }
         public string TestHitPointsModeContents { get; set; }
         public string TestHitPointsModeWarning { get; set; }

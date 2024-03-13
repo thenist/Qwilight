@@ -34,22 +34,22 @@ namespace Qwilight
             {
                 VarietyValue = Variety.PositiveJudgment,
                 IsPositive = true,
-                LowestWait = 2000.0,
-                HighestWait = 8000.0
+                LowestWait = 60.0,
+                HighestWait = 1000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.PositiveHitPoints,
                 IsPositive = true,
-                LowestWait = 2000.0,
-                HighestWait = 8000.0
+                LowestWait = 1000.0,
+                HighestWait = 6000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.PositiveHitPointsLevel,
                 IsPositive = true,
-                LowestWait = 2000.0,
-                HighestWait = 8000.0
+                LowestWait = 60.0,
+                HighestWait = 1000.0
             },
             new PostableItem
             {
@@ -62,89 +62,89 @@ namespace Qwilight
             {
                 VarietyValue = Variety.NegativeFaint,
                 IsPositive = false,
-                LowestWait = 2000.0,
-                HighestWait = 8000.0
+                LowestWait = 1000.0,
+                HighestWait = 6000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.NegativeFading,
                 IsPositive = false,
-                LowestWait = 2000.0,
-                HighestWait = 8000.0
+                LowestWait = 1000.0,
+                HighestWait = 6000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.NegativeJudgment,
                 IsPositive = false,
-                LowestWait = 2000.0,
-                HighestWait = 8000.0
+                LowestWait = 1000.0,
+                HighestWait = 6000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.NegativeHitPoints,
                 IsPositive = false,
-                LowestWait = 2000.0,
-                HighestWait = 8000.0
+                LowestWait = 60.0,
+                HighestWait = 1000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.NegativeHitPointsLevel,
                 IsPositive = false,
-                LowestWait = 2000.0,
-                HighestWait = 8000.0
+                LowestWait = 60.0,
+                HighestWait = 1000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.Negative4D,
                 IsPositive = false,
-                LowestWait = 500.0,
-                HighestWait = 2000.0
+                LowestWait = 1000.0,
+                HighestWait = 6000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.NegativeZip,
                 IsPositive = false,
-                LowestWait = 500.0,
-                HighestWait = 2000.0
+                LowestWait = 1000.0,
+                HighestWait = 6000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.NegativeTrapNotes,
                 IsPositive = false,
-                LowestWait = 500.0,
-                HighestWait = 2000.0
+                LowestWait = 60.0,
+                HighestWait = 1000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.NegativeAutoableNotes,
                 IsPositive = false,
-                LowestWait = 500.0,
-                HighestWait = 2000.0
+                LowestWait = 60.0,
+                HighestWait = 1000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.NegativeSalt,
                 IsPositive = false,
-                LowestWait = 500.0,
-                HighestWait = 2000.0
+                LowestWait = 60.0,
+                HighestWait = 1000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.LowerAudioMultiplier,
-                LowestWait = 2000.0,
-                HighestWait = 8000.0
+                LowestWait = 1000.0,
+                HighestWait = 6000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.HigherAudioMultiplier,
-                LowestWait = 2000.0,
-                HighestWait = 8000.0
+                LowestWait = 1000.0,
+                HighestWait = 6000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.Pause,
-                LowestWait = 125.0,
-                HighestWait = 500.0
+                LowestWait = 60.0,
+                HighestWait = 1000.0
             }
         };
 

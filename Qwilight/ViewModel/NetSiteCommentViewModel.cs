@@ -7,11 +7,11 @@ namespace Qwilight.ViewModel
 {
     public sealed class NetSiteCommentViewModel : BaseViewModel
     {
-        NetSIteCommentItems? _netSiteCommentItems;
+        NetSiteCommentItems? _netSiteCommentItems;
 
         public ObservableCollection<NetSiteCommentItem> NetSiteCommentItemCollection { get; } = new();
 
-        public ObservableCollection<NetSIteCommentItems> NetSiteCommentItemsCollection { get; } = new();
+        public ObservableCollection<NetSiteCommentItems> NetSiteCommentItemsCollection { get; } = new();
 
         public override double TargetLength => 0.6;
 
@@ -19,7 +19,7 @@ namespace Qwilight.ViewModel
 
         public override VerticalAlignment HeightSystem => VerticalAlignment.Top;
 
-        public NetSIteCommentItems? NetSiteCommentItemsValue
+        public NetSiteCommentItems? NetSiteCommentItemsValue
         {
             get => _netSiteCommentItems;
 
@@ -27,7 +27,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _netSiteCommentItems, value, nameof(NetSiteCommentItemsValue)))
                 {
-                    var netSiteCommentItems = value?.NetSiteCommentItems;
+                    var netSiteCommentItems = value?.Values;
                     if (netSiteCommentItems != null)
                     {
                         NetSiteCommentItemCollection.Clear();

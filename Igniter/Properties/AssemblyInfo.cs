@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("불로그")]
 [assembly: AssemblyProduct("Igniter")]
-[assembly: AssemblyCopyright("Copyright © 불로그 2023")]
+[assembly: AssemblyCopyright("Copyright © 불로그 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -13,6 +13,7 @@ using SharpCompress.Archives.Rar;
 using SharpCompress.Archives.SevenZip;
 using System.Buffers;
 using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -31,6 +32,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.System;
 using Windows.Win32.UI.WindowsAndMessaging;
 using Clipboard = Windows.ApplicationModel.DataTransfer.Clipboard;
+using Timer = System.Timers.Timer;
 
 namespace Qwilight.ViewModel
 {
@@ -77,7 +79,7 @@ namespace Qwilight.ViewModel
             EnableRaisingEvents = true
         };
         long _randomMillis = Environment.TickCount64;
-        DispatcherTimer _fadeInHandler;
+        Timer _fadeInHandler;
         bool _isAvailable = true;
         string _twilightCommentText0 = string.Empty;
         string _twilightCommentText1 = string.Empty;
@@ -2190,8 +2192,8 @@ namespace Qwilight.ViewModel
                         var isWantLevelSystem = Configure.Instance.WantLevelSystem;
                         var isNotWantLevelItem = wantLevelIDs.Length == 0;
                         var isNotWantHellBPM = !Configure.Instance.WantHellBPM;
-                        var levelID128s = new Dictionary<string, string>(LevelSystem.Instance.LevelID128s);
-                        var levelID256s = new Dictionary<string, string>(LevelSystem.Instance.LevelID256s);
+                        var levelID128s = LevelSystem.Instance.LevelID128s.ToFrozenDictionary();
+                        var levelID256s = LevelSystem.Instance.LevelID256s.ToFrozenDictionary();
                         var levelID128NoteFiles = new Dictionary<string, LevelNoteFile>(LevelSystem.Instance.LevelID128NoteFiles);
                         var levelID256NoteFiles = new Dictionary<string, LevelNoteFile>(LevelSystem.Instance.LevelID256NoteFiles);
                         var logicalNoteFiles = new HashSet<BaseNoteFile>();
@@ -2396,7 +2398,8 @@ namespace Qwilight.ViewModel
 
             var millis = BaseUI.Instance.FadingProperties[(int)ModeValue]?[FadingValue.Layer]?.Millis;
             var fadingCounter = Stopwatch.StartNew();
-            new DispatcherTimer(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
+            var fadeHandler = new Timer(QwilightComponent.StandardFrametime);
+            fadeHandler.Elapsed += (sender, e) =>
             {
                 if (millis > 0)
                 {
@@ -2410,14 +2413,15 @@ namespace Qwilight.ViewModel
 
                 if (FadingValue.Status == 1.0)
                 {
-                    (sender as DispatcherTimer).Stop();
+                    (sender as Timer).Dispose();
 
                     FadingValue.Layer = 0;
-                    onFade();
+                    UIHandler.Instance.HandleParallel(onFade);
 
                     var millis = BaseUI.Instance.FadingProperties[(int)ModeValue]?[FadingValue.Layer]?.Millis;
                     fadingCounter.Restart();
-                    _fadeInHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
+                    _fadeInHandler = new Timer(QwilightComponent.StandardFrametime);
+                    _fadeInHandler.Elapsed += (sender, e) =>
                     {
                         if (millis > 0)
                         {
@@ -2431,14 +2435,16 @@ namespace Qwilight.ViewModel
 
                         if (FadingValue.Status == 0.0)
                         {
-                            (sender as DispatcherTimer).Stop();
+                            (sender as Timer).Dispose();
 
                             IsAvailable = true;
                             StrongReferenceMessenger.Default.Send<PointZMaxView>();
                         }
-                    }, UIHandler.Instance.Handler);
+                    };
+                    _fadeInHandler.Start();
                 }
-            }, UIHandler.Instance.Handler);
+            };
+            fadeHandler.Start();
         }
 
         public void InitMultiplierUnit()

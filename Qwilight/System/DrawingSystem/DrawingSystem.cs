@@ -197,7 +197,8 @@ namespace Qwilight
             {
                 targetSession.Clear(Colors.Transparent);
             }
-            var defaultClearedDrawing = BitmapSource.Create(1, 1, 96.0, 96.0, PixelFormats.Pbgra32, null, new[] { 0, 0, 0, 0 }, 4);
+            var pxs = new[] { 0, 0, 0, 0 };
+            var defaultClearedDrawing = BitmapSource.Create(1, 1, 96.0, 96.0, PixelFormats.Pbgra32, null, pxs, 4);
             defaultClearedDrawing.Freeze();
             ClearedDrawing = new()
             {
@@ -3383,7 +3384,7 @@ namespace Qwilight
             }
         }
 
-        static ImageSource LoadDefault(Stream s)
+        static BitmapImage LoadDefault(Stream s)
         {
             s.Position = 0;
             var defaultDrawing = new BitmapImage();

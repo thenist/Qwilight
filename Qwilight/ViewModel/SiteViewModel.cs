@@ -226,7 +226,7 @@ namespace Qwilight.ViewModel
         void OnSetValidHunterMode() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetValidHunterMode, SiteID);
 
         [RelayCommand]
-        void OnNetSIteComments() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.CallNetSiteComments, SiteID);
+        void OnNetSiteComments() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.CallNetSiteComments, SiteID);
 
         [RelayCommand]
         void OnSetSiteName()

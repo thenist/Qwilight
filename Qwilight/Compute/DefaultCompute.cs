@@ -11,6 +11,7 @@ using Qwilight.Utilities;
 using Qwilight.ViewModel;
 using Qwilight.XOR;
 using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Media;
@@ -74,12 +75,9 @@ namespace Qwilight.Compute
                 IsHandling = false;
             }
 
-            public bool Elapse(double millisLoopUnit, bool isElapsing)
+            public bool Elapse(double millisLoopUnit)
             {
-                if (isElapsing)
-                {
-                    Wait = Math.Max(0.0, Wait - millisLoopUnit);
-                }
+                Wait = Math.Max(0.0, Wait - millisLoopUnit);
                 IsLevyed = true;
                 var isElapsed = IsHandling && Wait == 0.0;
                 IsHandling = Wait > 0.0;
@@ -87,7 +85,7 @@ namespace Qwilight.Compute
             }
         }
 
-        public Dictionary<PostableItem, PostableItemStatus> PostableItemStatusMap { get; } = new();
+        public FrozenDictionary<PostableItem, PostableItemStatus> PostableItemStatusMap { get; }
 
         public Dictionary<int, double> PostedItemFaints { get; } = new()
         {
@@ -1520,10 +1518,7 @@ namespace Qwilight.Compute
             {
                 PostableItemFaints[i] = new();
             }
-            for (var i = PostableItem.Values.Length - 1; i >= 0; --i)
-            {
-                PostableItemStatusMap[PostableItem.Values[i]] = new();
-            }
+            PostableItemStatusMap = Enumerable.Range(0, PostableItem.Values.Length).ToFrozenDictionary(i => PostableItem.Values[i], i => new PostableItemStatus());
             for (var i = _paintEventsGAS.Length - 1; i >= 0; --i)
             {
                 _paintEventsGAS[i] = new();
@@ -1633,7 +1628,6 @@ namespace Qwilight.Compute
 
         void HandleNotes()
         {
-            var postableItemBand = 0;
             var lastMultiplier = ModeComponentValue.Multiplier;
             var lastAudioMultiplier = AudioMultiplier;
             var isValidLoopingCounter = true;
@@ -1666,6 +1660,9 @@ namespace Qwilight.Compute
             var commentAudioMultiplierID = 0;
             var randomDefaultInputs = Component.DefaultInputs[(int)InputMode].ToArray();
             var inputCount = Component.InputCounts[(int)InputMode];
+            var postableItemBand = 0;
+            var postableHitPointsCount = 0;
+            var postableJudgmentCount = 0;
             _valueComponent = new(NoteFile.LevyingBPM, Comment.LoopUnit);
 
             var handleAudioNotesImpl = new Action<double, List<AudioNote>>((waitModified, audioNotes) =>
@@ -1934,208 +1931,237 @@ namespace Qwilight.Compute
                             }
                         }
 
-                        lock (PostableItemStatusMap)
+                        foreach (var (postableItem, postableItemStatus) in PostableItemStatusMap)
                         {
-                            foreach (var (postableItem, postableItemStatus) in PostableItemStatusMap)
+                            switch (postableItem.VarietyValue)
                             {
-                                var isElapsing = true;
-                                switch (postableItem.VarietyValue)
+                                case PostableItem.Variety.PositiveHitPoints when HitPoints.TargetValue == 1.0:
+                                case PostableItem.Variety.NegativeHitPoints when HitPoints.TargetValue == double.Epsilon:
+                                    continue;
+                            }
+                            if (postableItemStatus.IsHandling)
+                            {
+                                if (!postableItemStatus.IsLevyed)
                                 {
-                                    case PostableItem.Variety.PositiveHitPoints when HitPoints.TargetValue == 1.0:
-                                        isElapsing = false;
-                                        break;
-                                }
-                                if (postableItemStatus.IsHandling)
-                                {
-                                    if (!postableItemStatus.IsLevyed)
+                                    switch (postableItem.VarietyValue)
                                     {
-                                        switch (postableItem.VarietyValue)
-                                        {
-                                            case PostableItem.Variety.PositiveHitPointsLevel:
-                                                ModeComponentValue.HitPointsModeValue = ModeComponent.HitPointsMode.Lowest;
-                                                break;
-                                            case PostableItem.Variety.NegativeHitPointsLevel:
-                                                ModeComponentValue.HitPointsModeValue = ModeComponent.HitPointsMode.Higher;
-                                                break;
-                                            case PostableItem.Variety.NegativeFaint:
-                                                ModeComponentValue.FaintNoteModeValue = ModeComponent.FaintNoteMode.Faint;
-                                                break;
-                                            case PostableItem.Variety.NegativeFading:
-                                                ModeComponentValue.FaintNoteModeValue = ModeComponent.FaintNoteMode.Fading;
-                                                break;
-                                            case PostableItem.Variety.Negative4D:
-                                                ModeComponentValue.NoteMobilityModeValue = ModeComponent.NoteMobilityMode._4D;
-                                                break;
-                                            case PostableItem.Variety.NegativeZip:
-                                                ModeComponentValue.NoteMobilityModeValue = ModeComponent.NoteMobilityMode.Zip;
-                                                break;
-                                            case PostableItem.Variety.LowerAudioMultiplier:
-                                                postedAudioMultiplier = 0.5;
-                                                break;
-                                            case PostableItem.Variety.HigherAudioMultiplier:
-                                                postedAudioMultiplier = 1.5;
-                                                break;
-                                            case PostableItem.Variety.Pause:
-                                                AudioSystem.Instance.Pause(this, true);
-                                                MediaSystem.Instance.Pause(this, true);
-                                                SetPause = true;
-                                                IsPausing = true;
-                                                break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        switch (postableItem.VarietyValue)
-                                        {
-                                            case PostableItem.Variety.PositiveHitPoints:
-                                                HitPoints.TargetValue = Math.Min(HitPoints.TargetValue + millisLoopUnit / 1000.0 / (1000.0 / 60.0), 1.0);
-                                                break;
-                                            case PostableItem.Variety.NegativeHitPoints:
-                                                HitPoints.TargetValue = Math.Max(double.Epsilon, HitPoints.TargetValue - millisLoopUnit / 1000.0 / (1000.0 / 60.0));
-                                                break;
-                                            case PostableItem.Variety.NegativeTrapNotes:
-                                                postedTrapNotesMillis += millisLoopUnit;
-                                                while (postedTrapNotesMillis >= 60.0)
-                                                {
-                                                    postedTrapNotesMillis -= 60.0;
-                                                    var input = Utility.GetSaltedValue(randomDefaultInputs);
-                                                    var wait = Math.Floor(Math.Min(LoopingCounter + 1000.0 * Random.Shared.Next(1000 / 60) / (1000 / 60), Length + Component.QuitWait));
-                                                    var isTrapNote = true;
-                                                    foreach (var handlingNote in _handlingNotes)
-                                                    {
-                                                        if (input == handlingNote.TargetInput && (handlingNote.Wait - 60.0 <= wait && wait < handlingNote.Wait + handlingNote.LongWait + 60.0))
-                                                        {
-                                                            isTrapNote = false;
-                                                        }
-                                                    }
-                                                    if (isTrapNote)
-                                                    {
-                                                        var trapNote = new TrapNote(WaitLogicalYMap[wait], wait, Array.Empty<AudioNote>(), input, true)
-                                                        {
-                                                            ID = -1
-                                                        };
-                                                        trapNote.InitY(logicalY);
-                                                        _handlingNotes.Add(trapNote);
-                                                        lock (PaintedNotes)
-                                                        {
-                                                            PaintedNotes.Add(trapNote);
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                            case PostableItem.Variety.NegativeAutoableNotes:
-                                                postedAutoableNotesMillis += millisLoopUnit;
-                                                while (postedAutoableNotesMillis >= 60.0)
-                                                {
-                                                    postedAutoableNotesMillis -= 60.0;
-                                                    foreach (var handlingNote in _handlingNotes)
-                                                    {
-                                                        if (handlingNote.HasStand && handlingNote.Judged == Component.Judged.Not && handlingNote.IsVisibleHalf(this) && handlingNote.TargetInput == handlingNote.LevyingInput)
-                                                        {
-                                                            var isAutoableNote = true;
-                                                            foreach (var note in _handlingNotes)
-                                                            {
-                                                                if (note.TargetInput == 1 && handlingNote.IsCollided(note))
-                                                                {
-                                                                    isAutoableNote = false;
-                                                                }
-                                                            }
-                                                            if (isAutoableNote)
-                                                            {
-                                                                handlingNote.TargetInput = 1;
-                                                                handlingNote.SetLayer(this);
-                                                                break;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                            case PostableItem.Variety.NegativeSalt:
-                                                postedSaltNotesMillis += millisLoopUnit;
-                                                while (postedSaltNotesMillis >= 60.0)
-                                                {
-                                                    postedSaltNotesMillis -= 60.0;
-                                                    var input = Utility.GetSaltedValue(randomDefaultInputs);
-                                                    foreach (var handlingNote in _handlingNotes)
-                                                    {
-                                                        if (handlingNote.HasStand && handlingNote.Judged == Component.Judged.Not && handlingNote.IsVisibleHalf(this) && handlingNote.TargetInput == handlingNote.LevyingInput)
-                                                        {
-                                                            var isSaltedNote = true;
-                                                            foreach (var note in _handlingNotes)
-                                                            {
-                                                                if (note.TargetInput == input && handlingNote.IsCollided(note))
-                                                                {
-                                                                    isSaltedNote = false;
-                                                                }
-                                                            }
-                                                            if (isSaltedNote)
-                                                            {
-                                                                handlingNote.TargetInput = input;
-                                                                handlingNote.SetLayer(this);
-                                                                break;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                        }
+                                        case PostableItem.Variety.PositiveHitPointsLevel:
+                                            ModeComponentValue.HitPointsModeValue = ModeComponent.HitPointsMode.Lowest;
+                                            break;
+                                        case PostableItem.Variety.NegativeHitPointsLevel:
+                                            ModeComponentValue.HitPointsModeValue = ModeComponent.HitPointsMode.Higher;
+                                            break;
+                                        case PostableItem.Variety.NegativeFaint:
+                                            ModeComponentValue.FaintNoteModeValue = ModeComponent.FaintNoteMode.Faint;
+                                            break;
+                                        case PostableItem.Variety.NegativeFading:
+                                            ModeComponentValue.FaintNoteModeValue = ModeComponent.FaintNoteMode.Fading;
+                                            break;
+                                        case PostableItem.Variety.Negative4D:
+                                            ModeComponentValue.NoteMobilityModeValue = ModeComponent.NoteMobilityMode._4D;
+                                            break;
+                                        case PostableItem.Variety.NegativeZip:
+                                            ModeComponentValue.NoteMobilityModeValue = ModeComponent.NoteMobilityMode.Zip;
+                                            break;
+                                        case PostableItem.Variety.LowerAudioMultiplier:
+                                            postedAudioMultiplier = 0.5;
+                                            break;
+                                        case PostableItem.Variety.HigherAudioMultiplier:
+                                            postedAudioMultiplier = 1.5;
+                                            break;
+                                        case PostableItem.Variety.Pause:
+                                            AudioSystem.Instance.Pause(this, true);
+                                            MediaSystem.Instance.Pause(this, true);
+                                            SetPause = true;
+                                            IsPausing = true;
+                                            break;
                                     }
                                 }
                                 else
                                 {
                                     switch (postableItem.VarietyValue)
                                     {
-                                        case PostableItem.Variety.NegativeFading:
-                                            if (FaintCosine == 1.0 && ModeComponentValue.FaintNoteModeValue == ModeComponent.FaintNoteMode.Fading)
-                                            {
-                                                ModeComponentValue.FaintNoteModeValue = ModeComponent.FaintNoteMode.Default;
-                                            }
+                                        case PostableItem.Variety.PositiveHitPoints:
+                                            HitPoints.TargetValue = Math.Min(HitPoints.TargetValue + millisLoopUnit / 1000.0 / (1000.0 / 60.0), 1.0);
                                             break;
-                                        case PostableItem.Variety.NegativeZip:
-                                            if (NoteMobilityCosine == 1.0 && ModeComponentValue.NoteMobilityModeValue == ModeComponent.NoteMobilityMode.Zip)
-                                            {
-                                                ModeComponentValue.NoteMobilityModeValue = ModeComponent.NoteMobilityMode.Default;
-                                            }
-                                            break;
-                                        case PostableItem.Variety.Negative4D:
-                                            if (NoteMobilityValue == 0.0 && ModeComponentValue.NoteMobilityModeValue == ModeComponent.NoteMobilityMode._4D)
-                                            {
-                                                ModeComponentValue.NoteMobilityModeValue = ModeComponent.NoteMobilityMode.Default;
-                                            }
+                                        case PostableItem.Variety.NegativeHitPoints:
+                                            HitPoints.TargetValue = Math.Max(double.Epsilon, HitPoints.TargetValue - millisLoopUnit / 1000.0 / (1000.0 / 60.0));
                                             break;
                                     }
                                 }
-                                if (postableItemStatus.Elapse(millisLoopUnit, isElapsing))
+                                switch (postableItem.VarietyValue)
                                 {
-                                    switch (postableItem.VarietyValue)
-                                    {
-                                        case PostableItem.Variety.PositiveHitPointsLevel:
-                                        case PostableItem.Variety.NegativeHitPointsLevel:
-                                            ModeComponentValue.HitPointsModeValue = ModeComponent.HitPointsMode.Default;
-                                            break;
-                                        case PostableItem.Variety.NegativeFaint:
+                                    case PostableItem.Variety.PositiveHitPointsLevel:
+                                    case PostableItem.Variety.NegativeHitPointsLevel:
+                                        while (postableHitPointsCount > 0)
+                                        {
+                                            --postableHitPointsCount;
+                                            if (postableItemStatus.Elapse(1000.0 / 60))
+                                            {
+                                                ModeComponentValue.HitPointsModeValue = ModeComponent.HitPointsMode.Default;
+                                                postableHitPointsCount = 0;
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                    case PostableItem.Variety.PositiveJudgment:
+                                    case PostableItem.Variety.NegativeJudgment:
+                                        while (postableJudgmentCount > 0)
+                                        {
+                                            --postableJudgmentCount;
+                                            if (postableItemStatus.Elapse(1000.0 / 60))
+                                            {
+                                                postableJudgmentCount = 0;
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                    case PostableItem.Variety.NegativeFaint:
+                                        if (postableItemStatus.Elapse(millisLoopUnit))
+                                        {
                                             ModeComponentValue.FaintNoteModeValue = ModeComponent.FaintNoteMode.Default;
-                                            break;
-                                        case PostableItem.Variety.LowerAudioMultiplier:
-                                        case PostableItem.Variety.HigherAudioMultiplier:
+                                        }
+                                        break;
+                                    case PostableItem.Variety.LowerAudioMultiplier:
+                                    case PostableItem.Variety.HigherAudioMultiplier:
+                                        if (postableItemStatus.Elapse(millisLoopUnit))
+                                        {
                                             postedAudioMultiplier = 1.0;
-                                            break;
-                                        case PostableItem.Variety.Pause:
+                                        }
+                                        break;
+                                    case PostableItem.Variety.Pause:
+                                        if (postableItemStatus.Elapse(millisLoopUnit))
+                                        {
                                             AudioSystem.Instance.Pause(this, false);
                                             MediaSystem.Instance.Pause(this, false);
                                             SetPause = false;
                                             IsPausing = false;
-                                            break;
-                                    }
+                                        }
+                                        break;
+                                    case PostableItem.Variety.NegativeTrapNotes:
+                                        postedTrapNotesMillis += millisLoopUnit;
+                                        while (postedTrapNotesMillis >= 60.0)
+                                        {
+                                            postedTrapNotesMillis -= 60.0;
+                                            var input = Utility.GetSaltedValue(randomDefaultInputs);
+                                            var wait = Math.Floor(Math.Min(LoopingCounter + 1000.0 * Random.Shared.Next(1000) / 1000, Length + Component.QuitWait));
+                                            var isTrapNote = true;
+                                            foreach (var handlingNote in _handlingNotes)
+                                            {
+                                                if (input == handlingNote.TargetInput && (handlingNote.Wait - 60.0 <= wait && wait < handlingNote.Wait + handlingNote.LongWait + 60.0))
+                                                {
+                                                    isTrapNote = false;
+                                                }
+                                            }
+                                            if (isTrapNote)
+                                            {
+                                                var trapNote = new TrapNote(WaitLogicalYMap[wait], wait, Array.Empty<AudioNote>(), input, true)
+                                                {
+                                                    ID = -1
+                                                };
+                                                trapNote.InitY(logicalY);
+                                                _handlingNotes.Add(trapNote);
+                                                lock (PaintedNotes)
+                                                {
+                                                    PaintedNotes.Add(trapNote);
+                                                }
+                                                postableItemStatus.Elapse(1000.0 / 60);
+                                            }
+                                        }
+                                        break;
+                                    case PostableItem.Variety.NegativeAutoableNotes:
+                                        postedAutoableNotesMillis += millisLoopUnit;
+                                        while (postedAutoableNotesMillis >= 60.0)
+                                        {
+                                            postedAutoableNotesMillis -= 60.0;
+                                            foreach (var handlingNote in _handlingNotes)
+                                            {
+                                                if (handlingNote.HasStand && handlingNote.Judged == Component.Judged.Not && handlingNote.IsVisibleHalf(this) && handlingNote.TargetInput == handlingNote.LevyingInput)
+                                                {
+                                                    var isAutoableNote = true;
+                                                    foreach (var note in _handlingNotes)
+                                                    {
+                                                        if (note.TargetInput == 1 && handlingNote.IsCollided(note))
+                                                        {
+                                                            isAutoableNote = false;
+                                                        }
+                                                    }
+                                                    if (isAutoableNote)
+                                                    {
+                                                        handlingNote.TargetInput = 1;
+                                                        handlingNote.SetLayer(this);
+                                                        postableItemStatus.Elapse(1000.0 / 60);
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    case PostableItem.Variety.NegativeSalt:
+                                        postedSaltNotesMillis += millisLoopUnit;
+                                        while (postedSaltNotesMillis >= 60.0)
+                                        {
+                                            postedSaltNotesMillis -= 60.0;
+                                            var input = Utility.GetSaltedValue(randomDefaultInputs);
+                                            foreach (var handlingNote in _handlingNotes)
+                                            {
+                                                if (handlingNote.HasStand && handlingNote.Judged == Component.Judged.Not && handlingNote.IsVisibleHalf(this) && handlingNote.TargetInput == handlingNote.LevyingInput)
+                                                {
+                                                    var isSaltedNote = true;
+                                                    foreach (var note in _handlingNotes)
+                                                    {
+                                                        if (note.TargetInput == input && handlingNote.IsCollided(note))
+                                                        {
+                                                            isSaltedNote = false;
+                                                        }
+                                                    }
+                                                    if (isSaltedNote)
+                                                    {
+                                                        handlingNote.TargetInput = input;
+                                                        handlingNote.SetLayer(this);
+                                                        postableItemStatus.Elapse(1000.0 / 60);
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        postableItemStatus.Elapse(millisLoopUnit);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                switch (postableItem.VarietyValue)
+                                {
+                                    case PostableItem.Variety.NegativeFading:
+                                        if (FaintCosine == 1.0 && ModeComponentValue.FaintNoteModeValue == ModeComponent.FaintNoteMode.Fading)
+                                        {
+                                            ModeComponentValue.FaintNoteModeValue = ModeComponent.FaintNoteMode.Default;
+                                        }
+                                        break;
+                                    case PostableItem.Variety.NegativeZip:
+                                        if (NoteMobilityCosine == 1.0 && ModeComponentValue.NoteMobilityModeValue == ModeComponent.NoteMobilityMode.Zip)
+                                        {
+                                            ModeComponentValue.NoteMobilityModeValue = ModeComponent.NoteMobilityMode.Default;
+                                        }
+                                        break;
+                                    case PostableItem.Variety.Negative4D:
+                                        if (NoteMobilityValue == 0.0 && ModeComponentValue.NoteMobilityModeValue == ModeComponent.NoteMobilityMode._4D)
+                                        {
+                                            ModeComponentValue.NoteMobilityModeValue = ModeComponent.NoteMobilityMode.Default;
+                                        }
+                                        break;
                                 }
                             }
                         }
+                    }
 
-                        ModeComponentValue.AudioMultiplier += Utility.GetMove(postedAudioMultiplier, ModeComponentValue.AudioMultiplier, 1000.0 / millisLoopUnit);
-                        for (var i = 1; i >= -1; --i)
-                        {
-                            PostedItemFaints[i] += Utility.GetMove(0.0, PostedItemFaints[i], 1000.0 / millisLoopUnit);
-                        }
+                    ModeComponentValue.AudioMultiplier += Utility.GetMove(postedAudioMultiplier, ModeComponentValue.AudioMultiplier, 1000.0 / millisLoopUnit);
+                    for (var i = 1; i >= -1; --i)
+                    {
+                        PostedItemFaints[i] += Utility.GetMove(0.0, PostedItemFaints[i], 1000.0 / millisLoopUnit);
                     }
 
                     if (IsPausing)
@@ -2838,10 +2864,12 @@ namespace Qwilight.Compute
                                 var judged = judgedNoteDataValue.Judged;
                                 if (judged != Component.Judged.Lowest && PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.PositiveJudgment]].IsHandling)
                                 {
+                                    ++postableJudgmentCount;
                                     judged = Component.Judged.Highest;
                                 }
-                                if (judged != Component.Judged.Highest && judged != Component.Judged.Higher && PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.NegativeJudgment]].IsHandling)
+                                if (judged != Component.Judged.Highest && PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.NegativeJudgment]].IsHandling)
                                 {
+                                    ++postableJudgmentCount;
                                     judged = Component.Judged.Lowest;
                                 }
                                 switch (judgedNoteDataValue.IDValue)
@@ -3803,6 +3831,10 @@ namespace Qwilight.Compute
                         case Component.Judged.Lowest:
                             break;
                     }
+                }
+                if (PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.PositiveHitPointsLevel]].IsHandling || PostableItemStatusMap[PostableItem.Values[(int)PostableItem.Variety.NegativeHitPointsLevel]].IsHandling)
+                {
+                    ++postableHitPointsCount;
                 }
                 LastJudged = judged;
                 Point.TargetValue = (SavedPoint += Component.PointMap[(int)_pointMapDate, (int)judged]) / (TotalPoint += Component.PointMap[(int)_pointMapDate, (int)Component.Judged.Highest]);
