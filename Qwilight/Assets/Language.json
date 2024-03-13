@@ -3403,26 +3403,6 @@
     "ko-KR": "다시 시도",
     "en-US": "Retry"
   },
-  "ValidNetMode0Text": {
-    "ko-KR": "아이템 비활성화",
-    "en-US": "Disable Item"
-  },
-  "ValidNetMode1Text": {
-    "ko-KR": "아이템 활성화 (희귀함)",
-    "en-US": "Enable item (Rare)"
-  },
-  "ValidNetMode2Text": {
-    "ko-KR": "아이템 활성화 (보통)",
-    "en-US": "Enable item (Normal)"
-  },
-  "ValidNetMode3Text": {
-    "ko-KR": "아이템 활성화 (풍족함)",
-    "en-US": "Enable item (Enriched)"
-  },
-  "ValidNetMode4Text": {
-    "ko-KR": "지금부터 서로 죽여라",
-    "en-US": "Kill each other from now on"
-  },
   "VeilDrawingHeightContents": {
     "ko-KR": "레인 커버 높이",
     "en-US": "Lane Cover Height"

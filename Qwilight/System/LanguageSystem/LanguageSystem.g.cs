@@ -853,11 +853,6 @@ namespace Qwilight
         public string UIMainJudgmentMeter { get; set; }
         public string UINet { get; set; }
         public string UndoContents { get; set; }
-        public string ValidNetMode0Text { get; set; }
-        public string ValidNetMode1Text { get; set; }
-        public string ValidNetMode2Text { get; set; }
-        public string ValidNetMode3Text { get; set; }
-        public string ValidNetMode4Text { get; set; }
         public string VeilDrawingHeightContents { get; set; }
         public string VESAContents { get; set; }
         public string VESAText { get; set; }

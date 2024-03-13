@@ -802,6 +802,7 @@ namespace Qwilight.ViewModel
             ValidHunterMode = pendingTwilightCallSiteNetData.validHunterMode;
             IsPostableItemMode = pendingTwilightCallSiteNetData.validNetMode == 1;
             SetAllowedPostableItems(pendingTwilightCallSiteNetData.allowedPostableItems);
+            PostableItemBand = pendingTwilightCallSiteNetData.postableItemBand;
             IsAutoSiteHand = pendingTwilightCallSiteNetData.isAutoSiteHand;
             if (IsSiteHand)
             {
