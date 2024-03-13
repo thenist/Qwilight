@@ -312,7 +312,7 @@ namespace Qwilight
 
             set
             {
-                if (SetProperty(ref _ubuntuNetItemTarget, value, nameof(UbuntuNetItemTarget)) & _isLoaded)
+                if (SetProperty(ref _ubuntuNetItemTarget, value, nameof(UbuntuNetItemTarget)) && _isLoaded)
                 {
                     ViewModels.Instance.MainValue.LoadTwilightCommentItemCollection();
                 }

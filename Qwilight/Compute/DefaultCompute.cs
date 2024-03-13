@@ -1417,7 +1417,7 @@ namespace Qwilight.Compute
             {
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.AudioMultiplierWarning, ModeComponentValue.AudioMultiplier.ToString("×0.00")));
             }
-            if (!Configure.Instance.AllowTwilightComment && !IsBanned & ModeComponentValue.CanBeTwilightComment && TwilightSystem.Instance.IsSignedIn)
+            if (!Configure.Instance.AllowTwilightComment && !IsBanned && !IsPostableItemMode && ModeComponentValue.CanBeTwilightComment && TwilightSystem.Instance.IsSignedIn)
             {
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.TwilightCommentWarning);
             }
@@ -2156,12 +2156,12 @@ namespace Qwilight.Compute
                                 }
                             }
                         }
-                    }
 
-                    ModeComponentValue.AudioMultiplier += Utility.GetMove(postedAudioMultiplier, ModeComponentValue.AudioMultiplier, 1000.0 / millisLoopUnit);
-                    for (var i = 1; i >= -1; --i)
-                    {
-                        PostedItemFaints[i] += Utility.GetMove(0.0, PostedItemFaints[i], 1000.0 / millisLoopUnit);
+                        ModeComponentValue.AudioMultiplier += Utility.GetMove(postedAudioMultiplier, ModeComponentValue.AudioMultiplier, 1000.0 / millisLoopUnit);
+                        for (var i = 1; i >= -1; --i)
+                        {
+                            PostedItemFaints[i] += Utility.GetMove(0.0, PostedItemFaints[i], 1000.0 / millisLoopUnit);
+                        }
                     }
 
                     if (IsPausing)
@@ -4339,7 +4339,6 @@ namespace Qwilight.Compute
             HasFailedJudgment = false;
             _isPaused = false;
             _inputFlags = InputFlag.Not;
-            _totalComments = 0;
             AudioSystem.Instance.Stop(this);
             MediaSystem.Instance.Stop(this);
             foreach (var note in Notes)
