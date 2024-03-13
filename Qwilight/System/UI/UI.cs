@@ -1943,7 +1943,7 @@ namespace Qwilight
                 for (var j = noteFrame - 1; j >= 0; --j)
                 {
                     noteDrawings[i][j][TrapNote.TrapNoteContents][LongNote.LongNoteBefore] ??= noteDrawings[0][j][InputNote.InputNoteContents][LongNote.LongNoteBefore];
-                    for (var m = InputNote.NeutralPostableItemNoteContents; m >= TrapNote.TrapNoteContents; --m)
+                    for (var m = VoidNote.VoidNoteContents; m >= TrapNote.TrapNoteContents; --m)
                     {
                         noteDrawings[i][j][m][LongNote.LongNoteBefore] ??= noteDrawings[0][j][m][LongNote.LongNoteBefore];
                     }
@@ -1953,7 +1953,7 @@ namespace Qwilight
             {
                 for (var j = noteFrame - 1; j >= 0; --j)
                 {
-                    for (var m = InputNote.NeutralPostableItemNoteContents; m >= InputNote.InputNoteContents; --m)
+                    for (var m = VoidNote.VoidNoteContents; m >= InputNote.InputNoteContents; --m)
                     {
                         for (var o = LongNote.LongNoteFailed; o > LongNote.LongNoteBefore; --o)
                         {
@@ -1976,7 +1976,7 @@ namespace Qwilight
             {
                 for (var j = 1; j < noteFrame; ++j)
                 {
-                    for (var m = InputNote.NeutralPostableItemNoteContents; m >= InputNote.InputNoteContents; --m)
+                    for (var m = VoidNote.VoidNoteContents; m >= InputNote.InputNoteContents; --m)
                     {
                         for (var o = LongNote.LongNoteFailed; o >= LongNote.LongNoteBefore; --o)
                         {

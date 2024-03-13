@@ -86,10 +86,11 @@ namespace Qwilight.ViewModel
         bool _isAudioInput;
         SiteSituation _siteSituationValue;
         int _validHunterMode;
-        ValidNetMode _validNetMode;
         string _bundleName;
         AvatarItem _avatarItemValue;
         bool _hasPendingNew;
+        bool _isPostableItemMode;
+        int _postableItemBand;
 
         public PostableUIItem[] PostableUIItemCollection { get; } = Enumerable.Range(0, PostableItem.Values.Length).Select(i => new PostableUIItem
         {
@@ -281,6 +282,7 @@ namespace Qwilight.ViewModel
                 allowedPostableItems = PostableUIItemCollection.Where(postableUIItem => postableUIItem.IsWanted).Select(postableUIitem => (int)postableUIitem.PostableItemValue.VarietyValue).ToArray()
             });
         }
+
         public void OnInputLower(KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -356,11 +358,6 @@ namespace Qwilight.ViewModel
         public ObservableCollection<NetSiteComputing> ComputingValues { get; } = new();
 
         public AvatarGroup[] AvatarGroupCollection { get; } = Enumerable.Range(0, 5).Select(data => new AvatarGroup
-        {
-            Data = data
-        }).ToArray();
-
-        public ValidNetMode[] ValidNetModeCollection { get; } = Enumerable.Range(0, 5).Select(data => new ValidNetMode
         {
             Data = data
         }).ToArray();
@@ -510,24 +507,49 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public ValidNetMode ValidNetModeValue
+        public bool IsPostableItemMode
         {
-            get => _validNetMode;
+            get => _isPostableItemMode;
 
             set
             {
-                if (SetProperty(ref _validNetMode, value, nameof(ValidNetModeValue)))
+                if (SetProperty(ref _isPostableItemMode, value, nameof(IsPostableItemMode)))
                 {
                     OnPropertyChanged(nameof(CanSetPostableItems));
+                    SendSetValidNetMode();
+                }
+            }
+        }
+
+        public int PostableItemBand
+        {
+            get => _postableItemBand;
+
+            set
+            {
+                if (SetProperty(ref _postableItemBand, value, nameof(PostableItemBand)))
+                {
                     if (IsSiteHand)
                     {
-                        TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetValidNetMode, new
+                        TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetPostableItemBand, new
                         {
                             siteID = SiteID,
-                            validNetMode = value.Data
+                            postableItemBand = PostableItemBand
                         });
                     }
                 }
+            }
+        }
+
+        void SendSetValidNetMode()
+        {
+            if (IsSiteHand)
+            {
+                TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetValidNetMode, new
+                {
+                    siteID = SiteID,
+                    validNetMode = IsPostableItemMode ? 1 : 0
+                });
             }
         }
 
@@ -596,7 +618,7 @@ namespace Qwilight.ViewModel
 
         public bool CanSetTwilightConfigures => IsSiteHand && IsIdle;
 
-        public bool CanSetPostableItems => IsSiteHand && IsIdle && ValidNetModeValue.Data > 0;
+        public bool CanSetPostableItems => IsSiteHand && IsIdle && IsPostableItemMode;
 
         public bool CanSiteHandLevying => IsSiteHand && IsIdle;
 
@@ -763,11 +785,11 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void SetAllowedPostableItems(JSON.TwilightCallSiteNet twilightCallSiteNet)
+        public void SetAllowedPostableItems(int[] allowedPostableItems)
         {
             foreach (var postableUIItem in PostableUIItemCollection)
             {
-                postableUIItem.IsWanted = twilightCallSiteNet.allowedPostableItems.Contains((int)postableUIItem.PostableItemValue.VarietyValue);
+                postableUIItem.IsWanted = allowedPostableItems.Contains((int)postableUIItem.PostableItemValue.VarietyValue);
             }
             OnPropertyChanged(nameof(IsTotalWantPostableUIItem));
         }
@@ -778,11 +800,8 @@ namespace Qwilight.ViewModel
             IsFavorModeComponent = pendingTwilightCallSiteNetData.isFavorModeComponent;
             IsFavorAudioMultiplier = pendingTwilightCallSiteNetData.isFavorAudioMultiplier;
             ValidHunterMode = pendingTwilightCallSiteNetData.validHunterMode;
-            ValidNetModeValue = new()
-            {
-                Data = pendingTwilightCallSiteNetData.validNetMode
-            };
-            SetAllowedPostableItems(pendingTwilightCallSiteNetData);
+            IsPostableItemMode = pendingTwilightCallSiteNetData.validNetMode == 1;
+            SetAllowedPostableItems(pendingTwilightCallSiteNetData.allowedPostableItems);
             IsAutoSiteHand = pendingTwilightCallSiteNetData.isAutoSiteHand;
             if (IsSiteHand)
             {

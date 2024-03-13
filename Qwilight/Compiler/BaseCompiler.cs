@@ -1143,26 +1143,6 @@ namespace Qwilight.Compiler
                 }
             }
 
-            if (defaultComputer.IsPostableItemMode)
-            {
-                var avatarsCount = defaultComputer.AvatarsCount;
-                var rateItem = defaultComputer.ValidNetMode switch
-                {
-                    1 => Math.Sqrt(5.0) / 100.0,
-                    2 => 5.0 / 100.0,
-                    3 => Math.Pow(5.0, 2) / 100.0,
-                    4 => avatarsCount,
-                    _ => default
-                } / avatarsCount;
-                foreach (var note in Notes)
-                {
-                    if (note.HasStand && Random.Shared.NextDouble() < rateItem)
-                    {
-                        note.SetItem(Random.Shared.Next(), defaultComputer.AllowedPostableItems);
-                    }
-                }
-            }
-
             defaultComputer.ValidatedTotalNotes = Notes.Sum(note => note.HasStand ? note.LongWait > 0.0 ? 2 : 1 : 0);
 
             Notes.Sort();

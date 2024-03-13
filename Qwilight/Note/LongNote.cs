@@ -155,22 +155,6 @@ namespace Qwilight.Note
                         targetSession.PaintDrawing(ref r, longNoteDrawing, faint);
                         defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Note, longNoteDrawing.Value.AverageColor, r.Position0 - drawingComponentValue.mainPosition, r.Position1, r.Length, r.Height * longNoteDrawing.Value.AverageHeight);
                     }
-                    if (PostableItemValue != null)
-                    {
-                        var postableItemNoteDrawing = longNoteDrawings?[PostableItemValue.IsPositive switch
-                        {
-                            true => PositivePostableItemNoteContents,
-                            false => NegativePostableItemNoteContents,
-                            null => NeutralPostableItemNoteContents
-                        }]?[IsFailed ? LongNoteFailed : LongNoteBefore];
-                        if (postableItemNoteDrawing.HasValue)
-                        {
-                            var postableItemNoteDrawingValue = postableItemNoteDrawing.Value;
-                            var postableItemNoteDrawingBound = postableItemNoteDrawingValue.DrawingBound;
-                            r.Height = r.Length * postableItemNoteDrawingBound.Height / postableItemNoteDrawingBound.Length;
-                            targetSession.PaintDrawing(ref r, postableItemNoteDrawingValue, GetFaint(modeComponent, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
-                        }
-                    }
                 }
             }
 

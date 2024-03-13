@@ -7,9 +7,6 @@ namespace Qwilight.Note
     public class InputNote : BaseNote
     {
         public const int InputNoteContents = 0;
-        public const int PositivePostableItemNoteContents = 15;
-        public const int NegativePostableItemNoteContents = 16;
-        public const int NeutralPostableItemNoteContents = 17;
         const double InputMillis = 1000.0;
 
         double _inputMillis;
@@ -120,19 +117,6 @@ namespace Qwilight.Note
                 {
                     targetSession.PaintDrawing(ref r, inputNoteDrawing, GetFaint(modeComponent, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
                     defaultComputer.NewNetDrawing(isValidNetDrawings, Event.Types.NetDrawing.Types.Variety.Note, inputNoteDrawing.Value.AverageColor, r.Position0 - drawingComponentValue.mainPosition, r.Position1, r.Length, r.Height * inputNoteDrawing.Value.AverageHeight);
-                }
-                if (PostableItemValue != null)
-                {
-                    var postableItemNoteDrawing = inputNoteDrawings[PostableItemValue.IsPositive switch
-                    {
-                        true => PositivePostableItemNoteContents,
-                        false => NegativePostableItemNoteContents,
-                        null => NeutralPostableItemNoteContents
-                    }]?[LongNote.LongNoteBefore];
-                    if (postableItemNoteDrawing.HasValue)
-                    {
-                        targetSession.PaintDrawing(ref r, postableItemNoteDrawing, GetFaint(modeComponent, drawingComponentValue.judgmentMainPosition, defaultComputer.FaintCosine));
-                    }
                 }
             }
         }

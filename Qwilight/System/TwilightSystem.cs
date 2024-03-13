@@ -402,11 +402,9 @@ namespace Qwilight
                                         toEnterSiteViewModel.IsFavorAudioMultiplier = twilightEnterSite.isFavorAudioMultiplier;
                                         toEnterSiteViewModel.IsAutoSiteHand = twilightEnterSite.isAutoSiteHand;
                                         toEnterSiteViewModel.ValidHunterMode = twilightEnterSite.validHunterMode;
-                                        toEnterSiteViewModel.ValidNetModeValue = new()
-                                        {
-                                            Data = twilightEnterSite.validNetMode
-                                        };
-                                        toEnterSiteViewModel.SetAllowedPostableItems(twilightEnterSite);
+                                        toEnterSiteViewModel.IsPostableItemMode = twilightEnterSite.validNetMode == 1;
+                                        toEnterSiteViewModel.SetAllowedPostableItems(twilightEnterSite.allowedPostableItems);
+                                        toEnterSiteViewModel.PostableItemBand = twilightEnterSite.postableItemBand;
                                         toEnterSiteViewModel.ModeComponentValue.CopyAsJSON(twilightEnterSite.modeComponentData);
                                     }
                                     UIHandler.Instance.HandleParallel(() =>

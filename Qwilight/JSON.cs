@@ -344,6 +344,7 @@ namespace Qwilight
             public int validHunterMode;
             public int validNetMode;
             public int[] allowedPostableItems;
+            public int postableItemBand;
         }
 
         public sealed class TwilightEnterSite : TwilightCallSiteNet
@@ -537,6 +538,7 @@ namespace Qwilight
             public bool isFavorModeComponent;
             public bool isFavorAudioMultiplier;
             public int validNetMode;
+            public int postableItemBand;
             public int avatarsCount;
             public int[] allowedPostableItems;
             public ModeComponentData modeComponentData;

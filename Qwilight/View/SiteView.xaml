@@ -312,13 +312,14 @@
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <ComboBox IsEnabled="{Binding CanSetTwilightConfigures}" Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding ValidNetModeCollection}" SelectedItem="{Binding ValidNetModeValue}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding}" Foreground="{Binding Paint}" HorizontalAlignment="Left" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton Style="{StaticResource StandardIOInput}" IsChecked="{Binding IsPostableItemMode}" />
+                            <view:BinInput Grid.Column="1" IsEnabled="{Binding CanSetPostableItems}" Value="{Binding PostableItemBand}" Lowest="1" Format="0 콤보마다 아이템 획득" />
+                        </Grid>
                         <GroupBox Grid.Row="1" Style="{StaticResource StandardGroupView}">
                             <GroupBox.Header>
                                 <Grid>

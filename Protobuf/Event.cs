@@ -22,7 +22,7 @@ public static partial class EventReflection {
   static EventReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "CgtFdmVudC5wcm90byKMMQoFRXZlbnQSDgoGbWlsbGlzGAEgASgDEhAKCGF2",
+          "CgtFdmVudC5wcm90byKoMQoFRXZlbnQSDgoGbWlsbGlzGAEgASgDEhAKCGF2",
           "YXRhcklEGAIgASgJEh8KB2V2ZW50SUQYAyABKA4yDi5FdmVudC5FdmVudElE",
           "EgwKBHRleHQYBCABKAkSDAoEZGF0YRgFIAMoDBIxCg9xd2lsaWdodENhbGxO",
           "ZXQYBiABKAsyFi5FdmVudC5Rd2lsaWdodENhbGxOZXRIABIxCg90d2lsaWdo",
@@ -123,7 +123,7 @@ public static partial class EventReflection {
           "EhMKC2hpZ2hlc3RXYWl0GAYgASgBGlsKEFR3aWxpZ2h0UG9zdEl0ZW0SEQoJ",
           "aGFuZGxlcklEGAEgASgJEhIKCnBvc3RlZEl0ZW0YAiABKAUSEgoKYXZhdGFy",
           "TmFtZRgDIAEoCRIMCgR3YWl0GAQgASgBIjUKD0F2YXRhck5ldFN0YXR1cxIL",
-          "CgdEZWZhdWx0EAASCQoFQ2xlYXIQARIKCgZGYWlsZWQQAiKqDQoHRXZlbnRJ",
+          "CgdEZWZhdWx0EAASCQoFQ2xlYXIQARIKCgZGYWlsZWQQAiLGDQoHRXZlbnRJ",
           "RBILCgdTSUdOX0lOEAASDwoLTk9UX1NJR05fSU4QARILCgdXQVJOSU5HEAIS",
           "DQoJU0lURV9ZRUxMEAMSDwoLQ0FMTF9CVU5ETEUQBBISCg5TQVZFX0FTX0JV",
           "TkRMRRAFEhEKDVNBVklOR19CVU5ETEUQBhIPCgtXSVBFX0JVTkRMRRAHEg4K",
@@ -161,8 +161,8 @@ public static partial class EventReflection {
           "RV9ZRUxMEFISGgoWQUxSRUFEWV9MT0FESU5HX0JVTkRMRRBTEg0KCVNFVF9G",
           "QVZPUhBUEhYKElNFVF9BVVRPX1NJVEVfSEFORBBVEhQKEFNFVF9BVkFUQVJf",
           "R1JPVVAQVhINCglQT1NUX0lURU0QVxIWChJTRVRfVkFMSURfTkVUX01PREUQ",
-          "WBIeChpTRVRfQUxMT1dFRF9QT1NUQUJMRV9JVEVNUxBZQgoKCGZhc3RUZXh0",
-          "YgZwcm90bzM="));
+          "WBIeChpTRVRfQUxMT1dFRF9QT1NUQUJMRV9JVEVNUxBZEhoKFlNFVF9QT1NU",
+          "QUJMRV9JVEVNX0JBTkQQWkIKCghmYXN0VGV4dGIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -1544,6 +1544,7 @@ public sealed partial class Event : pb::IMessage<Event>
       [pbr::OriginalName("POST_ITEM")] PostItem = 87,
       [pbr::OriginalName("SET_VALID_NET_MODE")] SetValidNetMode = 88,
       [pbr::OriginalName("SET_ALLOWED_POSTABLE_ITEMS")] SetAllowedPostableItems = 89,
+      [pbr::OriginalName("SET_POSTABLE_ITEM_BAND")] SetPostableItemBand = 90,
     }
 
     [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]

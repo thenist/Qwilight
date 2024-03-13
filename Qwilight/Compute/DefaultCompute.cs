@@ -183,6 +183,8 @@ namespace Qwilight.Compute
 
         public bool IsPostableItemMode => ValidNetMode > 0;
 
+        public int PostableItemBand { get; set; }
+
         public int AvatarsCount { get; set; }
 
         public PostableItem[] AllowedPostableItems { get; set; }
@@ -1631,6 +1633,7 @@ namespace Qwilight.Compute
 
         void HandleNotes()
         {
+            var postableItemBand = 0;
             var lastMultiplier = ModeComponentValue.Multiplier;
             var lastAudioMultiplier = AudioMultiplier;
             var isValidLoopingCounter = true;
@@ -3752,6 +3755,7 @@ namespace Qwilight.Compute
                         }
                     }
                     Band.TargetValue = 0;
+                    postableItemBand = 0;
                     HasFailedJudgment = true;
                     ++Comment.LowestJudgment;
                     OnFailed();
@@ -3759,6 +3763,26 @@ namespace Qwilight.Compute
                 else
                 {
                     HighestBand = Math.Max(++Band.TargetValue, HighestBand);
+                    if (!IsF && ++postableItemBand == PostableItemBand)
+                    {
+                        postableItemBand = 0;
+                        var postableItemsLength = PostableItems.Length;
+                        for (var i = 0; i < postableItemsLength; ++i)
+                        {
+                            if (PostableItems[i] == null)
+                            {
+                                var postableItem = AllowedPostableItems[Random.Shared.Next(AllowedPostableItems.Length)];
+                                PostableItems[i] = postableItem;
+                                LastPostableItems[i] = postableItem;
+                                PostableItemFaints[i].TargetValue = 1.0;
+                                AudioSystem.Instance.Handle(new()
+                                {
+                                    AudioItem = AudioSystem.Instance.PostableItemAudio
+                                }, AudioSystem.SEAudio);
+                                break;
+                            }
+                        }
+                    }
                     switch (judged)
                     {
                         case Component.Judged.Highest:
@@ -3778,24 +3802,6 @@ namespace Qwilight.Compute
                             break;
                         case Component.Judged.Lowest:
                             break;
-                    }
-                    if (!IsF && (Component.Judged.Highest <= judged || judged <= Component.Judged.Low) && note.PostableItemValue != null)
-                    {
-                        var postableItemsLength = PostableItems.Length;
-                        for (var i = 0; i < postableItemsLength; ++i)
-                        {
-                            if (PostableItems[i] == null)
-                            {
-                                PostableItems[i] = note.PostableItemValue;
-                                LastPostableItems[i] = note.PostableItemValue;
-                                PostableItemFaints[i].TargetValue = 1.0;
-                                AudioSystem.Instance.Handle(new()
-                                {
-                                    AudioItem = AudioSystem.Instance.PostableItemAudio
-                                }, AudioSystem.SEAudio);
-                                break;
-                            }
-                        }
                     }
                 }
                 LastJudged = judged;

@@ -69,7 +69,8 @@ namespace Qwilight.ViewModel
                         inputMode = noteFile.InputMode,
                         isAutoLongNote = noteFile.IsAutoLongNote,
                         bundleEntryPath = noteFile.EntryItem.EntryPath,
-                        allowedPostableItems = Enumerable.Range(0, PostableItem.Values.Length).ToArray()
+                        allowedPostableItems = Enumerable.Range(0, PostableItem.Values.Length).ToArray(),
+                        postableItemBand = 100
                     });
                 });
                 inputPwViewModel.Open();

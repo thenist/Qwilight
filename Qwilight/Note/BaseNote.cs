@@ -11,8 +11,6 @@ namespace Qwilight.Note
 
         int _levyingInput;
 
-        public PostableItem PostableItemValue { get; set; }
-
         public bool IsWiped { get; set; }
 
         public double LogicalY { get; set; }
@@ -84,8 +82,6 @@ namespace Qwilight.Note
             IsWiped = false;
             TargetInput = LevyingInput;
         }
-
-        public void SetItem(int salt, PostableItem[] allowedPostableItems) => PostableItemValue = allowedPostableItems[salt % allowedPostableItems.Length];
 
         public double GetY(DefaultCompute defaultComputer, double multiplier) => (Y - Component.StandardHeight) * multiplier + defaultComputer.DrawingComponentValue.judgmentMainPosition + Configure.Instance.UIConfigureValue.NoteWait;
 

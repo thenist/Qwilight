@@ -43,6 +43,7 @@ namespace Qwilight.Compute
             IsFailMode = false;
             SiteID = twilightLevyNet.siteID;
             ValidNetMode = twilightLevyNet.validNetMode;
+            PostableItemBand = twilightLevyNet.postableItemBand;
             AvatarsCount = twilightLevyNet.avatarsCount;
             AllowedPostableItems = twilightLevyNet.allowedPostableItems.Select(i => PostableItem.Values[i]).ToArray();
             if (IsPostableItemMode && AvatarsCount == 1)
