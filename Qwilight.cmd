@@ -6,7 +6,9 @@ SET VS2022=%PROGRAMFILES%\Microsoft Visual Studio\2022\Community
 SET MSBUILD=%VS2022%\Msbuild\Current\Bin\MSBuild.exe
 SET BANDIZIP=%PROGRAMFILES%\Bandizip\bz.exe
 SET WINX64=bin\x64\Release\net8.0-windows10.0.22621.0\win-x64
-SET PUBLISH=Qwilight\%WINX64%\publish
+SET WINARM64=bin\ARM64\Release\net8.0-windows10.0.22621.0\win-arm64
+SET WINX64PUBLISH=Qwilight\%WINX64%\publish
+SET WINARM64PUBLISH=Qwilight\%WINARM64%\publish
 
 DEL Qwilight.zip
  
@@ -29,11 +31,11 @@ IF %TEST% == 1 (
 	)
 )
 
-RMDIR /S /Q %PUBLISH%
+RMDIR /S /Q %WINX64PUBLISH%
 dotnet publish Qwilight\Qwilight.csproj -c Release -p:Platform=x64
-"%BANDIZIP%" c -storeroot:no Qwilight.zip %PUBLISH%
+"%BANDIZIP%" c -storeroot:no Qwilight.zip %WINX64PUBLISH%
 	
-powershell $(CertUtil -hashfile %PUBLISH%\Qwilight.dll SHA512)[1] > Qwilight.dll.sha512sum
+powershell $(CertUtil -hashfile %WINX64PUBLISH%\Qwilight.dll SHA512)[1] > Qwilight.dll.sha512sum
 SET /P BUILD= < Qwilight.dll.sha512sum
 DEL Qwilight.dll.sha512sum
 

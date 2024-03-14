@@ -211,7 +211,6 @@ namespace Qwilight
         public void HandleSystem()
         {
             var mainViewModel = ViewModels.Instance.MainValue;
-            var signInViewModel = ViewModels.Instance.SignInValue;
             var bundleViewModel = ViewModels.Instance.BundleValue;
             var ubuntuViewModel = ViewModels.Instance.UbuntuValue;
             var toNotifyViewModel = ViewModels.Instance.NotifyValue;
@@ -294,7 +293,7 @@ namespace Qwilight
                                     }
                                     break;
                                 case Event.Types.EventID.SignIn:
-                                    signInViewModel.Close();
+                                    ViewModels.Instance.SignInValue.Close();
                                     var twilightSignIn = Utility.GetJSON<JSON.TwilightSignIn>(eventItemText);
                                     Totem = twilightSignIn.totem;
                                     AvatarID = twilightSignIn.avatarID;

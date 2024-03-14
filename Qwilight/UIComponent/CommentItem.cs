@@ -1,4 +1,5 @@
 ﻿using Qwilight.Compute;
+using Qwilight.NoteFile;
 using Qwilight.Utilities;
 using System.Windows.Media;
 
@@ -22,6 +23,8 @@ namespace Qwilight.UIComponent
         public string CommentPlace0Text { get; set; }
 
         public string CommentPlace1Text { get; set; }
+
+        public BaseNoteFile.Handled? HandledValue { get; set; }
 
         public Brush StandPaint => ModeComponentValue.HitPointsModeValue switch
         {
@@ -71,13 +74,15 @@ namespace Qwilight.UIComponent
 
         public bool IsPaused { get; init; }
 
-        public bool DefaultControllerComputed => (_inputFlags & DefaultCompute.InputFlag.DefaultController) == DefaultCompute.InputFlag.DefaultController;
+        public bool HasDefaultControllerFlag => (_inputFlags & DefaultCompute.InputFlag.DefaultController) == DefaultCompute.InputFlag.DefaultController;
 
-        public bool ControllerComputed => (_inputFlags & DefaultCompute.InputFlag.Controller) == DefaultCompute.InputFlag.Controller;
+        public bool HasControllerFlag => (_inputFlags & DefaultCompute.InputFlag.Controller) == DefaultCompute.InputFlag.Controller;
 
-        public bool MIDIComputed => (_inputFlags & DefaultCompute.InputFlag.MIDI) == DefaultCompute.InputFlag.MIDI;
+        public bool HasMIDIFlag => (_inputFlags & DefaultCompute.InputFlag.MIDI) == DefaultCompute.InputFlag.MIDI;
 
-        public bool PointerComputed => (_inputFlags & DefaultCompute.InputFlag.Pointer) == DefaultCompute.InputFlag.Pointer;
+        public bool HasPointerFlag => (_inputFlags & DefaultCompute.InputFlag.Pointer) == DefaultCompute.InputFlag.Pointer;
+
+        public ImageSource HandledWallCommentDrawing => HandledValue.HasValue ? BaseUI.Instance.HandledWallCommentDrawings[(int)HandledValue.Value] : null;
 
         public AvatarWww AvatarWwwValue { get; }
 

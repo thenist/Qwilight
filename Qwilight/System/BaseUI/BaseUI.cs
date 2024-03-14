@@ -125,6 +125,8 @@ namespace Qwilight
 
         public ImageSource[] HandledWallDrawings { get; } = new ImageSource[8];
 
+        public ImageSource[] HandledWallCommentDrawings { get; } = new ImageSource[8];
+
         public ImageSource[] DefaultEntryDrawings { get; } = new ImageSource[5];
 
         public ImageSource[] SaltAutoDrawings { get; } = new ImageSource[2];
@@ -338,6 +340,8 @@ namespace Qwilight
         public object[] AssistViewPoint { get; set; }
 
         public double HandledWallLength { get; set; }
+
+        public double HandledWallCommentLength { get; set; }
 
         public double EntryItemHeight { get; set; }
 
@@ -941,6 +945,7 @@ namespace Qwilight
                 StopAutoPoint = GetDrawingPoint(pointNode, "stopAuto");
 
                 HandledWallLength = GetCalledValue(pointNode, "handledWallLength", "10");
+                HandledWallCommentLength = GetCalledValue(pointNode, "handledWallCommentLength", "8");
                 EntryItemHeight = GetCalledValue(pointNode, "entryItemHeight", "60");
                 CommentItemHeight = GetCalledValue(pointNode, "commentItemHeight", "48");
                 CommentItemAvatarHeight = CommentItemHeight + 2 * CommentItemHeight * Levels.EdgeXY + 2 * 1.0;
@@ -1725,6 +1730,9 @@ namespace Qwilight
                             case "W":
                                 HandledWallDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
                                 break;
+                            case "WC":
+                                HandledWallCommentDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                                break;
                         }
                         break;
                     case "Avatar Configure":
@@ -2039,6 +2047,11 @@ namespace Qwilight
             for (var i = (int)DefaultCompute.QuitStatus.F; i >= (int)DefaultCompute.QuitStatus.SPlus; --i)
             {
                 QuitDrawings[i][1] ??= QuitDrawings[i][0];
+            }
+
+            for (var i = (int)BaseNoteFile.Handled.AssistClear; i >= (int)BaseNoteFile.Handled.Not; --i)
+            {
+                HandledWallCommentDrawings[i] ??= HandledWallDrawings[i];
             }
 
             for (var i = PaintProperties.Length - 1; i >= 0; --i)

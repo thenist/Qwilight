@@ -126,8 +126,9 @@ point:
 
     stopAuto: CommentViewLength(-12), InputNoteCountViewPosition1(5), 24, 24, 1, 1, 0
     saltAuto: CommentViewLength(-12), InputNoteCountViewPosition1(39), 24, 24, 1, 1, 0
-
+    
     handledWallLength: 8
+    handledWallCommentLength: 8
     entryItemHeight: 48
     commentItemHeight: 48
 

@@ -1471,13 +1471,14 @@ namespace Qwilight.ViewModel
                                     TwilightCommentText0 = (commentPlace + 1).ToString("＃#,##0");
                                     TwilightCommentText1 = twilightWwwCommentValue.totalComments.ToString("／#,##0");
                                 }
-                                var handled = twilightWwwCommentValue.handled;
-                                if (handled.HasValue)
+                                var avatarID = TwilightSystem.Instance.AvatarID;
+                                var commentsMe = twilightWwwCommentValue.comments.Where(comment => comment.avatarID == avatarID).ToArray();
+                                if (commentsMe.Length == 1)
                                 {
-                                    var handledValue = handled.Value;
-                                    if (noteFile.HandledValue != handledValue && !(noteFile.HandledValue == BaseNoteFile.Handled.F && handledValue == BaseNoteFile.Handled.Not))
+                                    var handled = commentsMe.Single().handled;
+                                    if (noteFile.HandledValue != handled && !(noteFile.HandledValue == BaseNoteFile.Handled.F && handled == BaseNoteFile.Handled.Not))
                                     {
-                                        noteFile.HandledValue = handledValue;
+                                        noteFile.HandledValue = handled;
                                         DB.Instance.SetHandled(noteFile);
                                     }
                                 }

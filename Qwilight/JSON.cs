@@ -154,7 +154,6 @@ namespace Qwilight
         {
             public bool? favor;
             public int totalFavor;
-            public BaseNoteFile.Handled? handled;
             public Comment[] comments;
             public int commentPlace;
             public int totalComments;
@@ -176,6 +175,7 @@ namespace Qwilight
                 public ModeComponent.InputFavorMode inputFavorMode;
                 public ModeComponent.NoteModifyMode noteModifyMode;
                 public ModeComponent.LowestJudgmentConditionMode lowestJudgmentConditionMode;
+                public BaseNoteFile.Handled handled;
                 public int stand;
                 public int band;
                 public bool isP;
