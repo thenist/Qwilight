@@ -32,7 +32,6 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.System;
 using Windows.Win32.UI.WindowsAndMessaging;
 using Clipboard = Windows.ApplicationModel.DataTransfer.Clipboard;
-using Timer = System.Timers.Timer;
 
 namespace Qwilight.ViewModel
 {
@@ -79,7 +78,7 @@ namespace Qwilight.ViewModel
             EnableRaisingEvents = true
         };
         long _randomMillis = Environment.TickCount64;
-        Timer _fadeInHandler;
+        DispatcherTimer _fadeInHandler;
         bool _isAvailable = true;
         string _twilightCommentText0 = string.Empty;
         string _twilightCommentText1 = string.Empty;
@@ -2399,8 +2398,7 @@ namespace Qwilight.ViewModel
 
             var millis = BaseUI.Instance.FadingProperties[(int)ModeValue]?[FadingValue.Layer]?.Millis;
             var fadingCounter = Stopwatch.StartNew();
-            var fadeHandler = new Timer(QwilightComponent.StandardFrametime);
-            fadeHandler.Elapsed += (sender, e) =>
+            var fadeHandler = new DispatcherTimer(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
             {
                 if (millis > 0)
                 {
@@ -2414,15 +2412,14 @@ namespace Qwilight.ViewModel
 
                 if (FadingValue.Status == 1.0)
                 {
-                    (sender as Timer).Dispose();
+                    (sender as DispatcherTimer).Stop();
 
                     FadingValue.Layer = 0;
-                    UIHandler.Instance.HandleParallel(onFade);
+                    onFade();
 
                     var millis = BaseUI.Instance.FadingProperties[(int)ModeValue]?[FadingValue.Layer]?.Millis;
                     fadingCounter.Restart();
-                    _fadeInHandler = new Timer(QwilightComponent.StandardFrametime);
-                    _fadeInHandler.Elapsed += (sender, e) =>
+                    _fadeInHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
                     {
                         if (millis > 0)
                         {
@@ -2436,16 +2433,14 @@ namespace Qwilight.ViewModel
 
                         if (FadingValue.Status == 0.0)
                         {
-                            (sender as Timer).Dispose();
+                            (sender as DispatcherTimer).Stop();
 
                             IsAvailable = true;
                             StrongReferenceMessenger.Default.Send<PointZMaxView>();
                         }
-                    };
-                    _fadeInHandler.Start();
+                    }, UIHandler.Instance.Handler);
                 }
-            };
-            fadeHandler.Start();
+            }, UIHandler.Instance.Handler);
         }
 
         public void InitMultiplierUnit()
