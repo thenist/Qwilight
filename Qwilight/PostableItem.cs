@@ -76,15 +76,15 @@ namespace Qwilight
             {
                 VarietyValue = Variety.NegativeJudgment,
                 IsPositive = false,
-                LowestWait = 1000.0,
-                HighestWait = 6000.0
+                LowestWait = 60.0,
+                HighestWait = 1000.0
             },
             new PostableItem
             {
                 VarietyValue = Variety.NegativeHitPoints,
                 IsPositive = false,
-                LowestWait = 60.0,
-                HighestWait = 1000.0
+                LowestWait = 1000.0,
+                HighestWait = 6000.0
             },
             new PostableItem
             {

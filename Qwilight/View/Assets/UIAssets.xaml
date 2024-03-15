@@ -250,7 +250,7 @@
     <Style x:Key="StandardTextInput" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
         <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
         <Setter Property="Padding" Value="{StaticResource StandardMargin}" />
-        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
 
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
