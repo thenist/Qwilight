@@ -33,7 +33,7 @@
                                             <ContextMenu>
                                                 <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewAvatarCommand}" />
                                                 <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewBundleCommand}" />
-                                                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+                                                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
                                             </ContextMenu>
                                         </StackPanel.ContextMenu>
                                         <view:AvatarDrawingView Width="24" Height="24" AvatarWwwValue="{Binding AvatarWwwValue}" />
@@ -417,7 +417,7 @@
                                                                             <ContextMenu>
                                                                                 <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewAvatarCommand}" />
                                                                                 <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewBundleCommand}" />
-                                                                                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+                                                                                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
                                                                             </ContextMenu>
                                                                         </Grid.ContextMenu>
                                                                         <Grid.ColumnDefinitions>

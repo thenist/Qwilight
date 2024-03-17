@@ -26,7 +26,7 @@
                             <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding AutoEnterNotifySite, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
                                 <ComboBox.Items>
                                     <quic:AutoEnterSite Data="{StaticResource AutoEnter}" />
-                                    <quic:AutoEnterSite Data="{StaticResource AutoEnterSignedIn}" />
+                                    <quic:AutoEnterSite Data="{StaticResource AutoEnterLoggedIn}" />
                                     <quic:AutoEnterSite Data="{StaticResource WaitSite}" />
                                 </ComboBox.Items>
                             </ComboBox>
@@ -40,7 +40,7 @@
                             <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding AutoEnterDefaultSite, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
                                 <ComboBox.Items>
                                     <quic:AutoEnterSite Data="{StaticResource AutoEnter}" />
-                                    <quic:AutoEnterSite Data="{StaticResource AutoEnterSignedIn}" />
+                                    <quic:AutoEnterSite Data="{StaticResource AutoEnterLoggedIn}" />
                                     <quic:AutoEnterSite Data="{StaticResource WaitSite}" />
                                 </ComboBox.Items>
                             </ComboBox>
@@ -54,13 +54,13 @@
                             <ComboBox Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding AutoEnterPlatformSite, Source={StaticResource Configure}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right">
                                 <ComboBox.Items>
                                     <quic:AutoEnterSite Data="{StaticResource AutoEnter}" />
-                                    <quic:AutoEnterSite Data="{StaticResource AutoEnterSignedIn}" />
+                                    <quic:AutoEnterSite Data="{StaticResource AutoEnterLoggedIn}" />
                                     <quic:AutoEnterSite Data="{StaticResource WaitSite}" />
                                 </ComboBox.Items>
                             </ComboBox>
                             <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding AutoEnterPlatformSiteContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
                         </Grid>
-                        <StackPanel Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
+                        <StackPanel Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
                             <Separator Style="{StaticResource StandardHr}" />
                             <Grid>
                                 <Grid.ColumnDefinitions>

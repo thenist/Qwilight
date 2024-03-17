@@ -121,7 +121,7 @@ point:
     noteFileMargin: 25.5
     entryViewTitleMargin: 0.0, 0.0, 0.0, 0.0
 
-    signIn: AutoModePosition0(-5), 12, 34, 34, 1, 1, 0
+    logIn: AutoModePosition0(-5), 12, 34, 34, 1, 1, 0
     configure: AutoModePosition0(-5), 56, 34, 34, 1, 1, 0
 
     stopAuto: CommentViewLength(-12), InputNoteCountViewPosition1(5), 24, 24, 1, 1, 0

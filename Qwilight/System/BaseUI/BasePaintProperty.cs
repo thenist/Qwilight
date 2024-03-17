@@ -109,7 +109,7 @@ namespace Qwilight
                             }
                             break;
                         case 7:
-                            if (TwilightSystem.Instance.IsSignedIn && Framerate > 0.0)
+                            if (TwilightSystem.Instance.IsLoggedIn && Framerate > 0.0)
                             {
                                 var avatarName = TwilightSystem.Instance.GetAvatarName();
                                 targetSession.PaintVisibleText(PoolSystem.Instance.GetDefaultTextItem(avatarName, Framerate, EtcPaint, r.Length), PoolSystem.Instance.GetDefaultTextItem(avatarName, Framerate, Paints.Paint0, r.Length), ref r);
@@ -122,7 +122,7 @@ namespace Qwilight
                             targetSession.DrawVideo(MediaHandlerItem?.HandledMediaItem.DefaultMedia, r);
                             break;
                         case 12:
-                            if (TwilightSystem.Instance.IsSignedIn && Framerate > 0.0)
+                            if (TwilightSystem.Instance.IsLoggedIn && Framerate > 0.0)
                             {
                                 var avatarID = TwilightSystem.Instance.AvatarID;
                                 var avatarTitle = AvatarTitleSystem.Instance.JustGetAvatarTitle(avatarID);

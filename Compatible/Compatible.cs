@@ -553,7 +553,8 @@ namespace Compatible
                         .Replace("lowestJudgmentView:", "lowestJudgmentV2:")
                         .Replace("entryPositionLevel:", "entryItemPositionLevel:")
                         .Replace("fittedContents:", "fittedText:")
-                        .Replace("fittedContentsLevel:", "fittedTextLevel:");
+                        .Replace("fittedContentsLevel:", "fittedTextLevel:")
+                        .Replace("signIn:", "logIn:");
                 }
                 if (yamlContents0 != yamlContents1)
                 {

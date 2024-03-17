@@ -1417,7 +1417,7 @@ namespace Qwilight.Compute
             {
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.AudioMultiplierWarning, ModeComponentValue.AudioMultiplier.ToString("×0.00")));
             }
-            if (!Configure.Instance.AllowTwilightComment && !IsBanned && !IsPostableItemMode && ModeComponentValue.CanBeTwilightComment && TwilightSystem.Instance.IsSignedIn)
+            if (!Configure.Instance.AllowTwilightComment && !IsBanned && !IsPostableItemMode && ModeComponentValue.CanBeTwilightComment && TwilightSystem.Instance.IsLoggedIn)
             {
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.TwilightCommentWarning);
             }
@@ -4170,7 +4170,7 @@ namespace Qwilight.Compute
                             }
                             if (!IsBanned && ModeComponentValue.CanBeTwilightComment && Configure.Instance.AllowTwilightComment)
                             {
-                                if (TwilightSystem.Instance.IsSignedIn)
+                                if (TwilightSystem.Instance.IsLoggedIn)
                                 {
                                     TwilightSystem.Instance.SendParallel(Event.Types.EventID.Comment, new
                                     {

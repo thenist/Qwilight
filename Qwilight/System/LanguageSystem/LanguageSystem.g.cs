@@ -70,7 +70,7 @@ namespace Qwilight
         public string AutoEnterDefaultSiteContents { get; set; }
         public string AutoEnterNotifySiteContents { get; set; }
         public string AutoEnterPlatformSiteContents { get; set; }
-        public string AutoEnterSignedInContents { get; set; }
+        public string AutoEnterLoggedInContents { get; set; }
         public string AutoHighlightContents { get; set; }
         public string AutoHighlightText { get; set; }
         public string AutoLevyingContents { get; set; }
@@ -80,7 +80,7 @@ namespace Qwilight
         public string AutoModeContents { get; set; }
         public string AutoNetLevyingText { get; set; }
         public string AutoSaltAssist { get; set; }
-        public string AutoSignIn { get; set; }
+        public string AutoLogIn { get; set; }
         public string AutoSiteHandText { get; set; }
         public string AutoText { get; set; }
         public string AvatarCipher { get; set; }
@@ -331,15 +331,15 @@ namespace Qwilight
         public string HitPoints { get; set; }
         public string HitPointsLegend { get; set; }
         public string HitPointsModeAssist { get; set; }
-        public string HOFAbilityText { get; set; }
-        public string HOFAtText { get; set; }
-        public string HOFBand { get; set; }
-        public string HOFHighest { get; set; }
-        public string HOFLevelText { get; set; }
-        public string HOFStand { get; set; }
-        public string HOFText { get; set; }
-        public string HOFTotal { get; set; }
-        public string HOFTotalText { get; set; }
+        public string HallAbilityText { get; set; }
+        public string HallAtText { get; set; }
+        public string HallBand { get; set; }
+        public string HallHighest { get; set; }
+        public string HallLevelText { get; set; }
+        public string HallStand { get; set; }
+        public string HallText { get; set; }
+        public string HallTotal { get; set; }
+        public string HallTotalText { get; set; }
         public string HunterVariety1stText { get; set; }
         public string HunterVarietyContents { get; set; }
         public string HunterVarietyFavorText { get; set; }
@@ -635,10 +635,10 @@ namespace Qwilight
         public string NotQwilightFillContents { get; set; }
         public string NotQwilightFillText { get; set; }
         public string NotSFXText { get; set; }
-        public string NotSignedInContents { get; set; }
-        public string NotSignedInSituationContents { get; set; }
-        public string NotSignInNotify { get; set; }
-        public string NotSignInText { get; set; }
+        public string NotLoggedInContents { get; set; }
+        public string NotLoggedInSituationContents { get; set; }
+        public string NotLogInNotify { get; set; }
+        public string NotLogInText { get; set; }
         public string NotStillDrawing { get; set; }
         public string NotStopLastEqualAudioText { get; set; }
         public string NotSupportedFileContents { get; set; }
@@ -685,6 +685,7 @@ namespace Qwilight
         public string PointLevelContents { get; set; }
         public string PointValidHunterModeText { get; set; }
         public string PositivePostedItemText { get; set; }
+        public string PostableItemBandText { get; set; }
         public string PostableItemModeViewCommentFault { get; set; }
         public string PostableItemModeWarning { get; set; }
         public string PostableItemTabText { get; set; }
@@ -763,8 +764,8 @@ namespace Qwilight
         public string SetTotalText { get; set; }
         public string SFXContents { get; set; }
         public string SFXText { get; set; }
-        public string SignedInContents { get; set; }
-        public string SignIn { get; set; }
+        public string LoggedInContents { get; set; }
+        public string LogIn { get; set; }
         public string SignUp { get; set; }
         public string SilentSiteAvatarContents { get; set; }
         public string SilentSiteCallableContents { get; set; }

@@ -58,10 +58,10 @@ namespace Qwilight
                                     BaseUI.Instance.HandleEvent(BaseUI.EventItem.LevelClear);
                                     break;
                                 case ConsoleKey.D3:
-                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.SignIn);
+                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.LogIn);
                                     break;
                                 case ConsoleKey.D4:
-                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.NotSignIn);
+                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.NotLogIn);
                                     break;
                                 case ConsoleKey.D5:
                                     BaseUI.Instance.HandleEvent(BaseUI.EventItem.ModifyEntryItem);

@@ -22,7 +22,7 @@ public static partial class EventReflection {
   static EventReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "CgtFdmVudC5wcm90byKoMQoFRXZlbnQSDgoGbWlsbGlzGAEgASgDEhAKCGF2",
+          "CgtFdmVudC5wcm90byKmMQoFRXZlbnQSDgoGbWlsbGlzGAEgASgDEhAKCGF2",
           "YXRhcklEGAIgASgJEh8KB2V2ZW50SUQYAyABKA4yDi5FdmVudC5FdmVudElE",
           "EgwKBHRleHQYBCABKAkSDAoEZGF0YRgFIAMoDBIxCg9xd2lsaWdodENhbGxO",
           "ZXQYBiABKAsyFi5FdmVudC5Rd2lsaWdodENhbGxOZXRIABIxCg90d2lsaWdo",
@@ -123,46 +123,46 @@ public static partial class EventReflection {
           "EhMKC2hpZ2hlc3RXYWl0GAYgASgBGlsKEFR3aWxpZ2h0UG9zdEl0ZW0SEQoJ",
           "aGFuZGxlcklEGAEgASgJEhIKCnBvc3RlZEl0ZW0YAiABKAUSEgoKYXZhdGFy",
           "TmFtZRgDIAEoCRIMCgR3YWl0GAQgASgBIjUKD0F2YXRhck5ldFN0YXR1cxIL",
-          "CgdEZWZhdWx0EAASCQoFQ2xlYXIQARIKCgZGYWlsZWQQAiLGDQoHRXZlbnRJ",
-          "RBILCgdTSUdOX0lOEAASDwoLTk9UX1NJR05fSU4QARILCgdXQVJOSU5HEAIS",
-          "DQoJU0lURV9ZRUxMEAMSDwoLQ0FMTF9CVU5ETEUQBBISCg5TQVZFX0FTX0JV",
-          "TkRMRRAFEhEKDVNBVklOR19CVU5ETEUQBhIPCgtXSVBFX0JVTkRMRRAHEg4K",
-          "ClNFVF9CVU5ETEUQCBIPCgtDQUxMX1VCVU5UVRAJEhQKEENBTExfU0lURV9B",
-          "VkFUQVIQChILCgdDT01NRU5UEAsSEQoNU0VUX1NJVFVBVElPThAMEg0KCU5F",
-          "V19USVRMRRANEhYKElNUT1BfU0FWSU5HX0JVTkRMRRAOEhAKDFNBVkVEX0JV",
-          "TkRMRRAPEg8KC1NBVkVfQlVORExFEBASDgoKRU5URVJfU0lURRAREg0KCVFV",
-          "SVRfU0lURRASEg8KC1dJUEVfVUJVTlRVEBMSDAoITkVXX1NJVEUQFBIOCgpO",
-          "RVdfVUJVTlRVEBUSEAoMRVhJTEVfQVZBVEFSEBYSEwoPTkVXX1NJTEVOVF9T",
-          "SVRFEBcSDQoJRVNUQUJMSVNIEBgSEgoOQ0FMTF9DT05GSUdVUkUQGRIRCg1T",
-          "RVRfQ09ORklHVVJFEBoSDwoLTk9USUZZX0lORk8QGxIMCghMRVZZX05FVBAc",
-          "EgwKCENPTVBJTEVEEB0SDAoIQ0FMTF9ORVQQHhIWChJTRVRfTU9ERV9DT01Q",
-          "T05FTlQQHxIcChhTRVRfRkFWT1JfTU9ERV9DT01QT05FTlQQIBIZChVTRVRf",
-          "VkFMSURfSFVOVEVSX01PREUQIRIaChZDQUxMX05FVF9TSVRFX0NPTU1FTlRT",
-          "ECISEQoNU0VUX05PVEVfRklMRRAjEhEKDVNFVF9TSVRFX05BTUUQJBIRCg1T",
-          "RVRfU0lURV9IQU5EECUSDAoIUVVJVF9ORVQQJhIUChBTQVZJTkdfQVNfQlVO",
-          "RExFECcSEwoPU0FWRURfQVNfQlVORExFECgSGQoVU1RPUF9TQVZJTkdfQVNf",
-          "QlVORExFECkSFQoRU0FWRV9ERUZBVUxUX05PVEUQKhINCglQT1NUX0ZJTEUQ",
-          "KxITCg9TQVZFX0RFRkFVTFRfVUkQLBIeChpTRVRfRkFWT1JfQVVESU9fTVVM",
-          "VElQTElFUhAtEhEKDUNBTExfU0lURV9ORVQQLhIOCgpOT1RJRllfWUVTEC8S",
-          "CwoHQ0FMTF9JTxAwEhUKEUNBTExfSU9fQ09NUE9ORU5UEDESDwoLQ09NUElM",
-          "RURfSU8QMhILCgdMRVZZX0lPEDMSDAoISU9fSU5QVVQQNBIMCghJT19KVURH",
-          "RRA1EhYKEklPX05PVEVfVklTSUJJTElUWRA2EhUKEUlPX0pVREdNRU5UX01F",
-          "VEVSEDgSEQoNSU9fTVVMVElQTElFUhA5EhcKE0lPX0FVRElPX01VTFRJUExJ",
-          "RVIQOhIMCghJT19QQVVTRRA7EgsKB0lPX1FVSVQQPBIKCgZJT19OT1QQPRIP",
-          "CgtBVURJT19JTlBVVBA+EhwKGENBTExfU0lURV9NT0RFX0NPTVBPTkVOVBA/",
-          "Eg4KCkNPTU1FTlRBUlkQQRINCglXV1dfTEVWRUwQQhIQCgxBVkFUQVJfVElU",
-          "TEUQQxIdChlJTlZBTElEQVRFX0FWQVRBUl9EUkFXSU5HEEQSGwoXSU5WQUxJ",
-          "REFURV9BVkFUQVJfVElUTEUQRRIMCghMRVZFTF9VUBBGEhcKE1NFVF9GQVZP",
-          "Ul9OT1RFX0ZJTEUQRxISCg5HRVRfU0lURV9ZRUxMUxBIEhAKDFNFVF9MQU5H",
-          "VUFHRRBJEhEKDVZBTFZFX0NPTU1FTlQQShIOCgpBQklMSVRZX1VQEEsSCQoF",
-          "Q0xPU0UQTBIUChBVTkFWQUlMQUJMRV9EQVRFEE0SDwoLQVZBVEFSX0VER0UQ",
-          "ThIaChZJTlZBTElEQVRFX0FWQVRBUl9FREdFEE8SGQoVRkFJTEVEX1ZBTElE",
-          "QVRFX1RPVEVNEFASFAoQTU9ESUZZX1NJVEVfWUVMTBBREhIKDldJUEVfU0lU",
-          "RV9ZRUxMEFISGgoWQUxSRUFEWV9MT0FESU5HX0JVTkRMRRBTEg0KCVNFVF9G",
-          "QVZPUhBUEhYKElNFVF9BVVRPX1NJVEVfSEFORBBVEhQKEFNFVF9BVkFUQVJf",
-          "R1JPVVAQVhINCglQT1NUX0lURU0QVxIWChJTRVRfVkFMSURfTkVUX01PREUQ",
-          "WBIeChpTRVRfQUxMT1dFRF9QT1NUQUJMRV9JVEVNUxBZEhoKFlNFVF9QT1NU",
-          "QUJMRV9JVEVNX0JBTkQQWkIKCghmYXN0VGV4dGIGcHJvdG8z"));
+          "CgdEZWZhdWx0EAASCQoFQ2xlYXIQARIKCgZGYWlsZWQQAiLEDQoHRXZlbnRJ",
+          "RBIKCgZMT0dfSU4QABIOCgpOT1RfTE9HX0lOEAESCwoHV0FSTklORxACEg0K",
+          "CVNJVEVfWUVMTBADEg8KC0NBTExfQlVORExFEAQSEgoOU0FWRV9BU19CVU5E",
+          "TEUQBRIRCg1TQVZJTkdfQlVORExFEAYSDwoLV0lQRV9CVU5ETEUQBxIOCgpT",
+          "RVRfQlVORExFEAgSDwoLQ0FMTF9VQlVOVFUQCRIUChBDQUxMX1NJVEVfQVZB",
+          "VEFSEAoSCwoHQ09NTUVOVBALEhEKDVNFVF9TSVRVQVRJT04QDBINCglORVdf",
+          "VElUTEUQDRIWChJTVE9QX1NBVklOR19CVU5ETEUQDhIQCgxTQVZFRF9CVU5E",
+          "TEUQDxIPCgtTQVZFX0JVTkRMRRAQEg4KCkVOVEVSX1NJVEUQERINCglRVUlU",
+          "X1NJVEUQEhIPCgtXSVBFX1VCVU5UVRATEgwKCE5FV19TSVRFEBQSDgoKTkVX",
+          "X1VCVU5UVRAVEhAKDEVYSUxFX0FWQVRBUhAWEhMKD05FV19TSUxFTlRfU0lU",
+          "RRAXEg0KCUVTVEFCTElTSBAYEhIKDkNBTExfQ09ORklHVVJFEBkSEQoNU0VU",
+          "X0NPTkZJR1VSRRAaEg8KC05PVElGWV9JTkZPEBsSDAoITEVWWV9ORVQQHBIM",
+          "CghDT01QSUxFRBAdEgwKCENBTExfTkVUEB4SFgoSU0VUX01PREVfQ09NUE9O",
+          "RU5UEB8SHAoYU0VUX0ZBVk9SX01PREVfQ09NUE9ORU5UECASGQoVU0VUX1ZB",
+          "TElEX0hVTlRFUl9NT0RFECESGgoWQ0FMTF9ORVRfU0lURV9DT01NRU5UUxAi",
+          "EhEKDVNFVF9OT1RFX0ZJTEUQIxIRCg1TRVRfU0lURV9OQU1FECQSEQoNU0VU",
+          "X1NJVEVfSEFORBAlEgwKCFFVSVRfTkVUECYSFAoQU0FWSU5HX0FTX0JVTkRM",
+          "RRAnEhMKD1NBVkVEX0FTX0JVTkRMRRAoEhkKFVNUT1BfU0FWSU5HX0FTX0JV",
+          "TkRMRRApEhUKEVNBVkVfREVGQVVMVF9OT1RFECoSDQoJUE9TVF9GSUxFECsS",
+          "EwoPU0FWRV9ERUZBVUxUX1VJECwSHgoaU0VUX0ZBVk9SX0FVRElPX01VTFRJ",
+          "UExJRVIQLRIRCg1DQUxMX1NJVEVfTkVUEC4SDgoKTk9USUZZX1lFUxAvEgsK",
+          "B0NBTExfSU8QMBIVChFDQUxMX0lPX0NPTVBPTkVOVBAxEg8KC0NPTVBJTEVE",
+          "X0lPEDISCwoHTEVWWV9JTxAzEgwKCElPX0lOUFVUEDQSDAoISU9fSlVER0UQ",
+          "NRIWChJJT19OT1RFX1ZJU0lCSUxJVFkQNhIVChFJT19KVURHTUVOVF9NRVRF",
+          "UhA4EhEKDUlPX01VTFRJUExJRVIQORIXChNJT19BVURJT19NVUxUSVBMSUVS",
+          "EDoSDAoISU9fUEFVU0UQOxILCgdJT19RVUlUEDwSCgoGSU9fTk9UED0SDwoL",
+          "QVVESU9fSU5QVVQQPhIcChhDQUxMX1NJVEVfTU9ERV9DT01QT05FTlQQPxIO",
+          "CgpDT01NRU5UQVJZEEESDQoJV1dXX0xFVkVMEEISEAoMQVZBVEFSX1RJVExF",
+          "EEMSHQoZSU5WQUxJREFURV9BVkFUQVJfRFJBV0lORxBEEhsKF0lOVkFMSURB",
+          "VEVfQVZBVEFSX1RJVExFEEUSDAoITEVWRUxfVVAQRhIXChNTRVRfRkFWT1Jf",
+          "Tk9URV9GSUxFEEcSEgoOR0VUX1NJVEVfWUVMTFMQSBIQCgxTRVRfTEFOR1VB",
+          "R0UQSRIRCg1WQUxWRV9DT01NRU5UEEoSDgoKQUJJTElUWV9VUBBLEgkKBUNM",
+          "T1NFEEwSFAoQVU5BVkFJTEFCTEVfREFURRBNEg8KC0FWQVRBUl9FREdFEE4S",
+          "GgoWSU5WQUxJREFURV9BVkFUQVJfRURHRRBPEhkKFUZBSUxFRF9WQUxJREFU",
+          "RV9UT1RFTRBQEhQKEE1PRElGWV9TSVRFX1lFTEwQURISCg5XSVBFX1NJVEVf",
+          "WUVMTBBSEhoKFkFMUkVBRFlfTE9BRElOR19CVU5ETEUQUxINCglTRVRfRkFW",
+          "T1IQVBIWChJTRVRfQVVUT19TSVRFX0hBTkQQVRIUChBTRVRfQVZBVEFSX0dS",
+          "T1VQEFYSDQoJUE9TVF9JVEVNEFcSFgoSU0VUX1ZBTElEX05FVF9NT0RFEFgS",
+          "HgoaU0VUX0FMTE9XRURfUE9TVEFCTEVfSVRFTVMQWRIaChZTRVRfUE9TVEFC",
+          "TEVfSVRFTV9CQU5EEFpCCgoIZmFzdFRleHRiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -320,7 +320,7 @@ public sealed partial class Event : pb::IMessage<Event>
 
   /// <summary>Field number for the "eventID" field.</summary>
   public const int EventIDFieldNumber = 3;
-  private global::Event.Types.EventID eventID_ = global::Event.Types.EventID.SignIn;
+  private global::Event.Types.EventID eventID_ = global::Event.Types.EventID.LogIn;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public global::Event.Types.EventID EventID {
@@ -640,7 +640,7 @@ public sealed partial class Event : pb::IMessage<Event>
     int hash = 1;
     if (Millis != 0L) hash ^= Millis.GetHashCode();
     if (AvatarID.Length != 0) hash ^= AvatarID.GetHashCode();
-    if (EventID != global::Event.Types.EventID.SignIn) hash ^= EventID.GetHashCode();
+    if (EventID != global::Event.Types.EventID.LogIn) hash ^= EventID.GetHashCode();
     if (Text.Length != 0) hash ^= Text.GetHashCode();
     hash ^= data_.GetHashCode();
     if (fastTextCase_ == FastTextOneofCase.QwilightCallNet) hash ^= QwilightCallNet.GetHashCode();
@@ -687,7 +687,7 @@ public sealed partial class Event : pb::IMessage<Event>
       output.WriteRawTag(18);
       output.WriteString(AvatarID);
     }
-    if (EventID != global::Event.Types.EventID.SignIn) {
+    if (EventID != global::Event.Types.EventID.LogIn) {
       output.WriteRawTag(24);
       output.WriteEnum((int) EventID);
     }
@@ -782,7 +782,7 @@ public sealed partial class Event : pb::IMessage<Event>
       output.WriteRawTag(18);
       output.WriteString(AvatarID);
     }
-    if (EventID != global::Event.Types.EventID.SignIn) {
+    if (EventID != global::Event.Types.EventID.LogIn) {
       output.WriteRawTag(24);
       output.WriteEnum((int) EventID);
     }
@@ -875,7 +875,7 @@ public sealed partial class Event : pb::IMessage<Event>
     if (AvatarID.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(AvatarID);
     }
-    if (EventID != global::Event.Types.EventID.SignIn) {
+    if (EventID != global::Event.Types.EventID.LogIn) {
       size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
     }
     if (Text.Length != 0) {
@@ -951,7 +951,7 @@ public sealed partial class Event : pb::IMessage<Event>
     if (other.AvatarID.Length != 0) {
       AvatarID = other.AvatarID;
     }
-    if (other.EventID != global::Event.Types.EventID.SignIn) {
+    if (other.EventID != global::Event.Types.EventID.LogIn) {
       EventID = other.EventID;
     }
     if (other.Text.Length != 0) {
@@ -1456,8 +1456,8 @@ public sealed partial class Event : pb::IMessage<Event>
     }
 
     public enum EventID {
-      [pbr::OriginalName("SIGN_IN")] SignIn = 0,
-      [pbr::OriginalName("NOT_SIGN_IN")] NotSignIn = 1,
+      [pbr::OriginalName("LOG_IN")] LogIn = 0,
+      [pbr::OriginalName("NOT_LOG_IN")] NotLogIn = 1,
       [pbr::OriginalName("WARNING")] Warning = 2,
       [pbr::OriginalName("SITE_YELL")] SiteYell = 3,
       [pbr::OriginalName("CALL_BUNDLE")] CallBundle = 4,

@@ -346,7 +346,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public bool IsLevelVSVisible => TwilightSystem.Instance.IsSignedIn && !IsMe;
+        public bool IsLevelVSVisible => TwilightSystem.Instance.IsLoggedIn && !IsMe;
 
         public void NotifyIsLevelVSVisible() => OnPropertyChanged(nameof(IsLevelVSVisible));
 

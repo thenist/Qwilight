@@ -61,7 +61,7 @@ namespace Qwilight.ViewModel
                     Close();
                     Configure.Instance.AvatarID = AvatarID;
                     Configure.Instance.SetCipher(inputCipher);
-                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.SignIn, new
+                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.LogIn, new
                     {
                         avatarID = AvatarID,
                         avatarCipher = inputCipher

@@ -37,7 +37,7 @@ namespace Qwilight
 
         public enum EventItem
         {
-            LevelUp = 100, LevelClear, SignIn, NotSignIn, ModifyEntryItem, ModifyNoteFile, NewTitle, AbilityUp
+            LevelUp = 100, LevelClear, LogIn, NotLogIn, ModifyEntryItem, ModifyNoteFile, NewTitle, AbilityUp
         }
 
         public static void ZipUIFile(ZipFile zipFile, UIItem value, string entryPath)
@@ -135,7 +135,7 @@ namespace Qwilight
 
         public ImageSource[] SiteSituationDrawings { get; } = new ImageSource[3];
 
-        public ImageSource[] SignInDrawings { get; } = new ImageSource[2];
+        public ImageSource[] LogInDrawings { get; } = new ImageSource[2];
 
         public ImageSource[] SiteCipherDrawings { get; } = new ImageSource[2];
 
@@ -319,7 +319,7 @@ namespace Qwilight
 
         public Thickness EntryViewTitleMargin { get; set; }
 
-        public object[] SignInPoint { get; set; }
+        public object[] LogInPoint { get; set; }
 
         public object[] ConfigurePoint { get; set; }
 
@@ -936,7 +936,7 @@ namespace Qwilight
                 var entryViewTitleMargin = GetLayerPoint(pointNode, "entryViewTitleMargin", [58.0, 0.0, 0.0, 0.0]);
                 EntryViewTitleMargin = new(entryViewTitleMargin[0], entryViewTitleMargin[1], entryViewTitleMargin[2], entryViewTitleMargin[3]);
 
-                SignInPoint = GetDrawingPoint(pointNode, "signIn");
+                LogInPoint = GetDrawingPoint(pointNode, "logIn");
                 ConfigurePoint = GetDrawingPoint(pointNode, "configure");
                 CommentPoint = GetDrawingPoint(pointNode, "comment", [0.0, 0.0, 0.0, 0.0, HorizontalAlignment.Center, VerticalAlignment.Center, Stretch.Uniform]);
                 HasCommentPoint = (double)CommentPoint[2] > 0.0 && (double)CommentPoint[3] > 0.0;
@@ -1769,7 +1769,7 @@ namespace Qwilight
                         fileNameContents = justFileName.Split(" ");
                         if (fileNameContents[0] == "S")
                         {
-                            SignInDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
+                            LogInDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
                         }
                         break;
                     case "Site Cipher":

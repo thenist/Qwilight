@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace Qwilight.ViewModel
 {
-    public sealed partial class SignInViewModel : BaseViewModel
+    public sealed partial class LogInViewModel : BaseViewModel
     {
         public override double TargetLength => 0.2;
 
@@ -20,16 +20,16 @@ namespace Qwilight.ViewModel
         {
             if (e.Key == Key.Enter)
             {
-                OnSignIn();
+                OnLogIn();
             }
         }
 
         [RelayCommand]
-        static void OnSignIn()
+        static void OnLogIn()
         {
-            var inputCipher = StrongReferenceMessenger.Default.Send<GetSignInCipher>().Response;
+            var inputCipher = StrongReferenceMessenger.Default.Send<GetLogInCipher>().Response;
             Configure.Instance.SetCipher(inputCipher);
-            TwilightSystem.Instance.SendParallel(Event.Types.EventID.SignIn, new
+            TwilightSystem.Instance.SendParallel(Event.Types.EventID.LogIn, new
             {
                 avatarID = Configure.Instance.AvatarID,
                 avatarCipher = inputCipher
@@ -46,7 +46,7 @@ namespace Qwilight.ViewModel
         public override void OnOpened()
         {
             base.OnOpened();
-            var inputCipher = StrongReferenceMessenger.Default.Send(new SetSignInCipher
+            var inputCipher = StrongReferenceMessenger.Default.Send(new SetLogInCipher
             {
                 Cipher = Configure.Instance.GetCipher()
             });

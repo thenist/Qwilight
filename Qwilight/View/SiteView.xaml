@@ -51,7 +51,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Button Style="{StaticResource StandardInput}" VerticalAlignment="Stretch" Content="📋" IsEnabled="{Binding IsEditable}" Command="{Binding PostFileCommand}" />
-                    <TextBox Grid.Column="1" Style="{StaticResource StandardTextInput}" Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}" MaxLength="160" KeyDown="OnInputLower" PreviewKeyDown="OnEssentialInputLower" materialDesign:HintAssist.Hint="{Binding SiteInputAssist, Source={StaticResource LanguageSystem}}" GotKeyboardFocus="OnPointedModified" LostKeyboardFocus="OnPointedModified" IsEnabled="{Binding IsEditable}" />
+                    <TextBox Grid.Column="1" Style="{StaticResource StandardTextInput}" Text="{Binding TextInput, UpdateSourceTrigger=PropertyChanged}" MaxLength="160" KeyDown="OnInputLower" PreviewKeyDown="OnEssentialInputLower" materialDesign:HintAssist.Hint="{Binding SiteInputAssist, Source={StaticResource LanguageSystem}}" GotKeyboardFocus="OnPointedModified" LostKeyboardFocus="OnPointedModified" IsEnabled="{Binding IsEditable}" />
                     <Button Grid.Column="2" Style="{StaticResource StandardInput}" VerticalAlignment="Stretch" Command="{Binding QuitCommand}" Content="{Binding QuitSiteAssist, Source={StaticResource LanguageSystem}}" />
                 </Grid>
             </Grid>
@@ -67,7 +67,7 @@
                             <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding ViewAvatarCommand}" />
                             <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding ViewBundleCommand}" />
                             <MenuItem Header="{Binding CallIO, Source={StaticResource LanguageSystem}}" Command="{Binding CallIOCommand}" />
-                            <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+                            <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding NewUbuntuCommand}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
                             <MenuItem Header="{Binding NewSilentSite, Source={StaticResource LanguageSystem}}" Command="{Binding NewSilentSiteCommand}" />
                             <MenuItem Header="{Binding ExileAvatar, Source={StaticResource LanguageSystem}}" Command="{Binding ExileAvatarCommand}" Visibility="{Binding IsSiteHand, Converter={StaticResource VisibilityModifier}}" />
                         </ContextMenu>
@@ -88,7 +88,7 @@
                 <StackPanel Grid.Row="1">
                     <Button Style="{StaticResource StandardInput}" Command="{Binding SiteCommand}" Content="{Binding CallSiteAssist, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                     <Button Style="{StaticResource StandardInput}" Command="{Binding TwilightConfigureCommand}" Content="{Binding TwilightConfigureAssist, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                    <Button Style="{StaticResource StandardInput}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" Command="{Binding UbuntuCommand}" Content="{Binding UbuntuAssist, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    <Button Style="{StaticResource StandardInput}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" Command="{Binding UbuntuCommand}" Content="{Binding UbuntuAssist, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -318,7 +318,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <ToggleButton Style="{StaticResource StandardIOInput}" IsChecked="{Binding IsPostableItemMode}" />
-                            <view:BinInput Grid.Column="1" IsEnabled="{Binding CanSetPostableItems}" Value="{Binding PostableItemBand}" Lowest="1" Format="0 콤보마다 아이템 획득" />
+                            <view:BinInput Grid.Column="1" IsEnabled="{Binding CanSetPostableItems}" Value="{Binding PostableItemBand}" Lowest="1" Format="{Binding PostableItemBandText, Source={StaticResource LanguageSystem}}" VerticalAlignment="Stretch" />
                         </Grid>
                         <GroupBox Grid.Row="1" Style="{StaticResource StandardGroupView}">
                             <GroupBox.Header>

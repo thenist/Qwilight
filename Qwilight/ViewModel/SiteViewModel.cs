@@ -71,7 +71,7 @@ namespace Qwilight.ViewModel
         bool _isSiteYellsViewerLowest = true;
         string _siteName;
         string _siteNotify;
-        string _input = string.Empty;
+        string _textInput = string.Empty;
         string _siteHand;
         bool _isFavorNoteFile = true;
         bool _isAutoNetLevying;
@@ -104,7 +104,7 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         static void OnTwilightConfigure()
         {
-            if (TwilightSystem.Instance.IsSignedIn)
+            if (TwilightSystem.Instance.IsLoggedIn)
             {
                 TwilightSystem.Instance.SendParallel<object>(Event.Types.EventID.CallConfigure, null);
             }
@@ -287,21 +287,21 @@ namespace Qwilight.ViewModel
         {
             if (e.Key == Key.Enter)
             {
-                if (!string.IsNullOrWhiteSpace(Input))
+                if (!string.IsNullOrWhiteSpace(TextInput))
                 {
                     TwilightSystem.Instance.SendParallel(Event.Types.EventID.SiteYell, new
                     {
                         siteID = SiteID,
-                        siteYell = Input
+                        siteYell = TextInput
                     });
                 }
-                Input = string.Empty;
+                TextInput = string.Empty;
             }
         }
 
         public async Task OnEssentialInputLower(KeyEventArgs e)
         {
-            if (e.Key == Key.V && Utility.HasInput(VirtualKey.LeftControl) && string.IsNullOrEmpty(Input))
+            if (e.Key == Key.V && Utility.HasInput(VirtualKey.LeftControl) && string.IsNullOrEmpty(TextInput))
             {
                 try
                 {
@@ -605,11 +605,11 @@ namespace Qwilight.ViewModel
 
         public string SiteID { get; set; }
 
-        public string Input
+        public string TextInput
         {
-            get => _input;
+            get => _textInput;
 
-            set => SetProperty(ref _input, value, nameof(Input));
+            set => SetProperty(ref _textInput, value, nameof(TextInput));
         }
 
         public bool IsIdle => SiteSituationValue == SiteSituation.Default;

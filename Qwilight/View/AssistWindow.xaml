@@ -338,7 +338,7 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="MaterialDesignThemes" HorizontalAlignment="Right" />
-                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit" HorizontalAlignment="Left">GitHub</Button>
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/MaterialDelogInXAML/MaterialDelogInXamlToolkit" HorizontalAlignment="Left">GitHub</Button>
                                     </Grid>
                                     <Grid>
                                         <Grid.ColumnDefinitions>

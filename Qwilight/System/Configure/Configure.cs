@@ -228,7 +228,7 @@ namespace Qwilight
         bool _averager;
         bool _audioMultiplierAtone;
         DefaultEntryItem _lastDefaultEntryItem;
-        bool _autoSignIn;
+        bool _autoLogIn;
         int _lowestWantLevelTextValue;
         int _highestWantLevelContensValue;
         int _lowestWantBPM;
@@ -249,10 +249,10 @@ namespace Qwilight
         bool _wantHellBPM;
         int _noteFormatID;
         int _commentViewTabPosition;
-        int _hofViewTabPosition;
-        int _hofViewTotalTabPosition;
-        int _hofViewAtTabPosition;
-        int _hofViewAbilityTabPosition;
+        int _hallViewTabPosition;
+        int _hallViewTotalTabPosition;
+        int _hallViewAtTabPosition;
+        int _hallViewAbilityTabPosition;
         bool _autoInputFavorLabelledMillis;
         bool _autoLowestLongNoteModify;
         bool _autoHighestLongNoteModify;
@@ -1101,54 +1101,54 @@ namespace Qwilight
             }
         }
 
-        public int HOFViewTabPosition
+        public int HallViewTabPosition
         {
-            get => _hofViewTabPosition;
+            get => _hallViewTabPosition;
 
             set
             {
-                if (SetProperty(ref _hofViewTabPosition, value, nameof(HOFViewTabPosition)) && _isLoaded)
+                if (SetProperty(ref _hallViewTabPosition, value, nameof(HallViewTabPosition)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.CallHOFAPI();
+                    ViewModels.Instance.MainValue.CallHallAPI();
                 }
             }
         }
 
-        public int HOFViewTotalTabPosition
+        public int HallViewTotalTabPosition
         {
-            get => _hofViewTotalTabPosition;
+            get => _hallViewTotalTabPosition;
 
             set
             {
-                if (SetProperty(ref _hofViewTotalTabPosition, value, nameof(HOFViewTotalTabPosition)) && _isLoaded)
+                if (SetProperty(ref _hallViewTotalTabPosition, value, nameof(HallViewTotalTabPosition)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.CallHOFAPI();
+                    ViewModels.Instance.MainValue.CallHallAPI();
                 }
             }
         }
 
-        public int HOFViewAtTabPosition
+        public int HallViewAtTabPosition
         {
-            get => _hofViewAtTabPosition;
+            get => _hallViewAtTabPosition;
 
             set
             {
-                if (SetProperty(ref _hofViewAtTabPosition, value, nameof(HOFViewAtTabPosition)) && _isLoaded)
+                if (SetProperty(ref _hallViewAtTabPosition, value, nameof(HallViewAtTabPosition)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.CallHOFAPI();
+                    ViewModels.Instance.MainValue.CallHallAPI();
                 }
             }
         }
 
-        public int HOFViewAbilityTabPosition
+        public int HallViewAbilityTabPosition
         {
-            get => _hofViewAbilityTabPosition;
+            get => _hallViewAbilityTabPosition;
 
             set
             {
-                if (SetProperty(ref _hofViewAbilityTabPosition, value, nameof(HOFViewAbilityTabPosition)) && _isLoaded)
+                if (SetProperty(ref _hallViewAbilityTabPosition, value, nameof(HallViewAbilityTabPosition)) && _isLoaded)
                 {
-                    ViewModels.Instance.MainValue.CallHOFAPI();
+                    ViewModels.Instance.MainValue.CallHallAPI();
                 }
             }
         }
@@ -2047,11 +2047,11 @@ namespace Qwilight
 
         public string[] WantLevelIDs { get; set; }
 
-        public bool AutoSignIn
+        public bool AutoLogIn
         {
-            get => _autoSignIn;
+            get => _autoLogIn;
 
-            set => SetProperty(ref _autoSignIn, value, nameof(AutoSignIn));
+            set => SetProperty(ref _autoLogIn, value, nameof(AutoLogIn));
         }
 
         public uint AudioDataLength
@@ -2332,7 +2332,7 @@ namespace Qwilight
             if (isInit)
             {
                 ControllerInputAPI = ControllerSystem.InputAPI.DInput;
-                AutoSignIn = false;
+                AutoLogIn = false;
                 IsFailMode = true;
                 LowHitPointsFaintUI = true;
                 IsLoaded = false;

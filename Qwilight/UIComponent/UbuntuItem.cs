@@ -6,7 +6,7 @@ namespace Qwilight.UIComponent
     {
         public enum UbuntuSituation
         {
-            NotUbuntu, NotSignedIn, NoteFileMode, DefaultComputing, CommentComputing, AutoComputing, QuitMode, NetComputing, IOComputing
+            NotUbuntu, NotLoggedIn, NoteFileMode, DefaultComputing, CommentComputing, AutoComputing, QuitMode, NetComputing, IOComputing
         }
 
         string _avatarName;
@@ -49,7 +49,7 @@ namespace Qwilight.UIComponent
         public override string ToString() => UbuntuSituationValue switch
         {
             UbuntuSituation.NotUbuntu => LanguageSystem.Instance.NotUbuntuSituationContents,
-            UbuntuSituation.NotSignedIn => string.Format(LanguageSystem.Instance.NotSignedInSituationContents, DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(SituationText)).LocalDateTime.ToString("yyyy-MM-dd tt hh:mm:ss")),
+            UbuntuSituation.NotLoggedIn => string.Format(LanguageSystem.Instance.NotLoggedInSituationContents, DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(SituationText)).LocalDateTime.ToString("yyyy-MM-dd tt hh:mm:ss")),
             UbuntuSituation.NoteFileMode => string.Format(LanguageSystem.Instance.NoteFileModeSituationContents, SituationText),
             UbuntuSituation.DefaultComputing => string.Format(LanguageSystem.Instance.DefaultComputingSituationContents, SituationText),
             UbuntuSituation.CommentComputing => string.Format(LanguageSystem.Instance.CommentComputingSituationContents, SituationText),

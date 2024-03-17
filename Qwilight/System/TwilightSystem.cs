@@ -24,8 +24,8 @@ namespace Qwilight
     public sealed class TwilightSystem : Model, IDisposable
     {
         const int NotEstablished = 0;
-        const int NotSignedIn = 1;
-        const int SignedIn = 2;
+        const int NotLoggedIn = 1;
+        const int LoggedIn = 2;
 
         public static readonly TwilightSystem Instance = QwilightComponent.GetBuiltInData<TwilightSystem>(nameof(TwilightSystem));
 
@@ -83,7 +83,7 @@ namespace Qwilight
 
             set
             {
-                if (value != SignedIn)
+                if (value != LoggedIn)
                 {
                     AvatarDrawingSystem.Instance.WipeAvatarDrawings();
                     AvatarEdgeSystem.Instance.WipeAvatarEdges();
@@ -92,7 +92,7 @@ namespace Qwilight
                 if (SetProperty(ref _twilightSituation, value, nameof(TwilightSituation)))
                 {
                     OnPropertyChanged(nameof(IsEstablished));
-                    OnPropertyChanged(nameof(IsSignedIn));
+                    OnPropertyChanged(nameof(IsLoggedIn));
                     ViewModels.Instance.MainValue.NotifyCanSaveAsBundle();
                     ViewModels.Instance.MainValue.NotifyCanTwilightCommentary();
                     ViewModels.Instance.MainValue.NotifyCanTwilightFavor();
@@ -115,7 +115,7 @@ namespace Qwilight
 
         public bool IsEstablished => TwilightSituation != NotEstablished;
 
-        public bool IsSignedIn => TwilightSituation == SignedIn;
+        public bool IsLoggedIn => TwilightSituation == LoggedIn;
 
         public void NotifyAvatarWwwValue()
         {
@@ -267,16 +267,16 @@ namespace Qwilight
                                     Totem = string.Empty;
                                     AvatarID = twilightEstablish.avatarID;
                                     AvatarName = twilightEstablish.avatarName;
-                                    TwilightSituation = NotSignedIn;
+                                    TwilightSituation = NotLoggedIn;
                                     mainViewModel.LoadCommentItemCollection();
                                     Configure.Instance.CommentViewTabPosition = Configure.Instance.CommentViewTabPosition;
                                     AutoEnter(autoEnter => autoEnter == AutoEnterSite.AutoEnter);
-                                    if (Configure.Instance.AutoSignIn)
+                                    if (Configure.Instance.AutoLogIn)
                                     {
                                         var avatarCipher = Configure.Instance.GetCipher();
                                         if (!string.IsNullOrEmpty(avatarCipher))
                                         {
-                                            SendParallel(Event.Types.EventID.SignIn, new
+                                            SendParallel(Event.Types.EventID.LogIn, new
                                             {
                                                 avatarID = Configure.Instance.AvatarID,
                                                 avatarCipher
@@ -292,26 +292,26 @@ namespace Qwilight
                                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, eventItemText);
                                     }
                                     break;
-                                case Event.Types.EventID.SignIn:
-                                    ViewModels.Instance.SignInValue.Close();
-                                    var twilightSignIn = Utility.GetJSON<JSON.TwilightSignIn>(eventItemText);
-                                    Totem = twilightSignIn.totem;
-                                    AvatarID = twilightSignIn.avatarID;
-                                    AvatarName = twilightSignIn.avatarName;
-                                    TwilightSituation = SignedIn;
+                                case Event.Types.EventID.LogIn:
+                                    ViewModels.Instance.LogInValue.Close();
+                                    var twilightLogIn = Utility.GetJSON<JSON.TwilightLogIn>(eventItemText);
+                                    Totem = twilightLogIn.totem;
+                                    AvatarID = twilightLogIn.avatarID;
+                                    AvatarName = twilightLogIn.avatarName;
+                                    TwilightSituation = LoggedIn;
                                     NotifyAvatarWwwValue();
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.SignedInContents, GetAvatarName()), false, "Sign in");
-                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.SignIn);
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.LoggedInContents, GetAvatarName()), false, "Sign in");
+                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.LogIn);
                                     AutoEnter(autoEnter => autoEnter != AutoEnterSite.WaitSite);
                                     break;
-                                case Event.Types.EventID.NotSignIn:
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.NotSignedInContents, GetAvatarName()), false, "Not Sign in");
-                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.NotSignIn);
-                                    var twilightNotSignIn = Utility.GetJSON<JSON.TwilightNotSignIn>(eventItemText);
+                                case Event.Types.EventID.NotLogIn:
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.NotLoggedInContents, GetAvatarName()), false, "Not Sign in");
+                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.NotLogIn);
+                                    var twilightNotLogIn = Utility.GetJSON<JSON.TwilightNotLogIn>(eventItemText);
                                     Totem = string.Empty;
-                                    AvatarID = twilightNotSignIn.avatarID;
-                                    AvatarName = twilightNotSignIn.avatarName;
-                                    TwilightSituation = NotSignedIn;
+                                    AvatarID = twilightNotLogIn.avatarID;
+                                    AvatarName = twilightNotLogIn.avatarName;
+                                    TwilightSituation = NotLoggedIn;
                                     AutoEnter(autoEnter => autoEnter == AutoEnterSite.AutoEnter);
                                     break;
                                 case Event.Types.EventID.QuitSite:
@@ -1118,7 +1118,7 @@ namespace Qwilight
                                     var toPostFileSiteViewModel = ViewModels.Instance.SiteContainerValue.SiteValue;
                                     if (toPostFileSiteViewModel != null)
                                     {
-                                        toPostFileSiteViewModel.Input = eventItemText;
+                                        toPostFileSiteViewModel.TextInput = eventItemText;
                                     }
                                     break;
                                 case Event.Types.EventID.CallIo:

@@ -1,9 +1,9 @@
 ﻿<Grid
-    x:Class="Qwilight.View.SignInWindow"
+    x:Class="Qwilight.View.LogInWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    DataContext="{Binding SignInValue, Source={StaticResource ViewModels}}"
+    DataContext="{Binding LogInValue, Source={StaticResource ViewModels}}"
     Style="{StaticResource StandardModalWindow}">
     <Grid Style="{StaticResource StandardWindow}">
         <Border Style="{StaticResource WindowStandardPanel}">
@@ -13,7 +13,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding SignIn, Source={StaticResource LanguageSystem}}" />
+                    <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding LogIn, Source={StaticResource LanguageSystem}}" />
                     <Button Style="{StaticResource StandardInput}" Foreground="Red" Command="{Binding CloseCommand}">❌</Button>
                 </StackPanel>
                 <StackPanel Grid.Row="1">
@@ -24,14 +24,14 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <PasswordBox Style="{StaticResource StandardPwInput}" x:Name="InputCipher" KeyDown="OnInputLower" materialDesign:HintAssist.Hint="{Binding AvatarCipher, Source={StaticResource LanguageSystem}}" />
-                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding SignInCommand}" Content="{Binding SignIn, Source={StaticResource LanguageSystem}}" />
+                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding LogInCommand}" Content="{Binding LogIn, Source={StaticResource LanguageSystem}}" />
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoSignIn, Source={StaticResource Configure}}" Content="{Binding AutoSignIn, Source={StaticResource LanguageSystem}}" />
+                        <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoLogIn, Source={StaticResource Configure}}" Content="{Binding AutoLogIn, Source={StaticResource LanguageSystem}}" />
                         <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding SignUpCommand}" Content="{Binding SignUp, Source={StaticResource LanguageSystem}}" />
                     </Grid>
                 </StackPanel>

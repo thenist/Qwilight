@@ -13,7 +13,7 @@
         <view:NoteFileModeWindow />
         <view:Layer1View />
         <Grid x:Name="WindowViews">
-            <view:SignInWindow />
+            <view:LogInWindow />
             <view:SignUpWindow />
             <view:ConfigureWindow />
             <view:CommentWindow />

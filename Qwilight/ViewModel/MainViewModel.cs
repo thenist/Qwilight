@@ -100,18 +100,18 @@ namespace Qwilight.ViewModel
         bool _isTwilightCommentLoading;
         bool? _twilightCommentFavor;
         string _twilightCommentTotalFavor;
-        bool _isHOFTotalTotalLoading;
-        bool _isHOFAtTotalLoading;
-        bool _isHOFTotalHighestLoading;
-        bool _isHOFAtHighestLoading;
-        bool _isHOFTotalStandLoading;
-        bool _isHOFAtStandLoading;
-        bool _isHOFTotalBandLoading;
-        bool _isHOFAtBandLoading;
-        bool _isHOFAbility5KLoading;
-        bool _isHOFAbility7KLoading;
-        bool _isHOFAbility9KLoading;
-        bool _isHOFLevelLoading;
+        bool _isHallTotalTotalLoading;
+        bool _isHallAtTotalLoading;
+        bool _isHallTotalHighestLoading;
+        bool _isHallAtHighestLoading;
+        bool _isHallTotalStandLoading;
+        bool _isHallAtStandLoading;
+        bool _isHallTotalBandLoading;
+        bool _isHallAtBandLoading;
+        bool _isHallAbility5KLoading;
+        bool _isHallAbility7KLoading;
+        bool _isHallAbility9KLoading;
+        bool _isHallLevelLoading;
         string _twilightCommentary = string.Empty;
         bool _isLazyGCMode;
         bool _isWPFViewVisible = true;
@@ -170,29 +170,29 @@ namespace Qwilight.ViewModel
 
         public ObservableCollection<EntryItem> EntryItems { get; set; } = new();
 
-        public ObservableCollection<HOFItem> TotalTotalHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> TotalTotalHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> TotalHighestHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> TotalHighestHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> TotalStandHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> TotalStandHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> TotalBandHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> TotalBandHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> AtTotalHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> AtTotalHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> AtHighestHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> AtHighestHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> AtStandHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> AtStandHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> AtBandHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> AtBandHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> Ability5KHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> Ability5KHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> Ability7KHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> Ability7KHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> Ability9KHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> Ability9KHallItemCollection { get; } = new();
 
-        public ObservableCollection<HOFItem> LevelHOFItemCollection { get; } = new();
+        public ObservableCollection<HallItem> LevelHallItemCollection { get; } = new();
 
         public Dictionary<string, EntryItem> LastEntryItems { get; } = new();
 
@@ -353,11 +353,11 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public bool CanLowerTwilightCommentFavor => IsNoteFileNotLogical && !IsEntryItemBanned && TwilightSystem.Instance.IsSignedIn && TwilightCommentFavor != true;
+        public bool CanLowerTwilightCommentFavor => IsNoteFileNotLogical && !IsEntryItemBanned && TwilightSystem.Instance.IsLoggedIn && TwilightCommentFavor != true;
 
         public Brush LowerTwilightCommentFavorPaint => TwilightCommentFavor == false ? Paints.Paint1 : Paints.Paint4;
 
-        public bool CanHigherTwilightCommentFavor => IsNoteFileNotLogical && !IsEntryItemBanned && TwilightSystem.Instance.IsSignedIn && TwilightCommentFavor != false;
+        public bool CanHigherTwilightCommentFavor => IsNoteFileNotLogical && !IsEntryItemBanned && TwilightSystem.Instance.IsLoggedIn && TwilightCommentFavor != false;
 
         public Brush HigherTwilightCommentFavorPaint => TwilightCommentFavor == true ? Paints.Paint3 : Paints.Paint4;
 
@@ -368,88 +368,88 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _twilightCommentTotalFavor, value, nameof(TwilightCommentTotalFavor));
         }
 
-        public bool IsHOFTotalTotalLoading
+        public bool IsHallTotalTotalLoading
         {
-            get => _isHOFTotalTotalLoading;
+            get => _isHallTotalTotalLoading;
 
-            set => SetProperty(ref _isHOFTotalTotalLoading, value, nameof(IsHOFTotalTotalLoading));
+            set => SetProperty(ref _isHallTotalTotalLoading, value, nameof(IsHallTotalTotalLoading));
         }
 
-        public bool IsHOFTotalHighestLoading
+        public bool IsHallTotalHighestLoading
         {
-            get => _isHOFTotalHighestLoading;
+            get => _isHallTotalHighestLoading;
 
-            set => SetProperty(ref _isHOFTotalHighestLoading, value, nameof(IsHOFTotalHighestLoading));
+            set => SetProperty(ref _isHallTotalHighestLoading, value, nameof(IsHallTotalHighestLoading));
         }
 
-        public bool IsHOFTotalStandLoading
+        public bool IsHallTotalStandLoading
         {
-            get => _isHOFTotalStandLoading;
+            get => _isHallTotalStandLoading;
 
-            set => SetProperty(ref _isHOFTotalStandLoading, value, nameof(IsHOFTotalStandLoading));
+            set => SetProperty(ref _isHallTotalStandLoading, value, nameof(IsHallTotalStandLoading));
         }
 
-        public bool IsHOFTotalBandLoading
+        public bool IsHallTotalBandLoading
         {
-            get => _isHOFTotalBandLoading;
+            get => _isHallTotalBandLoading;
 
-            set => SetProperty(ref _isHOFTotalBandLoading, value, nameof(IsHOFTotalBandLoading));
+            set => SetProperty(ref _isHallTotalBandLoading, value, nameof(IsHallTotalBandLoading));
         }
 
-        public bool IsHOFAtTotalLoading
+        public bool IsHallAtTotalLoading
         {
-            get => _isHOFAtTotalLoading;
+            get => _isHallAtTotalLoading;
 
-            set => SetProperty(ref _isHOFAtTotalLoading, value, nameof(IsHOFAtTotalLoading));
+            set => SetProperty(ref _isHallAtTotalLoading, value, nameof(IsHallAtTotalLoading));
         }
 
-        public bool IsHOFAtHighestLoading
+        public bool IsHallAtHighestLoading
         {
-            get => _isHOFAtHighestLoading;
+            get => _isHallAtHighestLoading;
 
-            set => SetProperty(ref _isHOFAtHighestLoading, value, nameof(IsHOFAtHighestLoading));
+            set => SetProperty(ref _isHallAtHighestLoading, value, nameof(IsHallAtHighestLoading));
         }
 
-        public bool IsHOFAtStandLoading
+        public bool IsHallAtStandLoading
         {
-            get => _isHOFAtStandLoading;
+            get => _isHallAtStandLoading;
 
-            set => SetProperty(ref _isHOFAtStandLoading, value, nameof(IsHOFAtStandLoading));
+            set => SetProperty(ref _isHallAtStandLoading, value, nameof(IsHallAtStandLoading));
         }
 
-        public bool IsHOFAtBandLoading
+        public bool IsHallAtBandLoading
         {
-            get => _isHOFAtBandLoading;
+            get => _isHallAtBandLoading;
 
-            set => SetProperty(ref _isHOFAtBandLoading, value, nameof(IsHOFAtBandLoading));
+            set => SetProperty(ref _isHallAtBandLoading, value, nameof(IsHallAtBandLoading));
         }
 
-        public bool IsHOFAbility5KLoading
+        public bool IsHallAbility5KLoading
         {
-            get => _isHOFAbility5KLoading;
+            get => _isHallAbility5KLoading;
 
-            set => SetProperty(ref _isHOFAbility5KLoading, value, nameof(IsHOFAbility5KLoading));
+            set => SetProperty(ref _isHallAbility5KLoading, value, nameof(IsHallAbility5KLoading));
         }
 
-        public bool IsHOFAbility7KLoading
+        public bool IsHallAbility7KLoading
         {
-            get => _isHOFAbility7KLoading;
+            get => _isHallAbility7KLoading;
 
-            set => SetProperty(ref _isHOFAbility7KLoading, value, nameof(IsHOFAbility7KLoading));
+            set => SetProperty(ref _isHallAbility7KLoading, value, nameof(IsHallAbility7KLoading));
         }
 
-        public bool IsHOFAbility9KLoading
+        public bool IsHallAbility9KLoading
         {
-            get => _isHOFAbility9KLoading;
+            get => _isHallAbility9KLoading;
 
-            set => SetProperty(ref _isHOFAbility9KLoading, value, nameof(IsHOFAbility9KLoading));
+            set => SetProperty(ref _isHallAbility9KLoading, value, nameof(IsHallAbility9KLoading));
         }
 
-        public bool IsHOFLevelLoading
+        public bool IsHallLevelLoading
         {
-            get => _isHOFLevelLoading;
+            get => _isHallLevelLoading;
 
-            set => SetProperty(ref _isHOFLevelLoading, value, nameof(IsHOFLevelLoading));
+            set => SetProperty(ref _isHallLevelLoading, value, nameof(IsHallLevelLoading));
         }
 
         public void NotifyIsPausing() => OnPropertyChanged(nameof(IsPausing));
@@ -496,7 +496,7 @@ namespace Qwilight.ViewModel
 
         public bool IsNoteFileAvailable => !string.IsNullOrEmpty(EntryItemValue?.NoteFile?.NoteFilePath);
 
-        public bool CanSaveAsBundle => (IsEntryItemEventNote || IsNoteFileNotLogical) && TwilightSystem.Instance.IsSignedIn;
+        public bool CanSaveAsBundle => (IsEntryItemEventNote || IsNoteFileNotLogical) && TwilightSystem.Instance.IsLoggedIn;
 
         public bool HasAssistFile => !string.IsNullOrEmpty(EntryItemValue?.NoteFile?.AssistFileName);
 
@@ -506,7 +506,7 @@ namespace Qwilight.ViewModel
 
         public bool IsEntryItemBanned => EntryItemValue?.IsBanned != false;
 
-        public bool CanTwilightCommentary => IsNoteFileNotLogical && !IsEntryItemBanned && TwilightSystem.Instance.IsSignedIn;
+        public bool CanTwilightCommentary => IsNoteFileNotLogical && !IsEntryItemBanned && TwilightSystem.Instance.IsLoggedIn;
 
         public void NotifyCanTwilightCommentary() => OnPropertyChanged(nameof(CanTwilightCommentary));
 
@@ -1268,7 +1268,7 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        static void OnSignIn() => ViewModels.Instance.SignInValue.Open();
+        static void OnLogIn() => ViewModels.Instance.LogInValue.Open();
 
         [RelayCommand]
         static void OnLevelWindow() => ViewModels.Instance.LevelValue.Open();
@@ -1288,17 +1288,17 @@ namespace Qwilight.ViewModel
         static void OnViewMyBundle() => TwilightSystem.Instance.SendParallel(Event.Types.EventID.CallBundle, TwilightSystem.Instance.AvatarID);
 
         [RelayCommand]
-        static void OnNotSignIn()
+        static void OnNotLogIn()
         {
             if (StrongReferenceMessenger.Default.Send(new ViewAllowWindow
             {
-                Text = LanguageSystem.Instance.NotSignInNotify,
+                Text = LanguageSystem.Instance.NotLogInNotify,
                 Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
             }) == MESSAGEBOX_RESULT.IDYES)
             {
                 Configure.Instance.SetCipher(string.Empty);
-                Configure.Instance.AutoSignIn = false;
-                TwilightSystem.Instance.SendParallel<object>(Event.Types.EventID.NotSignIn, null);
+                Configure.Instance.AutoLogIn = false;
+                TwilightSystem.Instance.SendParallel<object>(Event.Types.EventID.NotLogIn, null);
             }
         }
 
@@ -1440,7 +1440,7 @@ namespace Qwilight.ViewModel
                 var noteID = EntryItemValue?.NoteFile?.GetNoteID512();
                 if (!string.IsNullOrEmpty(noteID))
                 {
-                    var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={(TwilightSystem.Instance.IsSignedIn ? TwilightSystem.Instance.AvatarID : string.Empty)}&language={Configure.Instance.Language}&isUbuntu={Configure.Instance.UbuntuNetItemTarget}&viewUnit=50");
+                    var twilightWwwComment = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwComment?>($"{QwilightComponent.QwilightAPI}/comment?noteID={noteID}&avatarID={(TwilightSystem.Instance.IsLoggedIn ? TwilightSystem.Instance.AvatarID : string.Empty)}&language={Configure.Instance.Language}&isUbuntu={Configure.Instance.UbuntuNetItemTarget}&viewUnit=50");
                     var noteFile = EntryItemValue?.NoteFile;
                     if (noteFile?.GetNoteID512() == noteID)
                     {
@@ -2804,7 +2804,7 @@ namespace Qwilight.ViewModel
 
         public void HandleF10()
         {
-            if (TwilightSystem.Instance.IsSignedIn && HasNotInput(ViewModels.Instance.WwwLevelValue))
+            if (TwilightSystem.Instance.IsLoggedIn && HasNotInput(ViewModels.Instance.WwwLevelValue))
             {
                 ViewModels.Instance.WwwLevelValue.Toggle();
             }
@@ -3236,180 +3236,180 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void CallHOFAPI()
+        public void CallHallAPI()
         {
             UIHandler.Instance.HandleParallel(async () =>
             {
-                switch (Configure.Instance.HOFViewTabPosition)
+                switch (Configure.Instance.HallViewTabPosition)
                 {
                     case 3:
-                        IsHOFLevelLoading = true;
-                        var twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/level");
-                        if (twilightWwwHOF != null)
+                        IsHallLevelLoading = true;
+                        var twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/level");
+                        if (twilightWwwHall != null)
                         {
-                            LevelHOFItemCollection.Clear();
-                            foreach (var data in twilightWwwHOF)
+                            LevelHallItemCollection.Clear();
+                            foreach (var data in twilightWwwHall)
                             {
-                                LevelHOFItemCollection.Add(new(data, value => $"LV. {value}"));
+                                LevelHallItemCollection.Add(new(data, value => $"LV. {value}"));
                             }
                         }
-                        IsHOFLevelLoading = false;
+                        IsHallLevelLoading = false;
                         break;
                     case 0:
-                        switch (Configure.Instance.HOFViewTotalTabPosition)
+                        switch (Configure.Instance.HallViewTotalTabPosition)
                         {
                             case 0:
-                                IsHOFTotalTotalLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalTotal");
-                                if (twilightWwwHOF != null)
+                                IsHallTotalTotalLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/totalTotal");
+                                if (twilightWwwHall != null)
                                 {
-                                    TotalTotalHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    TotalTotalHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        TotalTotalHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
+                                        TotalTotalHallItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
                                     }
                                 }
-                                IsHOFTotalTotalLoading = false;
+                                IsHallTotalTotalLoading = false;
                                 break;
                             case 1:
-                                IsHOFTotalHighestLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalHighest");
-                                if (twilightWwwHOF != null)
+                                IsHallTotalHighestLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/totalHighest");
+                                if (twilightWwwHall != null)
                                 {
-                                    TotalHighestHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    TotalHighestHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        TotalHighestHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
+                                        TotalHighestHallItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
                                     }
                                 }
-                                IsHOFTotalHighestLoading = false;
+                                IsHallTotalHighestLoading = false;
                                 break;
                             case 2:
-                                IsHOFTotalStandLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalStand");
-                                if (twilightWwwHOF != null)
+                                IsHallTotalStandLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/totalStand");
+                                if (twilightWwwHall != null)
                                 {
-                                    TotalStandHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    TotalStandHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        TotalStandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
+                                        TotalStandHallItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
                                     }
                                 }
-                                IsHOFTotalStandLoading = false;
+                                IsHallTotalStandLoading = false;
                                 break;
                             case 3:
-                                IsHOFTotalBandLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/totalBand");
-                                if (twilightWwwHOF != null)
+                                IsHallTotalBandLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/totalBand");
+                                if (twilightWwwHall != null)
                                 {
-                                    TotalBandHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    TotalBandHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        TotalBandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
+                                        TotalBandHallItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
                                     }
                                 }
-                                IsHOFTotalBandLoading = false;
+                                IsHallTotalBandLoading = false;
                                 break;
                         }
                         break;
                     case 1:
-                        switch (Configure.Instance.HOFViewAtTabPosition)
+                        switch (Configure.Instance.HallViewAtTabPosition)
                         {
                             case 0:
-                                IsHOFAtTotalLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atTotal");
-                                if (twilightWwwHOF != null)
+                                IsHallAtTotalLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/atTotal");
+                                if (twilightWwwHall != null)
                                 {
-                                    AtTotalHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    AtTotalHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        AtTotalHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
+                                        AtTotalHallItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.HandledContents)));
                                     }
                                 }
-                                IsHOFAtTotalLoading = false;
+                                IsHallAtTotalLoading = false;
                                 break;
                             case 1:
-                                IsHOFAtHighestLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atHighest");
-                                if (twilightWwwHOF != null)
+                                IsHallAtHighestLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/atHighest");
+                                if (twilightWwwHall != null)
                                 {
-                                    AtHighestHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    AtHighestHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        AtHighestHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
+                                        AtHighestHallItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
                                     }
                                 }
-                                IsHOFAtHighestLoading = false;
+                                IsHallAtHighestLoading = false;
                                 break;
                             case 2:
-                                IsHOFAtStandLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atStand");
-                                if (twilightWwwHOF != null)
+                                IsHallAtStandLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/atStand");
+                                if (twilightWwwHall != null)
                                 {
-                                    AtStandHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    AtStandHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        AtStandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
+                                        AtStandHallItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.StandContents)));
                                     }
                                 }
-                                IsHOFAtStandLoading = false;
+                                IsHallAtStandLoading = false;
                                 break;
                             case 3:
-                                IsHOFAtBandLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/atBand");
-                                if (twilightWwwHOF != null)
+                                IsHallAtBandLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/atBand");
+                                if (twilightWwwHall != null)
                                 {
-                                    AtBandHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    AtBandHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        AtBandHOFItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
+                                        AtBandHallItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.BandContents)));
                                     }
                                 }
-                                IsHOFAtBandLoading = false;
+                                IsHallAtBandLoading = false;
                                 break;
                         }
                         break;
                     case 2:
-                        switch (Configure.Instance.HOFViewAbilityTabPosition)
+                        switch (Configure.Instance.HallViewAbilityTabPosition)
                         {
                             case 0:
-                                IsHOFAbility5KLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/5K");
-                                if (twilightWwwHOF != null)
+                                IsHallAbility5KLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/ability/5K");
+                                if (twilightWwwHall != null)
                                 {
-                                    Ability5KHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    Ability5KHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        Ability5KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                                        Ability5KHallItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
                                     }
                                 }
-                                IsHOFAbility5KLoading = false;
+                                IsHallAbility5KLoading = false;
                                 break;
                             case 1:
-                                IsHOFAbility7KLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/7K");
-                                if (twilightWwwHOF != null)
+                                IsHallAbility7KLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/ability/7K");
+                                if (twilightWwwHall != null)
                                 {
-                                    Ability7KHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    Ability7KHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        Ability7KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                                        Ability7KHallItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
                                     }
                                 }
-                                IsHOFAbility7KLoading = false;
+                                IsHallAbility7KLoading = false;
                                 break;
                             case 2:
-                                IsHOFAbility9KLoading = true;
-                                twilightWwwHOF = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHOF[]>($"{QwilightComponent.QwilightAPI}/hof/ability/9K");
-                                if (twilightWwwHOF != null)
+                                IsHallAbility9KLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/ability/9K");
+                                if (twilightWwwHall != null)
                                 {
-                                    Ability9KHOFItemCollection.Clear();
-                                    foreach (var data in twilightWwwHOF)
+                                    Ability9KHallItemCollection.Clear();
+                                    foreach (var data in twilightWwwHall)
                                     {
-                                        Ability9KHOFItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
+                                        Ability9KHallItemCollection.Add(new(data, value => value.ToString("#,##0.## Point")));
                                     }
                                 }
-                                IsHOFAbility9KLoading = false;
+                                IsHallAbility9KLoading = false;
                                 break;
                         }
                         break;
@@ -3429,7 +3429,7 @@ namespace Qwilight.ViewModel
             });
         }
 
-        public void LoadCommentItemCollection(bool doCallHOFAPI = true)
+        public void LoadCommentItemCollection(bool doCallHallAPI = true)
         {
             if (!BaseUI.Instance.HasCommentPoint || ViewModels.Instance.CommentValue.IsOpened)
             {
@@ -3441,8 +3441,8 @@ namespace Qwilight.ViewModel
                     case 1:
                         LoadTwilightCommentItemCollection();
                         break;
-                    case 2 when doCallHOFAPI:
-                        CallHOFAPI();
+                    case 2 when doCallHallAPI:
+                        CallHallAPI();
                         break;
                 }
             }

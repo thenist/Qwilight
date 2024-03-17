@@ -38,7 +38,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Button Style="{StaticResource StandardInput}" HorizontalAlignment="Left" Command="{Binding SaveAsBundleCommand}" Content="{Binding SaveAsBundle, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsSignedIn,Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+                            <Button Style="{StaticResource StandardInput}" HorizontalAlignment="Left" Command="{Binding SaveAsBundleCommand}" Content="{Binding SaveAsBundle, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsLoggedIn,Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
                             <view:BundleView Grid.Row="1" BundleItemCollection="{Binding QwilightBundleItemCollection}" />
                         </Grid>
                     </TabItem>

@@ -13,7 +13,7 @@
             <ContextMenu>
                 <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewAvatarCommand}" />
                 <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewBundleCommand}" />
-                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
             </ContextMenu>
         </view:AvatarDrawingView.ContextMenu>
     </view:AvatarDrawingView>

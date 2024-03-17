@@ -6,20 +6,20 @@
     xmlns:view="clr-namespace:Qwilight.View"
     DataContext="{Binding MainValue, Source={StaticResource ViewModels}}"
     Visibility="{Binding IsNoteFileMode, Converter={StaticResource VisibilityModifier}}">
-    <Button Style="{StaticResource BaseUIInput}" Command="{Binding SignInCommand}" Canvas.Left="{Binding SignInPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding SignInPoint[1], Source={StaticResource BaseUI}}" Width="{Binding SignInPoint[2], Source={StaticResource BaseUI}}" Height="{Binding SignInPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding SignInPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding SignInPoint[5], Source={StaticResource BaseUI}}" IsEnabled="{Binding IsEstablished, Source={StaticResource TwilightSystem}}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityNotModifier}}">
-        <Image Stretch="{Binding SignInPoint[6], Source={StaticResource BaseUI}}" Source="{Binding SignInDrawings[0], Source={StaticResource BaseUI}}" />
+    <Button Style="{StaticResource BaseUIInput}" Command="{Binding LogInCommand}" Canvas.Left="{Binding LogInPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding LogInPoint[1], Source={StaticResource BaseUI}}" Width="{Binding LogInPoint[2], Source={StaticResource BaseUI}}" Height="{Binding LogInPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding LogInPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding LogInPoint[5], Source={StaticResource BaseUI}}" IsEnabled="{Binding IsEstablished, Source={StaticResource TwilightSystem}}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityNotModifier}}">
+        <Image Stretch="{Binding LogInPoint[6], Source={StaticResource BaseUI}}" Source="{Binding LogInDrawings[0], Source={StaticResource BaseUI}}" />
     </Button>
-    <Button PreviewMouseDown="OnViewItems" Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding SignInPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding SignInPoint[1], Source={StaticResource BaseUI}}" Width="{Binding SignInPoint[2], Source={StaticResource BaseUI}}" Height="{Binding SignInPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding SignInPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding SignInPoint[5], Source={StaticResource BaseUI}}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
+    <Button PreviewMouseDown="OnViewItems" Style="{StaticResource BaseUIInput}" Canvas.Left="{Binding LogInPoint[0], Source={StaticResource BaseUI}}" Canvas.Top="{Binding LogInPoint[1], Source={StaticResource BaseUI}}" Width="{Binding LogInPoint[2], Source={StaticResource BaseUI}}" Height="{Binding LogInPoint[3], Source={StaticResource BaseUI}}" HorizontalAlignment="{Binding LogInPoint[4], Source={StaticResource BaseUI}}" VerticalAlignment="{Binding LogInPoint[5], Source={StaticResource BaseUI}}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
         <Button.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding ViewMyAvatarCommand}" />
                 <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding ViewMyBundleCommand}" />
-                <MenuItem Header="{Binding NotSignInText, Source={StaticResource LanguageSystem}}" Command="{Binding NotSignInCommand}" />
+                <MenuItem Header="{Binding NotLogInText, Source={StaticResource LanguageSystem}}" Command="{Binding NotLogInCommand}" />
             </ContextMenu>
         </Button.ContextMenu>
-        <Border Style="{StaticResource StandardPanelMargin0}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
+        <Border Style="{StaticResource StandardPanelMargin0}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
             <Border.Background>
-                <ImageBrush Stretch="{Binding SignInPoint[6], Source={StaticResource BaseUI}}" ImageSource="{Binding AvatarWwwValue.AvatarDrawing, Source={StaticResource TwilightSystem}}" />
+                <ImageBrush Stretch="{Binding LogInPoint[6], Source={StaticResource BaseUI}}" ImageSource="{Binding AvatarWwwValue.AvatarDrawing, Source={StaticResource TwilightSystem}}" />
             </Border.Background>
         </Border>
     </Button>
@@ -268,7 +268,7 @@
             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist4, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" Visibility="{Binding IsEstablished, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist5, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" Visibility="{Binding IsEstablished, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist6, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
-            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist7, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist7, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist8, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
         </StackPanel>
     </Border>

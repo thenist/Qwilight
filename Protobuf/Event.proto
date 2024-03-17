@@ -234,8 +234,8 @@ message Event {
 	}
 
 	enum EventID {
-		SIGN_IN = 0;
-		NOT_SIGN_IN = 1;
+		LOG_IN = 0;
+		NOT_LOG_IN = 1;
 		WARNING = 2;
 		SITE_YELL = 3;
 		CALL_BUNDLE = 4;

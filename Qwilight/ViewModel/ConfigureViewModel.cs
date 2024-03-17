@@ -994,7 +994,7 @@ namespace Qwilight.ViewModel
 
         public void NotifyCanGetDefaultText() => OnPropertyChanged(nameof(CanGetDefaultText));
 
-        public bool CanSaveAsBundle => TwilightSystem.Instance.IsSignedIn && TabPositionUI != 2;
+        public bool CanSaveAsBundle => TwilightSystem.Instance.IsLoggedIn && TabPositionUI != 2;
 
         public void NotifyCanSaveAsBundle() => OnPropertyChanged(nameof(CanSaveAsBundle));
 

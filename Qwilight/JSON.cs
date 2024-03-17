@@ -195,14 +195,14 @@ namespace Qwilight
             public string avatarName;
         }
 
-        public struct TwilightSignIn
+        public struct TwilightLogIn
         {
             public string totem;
             public string avatarID;
             public string avatarName;
         }
 
-        public struct TwilightNotSignIn
+        public struct TwilightNotLogIn
         {
             public string avatarID;
             public string avatarName;
@@ -867,7 +867,7 @@ namespace Qwilight
             public double ability;
         }
 
-        public struct TwilightWwwHOF
+        public struct TwilightWwwHall
         {
             public string avatarID;
             public string avatarName;

@@ -3,7 +3,7 @@
     public struct AutoEnterSite : IEquatable<AutoEnterSite>
     {
         public const int AutoEnter = 0;
-        public const int AutoEnterSignedIn = 1;
+        public const int AutoEnterLoggedIn = 1;
         public const int WaitSite = 2;
 
         public int Data { get; init; }
@@ -17,7 +17,7 @@
         public override string ToString() => Data switch
         {
             AutoEnter => LanguageSystem.Instance.AutoEnterContents,
-            AutoEnterSignedIn => LanguageSystem.Instance.AutoEnterSignedInContents,
+            AutoEnterLoggedIn => LanguageSystem.Instance.AutoEnterLoggedInContents,
             WaitSite => LanguageSystem.Instance.WaitSiteContents,
             _ => default
         };

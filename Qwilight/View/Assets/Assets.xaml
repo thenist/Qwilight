@@ -24,7 +24,7 @@
 
     <system:Int32 x:Key="NotEstablished">0</system:Int32>
     <system:Int32 x:Key="Established">1</system:Int32>
-    <system:Int32 x:Key="SignedIn">2</system:Int32>
+    <system:Int32 x:Key="LoggedIn">2</system:Int32>
 
     <system:Int32 x:Key="BPMVarietyBPM">0</system:Int32>
     <system:Int32 x:Key="BPMVarietyAudioMultiplier">1</system:Int32>
@@ -54,7 +54,7 @@
     <system:Int32 x:Key="NotNotifyUbuntu">1</system:Int32>
 
     <system:Int32 x:Key="AutoEnter">0</system:Int32>
-    <system:Int32 x:Key="AutoEnterSignedIn">1</system:Int32>
+    <system:Int32 x:Key="AutoEnterLoggedIn">1</system:Int32>
     <system:Int32 x:Key="WaitSite">2</system:Int32>
 
     <system:Int32 x:Key="BundleCallable">0</system:Int32>

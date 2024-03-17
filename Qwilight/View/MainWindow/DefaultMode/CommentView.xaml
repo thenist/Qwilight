@@ -10,7 +10,7 @@
             <ContextMenu x:Key="ViewItems">
                 <MenuItem Header="{Binding ViewAvatarView, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewAvatarCommand}" />
                 <MenuItem Header="{Binding ViewBundle, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.ViewBundleCommand}" />
-                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+                <MenuItem Header="{Binding NewUbuntu, Source={StaticResource LanguageSystem}}" Command="{Binding AvatarWwwValue.NewUbuntuCommand}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
             </ContextMenu>
         </TabControl.Resources>
         <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding DefaultComment, Source={StaticResource LanguageSystem}}">
@@ -70,7 +70,7 @@
                             <Button Style="{StaticResource StandardInput}" IsEnabled="{Binding CanLowerTwilightCommentFavor}" Command="{Binding LowerTwilightCommentFavorCommand}" Foreground="{Binding LowerTwilightCommentFavorPaint}">👎</Button>
                             <Button Style="{StaticResource StandardInput}" IsEnabled="{Binding CanHigherTwilightCommentFavor}" Command="{Binding HigherTwilightCommentFavorCommand}" Foreground="{Binding HigherTwilightCommentFavorPaint}" Content="{Binding TwilightCommentTotalFavor}" />
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding IsSignedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}">
                             <Border Style="{StaticResource StandardPanel}">
                                 <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding UbuntuNetItemTarget, Source={StaticResource Configure}}" Content="👥" ToolTipService.ToolTip="{Binding UbuntuNetItemTargetAssist, Source={StaticResource LanguageSystem}}" />
                             </Border>
@@ -147,10 +147,10 @@
                 <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsTwilightCommentLoading, Converter={StaticResource VisibilityModifier}}" />
             </Grid>
         </TabItem>
-        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFText, Source={StaticResource LanguageSystem}}">
-            <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Left" SelectedIndex="{Binding HOFViewTabPosition, Source={StaticResource Configure}}">
+        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallText, Source={StaticResource LanguageSystem}}">
+            <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Left" SelectedIndex="{Binding HallViewTabPosition, Source={StaticResource Configure}}">
                 <TabControl.Resources>
-                    <DataTemplate x:Key="HOFView">
+                    <DataTemplate x:Key="HallView">
                         <Grid Height="{Binding CommentItemHeight, Source={StaticResource BaseUI}}" Background="Transparent" ContextMenu="{StaticResource ViewItems}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -164,88 +164,88 @@
                         </Grid>
                     </DataTemplate>
                 </TabControl.Resources>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFTotalText, Source={StaticResource LanguageSystem}}">
-                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HOFViewTotalTabPosition, Source={StaticResource Configure}}">
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFTotal, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallTotalText, Source={StaticResource LanguageSystem}}">
+                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HallViewTotalTabPosition, Source={StaticResource Configure}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallTotal, Source={StaticResource LanguageSystem}}">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalTotalHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalTotalLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalTotalLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalTotalHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallTotalTotalLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallTotalTotalLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFHighest, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallHighest, Source={StaticResource LanguageSystem}}">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalHighestHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalHighestLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalHighestLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalHighestHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallTotalHighestLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallTotalHighestLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFStand, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallStand, Source={StaticResource LanguageSystem}}">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalStandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalStandLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalStandLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalStandHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallTotalStandLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallTotalStandLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFBand, Source={StaticResource LanguageSystem}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallBand, Source={StaticResource LanguageSystem}}">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalBandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFTotalBandLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFTotalBandLoading, Converter={StaticResource VisibilityModifier}}" />
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
-                </TabItem>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFAtText, Source={StaticResource LanguageSystem}}">
-                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HOFViewAtTabPosition, Source={StaticResource Configure}}">
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFTotal, Source={StaticResource LanguageSystem}}">
-                            <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtTotalHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtTotalLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtTotalLoading, Converter={StaticResource VisibilityModifier}}" />
-                            </Grid>
-                        </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFHighest, Source={StaticResource LanguageSystem}}">
-                            <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtHighestHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtHighestLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtHighestLoading, Converter={StaticResource VisibilityModifier}}" />
-                            </Grid>
-                        </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFStand, Source={StaticResource LanguageSystem}}">
-                            <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtStandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtStandLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtStandLoading, Converter={StaticResource VisibilityModifier}}" />
-                            </Grid>
-                        </TabItem>
-                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFBand, Source={StaticResource LanguageSystem}}">
-                            <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtBandHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAtBandLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAtBandLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalBandHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallTotalBandLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallTotalBandLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFAbilityText, Source={StaticResource LanguageSystem}}">
-                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HOFViewAbilityTabPosition, Source={StaticResource Configure}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallAtText, Source={StaticResource LanguageSystem}}">
+                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HallViewAtTabPosition, Source={StaticResource Configure}}">
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallTotal, Source={StaticResource LanguageSystem}}">
+                            <Grid>
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtTotalHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallAtTotalLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallAtTotalLoading, Converter={StaticResource VisibilityModifier}}" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallHighest, Source={StaticResource LanguageSystem}}">
+                            <Grid>
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtHighestHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallAtHighestLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallAtHighestLoading, Converter={StaticResource VisibilityModifier}}" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallStand, Source={StaticResource LanguageSystem}}">
+                            <Grid>
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtStandHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallAtStandLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallAtStandLoading, Converter={StaticResource VisibilityModifier}}" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallBand, Source={StaticResource LanguageSystem}}">
+                            <Grid>
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding AtBandHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallAtBandLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallAtBandLoading, Converter={StaticResource VisibilityModifier}}" />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </TabItem>
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallAbilityText, Source={StaticResource LanguageSystem}}">
+                    <TabControl Style="{StaticResource StandardPageView}" TabStripPlacement="Bottom" SelectedIndex="{Binding HallViewAbilityTabPosition, Source={StaticResource Configure}}">
                         <TabItem Style="{StaticResource StandardPageItem}" Header="5K">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability5KHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAbility5KLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAbility5KLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability5KHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallAbility5KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallAbility5KLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
                         <TabItem Style="{StaticResource StandardPageItem}" Header="7K">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability7KHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAbility7KLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAbility7KLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability7KHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallAbility7KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallAbility7KLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
                         <TabItem Style="{StaticResource StandardPageItem}" Header="9K">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability9KHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFAbility9KLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFAbility9KLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding Ability9KHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallAbility9KLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallAbility9KLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HOFLevelText, Source={StaticResource LanguageSystem}}">
+                <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallLevelText, Source={StaticResource LanguageSystem}}">
                     <Grid>
-                        <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding LevelHOFItemCollection}" ItemTemplate="{StaticResource HOFView}" Visibility="{Binding IsHOFLevelLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                        <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHOFLevelLoading, Converter={StaticResource VisibilityModifier}}" />
+                        <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding LevelHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallLevelLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                        <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallLevelLoading, Converter={StaticResource VisibilityModifier}}" />
                     </Grid>
                 </TabItem>
             </TabControl>

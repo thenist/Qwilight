@@ -271,7 +271,7 @@
     "ko-KR": "디스코드 대화방에 자동으로 입장할지 설정합니다.",
     "en-US": "Set automatic entry to Discord chat room"
   },
-  "AutoEnterSignedInContents": {
+  "AutoEnterLoggedInContents": {
     "ko-KR": "로그인 후 자동으로 대화방에 입장합니다.",
     "en-US": "After logging in, you automatically enter the chat room."
   },
@@ -311,7 +311,7 @@
     "ko-KR": "미리듣기 순서를 임의로 설정합니다.",
     "en-US": "Random preview order"
   },
-  "AutoSignIn": {
+  "AutoLogIn": {
     "ko-KR": "자동 로그인",
     "en-US": "Autologin"
   },
@@ -1315,39 +1315,39 @@
     "ko-KR": "라이프 게이지를 설정합니다.",
     "en-US": "Set the life gauge"
   },
-  "HOFAbilityText": {
+  "HallAbilityText": {
     "ko-KR": "레이팅",
     "en-US": "Rating"
   },
-  "HOFAtText": {
+  "HallAtText": {
     "ko-KR": "이번 달",
     "en-US": "Month"
   },
-  "HOFBand": {
+  "HallBand": {
     "ko-KR": "콤보",
     "en-US": "Combo"
   },
-  "HOFHighest": {
+  "HallHighest": {
     "ko-KR": "기록",
     "en-US": "Record"
   },
-  "HOFLevelText": {
+  "HallLevelText": {
     "ko-KR": "레벨",
     "en-US": "Level"
   },
-  "HOFStand": {
+  "HallStand": {
     "ko-KR": "점수",
     "en-US": "Score"
   },
-  "HOFText": {
+  "HallText": {
     "ko-KR": "명예의 전당",
     "en-US": "Hall of Fame"
   },
-  "HOFTotal": {
+  "HallTotal": {
     "ko-KR": "플레이",
     "en-US": "Play"
   },
-  "HOFTotalText": {
+  "HallTotalText": {
     "ko-KR": "전체",
     "en-US": "All"
   },
@@ -2531,19 +2531,19 @@
     "ko-KR": "리버브 비활성화",
     "en-US": "Disable Reverb"
   },
-  "NotSignedInContents": {
+  "NotLoggedInContents": {
     "ko-KR": "{0}님 감사합니다.",
     "en-US": "Thank you, {0}."
   },
-  "NotSignedInSituationContents": {
+  "NotLoggedInSituationContents": {
     "ko-KR": "{0}에 마지막으로 접속함",
     "en-US": "{0} last accessed"
   },
-  "NotSignInNotify": {
+  "NotLogInNotify": {
     "ko-KR": "로그아웃 할까요?",
     "en-US": "Do you want log out?"
   },
-  "NotSignInText": {
+  "NotLogInText": {
     "ko-KR": "로그아웃",
     "en-US": "Sign out"
   },
@@ -2730,6 +2730,10 @@
   "PositivePostedItemText": {
     "ko-KR": "{0}이 {1}를 제공함",
     "en-US": "(0) supplied {1}"
+  },
+  "PostableItemBandText": {
+    "ko-KR": "0 콤보마다 아이템 획득",
+    "en-US": "Earn items for every 0 combo"
   },
   "PostableItemModeViewCommentFault": {
     "ko-KR": "아이템 모드는 리플레이를 지원하지 않습니다.",
@@ -3043,11 +3047,11 @@
     "ko-KR": "리버브 활성화",
     "en-US": "Enable Reverb"
   },
-  "SignedInContents": {
+  "LoggedInContents": {
     "ko-KR": "{0}님 환영합니다.",
     "en-US": "Welcome, {0}!"
   },
-  "SignIn": {
+  "LogIn": {
     "ko-KR": "로그인",
     "en-US": "Login"
   },
