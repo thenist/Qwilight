@@ -263,6 +263,10 @@
     "ko-KR": "일반 대화방에 자동으로 입장할지 설정합니다.",
     "en-US": "Set automatic entry to General chat room"
   },
+  "AutoEnterLoggedInContents": {
+    "ko-KR": "로그인 후 자동으로 대화방에 입장합니다.",
+    "en-US": "After logging in, you automatically enter the chat room."
+  },
   "AutoEnterNotifySiteContents": {
     "ko-KR": "알림방에 자동으로 입장할지 설정합니다.",
     "en-US": "Set automatic entry to Notification room"
@@ -270,10 +274,6 @@
   "AutoEnterPlatformSiteContents": {
     "ko-KR": "디스코드 대화방에 자동으로 입장할지 설정합니다.",
     "en-US": "Set automatic entry to Discord chat room"
-  },
-  "AutoEnterLoggedInContents": {
-    "ko-KR": "로그인 후 자동으로 대화방에 입장합니다.",
-    "en-US": "After logging in, you automatically enter the chat room."
   },
   "AutoHighlightContents": {
     "ko-KR": "미리듣기를 하이라이트부터 시작합니다.",
@@ -290,6 +290,10 @@
   "AutoLevyingText": {
     "ko-KR": "처음부터 시작",
     "en-US": "Start from beginning"
+  },
+  "AutoLogIn": {
+    "ko-KR": "자동 로그인",
+    "en-US": "Autologin"
   },
   "AutoLongNoteMode": {
     "ko-KR": "롱 노트를 계속 눌러도 됩니다.",
@@ -310,10 +314,6 @@
   "AutoSaltAssist": {
     "ko-KR": "미리듣기 순서를 임의로 설정합니다.",
     "en-US": "Random preview order"
-  },
-  "AutoLogIn": {
-    "ko-KR": "자동 로그인",
-    "en-US": "Autologin"
   },
   "AutoSiteHandText": {
     "ko-KR": "호스트 돌아가면서 하기",
@@ -403,10 +403,6 @@
     "ko-KR": "클리어 램프 (Beta)",
     "en-US": "Clear lamp (Beta)"
   },
-  "AvatarViewHighestCountText": {
-    "ko-KR": "기록 개수: {0} 회",
-    "en-US": "Record count: {0}"
-  },
   "AvatarViewIntro": {
     "ko-KR": "자기소개",
     "en-US": "Introduce yourself"
@@ -426,6 +422,10 @@
   "AvatarViewText": {
     "ko-KR": "닉네임: {0} ({1})",
     "en-US": "Nickname: {0} ({1})"
+  },
+  "AvatarViewTopCountText": {
+    "ko-KR": "기록 개수: {0} 회",
+    "en-US": "Record count: {0}"
   },
   "AvatarViewTotalCountText": {
     "ko-KR": "플레이 횟수: {0} 회",
@@ -1159,6 +1159,42 @@
     "ko-KR": "노트 라인을 반으로 나눠서 임의 배치합니다. (하프 랜덤)",
     "en-US": "Half Random mode"
   },
+  "HallAbilityText": {
+    "ko-KR": "레이팅",
+    "en-US": "Rating"
+  },
+  "HallAtText": {
+    "ko-KR": "이번 달",
+    "en-US": "Month"
+  },
+  "HallBand": {
+    "ko-KR": "콤보",
+    "en-US": "Combo"
+  },
+  "HallHighest": {
+    "ko-KR": "기록",
+    "en-US": "Record"
+  },
+  "HallLevelText": {
+    "ko-KR": "레벨",
+    "en-US": "Level"
+  },
+  "HallStand": {
+    "ko-KR": "점수",
+    "en-US": "Score"
+  },
+  "HallText": {
+    "ko-KR": "명예의 전당",
+    "en-US": "Hall of Fame"
+  },
+  "HallTotal": {
+    "ko-KR": "플레이",
+    "en-US": "Play"
+  },
+  "HallTotalText": {
+    "ko-KR": "전체",
+    "en-US": "All"
+  },
   "HandledAssistClearText": {
     "ko-KR": "ASSIST 클리어",
     "en-US": "ASSIST Clear"
@@ -1314,42 +1350,6 @@
   "HitPointsModeAssist": {
     "ko-KR": "라이프 게이지를 설정합니다.",
     "en-US": "Set the life gauge"
-  },
-  "HallAbilityText": {
-    "ko-KR": "레이팅",
-    "en-US": "Rating"
-  },
-  "HallAtText": {
-    "ko-KR": "이번 달",
-    "en-US": "Month"
-  },
-  "HallBand": {
-    "ko-KR": "콤보",
-    "en-US": "Combo"
-  },
-  "HallHighest": {
-    "ko-KR": "기록",
-    "en-US": "Record"
-  },
-  "HallLevelText": {
-    "ko-KR": "레벨",
-    "en-US": "Level"
-  },
-  "HallStand": {
-    "ko-KR": "점수",
-    "en-US": "Score"
-  },
-  "HallText": {
-    "ko-KR": "명예의 전당",
-    "en-US": "Hall of Fame"
-  },
-  "HallTotal": {
-    "ko-KR": "플레이",
-    "en-US": "Play"
-  },
-  "HallTotalText": {
-    "ko-KR": "전체",
-    "en-US": "All"
   },
   "HunterVariety1stText": {
     "ko-KR": "1등 기록",
@@ -1866,6 +1866,14 @@
   "LoadLevelFault": {
     "ko-KR": "난이도 테이블이 올바르지 않습니다. ({0})",
     "en-US": "The difficulty table is not correct. ({0})"
+  },
+  "LoggedInContents": {
+    "ko-KR": "{0}님 환영합니다.",
+    "en-US": "Welcome, {0}!"
+  },
+  "LogIn": {
+    "ko-KR": "로그인",
+    "en-US": "Login"
   },
   "LongNoteModeAssist": {
     "ko-KR": "롱 노트의 떼는 판정을 설정합니다.",
@@ -2483,6 +2491,22 @@
     "ko-KR": "CORSAIR® CUE™ 비활성화",
     "en-US": "Disable CORSAIR® CUE™"
   },
+  "NotLoggedInContents": {
+    "ko-KR": "{0}님 감사합니다.",
+    "en-US": "Thank you, {0}."
+  },
+  "NotLoggedInSituationContents": {
+    "ko-KR": "{0}에 마지막으로 접속함",
+    "en-US": "{0} last accessed"
+  },
+  "NotLogInNotify": {
+    "ko-KR": "로그아웃 할까요?",
+    "en-US": "Do you want log out?"
+  },
+  "NotLogInText": {
+    "ko-KR": "로그아웃",
+    "en-US": "Sign out"
+  },
   "NotLoopWaveInContents": {
     "ko-KR": "입력 장비의 음성을 출력 장비로 루프백합니다.",
     "en-US": "Loop back the voice from the input equipment to the output equipment."
@@ -2530,22 +2554,6 @@
   "NotSFXText": {
     "ko-KR": "리버브 비활성화",
     "en-US": "Disable Reverb"
-  },
-  "NotLoggedInContents": {
-    "ko-KR": "{0}님 감사합니다.",
-    "en-US": "Thank you, {0}."
-  },
-  "NotLoggedInSituationContents": {
-    "ko-KR": "{0}에 마지막으로 접속함",
-    "en-US": "{0} last accessed"
-  },
-  "NotLogInNotify": {
-    "ko-KR": "로그아웃 할까요?",
-    "en-US": "Do you want log out?"
-  },
-  "NotLogInText": {
-    "ko-KR": "로그아웃",
-    "en-US": "Sign out"
   },
   "NotStillDrawing": {
     "ko-KR": "화면 캡처를 지원하지 않습니다.",
@@ -3046,14 +3054,6 @@
   "SFXText": {
     "ko-KR": "리버브 활성화",
     "en-US": "Enable Reverb"
-  },
-  "LoggedInContents": {
-    "ko-KR": "{0}님 환영합니다.",
-    "en-US": "Welcome, {0}!"
-  },
-  "LogIn": {
-    "ko-KR": "로그인",
-    "en-US": "Login"
   },
   "SignUp": {
     "ko-KR": "회원 가입",

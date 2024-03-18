@@ -68,19 +68,19 @@ namespace Qwilight
         public string AutoEdgeText { get; set; }
         public string AutoEnterContents { get; set; }
         public string AutoEnterDefaultSiteContents { get; set; }
+        public string AutoEnterLoggedInContents { get; set; }
         public string AutoEnterNotifySiteContents { get; set; }
         public string AutoEnterPlatformSiteContents { get; set; }
-        public string AutoEnterLoggedInContents { get; set; }
         public string AutoHighlightContents { get; set; }
         public string AutoHighlightText { get; set; }
         public string AutoLevyingContents { get; set; }
         public string AutoLevyingText { get; set; }
+        public string AutoLogIn { get; set; }
         public string AutoLongNoteMode { get; set; }
         public string AutoModeAssist { get; set; }
         public string AutoModeContents { get; set; }
         public string AutoNetLevyingText { get; set; }
         public string AutoSaltAssist { get; set; }
-        public string AutoLogIn { get; set; }
         public string AutoSiteHandText { get; set; }
         public string AutoText { get; set; }
         public string AvatarCipher { get; set; }
@@ -103,12 +103,12 @@ namespace Qwilight
         public string AvatarViewDateText { get; set; }
         public string AvatarViewFavoritesContents { get; set; }
         public string AvatarViewHandledText { get; set; }
-        public string AvatarViewHighestCountText { get; set; }
         public string AvatarViewIntro { get; set; }
         public string AvatarViewLastsContents { get; set; }
         public string AvatarViewLevelVSText { get; set; }
         public string AvatarViewQuitContents { get; set; }
         public string AvatarViewText { get; set; }
+        public string AvatarViewTopCountText { get; set; }
         public string AvatarViewTotalCountText { get; set; }
         public string AvatarViewTotalLengthText { get; set; }
         public string AvatarViewWwwLevelText { get; set; }
@@ -292,6 +292,15 @@ namespace Qwilight
         public string GroupEntry1Assist { get; set; }
         public string GUIConfigureText { get; set; }
         public string HalfInputSaltModeContents { get; set; }
+        public string HallAbilityText { get; set; }
+        public string HallAtText { get; set; }
+        public string HallBand { get; set; }
+        public string HallHighest { get; set; }
+        public string HallLevelText { get; set; }
+        public string HallStand { get; set; }
+        public string HallText { get; set; }
+        public string HallTotal { get; set; }
+        public string HallTotalText { get; set; }
         public string HandledAssistClearText { get; set; }
         public string HandledBand1Text { get; set; }
         public string HandledClearText { get; set; }
@@ -331,15 +340,6 @@ namespace Qwilight
         public string HitPoints { get; set; }
         public string HitPointsLegend { get; set; }
         public string HitPointsModeAssist { get; set; }
-        public string HallAbilityText { get; set; }
-        public string HallAtText { get; set; }
-        public string HallBand { get; set; }
-        public string HallHighest { get; set; }
-        public string HallLevelText { get; set; }
-        public string HallStand { get; set; }
-        public string HallText { get; set; }
-        public string HallTotal { get; set; }
-        public string HallTotalText { get; set; }
         public string HunterVariety1stText { get; set; }
         public string HunterVarietyContents { get; set; }
         public string HunterVarietyFavorText { get; set; }
@@ -469,6 +469,8 @@ namespace Qwilight
         public string LoadedMultiplier { get; set; }
         public string LoadingBinText { get; set; }
         public string LoadLevelFault { get; set; }
+        public string LoggedInContents { get; set; }
+        public string LogIn { get; set; }
         public string LongNoteModeAssist { get; set; }
         public string LongNoteModifyAssist { get; set; }
         public string LongNoteModifyContents { get; set; }
@@ -623,6 +625,10 @@ namespace Qwilight
         public string NotIsFailModeContents { get; set; }
         public string NotIsFailModeText { get; set; }
         public string NotK70Text { get; set; }
+        public string NotLoggedInContents { get; set; }
+        public string NotLoggedInSituationContents { get; set; }
+        public string NotLogInNotify { get; set; }
+        public string NotLogInText { get; set; }
         public string NotLoopWaveInContents { get; set; }
         public string NotLoopWaveInText { get; set; }
         public string NotLostPointAudioText { get; set; }
@@ -635,10 +641,6 @@ namespace Qwilight
         public string NotQwilightFillContents { get; set; }
         public string NotQwilightFillText { get; set; }
         public string NotSFXText { get; set; }
-        public string NotLoggedInContents { get; set; }
-        public string NotLoggedInSituationContents { get; set; }
-        public string NotLogInNotify { get; set; }
-        public string NotLogInText { get; set; }
         public string NotStillDrawing { get; set; }
         public string NotStopLastEqualAudioText { get; set; }
         public string NotSupportedFileContents { get; set; }
@@ -764,8 +766,6 @@ namespace Qwilight
         public string SetTotalText { get; set; }
         public string SFXContents { get; set; }
         public string SFXText { get; set; }
-        public string LoggedInContents { get; set; }
-        public string LogIn { get; set; }
         public string SignUp { get; set; }
         public string SilentSiteAvatarContents { get; set; }
         public string SilentSiteCallableContents { get; set; }

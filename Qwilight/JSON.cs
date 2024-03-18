@@ -789,7 +789,7 @@ namespace Qwilight
             public string avatarIntro;
             public int totalCount;
             public double totalLength;
-            public int highestCount;
+            public int topCount;
             public long date;
             public int[] avatarLevels;
             public double avatarAbility5K;

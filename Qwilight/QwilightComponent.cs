@@ -114,12 +114,12 @@ namespace Qwilight
                     break;
                 case "taehui":
                     QwilightComponent.TaehuiNetFE = "http://taehui";
-                    QwilightComponent.TaehuiNetAPI = "http://taehui:10100/www";
+                    QwilightComponent.TaehuiNetAPI = "http://taehui:3000/www";
                     QwilightComponent.QwilightAPI = "http://taehui:7301/qwilight/www";
                     break;
                 case "localhost":
                     QwilightComponent.TaehuiNetFE = "http://localhost";
-                    QwilightComponent.TaehuiNetAPI = "http://localhost:10100/www";
+                    QwilightComponent.TaehuiNetAPI = "http://localhost:3000/www";
                     QwilightComponent.QwilightAPI = "http://localhost:7301/qwilight/www";
                     break;
             }

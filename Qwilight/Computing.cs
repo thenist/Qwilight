@@ -153,7 +153,7 @@ namespace Qwilight
             7.0 => "JUDGE: HD",
             10.0 => "JUDGE: VHD",
             _ => $"LV. {Math.Round(JudgmentStage, 1)}"
-        }}, HP: {Math.Round(100 * HitPointsValue, 2)}％";
+        }}, HP: {Math.Round(100 * HitPointsValue, 3)}％";
 
         public string TotalNotesContents => $"{TotalNotes.ToString("#,##0")} (SC: {AutoableNotes.ToString("#,##0")}, {(IsAutoLongNote ? "LN" : "CN")}: {LongNotes.ToString("#,##0")}, MN: {TrapNotes.ToString("#,##0")})";
 

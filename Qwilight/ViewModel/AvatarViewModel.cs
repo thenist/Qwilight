@@ -91,7 +91,7 @@ namespace Qwilight.ViewModel
         string _avatarName;
         int _totalCount;
         double _totalLength;
-        int _highestCount;
+        int _topCount;
         DateTime _date;
         int _wwwLevelIDCount;
         int _avatarTabPosition;
@@ -1112,7 +1112,7 @@ namespace Qwilight.ViewModel
 
         public string AvatarViewTotalLengthText => string.Format(LanguageSystem.Instance.AvatarViewTotalLengthText, (_totalLength / 1000.0 / 60 / 60).ToString("#,##0"), (_totalLength / 1000.0 / 60 % 60).ToString("#,##0"), (_totalLength / 1000 % 60).ToString("#,##0"));
 
-        public string AvatarViewHighestCountText => string.Format(LanguageSystem.Instance.AvatarViewHighestCountText, _highestCount.ToString("#,##0"));
+        public string AvatarViewTopCountText => string.Format(LanguageSystem.Instance.AvatarViewTopCountText, _topCount.ToString("#,##0"));
 
         public string AvatarViewDateText => string.Format(LanguageSystem.Instance.AvatarViewDateText, _date);
 
@@ -1183,8 +1183,8 @@ namespace Qwilight.ViewModel
                         _totalLength = twilightWwwAvatarValue.totalLength;
                         OnPropertyChanged(nameof(AvatarViewTotalLengthText));
 
-                        _highestCount = twilightWwwAvatarValue.highestCount;
-                        OnPropertyChanged(nameof(AvatarViewHighestCountText));
+                        _topCount = twilightWwwAvatarValue.topCount;
+                        OnPropertyChanged(nameof(AvatarViewTopCountText));
 
                         _date = DateTime.UnixEpoch.ToLocalTime().AddMilliseconds(twilightWwwAvatarValue.date);
                         OnPropertyChanged(nameof(AvatarViewDateText));

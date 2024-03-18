@@ -48,7 +48,7 @@
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewText}" HorizontalAlignment="Left" />
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewTotalCountText}" HorizontalAlignment="Left" />
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewTotalLengthText}" HorizontalAlignment="Left" />
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewHighestCountText}" HorizontalAlignment="Left" />
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewTopCountText}" HorizontalAlignment="Left" />
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AvatarViewDateText}" HorizontalAlignment="Left" />
                                 </StackPanel>
                                 <Grid Grid.Column="1">
