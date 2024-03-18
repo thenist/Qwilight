@@ -841,10 +841,10 @@ namespace Qwilight
         {
             public int avatarLevelVSCount;
             public int targetLevelVSCount;
-            public LevelVSitem[] avatarLevelVSitems;
-            public LevelVSitem[] targetLevelVSitems;
+            public LevelVSItem[] avatarLevelVSItems;
+            public LevelVSItem[] targetLevelVSItems;
 
-            public sealed class LevelVSitem : Computing
+            public sealed class LevelVSItem : Computing
             {
                 public int stand;
                 public int levelVSStand;
