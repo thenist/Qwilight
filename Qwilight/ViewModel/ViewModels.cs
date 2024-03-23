@@ -16,7 +16,7 @@ namespace Qwilight.ViewModel
 
         public LogInViewModel LogInValue { get; } = new();
 
-        public SignUpViewModel SignUpValue { get; } = new();
+        public EnrollViewModel EnrollValue { get; } = new();
 
         public ConfigureViewModel ConfigureValue { get; } = new();
 
@@ -102,7 +102,7 @@ namespace Qwilight.ViewModel
         {
             WindowViewModels = new BaseViewModel[] {
                 LogInValue,
-                SignUpValue,
+                EnrollValue,
                 ConfigureValue,
                 CommentValue,
                 BundleValue,

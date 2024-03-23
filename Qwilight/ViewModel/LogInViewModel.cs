@@ -37,10 +37,10 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        void OnSignUp()
+        void OnEnroll()
         {
             Close();
-            ViewModels.Instance.SignUpValue.Open();
+            ViewModels.Instance.EnrollValue.Open();
         }
 
         public override void OnOpened()

@@ -911,6 +911,10 @@
     "ko-KR": "에디터 실행이 불가능합니다. ({0})",
     "en-US": "Editor cannot run ({0})"
   },
+  "Enroll": {
+    "ko-KR": "회원 가입",
+    "en-US": "Join membership"
+  },
   "EnterAutoComputeConfigure": {
     "ko-KR": "라이브 컨트롤",
     "en-US": "Live control"
@@ -3054,10 +3058,6 @@
   "SFXText": {
     "ko-KR": "리버브 활성화",
     "en-US": "Enable Reverb"
-  },
-  "SignUp": {
-    "ko-KR": "회원 가입",
-    "en-US": "Join membership"
   },
   "SilentSiteAvatarContents": {
     "ko-KR": "회원의 1대1 대화만 받음",

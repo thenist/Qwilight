@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Qwilight.ViewModel
 {
-    public sealed partial class SignUpViewModel : BaseViewModel
+    public sealed partial class EnrollViewModel : BaseViewModel
     {
         [GeneratedRegex("^.+@.+$")]
         private static partial Regex GetFaxComputer();
@@ -31,7 +31,7 @@ namespace Qwilight.ViewModel
         {
             base.OnOpened();
             AvatarID = string.Empty;
-            StrongReferenceMessenger.Default.Send<InitSignUpCipher>();
+            StrongReferenceMessenger.Default.Send<InitEnrollCipher>();
             AvatarName = string.Empty;
             Fax = string.Empty;
         }
@@ -40,14 +40,14 @@ namespace Qwilight.ViewModel
         {
             if (e.Key == Key.Enter)
             {
-                await OnSignUp();
+                await OnEnroll();
             }
         }
 
         [RelayCommand]
-        async Task OnSignUp()
+        async Task OnEnroll()
         {
-            var (inputCipher, inputCipherTest) = StrongReferenceMessenger.Default.Send<GetSignUpCipher>().Response;
+            var (inputCipher, inputCipherTest) = StrongReferenceMessenger.Default.Send<GetEnrollCipher>().Response;
             if (!string.IsNullOrEmpty(AvatarID) && !string.IsNullOrEmpty(inputCipher) && inputCipher == inputCipherTest && !string.IsNullOrEmpty(AvatarName) && (string.IsNullOrEmpty(Fax) || GetFaxComputer().IsMatch(Fax)))
             {
                 if (await TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.TaehuiNetAPI}/avatar", Utility.SetJSON(new

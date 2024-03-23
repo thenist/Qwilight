@@ -22,8 +22,8 @@ SetCSLanguageSystem(Path.Combine(qwilightEntryPath, "Qwilight", "Assets", "Langu
 SetCSJavaLanguage(Path.Combine(qwilightEntryPath, "Igniter", "Resources", "Language.json"));
 SetCSLanguageSystem(Path.Combine(qwilightEntryPath, "Igniter", "Resources", "Language.json"), Path.Combine(qwilightEntryPath, "Igniter", "System", "LanguageSystem", "LanguageSystem.g.cs"), "Igniter");
 SetCSJavaLanguage(Path.Combine(twilightEntryPath, "src", "main", "resources", "Language.json"));
-SetTSLanguage(Path.Combine(taehuiEntryPath, "qwilight-fe", "src", "Language.json"));
-SetTSLanguage(Path.Combine(taehuiEntryPath, "taehui-fe", "src", "Language.json"));
+SetTSLanguage(Path.Combine(taehuiEntryPath, "qwilight-fe", "src", "assets", "language"));
+SetTSLanguage(Path.Combine(taehuiEntryPath, "taehui-fe", "src", "assets", "language"));
 
 void SetCSJavaLanguage(string languageFilePath)
 {
@@ -119,67 +119,56 @@ void SetCSJavaLanguage(string languageFilePath)
     }
 }
 
-void SetTSLanguage(string languageFilePath)
+void SetTSLanguage(string languageEntryPath)
 {
-    var textHeight = 0;
     var languageStore = new SortedDictionary<string, IDictionary<string, string>>();
-    var lastLanguage = string.Empty;
-    var lastPropertyName = string.Empty;
-    var r = new Utf8JsonReader(File.ReadAllBytes(languageFilePath));
-    while (r.Read())
+    foreach (var targetLanguage in new[] { "ko", "en" })
     {
-        if (r.TokenType == JsonTokenType.StartObject)
-        {
-            ++textHeight;
-            continue;
-        }
+        languageStore[targetLanguage] = new SortedDictionary<string, string>();
 
-        if (r.TokenType == JsonTokenType.EndObject)
+        var textHeight = 0;
+        var lastPropertyName = string.Empty;
+        var r = new Utf8JsonReader(File.ReadAllBytes(Path.Combine(languageEntryPath, $"{targetLanguage}.json")));
+        while (r.Read())
         {
-            --textHeight;
-            continue;
-        }
-
-        if (textHeight == 1)
-        {
-            if (r.TokenType == JsonTokenType.PropertyName)
+            if (r.TokenType == JsonTokenType.StartObject)
             {
-                lastLanguage = r.GetString() ?? string.Empty;
-                languageStore[lastLanguage] = new SortedDictionary<string, string>();
+                ++textHeight;
                 continue;
             }
-        }
 
-        if (textHeight == 3)
-        {
-            switch (r.TokenType)
+            if (r.TokenType == JsonTokenType.EndObject)
             {
-                case JsonTokenType.PropertyName:
-                    lastPropertyName = r.GetString() ?? string.Empty;
-                    break;
-                case JsonTokenType.String:
-                    languageStore[lastLanguage][lastPropertyName] = r.GetString() ?? string.Empty;
-                    break;
+                --textHeight;
+                continue;
+            }
+
+            if (textHeight == 1)
+            {
+                switch (r.TokenType)
+                {
+                    case JsonTokenType.PropertyName:
+                        lastPropertyName = r.GetString() ?? string.Empty;
+                        break;
+                    case JsonTokenType.String:
+                        languageStore[targetLanguage][lastPropertyName] = r.GetString() ?? string.Empty;
+                        break;
+                }
             }
         }
     }
 
-    using (var fs = File.OpenWrite(languageFilePath))
-    using (var w = new Utf8JsonWriter(fs, new JsonWriterOptions
+    foreach (var targetLanguage in new[] { "ko", "en" })
     {
-        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        Indented = true
-    }))
-    {
-        w.WriteStartObject();
-
-        foreach (var (targetLanguage, targetPropertyName) in new[] { ("ko", "ko-KR"), ("en", "en-US") })
+        using (var fs = File.OpenWrite(Path.Combine(languageEntryPath, $"{targetLanguage}.json")))
+        using (var w = new Utf8JsonWriter(fs, new JsonWriterOptions
         {
-            w.WritePropertyName(targetPropertyName);
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            Indented = true
+        }))
+        {
             w.WriteStartObject();
-            w.WritePropertyName("translation");
-            w.WriteStartObject();
-            var t = GetLanguageStore(targetLanguage, targetPropertyName);
+            var t = GetLanguageStore(targetLanguage);
             t.Wait();
             foreach (var defaultLanguage in t.Result)
             {
@@ -190,23 +179,20 @@ void SetTSLanguage(string languageFilePath)
                 }
             }
             w.WriteEndObject();
-            w.WriteEndObject();
         }
-
-        w.WriteEndObject();
     }
 
-    async Task<IDictionary<string, string>> GetLanguageStore(string targetLanguage, string targetPropertyName)
+    async Task<IDictionary<string, string>> GetLanguageStore(string targetLanguage)
     {
         if (targetLanguage == "ko")
         {
-            return languageStore["ko-KR"];
+            return languageStore["ko"];
         }
 
         var targetLanguageStore = new SortedDictionary<string, string>();
-        foreach (var defaultLanguage in languageStore["ko-KR"])
+        foreach (var defaultLanguage in languageStore["ko"])
         {
-            if (languageStore[targetPropertyName].TryGetValue(defaultLanguage.Key, out var targetLanguageValue))
+            if (languageStore[targetLanguage].TryGetValue(defaultLanguage.Key, out var targetLanguageValue))
             {
                 targetLanguageStore[defaultLanguage.Key] = targetLanguageValue;
             }

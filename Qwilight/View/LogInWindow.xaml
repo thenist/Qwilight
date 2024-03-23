@@ -32,7 +32,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding AutoLogIn, Source={StaticResource Configure}}" Content="{Binding AutoLogIn, Source={StaticResource LanguageSystem}}" />
-                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding SignUpCommand}" Content="{Binding SignUp, Source={StaticResource LanguageSystem}}" />
+                        <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding EnrollCommand}" Content="{Binding Enroll, Source={StaticResource LanguageSystem}}" />
                     </Grid>
                 </StackPanel>
             </Grid>

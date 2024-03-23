@@ -174,8 +174,8 @@
                         </TabItem>
                         <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallHighest, Source={StaticResource LanguageSystem}}">
                             <Grid>
-                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalHighestHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallTotalHighestLoading, Converter={StaticResource VisibilityNotModifier}}" />
-                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallTotalHighestLoading, Converter={StaticResource VisibilityModifier}}" />
+                                <ListView Style="{StaticResource StandardPointableItemsView}" ItemsSource="{Binding TotalTopHallItemCollection}" ItemTemplate="{StaticResource HallView}" Visibility="{Binding IsHallTotalTopLoading, Converter={StaticResource VisibilityNotModifier}}" />
+                                <ProgressBar Style="{StaticResource WaitingStatusView}" Visibility="{Binding IsHallTotalTopLoading, Converter={StaticResource VisibilityModifier}}" />
                             </Grid>
                         </TabItem>
                         <TabItem Style="{StaticResource StandardPageItem}" Header="{Binding HallStand, Source={StaticResource LanguageSystem}}">

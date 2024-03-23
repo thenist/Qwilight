@@ -102,7 +102,7 @@ namespace Qwilight.ViewModel
         string _twilightCommentTotalFavor;
         bool _isHallTotalTotalLoading;
         bool _isHallAtTotalLoading;
-        bool _isHallTotalHighestLoading;
+        bool _isHallTotalTopLoading;
         bool _isHallAtHighestLoading;
         bool _isHallTotalStandLoading;
         bool _isHallAtStandLoading;
@@ -172,7 +172,7 @@ namespace Qwilight.ViewModel
 
         public ObservableCollection<HallItem> TotalTotalHallItemCollection { get; } = new();
 
-        public ObservableCollection<HallItem> TotalHighestHallItemCollection { get; } = new();
+        public ObservableCollection<HallItem> TotalTopHallItemCollection { get; } = new();
 
         public ObservableCollection<HallItem> TotalStandHallItemCollection { get; } = new();
 
@@ -375,11 +375,11 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _isHallTotalTotalLoading, value, nameof(IsHallTotalTotalLoading));
         }
 
-        public bool IsHallTotalHighestLoading
+        public bool IsHallTotalTopLoading
         {
-            get => _isHallTotalHighestLoading;
+            get => _isHallTotalTopLoading;
 
-            set => SetProperty(ref _isHallTotalHighestLoading, value, nameof(IsHallTotalHighestLoading));
+            set => SetProperty(ref _isHallTotalTopLoading, value, nameof(IsHallTotalTopLoading));
         }
 
         public bool IsHallTotalStandLoading
@@ -3272,17 +3272,17 @@ namespace Qwilight.ViewModel
                                 IsHallTotalTotalLoading = false;
                                 break;
                             case 1:
-                                IsHallTotalHighestLoading = true;
-                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/totalHighest");
+                                IsHallTotalTopLoading = true;
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/totalTop");
                                 if (twilightWwwHall != null)
                                 {
-                                    TotalHighestHallItemCollection.Clear();
+                                    TotalTopHallItemCollection.Clear();
                                     foreach (var data in twilightWwwHall)
                                     {
-                                        TotalHighestHallItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
+                                        TotalTopHallItemCollection.Add(new(data, value => value.ToString(LanguageSystem.Instance.CountContents)));
                                     }
                                 }
-                                IsHallTotalHighestLoading = false;
+                                IsHallTotalTopLoading = false;
                                 break;
                             case 2:
                                 IsHallTotalStandLoading = true;
@@ -3330,7 +3330,7 @@ namespace Qwilight.ViewModel
                                 break;
                             case 1:
                                 IsHallAtHighestLoading = true;
-                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/atHighest");
+                                twilightWwwHall = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwHall[]>($"{QwilightComponent.QwilightAPI}/hall/atTop");
                                 if (twilightWwwHall != null)
                                 {
                                     AtHighestHallItemCollection.Clear();

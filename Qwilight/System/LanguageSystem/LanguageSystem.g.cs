@@ -230,6 +230,7 @@ namespace Qwilight
         public string EditorConfigureFault { get; set; }
         public string EditorContents { get; set; }
         public string EditorSoftwareFault { get; set; }
+        public string Enroll { get; set; }
         public string EnterAutoComputeConfigure { get; set; }
         public string EnterAutoComputeMediaInputConfigure { get; set; }
         public string EnterAutoComputeUIConfigure { get; set; }
@@ -766,7 +767,6 @@ namespace Qwilight
         public string SetTotalText { get; set; }
         public string SFXContents { get; set; }
         public string SFXText { get; set; }
-        public string SignUp { get; set; }
         public string SilentSiteAvatarContents { get; set; }
         public string SilentSiteCallableContents { get; set; }
         public string SilentSiteCompetenceContents { get; set; }

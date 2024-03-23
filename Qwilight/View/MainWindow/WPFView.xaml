@@ -14,7 +14,7 @@
         <view:Layer1View />
         <Grid x:Name="WindowViews">
             <view:LogInWindow />
-            <view:SignUpWindow />
+            <view:EnrollWindow />
             <view:ConfigureWindow />
             <view:CommentWindow />
             <view:BundleWindow />
