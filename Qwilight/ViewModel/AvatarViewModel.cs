@@ -1157,7 +1157,7 @@ namespace Qwilight.ViewModel
                 IsAvatarLoading = true;
 
                 var avatarID = CallingAvatarID;
-                var twilightWwwAvatar = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatar?>($"{QwilightComponent.QwilightAPI}/avatar?avatarID={avatarID}");
+                var twilightWwwAvatar = await TwilightSystem.Instance.GetWwwParallel<JSON.TwilightWwwAvatar?>($"{QwilightComponent.QwilightAPI}/avatar?want=!{avatarID}");
                 if (avatarID == CallingAvatarID)
                 {
                     if (twilightWwwAvatar.HasValue)
