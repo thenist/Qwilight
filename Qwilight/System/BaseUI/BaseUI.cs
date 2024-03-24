@@ -191,6 +191,8 @@ namespace Qwilight
 
         public ImageSource LengthFitDrawing { get; set; }
 
+        public ImageSource HitPointsValueFitDrawing { get; set; }
+
         public ImageSource LengthNetSiteDrawing { get; set; }
 
         public ImageSource BPMFitDrawing { get; set; }
@@ -1845,6 +1847,9 @@ namespace Qwilight
                                 break;
                             case "Entry Path":
                                 EntryPathFitDrawing = defaultDrawing;
+                                break;
+                            case "Hit Points Value":
+                                HitPointsValueFitDrawing = defaultDrawing;
                                 break;
                         }
                         break;

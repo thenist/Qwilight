@@ -16,6 +16,8 @@ namespace Qwilight.Utilities
 
         public static bool ToInt32(string text, out int value) => int.TryParse(text, NumberStyles.Number, CultureInfo.InvariantCulture, out value);
 
+        public static int ToIntHex(string text) => Convert.ToInt32(text, 16);
+
         public static bool ToBool(string text) => Convert.ToBoolean(text, CultureInfo.InvariantCulture);
     }
 }

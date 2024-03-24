@@ -46,6 +46,8 @@ namespace Qwilight.Compiler
 
         public SortedDictionary<double, double> PositionBPMMap { get; } = new();
 
+        public SortedDictionary<double, double> PositionBPMUIMap { get; } = new();
+
         public SortedDictionary<double, int> PositionStandNoteCountMap { get; } = new();
 
         public SortedDictionary<double, double> WaitMultiplierMap { get; } = new(Comparer<double>.Create((x, y) => y.CompareTo(x)));
@@ -87,15 +89,15 @@ namespace Qwilight.Compiler
             var trailerAudioName = targetComputing.TrailerAudioName;
             targetComputing.TrailerAudioPath = Path.Combine(NoteFile.EntryItem.EntryPath, string.IsNullOrEmpty(trailerAudioName) ? "PREVIEW.WAV" : trailerAudioName);
             var rawHighestBPM = targetComputing.LevyingBPM;
-            if (PositionBPMMap.Count > 0)
+            if (PositionBPMUIMap.Count > 0)
             {
-                targetComputing.LowestBPM = Math.Min(PositionBPMMap.Values.Min(), targetComputing.LevyingBPM);
-                targetComputing.HighestBPM = Math.Max(PositionBPMMap.Values.Max(), targetComputing.LevyingBPM);
+                targetComputing.LowestBPM = Math.Min(PositionBPMUIMap.Values.Min(), targetComputing.LevyingBPM);
+                targetComputing.HighestBPM = Math.Max(PositionBPMUIMap.Values.Max(), targetComputing.LevyingBPM);
                 rawHighestBPM = targetComputing.HighestBPM;
                 var bpmWaitMap = new Dictionary<double, double>();
                 var lastBPM = targetComputing.LevyingBPM;
                 var lastBPMPosition = 0.0;
-                foreach (var (bpmPosition, bpm) in PositionBPMMap)
+                foreach (var (bpmPosition, bpm) in PositionBPMUIMap)
                 {
                     if (bpmPosition <= HighestPosition)
                     {

@@ -627,6 +627,7 @@ namespace Qwilight
         public string NotIsFailModeText { get; set; }
         public string NotK70Text { get; set; }
         public string NotLoggedInContents { get; set; }
+        public string NotLoggedInLambda { get; set; }
         public string NotLoggedInSituationContents { get; set; }
         public string NotLogInNotify { get; set; }
         public string NotLogInText { get; set; }

@@ -624,12 +624,15 @@ namespace Qwilight.Compiler
                                     switch (noteVariety1)
                                     {
                                         case '3':
-                                            PositionBPMMap[bmsPosition] = Convert.ToInt32(bmsID, 16);
+                                            var bpmHex = Utility.ToIntHex(bmsID);
+                                            PositionBPMMap[bmsPosition] = bpmHex;
+                                            PositionBPMUIMap[bmsPosition] = bpmHex;
                                             break;
                                         case '8':
                                             if (bmsIDBPMMap.TryGetValue(bmsID, out var bpm))
                                             {
                                                 PositionBPMMap[bmsPosition] = bpm;
+                                                PositionBPMUIMap[bmsPosition] = bpm;
                                             }
                                             break;
                                         case '9':
@@ -660,6 +663,7 @@ namespace Qwilight.Compiler
                                             if (_bmsIDMultiplierMap.TryGetValue(bmsID, out var multiplier))
                                             {
                                                 _bmsPositionMultiplierMap[bmsPosition] = multiplier;
+                                                PositionBPMUIMap[bmsPosition] = targetComputing.LevyingBPM * multiplier;
                                             }
                                             break;
                                     }

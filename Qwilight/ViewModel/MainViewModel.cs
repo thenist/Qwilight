@@ -2239,10 +2239,10 @@ namespace Qwilight.ViewModel
                                 var levelTextValue = 0.0;
                                 var wantLevelID = string.Empty;
                                 var highestInputCount = 0;
-                                var averageInputCount = 0.0;
                                 var totalNotes = 0;
                                 DateTime? latestDate = null;
                                 var handledCount = 0;
+                                var hitPointsValue = 0.0;
                                 titles.Clear();
                                 bpms.Clear();
                                 lengths.Clear();
@@ -2257,7 +2257,7 @@ namespace Qwilight.ViewModel
                                     lengths.Add(wellNoteFile.Length);
                                     totalNotes = Math.Max(totalNotes, wellNoteFile.TotalNotes);
                                     highestInputCount = Math.Max(highestInputCount, wellNoteFile.HighestInputCount);
-                                    averageInputCount = Math.Max(averageInputCount, wellNoteFile.AverageInputCount);
+                                    hitPointsValue = Math.Max(hitPointsValue, wellNoteFile.HitPointsValue);
                                     if (!double.IsNaN(wellNoteFile.LevelTextValue))
                                     {
                                         levelTextValue = Math.Max(levelTextValue, wellNoteFile.LevelTextValue);
@@ -2281,6 +2281,7 @@ namespace Qwilight.ViewModel
                                 entryItem.TotalNotes = totalNotes;
                                 entryItem.LevelTextValue = levelTextValue;
                                 entryItem.HighestInputCount = highestInputCount;
+                                entryItem.HitPointsValue = hitPointsValue;
                                 if (!isEntryItemEventNote)
                                 {
                                     entryItem.Title = Utility.GetFavoriteItem(titles);
@@ -2804,9 +2805,17 @@ namespace Qwilight.ViewModel
 
         public void HandleF10()
         {
-            if (TwilightSystem.Instance.IsLoggedIn && HasNotInput(ViewModels.Instance.WwwLevelValue))
+            if (HasNotInput(ViewModels.Instance.WwwLevelValue))
             {
-                ViewModels.Instance.WwwLevelValue.Toggle();
+                if (TwilightSystem.Instance.IsLoggedIn)
+                {
+                    ViewModels.Instance.WwwLevelValue.Toggle();
+                }
+                else
+                {
+                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotLoggedInLambda);
+                    ViewModels.Instance.LogInValue.Open();
+                }
             }
         }
 

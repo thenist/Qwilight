@@ -268,7 +268,7 @@
             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist4, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" Visibility="{Binding IsEstablished, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist5, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" Visibility="{Binding IsEstablished, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist6, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
-            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist7, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" Visibility="{Binding IsLoggedIn, Source={StaticResource TwilightSystem}, Converter={StaticResource VisibilityModifier}}" />
+            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist7, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding Assist8, Source={StaticResource LanguageSystem}}" Foreground="{Binding AssistViewPoint[6], Source={StaticResource BaseUI}}" />
         </StackPanel>
     </Border>

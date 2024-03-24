@@ -464,7 +464,9 @@ namespace Qwilight.Compiler
             foreach (var bpmEvent in _text.bpm_events)
             {
                 var bmsonPosition = bpmEvent.y;
-                PositionBPMMap.Add(bmsonPosition, bpmEvent.bpm);
+                var bpm = bpmEvent.bpm;
+                PositionBPMMap.Add(bmsonPosition, bpm);
+                PositionBPMUIMap.Add(bmsonPosition, bpm);
                 bmsonPositionSet.Add(bmsonPosition);
             }
             var bmsonPositionStopMap = new SortedDictionary<long, long>();

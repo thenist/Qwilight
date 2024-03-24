@@ -28,6 +28,7 @@
                 <quic:FitMode Mode="{StaticResource FitModeLevelTextValue}" />
                 <quic:FitMode Mode="{StaticResource FitModeAverageInputCount}" />
                 <quic:FitMode Mode="{StaticResource FitModeHighestInputCount}" />
+                <quic:FitMode Mode="{StaticResource FitModeHitPointsValue}" />
                 <quic:FitMode Mode="{StaticResource FitModeTotalNotes}" />
                 <quic:FitMode Mode="{StaticResource FitModeBPM}" />
             </ComboBox.Items>

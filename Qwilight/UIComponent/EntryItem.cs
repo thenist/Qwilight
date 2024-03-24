@@ -96,6 +96,8 @@ namespace Qwilight.UIComponent
 
         public double Length { get; set; }
 
+        public double HitPointsValue { get; set; }
+
         public int TotalNotes { get; set; }
 
         public double LevelTextValue { get; set; }

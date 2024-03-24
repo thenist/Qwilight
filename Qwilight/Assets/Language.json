@@ -2499,6 +2499,10 @@
     "ko-KR": "{0}님 감사합니다.",
     "en-US": "Thank you, {0}."
   },
+  "NotLoggedInLambda": {
+    "ko-KR": "로그인 후 이용 가능합니다.",
+    "en-US": "You can use it after logging in."
+  },
   "NotLoggedInSituationContents": {
     "ko-KR": "{0}에 마지막으로 접속함",
     "en-US": "{0} last accessed"

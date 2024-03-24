@@ -723,7 +723,8 @@ namespace Qwilight.Compute
         {
             if (NetItems.Count > 0)
             {
-                CommentPlace0Text = $"＃{NetItems.Single(netItem => netItem.IsMyNetItem).TargetPosition + 1}";
+                var i = NetItems.Single(netItem => netItem.IsMyNetItem).TargetPosition;
+                CommentPlace0Text = i > 50 ? $"＃＞{i}" : $"＃{i + 1}";
                 CommentPlace1Text = $"／{_totalComments + 1}";
             }
             else

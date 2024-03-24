@@ -18,6 +18,7 @@ namespace Qwilight.UIComponent
         public const int HandledCount = 9;
         public const int AverageInputCount = 10;
         public const int EntryPath = 11;
+        public const int HitPointsValue = 12;
 
         public ImageSource Drawing => Mode switch
         {
@@ -33,6 +34,7 @@ namespace Qwilight.UIComponent
             HandledCount => BaseUI.Instance.HandledCountFitDrawing,
             AverageInputCount => BaseUI.Instance.AverageInputCountFitDrawing,
             EntryPath => BaseUI.Instance.EntryPathFitDrawing,
+            HitPointsValue => BaseUI.Instance.HitPointsValueFitDrawing,
             _ => default,
         };
 
@@ -81,6 +83,9 @@ namespace Qwilight.UIComponent
                     break;
                 case EntryPath:
                     FitImpl(entryItem => entryItem.EntryPath, null);
+                    break;
+                case HitPointsValue:
+                    FitImpl(entryItem => entryItem.HitPointsValue, null, false);
                     break;
             }
 
@@ -249,6 +254,18 @@ namespace Qwilight.UIComponent
                         highestAverageInputCount = Math.Max(highestAverageInputCount, averageInputCount);
                     }
                     entryItem.FittedText = lowestAverageInputCount != highestAverageInputCount ? $"{lowestAverageInputCount:#,##0.## / s} ~ {highestAverageInputCount:#,##0.## / s}" : lowestAverageInputCount.ToString("#,##0.## / s");
+                    break;
+                case HitPointsValue:
+                    var lowestHitPointsValue = double.MaxValue;
+                    var highestHitPointsValue = double.MinValue;
+                    foreach (var noteFile in entryItem.WellNoteFiles)
+                    {
+                        var hitPointsValue = noteFile.HitPointsValue;
+                        noteFile.FittedText = $"{Math.Round(100 * hitPointsValue, 3)}％";
+                        lowestHitPointsValue = Math.Min(lowestHitPointsValue, hitPointsValue);
+                        highestHitPointsValue = Math.Max(highestHitPointsValue, hitPointsValue);
+                    }
+                    entryItem.FittedText = lowestHitPointsValue != highestHitPointsValue ? $"{Math.Round(100 * lowestHitPointsValue, 3)}％ ~ {Math.Round(100 * highestHitPointsValue, 3)}％" : $"{Math.Round(100 * lowestHitPointsValue, 3)}％";
                     break;
             }
         }
