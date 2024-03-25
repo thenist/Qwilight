@@ -793,15 +793,12 @@ namespace Qwilight
             public long date;
             public int[] avatarLevels;
             public double avatarAbility5K;
-            public double avatarAbility5KClass;
             public int avatarAbility5KPlace;
             public int avatarAbility5KCount;
             public double avatarAbility7K;
-            public double avatarAbility7KClass;
             public int avatarAbility7KPlace;
             public int avatarAbility7KCount;
             public double avatarAbility9K;
-            public double avatarAbility9KClass;
             public int avatarAbility9KPlace;
             public int avatarAbility9KCount;
             public string[] levelNames;

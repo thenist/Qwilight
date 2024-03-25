@@ -1193,10 +1193,9 @@ namespace Qwilight.ViewModel
                         OnPropertyChanged(nameof(AvatarViewLevelText));
                         OnPropertyChanged(nameof(AvatarViewLevelValue));
 
-                        var avatarAbility5KClass = twilightWwwAvatarValue.avatarAbility5KClass;
                         try
                         {
-                            AbilityClass5KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass5K={(avatarAbility5KClass < 0 ? avatarAbility5KClass : 100 * avatarAbility5KClass)}"), null);
+                            AbilityClass5KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass5K={twilightWwwAvatarValue.avatarAbility5K}"), null);
                         }
                         catch
                         {
@@ -1214,10 +1213,9 @@ namespace Qwilight.ViewModel
                         _avatarAbility5K = twilightWwwAvatarValue.avatarAbility5K;
                         OnPropertyChanged(nameof(AvatarViewAbility5KText));
 
-                        var avatarAbility7KClass = twilightWwwAvatarValue.avatarAbility7KClass;
                         try
                         {
-                            AbilityClass7KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass7K={(avatarAbility7KClass < 0 ? avatarAbility7KClass : 100 * avatarAbility7KClass)}"), null);
+                            AbilityClass7KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass7K={twilightWwwAvatarValue.avatarAbility7K}"), null);
                         }
                         catch
                         {
@@ -1235,10 +1233,9 @@ namespace Qwilight.ViewModel
                         _avatarAbility7K = twilightWwwAvatarValue.avatarAbility7K;
                         OnPropertyChanged(nameof(AvatarViewAbility7KText));
 
-                        var avatarAbility9KClass = twilightWwwAvatarValue.avatarAbility9KClass;
                         try
                         {
-                            AbilityClass9KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass9K={(avatarAbility9KClass < 0 ? avatarAbility9KClass : 100 * avatarAbility9KClass)}"), null);
+                            AbilityClass9KDrawing = DrawingSystem.Instance.LoadDefault(await TwilightSystem.Instance.GetWwwParallel($"{QwilightComponent.QwilightAPI}/drawing?abilityClass9K={twilightWwwAvatarValue.avatarAbility9K}"), null);
                         }
                         catch
                         {
