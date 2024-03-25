@@ -1203,13 +1203,12 @@ namespace Qwilight.ViewModel
                         if (twilightWwwAvatarValue.avatarAbility5KPlace > 0)
                         {
                             AvatarAbility5KPlaceText0 = twilightWwwAvatarValue.avatarAbility5KPlace.ToString("＃#,##0");
-                            AvatarAbility5KPlaceText1 = twilightWwwAvatarValue.avatarAbility5KCount.ToString("／#,##0");
                         }
                         else
                         {
-                            AvatarAbility5KPlaceText0 = string.Empty;
-                            AvatarAbility5KPlaceText1 = string.Empty;
+                            AvatarAbility5KPlaceText0 = "＃？";
                         }
+                        AvatarAbility5KPlaceText1 = twilightWwwAvatarValue.avatarAbility5KCount.ToString("／#,##0");
                         _avatarAbility5K = twilightWwwAvatarValue.avatarAbility5K;
                         OnPropertyChanged(nameof(AvatarViewAbility5KText));
 
@@ -1223,13 +1222,12 @@ namespace Qwilight.ViewModel
                         if (twilightWwwAvatarValue.avatarAbility7KPlace > 0)
                         {
                             AvatarAbility7KPlaceText0 = twilightWwwAvatarValue.avatarAbility7KPlace.ToString("＃#,##0");
-                            AvatarAbility7KPlaceText1 = twilightWwwAvatarValue.avatarAbility7KCount.ToString("／#,##0");
                         }
                         else
                         {
-                            AvatarAbility7KPlaceText0 = string.Empty;
-                            AvatarAbility7KPlaceText1 = string.Empty;
+                            AvatarAbility7KPlaceText0 = "＃？";
                         }
+                        AvatarAbility7KPlaceText1 = twilightWwwAvatarValue.avatarAbility7KCount.ToString("／#,##0");
                         _avatarAbility7K = twilightWwwAvatarValue.avatarAbility7K;
                         OnPropertyChanged(nameof(AvatarViewAbility7KText));
 
@@ -1243,13 +1241,12 @@ namespace Qwilight.ViewModel
                         if (twilightWwwAvatarValue.avatarAbility9KPlace > 0)
                         {
                             AvatarAbility9KPlaceText0 = twilightWwwAvatarValue.avatarAbility9KPlace.ToString("＃#,##0");
-                            AvatarAbility9KPlaceText1 = twilightWwwAvatarValue.avatarAbility9KCount.ToString("／#,##0");
                         }
                         else
                         {
-                            AvatarAbility9KPlaceText0 = string.Empty;
-                            AvatarAbility9KPlaceText1 = string.Empty;
+                            AvatarAbility9KPlaceText0 = "＃？";
                         }
+                        AvatarAbility9KPlaceText1 = twilightWwwAvatarValue.avatarAbility9KCount.ToString("／#,##0");
                         _avatarAbility9K = twilightWwwAvatarValue.avatarAbility9K;
                         OnPropertyChanged(nameof(AvatarViewAbility9KText));
 
