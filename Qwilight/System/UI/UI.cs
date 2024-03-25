@@ -61,7 +61,7 @@ namespace Qwilight
 
         public XamlUIConfigure[] XamlUIConfigures { get; set; }
 
-        public string[] LoadedConfigures { get; } = new string[8];
+        public string[] LoadedConfigures { get; } = new string[MaxUIConfigure];
 
         public bool HasMain => PaintPipelineValues.Contains(PaintPipelineID.Main);
 
