@@ -1225,7 +1225,7 @@ namespace Qwilight.Compute
 
         public enum LastStatus
         {
-            Not, Last, Band1
+            Not, Last, Band1, Yell1
         }
 
         public double AudioLength { get; set; }
@@ -1264,7 +1264,9 @@ namespace Qwilight.Compute
 
         public List<double> InputNoteCounts { get; } = new();
 
-        public bool IsP => InheritedLowestJudgment == 0;
+        public bool IsYell1 => Point.TargetValue == 1.0;
+
+        public bool IsBand1 => InheritedLowestJudgment == 0;
 
         public virtual QuitStatus QuitStatusValue => Utility.GetQuitStatusValue(Point.TargetValue, Stand.TargetValue, IsF ? 0.0 : HitPoints.TargetValue, NoteFiles.Length);
 
@@ -2852,7 +2854,7 @@ namespace Qwilight.Compute
                         }
                         if (LastStatusValue == LastStatus.Not && ValidatedTotalNotes > 0 && ValidatedTotalNotes == _validJudgedNotes)
                         {
-                            _lastStatus = Comment.LowestJudgment > 0 ? LastStatus.Last : LastStatus.Band1;
+                            _lastStatus = Comment.LowestJudgment > 0 ? LastStatus.Last : Point.TargetValue < 1.0 ? LastStatus.Band1 : LastStatus.Yell1;
                             _isEscapable = true;
                         }
 
@@ -3469,11 +3471,14 @@ namespace Qwilight.Compute
                         {
                             switch (LastStatusValue)
                             {
+                                case LastStatus.Last:
+                                    HandleUIAudio("Last");
+                                    break;
                                 case LastStatus.Band1:
                                     HandleUIAudio("Band!");
                                     break;
-                                case LastStatus.Last:
-                                    HandleUIAudio("Last");
+                                case LastStatus.Yell1:
+                                    HandleUIAudio("Yell!", "Band!");
                                     break;
                             }
                             if (judgmentFrame > 0)
@@ -3482,6 +3487,18 @@ namespace Qwilight.Compute
                                 var altJudgment = 0.0;
                                 switch (LastStatusValue)
                                 {
+                                    case LastStatus.Last:
+                                        judged = Component.Judged.Last;
+                                        judgmentPosition0 = DrawingComponentValue.lastPosition0;
+                                        judgmentPosition1 = DrawingComponentValue.lastPosition1;
+                                        judgmentSystem = DrawingComponentValue.lastSystem;
+                                        judgmentFrame = DrawingComponentValue.lastFrame;
+                                        judgmentFramerate = DrawingComponentValue.lastFramerate;
+                                        judgmentLength = DrawingComponentValue.lastLength;
+                                        judgmentHeight = DrawingComponentValue.lastHeight;
+                                        altJudgment = DrawingComponentValue.altLast;
+                                        HandleUIAudio("Last");
+                                        break;
                                     case LastStatus.Band1:
                                         judged = Component.Judged.Band1;
                                         judgmentPosition0 = DrawingComponentValue.band1Position0;
@@ -3494,17 +3511,17 @@ namespace Qwilight.Compute
                                         altJudgment = DrawingComponentValue.altBand1;
                                         HandleUIAudio("Band!");
                                         break;
-                                    case LastStatus.Last:
-                                        judged = Component.Judged.Last;
-                                        judgmentPosition0 = DrawingComponentValue.lastPosition0;
-                                        judgmentPosition1 = DrawingComponentValue.lastPosition1;
-                                        judgmentSystem = DrawingComponentValue.lastSystem;
-                                        judgmentFrame = DrawingComponentValue.lastFrame;
-                                        judgmentFramerate = DrawingComponentValue.lastFramerate;
-                                        judgmentLength = DrawingComponentValue.lastLength;
-                                        judgmentHeight = DrawingComponentValue.lastHeight;
-                                        altJudgment = DrawingComponentValue.altLast;
-                                        HandleUIAudio("Last");
+                                    case LastStatus.Yell1:
+                                        judged = Component.Judged.Yell1;
+                                        judgmentPosition0 = DrawingComponentValue.yell1Position0;
+                                        judgmentPosition1 = DrawingComponentValue.yell1Position1;
+                                        judgmentSystem = DrawingComponentValue.yell1System;
+                                        judgmentFrame = DrawingComponentValue.yell1Frame;
+                                        judgmentFramerate = DrawingComponentValue.yell1Framerate;
+                                        judgmentLength = DrawingComponentValue.yell1Length;
+                                        judgmentHeight = DrawingComponentValue.yell1Height;
+                                        altJudgment = DrawingComponentValue.altYell1;
+                                        HandleUIAudio("Yell!");
                                         break;
                                 }
                                 if (!Has2P || altJudgment != 3)
@@ -4081,34 +4098,44 @@ namespace Qwilight.Compute
                     var lowestAudioMultiplier = new[] { TotallyLevyingAudioMultiplier }.Concat(Comment.AudioMultipliers.Select(audioMultiplier => audioMultiplier.AudioMultiplier)).Min();
                     if (lowestAudioMultiplier >= 1.0 && ModeComponentValue.IsDefaultHandled)
                     {
-                        if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
+                        if (NoteFile.HandledValue != BaseNoteFile.Handled.Yell1)
                         {
-                            if (IsP)
+                            if (IsYell1)
                             {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.Band1;
+                                NoteFile.HandledValue = BaseNoteFile.Handled.Yell1;
                             }
                             else
                             {
-                                if (IsF)
+                                if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
                                 {
-                                    if (NoteFile.HandledValue == BaseNoteFile.Handled.Not)
+                                    if (IsBand1)
                                     {
-                                        NoteFile.HandledValue = BaseNoteFile.Handled.F;
+                                        NoteFile.HandledValue = BaseNoteFile.Handled.Band1;
                                     }
-                                }
-                                else
-                                {
-                                    switch (ModeComponentValue.HandlingHitPointsModeValue)
+                                    else
                                     {
-                                        case ModeComponent.HitPointsMode.Highest:
-                                            NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
-                                            break;
-                                        case ModeComponent.HitPointsMode.Higher when NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear:
-                                            NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
-                                            break;
-                                        case ModeComponent.HitPointsMode.Default when NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear:
-                                            NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
-                                            break;
+                                        if (IsF)
+                                        {
+                                            if (NoteFile.HandledValue == BaseNoteFile.Handled.Not)
+                                            {
+                                                NoteFile.HandledValue = BaseNoteFile.Handled.F;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            switch (ModeComponentValue.HandlingHitPointsModeValue)
+                                            {
+                                                case ModeComponent.HitPointsMode.Highest:
+                                                    NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
+                                                    break;
+                                                case ModeComponent.HitPointsMode.Higher when NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear:
+                                                    NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
+                                                    break;
+                                                case ModeComponent.HitPointsMode.Default when NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear:
+                                                    NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
+                                                    break;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -4117,25 +4144,15 @@ namespace Qwilight.Compute
                     }
                     else
                     {
-                        if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
+                        if (NoteFile.HandledValue == BaseNoteFile.Handled.Not || NoteFile.HandledValue == BaseNoteFile.Handled.F)
                         {
-                            if (IsP)
+                            if (IsF)
                             {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.AssistClear;
+                                NoteFile.HandledValue = BaseNoteFile.Handled.F;
                             }
                             else
                             {
-                                if (IsF)
-                                {
-                                    if (NoteFile.HandledValue == BaseNoteFile.Handled.Not)
-                                    {
-                                        NoteFile.HandledValue = BaseNoteFile.Handled.F;
-                                    }
-                                }
-                                else
-                                {
-                                    NoteFile.HandledValue = BaseNoteFile.Handled.AssistClear;
-                                }
+                                NoteFile.HandledValue = BaseNoteFile.Handled.AssistClear;
                             }
                             DB.Instance.SetHandled(NoteFile);
                         }
@@ -4161,7 +4178,7 @@ namespace Qwilight.Compute
                         {
                             try
                             {
-                                DB.Instance.SaveComment(date, NoteFile, string.Empty, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
+                                DB.Instance.SaveComment(date, NoteFile, string.Empty, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsBand1, Point.TargetValue, _isPaused, _inputFlags);
                                 using var fs = File.OpenWrite(Path.Combine(QwilightComponent.CommentEntryPath, commentID));
                                 _comments.Single().WriteTo(fs);
                             }
@@ -4211,7 +4228,7 @@ namespace Qwilight.Compute
                         {
                             try
                             {
-                                DB.Instance.SaveComment(date, default, eventNoteID, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsP, Point.TargetValue, _isPaused, _inputFlags);
+                                DB.Instance.SaveComment(date, default, eventNoteID, commentID, AvatarName, TotallyLevyingMultiplier, TotallyLevyingAudioMultiplier, ModeComponentValue, Stand.TargetValue, HighestBand, IsBand1, Point.TargetValue, _isPaused, _inputFlags);
                                 using (var zipFile = new ZipFile(Path.Combine(QwilightComponent.CommentEntryPath, Path.ChangeExtension(commentID, ".zip"))))
                                 {
                                     for (var i = _comments.Count - 1; i >= 0; --i)
@@ -4777,13 +4794,13 @@ namespace Qwilight.Compute
             }
         }
 
-        void HandleUIAudio(string audioFileName)
+        void HandleUIAudio(string audioFileName, string defaultFileName = null)
         {
             if (!IsInEvents)
             {
-                if (!UI.Instance.HandleAudio(audioFileName))
+                if (!UI.Instance.HandleAudio(audioFileName, defaultFileName))
                 {
-                    BaseUI.Instance.HandleAudio(audioFileName);
+                    BaseUI.Instance.HandleAudio(audioFileName, defaultFileName);
                 }
             }
         }

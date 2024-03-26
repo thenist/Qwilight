@@ -231,18 +231,18 @@ namespace Qwilight
                                 switch (Etc)
                                 {
                                     case "S+" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.SPlus:
-                                    case "S FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.S && defaultComputer.IsP:
-                                    case "S" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.S && !defaultComputer.IsP:
-                                    case "A+ FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.APlus && defaultComputer.IsP:
-                                    case "A+" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.APlus && !defaultComputer.IsP:
-                                    case "A FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.A && defaultComputer.IsP:
-                                    case "A" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.A && !defaultComputer.IsP:
-                                    case "B FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.B && defaultComputer.IsP:
-                                    case "B" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.B && !defaultComputer.IsP:
-                                    case "C FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.C && defaultComputer.IsP:
-                                    case "C" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.C && !defaultComputer.IsP:
-                                    case "D FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.D && defaultComputer.IsP:
-                                    case "D" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.D && !defaultComputer.IsP:
+                                    case "S FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.S && defaultComputer.IsBand1:
+                                    case "S" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.S && !defaultComputer.IsBand1:
+                                    case "A+ FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.APlus && defaultComputer.IsBand1:
+                                    case "A+" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.APlus && !defaultComputer.IsBand1:
+                                    case "A FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.A && defaultComputer.IsBand1:
+                                    case "A" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.A && !defaultComputer.IsBand1:
+                                    case "B FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.B && defaultComputer.IsBand1:
+                                    case "B" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.B && !defaultComputer.IsBand1:
+                                    case "C FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.C && defaultComputer.IsBand1:
+                                    case "C" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.C && !defaultComputer.IsBand1:
+                                    case "D FC" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.D && defaultComputer.IsBand1:
+                                    case "D" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.D && !defaultComputer.IsBand1:
                                     case "F" when defaultComputer.QuitStatusValue == DefaultCompute.QuitStatus.F:
                                         targetSession.PaintDrawing(ref r, HandledDrawingItems?.ElementAtOrDefault(DrawingFrame)?.Drawing);
                                         break;

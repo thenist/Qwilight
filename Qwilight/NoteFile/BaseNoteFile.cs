@@ -10,7 +10,7 @@ namespace Qwilight.NoteFile
     {
         public enum Handled
         {
-            Not, Clear, Band1, F = 4, HigherClear, HighestClear, AssistClear
+            Not, Clear, Band1, F = 4, HigherClear, HighestClear, AssistClear, Yell1
         }
 
         public enum NoteVariety

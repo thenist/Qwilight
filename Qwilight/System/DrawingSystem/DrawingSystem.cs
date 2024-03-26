@@ -2407,7 +2407,7 @@ namespace Qwilight
                                                 targetSession.PaintVisibleText(PoolSystem.Instance.GetTextItem(defaultComputer.LowestJudgmentInQuit, BaseUI.Instance.LowestJudgmentQuitFont, (float)r.Length, (float)r.Height), ref r, judgmentQuitColors[(int)Component.Judged.Lowest]);
 
                                                 r.Set(BaseUI.Instance.QuitDrawingPoint);
-                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.QuitDrawings[(int)defaultComputer.QuitStatusValue][defaultComputer.IsP ? 1 : 0]?.Drawing);
+                                                targetSession.PaintDrawing(ref r, BaseUI.Instance.QuitDrawings[(int)defaultComputer.QuitStatusValue][defaultComputer.IsBand1 ? 1 : 0]?.Drawing);
 
                                                 r.Set(BaseUI.Instance.StandQuitPoint);
                                                 if (defaultComputer.NetPosition != -1)

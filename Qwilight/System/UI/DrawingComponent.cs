@@ -138,6 +138,12 @@ namespace Qwilight
         public float judgmentPointsHeight;
         public int judgmentPointsSystem;
 
+        public float yell1Position0;
+        public float yell1Position1;
+        public float yell1Length;
+        public float yell1Height;
+        public int yell1System;
+
         public float band1Position0;
         public float band1Position1;
         public float band1Length;
@@ -344,6 +350,8 @@ namespace Qwilight
         public double bandFramerate;
         public int judgmentFrame;
         public double judgmentFramerate;
+        public int yell1Frame;
+        public double yell1Framerate;
         public int band1Frame;
         public double band1Framerate;
         public int lastFrame;
@@ -378,6 +386,7 @@ namespace Qwilight
         public int altLowestJudgmentValue;
         public int altHighestBand;
         public int altInputVisualizer;
+        public int altYell1;
         public int altBand1;
         public int altLast;
         public int altHunter;

@@ -113,6 +113,12 @@
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledBand1Text, Source={StaticResource LanguageSystem}}" />
                                 </StackPanel>
                             </Button>
+                            <Button Style="{StaticResource StandardInputPadding0}" Foreground="{Binding HandledYell1}" Command="{Binding WantHandledCommand}" CommandParameter="{StaticResource HandledYell1}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Style="{StaticResource StandardView}" Source="{Binding HandledWallDrawings[8], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding HandledYell1Text, Source={StaticResource LanguageSystem}}" />
+                                </StackPanel>
+                            </Button>
                         </WrapPanel>
                     </GroupBox>
                     <Separator Style="{StaticResource StandardHr}" />

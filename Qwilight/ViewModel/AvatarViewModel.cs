@@ -120,11 +120,12 @@ namespace Qwilight.ViewModel
         bool _isAvatarWwwLevelLoading;
         string _handledLevelName;
         HandledLevelIDItem _handledLevelIDItem;
-        string _handledBand1;
-        string _handledHighestClear;
-        string _handledHigherClear;
-        string _handledClear;
-        string _handledAssistClear;
+        string _handledYell1Text;
+        string _handledBand1Text;
+        string _handledHighestClearText;
+        string _handledHigherClearText;
+        string _handledClearText;
+        string _handledAssistClearText;
         bool _isHandledLoading;
         string _levelVSLevelName;
         AvatarWww _levelVSMyAvatarWww;
@@ -178,6 +179,8 @@ namespace Qwilight.ViewModel
 
         public ObservableCollection<HandledLevelIDItem> HandledLevelIDItemCollection { get; } = new();
 
+        public ObservableCollection<AvatarComputing> HandledYell1AvatarComputingCollection { get; } = new();
+
         public ObservableCollection<AvatarComputing> HandledBand1AvatarComputingCollection { get; } = new();
 
         public ObservableCollection<AvatarComputing> HandledHighestClearAvatarComputingCollection { get; } = new();
@@ -190,39 +193,46 @@ namespace Qwilight.ViewModel
 
         public ObservableCollection<string> HandledLevelNameCollection { get; } = new();
 
+        public string HandledYell1Text
+        {
+            get => _handledYell1Text;
+
+            set => SetProperty(ref _handledYell1Text, value, nameof(HandledYell1Text));
+        }
+
         public string HandledBand1Text
         {
-            get => _handledBand1;
+            get => _handledBand1Text;
 
-            set => SetProperty(ref _handledBand1, value, nameof(HandledBand1Text));
+            set => SetProperty(ref _handledBand1Text, value, nameof(HandledBand1Text));
         }
 
         public string HandledHighestClearText
         {
-            get => _handledHighestClear;
+            get => _handledHighestClearText;
 
-            set => SetProperty(ref _handledHighestClear, value, nameof(HandledHighestClearText));
+            set => SetProperty(ref _handledHighestClearText, value, nameof(HandledHighestClearText));
         }
 
         public string HandledHigherClearText
         {
-            get => _handledHigherClear;
+            get => _handledHigherClearText;
 
-            set => SetProperty(ref _handledHigherClear, value, nameof(HandledHigherClearText));
+            set => SetProperty(ref _handledHigherClearText, value, nameof(HandledHigherClearText));
         }
 
         public string HandledClearText
         {
-            get => _handledClear;
+            get => _handledClearText;
 
-            set => SetProperty(ref _handledClear, value, nameof(HandledClearText));
+            set => SetProperty(ref _handledClearText, value, nameof(HandledClearText));
         }
 
         public string HandledAssistClearText
         {
-            get => _handledAssistClear;
+            get => _handledAssistClearText;
 
-            set => SetProperty(ref _handledAssistClear, value, nameof(HandledAssistClearText));
+            set => SetProperty(ref _handledAssistClearText, value, nameof(HandledAssistClearText));
         }
 
         public ObservableCollection<LevelVSLevelIDItem> LevelVSLevelIDItemCollection { get; } = new();
@@ -269,9 +279,22 @@ namespace Qwilight.ViewModel
                         var avatarHandledMap = _twilightWwwAvatarHandledMap[value.LevelID];
                         var noteIDCount = avatarHandledMap.noteIDCount;
                         var avatarHandledItems = avatarHandledMap.avatarHandledItems;
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Band1, out var handledItems))
+
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Yell1, out var handledYell1Items))
                         {
-                            foreach (var data in handledItems)
+                            foreach (var data in handledYell1Items)
+                            {
+                                HandledYell1AvatarComputingCollection.Add(new(_avatarID, data)
+                                {
+                                    FittedText = data.stand.ToString(LanguageSystem.Instance.StandContents)
+                                });
+                            }
+                        }
+                        HandledYell1Text = string.Format(LanguageSystem.Instance.AvatarHandledYell1Text, (100.0 * avatarHandledMap.handledYell1Count / noteIDCount).ToString("0.##％"));
+
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Band1, out var handledBand1Items))
+                        {
+                            foreach (var data in handledBand1Items)
                             {
                                 HandledBand1AvatarComputingCollection.Add(new(_avatarID, data)
                                 {
@@ -281,9 +304,9 @@ namespace Qwilight.ViewModel
                         }
                         HandledBand1Text = string.Format(LanguageSystem.Instance.AvatarHandledBand1Text, (100.0 * avatarHandledMap.handledBand1Count / noteIDCount).ToString("0.##％"));
 
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.HighestClear, out handledItems))
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.HighestClear, out var handledHighestClearItems))
                         {
-                            foreach (var data in handledItems)
+                            foreach (var data in handledHighestClearItems)
                             {
                                 HandledHighestClearAvatarComputingCollection.Add(new(_avatarID, data)
                                 {
@@ -293,9 +316,9 @@ namespace Qwilight.ViewModel
                         }
                         HandledHighestClearText = string.Format(LanguageSystem.Instance.AvatarHandledHighestClearText, (100.0 * avatarHandledMap.handledHighestClearCount / noteIDCount).ToString("0.##％"));
 
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.HigherClear, out handledItems))
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.HigherClear, out var handledHigherClearItems))
                         {
-                            foreach (var data in handledItems)
+                            foreach (var data in handledHigherClearItems)
                             {
                                 HandledHigherClearAvatarComputingCollection.Add(new(_avatarID, data)
                                 {
@@ -305,9 +328,9 @@ namespace Qwilight.ViewModel
                         }
                         HandledHigherClearText = string.Format(LanguageSystem.Instance.AvatarHandledHigherClearText, (100.0 * avatarHandledMap.handledHigherClearCount / noteIDCount).ToString("0.##％"));
 
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Clear, out handledItems))
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Clear, out var handledClearItems))
                         {
-                            foreach (var data in handledItems)
+                            foreach (var data in handledClearItems)
                             {
                                 HandledClearAvatarComputingCollection.Add(new(_avatarID, data)
                                 {
@@ -317,9 +340,9 @@ namespace Qwilight.ViewModel
                         }
                         HandledClearText = string.Format(LanguageSystem.Instance.AvatarHandledClearText, (100.0 * avatarHandledMap.handledClearCount / noteIDCount).ToString("0.##％"));
 
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.AssistClear, out handledItems))
+                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.AssistClear, out var handledAssistClearItems))
                         {
-                            foreach (var data in handledItems)
+                            foreach (var data in handledAssistClearItems)
                             {
                                 HandledAssistClearAvatarComputingCollection.Add(new(_avatarID, data)
                                 {

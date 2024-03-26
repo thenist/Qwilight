@@ -68,6 +68,17 @@ namespace Compatible
                 catch
                 {
                 }
+                try
+                {
+                    using var dbStatement = NewDBStatement("""
+                        ALTER TABLE comment
+                        RENAME COLUMN Is_P TO Is_Band1
+                    """);
+                    dbStatement.ExecuteNonQuery();
+                }
+                catch
+                {
+                }
             }
 
             if (HasTable("note"))

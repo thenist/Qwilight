@@ -178,7 +178,7 @@ namespace Qwilight
                 public BaseNoteFile.Handled handled;
                 public int stand;
                 public int band;
-                public bool isP;
+                public bool isBand1;
                 public double point;
                 public int salt;
                 public string commentID;
@@ -820,6 +820,7 @@ namespace Qwilight
 
         public struct TwilightWwwAvatarHandled
         {
+            public int handledYell1Count;
             public int handledBand1Count;
             public int handledHighestClearCount;
             public int handledHigherClearCount;

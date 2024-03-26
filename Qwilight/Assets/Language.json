@@ -367,6 +367,10 @@
     "ko-KR": "아직 안 함 ({0})",
     "en-US": "Not yet ({0})"
   },
+  "AvatarHandledYell1Text": {
+    "ko-KR": "퍼펙트 ({0})",
+    "en-US": "Perfect ({2})"
+  },
   "AvatarID": {
     "ko-KR": "아이디",
     "en-US": "ID"

@@ -3375,7 +3375,6 @@ namespace Qwilight
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 14))
             {
-                InputWantHandled = new bool[8];
                 Array.Fill(InputWantHandled, true);
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 16))
@@ -3392,6 +3391,10 @@ namespace Qwilight
                 AutoLowestLongNoteModifyValue = 16.0;
                 AutoHighestLongNoteModifyValue = 16.0;
                 AutoSetNotePutMillisValue = 16.0;
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 19))
+            {
+                InputWantHandled = new bool[9];
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

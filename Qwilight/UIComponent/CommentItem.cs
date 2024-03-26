@@ -45,7 +45,7 @@ namespace Qwilight.UIComponent
             _ => QwilightComponent.GetBuiltInData<Brush>("CommentPointPaint")
         };
 
-        public ImageSource QuitDrawing => BaseUI.Instance.QuitDrawings[(int)Quit][IsP ? 1 : 0]?.DefaultDrawing;
+        public ImageSource QuitDrawing => BaseUI.Instance.QuitDrawings[(int)Quit][IsBand1 ? 1 : 0]?.DefaultDrawing;
 
         public bool IsTwilightComment { get; init; }
 
@@ -63,7 +63,7 @@ namespace Qwilight.UIComponent
 
         public double Point { get; init; }
 
-        public bool IsP { get; init; }
+        public bool IsBand1 { get; init; }
 
         public string TwilightCommentary
         {

@@ -53,6 +53,7 @@ namespace Qwilight.ViewModel
             OnPropertyChanged(nameof(HandledAssistClear));
             OnPropertyChanged(nameof(HandledClear));
             OnPropertyChanged(nameof(HandledBand1));
+            OnPropertyChanged(nameof(HandledYell1));
             OnPropertyChanged(nameof(HandledF));
             OnPropertyChanged(nameof(HandledHigherClear));
             OnPropertyChanged(nameof(HandledHighestClear));
@@ -72,6 +73,7 @@ namespace Qwilight.ViewModel
                 OnPropertyChanged(nameof(HandledAssistClear));
                 OnPropertyChanged(nameof(HandledClear));
                 OnPropertyChanged(nameof(HandledBand1));
+                OnPropertyChanged(nameof(HandledYell1));
                 OnPropertyChanged(nameof(HandledF));
                 OnPropertyChanged(nameof(HandledHigherClear));
                 OnPropertyChanged(nameof(HandledHighestClear));
@@ -225,6 +227,8 @@ namespace Qwilight.ViewModel
         public Brush HandledClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Clear] ? 1 : 0];
 
         public Brush HandledBand1 => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Band1] ? 1 : 0];
+
+        public Brush HandledYell1 => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Yell1] ? 1 : 0];
 
         public Brush HandledF => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.F] ? 1 : 0];
 

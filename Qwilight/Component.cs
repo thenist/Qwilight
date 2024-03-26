@@ -19,7 +19,7 @@
 
         public enum Judged
         {
-            Not = -1, Highest, Higher, High, Low, Lower, Lowest, Band1 = 9, Last = 10
+            Not = -1, Highest, Higher, High, Low, Lower, Lowest, Band1 = 9, Last = 10, Yell1 = 11
         }
 
         public const double StandardLength = 1280.0;

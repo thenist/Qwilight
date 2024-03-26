@@ -8,6 +8,7 @@ namespace Qwilight.PaintComponent
     {
         public const int Band1 = 9;
         public const int Last = 10;
+        public const int Yell1 = 11;
 
         readonly Component.Judged _judged;
         readonly int _judgmentSystem;

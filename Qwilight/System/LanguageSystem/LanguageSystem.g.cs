@@ -94,6 +94,7 @@ namespace Qwilight
         public string AvatarHandledHigherClearText { get; set; }
         public string AvatarHandledHighestClearText { get; set; }
         public string AvatarHandledNotText { get; set; }
+        public string AvatarHandledYell1Text { get; set; }
         public string AvatarID { get; set; }
         public string AvatarName { get; set; }
         public string AvatarText { get; set; }

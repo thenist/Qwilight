@@ -184,7 +184,7 @@ namespace Qwilight
 
         public PaintProperty[] PaintProperties { get; } = new PaintProperty[MaxPaintPropertyID];
 
-        public DrawingItem?[][] JudgmentDrawings { get; } = new DrawingItem?[11][];
+        public DrawingItem?[][] JudgmentDrawings { get; } = new DrawingItem?[12][];
 
         public DrawingItem?[][] LevelDrawings { get; } = new DrawingItem?[6][];
 
@@ -1319,10 +1319,12 @@ namespace Qwilight
             {
                 JudgmentDrawings[i] = new DrawingItem?[judgmentFrame];
             }
-            IntMap.TryGetValue("band!-frame", out var band1Frame);
-            JudgmentDrawings[JudgmentPaint.Band1] = new DrawingItem?[band1Frame];
             IntMap.TryGetValue("last-frame", out var lastFrame);
             JudgmentDrawings[JudgmentPaint.Last] = new DrawingItem?[lastFrame];
+            IntMap.TryGetValue("band!-frame", out var band1Frame);
+            JudgmentDrawings[JudgmentPaint.Band1] = new DrawingItem?[band1Frame];
+            IntMap.TryGetValue("yell!-frame", out var yell1Frame);
+            JudgmentDrawings[JudgmentPaint.Yell1] = new DrawingItem?[yell1Frame];
             if (!IntMap.TryGetValue("band-frame", out var bandFrame))
             {
                 bandFrame = 1;
@@ -1929,13 +1931,21 @@ namespace Qwilight
                     JudgmentDrawings[i][j] ??= JudgmentDrawings[i][j - 1];
                 }
             }
+            for (var i = 1; i < lastFrame; ++i)
+            {
+                JudgmentDrawings[JudgmentPaint.Last][i] ??= JudgmentDrawings[JudgmentPaint.Last][i - 1];
+            }
             for (var i = 1; i < band1Frame; ++i)
             {
                 JudgmentDrawings[JudgmentPaint.Band1][i] ??= JudgmentDrawings[JudgmentPaint.Band1][i - 1];
             }
-            for (var i = 1; i < lastFrame; ++i)
+            for (var i = 1; i < yell1Frame; ++i)
             {
-                JudgmentDrawings[JudgmentPaint.Last][i] ??= JudgmentDrawings[JudgmentPaint.Last][i - 1];
+                JudgmentDrawings[JudgmentPaint.Yell1][i] ??= JudgmentDrawings[JudgmentPaint.Yell1][i - 1];
+            }
+            for (var i = 0; i < yell1Frame; ++i)
+            {
+                JudgmentDrawings[JudgmentPaint.Yell1][i] ??= JudgmentDrawings[JudgmentPaint.Band1][i];
             }
 
             for (var i = noteDrawings.Length - 1; i > 0; --i)
