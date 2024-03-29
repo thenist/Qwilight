@@ -388,6 +388,15 @@
                                                     <TabItem.Header>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image Style="{StaticResource VNarrowView}" Source="{Binding HandledWallDrawings[2], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
+                                                            <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding HandledYell1Text}" />
+                                                        </StackPanel>
+                                                    </TabItem.Header>
+                                                    <ListView Style="{StaticResource PointableNoteFilesView}" ItemsSource="{Binding HandledYell1AvatarComputingCollection}" ItemTemplate="{StaticResource ComputingView}" />
+                                                </TabItem>
+                                                <TabItem Style="{StaticResource StandardPageItem}">
+                                                    <TabItem.Header>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Style="{StaticResource VNarrowView}" Source="{Binding HandledWallDrawings[2], Source={StaticResource BaseUI}}" Height="24" Visibility="Visible" />
                                                             <TextBlock Style="{StaticResource VNarrowTextView}" Text="{Binding HandledBand1Text}" />
                                                         </StackPanel>
                                                     </TabItem.Header>
