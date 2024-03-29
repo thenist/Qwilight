@@ -183,11 +183,17 @@ point:
     # 선곡의 오디오 비주얼라이저
     paintProperty4: 12, 12, CommentViewLength(0), CommentViewHeight(0), 0, 0, 0, 10, null, 0
 
+    # 리절트의 판정 그래프 백그라운드 이미지
+    paintProperty5: JudgmentMeterViewPosition0(), JudgmentMeterViewPosition1(), JudgmentMeterViewLength(), 288, 1, 0, 0, 0, null, 1
+    
+    # 리절트의 그래프 백그라운드 이미지
+    paintProperty6: JudgmentMeterViewPosition0(), StatusViewPosition1(), JudgmentMeterViewLength(), 288, 1, 0, 0, 0, null, 1
+    
     # 리절트의 BGA
-    paintProperty6: JudgmentMeterViewPosition0(), StatusViewPosition1(), JudgmentMeterViewLength(), 288, 0, 0, 0, PaintProperty6Variety(), null, 1
+    paintProperty7: JudgmentMeterViewPosition0(), StatusViewPosition1(), JudgmentMeterViewLength(), 288, 0, 0, 0, PaintProperty6Variety(), null, 1
     
     # 리절트의 오디오 비주얼라이저
-    paintProperty7: JudgmentMeterViewPosition0(), StatusViewPosition1(), JudgmentMeterViewLength(), 288, 0, 0, 0, 10, null, 1
+    paintProperty8: JudgmentMeterViewPosition0(), StatusViewPosition1(), JudgmentMeterViewLength(), 288, 0, 0, 0, 10, null, 1
 
     # 리절트의 프로필 이미지
     paintProperty9: PaintProperty9Position0(), PaintProperty9Position1(0), 48, 48, 0, 0, 0, 8, null, 1
