@@ -83,50 +83,44 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid MouseDown="OnTwilightComment" Background="Transparent" ContextMenu="{StaticResource ViewItems}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-                                        <Grid Height="{Binding CommentItemHeight, Source={StaticResource BaseUI}}">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition />
-                                                <ColumnDefinition  Width="Auto" />
-                                                <ColumnDefinition  Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <view:AvatarDrawingView Width="{Binding CommentItemAvatarHeight, Source={StaticResource BaseUI}}" Height="{Binding CommentItemAvatarHeight, Source={StaticResource BaseUI}}" AvatarWwwValue="{Binding AvatarWwwValue}" />
-                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <view:AvatarNameView Margin="{StaticResource VNarrowMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" FontLength="{Binding CommentAvatarNameFontLevel, Source={StaticResource BaseUI}}" TextPaint="{StaticResource CommentNamePaint}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource VNarrowTextView}" Text="❕" FontSize="{Binding CommentViewPointFontLevel, Source={StaticResource BaseUI}}" Foreground="Yellow" Visibility="{Binding ModeComponentValue.IsLowerStand, Converter={StaticResource VisibilityModifier}}" />
-                                                    <TextBlock Grid.Column="2" Style="{StaticResource VNarrowTextView}" Text="{Binding StandText}" FontSize="{Binding CommentStandFontLevel, Source={StaticResource BaseUI}}" Foreground="{Binding StandPaint}" />
-                                                </Grid>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding DateText}" Foreground="{StaticResource CommentDatePaint}" FontSize="{Binding CommentDateFontLevel, Source={StaticResource BaseUI}}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource VNarrowTextView}" Text="⏸️" FontSize="{Binding CommentViewPointFontLevel, Source={StaticResource BaseUI}}" Foreground="Yellow" Visibility="{Binding IsPaused, Converter={StaticResource VisibilityModifier}}" />
-                                                    <TextBlock Grid.Column="2" Style="{StaticResource VNarrowTextView}" Text="{Binding Point, Converter={StaticResource FormatModifier}, ConverterParameter='##0.00％'}" FontSize="{Binding CommentViewPointFontLevel, Source={StaticResource BaseUI}}" Foreground="{Binding PointPaint}" />
-                                                </Grid>
-                                            </StackPanel>
-                                            <Image Grid.Column="2" Style="{StaticResource StandardViewMargin0}" Source="{Binding QuitDrawing}" Width="{Binding CommentItemHeight, Source={StaticResource BaseUI}}" Height="{Binding CommentItemHeight, Source={StaticResource BaseUI}}" />
-                                        </Grid>
-                                        <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding TwilightCommentary}" HorizontalAlignment="Left" />
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Height="{Binding CommentItemHeight, Source={StaticResource BaseUI}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition  Width="Auto" />
+                                            <ColumnDefinition  Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <view:AvatarDrawingView Width="{Binding CommentItemAvatarHeight, Source={StaticResource BaseUI}}" Height="{Binding CommentItemAvatarHeight, Source={StaticResource BaseUI}}" AvatarWwwValue="{Binding AvatarWwwValue}" />
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <view:AvatarNameView Margin="{StaticResource VNarrowMargin}" AvatarWwwValue="{Binding AvatarWwwValue}" AvatarName="{Binding AvatarName}" FontLength="{Binding CommentAvatarNameFontLevel, Source={StaticResource BaseUI}}" TextPaint="{StaticResource CommentNamePaint}" />
+                                                <TextBlock Grid.Column="1" Style="{StaticResource VNarrowTextView}" Text="❕" FontSize="{Binding CommentViewPointFontLevel, Source={StaticResource BaseUI}}" Foreground="Yellow" Visibility="{Binding ModeComponentValue.IsLowerStand, Converter={StaticResource VisibilityModifier}}" />
+                                                <TextBlock Grid.Column="2" Style="{StaticResource VNarrowTextView}" Text="{Binding StandText}" FontSize="{Binding CommentStandFontLevel, Source={StaticResource BaseUI}}" Foreground="{Binding StandPaint}" />
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Style="{StaticResource VNarrowTextView}" HorizontalAlignment="Left" Text="{Binding DateText}" Foreground="{StaticResource CommentDatePaint}" FontSize="{Binding CommentDateFontLevel, Source={StaticResource BaseUI}}" />
+                                                <TextBlock Grid.Column="1" Style="{StaticResource VNarrowTextView}" Text="⏸️" FontSize="{Binding CommentViewPointFontLevel, Source={StaticResource BaseUI}}" Foreground="Yellow" Visibility="{Binding IsPaused, Converter={StaticResource VisibilityModifier}}" />
+                                                <TextBlock Grid.Column="2" Style="{StaticResource VNarrowTextView}" Text="{Binding Point, Converter={StaticResource FormatModifier}, ConverterParameter='##0.00％'}" FontSize="{Binding CommentViewPointFontLevel, Source={StaticResource BaseUI}}" Foreground="{Binding PointPaint}" />
+                                            </Grid>
+                                        </StackPanel>
+                                        <Image Grid.Column="2" Style="{StaticResource StandardViewMargin0}" Source="{Binding QuitDrawing}" Width="{Binding CommentItemHeight, Source={StaticResource BaseUI}}" Height="{Binding CommentItemHeight, Source={StaticResource BaseUI}}" />
+                                        <Image Grid.Column="3" Style="{StaticResource StandardViewMargin0}" Source="{Binding HandledWallCommentDrawing}" Width="{Binding HandledWallCommentLength, Source={StaticResource BaseUI}}" />
                                     </Grid>
-                                    <Image Grid.Column="1" Style="{StaticResource StandardViewMargin0}" Source="{Binding HandledWallCommentDrawing}" Width="{Binding HandledWallCommentLength, Source={StaticResource BaseUI}}" Stretch="Fill" />
+                                    <TextBlock Grid.Row="1" Style="{StaticResource StandardTextView}" Text="{Binding TwilightCommentary}" HorizontalAlignment="Left" />
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>

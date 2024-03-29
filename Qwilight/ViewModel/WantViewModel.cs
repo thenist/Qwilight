@@ -242,7 +242,8 @@ namespace Qwilight.ViewModel
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Band1] ||
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.F] ||
             Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HigherClear] ||
-            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear];
+            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear]||
+            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Yell1];
 
         public Brush Level0 => Paints.PointPaints[Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level0] ? 1 : 0];
 

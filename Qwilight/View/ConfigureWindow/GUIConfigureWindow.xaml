@@ -14,7 +14,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Grid Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityNotModifier}}">
+                <Grid Visibility="{Binding MainValue.IsNoteFileMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -36,7 +36,7 @@
                         </Button.CommandParameter>
                     </Button>
                 </Grid>
-                <Button Visibility="{Binding MainValue.IsComputingMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" Style="{StaticResource StandardInput}" Content="{Binding FontFamilyValues[3], Source={StaticResource Configure}}" Command="{Binding FontFamilyCommand}" HorizontalAlignment="Right">
+                <Button Visibility="{Binding MainValue.IsNoteFileMode, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityNotModifier}}" Style="{StaticResource StandardInput}" Content="{Binding FontFamilyValues[3], Source={StaticResource Configure}}" Command="{Binding FontFamilyCommand}" HorizontalAlignment="Right">
                     <Button.CommandParameter>
                         <system:Int32>3</system:Int32>
                     </Button.CommandParameter>
