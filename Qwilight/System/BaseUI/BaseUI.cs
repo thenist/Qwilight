@@ -2056,7 +2056,7 @@ namespace Qwilight
 
             HandledWallDrawings[(int)BaseNoteFile.Handled.Yell1] ??= HandledWallDrawings[(int)BaseNoteFile.Handled.Band1];
 
-            for (var i = (int)BaseNoteFile.Handled.AssistClear; i >= (int)BaseNoteFile.Handled.Not; --i)
+            for (var i = (int)BaseNoteFile.Handled.Yell1; i >= (int)BaseNoteFile.Handled.Not; --i)
             {
                 HandledWallCommentDrawings[i] ??= HandledWallDrawings[i];
             }

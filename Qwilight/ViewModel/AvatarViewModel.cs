@@ -269,6 +269,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _handledLevelIDItem, value, nameof(HandledLevelIDItemValue)))
                 {
+                    HandledYell1AvatarComputingCollection.Clear();
                     HandledBand1AvatarComputingCollection.Clear();
                     HandledHighestClearAvatarComputingCollection.Clear();
                     HandledHigherClearAvatarComputingCollection.Clear();
