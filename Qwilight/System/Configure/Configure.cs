@@ -3373,10 +3373,6 @@ namespace Qwilight
             {
                 FlowValues = true;
             }
-            if (isInit || Utility.IsLowerDate(Date, 1, 16, 14))
-            {
-                Array.Fill(InputWantHandled, true);
-            }
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 16))
             {
                 LazyGCV2 = 0L;
@@ -3395,6 +3391,7 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 19))
             {
                 InputWantHandled = new bool[9];
+                Array.Fill(InputWantHandled, true);
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

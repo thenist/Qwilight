@@ -4,6 +4,7 @@ using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.UI;
 using MoonSharp.Interpreter;
+using MoonSharp.Interpreter.Interop.StandardDescriptors.HardwiredDescriptors;
 using Qwilight.Note;
 using Qwilight.PaintComponent;
 using Qwilight.UIComponent;
@@ -436,11 +437,11 @@ namespace Qwilight
 
                 SaveValueMap(pointNode, "binLength");
                 SaveValueMap(pointNode, "binHeight");
-                SaveValueMapAsDefaultID("stopPointDrawingLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "stopPointDrawingLength", "binLength");
 
-                SaveSplitValueMap("floatingNotePosition0", 0.0);
-                SaveSplitValueMap("floatingNoteLength", 0.0);
-                SaveSplitValueMap("slashNotePosition0", 0.0);
+                SaveSplitValueMap(pointNode, "floatingNotePosition0", 0.0);
+                SaveSplitValueMap(pointNode, "floatingNoteLength", 0.0);
+                SaveSplitValueMap(pointNode, "slashNotePosition0", 0.0);
 
                 SaveValueMap(pointNode, "judgmentMainPosition");
 
@@ -448,7 +449,7 @@ namespace Qwilight
                 SaveValueMap(pointNode, "mediaPosition1", 0.0);
                 SaveValueMap(pointNode, "mediaLength", Component.StandardLength);
                 SaveValueMap(pointNode, "mediaHeight", Component.StandardHeight);
-                SaveAltMap("alt-media", 0);
+                SaveAltMap(lambdaNode, "alt-media", 0);
 
                 SaveValueMap(pointNode, "titlePosition0");
                 SaveValueMap(pointNode, "titlePosition1");
@@ -456,7 +457,7 @@ namespace Qwilight
                 SaveValueMap(pointNode, "titleHeight");
                 SaveIntMap(pointNode, "titleSystem0");
                 SaveIntMap(pointNode, "titleSystem1", 2);
-                SaveAltMap("alt-title", 0);
+                SaveAltMap(lambdaNode, "alt-title", 0);
 
                 SaveValueMap(pointNode, "artistPosition0");
                 SaveValueMap(pointNode, "artistPosition1");
@@ -464,7 +465,7 @@ namespace Qwilight
                 SaveValueMap(pointNode, "artistHeight");
                 SaveIntMap(pointNode, "artistSystem0");
                 SaveIntMap(pointNode, "artistSystem1", 2);
-                SaveAltMap("alt-artist", 0);
+                SaveAltMap(lambdaNode, "alt-artist", 0);
 
                 SaveValueMap(pointNode, "genrePosition0");
                 SaveValueMap(pointNode, "genrePosition1");
@@ -472,7 +473,7 @@ namespace Qwilight
                 SaveValueMap(pointNode, "genreHeight");
                 SaveIntMap(pointNode, "genreSystem0");
                 SaveIntMap(pointNode, "genreSystem1");
-                SaveAltMap("alt-genre", 0);
+                SaveAltMap(lambdaNode, "alt-genre", 0);
 
                 SaveValueMap(pointNode, "levelTextPosition0");
                 SaveValueMap(pointNode, "levelTextPosition1");
@@ -480,7 +481,7 @@ namespace Qwilight
                 SaveValueMap(pointNode, "levelTextHeight");
                 SaveIntMap(pointNode, "levelTextSystem0");
                 SaveIntMap(pointNode, "levelTextSystem1");
-                SaveAltMap("alt-level-text", 0);
+                SaveAltMap(lambdaNode, "alt-level-text", 0);
 
                 SaveValueMap(pointNode, "wantLevelPosition0");
                 SaveValueMap(pointNode, "wantLevelPosition1");
@@ -488,7 +489,7 @@ namespace Qwilight
                 SaveValueMap(pointNode, "wantLevelHeight");
                 SaveIntMap(pointNode, "wantLevelSystem0");
                 SaveIntMap(pointNode, "wantLevelSystem1");
-                SaveAltMap("alt-want-level", 0);
+                SaveAltMap(lambdaNode, "alt-want-level", 0);
 
                 SaveValueMap(pointNode, "audioVisualizerPosition0", 0.0);
                 SaveValueMap(pointNode, "audioVisualizerPosition1", 0.0);
@@ -507,35 +508,35 @@ namespace Qwilight
                 SaveValueMap(pointNode, "mainWall0Height", 720.0);
                 SaveValueMap(pointNode, "mainWall1Position1");
                 SaveValueMap(pointNode, "mainWall1Height", 720.0);
-                SaveAltMap("alt-wall-0", 2);
-                SaveAltMap("alt-wall-1", 2);
+                SaveAltMap(lambdaNode, "alt-wall-0", 2);
+                SaveAltMap(lambdaNode, "alt-wall-1", 2);
 
                 SaveIntMap(frameNode, "main-frame");
                 SaveValueMap(frameNode, "main-framerate");
                 SaveValueMap(pointNode, "mainPosition1");
                 SaveValueMap(pointNode, "mainHeight", 720.0);
 
-                SaveSplitValueMap("autoInputPosition1");
-                SaveSplitValueMap("autoInputHeight", 720.0);
+                SaveSplitValueMap(pointNode, "autoInputPosition1");
+                SaveSplitValueMap(pointNode, "autoInputHeight", 720.0);
 
                 SaveIntMap(pointNode, "hitPointsSystem");
                 SaveValueMap(pointNode, "hitPointsPosition0");
                 SaveValueMap(pointNode, "hitPointsPosition1");
                 SaveValueMap(pointNode, "hitPointsLength");
                 SaveValueMap(pointNode, "hitPointsHeight");
-                SaveAltMap("alt-hit-points", 2);
+                SaveAltMap(lambdaNode, "alt-hit-points", 2);
 
                 SaveIntMap(frameNode, "note-frame");
                 SaveValueMap(frameNode, "note-framerate");
-                SaveSplitValueMap("noteLength");
-                SaveSplitValueMap("noteHeight");
-                SaveSplitValueMap("noteHeightJudgment");
-                SaveSplitValueMap("longNoteTailEdgeHeight");
-                SaveSplitValueMap("longNoteFrontEdgeHeight");
-                SaveSplitValueMap("longNoteTailEdgePosition");
-                SaveSplitValueMap("longNoteFrontEdgePosition");
-                SaveSplitValueMap("longNoteTailContentsHeight");
-                SaveSplitValueMap("longNoteFrontContentsHeight");
+                SaveSplitValueMap(pointNode, "noteLength");
+                SaveSplitValueMap(pointNode, "noteHeight");
+                SaveSplitValueMap(pointNode, "noteHeightJudgment");
+                SaveSplitValueMap(pointNode, "longNoteTailEdgeHeight");
+                SaveSplitValueMap(pointNode, "longNoteFrontEdgeHeight");
+                SaveSplitValueMap(pointNode, "longNoteTailEdgePosition");
+                SaveSplitValueMap(pointNode, "longNoteFrontEdgePosition");
+                SaveSplitValueMap(pointNode, "longNoteTailContentsHeight");
+                SaveSplitValueMap(pointNode, "longNoteFrontContentsHeight");
                 MaintainLongNoteFrontEdge = Utility.ToBool(Utility.GetText(lambdaNode, "maintainLongNoteFrontEdge", bool.FalseString));
                 MaintainAutoInput = Utility.ToBool(Utility.GetText(lambdaNode, "maintainAutoInput", bool.TrueString));
                 LoopingMain = Utility.ToInt32(Utility.GetText(lambdaNode, "loopingMain", 0.ToString()));
@@ -554,10 +555,10 @@ namespace Qwilight
 
                 SaveIntMap(frameNode, "input-frame");
                 SaveValueMap(frameNode, "input-framerate");
-                SaveSplitValueMap("inputPosition0");
-                SaveSplitValueMapAsDefaultID("inputPosition1", "judgmentMainPosition");
-                SaveSplitValueMap("inputLength");
-                SaveSplitValueMapAsDefaultID("inputHeight", "judgmentMainPosition", value => 720.0 - value);
+                SaveSplitValueMap(pointNode, "inputPosition0");
+                SaveSplitValueMapAsDefaultID(pointNode, "inputPosition1", "judgmentMainPosition");
+                SaveSplitValueMap(pointNode, "inputLength");
+                SaveSplitValueMapAsDefaultID(pointNode, "inputHeight", "judgmentMainPosition", value => 720.0 - value);
 
                 SaveIntMap(frameNode, "level-frame");
                 SaveValueMap(frameNode, "level-framerate");
@@ -565,60 +566,60 @@ namespace Qwilight
                 SaveValueMap(pointNode, "levelPosition1");
                 SaveValueMap(pointNode, "levelLength");
                 SaveValueMap(pointNode, "levelHeight");
-                SaveAltMap("alt-level");
+                SaveAltMap(lambdaNode, "alt-level");
 
                 SaveIntMap(pointNode, "bandSystem");
                 SaveValueMap(pointNode, "bandPosition0");
                 SaveValueMap(pointNode, "bandPosition1");
                 SaveIntMap(frameNode, "band-frame");
                 SaveValueMap(frameNode, "band-framerate");
-                SaveValueMapAsDefaultID("binBandLength", "binLength");
-                SaveValueMapAsDefaultID("binBandHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "binBandLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binBandHeight", "binHeight");
                 SaveValueMap(pointNode, "enlargeBand");
-                SaveAltMap("alt-band", 2);
+                SaveAltMap(lambdaNode, "alt-band", 2);
 
                 SaveIntMap(pointNode, "judgmentMeterSystem");
                 SaveValueMap(pointNode, "judgmentMeterPosition0");
                 SaveValueMap(pointNode, "judgmentMeterPosition1");
-                SaveValueMapAsDefaultID("binJudgmentMeterLength", "binLength");
-                SaveValueMapAsDefaultID("binJudgmentMeterHeight", "binHeight");
-                SaveValueMapAsDefaultID("judgmentMeterFrontDrawingLength", "binJudgmentMeterLength");
-                SaveValueMapAsDefaultID("judgmentMeterUnitDrawingLength", "binJudgmentMeterLength");
-                SaveAltMap("alt-judgment-meter", 3);
+                SaveValueMapAsDefaultID(pointNode, "binJudgmentMeterLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binJudgmentMeterHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "judgmentMeterFrontDrawingLength", "binJudgmentMeterLength");
+                SaveValueMapAsDefaultID(pointNode, "judgmentMeterUnitDrawingLength", "binJudgmentMeterLength");
+                SaveAltMap(lambdaNode, "alt-judgment-meter", 3);
 
                 SaveIntMap(pointNode, "standSystem");
                 SaveValueMap(pointNode, "standPosition0");
                 SaveValueMap(pointNode, "standPosition1");
-                SaveValueMapAsDefaultID("binStandLength", "binLength");
-                SaveValueMapAsDefaultID("binStandHeight", "binHeight");
-                SaveValueMapAsDefaultID("standCommaDrawingLength", "binLength");
-                SaveAltMap("alt-stand");
+                SaveValueMapAsDefaultID(pointNode, "binStandLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binStandHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "standCommaDrawingLength", "binLength");
+                SaveAltMap(lambdaNode, "alt-stand");
 
                 SaveIntMap(pointNode, "pointSystem");
                 SaveValueMap(pointNode, "pointPosition0");
                 SaveValueMap(pointNode, "pointPosition1");
-                SaveValueMapAsDefaultID("binPointLength", "binLength");
-                SaveValueMapAsDefaultID("binPointHeight", "binHeight");
-                SaveValueMapAsDefaultID("pointStopPointDrawingLength", "stopPointDrawingLength");
-                SaveValueMapAsDefaultID("pointUnitDrawingLength", "binPointLength");
-                SaveAltMap("alt-point");
+                SaveValueMapAsDefaultID(pointNode, "binPointLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binPointHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "pointStopPointDrawingLength", "stopPointDrawingLength");
+                SaveValueMapAsDefaultID(pointNode, "pointUnitDrawingLength", "binPointLength");
+                SaveAltMap(lambdaNode, "alt-point");
 
                 SaveIntMap(pointNode, "bpmSystem");
                 SaveValueMap(pointNode, "bpmPosition0");
                 SaveValueMap(pointNode, "bpmPosition1");
-                SaveValueMapAsDefaultID("binBPMLength", "binLength");
-                SaveValueMapAsDefaultID("binBPMHeight", "binHeight");
-                SaveValueMapAsDefaultID("bpmUnitDrawingLength", "binBPMLength");
-                SaveAltMap("alt-bpm");
+                SaveValueMapAsDefaultID(pointNode, "binBPMLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binBPMHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "bpmUnitDrawingLength", "binBPMLength");
+                SaveAltMap(lambdaNode, "alt-bpm");
 
                 SaveIntMap(pointNode, "multiplierSystem");
                 SaveValueMap(pointNode, "multiplierPosition0");
                 SaveValueMap(pointNode, "multiplierPosition1");
-                SaveValueMapAsDefaultID("binMultiplierLength", "binLength");
-                SaveValueMapAsDefaultID("binMultiplierHeight", "binHeight");
-                SaveValueMapAsDefaultID("multiplierStopPointDrawingLength", "stopPointDrawingLength");
-                SaveValueMapAsDefaultID("multiplierUnitDrawingLength", "binMultiplierLength");
-                SaveAltMap("alt-multiplier");
+                SaveValueMapAsDefaultID(pointNode, "binMultiplierLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binMultiplierHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "multiplierStopPointDrawingLength", "stopPointDrawingLength");
+                SaveValueMapAsDefaultID(pointNode, "multiplierUnitDrawingLength", "binMultiplierLength");
+                SaveAltMap(lambdaNode, "alt-multiplier");
 
                 SaveIntMap(frameNode, "note-hit-frame");
                 SaveValueMap(frameNode, "note-hit-framerate");
@@ -631,20 +632,20 @@ namespace Qwilight
                 SaveValueMap(pointNode, "judgmentPaintPosition1");
                 SaveValueMap(pointNode, "judgmentPaintLength");
                 SaveValueMap(pointNode, "judgmentPaintHeight");
-                SaveSplitValueMap("hitNotePaintLength");
-                SaveSplitValueMap("hitNotePaintHeight");
-                SaveSplitValueMap("hitLongNotePaintLength");
-                SaveSplitValueMap("hitLongNotePaintHeight");
-                SaveSplitValueMapAsDefaultID("hitNotePaintPosition0", "hitNotePaintLength1", value => -value / 2);
-                SaveSplitValueMapAsDefaultID("hitNotePaintPosition1", "hitNotePaintHeight1", value => -value / 2);
-                SaveSplitValueMapAsDefaultID("hitLongNotePaintPosition0", "hitLongNotePaintLength1", value => -value / 2);
-                SaveSplitValueMapAsDefaultID("hitLongNotePaintPosition1", "hitLongNotePaintHeight1", value => -value / 2);
+                SaveSplitValueMap(pointNode, "hitNotePaintLength");
+                SaveSplitValueMap(pointNode, "hitNotePaintHeight");
+                SaveSplitValueMap(pointNode, "hitLongNotePaintLength");
+                SaveSplitValueMap(pointNode, "hitLongNotePaintHeight");
+                SaveSplitValueMapAsDefaultID(pointNode, "hitNotePaintPosition0", "hitNotePaintLength1", value => -value / 2);
+                SaveSplitValueMapAsDefaultID(pointNode, "hitNotePaintPosition1", "hitNotePaintHeight1", value => -value / 2);
+                SaveSplitValueMapAsDefaultID(pointNode, "hitLongNotePaintPosition0", "hitLongNotePaintLength1", value => -value / 2);
+                SaveSplitValueMapAsDefaultID(pointNode, "hitLongNotePaintPosition1", "hitLongNotePaintHeight1", value => -value / 2);
                 SaveIntMap(frameNode, "hit-input-paint-frame");
                 SaveValueMap(frameNode, "hit-input-paint-framerate");
-                SaveSplitValueMap("hitInputPaintPosition0");
-                SaveSplitValueMap("hitInputPaintPosition1");
-                SaveSplitValueMap("hitInputPaintLength");
-                SaveSplitValueMap("hitInputPaintHeight");
+                SaveSplitValueMap(pointNode, "hitInputPaintPosition0");
+                SaveSplitValueMap(pointNode, "hitInputPaintPosition1");
+                SaveSplitValueMap(pointNode, "hitInputPaintLength");
+                SaveSplitValueMap(pointNode, "hitInputPaintHeight");
                 SaveIntMap(frameNode, "long-note-hit-loop-frame");
                 SaveIntMap(frameNode, "last-enlarged-band-loop-frame");
                 SaveIntMap(frameNode, "last-frame");
@@ -654,7 +655,7 @@ namespace Qwilight
                 SaveValueMap(pointNode, "lastPosition1");
                 SaveValueMap(pointNode, "lastLength");
                 SaveValueMap(pointNode, "lastHeight");
-                SaveAltMap("alt-last", 2);
+                SaveAltMap(lambdaNode, "alt-last", 2);
                 SaveIntMap(frameNode, "band!-frame");
                 SaveValueMap(frameNode, "band!-framerate");
                 SaveIntMap(pointNode, "band!System");
@@ -662,12 +663,20 @@ namespace Qwilight
                 SaveValueMap(pointNode, "band!Position1");
                 SaveValueMap(pointNode, "band!Length");
                 SaveValueMap(pointNode, "band!Height");
-                SaveAltMap("alt-band!", 2);
+                SaveAltMap(lambdaNode, "alt-band!", 2);
+                SaveIntMapAsDefaultID(frameNode, "yell!-frame", "band!-frame");
+                SaveValueMapAsDefaultID(frameNode, "yell!-framerate", "band!-framerate");
+                SaveIntMapAsDefaultID(pointNode, "yell!System","band!System");
+                SaveValueMapAsDefaultID(pointNode, "yell!Position0", "band!Position0");
+                SaveValueMapAsDefaultID(pointNode, "yell!Position1", "band!Position1");
+                SaveValueMapAsDefaultID(pointNode, "yell!Length", "band!Length");
+                SaveValueMapAsDefaultID(pointNode, "yell!Height", "band!Height");
+                SaveAltMapAsDefaultID(lambdaNode, "alt-yell!", "alt-band!");
 
                 SaveIntMap(pointNode, "netSystem");
                 SaveValueMap(pointNode, "netPosition0");
                 SaveValueMap(pointNode, "netPosition1");
-                SaveAltMap("alt-net");
+                SaveAltMap(lambdaNode, "alt-net");
 
                 SaveIntMap(frameNode, "auto-main-frame");
                 SaveValueMap(frameNode, "auto-main-framerate");
@@ -676,7 +685,7 @@ namespace Qwilight
                 SaveValueMap(pointNode, "autoMainPosition1");
                 SaveValueMap(pointNode, "autoMainLength");
                 SaveValueMap(pointNode, "autoMainHeight");
-                SaveAltMap("alt-auto-main");
+                SaveAltMap(lambdaNode, "alt-auto-main");
 
                 SaveIntMap(frameNode, "pause-frame", 1);
                 SaveIntMap(pointNode, "pauseSystem");
@@ -684,14 +693,14 @@ namespace Qwilight
                 SaveValueMap(pointNode, "pausePosition1");
                 SaveValueMap(pointNode, "pauseLength");
                 SaveValueMap(pointNode, "pauseHeight");
-                SaveAltMap("alt-pause", 2);
+                SaveAltMap(lambdaNode, "alt-pause", 2);
 
                 SaveIntMap(pointNode, "statusSystem");
                 SaveValueMap(pointNode, "statusPosition0");
                 SaveValueMap(pointNode, "statusPosition1");
                 SaveValueMap(pointNode, "statusLength");
                 SaveValueMap(pointNode, "statusHeight");
-                SaveAltMap("alt-status");
+                SaveAltMap(lambdaNode, "alt-status");
 
                 SaveIntMap(pointNode, "statusSliderSystem");
                 SaveValueMap(pointNode, "statusSliderPosition0");
@@ -700,103 +709,103 @@ namespace Qwilight
                 SaveValueMap(pointNode, "statusSliderHeight");
                 SaveValueMap(pointNode, "statusSliderContentsLength");
                 SaveValueMap(pointNode, "statusSliderContentsHeight");
-                SaveAltMap("alt-status-slider");
+                SaveAltMap(lambdaNode, "alt-status-slider");
 
                 SaveIntMap(pointNode, "hmsSystem");
                 SaveValueMap(pointNode, "hmsPosition0");
                 SaveValueMap(pointNode, "hmsPosition1");
-                SaveValueMapAsDefaultID("binHmsLength", "binLength");
-                SaveValueMapAsDefaultID("binHmsHeight", "binHeight");
-                SaveValueMapAsDefaultID("hmsColonDrawingLength", "binLength");
-                SaveValueMapAsDefaultID("hmsSlashDrawingLength", "binLength");
-                SaveAltMap("alt-hms");
+                SaveValueMapAsDefaultID(pointNode, "binHmsLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binHmsHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "hmsColonDrawingLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "hmsSlashDrawingLength", "binLength");
+                SaveAltMap(lambdaNode, "alt-hms");
 
                 SaveIntMap(pointNode, "judgmentPointsSystem");
                 SaveValueMap(pointNode, "judgmentPointsPosition0");
                 SaveValueMap(pointNode, "judgmentPointsPosition1");
                 SaveValueMap(pointNode, "judgmentPointsLength");
                 SaveValueMap(pointNode, "judgmentPointsHeight");
-                SaveAltMap("alt-judgment-points");
+                SaveAltMap(lambdaNode, "alt-judgment-points");
 
                 SaveIntMap(frameNode, "judgment-main-frame");
                 SaveValueMap(frameNode, "judgment-main-framerate");
-                SaveSplitValueMap("judgmentMainPosition1");
-                SaveSplitValueMap("judgmentMainHeight");
+                SaveSplitValueMap(pointNode, "judgmentMainPosition1");
+                SaveSplitValueMap(pointNode, "judgmentMainHeight");
 
                 SaveIntMap(frameNode, "main-judgment-meter-frame");
                 SaveValueMap(frameNode, "main-judgment-meter-framerate");
-                SaveSplitValueMap("mainJudgmentMeterPosition1");
-                SaveSplitValueMap("mainJudgmentMeterHeight");
+                SaveSplitValueMap(pointNode, "mainJudgmentMeterPosition1");
+                SaveSplitValueMap(pointNode, "mainJudgmentMeterHeight");
 
                 SaveIntMap(pointNode, "audioMultiplierSystem");
                 SaveValueMap(pointNode, "audioMultiplierPosition0");
                 SaveValueMap(pointNode, "audioMultiplierPosition1");
-                SaveValueMapAsDefaultID("binAudioMultiplierLength", "binLength");
-                SaveValueMapAsDefaultID("binAudioMultiplierHeight", "binHeight");
-                SaveValueMapAsDefaultID("audioMultiplierStopPointDrawingLength", "stopPointDrawingLength");
-                SaveValueMapAsDefaultID("audioMultiplierUnitDrawingLength", "binAudioMultiplierLength");
-                SaveAltMap("alt-audio-multiplier");
+                SaveValueMapAsDefaultID(pointNode, "binAudioMultiplierLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binAudioMultiplierHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "audioMultiplierStopPointDrawingLength", "stopPointDrawingLength");
+                SaveValueMapAsDefaultID(pointNode, "audioMultiplierUnitDrawingLength", "binAudioMultiplierLength");
+                SaveAltMap(lambdaNode, "alt-audio-multiplier");
 
                 SaveIntMap(pointNode, "hitPointsVisualizerSystem");
                 SaveValueMap(pointNode, "hitPointsVisualizerPosition0");
                 SaveValueMap(pointNode, "hitPointsVisualizerPosition1");
-                SaveValueMapAsDefaultID("binHitPointsVisualizerLength", "binLength");
-                SaveValueMapAsDefaultID("binHitPointsVisualizerHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "binHitPointsVisualizerLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binHitPointsVisualizerHeight", "binHeight");
                 SaveValueMap(pointNode, "hitPointsVisualizerUnitDrawingLength");
-                SaveAltMap("alt-hit-points-visualizer");
+                SaveAltMap(lambdaNode, "alt-hit-points-visualizer");
 
                 SaveIntMap(pointNode, "highestJudgmentValueSystem");
                 SaveValueMap(pointNode, "highestJudgmentValuePosition0");
                 SaveValueMap(pointNode, "highestJudgmentValuePosition1");
-                SaveValueMapAsDefaultID("binHighestJudgmentValueLength", "binLength");
-                SaveValueMapAsDefaultID("binHighestJudgmentValueHeight", "binHeight");
-                SaveAltMap("alt-highest-judgment-value");
+                SaveValueMapAsDefaultID(pointNode, "binHighestJudgmentValueLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binHighestJudgmentValueHeight", "binHeight");
+                SaveAltMap(lambdaNode, "alt-highest-judgment-value");
 
                 SaveIntMap(pointNode, "higherJudgmentValueSystem");
                 SaveValueMap(pointNode, "higherJudgmentValuePosition0");
                 SaveValueMap(pointNode, "higherJudgmentValuePosition1");
-                SaveValueMapAsDefaultID("binHigherJudgmentValueLength", "binLength");
-                SaveValueMapAsDefaultID("binHigherJudgmentValueHeight", "binHeight");
-                SaveAltMap("alt-higher-judgment-value");
+                SaveValueMapAsDefaultID(pointNode, "binHigherJudgmentValueLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binHigherJudgmentValueHeight", "binHeight");
+                SaveAltMap(lambdaNode, "alt-higher-judgment-value");
 
                 SaveIntMap(pointNode, "highJudgmentValueSystem");
                 SaveValueMap(pointNode, "highJudgmentValuePosition0");
                 SaveValueMap(pointNode, "highJudgmentValuePosition1");
-                SaveValueMapAsDefaultID("binHighJudgmentValueLength", "binLength");
-                SaveValueMapAsDefaultID("binHighJudgmentValueHeight", "binHeight");
-                SaveAltMap("alt-high-judgment-value");
+                SaveValueMapAsDefaultID(pointNode, "binHighJudgmentValueLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binHighJudgmentValueHeight", "binHeight");
+                SaveAltMap(lambdaNode, "alt-high-judgment-value");
 
                 SaveIntMap(pointNode, "lowJudgmentValueSystem");
                 SaveValueMap(pointNode, "lowJudgmentValuePosition0");
                 SaveValueMap(pointNode, "lowJudgmentValuePosition1");
-                SaveValueMapAsDefaultID("binLowJudgmentValueLength", "binLength");
-                SaveValueMapAsDefaultID("binLowJudgmentValueHeight", "binHeight");
-                SaveAltMap("alt-low-judgment-value");
+                SaveValueMapAsDefaultID(pointNode, "binLowJudgmentValueLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binLowJudgmentValueHeight", "binHeight");
+                SaveAltMap(lambdaNode, "alt-low-judgment-value");
 
                 SaveIntMap(pointNode, "lowerJudgmentValueSystem");
                 SaveValueMap(pointNode, "lowerJudgmentValuePosition0");
                 SaveValueMap(pointNode, "lowerJudgmentValuePosition1");
-                SaveValueMapAsDefaultID("binLowerJudgmentValueLength", "binLength");
-                SaveValueMapAsDefaultID("binLowerJudgmentValueHeight", "binHeight");
-                SaveAltMap("alt-lower-judgment-value");
+                SaveValueMapAsDefaultID(pointNode, "binLowerJudgmentValueLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binLowerJudgmentValueHeight", "binHeight");
+                SaveAltMap(lambdaNode, "alt-lower-judgment-value");
 
                 SaveIntMap(pointNode, "lowestJudgmentValueSystem");
                 SaveValueMap(pointNode, "lowestJudgmentValuePosition0");
                 SaveValueMap(pointNode, "lowestJudgmentValuePosition1");
-                SaveValueMapAsDefaultID("binLowestJudgmentValueLength", "binLength");
-                SaveValueMapAsDefaultID("binLowestJudgmentValueHeight", "binHeight");
-                SaveAltMap("alt-lowest-judgment-value");
+                SaveValueMapAsDefaultID(pointNode, "binLowestJudgmentValueLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binLowestJudgmentValueHeight", "binHeight");
+                SaveAltMap(lambdaNode, "alt-lowest-judgment-value");
 
                 SaveIntMap(pointNode, "highestBandSystem");
                 SaveValueMap(pointNode, "highestBandPosition0");
                 SaveValueMap(pointNode, "highestBandPosition1");
-                SaveValueMapAsDefaultID("binHighestBandLength", "binLength");
-                SaveValueMapAsDefaultID("binHighestBandHeight", "binHeight");
-                SaveAltMap("alt-highest-band");
+                SaveValueMapAsDefaultID(pointNode, "binHighestBandLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binHighestBandHeight", "binHeight");
+                SaveAltMap(lambdaNode, "alt-highest-band");
 
-                SaveValueMapAsDefaultID("limiterPosition1", "mainPosition1");
+                SaveValueMapAsDefaultID(pointNode, "limiterPosition1", "mainPosition1");
                 SaveValueMap(pointNode, "limiterLength", 1.0);
-                SaveValueMapAsDefaultID("limiterHeight", "mainHeight");
+                SaveValueMapAsDefaultID(pointNode, "limiterHeight", "mainHeight");
 
                 SaveIntMap(pointNode, "judgmentVisualizerSystem");
                 SaveValueMap(pointNode, "judgmentVisualizerPosition0");
@@ -805,50 +814,50 @@ namespace Qwilight
                 SaveValueMap(pointNode, "judgmentVisualizerHeight");
                 SaveValueMap(pointNode, "judgmentVisualizerContentsLength");
                 SaveValueMap(pointNode, "judgmentVisualizerContentsHeight");
-                SaveAltMap("alt-judgment-visualizer");
+                SaveAltMap(lambdaNode, "alt-judgment-visualizer");
 
                 SaveIntMap(pointNode, "hunterSystem");
                 SaveValueMap(pointNode, "hunterPosition0");
                 SaveValueMap(pointNode, "hunterPosition1");
-                SaveValueMapAsDefaultID("binHunterLength", "binLength");
-                SaveValueMapAsDefaultID("binHunterHeight", "binHeight");
-                SaveValueMapAsDefaultID("hunterFrontDrawingLength", "binHunterLength");
-                SaveAltMap("alt-hunter");
+                SaveValueMapAsDefaultID(pointNode, "binHunterLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binHunterHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "hunterFrontDrawingLength", "binHunterLength");
+                SaveAltMap(lambdaNode, "alt-hunter");
 
                 SaveIntMap(pointNode, "inputVisualizerSystem");
                 SaveValueMap(pointNode, "inputVisualizerPosition0");
                 SaveValueMap(pointNode, "inputVisualizerPosition1");
-                SaveValueMapAsDefaultID("binInputVisualizerLength", "binLength");
-                SaveValueMapAsDefaultID("binInputVisualizerHeight", "binHeight");
-                SaveAltMap("alt-input-visualizer");
+                SaveValueMapAsDefaultID(pointNode, "binInputVisualizerLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binInputVisualizerHeight", "binHeight");
+                SaveAltMap(lambdaNode, "alt-input-visualizer");
 
                 SaveIntMap(pointNode, "earlyValueSystem");
                 SaveValueMap(pointNode, "earlyValuePosition0");
                 SaveValueMap(pointNode, "earlyValuePosition1");
-                SaveValueMapAsDefaultID("binEarlyValueLength", "binLength");
-                SaveValueMapAsDefaultID("binEarlyValueHeight", "binHeight");
-                SaveAltMap("alt-early-value");
+                SaveValueMapAsDefaultID(pointNode, "binEarlyValueLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binEarlyValueHeight", "binHeight");
+                SaveAltMap(lambdaNode, "alt-early-value");
 
                 SaveIntMap(pointNode, "lateValueSystem");
                 SaveValueMap(pointNode, "lateValuePosition0");
                 SaveValueMap(pointNode, "lateValuePosition1");
-                SaveValueMapAsDefaultID("binLateValueLength", "binLength");
-                SaveValueMapAsDefaultID("binLateValueHeight", "binHeight");
-                SaveAltMap("alt-late-value");
+                SaveValueMapAsDefaultID(pointNode, "binLateValueLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binLateValueHeight", "binHeight");
+                SaveAltMap(lambdaNode, "alt-late-value");
 
                 SaveIntMap(pointNode, "judgmentVSVisualizerSystem");
                 SaveValueMap(pointNode, "judgmentVSVisualizerPosition0");
                 SaveValueMap(pointNode, "judgmentVSVisualizerPosition1");
-                SaveValueMapAsDefaultID("binJudgmentVSVisualizerLength", "binLength");
-                SaveValueMapAsDefaultID("binJudgmentVSVisualizerHeight", "binHeight");
-                SaveValueMapAsDefaultID("judgmentVSVisualizerStopPointDrawingLength", "stopPointDrawingLength");
-                SaveAltMap("alt-judgment-vs-visualizer");
+                SaveValueMapAsDefaultID(pointNode, "binJudgmentVSVisualizerLength", "binLength");
+                SaveValueMapAsDefaultID(pointNode, "binJudgmentVSVisualizerHeight", "binHeight");
+                SaveValueMapAsDefaultID(pointNode, "judgmentVSVisualizerStopPointDrawingLength", "stopPointDrawingLength");
+                SaveAltMap(lambdaNode, "alt-judgment-vs-visualizer");
 
                 SaveValueMap(pointNode, "judgmentInputVisualizerPosition0");
                 SaveValueMap(pointNode, "judgmentInputVisualizerPosition1");
                 SaveValueMap(pointNode, "judgmentInputVisualizerLength");
                 SaveValueMap(pointNode, "judgmentInputVisualizerHeight");
-                SaveAltMap("alt-judgment-input-visualizer");
+                SaveAltMap(lambdaNode, "alt-judgment-input-visualizer");
 
                 SaveValueMap(pointNode, "pausedUnpausePosition0", 539);
                 SaveValueMap(pointNode, "pausedUnpausePosition1", 239);
@@ -975,9 +984,28 @@ namespace Qwilight
                         SaveIntMapImpl(text, target, IntMap, IntCallMap);
                     }
                 }
-                void SaveSplitValueMap(string target, double defaultValue = default)
+                void SaveIntMapAsDefaultID(YamlNode yamlNode, string target, string defaultID)
                 {
-                    var data = GetCalledData(pointNode, target);
+                    var text = Utility.GetText(yamlNode, target);
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        if (IntMap.TryGetValue(defaultID, out var defaultValue))
+                        {
+                            IntMap[target] = defaultValue;
+                        }
+                        if (IntCallMap.TryGetValue(defaultID, out var defaultCall))
+                        {
+                            IntCallMap[target] = defaultCall;
+                        }
+                    }
+                    else
+                    {
+                        SaveIntMapImpl(text, target, IntMap, IntCallMap);
+                    }
+                }
+                void SaveSplitValueMap(YamlNode yamlNode, string target, double defaultValue = default)
+                {
+                    var data = GetCalledData(yamlNode, target);
                     if (data != null)
                     {
                         string lastData = null;
@@ -997,9 +1025,9 @@ namespace Qwilight
                         }
                     }
                 }
-                void SaveSplitValueMapAsDefaultID(string target, string defaultValueID = null, Func<double, double> valueMapping = null)
+                void SaveSplitValueMapAsDefaultID(YamlNode yamlNode, string target, string defaultID = null, Func<double, double> valueMapping = null)
                 {
-                    var data = GetCalledData(pointNode, target);
+                    var data = GetCalledData(yamlNode, target);
                     if (data != null)
                     {
                         string lastData = null;
@@ -1015,9 +1043,13 @@ namespace Qwilight
                     {
                         for (var i = MaxNoteID - 1; i >= 0; --i)
                         {
-                            if (ValueMap.TryGetValue(defaultValueID, out var defaultValue))
+                            if (ValueMap.TryGetValue(defaultID, out var defaultValue))
                             {
                                 ValueMap[$"{target}{i + 1}"] = valueMapping?.Invoke(defaultValue) ?? defaultValue;
+                            }
+                            if (ValueCallMap.TryGetValue(defaultID, out var defaultCall))
+                            {
+                                ValueCallMap[$"{target}{i + 1}"] = defaultCall;
                             }
                         }
                     }
@@ -1034,14 +1066,18 @@ namespace Qwilight
                         SaveValueMapImpl(text, target, ValueMap, ValueCallMap);
                     }
                 }
-                void SaveValueMapAsDefaultID(string target, string defaultValueID, Func<double, double> valueMapping = null)
+                void SaveValueMapAsDefaultID(YamlNode yamlNode, string target, string defaultID, Func<double, double> valueMapping = null)
                 {
-                    var text = Utility.GetText(pointNode, target);
+                    var text = Utility.GetText(yamlNode, target);
                     if (string.IsNullOrEmpty(text))
                     {
-                        if (ValueMap.TryGetValue(defaultValueID, out var defaultValue))
+                        if (ValueMap.TryGetValue(defaultID, out var defaultValue))
                         {
                             ValueMap[target] = valueMapping?.Invoke(defaultValue) ?? defaultValue;
+                        }
+                        if (ValueCallMap.TryGetValue(defaultID, out var defaultCall))
+                        {
+                            ValueCallMap[target] = defaultCall;
                         }
                     }
                     else
@@ -1049,9 +1085,9 @@ namespace Qwilight
                         SaveValueMapImpl(text, target, ValueMap, ValueCallMap);
                     }
                 }
-                void SaveAltMap(string target, int defaultValue = default)
+                void SaveAltMap(YamlNode yamlNode, string target, int defaultValue = default)
                 {
-                    var text = Utility.GetText(lambdaNode, target);
+                    var text = Utility.GetText(yamlNode, target);
                     if (string.IsNullOrEmpty(text))
                     {
                         AltMap[target] = defaultValue;
@@ -1061,6 +1097,26 @@ namespace Qwilight
                         SaveAltImpl(text, target, AltMap, AltCallMap);
                     }
                 }
+                void SaveAltMapAsDefaultID(YamlNode yamlNode, string target, string defaultID)
+                {
+                    var text = Utility.GetText(yamlNode, target);
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        if (AltMap.TryGetValue(defaultID, out var defaultValue))
+                        {
+                            AltMap[target] = defaultValue;
+                        }
+                        if (AltCallMap.TryGetValue(defaultID, out var defaultCall))
+                        {
+                            AltCallMap[target] = defaultCall;
+                        }
+                    }
+                    else
+                    {
+                        SaveAltImpl(text, target, AltMap, AltCallMap);
+                    }
+                }
+
                 for (var i = PaintProperties.Length - 1; i >= 0; --i)
                 {
                     var data = GetCalledData(pointNode, $"paintProperty{i}");

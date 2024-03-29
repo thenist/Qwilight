@@ -3497,7 +3497,6 @@ namespace Qwilight.Compute
                                         judgmentLength = DrawingComponentValue.lastLength;
                                         judgmentHeight = DrawingComponentValue.lastHeight;
                                         altJudgment = DrawingComponentValue.altLast;
-                                        HandleUIAudio("Last");
                                         break;
                                     case LastStatus.Band1:
                                         judged = Component.Judged.Band1;
@@ -3509,7 +3508,6 @@ namespace Qwilight.Compute
                                         judgmentLength = DrawingComponentValue.band1Length;
                                         judgmentHeight = DrawingComponentValue.band1Height;
                                         altJudgment = DrawingComponentValue.altBand1;
-                                        HandleUIAudio("Band!");
                                         break;
                                     case LastStatus.Yell1:
                                         judged = Component.Judged.Yell1;
@@ -3521,7 +3519,6 @@ namespace Qwilight.Compute
                                         judgmentLength = DrawingComponentValue.yell1Length;
                                         judgmentHeight = DrawingComponentValue.yell1Height;
                                         altJudgment = DrawingComponentValue.altYell1;
-                                        HandleUIAudio("Yell!");
                                         break;
                                 }
                                 if (!Has2P || altJudgment != 3)

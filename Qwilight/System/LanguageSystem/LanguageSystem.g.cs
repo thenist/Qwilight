@@ -311,6 +311,7 @@ namespace Qwilight
         public string HandledHigherClearText { get; set; }
         public string HandledHighestClearText { get; set; }
         public string HandledNotText { get; set; }
+        public string HandledYell1Text { get; set; }
         public string HandleFailedAudioCountText { get; set; }
         public string HandleFailedAudioText { get; set; }
         public string HandleInputAudioContents { get; set; }

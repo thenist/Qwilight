@@ -47,12 +47,14 @@ frame:
     last-enlarged-band-loop-frame: NoteHitFrame(0.75)
 
     judgment-frame: 25
-    band!-frame: 50
     last-frame: 50
+    band!-frame: 50
+    yell!-frame: 50
 
     judgment-framerate: 60
-    band!-framerate: 60
     last-framerate: 60
+    band!-framerate: 60
+    yell!-framerate: 60
 
     input-frame: 1
     input-framerate: 60
@@ -143,6 +145,7 @@ lambda:
     alt-judgment-points: 2
     alt-last: 2
     alt-band!: 2
+    alt-yell!: 2
     alt-wall-0: 2
     alt-wall-1: 2
     alt-audio-multiplier: 2
@@ -262,8 +265,8 @@ point:
     # 버튼 아래 사각형 영역
     paintProperty2: MainPosition(0), JudgmentMainPosition(140), P1BuiltLength(1), 76, 2, 1, 60, 0
 
-    # 움직이는 판정 비율 막대기
-    paintProperty3: MainPosition(0), JudgmentMainPosition(120), P1BuiltLength(1), 20, 2, 20, 60, 0
+    # 판정 비율 막대기
+    paintProperty3: MainPosition(0), JudgmentMainPosition(120), P1BuiltLength(1), 20, 2, 1, 60, 0
     
     # 판정 비주얼라이저 기준점
     paintProperty4: PaintProperty4Position0(), PaintProperty4Position1(), 7, 4, 2, 1, 60, 0, 43
@@ -323,6 +326,12 @@ point:
     band!Position1: 0
     band!Length: P1BuiltLength(1.0)
     band!Height: JudgmentMainPosition(-5)
+
+    yell!System: 0
+    yell!Position0: MainPosition(0.0)
+    yell!Position1: 0
+    yell!Length: P1BuiltLength(1.0)
+    yell!Height: JudgmentMainPosition(-5)
 
     judgmentPointsSystem: 3
     judgmentPointsPosition0: MainPosition(0)

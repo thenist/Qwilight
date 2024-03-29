@@ -123,9 +123,9 @@ namespace Qwilight
 
         public HandledDrawingItem?[] InputModeDrawings { get; } = new HandledDrawingItem?[17];
 
-        public ImageSource[] HandledWallDrawings { get; } = new ImageSource[8];
+        public ImageSource[] HandledWallDrawings { get; } = new ImageSource[9];
 
-        public ImageSource[] HandledWallCommentDrawings { get; } = new ImageSource[8];
+        public ImageSource[] HandledWallCommentDrawings { get; } = new ImageSource[9];
 
         public ImageSource[] DefaultEntryDrawings { get; } = new ImageSource[5];
 
@@ -2054,10 +2054,13 @@ namespace Qwilight
                 QuitDrawings[i][1] ??= QuitDrawings[i][0];
             }
 
+            HandledWallDrawings[(int)BaseNoteFile.Handled.Yell1] ??= HandledWallDrawings[(int)BaseNoteFile.Handled.Band1];
+
             for (var i = (int)BaseNoteFile.Handled.AssistClear; i >= (int)BaseNoteFile.Handled.Not; --i)
             {
                 HandledWallCommentDrawings[i] ??= HandledWallDrawings[i];
             }
+            HandledWallCommentDrawings[(int)BaseNoteFile.Handled.Yell1] ??= HandledWallCommentDrawings[(int)BaseNoteFile.Handled.Band1];
 
             for (var i = PaintProperties.Length - 1; i >= 0; --i)
             {

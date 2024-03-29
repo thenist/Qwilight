@@ -369,7 +369,7 @@
   },
   "AvatarHandledYell1Text": {
     "ko-KR": "퍼펙트 ({0})",
-    "en-US": "Perfect ({2})"
+    "en-US": "Perfect ({0})"
   },
   "AvatarID": {
     "ko-KR": "아이디",
@@ -1234,6 +1234,10 @@
   "HandledNotText": {
     "ko-KR": "아직 안 함",
     "en-US": "Not yet."
+  },
+  "HandledYell1Text": {
+    "ko-KR": "퍼펙트",
+    "en-US": "Perfect"
   },
   "HandleFailedAudioCountText": {
     "ko-KR": "노트를 놓칠 때 반응할 콤보를 설정합니다.",
