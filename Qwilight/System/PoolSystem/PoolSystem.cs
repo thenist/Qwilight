@@ -38,40 +38,34 @@ namespace Qwilight
         readonly ConcurrentDictionary<long, string> _formattedUnitTexts = new();
         readonly ConcurrentQueue<IDisposable> _pendingClosables = new();
 
-        public void Wipe(bool isWPFViewVisible)
+        public void Wipe()
         {
-            if (isWPFViewVisible)
+            foreach (var (defaultTextID, defaultTextItem) in _defaultTextItems)
             {
-                foreach (var textID in _textItems.Keys)
+                _defaultTextItems.TryRemove(defaultTextID, out _);
+            }
+            foreach (var textID in _textItems.Keys)
+            {
+                if (_textItems.TryRemove(textID, out var textItem))
                 {
-                    if (_textItems.TryRemove(textID, out var textItem))
-                    {
-                        _pendingClosables.Enqueue(textItem);
-                    }
-                }
-                foreach (var targetID in _targetItems.Keys)
-                {
-                    if (_targetItems.TryRemove(targetID, out var targetItem))
-                    {
-                        _pendingClosables.Enqueue(targetItem);
-                    }
-                }
-                foreach (var faintColor in _faintPaints.Keys)
-                {
-                    if (_faintPaints.TryRemove(faintColor, out var faintPaints))
-                    {
-                        foreach (var faintPaint in faintPaints)
-                        {
-                            _pendingClosables.Enqueue(faintPaint);
-                        }
-                    }
+                    _pendingClosables.Enqueue(textItem);
                 }
             }
-            else
+            foreach (var targetID in _targetItems.Keys)
             {
-                foreach (var (defaultTextID, defaultTextItem) in _defaultTextItems)
+                if (_targetItems.TryRemove(targetID, out var targetItem))
                 {
-                    _defaultTextItems.TryRemove(defaultTextID, out _);
+                    _pendingClosables.Enqueue(targetItem);
+                }
+            }
+            foreach (var faintColor in _faintPaints.Keys)
+            {
+                if (_faintPaints.TryRemove(faintColor, out var faintPaints))
+                {
+                    foreach (var faintPaint in faintPaints)
+                    {
+                        _pendingClosables.Enqueue(faintPaint);
+                    }
                 }
             }
             foreach (var (valueTextID, text) in _valueIntTexts)

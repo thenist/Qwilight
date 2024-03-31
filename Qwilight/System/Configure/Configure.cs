@@ -1084,6 +1084,7 @@ namespace Qwilight
             DrawingSystem.Instance.SetFontFamily();
             BaseUI.Instance.SetFontFamily();
             UI.Instance.SetFontFamily();
+            PoolSystem.Instance.Wipe();
         }
 
         public int CommentViewTabPosition

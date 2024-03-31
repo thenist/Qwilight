@@ -233,7 +233,7 @@ namespace Qwilight.ViewModel
             {
                 if (SetProperty(ref _isWPFViewVisible, value, nameof(IsWPFViewVisible)))
                 {
-                    PoolSystem.Instance.Wipe(value);
+                    PoolSystem.Instance.Wipe();
                     if (!value)
                     {
                         DrawingSystem.Instance.OnModified();
