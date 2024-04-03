@@ -233,6 +233,8 @@ namespace Qwilight.Compute
 
         public int AutoMainFrame { get; set; }
 
+        public string MeterText { get; set; }
+
         public int[] PauseFrames { get; } = new int[3];
 
         /// <summary>
@@ -2574,7 +2576,8 @@ namespace Qwilight.Compute
 
                             bool HandleAutoJudged(BaseNote note)
                             {
-                                switch (note.AutoJudge(LoopingCounter)?.IDValue)
+                                var judgedNoteData = note.AutoJudge(LoopingCounter);
+                                switch (judgedNoteData?.IDValue)
                                 {
                                     case JudgedNoteData.ID.Not:
                                         return true;
@@ -2583,6 +2586,7 @@ namespace Qwilight.Compute
                                         return true;
                                     case JudgedNoteData.ID.HandleMeter:
                                         _millisMeter = _millisStandardMeter;
+                                        MeterText = judgedNoteData.Value.MeterText;
                                         return true;
                                     default:
                                         return false;

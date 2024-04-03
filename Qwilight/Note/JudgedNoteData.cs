@@ -15,10 +15,12 @@
             HandleMeter
         }
 
-        public ID IDValue { get; set; }
+        public ID IDValue { get; init; }
 
-        public double JudgmentMeter { get; set; }
+        public double JudgmentMeter { get; init; }
 
-        public Component.Judged Judged { get; set; }
+        public Component.Judged Judged { get; init; }
+
+        public string MeterText { get; init; }
     }
 }

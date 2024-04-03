@@ -3,11 +3,6 @@
 SET VS2022=%PROGRAMFILES%\Microsoft Visual Studio\2022\Community
 SET MSBUILD=%VS2022%\Msbuild\Current\Bin\MSBuild.exe
 
-"%MSBUILD%" -t:Build -p:Configuration=Release,Platform=x64 Flint\Flint.vcxproj
-Robocopy Flint\x64\Release Qwilight\Assets\x64 Flint.exe
-"%MSBUILD%" -t:Build -p:Configuration=Release,Platform=ARM64 Flint\Flint.vcxproj
-Robocopy Flint\ARM64\Release Qwilight\Assets\ARM64 Flint.exe
-
 "%MSBUILD%" -t:Build -p:Configuration=Release,Platform=x64 Igniter\Igniter.csproj
 Robocopy Igniter\bin\x64\Release Qwilight\Assets\x64 Igniter.exe
 "%MSBUILD%" -t:Build -p:Configuration=Release,Platform=ARM64 Igniter\Igniter.csproj

@@ -2,6 +2,7 @@
 using Qwilight.ViewModel;
 using System.IO;
 using System.IO.Pipes;
+using System.Text;
 
 namespace Qwilight
 {
@@ -32,7 +33,7 @@ namespace Qwilight
                 {
                     using var ss = new NamedPipeServerStream("Qwilight", PipeDirection.In);
                     ss.WaitForConnection();
-                    using var sr = new StreamReader(ss);
+                    using var sr = new StreamReader(ss, Encoding.UTF8);
                     Parser.Default.ParseArguments<FlintParams>(sr.ReadLine()?.Split(" ", 3) ?? Array.Empty<string>()).WithParsed(o =>
                     {
                         var mainViewModel = ViewModels.Instance.MainValue;

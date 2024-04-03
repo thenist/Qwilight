@@ -2067,6 +2067,12 @@ namespace Qwilight
                                                         }
                                                     }
 
+                                                    var meterText = defaultComputer.MeterText;
+                                                    if (defaultComputer.IsMeterVisible && !string.IsNullOrEmpty(meterText))
+                                                    {
+                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(meterText, MeterFont), 50, FaintClearedPaints, FaintFilledPaints, null, 50, FaintClearedPaints, FaintFilledPaints, null, 50);
+                                                    }
+
                                                     if (isPostableItemMode)
                                                     {
                                                         var lastPostableItems = defaultComputer.LastPostableItems;
@@ -3473,7 +3479,7 @@ namespace Qwilight
         public void SetFontFamily()
         {
             SetFontFamily(MeterFont);
-            SetFontLevel(MeterFont, Levels.FontLevel1Float32);
+            SetFontLevel(MeterFont, 48F);
             SetFontFamily(UtilityFont);
             SetFontLevel(UtilityFont, Levels.FontLevel0Float32);
             SetFontSystem(UtilityFont, 1, 0);

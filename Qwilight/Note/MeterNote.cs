@@ -8,7 +8,7 @@ namespace Qwilight.Note
     {
         const double MeterNoteHeight = 1.0;
 
-        readonly string _meter;
+        readonly string _meterText;
 
         public override bool HasContents => false;
 
@@ -22,7 +22,7 @@ namespace Qwilight.Note
 
         public MeterNote(double logicalY, double wait, int meter) : base(logicalY, wait)
         {
-            _meter = meter.ToString();
+            _meterText = $"#{meter}";
         }
 
         public override bool IsVisible(DefaultCompute defaultComputer)
@@ -53,7 +53,8 @@ namespace Qwilight.Note
                 Judged = Component.Judged.Highest;
                 return new JudgedNoteData
                 {
-                    IDValue = JudgedNoteData.ID.HandleMeter
+                    IDValue = JudgedNoteData.ID.HandleMeter,
+                    MeterText = _meterText
                 };
             }
             return default;
@@ -86,16 +87,16 @@ namespace Qwilight.Note
                         r.Position0 -= p1BuiltLength;
                     }
 
-                    var faintClearPaint = DrawingSystem.Instance.FaintClearedPaints[faint];
-                    var textItem = PoolSystem.Instance.GetTextItem(_meter, DrawingSystem.Instance.MeterFont);
+                    var faintClearedPaint = DrawingSystem.Instance.FaintClearedPaints[faint];
+                    var textItem = PoolSystem.Instance.GetTextItem(_meterText, DrawingSystem.Instance.MeterFont);
                     r.Position0 += Levels.StandardMargin;
                     r.Position1 -= Levels.StandardMargin + textItem.LayoutBounds.Height;
-                    targetSession.PaintText(textItem, ref r, faintClearPaint);
+                    targetSession.PaintText(textItem, ref r, faintClearedPaint);
 
                     if (has2P)
                     {
                         r.Position0 += p1BuiltLength;
-                        targetSession.PaintText(textItem, ref r, faintClearPaint);
+                        targetSession.PaintText(textItem, ref r, faintClearedPaint);
                     }
                 }
             }

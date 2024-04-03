@@ -84,7 +84,7 @@ namespace Qwilight.ViewModel
             {
                 try
                 {
-                    var flintFilePath = Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Flint.exe");
+                    var qwilightFilePath = Path.Combine(AppContext.BaseDirectory, "Qwilight.exe");
                     var noteFilePath = noteFile.NoteFilePath;
                     if (QwilightComponent.BMSNoteFileFormats.Any(format => noteFilePath.IsTailCaselsss(format)))
                     {
@@ -115,13 +115,13 @@ namespace Qwilight.ViewModel
                             {
                                 var bmseViewerText = (await File.ReadAllTextAsync(bmseViewerFilePath, Encoding.ASCII).ConfigureAwait(false)).Trim(Environment.NewLine.ToCharArray()) + Environment.NewLine;
                                 var bmseViewerData = bmseViewerText.Split(Environment.NewLine).ToList();
-                                if (!bmseViewerData.Any(line => line == flintFilePath))
+                                if (!bmseViewerData.Any(line => line == qwilightFilePath))
                                 {
                                     var data = $"""
 
 
 Qwilight
-{flintFilePath}
+{qwilightFilePath}
 -P -N0 <filename>
 -P -N<measure> <filename>
 -S
@@ -136,7 +136,7 @@ Qwilight
                                 using (var sr = File.OpenText(bmseFilePath))
                                 {
                                     bmse = bmseCompiler.ReadData(sr);
-                                    var flintID = (bmseViewerData.IndexOf(flintFilePath) / 6).ToString();
+                                    var flintID = (bmseViewerData.IndexOf(qwilightFilePath) / 6).ToString();
                                     if (bmse["View"]["ViewerNum"] != flintID)
                                     {
                                         bmse["View"]["ViewerNum"] = flintID;
@@ -155,13 +155,13 @@ Qwilight
                                 bmscCompiler.LoadXml(await File.ReadAllTextAsync(bmscFilePath).ConfigureAwait(false));
 
                                 var nodesViewer = bmscCompiler.SelectNodes("/iBMSC/Player/Player").Cast<XmlNode>().ToList();
-                                var flintID = nodesViewer.FindIndex(node => Utility.EqualsCaseless(node.Attributes["Path"].Value, flintFilePath));
+                                var flintID = nodesViewer.FindIndex(node => Utility.EqualsCaseless(node.Attributes["Path"].Value, qwilightFilePath));
                                 if (flintID == -1)
                                 {
                                     flintID = nodesViewer.Count;
                                     var flintViewer = bmscCompiler.CreateElement("Player");
                                     flintViewer.SetAttribute("Index", flintID.ToString());
-                                    flintViewer.SetAttribute("Path", flintFilePath);
+                                    flintViewer.SetAttribute("Path", qwilightFilePath);
                                     flintViewer.SetAttribute("FromBeginning", "-P -N0 \"<filename>\"");
                                     flintViewer.SetAttribute("FromHere", "-P -N<measure> \"<filename>\"");
                                     flintViewer.SetAttribute("Stop", "-S");
@@ -220,11 +220,11 @@ Qwilight
                                     bms1 = bms1Compiler.ReadData(sr);
                                     var targetViewer = bms1["ExternalViewer"];
                                     var targetViewerID = Utility.ToInt32(targetViewer["ViewerCount"]);
-                                    flintFilePath = flintFilePath.Replace(@"\", @"\\");
-                                    if (!Enumerable.Range(0, targetViewerID).Any(i => targetViewer[$@"Viewer{i}\Path"] == flintFilePath))
+                                    qwilightFilePath = qwilightFilePath.Replace(@"\", @"\\");
+                                    if (!Enumerable.Range(0, targetViewerID).Any(i => targetViewer[$@"Viewer{i}\Path"] == qwilightFilePath))
                                     {
                                         targetViewer[$@"Viewer{targetViewerID}\Name"] = "Qwilight";
-                                        targetViewer[$@"Viewer{targetViewerID}\Path"] = flintFilePath;
+                                        targetViewer[$@"Viewer{targetViewerID}\Path"] = qwilightFilePath;
                                         targetViewer[$@"Viewer{targetViewerID}\Icon"] = "";
                                         targetViewer[$@"Viewer{targetViewerID}\ArgumentPlayLevy"] = "-P -N0 $(filename)";
                                         targetViewer[$@"Viewer{targetViewerID}\ArgumentPlayHere"] = "-P -N$(measure) $(filename)";

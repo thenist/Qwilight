@@ -215,9 +215,6 @@
 		<None Update="Assets\ARM64\concrt140_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\ARM64\Flint.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\ARM64\Microsoft.WindowsAppRuntime.Bootstrap.dll">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -270,9 +267,6 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\ffprobe.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\x64\Flint.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\Igniter.exe">
