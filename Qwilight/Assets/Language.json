@@ -1099,6 +1099,14 @@
     "ko-KR": "수치 애니메이션 활성화",
     "en-US": "Enable numerical animation"
   },
+  "FlowVeilDrawingContents": {
+    "ko-KR": "클리어 후 레인 커버가 레인을 자연스럽게 가립니다.",
+    "en-US": "After clearing, the rain cover covers the lane naturally."
+  },
+  "FlowVeilDrawingText": {
+    "ko-KR": "레인 커버 슬라이드 활성화",
+    "en-US": "Enable rain cover slide"
+  },
   "FontFamilyAssist": {
     "ko-KR": "텍스트를 입력하여 글꼴 미리보기",
     "en-US": "Type text to preview fonts"
@@ -2426,6 +2434,10 @@
   "NotFlowValuesText": {
     "ko-KR": "수치 애니메이션 비활성화",
     "en-US": "Disable numerical animation"
+  },
+  "NotFlowVeilDrawingText": {
+    "ko-KR": "레인 커버 슬라이드 비활성화",
+    "en-US": "Disable rain cover slide"
   },
   "NotHandleInputAudioText": {
     "ko-KR": "키음 비활성화",

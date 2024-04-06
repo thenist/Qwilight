@@ -203,6 +203,7 @@ namespace Qwilight
         bool _valueUICommentNote;
         bool _valueUIPipelineMainJudgmentMeter;
         bool _valueUIPipelineJudgmentInputVisualizer;
+        bool _flowVeilDrawing;
         bool _lowHitPointsFaintUI;
         bool _audioVisualizer;
         bool _lostPointAudio;
@@ -1884,6 +1885,24 @@ namespace Qwilight
 
         public Brush UIPipelineJudgmentInputVisualizerPaint => Paints.PointPaints[UIPipelineJudgmentInputVisualizer ? 1 : 0];
 
+        public bool FlowVeilDrawing
+        {
+            get => _flowVeilDrawing;
+
+            set
+            {
+                if (SetProperty(ref _flowVeilDrawing, value))
+                {
+                    OnPropertyChanged(nameof(FlowVeilDrawingPaint));
+                    OnPropertyChanged(nameof(FlowVeilDrawingText));
+                }
+            }
+        }
+
+        public Brush FlowVeilDrawingPaint => Paints.PointPaints[FlowVeilDrawing ? 1 : 0];
+
+        public string FlowVeilDrawingText => FlowVeilDrawing ? LanguageSystem.Instance.FlowVeilDrawingText : LanguageSystem.Instance.NotFlowVeilDrawingText;
+
         public bool LowHitPointsFaintUI
         {
             get => _lowHitPointsFaintUI;
@@ -3393,6 +3412,10 @@ namespace Qwilight
             {
                 InputWantHandled = new bool[9];
                 Array.Fill(InputWantHandled, true);
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 20))
+            {
+                FlowVeilDrawing = true;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

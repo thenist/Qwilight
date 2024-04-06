@@ -398,6 +398,9 @@ namespace Qwilight.ViewModel
         static void OnOpenAs(string e) => Utility.OpenAs(e);
 
         [RelayCommand]
+        static void OnFlowVeilDrawing() => Configure.Instance.FlowVeilDrawing = !Configure.Instance.FlowVeilDrawing;
+
+        [RelayCommand]
         static void OnLowHitPointsFaintUI() => Configure.Instance.LowHitPointsFaintUI = !Configure.Instance.LowHitPointsFaintUI;
 
         [RelayCommand]

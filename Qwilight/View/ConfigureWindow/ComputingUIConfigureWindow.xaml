@@ -302,6 +302,15 @@
                                         <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding NetItemCountText, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
                                     </Grid>
                                 </StackPanel>
+                                <Separator Style="{StaticResource StandardHr}" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Style="{StaticResource StandardInput}" Foreground="{Binding FlowVeilDrawingPaint, Source={StaticResource Configure}}" Command="{Binding FlowVeilDrawingCommand}" Content="{Binding FlowVeilDrawingText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding FlowVeilDrawingContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                                </Grid>
                             </StackPanel>
                         </Grid>
                         <Separator Style="{StaticResource StandardHr}" />

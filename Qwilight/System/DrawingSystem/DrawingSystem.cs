@@ -1741,12 +1741,12 @@ namespace Qwilight
                                                                         break;
                                                                     case PaintPipelineID.VeilDrawing:
                                                                         var veilDrawing = VeilDrawing.Drawing;
-                                                                        if (veilDrawing != null)
+                                                                        if (veilDrawing.HasValue)
                                                                         {
                                                                             var veilDrawingValue = veilDrawing.Value;
                                                                             var veilDrawingBound = veilDrawingValue.DrawingBound;
                                                                             var veilDrawingHeight = veilDrawingBound.Height * p1Length / veilDrawingBound.Length;
-                                                                            r.Set(mainPosition, Configure.Instance.VeilDrawingHeight - veilDrawingHeight, p1Length, veilDrawingHeight);
+                                                                            r.Set(mainPosition, defaultComputer.VeilDrawingHeight.Value - veilDrawingHeight, p1Length, veilDrawingHeight);
                                                                             targetSession.PaintDrawing(ref r, veilDrawing);
                                                                             if (has2P)
                                                                             {
@@ -2938,7 +2938,6 @@ namespace Qwilight
                         PaintPipelineID.HitNotePaint => Configure.Instance.UIPipelineHitNotePaint,
                         PaintPipelineID.Hunter => Configure.Instance.UIPipelineHunter,
                         PaintPipelineID.MediaInput => Configure.Instance.MediaInput && Configure.Instance.FavorMediaInput,
-                        PaintPipelineID.VeilDrawing => Configure.Instance.VeilDrawingHeight > 0.0,
                         PaintPipelineID.MainJudgmentMeter => Configure.Instance.UIPipelineMainJudgmentMeter,
                         _ => true
                     };

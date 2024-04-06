@@ -4,7 +4,6 @@ using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.UI;
 using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Interop.StandardDescriptors.HardwiredDescriptors;
 using Qwilight.Note;
 using Qwilight.PaintComponent;
 using Qwilight.UIComponent;
@@ -666,7 +665,7 @@ namespace Qwilight
                 SaveAltMap(lambdaNode, "alt-band!", 2);
                 SaveIntMapAsDefaultID(frameNode, "yell!-frame", "band!-frame");
                 SaveValueMapAsDefaultID(frameNode, "yell!-framerate", "band!-framerate");
-                SaveIntMapAsDefaultID(pointNode, "yell!System","band!System");
+                SaveIntMapAsDefaultID(pointNode, "yell!System", "band!System");
                 SaveValueMapAsDefaultID(pointNode, "yell!Position0", "band!Position0");
                 SaveValueMapAsDefaultID(pointNode, "yell!Position1", "band!Position1");
                 SaveValueMapAsDefaultID(pointNode, "yell!Length", "band!Length");

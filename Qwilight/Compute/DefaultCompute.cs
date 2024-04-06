@@ -213,6 +213,8 @@ namespace Qwilight.Compute
 
         public float HighestNetHeight { get; set; }
 
+        public MoveValue<double> VeilDrawingHeight { get; } = new();
+
         public Component.Judged LastJudged { get; set; } = Component.Judged.Not;
 
         public List<NetItem> NetItems { get; set; } = new();
@@ -2856,11 +2858,20 @@ namespace Qwilight.Compute
                                 OnGetF();
                             }
                         }
-                        if (LastStatusValue == LastStatus.Not && ValidatedTotalNotes > 0 && ValidatedTotalNotes == _validJudgedNotes)
+                        if (ValidatedTotalNotes > 0 && ValidatedTotalNotes == _validJudgedNotes)
                         {
-                            _lastStatus = Comment.LowestJudgment > 0 ? LastStatus.Last : Point.TargetValue < 1.0 ? LastStatus.Band1 : LastStatus.Yell1;
+                            VeilDrawingHeight.TargetValue = Configure.Instance.FlowVeilDrawing ? DrawingComponentValue.judgmentMainPosition : Configure.Instance.VeilDrawingHeight;
                             _isEscapable = true;
+                            if (LastStatusValue == LastStatus.Not)
+                            {
+                                _lastStatus = Comment.LowestJudgment > 0 ? LastStatus.Last : Point.TargetValue < 1.0 ? LastStatus.Band1 : LastStatus.Yell1;
+                            }
                         }
+                        else
+                        {
+                            VeilDrawingHeight.TargetValue = Configure.Instance.VeilDrawingHeight;
+                        }
+                        VeilDrawingHeight.Value += Utility.GetMove(VeilDrawingHeight.TargetValue, VeilDrawingHeight.Value, 500.0 / millisLoopUnit);
 
                         void HandleJudged(BaseNote judgedNote, JudgedNoteData? judgedNoteData, double loopingCounter)
                         {
@@ -3469,79 +3480,82 @@ namespace Qwilight.Compute
                         HandleNetItems(millisLoopUnit);
                     }
 
-                    if (!wasLastStatus && LastStatusValue != LastStatus.Not)
+                    if (LastStatusValue != LastStatus.Not)
                     {
-                        if (!IsF)
+                        if (!wasLastStatus)
                         {
-                            switch (LastStatusValue)
+                            if (!IsF)
                             {
-                                case LastStatus.Last:
-                                    HandleUIAudio("Last");
-                                    break;
-                                case LastStatus.Band1:
-                                    HandleUIAudio("Band!");
-                                    break;
-                                case LastStatus.Yell1:
-                                    HandleUIAudio("Yell!", "Band!");
-                                    break;
-                            }
-                            if (judgmentFrame > 0)
-                            {
-                                Component.Judged judged = 0;
-                                var altJudgment = 0.0;
                                 switch (LastStatusValue)
                                 {
                                     case LastStatus.Last:
-                                        judged = Component.Judged.Last;
-                                        judgmentPosition0 = DrawingComponentValue.lastPosition0;
-                                        judgmentPosition1 = DrawingComponentValue.lastPosition1;
-                                        judgmentSystem = DrawingComponentValue.lastSystem;
-                                        judgmentFrame = DrawingComponentValue.lastFrame;
-                                        judgmentFramerate = DrawingComponentValue.lastFramerate;
-                                        judgmentLength = DrawingComponentValue.lastLength;
-                                        judgmentHeight = DrawingComponentValue.lastHeight;
-                                        altJudgment = DrawingComponentValue.altLast;
+                                        HandleUIAudio("Last");
                                         break;
                                     case LastStatus.Band1:
-                                        judged = Component.Judged.Band1;
-                                        judgmentPosition0 = DrawingComponentValue.band1Position0;
-                                        judgmentPosition1 = DrawingComponentValue.band1Position1;
-                                        judgmentSystem = DrawingComponentValue.band1System;
-                                        judgmentFrame = DrawingComponentValue.band1Frame;
-                                        judgmentFramerate = DrawingComponentValue.band1Framerate;
-                                        judgmentLength = DrawingComponentValue.band1Length;
-                                        judgmentHeight = DrawingComponentValue.band1Height;
-                                        altJudgment = DrawingComponentValue.altBand1;
+                                        HandleUIAudio("Band!");
                                         break;
                                     case LastStatus.Yell1:
-                                        judged = Component.Judged.Yell1;
-                                        judgmentPosition0 = DrawingComponentValue.yell1Position0;
-                                        judgmentPosition1 = DrawingComponentValue.yell1Position1;
-                                        judgmentSystem = DrawingComponentValue.yell1System;
-                                        judgmentFrame = DrawingComponentValue.yell1Frame;
-                                        judgmentFramerate = DrawingComponentValue.yell1Framerate;
-                                        judgmentLength = DrawingComponentValue.yell1Length;
-                                        judgmentHeight = DrawingComponentValue.yell1Height;
-                                        altJudgment = DrawingComponentValue.altYell1;
+                                        HandleUIAudio("Yell!", "Band!");
                                         break;
                                 }
-                                if (!Has2P || altJudgment != 3)
+                                if (judgmentFrame > 0)
                                 {
-                                    lock (JudgmentPaints)
+                                    Component.Judged judged = 0;
+                                    var altJudgment = 0.0;
+                                    switch (LastStatusValue)
                                     {
-                                        JudgmentPaints[2] = new(this, judged, false, judgmentSystem, judgmentPosition0, judgmentPosition1, judgmentFrame, judgmentFramerate, judgmentLength, judgmentHeight);
+                                        case LastStatus.Last:
+                                            judged = Component.Judged.Last;
+                                            judgmentPosition0 = DrawingComponentValue.lastPosition0;
+                                            judgmentPosition1 = DrawingComponentValue.lastPosition1;
+                                            judgmentSystem = DrawingComponentValue.lastSystem;
+                                            judgmentFrame = DrawingComponentValue.lastFrame;
+                                            judgmentFramerate = DrawingComponentValue.lastFramerate;
+                                            judgmentLength = DrawingComponentValue.lastLength;
+                                            judgmentHeight = DrawingComponentValue.lastHeight;
+                                            altJudgment = DrawingComponentValue.altLast;
+                                            break;
+                                        case LastStatus.Band1:
+                                            judged = Component.Judged.Band1;
+                                            judgmentPosition0 = DrawingComponentValue.band1Position0;
+                                            judgmentPosition1 = DrawingComponentValue.band1Position1;
+                                            judgmentSystem = DrawingComponentValue.band1System;
+                                            judgmentFrame = DrawingComponentValue.band1Frame;
+                                            judgmentFramerate = DrawingComponentValue.band1Framerate;
+                                            judgmentLength = DrawingComponentValue.band1Length;
+                                            judgmentHeight = DrawingComponentValue.band1Height;
+                                            altJudgment = DrawingComponentValue.altBand1;
+                                            break;
+                                        case LastStatus.Yell1:
+                                            judged = Component.Judged.Yell1;
+                                            judgmentPosition0 = DrawingComponentValue.yell1Position0;
+                                            judgmentPosition1 = DrawingComponentValue.yell1Position1;
+                                            judgmentSystem = DrawingComponentValue.yell1System;
+                                            judgmentFrame = DrawingComponentValue.yell1Frame;
+                                            judgmentFramerate = DrawingComponentValue.yell1Framerate;
+                                            judgmentLength = DrawingComponentValue.yell1Length;
+                                            judgmentHeight = DrawingComponentValue.yell1Height;
+                                            altJudgment = DrawingComponentValue.altYell1;
+                                            break;
                                     }
-                                }
-                                if (Has2P && altJudgment != 0)
-                                {
-                                    lock (JudgmentPaints)
+                                    if (!Has2P || altJudgment != 3)
                                     {
-                                        JudgmentPaints[3] = new(this, judged, true, judgmentSystem, judgmentPosition0, judgmentPosition1, judgmentFrame, judgmentFramerate, judgmentLength, judgmentHeight);
+                                        lock (JudgmentPaints)
+                                        {
+                                            JudgmentPaints[2] = new(this, judged, false, judgmentSystem, judgmentPosition0, judgmentPosition1, judgmentFrame, judgmentFramerate, judgmentLength, judgmentHeight);
+                                        }
+                                    }
+                                    if (Has2P && altJudgment != 0)
+                                    {
+                                        lock (JudgmentPaints)
+                                        {
+                                            JudgmentPaints[3] = new(this, judged, true, judgmentSystem, judgmentPosition0, judgmentPosition1, judgmentFrame, judgmentFramerate, judgmentLength, judgmentHeight);
+                                        }
                                     }
                                 }
                             }
+                            wasLastStatus = true;
                         }
-                        wasLastStatus = true;
                     }
 
                     while (MultiplierQueue.TryDequeue(out var multiplier))
