@@ -48,7 +48,7 @@ namespace Qwilight
 #endif
                         case ConsoleKey.E:
                             Console.Clear();
-                            Console.WriteLine("1, 2, 3, 4, 5, 6, 7, 8");
+                            Console.WriteLine("1, 2, 3, 4, 5, 6, 7, 8, 9");
                             switch (Console.ReadKey(true).Key)
                             {
                                 case ConsoleKey.D1:
@@ -74,6 +74,9 @@ namespace Qwilight
                                     break;
                                 case ConsoleKey.D8:
                                     BaseUI.Instance.HandleEvent(BaseUI.EventItem.AbilityUp);
+                                    break;
+                                case ConsoleKey.D9:
+                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.AbilityClassUp);
                                     break;
                             }
                             break;

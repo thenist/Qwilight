@@ -4140,7 +4140,6 @@ namespace Qwilight.Compute
                                     }
                                 }
                             }
-                            DB.Instance.SetHandled(NoteFile);
                         }
                     }
                     else
@@ -4155,10 +4154,10 @@ namespace Qwilight.Compute
                             {
                                 NoteFile.HandledValue = BaseNoteFile.Handled.AssistClear;
                             }
-                            DB.Instance.SetHandled(NoteFile);
                         }
                     }
 
+                    DB.Instance.SetHandled(NoteFile);
                     DB.Instance.NewDate(NoteFile, default, date);
                     NoteFile.LatestDate = date;
                     ++NoteFile.HandledCount;

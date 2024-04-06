@@ -78,14 +78,17 @@ namespace Qwilight.ViewModel
         string _avatarAbility5KPlaceText1 = string.Empty;
         ImageSource _abilityClass5KDrawing;
         double _avatarAbility5K;
+        double _avatarAbility5KStatus;
         string _avatarAbility7KPlaceText0 = string.Empty;
         string _avatarAbility7KPlaceText1 = string.Empty;
         ImageSource _abilityClass7KDrawing;
         double _avatarAbility7K;
+        double _avatarAbility7KStatus;
         string _avatarAbility9KPlaceText0 = string.Empty;
         string _avatarAbility9KPlaceText1 = string.Empty;
         ImageSource _abilityClass9KDrawing;
         double _avatarAbility9K;
+        double _avatarAbility9KStatus;
         bool _isAvatarLoading;
         string _avatarID;
         string _avatarName;
@@ -1069,6 +1072,8 @@ namespace Qwilight.ViewModel
 
         public string AvatarViewAbility5KText => _avatarAbility5K.ToString("#,##0.## Point");
 
+        public double AvatarViewAbility5KStatus => 100.0 * _avatarAbility5KStatus;
+
         public string AvatarAbility7KPlaceText0
         {
             get => _avatarAbility7KPlaceText0;
@@ -1092,6 +1097,8 @@ namespace Qwilight.ViewModel
 
         public string AvatarViewAbility7KText => _avatarAbility7K.ToString("#,##0.## Point");
 
+        public double AvatarViewAbility7KStatus => 100.0 * _avatarAbility7KStatus;
+
         public string AvatarAbility9KPlaceText0
         {
             get => _avatarAbility9KPlaceText0;
@@ -1114,6 +1121,8 @@ namespace Qwilight.ViewModel
         }
 
         public string AvatarViewAbility9KText => _avatarAbility9K.ToString("#,##0.## Point");
+
+        public double AvatarViewAbility9KStatus => 100.0 * _avatarAbility9KStatus;
 
         public string CallingAvatarID { get; set; }
 
@@ -1235,6 +1244,8 @@ namespace Qwilight.ViewModel
                         AvatarAbility5KPlaceText1 = twilightWwwAvatarValue.avatarAbility5KCount.ToString("／#,##0");
                         _avatarAbility5K = twilightWwwAvatarValue.avatarAbility5K;
                         OnPropertyChanged(nameof(AvatarViewAbility5KText));
+                        _avatarAbility5KStatus = twilightWwwAvatarValue.avatarAbility5KStatus;
+                        OnPropertyChanged(nameof(AvatarViewAbility5KStatus));
 
                         try
                         {
@@ -1254,6 +1265,8 @@ namespace Qwilight.ViewModel
                         AvatarAbility7KPlaceText1 = twilightWwwAvatarValue.avatarAbility7KCount.ToString("／#,##0");
                         _avatarAbility7K = twilightWwwAvatarValue.avatarAbility7K;
                         OnPropertyChanged(nameof(AvatarViewAbility7KText));
+                        _avatarAbility7KStatus = twilightWwwAvatarValue.avatarAbility7KStatus;
+                        OnPropertyChanged(nameof(AvatarViewAbility7KStatus));
 
                         try
                         {
@@ -1273,6 +1286,8 @@ namespace Qwilight.ViewModel
                         AvatarAbility9KPlaceText1 = twilightWwwAvatarValue.avatarAbility9KCount.ToString("／#,##0");
                         _avatarAbility9K = twilightWwwAvatarValue.avatarAbility9K;
                         OnPropertyChanged(nameof(AvatarViewAbility9KText));
+                        _avatarAbility9KStatus = twilightWwwAvatarValue.avatarAbility9KStatus;
+                        OnPropertyChanged(nameof(AvatarViewAbility9KStatus));
 
                         for (var i = twilightWwwAvatarValue.quitStatusValues.Length - 1; i >= 0; --i)
                         {

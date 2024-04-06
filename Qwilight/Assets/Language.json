@@ -3,6 +3,10 @@
     "ko-KR": "모든 노트가 고유의 스크롤 속도를 가집니다.",
     "en-US": "Different scroll speed for every note"
   },
+  "AbilityClassUpContents": {
+    "ko-KR": "{0}로 승급! 축하합니다.",
+    "en-US": "Promoted to {0}! Congratulations."
+  },
   "AbilityFittedText": {
     "ko-KR": "{0} 점 (+ {1} Point)",
     "en-US": "{0} Points (+ {1} Points)"

@@ -24,18 +24,6 @@ namespace Qwilight
         [GeneratedRegex("[a-zA-Z\\d]+\\([\\d.+\\-, ]*\\)")]
         public static partial Regex GetCallComputer();
 
-        public sealed class QwilightParams
-        {
-            [Option("valve")]
-            public bool IsValve { get; set; }
-
-            [Option("vs")]
-            public bool IsVS { get; set; }
-
-            [Option("language")]
-            public int Language { get; set; }
-        }
-
         public const int SendUnit = 1024 * 1024;
 
         public static readonly int CPUCount = Environment.ProcessorCount;
@@ -128,7 +116,7 @@ namespace Qwilight
         static QwilightComponent()
         {
             AssetsClientJSON = Utility.GetJSON<JSON.AssetClient>(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Assets", "Client.json")));
-            Parser.Default.ParseArguments<QwilightParams>(Environment.GetCommandLineArgs()).WithParsed(o =>
+            Parser.Default.ParseArguments<Params.QwilightParams>(Environment.GetCommandLineArgs()).WithParsed(o =>
             {
                 IsValve = o.IsValve;
                 if (o.Language > 0)

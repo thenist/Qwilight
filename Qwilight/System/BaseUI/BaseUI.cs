@@ -37,7 +37,7 @@ namespace Qwilight
 
         public enum EventItem
         {
-            LevelUp = 100, LevelClear, LogIn, NotLogIn, ModifyEntryItem, ModifyNoteFile, NewTitle, AbilityUp
+            LevelUp = 100, LevelClear, LogIn, NotLogIn, ModifyEntryItem, ModifyNoteFile, NewTitle, AbilityUp, AbilityClassUp
         }
 
         public static void ZipUIFile(ZipFile zipFile, UIItem value, string entryPath)

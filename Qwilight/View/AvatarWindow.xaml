@@ -135,6 +135,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <StackPanel>
                                                 <Image Style="{StaticResource StandardView}" Width="72" Height="72" HorizontalAlignment="Left" Source="{Binding AbilityClass5KDrawing}" />
+                                                <ProgressBar Style="{StaticResource StandardStatusView}" Value="{Binding AvatarAbility5KStatus, Mode=OneWay}" />
                                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                                                     <TextBlock Style="{StaticResource StandardTextView}" Margin="5 5 0 5" Text="{Binding AvatarAbility5KPlaceText0}" FontSize="{StaticResource FontLevel1}" VerticalAlignment="Bottom" />
                                                     <TextBlock Style="{StaticResource StandardTextView}" Margin="0 5 5 5" Text="{Binding AvatarAbility5KPlaceText1}" VerticalAlignment="Bottom" />
@@ -143,6 +144,7 @@
                                             </StackPanel>
                                             <StackPanel>
                                                 <Image Style="{StaticResource StandardView}" Width="72" Height="72" HorizontalAlignment="Left" Source="{Binding AbilityClass7KDrawing}" />
+                                                <ProgressBar Style="{StaticResource StandardStatusView}" Value="{Binding AvatarAbility7KStatus, Mode=OneWay}" />
                                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                                                     <TextBlock Style="{StaticResource StandardTextView}" Margin="5 5 0 5" Text="{Binding AvatarAbility7KPlaceText0}" FontSize="{StaticResource FontLevel1}" VerticalAlignment="Bottom" />
                                                     <TextBlock Style="{StaticResource StandardTextView}" Margin="0 5 5 5" Text="{Binding AvatarAbility7KPlaceText1}" VerticalAlignment="Bottom" />
@@ -151,6 +153,7 @@
                                             </StackPanel>
                                             <StackPanel>
                                                 <Image Style="{StaticResource StandardView}" Width="72" Height="72" HorizontalAlignment="Left" Source="{Binding AbilityClass9KDrawing}" />
+                                                <ProgressBar Style="{StaticResource StandardStatusView}" Value="{Binding AvatarAbility9KStatus, Mode=OneWay}" />
                                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                                                     <TextBlock Style="{StaticResource StandardTextView}" Margin="5 5 0 5" Text="{Binding AvatarAbility9KPlaceText0}" FontSize="{StaticResource FontLevel1}" VerticalAlignment="Bottom" />
                                                     <TextBlock Style="{StaticResource StandardTextView}" Margin="0 5 5 5" Text="{Binding AvatarAbility9KPlaceText1}" VerticalAlignment="Bottom" />

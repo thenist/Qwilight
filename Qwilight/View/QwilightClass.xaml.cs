@@ -29,34 +29,29 @@ namespace Qwilight.View
         [STAThread]
         static void Main(string[] args)
         {
-            if (args.Length == 0)
+            if (args.Length > 0)
             {
-                Main();
+                Parser.Default.ParseArguments<Params.FlintParams>(args)
+                    .WithParsed(async o =>
+                    {
+                        using var ss = new NamedPipeClientStream(".", "Qwilight", PipeDirection.Out);
+                        try
+                        {
+                            await ss.ConnectAsync(0).ConfigureAwait(false);
+                            await ss.WriteAsync(Encoding.UTF8.GetBytes(string.Join(' ', args))).ConfigureAwait(false);
+                        }
+                        catch (TimeoutException)
+                        {
+                        }
+                    })
+                    .WithNotParsed(Main);
             }
             else
             {
-                Parser.Default.ParseArguments<FlintSystem.FlintParams>(args)
-                    .WithParsed(o =>
-                    {
-                        using (var ss = new NamedPipeClientStream(".", "Qwilight", PipeDirection.Out))
-                        {
-                            try
-                            {
-                                ss.Connect(0);
-                                ss.Write(Encoding.UTF8.GetBytes(string.Join(' ', args)));
-                            }
-                            catch (TimeoutException)
-                            {
-                            }
-                        }
-                    })
-                    .WithNotParsed(e =>
-                    {
-                        Main();
-                    });
+                Main(Enumerable.Empty<Error>());
             }
 
-            void Main()
+            void Main(IEnumerable<Error> e)
             {
                 #region COMPATIBLE
                 Compatible.Compatible.Qwilight(QwilightComponent.QwilightEntryPath);
@@ -78,7 +73,7 @@ namespace Qwilight.View
                 _wpfLoadingAsset.Show(true, true);
 
 #if DEBUG
-            Environment.SetEnvironmentVariable("ENABLE_XAML_DIAGNOSTICS_SOURCE_INFO", "1");
+                Environment.SetEnvironmentVariable("ENABLE_XAML_DIAGNOSTICS_SOURCE_INFO", "1");
 #endif
                 Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", QwilightComponent.EdgeEntryPath);
 
@@ -90,7 +85,7 @@ namespace Qwilight.View
 #if X64
                     using var exe = Process.Start(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "windowsappruntimeinstall-x64.exe"));
 #else
-                using var exe = Process.Start(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "windowsappruntimeinstall-arm64.exe"));
+                    using var exe = Process.Start(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "windowsappruntimeinstall-arm64.exe"));
 #endif
                     exe.WaitForExit();
                     if (!Bootstrap.TryInitialize(65541U, out _))

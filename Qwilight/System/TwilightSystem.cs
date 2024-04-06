@@ -348,6 +348,10 @@ namespace Qwilight
                                     NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.NewTitleContents, eventItemText), true, "New Title");
                                     BaseUI.Instance.HandleEvent(BaseUI.EventItem.NewTitle);
                                     break;
+                                case Event.Types.EventID.AbilityClassUp:
+                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.AbilityClassUpContents, eventItemText), true, "Ability Class Up");
+                                    BaseUI.Instance.HandleEvent(BaseUI.EventItem.AbilityClassUp);
+                                    break;
                                 case Event.Types.EventID.SiteYell:
                                     var twilightSiteYell = Utility.GetJSON<JSON.TwilightSiteYell>(eventItemText);
                                     var siteYellSiteViewModel = ViewModels.Instance.GetSiteViewModel(twilightSiteYell.siteID);

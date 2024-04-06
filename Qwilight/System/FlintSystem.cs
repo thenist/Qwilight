@@ -8,21 +8,6 @@ namespace Qwilight
 {
     public sealed class FlintSystem
     {
-        public sealed class FlintParams
-        {
-            [Option('P')]
-            public bool Handle { get; set; }
-
-            [Option('S')]
-            public bool Stop { get; set; }
-
-            [Option('N')]
-            public int Meter { get; set; }
-
-            [Value(0)]
-            public string FileName { get; set; }
-        }
-
         public static readonly FlintSystem Instance = new();
 
         public void HandleSystem()
@@ -34,7 +19,7 @@ namespace Qwilight
                     using var ss = new NamedPipeServerStream("Qwilight", PipeDirection.In);
                     ss.WaitForConnection();
                     using var sr = new StreamReader(ss, Encoding.UTF8);
-                    Parser.Default.ParseArguments<FlintParams>(sr.ReadLine()?.Split(" ", 3) ?? Array.Empty<string>()).WithParsed(o =>
+                    Parser.Default.ParseArguments<Params.FlintParams>(sr.ReadLine()?.Split(" ", 3) ?? Array.Empty<string>()).WithParsed(o =>
                     {
                         var mainViewModel = ViewModels.Instance.MainValue;
                         var defaultComputer = mainViewModel.Computer;
