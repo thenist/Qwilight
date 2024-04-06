@@ -1072,7 +1072,7 @@ namespace Qwilight.ViewModel
 
         public string AvatarViewAbility5KText => _avatarAbility5K.ToString("#,##0.## Point");
 
-        public double AvatarViewAbility5KStatus => 100.0 * _avatarAbility5KStatus;
+        public double AvatarAbility5KStatus => 100.0 * _avatarAbility5KStatus;
 
         public string AvatarAbility7KPlaceText0
         {
@@ -1097,7 +1097,7 @@ namespace Qwilight.ViewModel
 
         public string AvatarViewAbility7KText => _avatarAbility7K.ToString("#,##0.## Point");
 
-        public double AvatarViewAbility7KStatus => 100.0 * _avatarAbility7KStatus;
+        public double AvatarAbility7KStatus => 100.0 * _avatarAbility7KStatus;
 
         public string AvatarAbility9KPlaceText0
         {
@@ -1122,7 +1122,7 @@ namespace Qwilight.ViewModel
 
         public string AvatarViewAbility9KText => _avatarAbility9K.ToString("#,##0.## Point");
 
-        public double AvatarViewAbility9KStatus => 100.0 * _avatarAbility9KStatus;
+        public double AvatarAbility9KStatus => 100.0 * _avatarAbility9KStatus;
 
         public string CallingAvatarID { get; set; }
 
@@ -1245,7 +1245,7 @@ namespace Qwilight.ViewModel
                         _avatarAbility5K = twilightWwwAvatarValue.avatarAbility5K;
                         OnPropertyChanged(nameof(AvatarViewAbility5KText));
                         _avatarAbility5KStatus = twilightWwwAvatarValue.avatarAbility5KStatus;
-                        OnPropertyChanged(nameof(AvatarViewAbility5KStatus));
+                        OnPropertyChanged(nameof(AvatarAbility5KStatus));
 
                         try
                         {
@@ -1266,7 +1266,7 @@ namespace Qwilight.ViewModel
                         _avatarAbility7K = twilightWwwAvatarValue.avatarAbility7K;
                         OnPropertyChanged(nameof(AvatarViewAbility7KText));
                         _avatarAbility7KStatus = twilightWwwAvatarValue.avatarAbility7KStatus;
-                        OnPropertyChanged(nameof(AvatarViewAbility7KStatus));
+                        OnPropertyChanged(nameof(AvatarAbility7KStatus));
 
                         try
                         {
@@ -1287,7 +1287,7 @@ namespace Qwilight.ViewModel
                         _avatarAbility9K = twilightWwwAvatarValue.avatarAbility9K;
                         OnPropertyChanged(nameof(AvatarViewAbility9KText));
                         _avatarAbility9KStatus = twilightWwwAvatarValue.avatarAbility9KStatus;
-                        OnPropertyChanged(nameof(AvatarViewAbility9KStatus));
+                        OnPropertyChanged(nameof(AvatarAbility9KStatus));
 
                         for (var i = twilightWwwAvatarValue.quitStatusValues.Length - 1; i >= 0; --i)
                         {
