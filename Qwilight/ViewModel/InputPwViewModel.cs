@@ -49,8 +49,8 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         void OnOK()
         {
-            Close();
             HandleOK(Input, StrongReferenceMessenger.Default.Send<GetPwWindowCipher>().Response);
+            Close();
         }
 
         public override void OnCollasped()

@@ -78,7 +78,6 @@ namespace Qwilight.ViewModel
                     fax = Fax
                 }), "application/json").ConfigureAwait(false))
                 {
-                    Close();
                     Configure.Instance.AvatarID = AvatarID;
                     Configure.Instance.SetCipher(inputCipher);
                     TwilightSystem.Instance.SendParallel(Event.Types.EventID.LogIn, new
@@ -86,6 +85,7 @@ namespace Qwilight.ViewModel
                         avatarID = AvatarID,
                         avatarCipher = inputCipher
                     });
+                    Close();
                 }
                 else
                 {

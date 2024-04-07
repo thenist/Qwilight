@@ -39,8 +39,8 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         void OnOK()
         {
-            Close();
             HandleOK(Input);
+            Close();
         }
 
         public override void OnCollasped()
