@@ -13,6 +13,10 @@ namespace Qwilight.ViewModel
         [GeneratedRegex("^.+@.+$")]
         private static partial Regex GetFaxComputer();
 
+        string _avatarID;
+        string _avatarName;
+        string _fax;
+
         public override double TargetLength => 0.2;
 
         public override double TargetHeight => double.NaN;
@@ -21,15 +25,31 @@ namespace Qwilight.ViewModel
 
         public override VerticalAlignment HeightSystem => VerticalAlignment.Center;
 
-        public string AvatarID { get; set; }
-
-        public string AvatarName { get; set; }
-
-        public string Fax { get; set; }
-
-        public override void OnOpened()
+        public string AvatarID
         {
-            base.OnOpened();
+            get => _avatarID;
+
+            set => SetProperty(ref _avatarID, value, nameof(AvatarID));
+        }
+
+        public string AvatarName
+        {
+            get => _avatarName;
+
+            set => SetProperty(ref _avatarName, value, nameof(AvatarName));
+        }
+
+
+        public string Fax
+        {
+            get => _fax;
+
+            set => SetProperty(ref _fax, value, nameof(Fax));
+        }
+
+        public override void OnCollasped()
+        {
+            base.OnCollasped();
             AvatarID = string.Empty;
             StrongReferenceMessenger.Default.Send<InitEnrollCipher>();
             AvatarName = string.Empty;

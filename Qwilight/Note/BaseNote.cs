@@ -95,8 +95,8 @@ namespace Qwilight.Note
 
         public double GetMultiplierAsNoteMobility(ModeComponent modeComponent, double noteMobilityCosine, double noteMobilityValue) => modeComponent.NoteMobilityModeValue switch
         {
-            ModeComponent.NoteMobilityMode._4D => modeComponent.Multiplier + modeComponent.Multiplier * ((InputSalt % 11 + 5) / 10 - 1) * noteMobilityValue,
-            ModeComponent.NoteMobilityMode._4DHD => modeComponent.Multiplier + modeComponent.Multiplier * ((Salt % 11 + 5) / 10 - 1) * noteMobilityValue,
+            ModeComponent.NoteMobilityMode._4D => modeComponent.Multiplier + modeComponent.Multiplier * (InputSalt % 11 + 5) / 10 * noteMobilityValue,
+            ModeComponent.NoteMobilityMode._4DHD => modeComponent.Multiplier + modeComponent.Multiplier * (Salt % 11 + 5) / 10 * noteMobilityValue,
             ModeComponent.NoteMobilityMode.Zip => Math.Max(1.0, modeComponent.Multiplier * noteMobilityCosine),
             ModeComponent.NoteMobilityMode.ZipHD => modeComponent.Multiplier * noteMobilityCosine,
             _ => modeComponent.Multiplier

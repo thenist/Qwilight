@@ -861,6 +861,7 @@ namespace Qwilight
         public string UIMainJudgmentMeter { get; set; }
         public string UINet { get; set; }
         public string UndoContents { get; set; }
+        public string ValveEnrollText { get; set; }
         public string VeilDrawingHeightContents { get; set; }
         public string VESAContents { get; set; }
         public string VESAText { get; set; }

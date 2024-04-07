@@ -644,6 +644,11 @@ namespace Qwilight.ViewModel
 
         public async Task OnLoaded(nint handle)
         {
+            if (Configure.Instance.AudioMultiplierAtone)
+            {
+                AudioSystem.Instance.SetAudioMultiplierAtone(true, ModeComponentValue.AudioMultiplier);
+            }
+
             StrongReferenceMessenger.Default.Send(new SetWindowedMode());
 
             StillSystem.Instance.Init(handle);
@@ -673,11 +678,6 @@ namespace Qwilight.ViewModel
             Utility.HandleParallelly(FlintSystem.Instance.HandleSystem, false);
             Utility.HandleParallelly(() => ControllerSystem.Instance.HandleSystem(handle));
 
-            if (Configure.Instance.AudioMultiplierAtone)
-            {
-                AudioSystem.Instance.SetAudioMultiplierAtone(true, ModeComponentValue.AudioMultiplier);
-            }
-
             StrongReferenceMessenger.Default.Send<FadeLoadingView>();
 
             if (!string.IsNullOrEmpty(Configure.Instance.ConfigureFault))
@@ -693,13 +693,22 @@ namespace Qwilight.ViewModel
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Fault, NotifySystem.NotifyConfigure.Default, DB.Instance.DBFault);
             }
 
+            SetDefaultEntryItems();
+
             if (!Configure.Instance.IsLoaded)
             {
-                ViewModels.Instance.AssistValue.Open();
                 Configure.Instance.IsLoaded = true;
+                ViewModels.Instance.AssistValue.Open();
+                if (QwilightComponent.IsValve && StrongReferenceMessenger.Default.Send(new ViewAllowWindow
+                {
+                    Text = LanguageSystem.Instance.ValveEnrollText,
+                    Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
+                }) == MESSAGEBOX_RESULT.IDYES)
+                {
+                    ViewModels.Instance.EnrollValue.AvatarName = ValveSystem.Instance.ValveName;
+                    ViewModels.Instance.EnrollValue.Open();
+                }
             }
-
-            SetDefaultEntryItems();
 
             if (Configure.Instance.AutoGetQwilight)
             {

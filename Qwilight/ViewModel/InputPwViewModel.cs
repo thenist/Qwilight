@@ -8,7 +8,7 @@ namespace Qwilight.ViewModel
     public sealed partial class InputPwViewModel : BaseViewModel
     {
         string _text;
-        string _input;
+        string _input = string.Empty;
         bool _isInputEditable;
 
         public override double TargetLength => 0.5;
@@ -53,9 +53,10 @@ namespace Qwilight.ViewModel
             HandleOK(Input, StrongReferenceMessenger.Default.Send<GetPwWindowCipher>().Response);
         }
 
-        public override void OnOpened()
+        public override void OnCollasped()
         {
-            base.OnOpened();
+            base.OnCollasped();
+            Input = string.Empty;
             StrongReferenceMessenger.Default.Send<InitPwWindowCipher>();
         }
     }

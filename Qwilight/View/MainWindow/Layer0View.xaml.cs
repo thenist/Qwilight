@@ -8,6 +8,8 @@ namespace Qwilight.View
 {
     public sealed partial class Layer0View
     {
+        const double TargetInputCount = 70.0;
+
         readonly VisualCollection _targets;
         readonly DrawingVisual _target = new();
         readonly Stopwatch _loopingHandler = Stopwatch.StartNew();
@@ -124,36 +126,32 @@ namespace Qwilight.View
                     if (autoComputer?.IsHandling == true)
                     {
                         var statusValue = status.Value;
-                        var targetInputCount = Component.InputCounts1P[(int)autoComputer.InputMode] * 6;
 
-                        if (targetInputCount > 0)
+                        var inputNoteCountViewPaint = Configure.Instance.InputNoteCountViewPaint;
+                        var inputNoteCounts = autoComputer.InputNoteCounts;
+                        var inputNoteCountsCount = inputNoteCounts.Count;
+                        var inputNoteCountsUnitLength = inputNoteCountViewLength / inputNoteCountsCount;
+                        for (var i = inputNoteCountsCount - 1; i >= 0; --i)
                         {
-                            var inputNoteCountViewPaint = Configure.Instance.InputNoteCountViewPaint;
-                            var inputNoteCounts = autoComputer.InputNoteCounts;
-                            var inputNoteCountsCount = inputNoteCounts.Count;
-                            var inputNoteCountsUnitLength = inputNoteCountViewLength / inputNoteCountsCount;
-                            for (var i = inputNoteCountsCount - 1; i >= 0; --i)
+                            var inputNoteCount = Math.Min(inputNoteCounts[i] * autoComputer.AudioMultiplier, TargetInputCount);
+                            if (inputNoteCount > 0.0)
                             {
-                                var inputNoteCount = Math.Min(inputNoteCounts[i] * autoComputer.AudioMultiplier, targetInputCount);
-                                if (inputNoteCount > 0.0)
-                                {
-                                    r.Set(inputNoteCountViewPosition0 + inputNoteCountsUnitLength * i, inputNoteCountViewPosition1 + inputNoteCountViewHeight - inputNoteCountViewHeight * inputNoteCount / targetInputCount, inputNoteCountsUnitLength, inputNoteCountViewHeight * inputNoteCount / targetInputCount);
-                                    targetSession.DrawRectangle(inputNoteCountViewPaint, null, r);
-                                }
+                                r.Set(inputNoteCountViewPosition0 + inputNoteCountsUnitLength * i, inputNoteCountViewPosition1 + inputNoteCountViewHeight - inputNoteCountViewHeight * inputNoteCount / TargetInputCount, inputNoteCountsUnitLength, inputNoteCountViewHeight * inputNoteCount / TargetInputCount);
+                                targetSession.DrawRectangle(inputNoteCountViewPaint, null, r);
                             }
+                        }
 
-                            var autoableInputNoteCountViewPaint = Configure.Instance.AutoableInputNoteCountViewPaint;
-                            var autoableInputNoteCounts = autoComputer.AutoableInputNoteCounts;
-                            var autoableInputNoteCountsCount = autoableInputNoteCounts.Count;
-                            var autoableInputNoteCountsUnitLength = inputNoteCountViewLength / autoableInputNoteCountsCount;
-                            for (var i = autoableInputNoteCountsCount - 1; i >= 0; --i)
+                        var autoableInputNoteCountViewPaint = Configure.Instance.AutoableInputNoteCountViewPaint;
+                        var autoableInputNoteCounts = autoComputer.AutoableInputNoteCounts;
+                        var autoableInputNoteCountsCount = autoableInputNoteCounts.Count;
+                        var autoableInputNoteCountsUnitLength = inputNoteCountViewLength / autoableInputNoteCountsCount;
+                        for (var i = autoableInputNoteCountsCount - 1; i >= 0; --i)
+                        {
+                            var autoableInputNoteCount = Math.Min(autoableInputNoteCounts[i] * autoComputer.AudioMultiplier, TargetInputCount);
+                            if (autoableInputNoteCount > 0.0)
                             {
-                                var autoableInputNoteCount = Math.Min(autoableInputNoteCounts[i] * autoComputer.AudioMultiplier, targetInputCount);
-                                if (autoableInputNoteCount > 0.0)
-                                {
-                                    r.Set(inputNoteCountViewPosition0 + autoableInputNoteCountsUnitLength * i, inputNoteCountViewPosition1 + inputNoteCountViewHeight - inputNoteCountViewHeight * autoableInputNoteCount / targetInputCount, autoableInputNoteCountsUnitLength, inputNoteCountViewHeight * autoableInputNoteCount / targetInputCount);
-                                    targetSession.DrawRectangle(autoableInputNoteCountViewPaint, null, r);
-                                }
+                                r.Set(inputNoteCountViewPosition0 + autoableInputNoteCountsUnitLength * i, inputNoteCountViewPosition1 + inputNoteCountViewHeight - inputNoteCountViewHeight * autoableInputNoteCount / TargetInputCount, autoableInputNoteCountsUnitLength, inputNoteCountViewHeight * autoableInputNoteCount / TargetInputCount);
+                                targetSession.DrawRectangle(autoableInputNoteCountViewPaint, null, r);
                             }
                         }
 

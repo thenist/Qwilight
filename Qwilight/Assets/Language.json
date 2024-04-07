@@ -3435,6 +3435,10 @@
     "ko-KR": "다시 시도",
     "en-US": "Retry"
   },
+  "ValveEnrollText": {
+    "ko-KR": "Qwilight의 온라인 랭킹에 등록하려면 스팀 계정과 독립적인 불로그 계정을 등록하세요",
+    "en-US": "To register for Qwilight's online ranking, register your Steam account and an independent 불로그 account"
+  },
   "VeilDrawingHeightContents": {
     "ko-KR": "레인 커버 높이",
     "en-US": "Lane Cover Height"

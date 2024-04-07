@@ -6,7 +6,7 @@ namespace Qwilight.ViewModel
     public sealed partial class InputTextViewModel : BaseViewModel
     {
         string _text;
-        string _input;
+        string _input = string.Empty;
 
         public string Text
         {
@@ -41,6 +41,12 @@ namespace Qwilight.ViewModel
         {
             Close();
             HandleOK(Input);
+        }
+
+        public override void OnCollasped()
+        {
+            base.OnCollasped();
+            Input = string.Empty;
         }
     }
 }
