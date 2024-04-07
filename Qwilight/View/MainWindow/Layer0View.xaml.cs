@@ -8,7 +8,7 @@ namespace Qwilight.View
 {
     public sealed partial class Layer0View
     {
-        const double TargetInputCount = 70.0;
+        const double TargetInputCount = 60.0;
 
         readonly VisualCollection _targets;
         readonly DrawingVisual _target = new();
