@@ -213,7 +213,7 @@ namespace Qwilight.Compute
 
         public float HighestNetHeight { get; set; }
 
-        public MoveValue<double> VeilDrawingHeight { get; set; }
+        public MoveValue<double> VeilDrawingHeight { get; } = new();
 
         public Component.Judged LastJudged { get; set; } = Component.Judged.Not;
 
@@ -4350,7 +4350,6 @@ namespace Qwilight.Compute
             NoteMobilityValue = 0.0;
             FaintCosine = 1.0;
             FaintLayered = 0.0;
-            VeilDrawingHeight = new();
             ModeComponentValue.HandlingHitPointsModeValue = ModeComponentValue.HitPointsModeValue;
             _failedDrawingMillis = 0.0;
             _validJudgedNotes = 0;
