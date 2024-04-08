@@ -55,6 +55,8 @@
 
     <!-- ScrollViewer -->
     <Style TargetType="ScrollViewer" BasedOn="{StaticResource MaterialDesignScrollViewer}">
+        <Setter Property="PanningMode" Value="Both" />
+        
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="InputMethod.IsInputMethodEnabled" Value="False" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />

@@ -286,6 +286,25 @@ namespace Qwilight
         bool _ubuntuNetItemTarget;
         DefaultAudioVariety _defaultAudioVariety;
         int _valueGASLevel;
+        bool _wmPointer;
+
+        public bool WMPointer
+        {
+            get => _wmPointer;
+
+            set
+            {
+                if (SetProperty(ref _wmPointer, value))
+                {
+                    OnPropertyChanged(nameof(WMPointerPaint));
+                    OnPropertyChanged(nameof(WMPointerText));
+                }
+            }
+        }
+
+        public Brush WMPointerPaint => Paints.PointPaints[WMPointer ? 1 : 0];
+
+        public string WMPointerText => WMPointer ? LanguageSystem.Instance.WMPointerText : LanguageSystem.Instance.NotWMPointerText;
 
         public long LazyGCV2 { get; set; }
 
@@ -1467,7 +1486,7 @@ namespace Qwilight
                 if (SetProperty(ref _isXwindow, value))
                 {
                     OnPropertyChanged(nameof(IsXwindowPaint));
-                    OnPropertyChanged(nameof(IsXwindowText));
+                    OnPropertyChanged(nameof(IsIsXwindowText));
                     OnSetIsXwindow();
                 }
             }
@@ -1475,7 +1494,7 @@ namespace Qwilight
 
         public Brush IsXwindowPaint => Paints.PointPaints[IsXwindow ? 1 : 0];
 
-        public string IsXwindowText => IsXwindow ? LanguageSystem.Instance.XwindowText : LanguageSystem.Instance.NotXwindowText;
+        public string IsIsXwindowText => IsXwindow ? LanguageSystem.Instance.IsXwindowText : LanguageSystem.Instance.NotIsXwindowText;
 
         void OnSetIsXwindow()
         {
@@ -3416,6 +3435,10 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 20))
             {
                 FlowVeilDrawing = true;
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 21))
+            {
+                WMPointer = false;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

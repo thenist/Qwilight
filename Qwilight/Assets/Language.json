@@ -1751,9 +1751,13 @@
     "ko-KR": "이 방의 알림 받기",
     "en-US": "Get notifications for this room"
   },
-  "IsXwindowContents": {
+  "IsIsXwindowContents": {
     "ko-KR": "실수를 방지하기 위하여 윈도우 키를 사용하지 않습니다.",
     "en-US": "Disable the Windows key to prevent accidental presses"
+  },
+  "IsXwindowText": {
+    "ko-KR": "윈도우 키 비활성화",
+    "en-US": "Disable windows key"
   },
   "JudgmentMainPosition1Contents": {
     "ko-KR": "판정선 위치",
@@ -2515,6 +2519,10 @@
     "ko-KR": "무한 모드",
     "en-US": "Infinite Mode"
   },
+  "NotIsXwindowText": {
+    "ko-KR": "윈도우 키 활성화",
+    "en-US": "Enable windows key"
+  },
   "NotK70Text": {
     "ko-KR": "CORSAIR® CUE™ 비활성화",
     "en-US": "Disable CORSAIR® CUE™"
@@ -2655,9 +2663,9 @@
     "ko-KR": "전체 화면 모드",
     "en-US": "Fullscreen mode"
   },
-  "NotXwindowText": {
-    "ko-KR": "윈도우 키 활성화",
-    "en-US": "Enable windows key"
+  "NotWMPointerText": {
+    "ko-KR": "패닝 비활성화",
+    "en-US": "Disable panning"
   },
   "NVLLFramerateContents": {
     "ko-KR": "프레임 제한을 설정합니다. 0은 제한하지 않습니다.",
@@ -2754,6 +2762,10 @@
   "Point": {
     "ko-KR": "정확도",
     "en-US": "Accuracy"
+  },
+  "PointConfigure": {
+    "ko-KR": "마우스 설정",
+    "en-US": "Mouse Settings"
   },
   "PointLegend": {
     "ko-KR": "■ 정확도",
@@ -3675,6 +3687,18 @@
     "ko-KR": "이 친구를 삭제할까요?",
     "en-US": "Do you want to delete this friend?"
   },
+  "WMPointerContents": {
+    "ko-KR": "손가락으로 UI 요소를 스크롤합니다.",
+    "en-US": "Scroll through UI elements with your finger."
+  },
+  "WMPointerModified": {
+    "ko-KR": "게임을 다시 시작한 후 패닝이 적용됩니다.",
+    "en-US": "After restarting the game, panning is applied."
+  },
+  "WMPointerText": {
+    "ko-KR": "패닝 활성화",
+    "en-US": "Fanning activation"
+  },
   "WrongLowestJudgmentConditionModeContents": {
     "ko-KR": "간접 미스를 추가합니다.",
     "en-US": "Enable indirect miss"
@@ -3762,10 +3786,6 @@
   "XInputText": {
     "ko-KR": "XInput™ 모드",
     "en-US": "XInput™ mode"
-  },
-  "XwindowText": {
-    "ko-KR": "윈도우 키 비활성화",
-    "en-US": "Disable windows key"
   },
   "YAMLCompileFault": {
     "ko-KR": "YAML 파일의 문법이 올바르지 않습니다. ({0})",

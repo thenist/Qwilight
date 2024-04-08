@@ -440,7 +440,8 @@ namespace Qwilight
         public string IsFailModeContents { get; set; }
         public string IsFailModeText { get; set; }
         public string IsGetNotifyContents { get; set; }
-        public string IsXwindowContents { get; set; }
+        public string IsIsXwindowContents { get; set; }
+        public string IsXwindowText { get; set; }
         public string JudgmentMainPosition1Contents { get; set; }
         public string JudgmentMeterMillisText { get; set; }
         public string JudgmentModeAssist { get; set; }
@@ -631,6 +632,7 @@ namespace Qwilight
         public string NotifyUbuntuContents { get; set; }
         public string NotIsFailModeContents { get; set; }
         public string NotIsFailModeText { get; set; }
+        public string NotIsXwindowText { get; set; }
         public string NotK70Text { get; set; }
         public string NotLoggedInContents { get; set; }
         public string NotLoggedInLambda { get; set; }
@@ -666,7 +668,7 @@ namespace Qwilight
         public string NotWantNoteVarietyContents { get; set; }
         public string NotWindowedModeContents { get; set; }
         public string NotWindowedModeText { get; set; }
-        public string NotXwindowText { get; set; }
+        public string NotWMPointerText { get; set; }
         public string NVLLFramerateContents { get; set; }
         public string NVLLModeContents { get; set; }
         public string NVLLModeNotText { get; set; }
@@ -691,6 +693,7 @@ namespace Qwilight
         public string PlatformText0 { get; set; }
         public string PlatformText1 { get; set; }
         public string Point { get; set; }
+        public string PointConfigure { get; set; }
         public string PointLegend { get; set; }
         public string PointLevelContents { get; set; }
         public string PointValidHunterModeText { get; set; }
@@ -921,6 +924,9 @@ namespace Qwilight
         public string WipeNoteFileOK { get; set; }
         public string WipeTotalNotify { get; set; }
         public string WipeUbuntuNotify { get; set; }
+        public string WMPointerContents { get; set; }
+        public string WMPointerModified { get; set; }
+        public string WMPointerText { get; set; }
         public string WrongLowestJudgmentConditionModeContents { get; set; }
         public string WwwLevelAudioMultiplierContents0 { get; set; }
         public string WwwLevelAudioMultiplierContents1 { get; set; }
@@ -943,7 +949,6 @@ namespace Qwilight
         public string WwwLevelText { get; set; }
         public string XInputContents { get; set; }
         public string XInputText { get; set; }
-        public string XwindowText { get; set; }
         public string YAMLCompileFault { get; set; }
         public string ZipModeContents { get; set; }
     }

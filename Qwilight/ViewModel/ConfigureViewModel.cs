@@ -30,6 +30,7 @@ namespace Qwilight.ViewModel
         readonly DispatcherTimer _detailedHandler;
         DispatcherTimer _fadingComputingHandler;
         GPUConfigure.GPUMode _defaultGPUMode;
+        bool _defaultWMPointer;
         uint _defaultAudioDataLength;
         int _detailedAudioInputValue;
         string _detailedAudioItemCount;
@@ -477,6 +478,9 @@ namespace Qwilight.ViewModel
 
         [RelayCommand]
         static void OnIsXwindow() => Configure.Instance.IsXwindow = !Configure.Instance.IsXwindow;
+
+        [RelayCommand]
+        static void OnWMPointer() => Configure.Instance.WMPointer = !Configure.Instance.WMPointer;
 
         [RelayCommand]
         static void OnDefaultControllerInputAPI()
@@ -1352,6 +1356,7 @@ namespace Qwilight.ViewModel
             base.OnOpened();
             Init();
             OnSetTabPositionUI();
+
             var mainViewModel = ViewModels.Instance.MainValue;
             if (!mainViewModel.IsNoteFileMode)
             {
@@ -1359,6 +1364,7 @@ namespace Qwilight.ViewModel
                 mainViewModel.ModeComponentValue.SetAudioMultiplier(mainViewModel.Computer.AudioMultiplier);
             }
             _defaultGPUMode = GPUConfigure.Instance.GPUModeValue;
+            _defaultWMPointer = Configure.Instance.WMPointer;
             _defaultHunterVariety = Configure.Instance.HunterVarietyV2Value;
             _defaultNetCommentFollow = Configure.Instance.NetCommentFollow;
             _defaultAudioDataLength = Configure.Instance.AudioDataLength;
@@ -1405,6 +1411,10 @@ namespace Qwilight.ViewModel
             if (_defaultGPUMode != GPUConfigure.Instance.GPUModeValue)
             {
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.GPUModeModified);
+            }
+            if (_defaultWMPointer != Configure.Instance.WMPointer)
+            {
+                NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.WMPointerModified);
             }
             if (_defaultAudioDataLength != Configure.Instance.AudioDataLength)
             {

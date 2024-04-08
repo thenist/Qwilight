@@ -346,12 +346,12 @@ namespace Qwilight
 
                 for (var audioVariety = SEAudio; audioVariety >= MainAudio; --audioVariety)
                 {
+                    var targetAudioVolume = totalAudioVolume * _audioVolumes[audioVariety];
                     _audioCSX.EnterWriteLock();
                     try
                     {
                         if (_isAvailable)
                         {
-                            var targetAudioVolume = (float)(1 - Math.Sqrt(1 - Math.Pow(totalAudioVolume * _audioVolumes[audioVariety], 2)));
                             if (_audioGroups[audioVariety].getVolume(out var audioVolume) == RESULT.OK && audioVolume != targetAudioVolume)
                             {
                                 _audioGroups[audioVariety].setVolume(targetAudioVolume);
@@ -399,7 +399,6 @@ namespace Qwilight
                     for (var audioVariety = SEAudio; audioVariety >= MainAudio; --audioVariety)
                     {
                         _targetSystem.createChannelGroup(null, out _audioGroups[audioVariety]);
-                        _audioGroups[audioVariety].setVolumeRamp(false);
                     }
 
                     _targetSystem.setCallback(_onModified, SYSTEM_CALLBACK_TYPE.DEVICELISTCHANGED | SYSTEM_CALLBACK_TYPE.DEVICELOST);

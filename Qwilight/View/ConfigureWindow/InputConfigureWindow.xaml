@@ -39,8 +39,8 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Style="{StaticResource StandardInput}" Foreground="{Binding IsXwindowPaint, Source={StaticResource Configure}}" Command="{Binding IsXwindowCommand}" Content="{Binding IsXwindowText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
-                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding IsXwindowContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding IsXwindowPaint, Source={StaticResource Configure}}" Command="{Binding IsXwindowCommand}" Content="{Binding IsIsXwindowText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding IsIsXwindowContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
             <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
                 <Grid.ColumnDefinitions>
@@ -307,6 +307,16 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding LastMIDI, Source={StaticResource MIDISystem}}" HorizontalAlignment="Right" />
                 <TextBlock Style="{StaticResource StandardTextView}" Grid.Column="1" Text="{Binding MIDIViewerContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Separator Style="{StaticResource StandardHr}" />
+            <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding PointConfigure, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Center" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding WMPointerPaint, Source={StaticResource Configure}}" Command="{Binding WMPointerCommand}" Content="{Binding WMPointerText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding WMPointerContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
         </StackPanel>
     </ScrollViewer>

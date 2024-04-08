@@ -192,6 +192,10 @@ namespace Qwilight.View
             }
 
             Configure.Instance.Load();
+            if (Configure.Instance.WMPointer)
+            {
+                AppContext.SetSwitch("Switch.System.Windows.Input.Stylus.EnablePointerSupport", true);
+            }
             LanguageSystem.Instance.Init(Configure.Instance.Language);
             DB.Instance.Load();
             FastDB.Instance.Load();
