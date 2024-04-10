@@ -8,13 +8,13 @@ using Windows.UI;
 
 namespace Qwilight
 {
-    public sealed class IlluminationSystem : IDisposable
+    public sealed class RGBSystem : IDisposable
     {
-        public static readonly IlluminationSystem Instance = new();
+        public static readonly RGBSystem Instance = new();
 
-        static readonly string FaultEntryPath = Path.Combine(QwilightComponent.FaultEntryPath, nameof(IlluminationSystem));
+        static readonly string FaultEntryPath = Path.Combine(QwilightComponent.FaultEntryPath, nameof(RGBSystem));
 
-        readonly BaseIlluminationSystem[] _targetSystems = new BaseIlluminationSystem[]
+        readonly BaseRGBSystem[] _targetSystems = new BaseRGBSystem[]
         {
             BWSystem.Instance, AuraSystem.Instance, K70System.Instance, LSSystem.Instance
         };

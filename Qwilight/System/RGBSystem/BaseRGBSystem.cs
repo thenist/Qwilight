@@ -3,7 +3,7 @@ using Windows.UI;
 
 namespace Qwilight
 {
-    public abstract class BaseIlluminationSystem : IDisposable
+    public abstract class BaseRGBSystem : IDisposable
     {
         public abstract bool IsAvailable { get; }
 
@@ -29,7 +29,7 @@ namespace Qwilight
         {
             if (IsAvailable)
             {
-                IlluminationSystem.Instance.HandleIfAvailable();
+                RGBSystem.Instance.HandleIfAvailable();
             }
             else
             {

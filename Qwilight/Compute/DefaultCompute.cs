@@ -2606,9 +2606,9 @@ namespace Qwilight.Compute
                             var absInput = Math.Abs(input);
                             if (isInput)
                             {
-                                IlluminationSystem.Instance.InputValues[absInput] = 1.0;
+                                RGBSystem.Instance.InputValues[absInput] = 1.0;
                             }
-                            IlluminationSystem.Instance.HasInputValues[absInput] = isInput;
+                            RGBSystem.Instance.HasInputValues[absInput] = isInput;
                             if (input > 0)
                             {
                                 switch (UI.Instance.LoopingMain)
@@ -3345,7 +3345,7 @@ namespace Qwilight.Compute
                             _millisMeter %= _millisStandardMeter;
                             if (Configure.Instance.HandleMeter)
                             {
-                                IlluminationSystem.Instance.IsMeter = true;
+                                RGBSystem.Instance.IsMeter = true;
                                 Array.Fill(JudgmentMainFrames, DrawingComponentValue.judgmentMainFrame);
                                 lock (DrawingComponentValue.PaintPropertyCSX)
                                 {
@@ -4685,7 +4685,7 @@ namespace Qwilight.Compute
 
         public virtual ICollection<CommentItem> HandleTwilightNetItems(CommentItem[] commentItems) => commentItems;
 
-        public virtual void OnFailed() => IlluminationSystem.Instance.IsFailed = true;
+        public virtual void OnFailed() => RGBSystem.Instance.IsFailed = true;
 
         public virtual void GetNetComments()
         {

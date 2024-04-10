@@ -6,7 +6,7 @@ using Windows.UI;
 
 namespace Qwilight
 {
-    public sealed class AuraSystem : BaseIlluminationSystem
+    public sealed class AuraSystem : BaseRGBSystem
     {
         public static readonly AuraSystem Instance = new();
 
@@ -120,7 +120,7 @@ namespace Qwilight
         readonly Dictionary<int, List<IAuraRgbLight>> _statusItems = new();
         readonly Dictionary<VirtualKey, List<IAuraRgbLight>> _inputItems = new();
         readonly List<IAuraRgbLight> _etcItems = new();
-        readonly List<IAuraRgbLight> _illuminatedItems = new();
+        readonly List<IAuraRgbLight> _rgbItems = new();
         int _highestStatusCount;
         IAuraSdk2 _auraSDK;
         IAuraSyncDeviceCollection _auraItems;
@@ -139,12 +139,12 @@ namespace Qwilight
                     _statusItems.Clear();
                     _inputItems.Clear();
                     _etcItems.Clear();
-                    _illuminatedItems.Clear();
+                    _rgbItems.Clear();
                     foreach (IAuraSyncDevice auraItem in _auraItems)
                     {
                         foreach (IAuraRgbLight ledItem in auraItem.Lights)
                         {
-                            _illuminatedItems.Add(ledItem);
+                            _rgbItems.Add(ledItem);
                         }
                         if (auraItem is IAuraSyncKeyboard auraInput)
                         {
@@ -233,7 +233,7 @@ namespace Qwilight
 
         public override void OnBeforeHandle()
         {
-            foreach (IAuraRgbLight ledItem in _illuminatedItems)
+            foreach (IAuraRgbLight ledItem in _rgbItems)
             {
                 ledItem.Color = 0;
             }
@@ -251,7 +251,7 @@ namespace Qwilight
 
         public override void Dispose()
         {
-            lock (IlluminationSystem.Instance.HandlingCSX)
+            lock (RGBSystem.Instance.HandlingCSX)
             {
                 if (IsHandling)
                 {

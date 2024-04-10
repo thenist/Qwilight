@@ -6,7 +6,7 @@ using Windows.UI;
 
 namespace Qwilight
 {
-    public sealed class K70System : BaseIlluminationSystem
+    public sealed class K70System : BaseRGBSystem
     {
         public static readonly K70System Instance = new();
 
@@ -112,14 +112,14 @@ namespace Qwilight
         };
 
         readonly CorsairLedId[] _inputs;
-        readonly Dictionary<CorsairLedId, uint> _illuminatedIDs = new();
-        readonly CorsairLedColor[] _illuminatedColors;
-        int _illuminatedCount;
+        readonly Dictionary<CorsairLedId, uint> _rgbIDs = new();
+        readonly CorsairLedColor[] _rgbColors;
+        int _rgbCount;
 
         K70System()
         {
             _inputs = (Enum.GetValues(typeof(CorsairLedId)) as CorsairLedId[]).Where(input => (CorsairLedId.KeyboardEscape <= input && input <= CorsairLedId.KeyboardFn) || input == CorsairLedId.KeyboardLogo || (CorsairLedId.KeyboardLightPipeZone1 <= input && input <= CorsairLedId.KeyboardLightPipeZone19) || (CorsairLedId.KeyboardLightPipeZone20 <= input && input <= CorsairLedId.KeyboardProfile)).ToArray();
-            _illuminatedColors = new CorsairLedColor[_inputs.Length];
+            _rgbColors = new CorsairLedColor[_inputs.Length];
         }
 
         public override bool IsAvailable => Configure.Instance.K70;
@@ -135,7 +135,7 @@ namespace Qwilight
             var input = GetInput(rawInput);
             if (input != CorsairLedId.Invalid)
             {
-                _illuminatedIDs[input] = value;
+                _rgbIDs[input] = value;
             }
         }
 
@@ -145,21 +145,21 @@ namespace Qwilight
 
         public override void SetEtcColor(uint value)
         {
-            _illuminatedIDs[CorsairLedId.KeyboardLogo] = value;
+            _rgbIDs[CorsairLedId.KeyboardLogo] = value;
             for (var i = CorsairLedId.KeyboardLightPipeZone19; i >= CorsairLedId.KeyboardLightPipeZone1; --i)
             {
-                _illuminatedIDs[i] = value;
+                _rgbIDs[i] = value;
             }
             for (var i = CorsairLedId.KeyboardProfile; i >= CorsairLedId.KeyboardLightPipeZone20; --i)
             {
-                _illuminatedIDs[i] = value;
+                _rgbIDs[i] = value;
             }
         }
 
         public override void OnBeforeHandle()
         {
-            _illuminatedIDs.Clear();
-            _illuminatedCount = CorsairLightingSDK.GetDeviceCount();
+            _rgbIDs.Clear();
+            _rgbCount = CorsairLightingSDK.GetDeviceCount();
         }
 
         public override void OnHandled()
@@ -167,7 +167,7 @@ namespace Qwilight
             for (var i = _inputs.Length - 1; i >= 0; --i)
             {
                 var input = _inputs[i];
-                _illuminatedColors[i] = _illuminatedIDs.TryGetValue(input, out var value) ? new()
+                _rgbColors[i] = _rgbIDs.TryGetValue(input, out var value) ? new()
                 {
                     LedId = input,
                     R = (int)(value & 255),
@@ -178,9 +178,9 @@ namespace Qwilight
                     LedId = input
                 };
             }
-            for (var i = _illuminatedCount - 1; i >= 0; --i)
+            for (var i = _rgbCount - 1; i >= 0; --i)
             {
-                CorsairLightingSDK.SetLedsColorsBufferByDeviceIndex(i, _illuminatedColors);
+                CorsairLightingSDK.SetLedsColorsBufferByDeviceIndex(i, _rgbColors);
             }
             CorsairLightingSDK.SetLedsColorsFlushBuffer();
         }
@@ -189,7 +189,7 @@ namespace Qwilight
 
         public override void Dispose()
         {
-            lock (IlluminationSystem.Instance.HandlingCSX)
+            lock (RGBSystem.Instance.HandlingCSX)
             {
                 if (IsHandling)
                 {

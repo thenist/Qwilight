@@ -670,7 +670,7 @@ namespace Qwilight.ViewModel
             _isLoaded = true;
 
             Utility.HandleParallelly(TVSystem.Instance.HandleSystem, false);
-            Utility.HandleParallelly(IlluminationSystem.Instance.HandleSystem, false);
+            Utility.HandleParallelly(RGBSystem.Instance.HandleSystem, false);
             DefaultControllerSystem.Instance.HandleSystem();
             Utility.HandleParallelly(DrawingSystem.Instance.HandleSystem);
             Utility.HandleParallelly(TwilightSystem.Instance.HandleSystem, false);
@@ -1627,7 +1627,7 @@ namespace Qwilight.ViewModel
             AudioSystem.Instance.Dispose();
             AudioInputSystem.Instance.Dispose();
             TwilightSystem.Instance.Dispose();
-            IlluminationSystem.Instance.Dispose();
+            RGBSystem.Instance.Dispose();
             ValveSystem.Instance.Dispose();
 
             Utility.ModifyHwMode(QwilightComponent.DefaultHwMode);

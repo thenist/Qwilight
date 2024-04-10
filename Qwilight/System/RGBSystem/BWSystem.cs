@@ -7,7 +7,7 @@ using Windows.UI;
 
 namespace Qwilight
 {
-    public sealed class BWSystem : BaseIlluminationSystem
+    public sealed class BWSystem : BaseRGBSystem
     {
         public static readonly BWSystem Instance = new();
 
@@ -214,7 +214,7 @@ namespace Qwilight
 
         public override void Dispose()
         {
-            lock (IlluminationSystem.Instance.HandlingCSX)
+            lock (RGBSystem.Instance.HandlingCSX)
             {
                 if (IsHandling)
                 {

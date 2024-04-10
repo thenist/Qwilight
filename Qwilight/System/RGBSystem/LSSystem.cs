@@ -7,7 +7,7 @@ using Windows.UI;
 
 namespace Qwilight
 {
-    public sealed class LSSystem : BaseIlluminationSystem
+    public sealed class LSSystem : BaseRGBSystem
     {
         public static readonly LSSystem Instance = new();
 
@@ -113,7 +113,7 @@ namespace Qwilight
         };
 
         readonly keyboardNames[] _inputs = (Enum.GetValues(typeof(keyboardNames)) as keyboardNames[]);
-        readonly Dictionary<keyboardNames, uint> _illuminatedIDs = new();
+        readonly Dictionary<keyboardNames, uint> _rgbIDs = new();
 
         LSSystem()
         {
@@ -144,7 +144,7 @@ namespace Qwilight
             var input = GetInput(rawInput);
             if (input != default)
             {
-                _illuminatedIDs[input] = value;
+                _rgbIDs[input] = value;
             }
         }
 
@@ -163,14 +163,14 @@ namespace Qwilight
 
         public override void OnBeforeHandle()
         {
-            _illuminatedIDs.Clear();
+            _rgbIDs.Clear();
         }
 
         public override void OnHandled()
         {
             foreach (var input in _inputs)
             {
-                var value = _illuminatedIDs.GetValueOrDefault(input);
+                var value = _rgbIDs.GetValueOrDefault(input);
                 LogitechGSDK.LogiLedSetLightingForKeyWithKeyName(input, (int)(100 * (value & 255) / 255), (int)(100 * ((value >> 8) & 255) / 255), (int)(100 * ((value >> 16) & 255) / 255));
             }
         }
@@ -179,7 +179,7 @@ namespace Qwilight
 
         public override void Dispose()
         {
-            lock (IlluminationSystem.Instance.HandlingCSX)
+            lock (RGBSystem.Instance.HandlingCSX)
             {
                 if (IsHandling)
                 {
