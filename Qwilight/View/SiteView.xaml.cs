@@ -29,5 +29,9 @@ namespace Qwilight.View
         void OnSetAutoSiteHand(object sender, RoutedEventArgs e) => (DataContext as SiteViewModel).OnSetAutoSiteHand();
 
         void OnInputPostableItem(object sender, RoutedEventArgs e) => (DataContext as SiteViewModel).OnInputPostableItem();
+
+        void OnAvatarGroup(object sender, EventArgs e) => (DataContext as SiteViewModel).OnAvatarGroup();
+
+        void OnSetPostableItemBand(object sender, RoutedEventArgs e) => (DataContext as SiteViewModel).OnSetPostableItemBand();
     }
 }

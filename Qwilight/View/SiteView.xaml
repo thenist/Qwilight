@@ -239,7 +239,7 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <ComboBox Grid.Column="1" Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding AvatarGroupCollection}" SelectedItem="{Binding AvatarGroupValue}" IsEnabled="{Binding IsIdle}">
+                            <ComboBox Grid.Column="1" Style="{StaticResource StandardItemsInput}" ItemsSource="{Binding AvatarGroupCollection}" SelectedItem="{Binding AvatarGroupValue}" IsEnabled="{Binding IsIdle}" DropDownClosed="OnAvatarGroup">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding}" Foreground="{Binding Paint}" HorizontalAlignment="Left" />
@@ -318,7 +318,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <ToggleButton Style="{StaticResource StandardIOInput}" IsChecked="{Binding IsPostableItemMode}" />
-                            <view:BinInput Grid.Column="1" IsEnabled="{Binding CanSetPostableItems}" Value="{Binding PostableItemBand}" Lowest="1" Format="{Binding PostableItemBandText, Source={StaticResource LanguageSystem}}" VerticalAlignment="Stretch" />
+                            <view:BinInput Grid.Column="1" IsEnabled="{Binding CanSetPostableItems}" Value="{Binding PostableItemBand}" Lowest="1" Format="{Binding PostableItemBandText, Source={StaticResource LanguageSystem}}" VerticalAlignment="Stretch" LostFocus="OnSetPostableItemBand" />
                         </Grid>
                         <GroupBox Grid.Row="1" Style="{StaticResource StandardGroupView}">
                             <GroupBox.Header>

@@ -5,7 +5,7 @@
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(Platform)'=='x64'">
 		<None Update="Assets\x64\LogitechLedEnginesWrapper.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

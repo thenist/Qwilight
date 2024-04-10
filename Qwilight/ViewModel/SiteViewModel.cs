@@ -79,7 +79,7 @@ namespace Qwilight.ViewModel
         bool _isNetSite;
         bool _isFavorModeComponent = true;
         bool _isFavorAudioMultiplier;
-        AvatarGroup _avatarGroupValue;
+        AvatarGroup _avatarGroup;
         bool _isAutoSiteHand;
         bool _allowTotalLevying = true;
         bool _isGetNotify;
@@ -280,6 +280,24 @@ namespace Qwilight.ViewModel
             {
                 siteID = SiteID,
                 allowedPostableItems = PostableUIItemCollection.Where(postableUIItem => postableUIItem.IsWanted).Select(postableUIitem => (int)postableUIitem.PostableItemValue.VarietyValue).ToArray()
+            });
+        }
+
+        public void OnAvatarGroup()
+        {
+            TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetAvatarGroup, new
+            {
+                siteID = SiteID,
+                avatarGroup = AvatarGroupValue.Data
+            });
+        }
+
+        public void OnSetPostableItemBand()
+        {
+            TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetPostableItemBand, new
+            {
+                siteID = SiteID,
+                postableItemBand = PostableItemBand
             });
         }
 
@@ -492,19 +510,9 @@ namespace Qwilight.ViewModel
 
         public AvatarGroup AvatarGroupValue
         {
-            get => _avatarGroupValue;
+            get => _avatarGroup;
 
-            set
-            {
-                if (SetProperty(ref _avatarGroupValue, value, nameof(AvatarGroupValue)))
-                {
-                    TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetAvatarGroup, new
-                    {
-                        siteID = SiteID,
-                        avatarGroup = value.Data
-                    });
-                }
-            }
+            set => SetProperty(ref _avatarGroup, value, nameof(AvatarGroupValue));
         }
 
         public bool IsPostableItemMode
@@ -525,20 +533,7 @@ namespace Qwilight.ViewModel
         {
             get => _postableItemBand;
 
-            set
-            {
-                if (SetProperty(ref _postableItemBand, value, nameof(PostableItemBand)))
-                {
-                    if (IsSiteHand)
-                    {
-                        TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetPostableItemBand, new
-                        {
-                            siteID = SiteID,
-                            postableItemBand = PostableItemBand
-                        });
-                    }
-                }
-            }
+            set => SetProperty(ref _postableItemBand, value, nameof(PostableItemBand));
         }
 
         void SendSetValidNetMode()

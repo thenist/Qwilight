@@ -3,7 +3,6 @@ using Ionic.Zip;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.Win32;
-using Microsoft.Windows.ApplicationModel.DynamicDependency;
 using Qwilight.Utilities;
 using System.Collections.Concurrent;
 using System.ComponentModel;
@@ -79,20 +78,6 @@ namespace Qwilight.View
 
                 ProfileOptimization.SetProfileRoot(QwilightComponent.QwilightEntryPath);
                 ProfileOptimization.StartProfile("Qwilight.$");
-
-                if (!Bootstrap.TryInitialize(65541U, out _))
-                {
-#if X64
-                    using var exe = Process.Start(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "windowsappruntimeinstall-x64.exe"));
-#else
-                    using var exe = Process.Start(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "windowsappruntimeinstall-arm64.exe"));
-#endif
-                    exe.WaitForExit();
-                    if (!Bootstrap.TryInitialize(65541U, out _))
-                    {
-                        Bootstrap.Initialize(65541U, null, default, Bootstrap.InitializeOptions.OnNoMatch_ShowUI);
-                    }
-                }
 
                 try
                 {

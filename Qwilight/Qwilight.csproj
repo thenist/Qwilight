@@ -15,11 +15,15 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<WindowsPackageType>None</WindowsPackageType>
-		<WindowsAppSdkBootstrapInitialize>false</WindowsAppSdkBootstrapInitialize>
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
 		<StartupObject>Qwilight.View.QwilightClass</StartupObject>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<SelfContained>true</SelfContained>
 		<DebugType>embedded</DebugType>
+		<TieredCompilation>false</TieredCompilation>
+		<PublishReadyToRun>true</PublishReadyToRun>
+		<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Platform)'=='x64'">
@@ -239,9 +243,6 @@
 		<None Update="Assets\ARM64\vcruntime140_app.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\ARM64\windowsappruntimeinstall-arm64.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\ARM64\Xwindow.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -294,9 +295,6 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\swscale-7.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\x64\windowsappruntimeinstall-x64.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\Xwindow.exe">
