@@ -126,6 +126,7 @@ namespace Qwilight
 
         public DrawingSystem()
         {
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "Microsoft.Graphics.Canvas.dll"), Path.Combine(AppContext.BaseDirectory, "Microsoft.Graphics.Canvas.dll"));
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.common.dll"), Path.Combine(AppContext.BaseDirectory, "sl.common.dll"));
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.interposer.dll"), Path.Combine(AppContext.BaseDirectory, "sl.interposer.dll"));
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "sl.reflex.dll"), Path.Combine(AppContext.BaseDirectory, "sl.reflex.dll"));
