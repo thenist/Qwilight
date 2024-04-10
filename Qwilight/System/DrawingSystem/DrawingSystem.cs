@@ -43,6 +43,8 @@ namespace Qwilight
             Not, Position, Area
         }
 
+        const int DXGI_PRESENT_ALLOW_TEARING = 512;
+
         enum ReflexMarker
         {
             eSimulationStart,
@@ -2330,8 +2332,14 @@ namespace Qwilight
                             }
 
                             SetNVLLFlagIf(ReflexMarker.ePresentStart);
-                            var vesa = Configure.Instance.VESAV2;
-                            _rawTargetSystem.Present(vesa ? 1 : 0);
+                            if (Configure.Instance.VESAV2)
+                            {
+                                _rawTargetSystem.Present();
+                            }
+                            else
+                            {
+                                _rawTargetSystem.Present(0, DXGI_PRESENT_ALLOW_TEARING);
+                            }
                             SetNVLLFlagIf(ReflexMarker.ePresentEnd);
 
                             if (isNVLL)
