@@ -30,6 +30,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FMODCoreAPI", "FMODCoreAPI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Protobuf", "Protobuf\Protobuf.csproj", "{3CE3D6F4-0F04-495E-ACE8-B77F1811C594}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Flint", "Flint\Flint.vcxproj", "{B884FBA6-70F9-49A1-9A87-1BC08A7B769C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -120,6 +122,14 @@ Global
 		{3CE3D6F4-0F04-495E-ACE8-B77F1811C594}.Release|ARM64.Build.0 = Release|ARM64
 		{3CE3D6F4-0F04-495E-ACE8-B77F1811C594}.Release|x64.ActiveCfg = Release|x64
 		{3CE3D6F4-0F04-495E-ACE8-B77F1811C594}.Release|x64.Build.0 = Release|x64
+		{B884FBA6-70F9-49A1-9A87-1BC08A7B769C}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{B884FBA6-70F9-49A1-9A87-1BC08A7B769C}.Debug|ARM64.Build.0 = Debug|ARM64
+		{B884FBA6-70F9-49A1-9A87-1BC08A7B769C}.Debug|x64.ActiveCfg = Debug|x64
+		{B884FBA6-70F9-49A1-9A87-1BC08A7B769C}.Debug|x64.Build.0 = Debug|x64
+		{B884FBA6-70F9-49A1-9A87-1BC08A7B769C}.Release|ARM64.ActiveCfg = Release|ARM64
+		{B884FBA6-70F9-49A1-9A87-1BC08A7B769C}.Release|ARM64.Build.0 = Release|ARM64
+		{B884FBA6-70F9-49A1-9A87-1BC08A7B769C}.Release|x64.ActiveCfg = Release|x64
+		{B884FBA6-70F9-49A1-9A87-1BC08A7B769C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

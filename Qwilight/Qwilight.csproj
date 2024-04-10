@@ -216,32 +216,11 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='ARM64'">
-		<None Update="Assets\ARM64\concrt140_app.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\Microsoft.WindowsAppRuntime.Bootstrap.dll">
+		<None Update="Assets\ARM64\Flint.exe">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\ARM64\msvcp140_1_app.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\msvcp140_2_app.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\msvcp140_app.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\vcamp140_app.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\vccorlib140_app.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\vcomp140_app.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\vcruntime140_app.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		<None Update="Assets\ARM64\Igniter.exe">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\ARM64\Xwindow.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -268,6 +247,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\ffprobe.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\x64\Flint.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\Igniter.exe">

@@ -1,5 +1,4 @@
-﻿using CommandLine;
-using Ionic.Zip;
+﻿using Ionic.Zip;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.Win32;
@@ -8,7 +7,6 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Pipes;
 using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -23,95 +21,69 @@ namespace Qwilight.View
 {
     public sealed partial class QwilightClass
     {
-        static SplashScreen _wpfLoadingAsset;
+        static SplashScreen _wpfLoadingAsset = new("Assets/Drawing/Loading.png");
 
         [STAThread]
         static void Main(string[] args)
         {
-            if (args.Length > 0)
+            #region COMPATIBLE
+            Compatible.Compatible.Qwilight(QwilightComponent.QwilightEntryPath);
+            #endregion
+
+            if (Utility.HasInput(VirtualKey.LeftShift))
             {
-                Parser.Default.ParseArguments<Params.FlintParams>(args)
-                    .WithParsed(async o =>
-                    {
-                        using var ss = new NamedPipeClientStream(".", "Qwilight", PipeDirection.Out);
-                        try
-                        {
-                            await ss.ConnectAsync(0).ConfigureAwait(false);
-                            await ss.WriteAsync(Encoding.UTF8.GetBytes(string.Join(' ', args))).ConfigureAwait(false);
-                        }
-                        catch (TimeoutException)
-                        {
-                        }
-                    })
-                    .WithNotParsed(Main);
-            }
-            else
-            {
-                Main(Enumerable.Empty<Error>());
+                PInvoke.AllocConsole();
             }
 
-            void Main(IEnumerable<Error> e)
+            GPUConfigure.Instance.Load();
+            switch (GPUConfigure.Instance.GPUModeValue)
             {
-                #region COMPATIBLE
-                Compatible.Compatible.Qwilight(QwilightComponent.QwilightEntryPath);
-                #endregion
-
-                if (Utility.HasInput(VirtualKey.LeftShift))
-                {
-                    PInvoke.AllocConsole();
-                }
-
-                GPUConfigure.Instance.Load();
-                switch (GPUConfigure.Instance.GPUModeValue)
-                {
-                    case GPUConfigure.GPUMode.NVIDIA:
-                        NativeLibrary.TryLoad("nvapi64", out _);
-                        break;
-                }
-                _wpfLoadingAsset = new("Assets/Drawing/Loading.png");
-                _wpfLoadingAsset.Show(true, true);
+                case GPUConfigure.GPUMode.NVIDIA:
+                    NativeLibrary.TryLoad("nvapi64", out _);
+                    break;
+            }
+            _wpfLoadingAsset.Show(true, true);
 
 #if DEBUG
                 Environment.SetEnvironmentVariable("ENABLE_XAML_DIAGNOSTICS_SOURCE_INFO", "1");
 #endif
-                Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", QwilightComponent.EdgeEntryPath);
+            Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", QwilightComponent.EdgeEntryPath);
 
-                ProfileOptimization.SetProfileRoot(QwilightComponent.QwilightEntryPath);
-                ProfileOptimization.StartProfile("Qwilight.$");
+            ProfileOptimization.SetProfileRoot(QwilightComponent.QwilightEntryPath);
+            ProfileOptimization.StartProfile("Qwilight.$");
 
+            try
+            {
+                using (var r = Registry.LocalMachine.OpenSubKey("SOFTWARE")?.OpenSubKey("WOW6432Node")?.OpenSubKey("Microsoft")?.OpenSubKey("EdgeUpdate")?.OpenSubKey("Clients")?.OpenSubKey("{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}"))
+                {
+                    if (string.IsNullOrEmpty(r?.GetValue("pv") as string))
+                    {
+                        using var exe = Process.Start(Path.Combine(QwilightComponent.AssetsEntryPath, "MicrosoftEdgeWebview2Setup.exe"));
+                        exe.WaitForExit();
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            _ = PInvoke.timeBeginPeriod(1);
+            ThreadPool.GetMaxThreads(out var tw, out var tIOCP);
+            ThreadPool.SetMinThreads(tw, tIOCP);
+
+            Application.Start(p =>
+            {
+                SynchronizationContext.SetSynchronizationContext(new DispatcherQueueSynchronizationContext(DispatcherQueue.GetForCurrentThread()));
                 try
                 {
-                    using (var r = Registry.LocalMachine.OpenSubKey("SOFTWARE")?.OpenSubKey("WOW6432Node")?.OpenSubKey("Microsoft")?.OpenSubKey("EdgeUpdate")?.OpenSubKey("Clients")?.OpenSubKey("{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}"))
-                    {
-                        if (string.IsNullOrEmpty(r?.GetValue("pv") as string))
-                        {
-                            using var exe = Process.Start(Path.Combine(QwilightComponent.AssetsEntryPath, "MicrosoftEdgeWebview2Setup.exe"));
-                            exe.WaitForExit();
-                        }
-                    }
+                    new QwilightClass().Run();
                 }
-                catch
+                finally
                 {
+                    Application.Current.Exit();
                 }
-
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                _ = PInvoke.timeBeginPeriod(1);
-                ThreadPool.GetMaxThreads(out var tw, out var tIOCP);
-                ThreadPool.SetMinThreads(tw, tIOCP);
-
-                Application.Start(p =>
-                {
-                    SynchronizationContext.SetSynchronizationContext(new DispatcherQueueSynchronizationContext(DispatcherQueue.GetForCurrentThread()));
-                    try
-                    {
-                        new QwilightClass().Run();
-                    }
-                    finally
-                    {
-                        Application.Current.Exit();
-                    }
-                });
-            }
+            });
         }
 
         readonly ConcurrentDictionary<Exception, object> _handledFaultMap = new();

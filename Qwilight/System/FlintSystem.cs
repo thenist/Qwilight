@@ -47,10 +47,6 @@ namespace Qwilight
                         }
                     });
                 }
-                catch (IOException)
-                {
-                    return;
-                }
                 catch
                 {
                 }
