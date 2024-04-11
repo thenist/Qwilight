@@ -453,7 +453,7 @@
   },
   "AveragerText": {
     "ko-KR": "노멀라이즈 활성화",
-    "en-US": "Enable normalize"
+    "en-US": "Normalize enabled"
   },
   "BanalAudioContents": {
     "ko-KR": "모든 노트에 범용 키음을 추가로 할당합니다.",
@@ -1025,7 +1025,7 @@
   },
   "FavorDefaultAudioVarietyText": {
     "ko-KR": "커스텀 BGM 활성화",
-    "en-US": "Enable custom BGM"
+    "en-US": "Enabling Custom BGM"
   },
   "FavorHitPoints0Unit": {
     "ko-KR": "토탈 비례 수치",
@@ -2607,10 +2607,6 @@
     "ko-KR": "지원하지 않는 파일입니다.",
     "en-US": "This file is not supported."
   },
-  "NotTearingText": {
-    "ko-KR": "티어링 비활성화",
-    "en-US": "Disable tearing"
-  },
   "NotTubeText": {
     "ko-KR": "컴프레서 비활성화",
     "en-US": "Disable compressor"
@@ -3246,14 +3242,6 @@
   "SymmetricModeContents": {
     "ko-KR": "노트를 반전시킵니다. (미러)",
     "en-US": "Mirror mode"
-  },
-  "TearingContents": {
-    "ko-KR": "동적 주사율을 사용하려면 티어링을 활성화하세요",
-    "en-US": "Enable tearing to use dynamic refresh rate"
-  },
-  "TearingText": {
-    "ko-KR": "티어링 활성화",
-    "en-US": "Enable tearing"
   },
   "TestHitPointsModeContents": {
     "ko-KR": "단위인정용 라이프 게이지를 사용합니다.",

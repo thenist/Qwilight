@@ -118,16 +118,6 @@
                 <Button Style="{StaticResource StandardInput}" Content="{Binding VESAText, Source={StaticResource Configure}}" Foreground="{Binding VESAPaint, Source={StaticResource Configure}}" Command="{Binding VESACommand}" HorizontalAlignment="Right" />
                 <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding VESAContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
-            <ContentControl IsEnabled="{Binding VESAV2, Source={StaticResource Configure}, Converter={StaticResource NotModifier}}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource StandardInput}" Content="{Binding TearingText, Source={StaticResource Configure}}" Foreground="{Binding TearingPaint, Source={StaticResource Configure}}" Command="{Binding TearingCommand}" HorizontalAlignment="Right" />
-                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding TearingContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
-                </Grid>
-            </ContentControl>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
