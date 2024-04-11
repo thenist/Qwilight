@@ -1608,7 +1608,7 @@ namespace Qwilight
             {
                 MediaSystem.Instance.Stop(this);
             }
-            Utility.HandleLowlyParallelly(parallelItems, Configure.Instance.UIBin, parallelItem => parallelItem());
+            Utility.HandleLowestlyParallelly(parallelItems, Configure.Instance.UIBin, parallelItem => parallelItem());
 
             foreach (var paintProperty in PaintProperties)
             {

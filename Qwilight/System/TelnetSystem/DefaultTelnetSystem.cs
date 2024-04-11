@@ -132,7 +132,7 @@ namespace Qwilight
                             if (!string.IsNullOrEmpty(entryPath))
                             {
                                 ViewModels.Instance.MainValue.ModeComponentValue.Salt = 0;
-                                Utility.HandleLowlyParallelly(new ConcurrentBag<BaseNoteFile>(ViewModels.Instance.MainValue.EntryItems.SelectMany(entryItem => entryItem.WellNoteFiles.Where(noteFile => !noteFile.IsLogical))), Configure.Instance.UIBin, noteFile =>
+                                Utility.HandleLowestlyParallelly(new ConcurrentBag<BaseNoteFile>(ViewModels.Instance.MainValue.EntryItems.SelectMany(entryItem => entryItem.WellNoteFiles.Where(noteFile => !noteFile.IsLogical))), Configure.Instance.UIBin, noteFile =>
                                 {
                                     Console.WriteLine(noteFile.NoteFilePath);
                                     var targetCompiler = BaseCompiler.GetCompiler(noteFile, null);

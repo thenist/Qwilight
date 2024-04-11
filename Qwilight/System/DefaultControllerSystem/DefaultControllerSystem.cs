@@ -61,7 +61,7 @@ namespace Qwilight
             set => SetProperty(ref _lastDefaultControllerInput, value, nameof(LastDefaultControllerInput));
         }
 
-        public void HandleSystem()
+        public void HandleSystem(nint handle)
         {
             if (_defaultSystem != null)
             {
@@ -81,7 +81,7 @@ namespace Qwilight
                     break;
                 case InputAPI.DInput:
                     _dInputSystem = new DInputSystem(this);
-                    _dInputSystem.HandleSystem(StrongReferenceMessenger.Default.Send<GetWindowHandle>().Response);
+                    _dInputSystem.HandleSystem(handle);
                     break;
             }
         }

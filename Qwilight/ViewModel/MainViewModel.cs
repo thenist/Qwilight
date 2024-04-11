@@ -671,11 +671,11 @@ namespace Qwilight.ViewModel
 
             Utility.HandleParallelly(TVSystem.Instance.HandleSystem, false);
             Utility.HandleParallelly(RGBSystem.Instance.HandleSystem, false);
-            DefaultControllerSystem.Instance.HandleSystem();
             Utility.HandleParallelly(DrawingSystem.Instance.HandleSystem);
             Utility.HandleParallelly(TwilightSystem.Instance.HandleSystem, false);
             Utility.HandleParallelly(PlatformSystem.Instance.HandleSystem, false);
             Utility.HandleParallelly(FlintSystem.Instance.HandleSystem, false);
+            DefaultControllerSystem.Instance.HandleSystem(handle);
             Utility.HandleParallelly(() => ControllerSystem.Instance.HandleSystem(handle));
 
             StrongReferenceMessenger.Default.Send<FadeLoadingView>();
@@ -1920,7 +1920,7 @@ namespace Qwilight.ViewModel
                                                 FastDB.Instance.WipeEntryItem(entryPath);
                                             }
                                         }
-                                        Utility.HandleLowlyParallelly(entryPaths, Configure.Instance.LoadingBin, entryPath =>
+                                        Utility.HandleLowestlyParallelly(entryPaths, Configure.Instance.LoadingBin, entryPath =>
                                         {
                                             LoadEntryItem(defaultEntryItem, entryPath, _setCancelDefaultEntryLoading);
                                             Status = (double)Interlocked.Increment(ref loadedDefaultEntryPathsLength) / defaultEntryPathsLength;

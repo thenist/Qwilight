@@ -66,9 +66,9 @@ CHOICE /M VCS
 IF %ERRORLEVEL% == 1 (
 	git add *
 	git commit -m "v%DATE% (%BUILD%)"
+	git push
 	git checkout master
 	git merge develop
 	git push
 	git checkout develop
-	git push
 )

@@ -486,7 +486,7 @@ namespace Qwilight.ViewModel
         static void OnDefaultControllerInputAPI()
         {
             Configure.Instance.DefaultControllerInputAPI = (DefaultControllerSystem.InputAPI)((int)(Configure.Instance.DefaultControllerInputAPI + 1) % 2);
-            DefaultControllerSystem.Instance.HandleSystem();
+            DefaultControllerSystem.Instance.HandleSystem(StrongReferenceMessenger.Default.Send<GetWindowHandle>().Response);
         }
 
         [RelayCommand]

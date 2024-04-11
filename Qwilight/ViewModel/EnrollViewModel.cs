@@ -13,9 +13,9 @@ namespace Qwilight.ViewModel
         [GeneratedRegex("^.+@.+$")]
         private static partial Regex GetFaxComputer();
 
-        string _avatarID;
-        string _avatarName;
-        string _fax;
+        string _avatarID = string.Empty;
+        string _avatarName = string.Empty;
+        string _fax = string.Empty;
 
         public override double TargetLength => 0.2;
 
@@ -67,23 +67,23 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         async Task OnEnroll()
         {
-            var (inputCipher, inputCipherTest) = StrongReferenceMessenger.Default.Send<GetEnrollCipher>().Response;
-            if (!string.IsNullOrEmpty(AvatarID) && !string.IsNullOrEmpty(inputCipher) && inputCipher == inputCipherTest && !string.IsNullOrEmpty(AvatarName) && (string.IsNullOrEmpty(Fax) || GetFaxComputer().IsMatch(Fax)))
+            var (avatarCipher, avatarCipherTest) = StrongReferenceMessenger.Default.Send<GetEnrollCipher>().Response;
+            if (!string.IsNullOrEmpty(AvatarID) && !string.IsNullOrEmpty(avatarCipher) && avatarCipher == avatarCipherTest && !string.IsNullOrEmpty(AvatarName) && (string.IsNullOrEmpty(Fax) || GetFaxComputer().IsMatch(Fax)))
             {
                 if (await TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.TaehuiNetAPI}/avatar", Utility.SetJSON(new
                 {
                     avatarID = AvatarID,
-                    avatarCipher = inputCipher,
+                    avatarCipher = avatarCipher,
                     avatarName = AvatarName,
                     fax = Fax
                 }), "application/json").ConfigureAwait(false))
                 {
                     Configure.Instance.AvatarID = AvatarID;
-                    Configure.Instance.SetCipher(inputCipher);
+                    Configure.Instance.SetCipher(avatarCipher);
                     TwilightSystem.Instance.SendParallel(Event.Types.EventID.LogIn, new
                     {
                         avatarID = AvatarID,
-                        avatarCipher = inputCipher
+                        avatarCipher = avatarCipher
                     });
                     Close();
                 }

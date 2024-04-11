@@ -27,12 +27,12 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         static void OnLogIn()
         {
-            var inputCipher = StrongReferenceMessenger.Default.Send<GetLogInCipher>().Response;
-            Configure.Instance.SetCipher(inputCipher);
+            var avatarCipher = StrongReferenceMessenger.Default.Send<GetLogInCipher>().Response;
+            Configure.Instance.SetCipher(avatarCipher);
             TwilightSystem.Instance.SendParallel(Event.Types.EventID.LogIn, new
             {
                 avatarID = Configure.Instance.AvatarID,
-                avatarCipher = inputCipher
+                avatarCipher = avatarCipher
             });
         }
 

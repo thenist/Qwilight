@@ -4694,7 +4694,7 @@ namespace Qwilight.Compute
                 if (!_wasGetNetComments && _wasGetNetItems)
                 {
                     _wasGetNetComments = true;
-                    Utility.HandleLowlyParallelly(new ConcurrentBag<NetItem>(NetItems), QwilightComponent.CPUCount, async netItem =>
+                    Utility.HandleLowestlyParallelly(new ConcurrentBag<NetItem>(NetItems), QwilightComponent.CPUCount, async netItem =>
                     {
                         if (netItem.Comment == null)
                         {

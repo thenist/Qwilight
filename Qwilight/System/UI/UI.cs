@@ -1561,7 +1561,7 @@ namespace Qwilight
                 AudioSystem.Instance.Close(this);
                 DrawingSystem.Instance.Close(this);
             }
-            Utility.HandleLowlyParallelly(parallelItems, Configure.Instance.UIBin, parallelItem => parallelItem());
+            Utility.HandleLowestlyParallelly(parallelItems, Configure.Instance.UIBin, parallelItem => parallelItem());
 
             foreach (var fileName in audioValues.Keys)
             {

@@ -44,13 +44,17 @@ namespace Qwilight.View
             }
             _wpfLoadingAsset.Show(true, true);
 
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 #if DEBUG
-                Environment.SetEnvironmentVariable("ENABLE_XAML_DIAGNOSTICS_SOURCE_INFO", "1");
+            Environment.SetEnvironmentVariable("ENABLE_XAML_DIAGNOSTICS_SOURCE_INFO", "1");
 #endif
             Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", QwilightComponent.EdgeEntryPath);
-
+            GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
             ProfileOptimization.SetProfileRoot(QwilightComponent.QwilightEntryPath);
             ProfileOptimization.StartProfile("Qwilight.$");
+            ThreadPool.GetMaxThreads(out var tw, out var tIOCP);
+            ThreadPool.SetMinThreads(tw, tIOCP);
+            _ = PInvoke.timeBeginPeriod(1);
 
             try
             {
@@ -66,11 +70,6 @@ namespace Qwilight.View
             catch
             {
             }
-
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            _ = PInvoke.timeBeginPeriod(1);
-            ThreadPool.GetMaxThreads(out var tw, out var tIOCP);
-            ThreadPool.SetMinThreads(tw, tIOCP);
 
             Application.Start(p =>
             {
@@ -106,8 +105,6 @@ namespace Qwilight.View
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            AppContext.SetSwitch("MVVMTOOLKIT_DISABLE_INOTIFYPROPERTYCHANGING", true);
-
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
                 var fault = e.ExceptionObject as Exception;

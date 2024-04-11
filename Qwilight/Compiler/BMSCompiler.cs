@@ -824,7 +824,7 @@ namespace Qwilight.Compiler
             {
                 var parallelItemsCount = parallelItems.Count;
                 var loadedParallelItemsCount = 0;
-                Utility.HandleLowlyParallelly(parallelItems, Configure.Instance.CompilingBin, parallelItem =>
+                Utility.HandleLowestlyParallelly(parallelItems, Configure.Instance.CompilingBin, parallelItem =>
                 {
                     parallelItem();
                     defaultComputer.SetCompilingStatus((double)Interlocked.Increment(ref loadedParallelItemsCount) / parallelItemsCount);

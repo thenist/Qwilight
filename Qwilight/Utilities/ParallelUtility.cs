@@ -7,7 +7,7 @@ namespace Qwilight.Utilities
         public static Thread GetParallelHandler(ThreadStart onHandle, bool isEssential = true) => new Thread(onHandle)
         {
             IsBackground = true,
-            Priority = isEssential ? ThreadPriority.Highest : ThreadPriority.Normal
+            Priority = isEssential ? ThreadPriority.Highest : ThreadPriority.Lowest
         };
 
         public static Thread HandleParallelly(ThreadStart onHandle, bool isEssential = true)
@@ -17,7 +17,7 @@ namespace Qwilight.Utilities
             return t;
         }
 
-        public static void HandleLowlyParallelly<T>(IProducerConsumerCollection<T> parallelItems, int onHandleBin, Action<T> onHandle, CancellationToken? setCancelParallel = null)
+        public static void HandleLowestlyParallelly<T>(IProducerConsumerCollection<T> parallelItems, int onHandleBin, Action<T> onHandle, CancellationToken? setCancelParallel = null)
         {
             var ts = new Thread[onHandleBin];
             for (var i = ts.Length - 1; i >= 0; --i)
