@@ -235,7 +235,14 @@
                                     <TextBlock Style="{StaticResource StandardTextView}" Text="CoolRyong" HorizontalAlignment="Right" />
                                     <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/coolish_kor" HorizontalAlignment="Left">X</Button>
                                 </Grid>
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="카인드맨" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="카인드맨" HorizontalAlignment="Right" />
+                                    <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://www.youtube.com/@kindmana" HorizontalAlignment="Left">YouTube</Button>
+                                </Grid>
                                 <Separator Style="{StaticResource StandardHr}" />
                                 <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding AudioAssister, Source={StaticResource LanguageSystem}}" />
                                 <Grid>
@@ -247,6 +254,17 @@
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://www.instagram.com/d_y_k_w_i_m">Instagram</Button>
                                         <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/dykwim">SoundCloud</Button>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="KOTDARI" HorizontalAlignment="Right" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/kot-dari">SoundCloud</Button>
+                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/kotdari_forward">X</Button>
                                     </StackPanel>
                                 </Grid>
                                 <Separator Style="{StaticResource StandardHr}" />

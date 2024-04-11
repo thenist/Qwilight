@@ -312,39 +312,43 @@
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <ToggleButton Style="{StaticResource StandardIOInput}" IsChecked="{Binding IsPostableItemMode}" />
-                            <view:BinInput Grid.Column="1" IsEnabled="{Binding CanSetPostableItems}" Value="{Binding PostableItemBand}" Lowest="1" Format="{Binding PostableItemBandText, Source={StaticResource LanguageSystem}}" VerticalAlignment="Stretch" LostFocus="OnSetPostableItemBand" />
-                        </Grid>
-                        <GroupBox Grid.Row="1" Style="{StaticResource StandardGroupView}">
-                            <GroupBox.Header>
-                                <Grid>
-                                    <Button Style="{StaticResource GroupInput}" IsEnabled="{Binding CanSetPostableItems}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityNotModifier}}">
-                                        <Button.CommandParameter>
-                                            <system:Boolean>true</system:Boolean>
-                                        </Button.CommandParameter>
-                                    </Button>
-                                    <Button Style="{StaticResource GroupInput}" IsEnabled="{Binding CanSetPostableItems}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityModifier}}">
-                                        <Button.CommandParameter>
-                                            <system:Boolean>false</system:Boolean>
-                                        </Button.CommandParameter>
-                                    </Button>
-                                </Grid>
-                            </GroupBox.Header>
-                            <ScrollViewer>
-                                <ItemsControl ItemsSource="{Binding PostableUIItemCollection}" IsEnabled="{Binding CanSetPostableItems}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding IsWanted, UpdateSourceTrigger=PropertyChanged}" Content="{Binding PostableItemValue}" Click="OnInputPostableItem" Foreground="{Binding PostableItemValue.ItemPaint}" />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                        </GroupBox>
+                        <ContentControl IsEnabled="{Binding CanSetPostableItems}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <ToggleButton Style="{StaticResource StandardIOInput}" IsChecked="{Binding IsPostableItemMode}" />
+                                <view:BinInput Grid.Column="1" Value="{Binding PostableItemBand}" Lowest="1" Format="{Binding PostableItemBandText, Source={StaticResource LanguageSystem}}" VerticalAlignment="Stretch" LostFocus="OnSetPostableItemBand" />
+                            </Grid>
+                        </ContentControl>
+                        <ContentControl Grid.Row="1" IsEnabled="{Binding CanSetPostableItems}">
+                            <GroupBox Style="{StaticResource StandardGroupView}">
+                                <GroupBox.Header>
+                                    <Grid>
+                                        <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityNotModifier}}">
+                                            <Button.CommandParameter>
+                                                <system:Boolean>true</system:Boolean>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                        <Button Style="{StaticResource GroupInput}" Command="{Binding TotalWantPostableItemCommand}" Content="{Binding SetNotTotalText, Source={StaticResource LanguageSystem}}" Visibility="{Binding IsTotalWantPostableUIItem, Converter={StaticResource VisibilityModifier}}">
+                                            <Button.CommandParameter>
+                                                <system:Boolean>false</system:Boolean>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                    </Grid>
+                                </GroupBox.Header>
+                                <ScrollViewer>
+                                    <ItemsControl ItemsSource="{Binding PostableUIItemCollection}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Style="{StaticResource StandardVInput}" IsChecked="{Binding IsWanted, UpdateSourceTrigger=PropertyChanged}" Content="{Binding PostableItemValue}" Click="OnInputPostableItem" Foreground="{Binding PostableItemValue.ItemPaint}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </GroupBox>
+                        </ContentControl>
                         <Button Grid.Row="2" Style="{StaticResource StandardInput}" Content="{Binding SetPostItemInputText, Source={StaticResource Configure}}" Command="{Binding SetPostItemInputCommand}" />
                     </Grid>
                 </TabItem>
