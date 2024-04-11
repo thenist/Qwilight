@@ -49,7 +49,7 @@ namespace Qwilight.View
             Environment.SetEnvironmentVariable("ENABLE_XAML_DIAGNOSTICS_SOURCE_INFO", "1");
 #endif
             Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", QwilightComponent.EdgeEntryPath);
-            GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
+
             ProfileOptimization.SetProfileRoot(QwilightComponent.QwilightEntryPath);
             ProfileOptimization.StartProfile("Qwilight.$");
             ThreadPool.GetMaxThreads(out var tw, out var tIOCP);
