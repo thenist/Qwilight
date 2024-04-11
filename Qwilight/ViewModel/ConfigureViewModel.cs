@@ -874,6 +874,9 @@ namespace Qwilight.ViewModel
         static void OnVESA() => Configure.Instance.VESAV2 = !Configure.Instance.VESAV2;
 
         [RelayCommand]
+        static void OnTearing() => Configure.Instance.Tearing = !Configure.Instance.Tearing;
+
+        [RelayCommand]
         static void OnDataCount3() => Configure.Instance.DataCount3 = !Configure.Instance.DataCount3;
 
         [RelayCommand]

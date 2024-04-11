@@ -654,6 +654,7 @@ namespace Qwilight
         public string NotStillDrawing { get; set; }
         public string NotStopLastEqualAudioText { get; set; }
         public string NotSupportedFileContents { get; set; }
+        public string NotTearingText { get; set; }
         public string NotTubeText { get; set; }
         public string NotUbuntuSituationContents { get; set; }
         public string NotValidNetLevelContents { get; set; }
@@ -813,6 +814,8 @@ namespace Qwilight
         public string StopSavingBundleContents { get; set; }
         public string StopSiteNetText { get; set; }
         public string SymmetricModeContents { get; set; }
+        public string TearingContents { get; set; }
+        public string TearingText { get; set; }
         public string TestHitPointsModeContents { get; set; }
         public string TestHitPointsModeWarning { get; set; }
         public string TotalAudioVolume { get; set; }

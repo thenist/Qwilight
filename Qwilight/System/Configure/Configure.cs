@@ -269,6 +269,7 @@ namespace Qwilight
         int _windowLength;
         int _windowHeight;
         bool _vesa;
+        bool _tearing;
         bool _dataCount3;
         NVLLMode _valueNVLLMode;
         double _valueNVLLFramerate;
@@ -514,7 +515,7 @@ namespace Qwilight
 
             set
             {
-                if (SetProperty(ref _vesa, value))
+                if (SetProperty(ref _vesa, value, nameof(VESAV2)))
                 {
                     OnPropertyChanged(nameof(VESAPaint));
                     OnPropertyChanged(nameof(VESAText));
@@ -526,6 +527,25 @@ namespace Qwilight
         public Brush VESAPaint => Paints.PointPaints[VESAV2 ? 1 : 0];
 
         public string VESAText => VESAV2 ? LanguageSystem.Instance.VESAText : LanguageSystem.Instance.NotVESAText;
+
+        public bool Tearing
+        {
+            get => _tearing;
+
+            set
+            {
+                if (SetProperty(ref _tearing, value))
+                {
+                    OnPropertyChanged(nameof(TearingPaint));
+                    OnPropertyChanged(nameof(TearingText));
+                    OnSetAutoNVLLFramerate();
+                }
+            }
+        }
+
+        public Brush TearingPaint => Paints.PointPaints[Tearing ? 1 : 0];
+
+        public string TearingText => Tearing ? LanguageSystem.Instance.TearingText : LanguageSystem.Instance.NotTearingText;
 
         public bool DataCount3
         {
@@ -3439,6 +3459,10 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 21))
             {
                 WMPointer = false;
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 22))
+            {
+                Tearing = true;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

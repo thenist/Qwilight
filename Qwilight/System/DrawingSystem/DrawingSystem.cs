@@ -2337,9 +2337,13 @@ namespace Qwilight
                             {
                                 _rawTargetSystem.Present();
                             }
-                            else
+                            else if (Configure.Instance.Tearing)
                             {
                                 _rawTargetSystem.Present(0, DXGI_PRESENT_ALLOW_TEARING);
+                            }
+                            else
+                            {
+                                _rawTargetSystem.Present(0);
                             }
                             SetNVLLFlagIf(ReflexMarker.ePresentEnd);
 
