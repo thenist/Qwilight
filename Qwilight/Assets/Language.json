@@ -453,7 +453,7 @@
   },
   "AveragerText": {
     "ko-KR": "노멀라이즈 활성화",
-    "en-US": "Normalize enabled"
+    "en-US": "Enable normalize"
   },
   "BanalAudioContents": {
     "ko-KR": "모든 노트에 범용 키음을 추가로 할당합니다.",
@@ -1025,7 +1025,7 @@
   },
   "FavorDefaultAudioVarietyText": {
     "ko-KR": "커스텀 BGM 활성화",
-    "en-US": "Enabling Custom BGM"
+    "en-US": "Enable Custom BGM"
   },
   "FavorHitPoints0Unit": {
     "ko-KR": "토탈 비례 수치",
@@ -3697,7 +3697,7 @@
   },
   "WMPointerText": {
     "ko-KR": "패닝 활성화",
-    "en-US": "Fanning activation"
+    "en-US": "Enable panning"
   },
   "WrongLowestJudgmentConditionModeContents": {
     "ko-KR": "간접 미스를 추가합니다.",
