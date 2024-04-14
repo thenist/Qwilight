@@ -180,7 +180,7 @@ namespace Qwilight
         public bool IsDefaultHandled => CanBeTwilightComment &&
             AutoModeValue == AutoMode.Default &&
             (JudgmentModeValue == JudgmentMode.Default || JudgmentModeValue == JudgmentMode.Higher || JudgmentModeValue == JudgmentMode.Highest) &&
-            (HandlingHitPointsModeValue == HitPointsMode.Default || HandlingHitPointsModeValue == HitPointsMode.Higher || HandlingHitPointsModeValue == HitPointsMode.Highest || HandlingHitPointsModeValue == HitPointsMode.Failed) &&
+            (HandlingHitPointsModeValue == HitPointsMode.Default || HandlingHitPointsModeValue == HitPointsMode.Higher || HandlingHitPointsModeValue == HitPointsMode.Highest || HandlingHitPointsModeValue == HitPointsMode.Failed || HandlingHitPointsModeValue == HitPointsMode.Yell) &&
             LongNoteModeValue == LongNoteMode.Default &&
             InputFavorModeValue == InputFavorMode.Default &&
             NoteModifyModeValue == NoteModifyMode.Default;
