@@ -1,32 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace Qwilight
+﻿namespace Qwilight
 {
-    public sealed class WantLevelConfigure : ObservableObject
+    public sealed class WantLevelConfigure
     {
-        string _wantLevelName;
-
-        public string WantLevelName
-        {
-            get => _wantLevelName;
-
-            set
-            {
-                if (SetProperty(ref _wantLevelName, value, nameof(WantLevelName)))
-                {
-                    OnPropertyChanged(nameof(WantLevelNameText));
-                }
-            }
-        }
+        public string WantLevelName { get; set; }
 
         public string WantLevelNameText => string.IsNullOrEmpty(WantLevelName) ? "🔖" : WantLevelName;
 
-        public string[] WantLevelIDs { get; set; }
-
-        public WantLevelConfigure(string wantLevelName, string[] wantLevelIDs)
-        {
-            WantLevelName = wantLevelName;
-            WantLevelIDs = wantLevelIDs;
-        }
+        public string[] WantLevelIDs { get; set; } = [];
     }
 }

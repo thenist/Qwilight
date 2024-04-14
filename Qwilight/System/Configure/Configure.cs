@@ -7,6 +7,7 @@ using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using Qwilight.ViewModel;
+using System.Collections.Frozen;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -28,6 +29,60 @@ namespace Qwilight
 {
     public sealed partial class Configure : Model
     {
+        static readonly FrozenDictionary<string, AudioConfigure> _audioConfigureValues = new[]
+        {
+            KeyValuePair.Create("Beats Flex", new AudioConfigure
+            {
+                AudioWait = -173.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("Buds2 Pro", new AudioConfigure
+            {
+                AudioWait = -250.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("Buds2 Stereo", new AudioConfigure
+            {
+                AudioWait = -250.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("direm W1", new AudioConfigure
+            {
+                AudioWait = -48.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("Galaxy Buds Pro", new AudioConfigure
+            {
+                AudioWait = -337.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("MOMENTUM 4", new AudioConfigure
+            {
+                AudioWait = -249.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("Razer Hammerhead TWS (2nd Gen)", new AudioConfigure
+            {
+                AudioWait = -275.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("Razer Hammerhead TWS Pro", new AudioConfigure
+            {
+                AudioWait = -259.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("WF-1000XM5", new AudioConfigure
+            {
+                AudioWait = -216.0,
+                HandleInputAudio = false
+            }),
+            KeyValuePair.Create("WH-1000XM5", new AudioConfigure
+            {
+                AudioWait = -216.0,
+                HandleInputAudio = false
+            })
+        }.ToFrozenDictionary();
+
         enum ReflexMode
         {
             eOff,
@@ -159,6 +214,7 @@ namespace Qwilight
                 }
                 OnSetAutoNVLLFramerate();
                 OnSetIsXwindow();
+                OnSetLastDefaultEntryItem();
             }
         }
 
@@ -182,7 +238,6 @@ namespace Qwilight
         bool _mediaInput;
         bool _loadedMedia;
         bool _media;
-        bool _handleInputAudio;
         bool _banalAudio;
         bool _banalMedia;
         bool _banalFailedMedia;
@@ -211,6 +266,7 @@ namespace Qwilight
         bool _isQwilightFill;
         bool _saltAuto;
         bool _isFailMode;
+        bool _stressInputAudio;
         WantBanned _wantBanned;
         bool _wantLevelSystem;
         bool _wantLevelTextValue;
@@ -238,7 +294,6 @@ namespace Qwilight
         int _lowestWantHighestInputCount;
         int _highestWantHighestInputCount;
         double _audioWait;
-        double _banalAudioWait;
         double _mediaWait;
         ControllerSystem.VibrationMode _vibrationMode;
         UIItem _valueUIItem;
@@ -1623,31 +1678,80 @@ namespace Qwilight
 
         public string MediaText => Media ? LanguageSystem.Instance.MediaText : LanguageSystem.Instance.NotMediaText;
 
+        [JsonIgnore]
         public bool HandleInputAudio
         {
-            get => _handleInputAudio;
+            get => AudioConfigureValues.GetValueOrDefault(AudioSystem.Instance.AudioValue?.Name ?? string.Empty, _audioConfigureValues.FirstOrDefault(audioConfigureValue => AudioSystem.Instance.AudioValue?.Name?.Contains(audioConfigureValue.Key) == true).Value ?? new()).HandleInputAudio;
 
             set
             {
-                if (SetProperty(ref _handleInputAudio, value))
+                if (AudioConfigureValues.TryGetValue(AudioSystem.Instance.AudioValue?.Name ?? string.Empty, out var audioConfigure))
                 {
-                    OnPropertyChanged(nameof(HandleInputAudioPaint));
-                    OnPropertyChanged(nameof(HandleInputAudioText));
-                    if (_isLoaded)
-                    {
-                        var audioValueName = AudioSystem.Instance.AudioValue?.Name;
-                        if (!string.IsNullOrEmpty(audioValueName))
-                        {
-                            AudioConfigureValues[audioValueName].HandleInputAudio = value;
-                        }
-                    }
+                    audioConfigure.HandleInputAudio = value;
                 }
+                else
+                {
+                    AudioConfigureValues[AudioSystem.Instance.AudioValue?.Name ?? string.Empty] = new()
+                    {
+                        HandleInputAudio = value
+                    };
+                }
+                OnPropertyChanged(nameof(HandleInputAudio));
+                OnPropertyChanged(nameof(HandleInputAudioPaint));
+                OnPropertyChanged(nameof(HandleInputAudioText));
             }
         }
 
         public Brush HandleInputAudioPaint => Paints.PointPaints[HandleInputAudio ? 1 : 0];
 
         public string HandleInputAudioText => HandleInputAudio ? LanguageSystem.Instance.HandleInputAudioText : LanguageSystem.Instance.NotHandleInputAudioText;
+
+        public bool StressInputAudio
+        {
+            get => _stressInputAudio;
+
+            set
+            {
+                if (SetProperty(ref _stressInputAudio, value))
+                {
+                    OnPropertyChanged(nameof(StressInputAudioPaint));
+                    OnPropertyChanged(nameof(StressInputAudioText));
+                }
+            }
+        }
+
+        public Brush StressInputAudioPaint => Paints.PointPaints[StressInputAudio ? 1 : 0];
+
+        public string StressInputAudioText => StressInputAudio ? LanguageSystem.Instance.StressInputAudioText : LanguageSystem.Instance.NotStressInputAudioText;
+
+        [JsonIgnore]
+        public double BanalAudioWait
+        {
+            get => AudioConfigureValues.GetValueOrDefault(AudioSystem.Instance.AudioValue?.Name ?? string.Empty, _audioConfigureValues.FirstOrDefault(audioConfigureValue => AudioSystem.Instance.AudioValue?.Name?.Contains(audioConfigureValue.Key) == true).Value ?? new()).AudioWait;
+
+            set
+            {
+                if (AudioConfigureValues.TryGetValue(AudioSystem.Instance.AudioValue?.Name ?? string.Empty, out var audioConfigure))
+                {
+                    audioConfigure.AudioWait = value;
+                }
+                else
+                {
+                    AudioConfigureValues[AudioSystem.Instance.AudioValue?.Name ?? string.Empty] = new()
+                    {
+                        AudioWait = value
+                    };
+                }
+            }
+        }
+
+        public void NotifyAudioConfigure()
+        {
+            OnPropertyChanged(nameof(HandleInputAudio));
+            OnPropertyChanged(nameof(HandleInputAudioPaint));
+            OnPropertyChanged(nameof(HandleInputAudioText));
+            OnPropertyChanged(nameof(BanalAudioWait));
+        }
 
         public bool BanalAudio
         {
@@ -2072,19 +2176,47 @@ namespace Qwilight
         [JsonIgnore]
         public string LastWantLevelName
         {
-            get => LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new(null, Array.Empty<string>())).WantLevelName;
+            get => LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new()).WantLevelName;
 
-            set => LastWantLevelConfigures[LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty].WantLevelName = value;
+            set
+            {
+                if (LastWantLevelConfigures.TryGetValue(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, out var wantLevelConfigure))
+                {
+                    wantLevelConfigure.WantLevelName = value;
+                }
+                else
+                {
+                    LastWantLevelConfigures[LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty] = new()
+                    {
+                        WantLevelName = value
+                    };
+                }
+                OnPropertyChanged(nameof(LastWantLevelName));
+                OnPropertyChanged(nameof(WantLevelNameText));
+            }
         }
 
-        public string WantLevelNameText => WantLevelSystem ? LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new(null, Array.Empty<string>())).WantLevelNameText : "🔖";
+        public string WantLevelNameText => WantLevelSystem ? LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new()).WantLevelNameText : "🔖";
 
         [JsonIgnore]
         public string[] LastWantLevelIDs
         {
-            get => LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new(null, Array.Empty<string>())).WantLevelIDs;
+            get => LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new()).WantLevelIDs;
 
-            set => LastWantLevelConfigures[LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty].WantLevelIDs = value;
+            set
+            {
+                if (LastWantLevelConfigures.TryGetValue(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, out var wantLevelConfigure))
+                {
+                    wantLevelConfigure.WantLevelIDs = value;
+                }
+                else
+                {
+                    LastWantLevelConfigures[LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty] = new()
+                    {
+                        WantLevelIDs = value
+                    };
+                }
+            }
         }
 
         public bool AutoLogIn
@@ -2209,23 +2341,6 @@ namespace Qwilight
             set => SetProperty(ref _audioWait, value, nameof(AudioWait));
         }
 
-        public double BanalAudioWait
-        {
-            get => _banalAudioWait;
-
-            set
-            {
-                if (SetProperty(ref _banalAudioWait, value, nameof(BanalAudioWait)) && _isLoaded)
-                {
-                    var audioValueName = AudioSystem.Instance.AudioValue?.Name;
-                    if (audioValueName != null)
-                    {
-                        AudioConfigureValues[audioValueName].AudioWait = value;
-                    }
-                }
-            }
-        }
-
         public double MediaWait
         {
             get => _mediaWait;
@@ -2244,7 +2359,18 @@ namespace Qwilight
                 if (SetProperty(ref _lastDefaultEntryItem, value, nameof(LastDefaultEntryItem)))
                 {
                     OnPropertyChanged(nameof(InputWant));
+                    OnPropertyChanged(nameof(LastWantLevelName));
+                    OnPropertyChanged(nameof(WantLevelNameText));
+                    OnSetLastDefaultEntryItem();
                 }
+            }
+        }
+
+        void OnSetLastDefaultEntryItem()
+        {
+            if (_isLoaded)
+            {
+                LevelSystem.Instance.LoadJSON(false);
             }
         }
 
@@ -2422,7 +2548,6 @@ namespace Qwilight
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 10, 0))
             {
-                HandleInputAudio = true;
                 AudioInput = false;
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 10, 2))
@@ -3374,7 +3499,6 @@ namespace Qwilight
                 BanalFailedMedia = false;
                 AlwaysBanalFailedMedia = false;
                 BanalFailedMediaFilePath = string.Empty;
-                BanalAudioWait = 0.0;
                 BanalAudio = false;
                 BanalMedia = false;
                 AlwaysBanalMedia = false;
@@ -3398,10 +3522,6 @@ namespace Qwilight
             {
                 FontFamilyValues = new FontFamily[4];
                 Array.Fill(FontFamilyValues, QwilightComponent.GetBuiltInData<FontFamily>("DefaultFontFamily"));
-            }
-            if (isInit || Utility.IsLowerDate(Date, 1, 16, 10))
-            {
-                GASLevel = 2;
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 12))
             {
@@ -3441,6 +3561,7 @@ namespace Qwilight
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 23))
             {
+                GASLevel = 4;
                 LastWantLevelConfigures = new();
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))

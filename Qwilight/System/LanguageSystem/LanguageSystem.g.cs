@@ -232,8 +232,6 @@ namespace Qwilight
         public string EditorConfigureFault { get; set; }
         public string EditorContents { get; set; }
         public string EditorSoftwareFault { get; set; }
-        public string EnhanceInputAudioContents { get; set; }
-        public string EnhanceInputAudioText { get; set; }
         public string Enroll { get; set; }
         public string EnterAutoComputeConfigure { get; set; }
         public string EnterAutoComputeMediaInputConfigure { get; set; }
@@ -608,7 +606,6 @@ namespace Qwilight
         public string NoteLengthContents { get; set; }
         public string NoteMobilityAssist { get; set; }
         public string NoteModifyModeAssist { get; set; }
-        public string NotEnhanceInputAudioText { get; set; }
         public string NoteSaltCommentWarning { get; set; }
         public string NoteSaltModeAssist { get; set; }
         public string NoteWaitContents { get; set; }
@@ -656,6 +653,7 @@ namespace Qwilight
         public string NotSFXText { get; set; }
         public string NotStillDrawing { get; set; }
         public string NotStopLastEqualAudioText { get; set; }
+        public string NotStressInputAudioText { get; set; }
         public string NotSupportedFileContents { get; set; }
         public string NotTubeText { get; set; }
         public string NotUbuntuSituationContents { get; set; }
@@ -815,6 +813,8 @@ namespace Qwilight
         public string StopSavingAsBundleContents { get; set; }
         public string StopSavingBundleContents { get; set; }
         public string StopSiteNetText { get; set; }
+        public string StressInputAudioContents { get; set; }
+        public string StressInputAudioText { get; set; }
         public string SymmetricModeContents { get; set; }
         public string TestHitPointsModeContents { get; set; }
         public string TestHitPointsModeWarning { get; set; }

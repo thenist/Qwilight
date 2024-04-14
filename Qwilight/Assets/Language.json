@@ -809,7 +809,7 @@
   },
   "DefaultInputAudioVarietyAssist": {
     "ko-KR": "다음 노트의 키음을 출력합니다.",
-    "en-US": "Output the next key sound"
+    "en-US": "Output the next keysound"
   },
   "DefaultJudgmentModeContents": {
     "ko-KR": "기본 판정 난이도입니다.",
@@ -918,13 +918,6 @@
   "EditorSoftwareFault": {
     "ko-KR": "에디터 실행이 불가능합니다. ({0})",
     "en-US": "Editor cannot run ({0})"
-  },
-  "EnhanceInputAudioContents": {
-    "ko-KR": "완성된 배경음에 키음을 추가로 출력합니다."
-  },
-  "EnhanceInputAudioText": {
-    "ko-KR": "키음 덧붙히기 활성화",
-    "en-US": "Enable keystone add"
   },
   "Enroll": {
     "ko-KR": "회원 가입",
@@ -1268,7 +1261,7 @@
   },
   "HandleInputAudioContents": {
     "ko-KR": "키음을 사용합니다.",
-    "en-US": "Use the key sound."
+    "en-US": "Use the keysound."
   },
   "HandleInputAudioText": {
     "ko-KR": "키음 활성화",
@@ -1416,7 +1409,7 @@
   },
   "IIDXInputAudioVarietyAssist": {
     "ko-KR": "마지막으로 출력한 키음을 출력합니다.",
-    "en-US": "Output the previous key sound"
+    "en-US": "Output the previous keysound"
   },
   "InitColorContents": {
     "ko-KR": "색상 설정을 기본으로 복원합니다.",
@@ -1544,7 +1537,7 @@
   },
   "InputAudioVolume": {
     "ko-KR": "키음",
-    "en-US": "Key sound"
+    "en-US": "Keysound"
   },
   "InputConfigure": {
     "ko-KR": "키보드 설정",
@@ -2422,10 +2415,6 @@
     "ko-KR": "노트에 규칙을 설정합니다.",
     "en-US": "Set note rules"
   },
-  "NotEnhanceInputAudioText": {
-    "ko-KR": "키음 덧붙히기 비활성화",
-    "en-US": "Disable key add"
-  },
   "NoteSaltCommentWarning": {
     "ko-KR": "v1.14.27 미만 랜덤 게임 모드를 적용한 플레이는 리플레이가 호환되지 않습니다.",
     "en-US": "Play with a random game mode less than v1.14.27 is not compatible with replay."
@@ -2614,6 +2603,10 @@
     "ko-KR": "중복 키음 방지 비활성화",
     "en-US": "Disable duplicate key tone protection"
   },
+  "NotStressInputAudioText": {
+    "ko-KR": "키음 덧붙히기 비활성화",
+    "en-US": "Disable keysound appending"
+  },
   "NotSupportedFileContents": {
     "ko-KR": "지원하지 않는 파일입니다.",
     "en-US": "This file is not supported."
@@ -2775,8 +2768,8 @@
     "en-US": "Accuracy"
   },
   "PointConfigure": {
-    "ko-KR": "마우스 설정",
-    "en-US": "Mouse Settings"
+    "ko-KR": "스타일러스 설정",
+    "en-US": "Stylus Settings"
   },
   "PointLegend": {
     "ko-KR": "■ 정확도",
@@ -3232,7 +3225,7 @@
   },
   "StopLastEqualAudioContents": {
     "ko-KR": "딜레이 차분을 위하여 중복 키음을 하나만 플레이합니다.",
-    "en-US": "Play only one duplicate key note for delay sabun."
+    "en-US": "Play only one duplicate keysound for delay sabun."
   },
   "StopLastEqualAudioText": {
     "ko-KR": "중복 키음 방지 활성화",
@@ -3249,6 +3242,14 @@
   "StopSiteNetText": {
     "ko-KR": "강제 중단",
     "en-US": "Forced stop"
+  },
+  "StressInputAudioContents": {
+    "ko-KR": "완성된 배경음에 키음을 추가로 덧붙힙니다.",
+    "en-US": "An additional keysound is added to the completed background sound."
+  },
+  "StressInputAudioText": {
+    "ko-KR": "키음 덧붙히기 활성화",
+    "en-US": "Enable keysound appending"
   },
   "SymmetricModeContents": {
     "ko-KR": "노트를 반전시킵니다. (미러)",

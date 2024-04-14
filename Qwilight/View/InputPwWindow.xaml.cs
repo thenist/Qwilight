@@ -12,7 +12,7 @@ namespace Qwilight.View
             InitializeComponent();
 
             StrongReferenceMessenger.Default.Register<GetPwWindowCipher>(this, (recipient, message) => message.Reply(InputCipher.Password));
-            StrongReferenceMessenger.Default.Register<InitEnrollCipher>(this, (recipient, message) => InputCipher.Password = string.Empty);
+            StrongReferenceMessenger.Default.Register<InitEnrollCipher>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() => InputCipher.Password = string.Empty));
         }
 
         void OnInputLower(object sender, KeyEventArgs e) => (DataContext as InputPwViewModel).OnInputLower(e);

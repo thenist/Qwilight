@@ -10,6 +10,6 @@ namespace Qwilight.View
 
         void OnInput(object sender, RoutedEventArgs e) => (DataContext as LevelViewModel).OnInput();
 
-        void OnNewLevel(object sender, SelectionChangedEventArgs e) => _ = (DataContext as LevelViewModel).OnNewLevel();
+        void OnNewLevel(object sender, SelectionChangedEventArgs e) => (DataContext as LevelViewModel).OnNewLevel();
     }
 }

@@ -21,11 +21,11 @@ namespace Qwilight.ViewModel
 
         public bool IsTotalWantLevelID => LevelItemCollection.All(levelItem => levelItem.IsWanted);
 
-        public async Task OnNewLevel()
+        public void OnNewLevel()
         {
             if (IsLoaded)
             {
-                await LevelSystem.Instance.LoadJSON(true);
+                LevelSystem.Instance.LoadJSON(true);
                 LevelItemCollection.Clear();
                 foreach (var levelID in LevelSystem.Instance.LevelIDCollection)
                 {
@@ -65,7 +65,7 @@ namespace Qwilight.ViewModel
                     if (!string.IsNullOrEmpty(text))
                     {
                         await LevelSystem.Instance.LoadWww(text).ConfigureAwait(false);
-                        await LevelSystem.Instance.LoadJSON(true).ConfigureAwait(false);
+                        LevelSystem.Instance.LoadJSON(true);
                     }
                 });
                 inputTextViewModel.Open();
@@ -73,7 +73,7 @@ namespace Qwilight.ViewModel
             else
             {
                 await LevelSystem.Instance.LoadWww(www).ConfigureAwait(false);
-                await LevelSystem.Instance.LoadJSON(true).ConfigureAwait(false);
+                LevelSystem.Instance.LoadJSON(true);
             }
         }
 
@@ -83,7 +83,7 @@ namespace Qwilight.ViewModel
             if (Configure.Instance.LevelTargetMap.TryGetValue(Configure.Instance.LastWantLevelName, out var target))
             {
                 await LevelSystem.Instance.LoadWww(target).ConfigureAwait(false);
-                await LevelSystem.Instance.LoadJSON(true).ConfigureAwait(false);
+                LevelSystem.Instance.LoadJSON(true);
             }
             else
             {

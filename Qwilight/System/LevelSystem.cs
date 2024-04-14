@@ -38,7 +38,7 @@ namespace Qwilight
 
         public void LoadLevelFiles() => Utility.SetUICollection(LevelFileNames, Utility.GetFiles(EntryPath).Where(levelFile => !Path.GetFileName(levelFile).StartsWith('#') && levelFile.IsTailCaselsss(".json")).Select(levelFile => Path.GetFileNameWithoutExtension(levelFile)).ToArray());
 
-        public async ValueTask LoadJSON(bool isNotify)
+        public void LoadJSON(bool isNotify)
         {
             LevelID128s.Clear();
             LevelID256s.Clear();
@@ -56,15 +56,13 @@ namespace Qwilight
                         var levelTableFilePath = Path.Combine(QwilightComponent.QwilightEntryPath, "Level", $"#{wantLevelName}.json");
                         if (File.Exists(levelTableFilePath))
                         {
-                            using var tfs = File.OpenRead(levelTableFilePath);
-                            var levelTable = await Utility.GetJSON<JSON.BMSTable?>(tfs).ConfigureAwait(false);
+                            var levelTable = Utility.GetJSON<JSON.BMSTable?>(File.ReadAllText(levelTableFilePath));
                             if (levelTable.HasValue)
                             {
                                 var levelTableValue = levelTable.Value;
                                 var levelTexts = new List<object>();
                                 var levelTitle = levelTableValue.symbol;
-                                using var fs = File.OpenRead(levelFilePath);
-                                foreach (var levelTableData in await Utility.GetJSON<JSON.BMSTableData[]>(fs).ConfigureAwait(false))
+                                foreach (var levelTableData in Utility.GetJSON<JSON.BMSTableData[]>(File.ReadAllText(levelFilePath)))
                                 {
                                     var level = levelTableData.level;
                                     var noteID128 = levelTableData.md5.ToLowerInvariant();

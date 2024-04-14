@@ -4,6 +4,6 @@
     {
         public double AudioWait { get; set; }
 
-        public bool HandleInputAudio { get; set; }
+        public bool HandleInputAudio { get; set; } = true;
     }
 }

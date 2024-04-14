@@ -299,7 +299,7 @@ namespace Qwilight.ViewModel
             else
             {
                 _fadingComputingHandler?.Stop();
-                _fadingComputingHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
+                _fadingComputingHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Send, (sender, e) =>
                 {
                     Faint = Math.Max(0.125, Faint + Utility.GetMove(0.125, Faint, 1000.0 / 60));
 
@@ -314,7 +314,7 @@ namespace Qwilight.ViewModel
         public void OnComputingNotPointed()
         {
             _fadingComputingHandler?.Stop();
-            _fadingComputingHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
+            _fadingComputingHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Send, (sender, e) =>
             {
                 Faint = Math.Min(Faint + Utility.GetMove(1.0, Faint, 1000.0 / 60), 1.0);
 
@@ -735,6 +735,9 @@ namespace Qwilight.ViewModel
 
         [RelayCommand]
         static void OnHandleInputAudio() => Configure.Instance.HandleInputAudio = !Configure.Instance.HandleInputAudio;
+
+        [RelayCommand]
+        static void OnStressInputAudio() => Configure.Instance.StressInputAudio = !Configure.Instance.StressInputAudio;
 
         [RelayCommand]
         static void OnBanalAudio() => Configure.Instance.BanalAudio = !Configure.Instance.BanalAudio;

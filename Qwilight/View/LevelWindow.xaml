@@ -100,9 +100,9 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <Button Style="{StaticResource StandardInput}" Command="{Binding LoadLevelCommand}">🌐</Button>
-                                    <ComboBox Grid.Column="1" Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding WantLevelName, Source={StaticResource Configure}}" ItemsSource="{Binding LevelFileNames, Source={StaticResource LevelSystem}}" SelectionChanged="OnNewLevel" />
-                                    <Button Grid.Column="2" Style="{StaticResource StandardInput}" Command="{Binding GetLevelCommand}" IsEnabled="{Binding WantLevelName, Source={StaticResource Configure}, Converter={StaticResource BoolModifier}}">🔃</Button>
-                                    <Button Grid.Column="3" Style="{StaticResource StandardInput}" Command="{Binding WipeLevelCommand}" Foreground="Red" IsEnabled="{Binding WantLevelName, Source={StaticResource Configure}, Converter={StaticResource BoolModifier}}">❌</Button>
+                                    <ComboBox Grid.Column="1" Style="{StaticResource StandardItemsInput}" SelectedItem="{Binding LastWantLevelName, Source={StaticResource Configure}}" ItemsSource="{Binding LevelFileNames, Source={StaticResource LevelSystem}}" SelectionChanged="OnNewLevel" />
+                                    <Button Grid.Column="2" Style="{StaticResource StandardInput}" Command="{Binding GetLevelCommand}" IsEnabled="{Binding LastWantLevelName, Source={StaticResource Configure}, Converter={StaticResource BoolModifier}}">🔃</Button>
+                                    <Button Grid.Column="3" Style="{StaticResource StandardInput}" Command="{Binding WipeLevelCommand}" Foreground="Red" IsEnabled="{Binding LastWantLevelName, Source={StaticResource Configure}, Converter={StaticResource BoolModifier}}">❌</Button>
                                 </Grid>
                             </StackPanel>
                             <GroupBox Grid.Row="1" Style="{StaticResource StandardGroupView}">

@@ -659,7 +659,6 @@ namespace Qwilight.ViewModel
             DrawingSystem.Instance.LoadDefaultDrawing();
             DrawingSystem.Instance.LoadVeilDrawing();
 
-            await LevelSystem.Instance.LoadJSON(false).ConfigureAwait(false);
             await ValveSystem.Instance.Init().ConfigureAwait(false);
             await Task.Run(() =>
             {
@@ -2408,7 +2407,7 @@ namespace Qwilight.ViewModel
 
             var millis = BaseUI.Instance.FadingProperties[(int)ModeValue]?[FadingValue.Layer]?.Millis;
             var fadingCounter = Stopwatch.StartNew();
-            var fadeHandler = new DispatcherTimer(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
+            var fadeHandler = new DispatcherTimer(QwilightComponent.StandardFrametime, DispatcherPriority.Send, (sender, e) =>
             {
                 if (millis > 0)
                 {
@@ -2429,7 +2428,7 @@ namespace Qwilight.ViewModel
 
                     var millis = BaseUI.Instance.FadingProperties[(int)ModeValue]?[FadingValue.Layer]?.Millis;
                     fadingCounter.Restart();
-                    _fadeInHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Render, (sender, e) =>
+                    _fadeInHandler = new(QwilightComponent.StandardFrametime, DispatcherPriority.Send, (sender, e) =>
                     {
                         if (millis > 0)
                         {
