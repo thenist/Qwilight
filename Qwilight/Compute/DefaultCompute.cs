@@ -1660,7 +1660,11 @@ namespace Qwilight.Compute
             var wasLastStatus = false;
             var handlingNoteID = 0;
             var paintedNoteID = 0;
-            var audioChannelMap = new Dictionary<string, Channel>();
+            var audioChannelMap = new Dictionary<string, Channel>[2];
+            for (var i = audioChannelMap.Length - 1; i >= 0; --i)
+            {
+                audioChannelMap[i] = new();
+            }
             var loopingHandlerMillis = 0.0;
             var commentInputID = 0;
             var commentMultiplierID = 0;
@@ -1684,7 +1688,7 @@ namespace Qwilight.Compute
                         if (LoopingCounter <= waitModified + (audioLength ?? audioItemValue.Length))
                         {
                             var bmsID = audioNote.BMSID;
-                            StopLastEqualAudioItem(bmsID);
+                            StopLastEqualAudioItem(AudioSystem.MainAudio, bmsID);
                             lock (LoadedCSX)
                             {
                                 if (HasContents)
@@ -1698,7 +1702,7 @@ namespace Qwilight.Compute
                                     }, AudioSystem.MainAudio, AudioMultiplier, IsCounterWave, this);
                                     if (!string.IsNullOrEmpty(bmsID))
                                     {
-                                        audioChannelMap[bmsID] = audioChannel;
+                                        audioChannelMap[AudioSystem.MainAudio][bmsID] = audioChannel;
                                     }
                                 }
                             }
@@ -2747,7 +2751,7 @@ namespace Qwilight.Compute
                                                     if (lastEventPosition < LoopingCounter + audioItemValue.Length)
                                                     {
                                                         var bmsID = audioNote.BMSID;
-                                                        StopLastEqualAudioItem(bmsID);
+                                                        StopLastEqualAudioItem(AudioSystem.InputAudio, bmsID);
                                                         lock (LoadedCSX)
                                                         {
                                                             if (HasContents)
@@ -2762,7 +2766,7 @@ namespace Qwilight.Compute
                                                                 }, AudioSystem.InputAudio, AudioMultiplier, IsCounterWave, this, 0.0, inputPower);
                                                                 if (!string.IsNullOrEmpty(bmsID))
                                                                 {
-                                                                    audioChannelMap[bmsID] = audioChannel;
+                                                                    audioChannelMap[AudioSystem.InputAudio][bmsID] = audioChannel;
                                                                 }
                                                             }
                                                         }
@@ -2789,7 +2793,7 @@ namespace Qwilight.Compute
                                             if (lastEventPosition < LoopingCounter + (audioNote.Length ?? audioItemValue.Length))
                                             {
                                                 var bmsID = audioNote.BMSID;
-                                                StopLastEqualAudioItem(bmsID);
+                                                StopLastEqualAudioItem(AudioSystem.InputAudio, bmsID);
                                                 lock (LoadedCSX)
                                                 {
                                                     if (HasContents)
@@ -2805,7 +2809,7 @@ namespace Qwilight.Compute
                                                         note.AudioChannels.Add(audioChannel);
                                                         if (!string.IsNullOrEmpty(bmsID))
                                                         {
-                                                            audioChannelMap[bmsID] = audioChannel;
+                                                            audioChannelMap[AudioSystem.InputAudio][bmsID] = audioChannel;
                                                         }
                                                     }
                                                 }
@@ -2824,8 +2828,8 @@ namespace Qwilight.Compute
                                     var lastEventPosition = IsInEvents ? _eventPositions.Last() : LoopingCounter;
                                     if (lastEventPosition < LoopingCounter + banalAudioValue.Length)
                                     {
-                                        StopLastEqualAudioItem(nameof(AudioSystem.Instance.BanalAudio));
-                                        audioChannelMap[nameof(AudioSystem.Instance.BanalAudio)] = AudioSystem.Instance.Handle(new()
+                                        StopLastEqualAudioItem(AudioSystem.InputAudio, nameof(AudioSystem.Instance.BanalAudio));
+                                        audioChannelMap[AudioSystem.InputAudio][nameof(AudioSystem.Instance.BanalAudio)] = AudioSystem.Instance.Handle(new()
                                         {
                                             AudioItem = banalAudioValue
                                         }, AudioSystem.InputAudio, AudioMultiplier, IsCounterWave, this, 0.0, inputPower);
@@ -4135,9 +4139,9 @@ namespace Qwilight.Compute
                 }
             }
 
-            void StopLastEqualAudioItem(string bmsID)
+            void StopLastEqualAudioItem(int audioVariety, string bmsID)
             {
-                if (Configure.Instance.StopLastEqualAudio && !string.IsNullOrEmpty(bmsID) && audioChannelMap.TryGetValue(bmsID, out var audioChannel))
+                if (Configure.Instance.StopLastEqualAudio && !string.IsNullOrEmpty(bmsID) && audioChannelMap[audioVariety].TryGetValue(bmsID, out var audioChannel))
                 {
                     AudioSystem.Instance.Stop(audioChannel);
                 }
