@@ -2197,7 +2197,7 @@ namespace Qwilight.ViewModel
                         var isNotWantHighestInputCount = !Configure.Instance.WantHighestInputCount;
                         var lowestWantHighestInputCount = Configure.Instance.LowestWantHighestInputCount;
                         var highestWantHighestInputCount = Configure.Instance.HighestWantHighestInputCount;
-                        var wantLevelIDs = Configure.Instance.WantLevelIDs;
+                        var wantLevelIDs = Configure.Instance.LastWantLevelIDs;
                         var isWantLevelSystem = Configure.Instance.WantLevelSystem;
                         var isNotWantLevelItem = wantLevelIDs.Length == 0;
                         var isNotWantHellBPM = !Configure.Instance.WantHellBPM;

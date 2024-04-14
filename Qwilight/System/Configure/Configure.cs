@@ -220,7 +220,6 @@ namespace Qwilight
         ControllerSystem.InputAPI _valueControllerInputAPI;
         DefaultControllerSystem.InputAPI _defaultControllerInputAPI;
         bool _autoHighlight;
-        string _wantLevelName;
         bool _autoGetQwilight;
         bool _equalizer;
         bool _tube;
@@ -1104,7 +1103,6 @@ namespace Qwilight
             DrawingSystem.Instance.SetFontFamily();
             BaseUI.Instance.SetFontFamily();
             UI.Instance.SetFontFamily();
-            PoolSystem.Instance.Wipe();
         }
 
         public int CommentViewTabPosition
@@ -2069,22 +2067,25 @@ namespace Qwilight
             }
         }
 
-        public string WantLevelName
-        {
-            get => _wantLevelName;
+        public Dictionary<string, WantLevelConfigure> LastWantLevelConfigures { get; set; }
 
-            set
-            {
-                if (SetProperty(ref _wantLevelName, value, nameof(WantLevelName)))
-                {
-                    OnPropertyChanged(nameof(WantLevelNameText));
-                }
-            }
+        [JsonIgnore]
+        public string LastWantLevelName
+        {
+            get => LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new(null, Array.Empty<string>())).WantLevelName;
+
+            set => LastWantLevelConfigures[LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty].WantLevelName = value;
         }
 
-        public string WantLevelNameText => !WantLevelSystem || string.IsNullOrEmpty(WantLevelName) ? "🔖" : WantLevelName;
+        public string WantLevelNameText => WantLevelSystem ? LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new(null, Array.Empty<string>())).WantLevelNameText : "🔖";
 
-        public string[] WantLevelIDs { get; set; }
+        [JsonIgnore]
+        public string[] LastWantLevelIDs
+        {
+            get => LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new(null, Array.Empty<string>())).WantLevelIDs;
+
+            set => LastWantLevelConfigures[LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty].WantLevelIDs = value;
+        }
 
         public bool AutoLogIn
         {
@@ -2855,8 +2856,6 @@ namespace Qwilight
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 7))
             {
-                WantLevelName = null;
-                WantLevelIDs = Array.Empty<string>();
                 InputWantLevel = new bool[6];
                 Array.Fill(InputWantLevel, true);
             }
@@ -3439,6 +3438,10 @@ namespace Qwilight
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 21))
             {
                 WMPointer = false;
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 23))
+            {
+                LastWantLevelConfigures = new();
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

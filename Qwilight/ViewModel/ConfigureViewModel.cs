@@ -1389,6 +1389,7 @@ namespace Qwilight.ViewModel
             base.OnCollasped();
             Configure.Instance.Save(true);
             GPUConfigure.Instance.Save(true);
+            PoolSystem.Instance.Wipe();
             var mainViewModel = ViewModels.Instance.MainValue;
             mainViewModel.OnJudgmentMeterMillisModified();
             mainViewModel.HandleAutoComputer();

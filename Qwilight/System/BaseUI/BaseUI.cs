@@ -291,11 +291,11 @@ namespace Qwilight
 
         public Color[] D2DLevelColors { get; } = new Color[6];
 
-        public ICanvasBrush[][] D2DHitPointsPaints { get; } = new ICanvasBrush[8][];
+        public ICanvasBrush[][] D2DHitPointsPaints { get; } = new ICanvasBrush[9][];
 
-        public Color[] HitPointsColor { get; } = new Color[8];
+        public Color[] HitPointsColor { get; } = new Color[9];
 
-        public Brush[] HitPointsPaints { get; } = new Brush[8];
+        public Brush[] HitPointsPaints { get; } = new Brush[9];
 
         public Color StatusHandlingColor { get; set; }
 
@@ -865,7 +865,8 @@ namespace Qwilight
                     ("highestHitPoints", ModeComponent.HitPointsMode.Highest),
                     ("failedHitPoints", ModeComponent.HitPointsMode.Failed),
                     ("favorHitPoints", ModeComponent.HitPointsMode.Favor),
-                    ("testHitPoints", ModeComponent.HitPointsMode.Test)
+                    ("testHitPoints", ModeComponent.HitPointsMode.Test),
+                    ("yellHitPoints", ModeComponent.HitPointsMode.Yell)
                 })
                 {
                     parallelItems.Add(() =>
@@ -2161,7 +2162,7 @@ namespace Qwilight
             ModeComponentDrawings[ModifyModeComponentViewModel.NoteSaltModeVariety] = new HandledDrawingItem?[15];
             ModeComponentDrawings[ModifyModeComponentViewModel.FaintNoteModeVariety] = new HandledDrawingItem?[4];
             ModeComponentDrawings[ModifyModeComponentViewModel.JudgmentModeVariety] = new HandledDrawingItem?[6];
-            ModeComponentDrawings[ModifyModeComponentViewModel.HitPointsModeVariety] = new HandledDrawingItem?[8];
+            ModeComponentDrawings[ModifyModeComponentViewModel.HitPointsModeVariety] = new HandledDrawingItem?[9];
             ModeComponentDrawings[ModifyModeComponentViewModel.NoteMobilityModeVariety] = new HandledDrawingItem?[6];
             ModeComponentDrawings[ModifyModeComponentViewModel.LongNoteModeVariety] = new HandledDrawingItem?[4];
             ModeComponentDrawings[ModifyModeComponentViewModel.InputFavorModeVariety] = new HandledDrawingItem?[30];

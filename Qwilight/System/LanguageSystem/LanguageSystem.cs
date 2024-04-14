@@ -12,7 +12,7 @@ namespace Qwilight
         public string[] NoteSaltModeTexts { get; } = new string[15];
         public string[] FaintNoteModeTexts { get; } = new string[4];
         public string[] JudgmentModeTexts { get; } = new string[6];
-        public string[] HitPointsModeTexts { get; } = new string[8];
+        public string[] HitPointsModeTexts { get; } = new string[9];
         public string[] NoteMobilityModeTexts { get; } = new string[6];
         public string[] LongNoteModeTexts { get; } = new string[4];
         public string[] InputFavorModeTexts { get; } = new string[30];
@@ -117,6 +117,7 @@ namespace Qwilight
             HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Highest] = HighestHitPointsModeContents;
             HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Favor] = FavorHitPointsModeContents;
             HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Test] = TestHitPointsModeContents;
+            HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Yell] = YellHitPointsModeContents;
 
             NoteMobilityModeTexts[(int)ModeComponent.NoteMobilityMode.Default] = DefaultMobilityMode;
             NoteMobilityModeTexts[(int)ModeComponent.NoteMobilityMode._4DHD] = _4DModeContents;

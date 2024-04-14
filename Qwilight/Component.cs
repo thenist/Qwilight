@@ -110,7 +110,7 @@
 
         public static readonly double[,] StandMap = new double[2, 6];
         public static readonly double[,] PointMap = new double[2, 6];
-        public static readonly double[,,] HitPointsMap = new double[4, 8, 6];
+        public static readonly double[,,] HitPointsMap = new double[4, 9, 6];
         public static readonly int[][] Inputs = new int[17][];
         public static readonly int[] InputCounts = new int[17];
         public static readonly int[][] DefaultInputs = new int[17][];
@@ -281,6 +281,18 @@
             HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Higher, (int)Judged.Lowest] = 1.5 * HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Default, (int)Judged.Lowest];
             HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Highest, (int)Judged.Lowest] = 2.0 * HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Default, (int)Judged.Lowest];
             HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Failed, (int)Judged.Lowest] = 1.0;
+            for (var i = (int)Judged.Higher; i >= (int)Judged.Highest; --i)
+            {
+                HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Yell, i] = 0.0;
+            }
+            for (var i = (int)Judged.Lowest; i >= (int)Judged.High; --i)
+            {
+                HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Yell, i] = -1.0;
+            }
+            HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Yell, (int)Judged.High] = -1.0;
+            HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Yell, (int)Judged.Low] = -1.0;
+            HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Yell, (int)Judged.Lower] = -1.0;
+            HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Yell, (int)Judged.Lowest] = 1.0;
             HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Test, (int)Judged.Lowest] = HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Lower, (int)Judged.Lowest];
             HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Test, (int)Judged.Lower] = HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Default, (int)Judged.Lower];
             HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Test, (int)Judged.Low] = HitPointsMap[(int)HitPointsMapDate._1_13_2, (int)ModeComponent.HitPointsMode.Default, (int)Judged.Low];

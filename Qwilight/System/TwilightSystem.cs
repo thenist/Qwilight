@@ -796,12 +796,12 @@ namespace Qwilight
                                                         {
                                                             zipFile.AddDirectory(QwilightComponent.CommentEntryPath, "Comment");
                                                         }
-                                                        var levelFilePath = Path.Combine(LevelSystem.EntryPath, $"{Configure.Instance.WantLevelName}.json");
+                                                        var levelFilePath = Path.Combine(LevelSystem.EntryPath, $"{Configure.Instance.LastWantLevelName}.json");
                                                         if (File.Exists(levelFilePath))
                                                         {
                                                             zipFile.AddFile(levelFilePath, "Level");
                                                         }
-                                                        levelFilePath = Path.Combine(LevelSystem.EntryPath, $"#{Configure.Instance.WantLevelName}.json");
+                                                        levelFilePath = Path.Combine(LevelSystem.EntryPath, $"#{Configure.Instance.LastWantLevelName}.json");
                                                         if (File.Exists(levelFilePath))
                                                         {
                                                             zipFile.AddFile(levelFilePath, "Level");

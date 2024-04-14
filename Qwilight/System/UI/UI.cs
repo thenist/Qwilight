@@ -228,7 +228,7 @@ namespace Qwilight
 
         public bool SetJudgmentVisualizerPosition { get; set; }
 
-        public DrawingItem?[] HitPointsDrawings { get; } = new DrawingItem?[8];
+        public DrawingItem?[] HitPointsDrawings { get; } = new DrawingItem?[9];
 
         public HandledDrawingItem? VeilDrawing { get; set; }
 
@@ -2195,6 +2195,7 @@ namespace Qwilight
             JudgmentMererHigherDrawing ??= higherDrawing;
             HunterLowerDrawing ??= lowerDrawing;
             HunterHigherDrawing ??= higherDrawing;
+            HitPointsDrawings[(int)ModeComponent.HitPointsMode.Yell] ??= HitPointsDrawings[(int)ModeComponent.HitPointsMode.Failed];
             for (var i = HitPointsDrawings.Length - 1; i >= 0; --i)
             {
                 HitPointsDrawings[i] ??= HitPointsDrawings[(int)ModeComponent.HitPointsMode.Default];

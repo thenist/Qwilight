@@ -45,15 +45,15 @@ namespace Qwilight
             LevelID128NoteFiles.Clear();
             LevelID256NoteFiles.Clear();
             LevelIDCollection.Clear();
-            var levelName = Configure.Instance.WantLevelName;
-            if (!string.IsNullOrEmpty(levelName))
+            var wantLevelName = Configure.Instance.LastWantLevelName;
+            if (!string.IsNullOrEmpty(wantLevelName))
             {
                 try
                 {
-                    var levelFilePath = Path.Combine(QwilightComponent.QwilightEntryPath, "Level", $"{levelName}.json");
+                    var levelFilePath = Path.Combine(QwilightComponent.QwilightEntryPath, "Level", $"{wantLevelName}.json");
                     if (File.Exists(levelFilePath))
                     {
-                        var levelTableFilePath = Path.Combine(QwilightComponent.QwilightEntryPath, "Level", $"#{levelName}.json");
+                        var levelTableFilePath = Path.Combine(QwilightComponent.QwilightEntryPath, "Level", $"#{wantLevelName}.json");
                         if (File.Exists(levelTableFilePath))
                         {
                             using var tfs = File.OpenRead(levelTableFilePath);
@@ -167,7 +167,7 @@ namespace Qwilight
                         NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.NotSave, LanguageSystem.Instance.SavedLevelContents, true, null, null, NotifySystem.SaveLevelID);
                         Configure.Instance.LevelTargetMap[levelTableFileName] = www;
                         LoadLevelFiles();
-                        Configure.Instance.WantLevelName = levelTableFileName;
+                        Configure.Instance.LastWantLevelName = levelTableFileName;
                     }
                 }
 

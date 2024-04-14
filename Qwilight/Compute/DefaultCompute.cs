@@ -121,7 +121,7 @@ namespace Qwilight.Compute
         readonly Dictionary<MediaNote.Mode, IHandlerItem> MediaCollection = new();
         readonly Stopwatch _loopingHandler = new();
         readonly ConcurrentQueue<(int, byte)> _rawInputQueue = new();
-        readonly List<PaintEvent>[] _paintEventsGAS = new List<PaintEvent>[8];
+        readonly List<PaintEvent>[] _paintEventsGAS = new List<PaintEvent>[9];
         readonly object _targetHandlerCSX = new();
         readonly List<BaseNote> _handlingNotes = new();
         readonly Queue<double> _eventPositions = new();
@@ -129,7 +129,7 @@ namespace Qwilight.Compute
         readonly List<string> _pendingIOAvatarIDs = new();
         readonly List<string> _sentIOAvatarIDs = new();
         readonly List<double> _noteWaits = new();
-        readonly XORFloat64[] _hitPointsGAS = new XORFloat64[6];
+        readonly XORFloat64[] _hitPointsGAS = new XORFloat64[9];
         Component _valueComponent;
         bool _isPausing;
         bool _isPausingWindowOpened;
@@ -2840,6 +2840,12 @@ namespace Qwilight.Compute
                             {
                                 switch (ModeComponentValue.HandlingHitPointsModeValue)
                                 {
+                                    case ModeComponent.HitPointsMode.Yell:
+                                        ModeComponentValue.HandlingHitPointsModeValue = ModeComponent.HitPointsMode.Failed;
+                                        break;
+                                    case ModeComponent.HitPointsMode.Failed:
+                                        ModeComponentValue.HandlingHitPointsModeValue = ModeComponent.HitPointsMode.Highest;
+                                        break;
                                     case ModeComponent.HitPointsMode.Highest:
                                         ModeComponentValue.HandlingHitPointsModeValue = ModeComponent.HitPointsMode.Higher;
                                         break;
@@ -3949,6 +3955,40 @@ namespace Qwilight.Compute
                                     else
                                     {
                                         HitPoints.TargetValue += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                    }
+                                    break;
+                                case ModeComponent.HitPointsMode.Yell:
+                                    if (judged == Component.Judged.Lowest)
+                                    {
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] -= (1.5 * _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] + 0.5) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] -= (_hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] + 1.0) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Higher, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Highest] -= 2.0 * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Highest, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Failed] -= Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Failed, (int)judged];
+                                        HitPoints.TargetValue -= Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                    }
+                                    else
+                                    {
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Higher, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Highest] += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Highest, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Failed] += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Failed, (int)judged];
+                                        HitPoints.TargetValue += Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                    }
+                                    break;
+                                case ModeComponent.HitPointsMode.Failed:
+                                    if (judged == Component.Judged.Lowest)
+                                    {
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] -= (1.5 * _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] + 0.5) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] -= (_hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] + 1.0) * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Higher, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Highest] -= 2.0 * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Highest, (int)judged];
+                                        HitPoints.TargetValue -= Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
+                                    }
+                                    else
+                                    {
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Default] += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Default, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Higher, (int)judged];
+                                        _hitPointsGAS[(int)ModeComponent.HitPointsMode.Highest] += HitPointsValue * Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponent.HitPointsMode.Highest, (int)judged];
+                                        HitPoints.TargetValue += Component.HitPointsMap[(int)_hitPointsMapDate, (int)ModeComponentValue.HandlingHitPointsModeValue, (int)judged];
                                     }
                                     break;
                                 case ModeComponent.HitPointsMode.Highest:

@@ -91,10 +91,10 @@ namespace Qwilight.UIComponent
 
             void FitImpl<T>(Func<EntryItem, T> fromEntryItem, Func<EntryItem, BaseNoteFile, bool> onEqual, bool asc = true) where T : IComparable<T>
             {
-                var wantLevelItem = Configure.Instance.WantLevelIDs.Length > 0;
+                var wantLevelIDs = Configure.Instance.LastWantLevelIDs.Length > 0;
                 entryItems.Sort((x, y) =>
                 {
-                    var value = wantLevelItem ? LevelSystem.Instance.WantLevelIDEquality.Compare(x.WantLevelID, y.WantLevelID) : 0;
+                    var value = wantLevelIDs ? LevelSystem.Instance.WantLevelIDEquality.Compare(x.WantLevelID, y.WantLevelID) : 0;
                     if (value != 0)
                     {
                         return value;
@@ -120,9 +120,9 @@ namespace Qwilight.UIComponent
 
                 foreach (var entryItem in entryItems)
                 {
-                    if (!entryItem.WasNotePositionModified && ((wantLevelItem && entryItem.NoteFile.WantLevelID != entryItem.WantLevelID) || onEqual?.Invoke(entryItem, entryItem.NoteFile) == false))
+                    if (!entryItem.WasNotePositionModified && ((wantLevelIDs && entryItem.NoteFile.WantLevelID != entryItem.WantLevelID) || onEqual?.Invoke(entryItem, entryItem.NoteFile) == false))
                     {
-                        var wantLevelIDSatisfied = wantLevelItem ? entryItem.WellNoteFiles.Where(noteFile => noteFile.WantLevelID == entryItem.WantLevelID) : entryItem.WellNoteFiles;
+                        var wantLevelIDSatisfied = wantLevelIDs ? entryItem.WellNoteFiles.Where(noteFile => noteFile.WantLevelID == entryItem.WantLevelID) : entryItem.WellNoteFiles;
                         var equalSatisfied = onEqual != null ? wantLevelIDSatisfied.Where(noteFile => onEqual(entryItem, noteFile)) : wantLevelIDSatisfied;
 
                         var noteFile = equalSatisfied.FirstOrDefault() ?? wantLevelIDSatisfied.FirstOrDefault();

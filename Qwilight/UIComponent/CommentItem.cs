@@ -33,6 +33,7 @@ namespace Qwilight.UIComponent
             ModeComponent.HitPointsMode.Higher => BaseUI.Instance.LevelPaints[4],
             ModeComponent.HitPointsMode.Highest => BaseUI.Instance.LevelPaints[5],
             ModeComponent.HitPointsMode.Failed => BaseUI.Instance.LevelPaints[5],
+            ModeComponent.HitPointsMode.Yell => BaseUI.Instance.LevelPaints[5],
             _ => QwilightComponent.GetBuiltInData<Brush>("CommentStandPaint")
         };
 

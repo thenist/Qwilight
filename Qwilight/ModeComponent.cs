@@ -28,7 +28,7 @@ namespace Qwilight
 
         public enum HitPointsMode
         {
-            Lower, Default, Higher, Failed, Lowest, Highest, Favor, Test
+            Lower, Default, Higher, Failed, Lowest, Highest, Favor, Test, Yell
         }
 
         public enum NoteMobilityMode
@@ -88,8 +88,8 @@ namespace Qwilight
         double _audioMultiplier = 1.0;
         FaintNoteMode _faintNoteMode;
         JudgmentMode _judgmentMode = JudgmentMode.Default;
-        HitPointsMode _hitPointsMode = HitPointsMode.Highest;
-        HitPointsMode _handlingHitPointsMode = HitPointsMode.Highest;
+        HitPointsMode _hitPointsMode = HitPointsMode.Yell;
+        HitPointsMode _handlingHitPointsMode = HitPointsMode.Yell;
         NoteMobilityMode _noteMobilityMode;
         LongNoteMode _longNoteMode;
         InputFavorMode _inputFavorMode;
@@ -108,7 +108,7 @@ namespace Qwilight
 
         public bool IsNoteSaltModeWarning(Component.NoteSaltModeDate noteSaltModeDate) => noteSaltModeDate == Component.NoteSaltModeDate._1_0_0 && (NoteSaltModeValue == NoteSaltMode.InputSalt || NoteSaltModeValue == NoteSaltMode.Salt || NoteSaltModeValue == NoteSaltMode.MeterSalt || NoteSaltModeValue == NoteSaltMode.HalfInputSalt);
 
-        public bool IsGASWarning => HitPointsModeValue == HitPointsMode.Default || HitPointsModeValue == HitPointsMode.Higher;
+        public bool IsGASWarning => HitPointsModeValue == HitPointsMode.Default || HitPointsModeValue == HitPointsMode.Higher || HitPointsModeValue == HitPointsMode.Highest || HitPointsModeValue == HitPointsMode.Failed;
 
         public Component ComponentValue { get; }
 
@@ -414,7 +414,7 @@ namespace Qwilight
 
         public Color HandlingHitPointsColor => BaseUI.Instance.HitPointsColor[(int)HandlingHitPointsModeValue];
 
-        public bool CanGAS => (HandlingHitPointsModeValue == HitPointsMode.Highest && Configure.Instance.GASLevel >= 1) || (HandlingHitPointsModeValue == HitPointsMode.Higher && Configure.Instance.GASLevel >= 2);
+        public bool CanGAS => (HandlingHitPointsModeValue == HitPointsMode.Yell && Configure.Instance.GASLevel >= 1) || (HandlingHitPointsModeValue == HitPointsMode.Failed && Configure.Instance.GASLevel >= 2) || (HandlingHitPointsModeValue == HitPointsMode.Highest && Configure.Instance.GASLevel >= 3) || (HandlingHitPointsModeValue == HitPointsMode.Higher && Configure.Instance.GASLevel >= 4);
 
         public NoteMobilityMode NoteMobilityModeValue
         {
@@ -948,7 +948,7 @@ namespace Qwilight
             SetAudioMultiplier(1.0);
             FaintNoteModeValue = FaintNoteMode.Default;
             JudgmentModeValue = JudgmentMode.Default;
-            HitPointsModeValue = HitPointsMode.Highest;
+            HitPointsModeValue = HitPointsMode.Yell;
             NoteMobilityModeValue = NoteMobilityMode.Default;
             LongNoteModeValue = LongNoteMode.Default;
             InputFavorModeValue = InputFavorMode.Default;

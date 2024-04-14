@@ -83,6 +83,7 @@ paint:
     failedHitPoints: DarkViolet
     favorHitPoints: DarkGoldenrod
     testHitPoints: DarkGoldenrod
+    yellHitPoints: DarkViolet
 
     standStatusView: DeepSkyBlue
     pointStatusView: LightGreen

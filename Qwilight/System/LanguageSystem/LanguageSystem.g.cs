@@ -232,6 +232,8 @@ namespace Qwilight
         public string EditorConfigureFault { get; set; }
         public string EditorContents { get; set; }
         public string EditorSoftwareFault { get; set; }
+        public string EnhanceInputAudioContents { get; set; }
+        public string EnhanceInputAudioText { get; set; }
         public string Enroll { get; set; }
         public string EnterAutoComputeConfigure { get; set; }
         public string EnterAutoComputeMediaInputConfigure { get; set; }
@@ -606,6 +608,7 @@ namespace Qwilight
         public string NoteLengthContents { get; set; }
         public string NoteMobilityAssist { get; set; }
         public string NoteModifyModeAssist { get; set; }
+        public string NotEnhanceInputAudioText { get; set; }
         public string NoteSaltCommentWarning { get; set; }
         public string NoteSaltModeAssist { get; set; }
         public string NoteWaitContents { get; set; }
@@ -950,6 +953,7 @@ namespace Qwilight
         public string XInputContents { get; set; }
         public string XInputText { get; set; }
         public string YAMLCompileFault { get; set; }
+        public string YellHitPointsModeContents { get; set; }
         public string ZipModeContents { get; set; }
     }
 }

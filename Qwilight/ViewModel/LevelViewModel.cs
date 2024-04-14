@@ -32,7 +32,7 @@ namespace Qwilight.ViewModel
                     LevelItemCollection.Add(new LevelItem
                     {
                         LevelID = levelID,
-                        IsWanted = Configure.Instance.WantLevelIDs.Contains(levelID)
+                        IsWanted = Configure.Instance.LastWantLevelIDs.Contains(levelID)
                     });
                 }
                 OnPropertyChanged(nameof(IsTotalWantLevelID));
@@ -80,7 +80,7 @@ namespace Qwilight.ViewModel
         [RelayCommand]
         static async Task OnGetLevel()
         {
-            if (Configure.Instance.LevelTargetMap.TryGetValue(Configure.Instance.WantLevelName, out var target))
+            if (Configure.Instance.LevelTargetMap.TryGetValue(Configure.Instance.LastWantLevelName, out var target))
             {
                 await LevelSystem.Instance.LoadWww(target).ConfigureAwait(false);
                 await LevelSystem.Instance.LoadJSON(true).ConfigureAwait(false);
@@ -100,12 +100,12 @@ namespace Qwilight.ViewModel
                 Data = MESSAGEBOX_STYLE.MB_YESNO | MESSAGEBOX_STYLE.MB_ICONQUESTION | MESSAGEBOX_STYLE.MB_DEFBUTTON1
             }) == MESSAGEBOX_RESULT.IDYES)
             {
-                Utility.WipeFile(Path.Combine(LevelSystem.EntryPath, $"{Configure.Instance.WantLevelName}.json"));
-                Utility.WipeFile(Path.Combine(LevelSystem.EntryPath, $"#{Configure.Instance.WantLevelName}.json"));
-                Configure.Instance.LevelTargetMap.Remove(Configure.Instance.WantLevelName);
-                var i = LevelSystem.Instance.LevelFileNames.IndexOf(Configure.Instance.WantLevelName);
+                Utility.WipeFile(Path.Combine(LevelSystem.EntryPath, $"{Configure.Instance.LastWantLevelName}.json"));
+                Utility.WipeFile(Path.Combine(LevelSystem.EntryPath, $"#{Configure.Instance.LastWantLevelName}.json"));
+                Configure.Instance.LevelTargetMap.Remove(Configure.Instance.LastWantLevelName);
+                var i = LevelSystem.Instance.LevelFileNames.IndexOf(Configure.Instance.LastWantLevelName);
                 LevelSystem.Instance.LevelFileNames.RemoveAt(i);
-                Configure.Instance.WantLevelName = LevelSystem.Instance.LevelFileNames.ElementAtOrDefault(i) ?? LevelSystem.Instance.LevelFileNames.LastOrDefault();
+                Configure.Instance.LastWantLevelName = LevelSystem.Instance.LevelFileNames.ElementAtOrDefault(i) ?? LevelSystem.Instance.LevelFileNames.LastOrDefault();
             }
         }
 
@@ -118,7 +118,7 @@ namespace Qwilight.ViewModel
         public override void OnCollasped()
         {
             base.OnCollasped();
-            Configure.Instance.WantLevelIDs = LevelItemCollection.Where(levelItem => levelItem.IsWanted).Select(levelItem => levelItem.LevelID).ToArray();
+            Configure.Instance.LastWantLevelIDs = LevelItemCollection.Where(levelItem => levelItem.IsWanted).Select(levelItem => levelItem.LevelID).ToArray();
             Configure.Instance.Save(true);
             ViewModels.Instance.MainValue.Want();
         }

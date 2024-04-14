@@ -134,9 +134,15 @@ namespace Qwilight.ViewModel
                         switch (Configure.Instance.GASLevel)
                         {
                             case 0:
-                                ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Highest);
+                                ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Yell);
                                 break;
                             case 1:
+                                ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Failed);
+                                break;
+                            case 2:
+                                ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Highest);
+                                break;
+                            case 3:
                                 ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Higher);
                                 break;
                         }
@@ -145,7 +151,32 @@ namespace Qwilight.ViewModel
                         switch (Configure.Instance.GASLevel)
                         {
                             case 0:
+                                ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Yell);
+                                break;
+                            case 1:
+                                ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Failed);
+                                break;
+                            case 2:
                                 ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Highest);
+                                break;
+                        }
+                        break;
+                    case ModeComponent.HitPointsMode.Highest:
+                        switch (Configure.Instance.GASLevel)
+                        {
+                            case 0:
+                                ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Yell);
+                                break;
+                            case 1:
+                                ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Failed);
+                                break;
+                        }
+                        break;
+                    case ModeComponent.HitPointsMode.Failed:
+                        switch (Configure.Instance.GASLevel)
+                        {
+                            case 0:
+                                ModeComponentItem = ModeComponentItems.Find(modeComponentItem => modeComponentItem.Value == (int)ModeComponent.HitPointsMode.Yell);
                                 break;
                         }
                         break;
@@ -314,6 +345,30 @@ namespace Qwilight.ViewModel
                 Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Default]?.DefaultDrawing,
                 OnVConfigure = new(() =>
                 {
+                    Configure.Instance.GASLevel = 4;
+                    SetHitPointsMode();
+                }),
+                GetIsVConfigure = () => Configure.Instance.GASLevel >= 4
+            });
+            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
+            {
+                Value = (int)ModeComponent.HitPointsMode.Higher,
+                Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Higher],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Higher]?.DefaultDrawing,
+                OnVConfigure = new(() =>
+                {
+                    Configure.Instance.GASLevel = 3;
+                    SetHitPointsMode();
+                }),
+                GetIsVConfigure = () => Configure.Instance.GASLevel >= 3
+            });
+            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
+            {
+                Value = (int)ModeComponent.HitPointsMode.Highest,
+                Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Highest],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Highest]?.DefaultDrawing,
+                OnVConfigure = new(() =>
+                {
                     Configure.Instance.GASLevel = 2;
                     SetHitPointsMode();
                 }),
@@ -321,9 +376,9 @@ namespace Qwilight.ViewModel
             });
             ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.HitPointsMode.Higher,
-                Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Higher],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Higher]?.DefaultDrawing,
+                Value = (int)ModeComponent.HitPointsMode.Failed,
+                Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Failed],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Failed]?.DefaultDrawing,
                 OnVConfigure = new(() =>
                 {
                     Configure.Instance.GASLevel = 1;
@@ -333,21 +388,15 @@ namespace Qwilight.ViewModel
             });
             ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {
-                Value = (int)ModeComponent.HitPointsMode.Highest,
-                Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Highest],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Highest]?.DefaultDrawing,
+                Value = (int)ModeComponent.HitPointsMode.Yell,
+                Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Yell],
+                Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Yell]?.DefaultDrawing,
                 OnVConfigure = new(() =>
                 {
                     Configure.Instance.GASLevel = 0;
                     SetHitPointsMode();
                 }),
                 GetIsVConfigure = () => Configure.Instance.GASLevel >= 0
-            });
-            ModifyModeComponentItems[HitPointsModeVariety].Add(new()
-            {
-                Value = (int)ModeComponent.HitPointsMode.Failed,
-                Data = LanguageSystem.Instance.HitPointsModeTexts[(int)ModeComponent.HitPointsMode.Failed],
-                Drawing = BaseUI.Instance.ModeComponentDrawings[HitPointsModeVariety][(int)ModeComponent.HitPointsMode.Failed]?.DefaultDrawing
             });
             ModifyModeComponentItems[HitPointsModeVariety].Add(new()
             {

@@ -919,6 +919,13 @@
     "ko-KR": "에디터 실행이 불가능합니다. ({0})",
     "en-US": "Editor cannot run ({0})"
   },
+  "EnhanceInputAudioContents": {
+    "ko-KR": "완성된 배경음에 키음을 추가로 출력합니다."
+  },
+  "EnhanceInputAudioText": {
+    "ko-KR": "키음 덧붙히기 활성화",
+    "en-US": "Enable keystone add"
+  },
   "Enroll": {
     "ko-KR": "회원 가입",
     "en-US": "Join membership"
@@ -1120,8 +1127,8 @@
     "en-US": "List of dependent folders"
   },
   "GASWarning": {
-    "ko-KR": "라이프가 0이 되면 죽지 않고 다음 게이지로 자동으로 내려가므로 그냥 매우 빡빡한 게이지로 플레이하는 걸 권장합니다.",
-    "en-US": "When life goes to zero, it doesn't die and automatically goes down to the next gauge, so I recommend just playing with a very hard gauge."
+    "ko-KR": "라이프가 0이 되면 죽지 않고 다음 게이지로 자동으로 내려가므로 Y-ATK 게이지로 플레이하는 걸 권장합니다.",
+    "en-US": "When life reaches zero, it doesn't die and automatically goes down to the next gauge, so I recommend playing with the Y-ATK gauge."
   },
   "GetMediaInputContents": {
     "ko-KR": "웹캠 장비를 설정합니다.",
@@ -2414,6 +2421,10 @@
   "NoteModifyModeAssist": {
     "ko-KR": "노트에 규칙을 설정합니다.",
     "en-US": "Set note rules"
+  },
+  "NotEnhanceInputAudioText": {
+    "ko-KR": "키음 덧붙히기 비활성화",
+    "en-US": "Disable key add"
   },
   "NoteSaltCommentWarning": {
     "ko-KR": "v1.14.27 미만 랜덤 게임 모드를 적용한 플레이는 리플레이가 호환되지 않습니다.",
@@ -3790,6 +3801,10 @@
   "YAMLCompileFault": {
     "ko-KR": "YAML 파일의 문법이 올바르지 않습니다. ({0})",
     "en-US": "Invalid grammar in YAML file. ({0})"
+  },
+  "YellHitPointsModeContents": {
+    "ko-KR": "정확도가 100％가 아니면 바로 게임 오버됩니다.",
+    "en-US": "If the accuracy is not 100%, the game will be over immediately."
   },
   "ZipModeContents": {
     "ko-KR": "노트가 압축되다가 다시 튀어오릅니다. (고난이도)",
