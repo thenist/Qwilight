@@ -3098,13 +3098,14 @@ namespace Qwilight
             }
             var defaultDPI = 96F * Math.Max(windowAreaLength / enlargedLength, windowAreaHeight / enlargedHeight);
 
+
             if (_rawTargetSystem == null)
             {
                 lock (_d2D1CSX)
                 {
                     _targetSystem?.Dispose();
                     _targetSystem = new(CanvasDevice.GetSharedDevice(), enlargedLength, enlargedHeight, defaultDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
-                    _rawTargetSystemData = new byte[(int)(defaultLength * defaultHeight * 4)];
+                    _rawTargetSystemData = new byte[(int)(defaultLength * (defaultDPI / 96F) * defaultHeight * (defaultDPI / 96F) * 4)];
                     _targetSystemData = _rawTargetSystemData.AsBuffer();
                     _rawTargetSystem?.Dispose();
                     _rawTargetSystem = new(CanvasDevice.GetSharedDevice(), enlargedLength, enlargedHeight, defaultDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount, CanvasAlphaMode.Ignore);
@@ -3121,7 +3122,7 @@ namespace Qwilight
                 {
                     _targetSystem?.Dispose();
                     _targetSystem = new(CanvasDevice.GetSharedDevice(), enlargedLength, enlargedHeight, defaultDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
-                    _rawTargetSystemData = new byte[(int)(defaultLength * defaultHeight * 4)];
+                    _rawTargetSystemData = new byte[(int)(defaultLength * (defaultDPI / 96F) * defaultHeight * (defaultDPI / 96F) * 4)];
                     _targetSystemData = _rawTargetSystemData.AsBuffer();
                     _rawTargetSystem.ResizeBuffers(enlargedLength, enlargedHeight, defaultDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount);
                 }

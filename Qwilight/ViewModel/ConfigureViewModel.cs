@@ -737,7 +737,7 @@ namespace Qwilight.ViewModel
         static void OnHandleInputAudio() => Configure.Instance.HandleInputAudio = !Configure.Instance.HandleInputAudio;
 
         [RelayCommand]
-        static void OnStressInputAudio() => Configure.Instance.StressInputAudio = !Configure.Instance.StressInputAudio;
+        static void OnLevelingInputAudio() => Configure.Instance.LevelingInputAudio = !Configure.Instance.LevelingInputAudio;
 
         [RelayCommand]
         static void OnBanalAudio() => Configure.Instance.BanalAudio = !Configure.Instance.BanalAudio;

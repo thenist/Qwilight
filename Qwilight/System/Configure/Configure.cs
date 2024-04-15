@@ -259,10 +259,9 @@ namespace Qwilight
         bool _audioVisualizer;
         bool _lostPointAudio;
         bool _isMediaFill;
-        bool _isQwilightFill;
         bool _saltAuto;
         bool _isFailMode;
-        bool _stressInputAudio;
+        bool _levelingInputAudio;
         WantBanned _wantBanned;
         bool _wantLevelSystem;
         bool _wantLevelTextValue;
@@ -1670,23 +1669,23 @@ namespace Qwilight
 
         public string HandleInputAudioText => HandleInputAudio ? LanguageSystem.Instance.HandleInputAudioText : LanguageSystem.Instance.NotHandleInputAudioText;
 
-        public bool StressInputAudio
+        public bool LevelingInputAudio
         {
-            get => _stressInputAudio;
+            get => _levelingInputAudio;
 
             set
             {
-                if (SetProperty(ref _stressInputAudio, value))
+                if (SetProperty(ref _levelingInputAudio, value))
                 {
-                    OnPropertyChanged(nameof(StressInputAudioPaint));
-                    OnPropertyChanged(nameof(StressInputAudioText));
+                    OnPropertyChanged(nameof(LevelingInputAudioPaint));
+                    OnPropertyChanged(nameof(LevelingInputAudioText));
                 }
             }
         }
 
-        public Brush StressInputAudioPaint => Paints.PointPaints[StressInputAudio ? 1 : 0];
+        public Brush LevelingInputAudioPaint => Paints.PointPaints[LevelingInputAudio ? 1 : 0];
 
-        public string StressInputAudioText => StressInputAudio ? LanguageSystem.Instance.StressInputAudioText : LanguageSystem.Instance.NotStressInputAudioText;
+        public string LevelingInputAudioText => LevelingInputAudio ? LanguageSystem.Instance.LevelingInputAudioText : LanguageSystem.Instance.NotLevelingInputAudioText;
 
         [JsonIgnore]
         public double BanalAudioWait

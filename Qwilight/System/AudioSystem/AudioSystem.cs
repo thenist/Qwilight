@@ -279,7 +279,7 @@ namespace Qwilight
 
                 for (var audioVariety = SEAudio; audioVariety >= MainAudio; --audioVariety)
                 {
-                    var targetAudioVolume = totalAudioVolume * _audioVolumes[audioVariety];
+                    var targetAudioVolume = (float)(1 - Math.Sqrt(1 - Math.Pow(totalAudioVolume * _audioVolumes[audioVariety], 2)));
                     _audioCSX.EnterWriteLock();
                     try
                     {

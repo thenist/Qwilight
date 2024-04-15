@@ -2438,7 +2438,7 @@ namespace Qwilight.Compute
                         if (!IsInEvents)
                         {
                             Utility.LoopBefore(waitAudioNoteMap, LoopingCounter, Configure.Instance.AudioWait + Configure.Instance.BanalAudioWait, handleAudioNotesImpl);
-                            if (!Configure.Instance.HandleInputAudio || Configure.Instance.StressInputAudio)
+                            if (!Configure.Instance.HandleInputAudio || Configure.Instance.LevelingInputAudio)
                             {
                                 Utility.LoopBefore(waitInputAudioMap, LoopingCounter, Configure.Instance.AudioWait + Configure.Instance.BanalAudioWait, handleAudioNotesImpl);
                             }
