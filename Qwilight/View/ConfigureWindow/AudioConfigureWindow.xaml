@@ -70,8 +70,8 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource StandardInput}" Foreground="{Binding StressInputAudioPaint, Source={StaticResource Configure}}" Command="{Binding StressInputAudioCommand}" Content="{Binding StressInputAudioText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
-                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding StressInputAudioContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                    <Button Style="{StaticResource StandardInput}" Foreground="{Binding LevelingInputAudioPaint, Source={StaticResource Configure}}" Command="{Binding LevelingInputAudioCommand}" Content="{Binding LevelingInputAudioText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding LevelingInputAudioContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
                 </Grid>
             </ContentControl>
             <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">

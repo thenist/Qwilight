@@ -458,6 +458,8 @@ namespace Qwilight
         public string Level3Contents { get; set; }
         public string Level4Contents { get; set; }
         public string Level5Contents { get; set; }
+        public string LevelingInputAudioContents { get; set; }
+        public string LevelingInputAudioText { get; set; }
         public string LevelInputContents { get; set; }
         public string LevelItem { get; set; }
         public string LevelSystemText { get; set; }
@@ -634,6 +636,7 @@ namespace Qwilight
         public string NotIsFailModeText { get; set; }
         public string NotIsXwindowText { get; set; }
         public string NotK70Text { get; set; }
+        public string NotLevelingInputAudioText { get; set; }
         public string NotLoggedInContents { get; set; }
         public string NotLoggedInLambda { get; set; }
         public string NotLoggedInSituationContents { get; set; }
@@ -653,7 +656,6 @@ namespace Qwilight
         public string NotSFXText { get; set; }
         public string NotStillDrawing { get; set; }
         public string NotStopLastEqualAudioText { get; set; }
-        public string NotLevelingInputAudioText { get; set; }
         public string NotSupportedFileContents { get; set; }
         public string NotTubeText { get; set; }
         public string NotUbuntuSituationContents { get; set; }
@@ -813,8 +815,6 @@ namespace Qwilight
         public string StopSavingAsBundleContents { get; set; }
         public string StopSavingBundleContents { get; set; }
         public string StopSiteNetText { get; set; }
-        public string LevelingInputAudioContents { get; set; }
-        public string LevelingInputAudioText { get; set; }
         public string SymmetricModeContents { get; set; }
         public string TestHitPointsModeContents { get; set; }
         public string TestHitPointsModeWarning { get; set; }

@@ -1823,6 +1823,14 @@
     "ko-KR": "아주 어려움",
     "en-US": "Insane"
   },
+  "LevelingInputAudioContents": {
+    "ko-KR": "완성된 배경음에 키음을 추가로 덧붙힙니다.",
+    "en-US": "An additional keysound is added to the completed background sound."
+  },
+  "LevelingInputAudioText": {
+    "ko-KR": "키음 덧붙히기 활성화",
+    "en-US": "Enable keysound appending"
+  },
   "LevelInputContents": {
     "ko-KR": "난이도 테이블의 주소를 입력하세요",
     "en-US": "Please enter the address of the difficulty table."
@@ -2527,6 +2535,10 @@
     "ko-KR": "CORSAIR® CUE™ 비활성화",
     "en-US": "Disable CORSAIR® CUE™"
   },
+  "NotLevelingInputAudioText": {
+    "ko-KR": "키음 덧붙히기 비활성화",
+    "en-US": "Disable keysound appending"
+  },
   "NotLoggedInContents": {
     "ko-KR": "{0}님 감사합니다.",
     "en-US": "Thank you, {0}."
@@ -2602,10 +2614,6 @@
   "NotStopLastEqualAudioText": {
     "ko-KR": "중복 키음 방지 비활성화",
     "en-US": "Disable duplicate key tone protection"
-  },
-  "NotStressInputAudioText": {
-    "ko-KR": "키음 덧붙히기 비활성화",
-    "en-US": "Disable keysound appending"
   },
   "NotSupportedFileContents": {
     "ko-KR": "지원하지 않는 파일입니다.",
@@ -3242,14 +3250,6 @@
   "StopSiteNetText": {
     "ko-KR": "강제 중단",
     "en-US": "Forced stop"
-  },
-  "StressInputAudioContents": {
-    "ko-KR": "완성된 배경음에 키음을 추가로 덧붙힙니다.",
-    "en-US": "An additional keysound is added to the completed background sound."
-  },
-  "StressInputAudioText": {
-    "ko-KR": "키음 덧붙히기 활성화",
-    "en-US": "Enable keysound appending"
   },
   "SymmetricModeContents": {
     "ko-KR": "노트를 반전시킵니다. (미러)",
