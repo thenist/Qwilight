@@ -2298,6 +2298,7 @@ namespace Qwilight
                             lock (LoadedCSX)
                             {
                                 LoadUIImpl(src, target);
+                                DrawingSystem.Instance.LoadVeilDrawing();
                             }
                             OnLoaded();
                             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedUIFileContents, true, null, null, NotifySystem.LoadUIID);
@@ -2330,6 +2331,7 @@ namespace Qwilight
                         lock (LoadedCSX)
                         {
                             LoadUIImpl(src, target);
+                            DrawingSystem.Instance.LoadVeilDrawing();
                         }
                         OnLoaded();
                     }
@@ -2355,7 +2357,6 @@ namespace Qwilight
                 {
                     mainViewModel.GetHandlingComputer()?.SetUIMap();
                     DrawingSystem.Instance.OnModified();
-                    DrawingSystem.Instance.LoadVeilDrawing();
                     AvatarTitleSystem.Instance.WipeAvatarTitles();
                     ViewModels.Instance.NotifyWindowViewModels();
                     ViewModels.Instance.ModifyModeComponentValue.SetModeComponentItems();
