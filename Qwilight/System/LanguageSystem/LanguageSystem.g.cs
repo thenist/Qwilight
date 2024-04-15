@@ -405,19 +405,19 @@ namespace Qwilight
         public string InputFavorMode8 { get; set; }
         public string InputFavorMode9 { get; set; }
         public string InputFavorModeAssist { get; set; }
-        public string InputFavorModeFill10 { get; set; }
-        public string InputFavorModeFill102 { get; set; }
-        public string InputFavorModeFill142 { get; set; }
-        public string InputFavorModeFill242 { get; set; }
-        public string InputFavorModeFill4 { get; set; }
-        public string InputFavorModeFill484 { get; set; }
-        public string InputFavorModeFill5 { get; set; }
-        public string InputFavorModeFill51 { get; set; }
-        public string InputFavorModeFill6 { get; set; }
-        public string InputFavorModeFill7 { get; set; }
-        public string InputFavorModeFill71 { get; set; }
-        public string InputFavorModeFill8 { get; set; }
-        public string InputFavorModeFill9 { get; set; }
+        public string InputFavorModeLabelled10 { get; set; }
+        public string InputFavorModeLabelled102 { get; set; }
+        public string InputFavorModeLabelled142 { get; set; }
+        public string InputFavorModeLabelled242 { get; set; }
+        public string InputFavorModeLabelled4 { get; set; }
+        public string InputFavorModeLabelled484 { get; set; }
+        public string InputFavorModeLabelled5 { get; set; }
+        public string InputFavorModeLabelled51 { get; set; }
+        public string InputFavorModeLabelled6 { get; set; }
+        public string InputFavorModeLabelled7 { get; set; }
+        public string InputFavorModeLabelled71 { get; set; }
+        public string InputFavorModeLabelled8 { get; set; }
+        public string InputFavorModeLabelled9 { get; set; }
         public string InputMapText { get; set; }
         public string InputNoteCountViewColor { get; set; }
         public string InputSaltModeContents { get; set; }

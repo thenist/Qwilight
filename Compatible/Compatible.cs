@@ -792,6 +792,11 @@ namespace Compatible
                                 zipEntry.FileName = $"Audio/Higher Entry Item{Path.GetExtension(zipEntry.FileName)}";
                                 wasModified = true;
                             }
+                            if (zipEntry.FileName.StartsWith($"Sign in/S 0."))
+                            {
+                                zipEntry.FileName = $"Log In/L 0{Path.GetExtension(zipEntry.FileName)}";
+                                wasModified = true;
+                            }
                             for (var i = 1; i >= 0; --i)
                             {
                                 if (zipEntry.FileName.StartsWith($"Audio/Controller {i}."))

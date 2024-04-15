@@ -1,13 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.UI;
-using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Content;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.Win32;
 using Qwilight.Compute;
 using Qwilight.MSG;
@@ -54,8 +52,7 @@ namespace Qwilight.View
             _d2DView = new();
             _mainView = new()
             {
-                Child = _d2DView,
-                Stretch = Configure.Instance.D2DFillMode
+                Child = _d2DView
             };
             _mainView.PointerPressed += OnD2DPointLower;
             _mainView.PointerMoved += OnD2DPointMove;
@@ -64,10 +61,6 @@ namespace Qwilight.View
             _mainView.PointerExited += OnD2DPointExit;
             _mainView.PointerWheelChanged += OnD2DPointSpin;
             _windowXamlView.Content = _mainView;
-            _windowXamlView.SystemBackdrop = new MicaBackdrop
-            {
-                Kind = MicaKind.BaseAlt
-            };
             _siteView = _windowXamlView.SiteBridge;
             SetD2DViewVisibility(false);
 
@@ -194,11 +187,11 @@ namespace Qwilight.View
             StrongReferenceMessenger.Default.Register<GetWindowArea>(this, (recipient, message) => message.Reply(GetWindowArea()));
             StrongReferenceMessenger.Default.Register<GetWindowHandle>(this, (recipient, message) => message.Reply(_handle));
             StrongReferenceMessenger.Default.Register<SetD2DView>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() => _d2DView.SwapChain = message.D2DView));
-            StrongReferenceMessenger.Default.Register<SetD2DViewFill>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() => _mainView.Stretch = Configure.Instance.D2DFillMode));
             StrongReferenceMessenger.Default.Register<SetD2DViewArea>(this, (recipient, message) => UIHandler.Instance.HandleParallel(() =>
             {
-                _d2DView.Width = _d2DView.SwapChain.Size.Width;
-                _d2DView.Height = _d2DView.SwapChain.Size.Height;
+                var d2DArea = _d2DView.SwapChain.Size;
+                _d2DView.Width = d2DArea.Width;
+                _d2DView.Height = d2DArea.Height;
                 var windowArea = GetWindowArea();
                 _siteView.MoveAndResize(new(0, 0, windowArea.Width, windowArea.Height));
             }));
@@ -384,20 +377,13 @@ namespace Qwilight.View
             var d2DArea = _d2DView.SwapChain.Size;
             var d2DAreaLength = d2DArea.Width;
             var d2DAreaHeight = d2DArea.Height;
-            if (Configure.Instance.IsQwilightFill)
+            if (d2DAreaLength / windowAreaLength > d2DAreaHeight / windowAreaHeight)
             {
-                return new Point(point.X * d2DAreaLength * windowDPI / windowAreaLength, point.Y * d2DAreaHeight * windowDPI / windowAreaHeight);
+                return new Point(point.X * d2DAreaLength * windowDPI / windowAreaLength, point.Y * d2DAreaLength * windowDPI / windowAreaLength);
             }
             else
             {
-                if (d2DAreaLength / windowAreaLength > d2DAreaHeight / windowAreaHeight)
-                {
-                    return new Point(point.X * d2DAreaLength * windowDPI / windowAreaLength, point.Y * d2DAreaLength * windowDPI / windowAreaLength);
-                }
-                else
-                {
-                    return new Point(point.X * d2DAreaHeight * windowDPI / windowAreaHeight, point.Y * d2DAreaHeight * windowDPI / windowAreaHeight);
-                }
+                return new Point(point.X * d2DAreaHeight * windowDPI / windowAreaHeight, point.Y * d2DAreaHeight * windowDPI / windowAreaHeight);
             }
         }
 

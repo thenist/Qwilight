@@ -158,11 +158,11 @@ namespace Qwilight
             }
         }
 
-        public void Paint(CanvasDrawingSession targetSession, double millis, DefaultCompute defaultComputer, DefaultCompute handlingComputer)
+        public void Paint(CanvasDrawingSession targetSession, ref Bound r, double millis, DefaultCompute defaultComputer, DefaultCompute handlingComputer)
         {
             if (Mode == 1)
             {
-                var r = PaintBound;
+                r.Set(PaintBound);
                 if (DrawingVariety < 100)
                 {
                     var defaultMediaFaint = (float)Configure.Instance.BaseUIConfigureValue.DefaultMediaFaint;

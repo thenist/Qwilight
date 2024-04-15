@@ -57,7 +57,6 @@ namespace Qwilight.View
             using (var targetSession = _target.RenderOpen())
             {
                 var mainViewModel = (DataContext as MainViewModel);
-                var defaultLength = mainViewModel.DefaultLength;
 
                 var fadingValue = mainViewModel.FadingValue;
                 var fadingStatus = fadingValue.Status;

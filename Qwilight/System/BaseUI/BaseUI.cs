@@ -1768,9 +1768,9 @@ namespace Qwilight
                                 break;
                         }
                         break;
-                    case "Sign in":
+                    case "Log In":
                         fileNameContents = justFileName.Split(" ");
-                        if (fileNameContents[0] == "S")
+                        if (fileNameContents[0] == "L")
                         {
                             LogInDrawings[Utility.ToInt32(fileNameContents[1])] = defaultDrawing;
                         }

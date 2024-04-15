@@ -871,9 +871,6 @@ namespace Qwilight.ViewModel
         }
 
         [RelayCommand]
-        static void OnIsQwilightFill() => Configure.Instance.IsQwilightFill = !Configure.Instance.IsQwilightFill;
-
-        [RelayCommand]
         static void OnVESA() => Configure.Instance.VESAV2 = !Configure.Instance.VESAV2;
 
         [RelayCommand]

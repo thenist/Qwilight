@@ -14,7 +14,6 @@ using System.Buffers;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
-using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Media.Imaging;
@@ -91,7 +90,9 @@ namespace Qwilight
             new ICanvasBrush[101],
             new ICanvasBrush[101],
         };
-        Vector2 _drawingQuality;
+        float _drawingMargin0;
+        float _drawingMargin1;
+        double _defaultDPI;
         CanvasSwapChain _rawTargetSystem;
         CanvasRenderTarget _targetSystem;
         byte[] _rawTargetSystemData;
@@ -318,8 +319,6 @@ namespace Qwilight
         {
             Span<int> judgments = stackalloc int[6];
             var mainViewModel = ViewModels.Instance.MainValue;
-            var r = new Bound();
-            var s = new Bound();
             var pauseNotify0Position0 = 0F;
             var pauseNotify0Position1 = 0F;
             var pauseNotify1Position0 = 0F;
@@ -393,6 +392,9 @@ namespace Qwilight
                     distanceMillis = millis - lastMillis;
                     lastMillis = millis;
 
+                    var r = new Bound(0.0, 0.0, 0.0, 0.0, _drawingMargin0, _drawingMargin1);
+                    var s = new Bound();
+
                     var wasLastPointed = LastPointedQueue.TryDequeue(out var lastPointed);
                     var wasLastMoved = LastMovedQueue.TryDequeue(out var lastMoved);
                     var wasLastNotPointed = LastNotPointedQueue.TryDequeue(out var lastNotPointed);
@@ -400,8 +402,8 @@ namespace Qwilight
                     var isNVLL = Configure.Instance.IsNVLL;
                     var allowFramerate = TelnetSystem.Instance.IsAvailable;
                     var mode = mainViewModel.ModeValue;
-                    var defaultLength = (float)_rawTargetSystem.Size.Width;
-                    var defaultHeight = (float)_rawTargetSystem.Size.Height;
+                    var defaultLength = (float)mainViewModel.DefaultLength;
+                    var defaultHeight = (float)mainViewModel.DefaultHeight;
                     var fading = mainViewModel.FadingValue;
                     var fadingStatus = fading.Status;
                     pauseNotify0Position0 = Levels.StandardMarginFloat32;
@@ -422,6 +424,7 @@ namespace Qwilight
                                         PaintNotifyXamlItems();
                                     }
                                     PaintFramerate();
+                                    PaintMargin();
                                 }
                             }
 
@@ -1178,9 +1181,13 @@ namespace Qwilight
                                                                                                 r.Set(targetPosition0 + distanceNet + Levels.StandardEdgeFloat32, drawingPosition1 + Levels.StandardEdgeFloat32, highestNetHeight, highestNetHeight);
                                                                                                 targetSession.PaintDrawing(ref r, avatarDrawing?.Drawing, netItemFaint);
 
-                                                                                                s.Set(r.Position0 + r.Length * Levels.EdgeXY, r.Position1 + r.Height * Levels.EdgeXY, r.Length * Levels.EdgeMargin, r.Height * Levels.EdgeMargin);
-                                                                                                targetSession.PaintDrawing(ref s, avatarEdge?.Drawing, netItemFaint);
+                                                                                                r.Position0 += r.Length * Levels.EdgeXY;
+                                                                                                r.Position1 += r.Height * Levels.EdgeXY;
+                                                                                                r.Length *= Levels.EdgeMargin;
+                                                                                                r.Height *= Levels.EdgeMargin;
+                                                                                                targetSession.PaintDrawing(ref r, avatarEdge?.Drawing, netItemFaint);
 
+                                                                                                r.Set(targetPosition0 + distanceNet + Levels.StandardEdgeFloat32, drawingPosition1 + Levels.StandardEdgeFloat32, highestNetHeight, highestNetHeight);
                                                                                                 targetSession.FillRectangle(r, lowHitPointsPaint);
 
                                                                                                 if (drawings != null && netItem.AvatarNetStatus == Event.Types.AvatarNetStatus.Default)
@@ -1198,17 +1205,17 @@ namespace Qwilight
                                                                                                             switch (drawing.DrawingVariety)
                                                                                                             {
                                                                                                                 case Event.Types.NetDrawing.Types.Variety.Note:
-                                                                                                                    s.Set(drawing.Position0 * valueLength, drawing.Position1 * valueHeight, drawing.Length * valueLength, drawing.Height * valueHeight);
-                                                                                                                    var ellipse = (float)Math.Min(s.Length / 2, s.Height / 2);
-                                                                                                                    session.FillRoundedRectangle(s, ellipse, ellipse, valueColor);
+                                                                                                                    r.Set(drawing.Position0 * valueLength, drawing.Position1 * valueHeight, drawing.Length * valueLength, drawing.Height * valueHeight);
+                                                                                                                    var ellipse = (float)Math.Min(r.Length / 2, r.Height / 2);
+                                                                                                                    session.FillRoundedRectangle(r, ellipse, ellipse, valueColor);
                                                                                                                     break;
                                                                                                                 case Event.Types.NetDrawing.Types.Variety.Main:
-                                                                                                                    s.Set(drawing.Position0 * valueLength, drawing.Position1 * valueHeight, drawing.Length * valueLength, drawing.Height * valueHeight);
-                                                                                                                    session.FillRectangle(s, valueColor);
+                                                                                                                    r.Set(drawing.Position0 * valueLength, drawing.Position1 * valueHeight, drawing.Length * valueLength, drawing.Height * valueHeight);
+                                                                                                                    session.FillRectangle(r, valueColor);
                                                                                                                     break;
                                                                                                                 case Event.Types.NetDrawing.Types.Variety.Meter:
-                                                                                                                    s.Set(0F, drawing.Position1 * valueHeight, highestNetHeight, valueHeight);
-                                                                                                                    session.FillRectangle(s, valueColor);
+                                                                                                                    r.Set(0F, drawing.Position1 * valueHeight, highestNetHeight, valueHeight);
+                                                                                                                    session.FillRectangle(r, valueColor);
                                                                                                                     break;
                                                                                                             }
                                                                                                         }
@@ -1565,7 +1572,7 @@ namespace Qwilight
                                                                             for (var i = inputCount; i > 1; --i)
                                                                             {
                                                                                 var limiterPosition0 = defaultComputer.GetPosition(defaultPaintValues[i]);
-                                                                                targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
+                                                                                targetSession.DrawLine(_drawingMargin0 + limiterPosition0, _drawingMargin1 + limiterPosition1, _drawingMargin0 + limiterPosition0, _drawingMargin1 + limiterHeight, limiterColor, limiterLength);
                                                                             }
                                                                         }
                                                                         else
@@ -1578,9 +1585,9 @@ namespace Qwilight
                                                                                     if (Array.IndexOf(autoableInputs, i) != -1)
                                                                                     {
                                                                                         var limiterPosition0 = defaultComputer.GetPosition(i);
-                                                                                        targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
+                                                                                        targetSession.DrawLine(_drawingMargin0 + limiterPosition0, _drawingMargin1 + limiterPosition1, _drawingMargin0 + limiterPosition0, _drawingMargin1 + limiterHeight, limiterColor, limiterLength);
                                                                                         limiterPosition0 += drawingNoteLengthMap[i];
-                                                                                        targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
+                                                                                        targetSession.DrawLine(_drawingMargin0 + limiterPosition0, _drawingMargin1 + limiterPosition1, _drawingMargin0 + limiterPosition0, _drawingMargin1 + limiterHeight, limiterColor, limiterLength);
                                                                                     }
                                                                                 }
                                                                             }
@@ -1592,7 +1599,7 @@ namespace Qwilight
                                                                                     for (var j = limiterCenterValues[i] - 1; j >= 0; --j)
                                                                                     {
                                                                                         var limiterPosition0 = defaultComputer.GetPosition(i) + j * drawingNoteLengthMap[i];
-                                                                                        targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
+                                                                                        targetSession.DrawLine(_drawingMargin0 + limiterPosition0, _drawingMargin1 + limiterPosition1, _drawingMargin0 + limiterPosition0, _drawingMargin1 + limiterHeight, limiterColor, limiterLength);
                                                                                     }
                                                                                 }
                                                                             }
@@ -1604,7 +1611,7 @@ namespace Qwilight
                                                                                     if (limiter57Values[i])
                                                                                     {
                                                                                         var limiterPosition0 = defaultComputer.GetPosition(i);
-                                                                                        targetSession.DrawLine(limiterPosition0, limiterPosition1, limiterPosition0, limiterHeight, limiterColor, limiterLength);
+                                                                                        targetSession.DrawLine(_drawingMargin0 + limiterPosition0, _drawingMargin1 + limiterPosition1, _drawingMargin0 + limiterPosition0, _drawingMargin1 + limiterHeight, limiterColor, limiterLength);
                                                                                     }
                                                                                 }
                                                                             }
@@ -1634,19 +1641,19 @@ namespace Qwilight
                                                                                     {
                                                                                         case 0:
                                                                                             var judgmentVisualizerPosition1Value = (float)(judgmentVisualizerPosition1 + judgmentVisualizerHeight * (1 - judgmentVisualizerValue.Judgment));
-                                                                                            targetSession.DrawLine(judgmentVisualizerPosition0Float, judgmentVisualizerPosition1Value, judgmentVisualizerPosition0Float + judgmentVisualizerContentsLength, judgmentVisualizerPosition1Value, judgmentColorPaint, judgmentVisualizerContentsHeight);
+                                                                                            targetSession.DrawLine(_drawingMargin0 + judgmentVisualizerPosition0Float, _drawingMargin1 + judgmentVisualizerPosition1Value, _drawingMargin0 + judgmentVisualizerPosition0Float + judgmentVisualizerContentsLength, _drawingMargin1 + judgmentVisualizerPosition1Value, judgmentColorPaint, judgmentVisualizerContentsHeight);
                                                                                             break;
                                                                                         case 1:
                                                                                             judgmentVisualizerPosition1Value = (float)(judgmentVisualizerPosition1 + judgmentVisualizerHeight * judgmentVisualizerValue.Judgment);
-                                                                                            targetSession.DrawLine(judgmentVisualizerPosition0Float, judgmentVisualizerPosition1Value, judgmentVisualizerPosition0Float + judgmentVisualizerContentsLength, judgmentVisualizerPosition1Value, judgmentColorPaint, judgmentVisualizerContentsHeight);
+                                                                                            targetSession.DrawLine(_drawingMargin0 + judgmentVisualizerPosition0Float, _drawingMargin1 + judgmentVisualizerPosition1Value, _drawingMargin0 + judgmentVisualizerPosition0Float + judgmentVisualizerContentsLength, _drawingMargin1 + judgmentVisualizerPosition1Value, judgmentColorPaint, judgmentVisualizerContentsHeight);
                                                                                             break;
                                                                                         case 2:
                                                                                             var judgmentVisualizerPosition0Value = (float)(judgmentVisualizerPosition0Float + judgmentVisualizerLength * (1 - judgmentVisualizerValue.Judgment));
-                                                                                            targetSession.DrawLine(judgmentVisualizerPosition0Value, judgmentVisualizerPosition1, judgmentVisualizerPosition0Value, judgmentVisualizerPosition1 + judgmentVisualizerContentsHeight, judgmentColorPaint, judgmentVisualizerContentsLength);
+                                                                                            targetSession.DrawLine(_drawingMargin0 + judgmentVisualizerPosition0Value, _drawingMargin1 + judgmentVisualizerPosition1, _drawingMargin0 + judgmentVisualizerPosition0Value, _drawingMargin1 + judgmentVisualizerPosition1 + judgmentVisualizerContentsHeight, judgmentColorPaint, judgmentVisualizerContentsLength);
                                                                                             break;
                                                                                         case 3:
                                                                                             judgmentVisualizerPosition0Value = (float)(judgmentVisualizerPosition0Float + judgmentVisualizerLength * judgmentVisualizerValue.Judgment);
-                                                                                            targetSession.DrawLine(judgmentVisualizerPosition0Value, judgmentVisualizerPosition1, judgmentVisualizerPosition0Value, judgmentVisualizerPosition1 + judgmentVisualizerContentsHeight, judgmentColorPaint, judgmentVisualizerContentsLength);
+                                                                                            targetSession.DrawLine(_drawingMargin0 + judgmentVisualizerPosition0Value, _drawingMargin1 + judgmentVisualizerPosition1, _drawingMargin0 + judgmentVisualizerPosition0Value, _drawingMargin1 + judgmentVisualizerPosition1 + judgmentVisualizerContentsHeight, judgmentColorPaint, judgmentVisualizerContentsLength);
                                                                                             break;
                                                                                     }
                                                                                 }
@@ -2313,6 +2320,7 @@ namespace Qwilight
                                         PaintNotifyXamlItems();
                                     }
                                     PaintFramerate();
+                                    PaintMargin();
                                 }
 
                                 CopyD3D9Drawing();
@@ -2456,9 +2464,7 @@ namespace Qwilight
                                                 var judgmentMeterViewHeight = BaseUI.Instance.JudgmentMeterViewPoint[3];
                                                 r.Set(judgmentMeterViewPosition0, judgmentMeterViewPosition1, judgmentMeterViewLength, judgmentMeterViewHeight);
                                                 targetSession.DrawRectangle(r, Colors.White);
-                                                r.SetPosition(judgmentMeterViewPosition0, judgmentMeterViewPosition1 + judgmentMeterViewHeight / 2);
-                                                s.SetPosition(judgmentMeterViewPosition0 + judgmentMeterViewLength, judgmentMeterViewPosition1 + judgmentMeterViewHeight / 2);
-                                                targetSession.DrawLine(r, s, Colors.White);
+                                                targetSession.DrawLine(_drawingMargin0 + judgmentMeterViewPosition0, _drawingMargin1 + judgmentMeterViewPosition1 + judgmentMeterViewHeight / 2, _drawingMargin0 + judgmentMeterViewPosition0 + judgmentMeterViewLength, _drawingMargin1 + judgmentMeterViewPosition1 + judgmentMeterViewHeight / 2, Colors.White);
                                                 var lowestJudgmentMillis = defaultComputer.LowestJudgmentMillis;
                                                 var highestJudgmentMillis = defaultComputer.HighestJudgmentMillis;
                                                 var noteFileLength = defaultComputer.NoteFile.Length;
@@ -2512,9 +2518,7 @@ namespace Qwilight
                                                         var hitPointsEventValue = hitPointsEventValues[i];
                                                         var hitPointsEventValueAs = hitPointsEventValues[i + 1];
 
-                                                        r.SetPosition((float)(statusViewPosition0 + hitPointsEventValue.Key * statusViewLength), (float)(statusViewPosition1 + hitPointsEventValue.Value * statusViewHeight));
-                                                        s.SetPosition((float)(statusViewPosition0 + hitPointsEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + hitPointsEventValueAs.Value * statusViewHeight));
-                                                        targetSession.DrawLine(r, s, hitPointsStatusViewColor);
+                                                        targetSession.DrawLine((float)(_drawingMargin0 + statusViewPosition0 + hitPointsEventValue.Key * statusViewLength), (float)(_drawingMargin1 + statusViewPosition1 + hitPointsEventValue.Value * statusViewHeight), (float)(_drawingMargin0 + statusViewPosition0 + hitPointsEventValueAs.Key * statusViewLength), (float)(_drawingMargin1 + statusViewPosition1 + hitPointsEventValueAs.Value * statusViewHeight), hitPointsStatusViewColor);
                                                     }
 
                                                     for (var i = standEventValues.Count - 2; i >= 0; --i)
@@ -2522,9 +2526,7 @@ namespace Qwilight
                                                         var standEventValue = standEventValues[i];
                                                         var standEventValueAs = standEventValues[i + 1];
 
-                                                        r.SetPosition((float)(statusViewPosition0 + standEventValue.Key * statusViewLength), (float)(statusViewPosition1 + standEventValue.Value * statusViewHeight));
-                                                        s.SetPosition((float)(statusViewPosition0 + standEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + standEventValueAs.Value * statusViewHeight));
-                                                        targetSession.DrawLine(r, s, standStatusViewColor);
+                                                        targetSession.DrawLine((float)(_drawingMargin0 + statusViewPosition0 + standEventValue.Key * statusViewLength), (float)(_drawingMargin1 + statusViewPosition1 + standEventValue.Value * statusViewHeight), (float)(_drawingMargin0 + statusViewPosition0 + standEventValueAs.Key * statusViewLength), (float)(_drawingMargin1 + statusViewPosition1 + standEventValueAs.Value * statusViewHeight), standStatusViewColor);
                                                     }
 
                                                     for (var i = pointEventValues.Count - 2; i >= 0; --i)
@@ -2532,9 +2534,7 @@ namespace Qwilight
                                                         var pointEventValue = pointEventValues[i];
                                                         var pointEventValueAs = pointEventValues[i + 1];
 
-                                                        r.SetPosition((float)(statusViewPosition0 + pointEventValue.Key * statusViewLength), (float)(statusViewPosition1 + pointEventValue.Value * statusViewHeight));
-                                                        s.SetPosition((float)(statusViewPosition0 + pointEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + pointEventValueAs.Value * statusViewHeight));
-                                                        targetSession.DrawLine(r, s, pointStatusViewColor);
+                                                        targetSession.DrawLine((float)(_drawingMargin0 + statusViewPosition0 + pointEventValue.Key * statusViewLength), (float)(_drawingMargin1 + statusViewPosition1 + pointEventValue.Value * statusViewHeight), (float)(_drawingMargin0 + statusViewPosition0 + pointEventValueAs.Key * statusViewLength), (float)(_drawingMargin1 + statusViewPosition1 + pointEventValueAs.Value * statusViewHeight), pointStatusViewColor);
                                                     }
 
                                                     for (var i = bandEventValues.Count - 2; i >= 0; --i)
@@ -2542,9 +2542,7 @@ namespace Qwilight
                                                         var bandEventValue = bandEventValues[i];
                                                         var bandEventValueAs = bandEventValues[i + 1];
 
-                                                        r.SetPosition((float)(statusViewPosition0 + bandEventValue.Key * statusViewLength), (float)(statusViewPosition1 + bandEventValue.Value * statusViewHeight));
-                                                        s.SetPosition((float)(statusViewPosition0 + bandEventValueAs.Key * statusViewLength), (float)(statusViewPosition1 + bandEventValueAs.Value * statusViewHeight));
-                                                        targetSession.DrawLine(r, s, bandStatusViewColor);
+                                                        targetSession.DrawLine((float)(_drawingMargin0 + statusViewPosition0 + bandEventValue.Key * statusViewLength), (float)(_drawingMargin1 + statusViewPosition1 + bandEventValue.Value * statusViewHeight), (float)(_drawingMargin0 + statusViewPosition0 + bandEventValueAs.Key * statusViewLength), (float)(_drawingMargin1 + statusViewPosition1 + bandEventValueAs.Value * statusViewHeight), bandStatusViewColor);
                                                     }
                                                 }
 
@@ -2640,7 +2638,7 @@ namespace Qwilight
                                                     {
                                                         if (paintProperty?.Layer == layer)
                                                         {
-                                                            paintProperty.Paint(targetSession, distanceMillis, defaultComputer, handlingComputer);
+                                                            paintProperty.Paint(targetSession, ref r, distanceMillis, defaultComputer, handlingComputer);
                                                         }
                                                     }
                                                 }
@@ -2659,6 +2657,7 @@ namespace Qwilight
                                         PaintNotifyXamlItems();
                                     }
                                     PaintFramerate();
+                                    PaintMargin();
                                 }
 
                                 CopyD3D9Drawing();
@@ -2678,8 +2677,8 @@ namespace Qwilight
                         if (mainViewModel.IsComputingMode)
                         {
                             var lastPointedPosition = lastPointed.Item1;
-                            var lastPointedPositionX = lastPointedPosition.X;
-                            var lastPointedPositionY = lastPointedPosition.Y;
+                            var lastPointedPositionX = lastPointedPosition.X - _drawingMargin0;
+                            var lastPointedPositionY = lastPointedPosition.Y - _drawingMargin1;
                             switch (_mediaInputAreaStatus)
                             {
                                 case MediaInputAreaStatus.Not:
@@ -2734,8 +2733,8 @@ namespace Qwilight
                             switch (_mediaInputAreaStatus)
                             {
                                 case MediaInputAreaStatus.Area:
-                                    var lastMovedPositionX = lastMoved.X;
-                                    var lastMovedPositionY = lastMoved.Y;
+                                    var lastMovedPositionX = lastMoved.X - _drawingMargin0;
+                                    var lastMovedPositionY = lastMoved.Y - _drawingMargin1;
                                     if (_mediaInputPosition0 < lastMovedPositionX)
                                     {
                                         Configure.Instance.MediaInputLength = lastMovedPositionX - _mediaInputPosition0;
@@ -2802,7 +2801,7 @@ namespace Qwilight
                         {
                             if (fadingStatus > 0.0)
                             {
-                                BaseUI.Instance.FadingProperties[(int)mode]?[fading.Layer].Paint(targetSession, fadingStatus);
+                                BaseUI.Instance.FadingProperties[(int)mode]?[fading.Layer].Paint(targetSession, ref r, fadingStatus);
                             }
                         }
                     }
@@ -2870,11 +2869,34 @@ namespace Qwilight
                     {
                         if (mainViewModel.IsWPFViewVisible)
                         {
-                            _targetSystem.GetPixelBytes(_targetSystemData);
-                            var d3D9Drawing = new WriteableBitmap((int)_targetSystem.SizeInPixels.Width, (int)_targetSystem.SizeInPixels.Height, _targetSystem.Dpi, _targetSystem.Dpi, PixelFormats.Bgra32, null);
+                            var targetSystemArea = _targetSystem.SizeInPixels;
+                            var targetSystemDPI = _targetSystem.Dpi;
+                            var drawingMargin0 = _drawingMargin0 * targetSystemDPI / 96F;
+                            var drawingMargin1 = _drawingMargin1 * targetSystemDPI / 96F;
+                            var targetSystemLength = (int)(targetSystemArea.Width - drawingMargin0 * 2);
+                            var targetSystemHeight = (int)(targetSystemArea.Height - drawingMargin1 * 2);
+                            _targetSystem.GetPixelBytes(_targetSystemData, (int)drawingMargin0, (int)drawingMargin1, targetSystemLength, targetSystemHeight);
+                            var d3D9Drawing = new WriteableBitmap(targetSystemLength, targetSystemHeight, targetSystemDPI, targetSystemDPI, PixelFormats.Bgra32, null);
                             d3D9Drawing.WritePixels(new(0, 0, d3D9Drawing.PixelWidth, d3D9Drawing.PixelHeight), _rawTargetSystemData, d3D9Drawing.Format.BitsPerPixel / 8 * d3D9Drawing.PixelWidth, 0);
                             d3D9Drawing.Freeze();
                             D3D9Drawing = d3D9Drawing;
+                        }
+                    }
+
+                    void PaintMargin()
+                    {
+                        var targetSystemArea = _targetSystem.SizeInPixels;
+                        var targetSystemLength = targetSystemArea.Width;
+                        var targetSystemHeight = targetSystemArea.Height;
+                        if (_drawingMargin0 > 0F)
+                        {
+                            targetSession.FillRectangle(0F, 0F, _drawingMargin0, targetSystemHeight, Colors.Black);
+                            targetSession.FillRectangle(targetSystemLength - _drawingMargin0, 0F, _drawingMargin0, targetSystemHeight, Colors.Black);
+                        }
+                        if (_drawingMargin1 > 0F)
+                        {
+                            targetSession.FillRectangle(0F, 0F, targetSystemHeight, _drawingMargin1, Colors.Black);
+                            targetSession.FillRectangle(0F, targetSystemHeight - _drawingMargin1, targetSystemLength, _drawingMargin1, Colors.Black);
                         }
                     }
 
@@ -3055,19 +3077,37 @@ namespace Qwilight
             var mainViewModel = ViewModels.Instance.MainValue;
             var defaultLength = (float)mainViewModel.DefaultLength;
             var defaultHeight = (float)mainViewModel.DefaultHeight;
-            var drawingQuality = new Vector2(windowAreaLength / defaultLength, windowAreaHeight / defaultHeight);
-            var targetWindowDPI = 96F * Math.Max(drawingQuality.X, drawingQuality.Y);
             var dataCount = Configure.Instance.DataCount;
+
+            var rateDefault = defaultLength / defaultHeight;
+            var rateWindowArea = (float)windowAreaLength / (float)windowAreaHeight;
+            var enlargedLength = defaultLength;
+            var enlargedHeight = defaultHeight;
+
+            if (rateDefault > rateWindowArea)
+            {
+                enlargedHeight = defaultHeight * (rateDefault / rateWindowArea);
+                _drawingMargin0 = 0F;
+                _drawingMargin1 = (enlargedHeight - defaultHeight) / 2;
+            }
+            else
+            {
+                enlargedLength = defaultLength * (rateWindowArea / rateDefault);
+                _drawingMargin0 = (enlargedLength - defaultLength) / 2;
+                _drawingMargin1 = 0F;
+            }
+            var defaultDPI = 96F * Math.Max(windowAreaLength / enlargedLength, windowAreaHeight / enlargedHeight);
+
             if (_rawTargetSystem == null)
             {
                 lock (_d2D1CSX)
                 {
                     _targetSystem?.Dispose();
-                    _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
-                    _rawTargetSystemData = new byte[_targetSystem.SizeInPixels.Width * _targetSystem.SizeInPixels.Height * 4];
+                    _targetSystem = new(CanvasDevice.GetSharedDevice(), enlargedLength, enlargedHeight, defaultDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
+                    _rawTargetSystemData = new byte[(int)(defaultLength * defaultHeight * 4)];
                     _targetSystemData = _rawTargetSystemData.AsBuffer();
                     _rawTargetSystem?.Dispose();
-                    _rawTargetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount, CanvasAlphaMode.Ignore);
+                    _rawTargetSystem = new(CanvasDevice.GetSharedDevice(), enlargedLength, enlargedHeight, defaultDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount, CanvasAlphaMode.Ignore);
                 }
                 StrongReferenceMessenger.Default.Send(new SetD2DView
                 {
@@ -3075,19 +3115,19 @@ namespace Qwilight
                 });
                 StrongReferenceMessenger.Default.Send<SetD2DViewArea>();
             }
-            else if (_rawTargetSystem.Size.Width != defaultLength || _rawTargetSystem.Size.Height != defaultHeight || _drawingQuality != drawingQuality || _rawTargetSystem.BufferCount != dataCount)
+            else if (_rawTargetSystem.Size.Width != enlargedLength || _rawTargetSystem.Size.Height != enlargedHeight || _defaultDPI != defaultDPI || _rawTargetSystem.BufferCount != dataCount)
             {
                 lock (_d2D1CSX)
                 {
                     _targetSystem?.Dispose();
-                    _targetSystem = new(CanvasDevice.GetSharedDevice(), defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
-                    _rawTargetSystemData = new byte[_targetSystem.SizeInPixels.Width * _targetSystem.SizeInPixels.Height * 4];
+                    _targetSystem = new(CanvasDevice.GetSharedDevice(), enlargedLength, enlargedHeight, defaultDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, CanvasAlphaMode.Ignore);
+                    _rawTargetSystemData = new byte[(int)(defaultLength * defaultHeight * 4)];
                     _targetSystemData = _rawTargetSystemData.AsBuffer();
-                    _rawTargetSystem.ResizeBuffers(defaultLength, defaultHeight, targetWindowDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount);
+                    _rawTargetSystem.ResizeBuffers(enlargedLength, enlargedHeight, defaultDPI, DirectXPixelFormat.B8G8R8A8UIntNormalized, dataCount);
                 }
                 StrongReferenceMessenger.Default.Send<SetD2DViewArea>();
             }
-            _drawingQuality = drawingQuality;
+            _defaultDPI = defaultDPI;
         }
 
         public DrawingItem Load(string drawingFilePath, IDrawingContainer drawingContainer)

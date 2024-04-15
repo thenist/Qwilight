@@ -1,8 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using FMOD;
-using Microsoft.UI.Xaml.Media;
+﻿using FMOD;
 using Microsoft.Win32;
-using Qwilight.MSG;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
@@ -186,7 +183,6 @@ namespace Qwilight
             finally
             {
                 _isLoaded = true;
-                OnSetQwilightFill();
                 OnSetMeterNoteColor();
                 OnSetLimiterColor();
                 OnSetAudioVisualizerMainColor();
@@ -434,38 +430,6 @@ namespace Qwilight
         public Dictionary<string, AudioConfigure> AudioConfigureValues { get; set; }
 
         public bool AllowTwilightComment { get; set; }
-
-        public bool IsQwilightFill
-        {
-            get => _isQwilightFill;
-
-            set
-            {
-                if (SetProperty(ref _isQwilightFill, value))
-                {
-                    OnPropertyChanged(nameof(IsQwilightFillText));
-                    OnPropertyChanged(nameof(IsQwilightFillContents));
-                    OnPropertyChanged(nameof(QwilightFillMode));
-                    OnSetQwilightFill();
-                }
-            }
-        }
-
-        void OnSetQwilightFill()
-        {
-            if (_isLoaded)
-            {
-                StrongReferenceMessenger.Default.Send<SetD2DViewFill>();
-            }
-        }
-
-        public string IsQwilightFillText => IsQwilightFill ? LanguageSystem.Instance.QwilightFillText : LanguageSystem.Instance.NotQwilightFillText;
-
-        public string IsQwilightFillContents => IsQwilightFill ? LanguageSystem.Instance.QwilightFillContents : LanguageSystem.Instance.NotQwilightFillContents;
-
-        public System.Windows.Media.Stretch QwilightFillMode => IsQwilightFill ? System.Windows.Media.Stretch.Fill : System.Windows.Media.Stretch.Uniform;
-
-        public Stretch D2DFillMode => IsQwilightFill ? Stretch.Fill : Stretch.Uniform;
 
         public double JudgmentMeterMillis
         {
@@ -3215,7 +3179,6 @@ namespace Qwilight
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 78))
             {
-                IsQwilightFill = false;
                 DefaultControllerInputAPI = DefaultControllerSystem.InputAPI.DefaultInput;
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 96))

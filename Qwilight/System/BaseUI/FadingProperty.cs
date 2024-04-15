@@ -42,11 +42,10 @@ namespace Qwilight
             }
         }
 
-        public void Paint(CanvasDrawingSession targetSession, double fadingStatus)
+        public void Paint(CanvasDrawingSession targetSession, ref Bound r, double fadingStatus)
         {
             if (Frame > 0)
             {
-                var r = new Bound();
                 var mainViewModel = ViewModels.Instance.MainValue;
                 var defaultLength = mainViewModel.DefaultLength;
                 var defaultHeight = mainViewModel.DefaultHeight;
@@ -62,16 +61,16 @@ namespace Qwilight
                             hasContents = fadingViewComputer.HasContents && fadingViewDrawing != null;
                             if (hasContents)
                             {
-                                HandleDrawing(fadingViewDrawing);
+                                HandleDrawing(fadingViewDrawing, ref r);
                             }
                         }
                     }
                     if (!hasContents)
                     {
-                        HandleDrawing(DrawingSystem.Instance.DefaultDrawing);
+                        HandleDrawing(DrawingSystem.Instance.DefaultDrawing, ref r);
                     }
 
-                    void HandleDrawing(HandledDrawingItem? fadingViewDrawing)
+                    void HandleDrawing(HandledDrawingItem? fadingViewDrawing, ref Bound r)
                     {
                         var drawing = fadingViewDrawing?.Drawing;
                         if (drawing.HasValue)

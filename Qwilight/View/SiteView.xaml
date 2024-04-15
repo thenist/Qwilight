@@ -312,16 +312,14 @@
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <ContentControl IsEnabled="{Binding CanSetPostableItems}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <ToggleButton Style="{StaticResource StandardIOInput}" IsChecked="{Binding IsPostableItemMode}" />
-                                <view:BinInput Grid.Column="1" Value="{Binding PostableItemBand}" Lowest="1" Format="{Binding PostableItemBandText, Source={StaticResource LanguageSystem}}" VerticalAlignment="Stretch" LostFocus="OnSetPostableItemBand" />
-                            </Grid>
-                        </ContentControl>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton Style="{StaticResource StandardIOInput}" IsEnabled="{Binding CanSiteHandLevying}" IsChecked="{Binding IsPostableItemMode}" />
+                            <view:BinInput Grid.Column="1" IsEnabled="{Binding CanSetPostableItems}" Value="{Binding PostableItemBand}" Lowest="1" Format="{Binding PostableItemBandText, Source={StaticResource LanguageSystem}}" VerticalAlignment="Stretch" LostFocus="OnSetPostableItemBand" />
+                        </Grid>
                         <ContentControl Grid.Row="1" IsEnabled="{Binding CanSetPostableItems}">
                             <GroupBox Style="{StaticResource StandardGroupView}">
                                 <GroupBox.Header>

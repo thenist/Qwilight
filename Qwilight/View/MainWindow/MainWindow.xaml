@@ -16,7 +16,7 @@
     FocusVisualStyle="{x:Null}"
     InputMethod.IsInputMethodEnabled="False"
     RenderOptions.BitmapScalingMode="Fant">
-    <Viewbox Stretch="{Binding QwilightFillMode, Source={StaticResource Configure}}">
+    <Viewbox>
         <view:WPFView />
     </Viewbox>
 </Window>

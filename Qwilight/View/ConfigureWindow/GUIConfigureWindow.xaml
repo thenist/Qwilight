@@ -79,14 +79,6 @@
                 </Grid>
                 <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding HwModeContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Button Style="{StaticResource StandardInput}" Content="{Binding IsQwilightFillText, Source={StaticResource Configure}}" Command="{Binding IsQwilightFillCommand}" HorizontalAlignment="Right" />
-                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding IsQwilightFillContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
-            </Grid>
             <ContentControl IsEnabled="{Binding CanNVLL, Source={StaticResource DrawingSystem}}">
                 <StackPanel>
                     <Grid>
