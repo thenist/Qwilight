@@ -64,7 +64,7 @@ namespace Qwilight.ViewModel
                 {
                     if (!string.IsNullOrEmpty(text))
                     {
-                        await LevelSystem.Instance.LoadWww(text).ConfigureAwait(false);
+                        await LevelSystem.Instance.LoadWww(text);
                         LevelSystem.Instance.LoadJSON(true);
                     }
                 });
@@ -72,7 +72,7 @@ namespace Qwilight.ViewModel
             }
             else
             {
-                await LevelSystem.Instance.LoadWww(www).ConfigureAwait(false);
+                await LevelSystem.Instance.LoadWww(www);
                 LevelSystem.Instance.LoadJSON(true);
             }
         }
@@ -82,7 +82,7 @@ namespace Qwilight.ViewModel
         {
             if (Configure.Instance.LevelTargetMap.TryGetValue(Configure.Instance.LastWantLevelName, out var target))
             {
-                await LevelSystem.Instance.LoadWww(target).ConfigureAwait(false);
+                await LevelSystem.Instance.LoadWww(target);
                 LevelSystem.Instance.LoadJSON(true);
             }
             else

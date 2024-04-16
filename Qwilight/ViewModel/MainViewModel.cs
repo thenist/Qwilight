@@ -234,10 +234,6 @@ namespace Qwilight.ViewModel
                 if (SetProperty(ref _isWPFViewVisible, value, nameof(IsWPFViewVisible)))
                 {
                     PoolSystem.Instance.Wipe();
-                    if (!value)
-                    {
-                        DrawingSystem.Instance.OnModified();
-                    }
                     StrongReferenceMessenger.Default.Send(new SetD2DViewVisibility
                     {
                         IsVisible = !value
@@ -3127,6 +3123,10 @@ namespace Qwilight.ViewModel
         public void SetWPFViewVisibility()
         {
             IsWPFViewVisible = IsNoteFileMode || ViewModels.Instance.WindowViewModels.Any(windowViewModel => windowViewModel.IsOpened);
+            if (!IsWPFViewVisible)
+            {
+                DrawingSystem.Instance.OnModified();
+            }
         }
 
         public async Task GetQwilight(bool isSilent)

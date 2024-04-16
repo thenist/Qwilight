@@ -2885,9 +2885,9 @@ namespace Qwilight
 
                     void PaintMargin()
                     {
-                        var targetSystemArea = _targetSystem.SizeInPixels;
-                        var targetSystemLength = targetSystemArea.Width;
-                        var targetSystemHeight = targetSystemArea.Height;
+                        var targetSystemArea = _targetSystem.Size;
+                        var targetSystemLength = (float)targetSystemArea.Width;
+                        var targetSystemHeight = (float)targetSystemArea.Height;
                         if (_drawingMargin0 > 0F)
                         {
                             targetSession.FillRectangle(0F, 0F, _drawingMargin0, targetSystemHeight, Colors.Black);
@@ -2895,7 +2895,7 @@ namespace Qwilight
                         }
                         if (_drawingMargin1 > 0F)
                         {
-                            targetSession.FillRectangle(0F, 0F, targetSystemHeight, _drawingMargin1, Colors.Black);
+                            targetSession.FillRectangle(0F, 0F, targetSystemLength, _drawingMargin1, Colors.Black);
                             targetSession.FillRectangle(0F, targetSystemHeight - _drawingMargin1, targetSystemLength, _drawingMargin1, Colors.Black);
                         }
                     }
@@ -3097,7 +3097,6 @@ namespace Qwilight
                 _drawingMargin1 = 0F;
             }
             var defaultDPI = 96F * Math.Max(windowAreaLength / enlargedLength, windowAreaHeight / enlargedHeight);
-
 
             if (_rawTargetSystem == null)
             {
