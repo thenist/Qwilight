@@ -312,6 +312,15 @@ namespace Qwilight
                                         case InputStandardViewModel.PostItem1:
                                             mainViewModel.PostItem(1);
                                             break;
+                                        case InputStandardViewModel.VeilDrawing:
+                                            mainViewModel.HandleVeilDrawing();
+                                            break;
+                                        case InputStandardViewModel.HalfMultiplier:
+                                            mainViewModel.HandleHalfMultiplier();
+                                            break;
+                                        case InputStandardViewModel._2XMultiplier:
+                                            mainViewModel.Handle2XMultiplier();
+                                            break;
                                     }
                                 }
                                 if (isInput)

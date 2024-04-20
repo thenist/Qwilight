@@ -840,9 +840,9 @@ namespace Qwilight.ViewModel
             });
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             var mainViewModel = ViewModels.Instance.MainValue;
             if (ModeComponentVariety == HitPointsModeVariety && mainViewModel.ModeComponentValue.IsGASWarning)
             {

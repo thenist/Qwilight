@@ -66,9 +66,9 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             var favoriteEntryItemsModified = new HashSet<DefaultEntryItem>();
             switch (Mode)
             {

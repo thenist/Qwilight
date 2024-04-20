@@ -95,9 +95,9 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             FavoriteEntryItem.FrontEntryPaths.Clear();
             foreach (var frontEntryItemValue in FrontEntryItemCollection)
             {

@@ -91,9 +91,9 @@ namespace Qwilight.ViewModel
             }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             _getUbuntuHandler.Dispose();
         }
     }

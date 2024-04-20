@@ -10,13 +10,16 @@ namespace Qwilight.ViewModel
     {
         public const int LowerMultiplier = 0;
         public const int HigherMultiplier = 1;
-        public const int ModifyAutoMode = 2;
-        public const int HandleUndo = 3;
-        public const int MediaMode = 4;
-        public const int LowerAudioMultiplier = 5;
-        public const int HigherAudioMultiplier = 6;
-        public const int PostItem0 = 7;
-        public const int PostItem1 = 8;
+        public const int HalfMultiplier = 2;
+        public const int _2XMultiplier = 3;
+        public const int LowerAudioMultiplier = 4;
+        public const int HigherAudioMultiplier = 5;
+        public const int MediaMode = 6;
+        public const int VeilDrawing = 7;
+        public const int HandleUndo = 8;
+        public const int ModifyAutoMode = 9;
+        public const int PostItem0 = 10;
+        public const int PostItem1 = 11;
 
         int _inputPosition;
         bool _allowEssentialInputs;
@@ -25,9 +28,9 @@ namespace Qwilight.ViewModel
 
         public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
-        public Brush[] InputPaints { get; } = new Brush[10];
+        public Brush[] InputPaints { get; } = new Brush[13];
 
-        public string[] Inputs { get; } = new string[10];
+        public string[] Inputs { get; } = new string[13];
 
         public int CallingInputPosition { get; set; }
 
@@ -79,7 +82,7 @@ namespace Qwilight.ViewModel
                     else
                     {
                         SetInputPaint(_inputPosition, false);
-                        if (_inputPosition == 8)
+                        if (_inputPosition == 11)
                         {
                             Close();
                         }
@@ -223,6 +226,9 @@ namespace Qwilight.ViewModel
                 HigherAudioMultiplier => LanguageSystem.Instance.HigherAudioMultiplierContents,
                 PostItem0 => LanguageSystem.Instance.PostItem0Contents,
                 PostItem1 => LanguageSystem.Instance.PostItem1Contents,
+                VeilDrawing => LanguageSystem.Instance.VeilDrawingContents,
+                HalfMultiplier => LanguageSystem.Instance.HalfMultiplierContents,
+                _2XMultiplier => LanguageSystem.Instance._2XMultiplierContents,
                 _ => default
             }, defaultInputText);
             OnPropertyChanged(nameof(Inputs));

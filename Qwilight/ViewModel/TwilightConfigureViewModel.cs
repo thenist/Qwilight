@@ -54,9 +54,9 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _toNotifySaveBundleCompetence, value, nameof(NotifySaveBundleCompetence));
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             TwilightSystem.Instance.SendParallel(Event.Types.EventID.SetConfigure, new
             {
                 silentSiteCompetence = SilentSiteCompetence.Data,

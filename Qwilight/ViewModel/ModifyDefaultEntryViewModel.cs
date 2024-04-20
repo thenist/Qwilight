@@ -242,9 +242,9 @@ namespace Qwilight
             };
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             Configure.Instance.DefaultEntryItems.Clear();
             foreach (var defaultEntryItem in DefaultEntryItemCollection)
             {

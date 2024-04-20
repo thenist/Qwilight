@@ -2,6 +2,7 @@ namespace Qwilight
 {
     public sealed partial class LanguageSystem
     {
+        public string _2XMultiplierContents { get; set; }
         public string _4DModeContents { get; set; }
         public string AbilityClassUpContents { get; set; }
         public string AbilityFittedText { get; set; }
@@ -297,6 +298,7 @@ namespace Qwilight
         public string GroupEntry1Assist { get; set; }
         public string GUIConfigureText { get; set; }
         public string HalfInputSaltModeContents { get; set; }
+        public string HalfMultiplierContents { get; set; }
         public string HallAbilityText { get; set; }
         public string HallAtText { get; set; }
         public string HallBand { get; set; }
@@ -868,6 +870,7 @@ namespace Qwilight
         public string UINet { get; set; }
         public string UndoContents { get; set; }
         public string ValveEnrollText { get; set; }
+        public string VeilDrawingContents { get; set; }
         public string VeilDrawingHeightContents { get; set; }
         public string VESAContents { get; set; }
         public string VESAText { get; set; }

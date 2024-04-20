@@ -32,9 +32,9 @@ namespace Qwilight.ViewModel
             NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Info, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.Tutorial220);
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             Configure.Instance.NotifyTutorial(Configure.TutorialID.F1Assist);
         }
     }

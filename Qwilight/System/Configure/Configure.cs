@@ -3432,19 +3432,6 @@ namespace Qwilight
                 VeilDrawingFilePath = string.Empty;
                 VeilDrawingHeight = 0.0;
             }
-            if (isInit || Utility.IsLowerDate(Date, 1, 15, 6))
-            {
-                DefaultInputBundlesV6.SetStandardInputs();
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.LowerMultiplier].Data = VirtualKey.F3;
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HigherMultiplier].Data = VirtualKey.F4;
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.ModifyAutoMode].Data = VirtualKey.F1;
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HandleUndo].Data = VirtualKey.Tab;
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.MediaMode].Data = VirtualKey.F2;
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.LowerAudioMultiplier].Data = (VirtualKey)189;
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HigherAudioMultiplier].Data = (VirtualKey)187;
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem0].Data = VirtualKey.V;
-                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem1].Data = VirtualKey.N;
-            }
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 0))
             {
                 AutoNVLLFramerate = false;
@@ -3525,6 +3512,22 @@ namespace Qwilight
             {
                 GASLevel = 4;
                 LastWantLevelConfigures = new();
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 24))
+            {
+                DefaultInputBundlesV6.SetStandardInputs();
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.LowerMultiplier].Data = VirtualKey.F3;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HigherMultiplier].Data = VirtualKey.F4;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.ModifyAutoMode].Data = VirtualKey.F1;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HandleUndo].Data = VirtualKey.Tab;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.MediaMode].Data = VirtualKey.F2;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.LowerAudioMultiplier].Data = (VirtualKey)189;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HigherAudioMultiplier].Data = (VirtualKey)187;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem0].Data = VirtualKey.V;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.PostItem1].Data = VirtualKey.N;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.VeilDrawing].Data = (VirtualKey)192;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HalfMultiplier].Data = VirtualKey.Number1;
+                DefaultInputBundlesV6.StandardInputs[InputStandardViewModel._2XMultiplier].Data = VirtualKey.Number2;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

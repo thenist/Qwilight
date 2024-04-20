@@ -80,7 +80,7 @@ namespace Qwilight.ViewModel
                     Utility.HandleUIAudio("Window 0");
                 }
                 IsControlling = false;
-                OnCollasped();
+                OnCollapsed();
             }
         }
 
@@ -142,6 +142,6 @@ namespace Qwilight.ViewModel
             IsLoaded = true;
         }
 
-        public virtual void OnCollasped() => StrongReferenceMessenger.Default.Send<PointZMaxView>();
+        public virtual void OnCollapsed() => StrongReferenceMessenger.Default.Send<PointZMaxView>();
     }
 }

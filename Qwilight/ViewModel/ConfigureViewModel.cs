@@ -1384,9 +1384,9 @@ namespace Qwilight.ViewModel
             Utility.SetUICollection(HwModeCollection, hwModeCollection);
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             Configure.Instance.Save(true);
             GPUConfigure.Instance.Save(true);
             PoolSystem.Instance.Wipe();

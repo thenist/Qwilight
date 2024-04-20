@@ -115,9 +115,9 @@ namespace Qwilight.ViewModel
             LevelSystem.Instance.LoadLevelFiles();
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             Configure.Instance.LastWantLevelIDs = LevelItemCollection.Where(levelItem => levelItem.IsWanted).Select(levelItem => levelItem.LevelID).ToArray();
             Configure.Instance.Save(true);
             ViewModels.Instance.MainValue.Want();

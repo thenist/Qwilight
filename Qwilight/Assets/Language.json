@@ -1,4 +1,8 @@
 {
+  "_2XMultiplierContents": {
+    "ko-KR": "스크롤 속도 2배 ({0})",
+    "en-US": "Double scroll speed ({0})"
+  },
   "_4DModeContents": {
     "ko-KR": "모든 노트가 고유의 스크롤 속도를 가집니다.",
     "en-US": "Different scroll speed for every note"
@@ -1178,6 +1182,10 @@
   "HalfInputSaltModeContents": {
     "ko-KR": "노트 라인을 반으로 나눠서 임의 배치합니다. (하프 랜덤)",
     "en-US": "Half Random mode"
+  },
+  "HalfMultiplierContents": {
+    "ko-KR": "스크롤 속도 절반 ({0})",
+    "en-US": "Half scroll speed ({0})"
   },
   "HallAbilityText": {
     "ko-KR": "레이팅",
@@ -3462,6 +3470,10 @@
   "ValveEnrollText": {
     "ko-KR": "Qwilight의 온라인 랭킹에 등록하려면 스팀 계정과 독립적인 불로그 계정을 등록하세요",
     "en-US": "To register for Qwilight's online ranking, register your Steam account and an independent 불로그 account"
+  },
+  "VeilDrawingContents": {
+    "ko-KR": "레인 커버 ({0})",
+    "en-US": "Lane Cover ({2})"
   },
   "VeilDrawingHeightContents": {
     "ko-KR": "레인 커버 높이",

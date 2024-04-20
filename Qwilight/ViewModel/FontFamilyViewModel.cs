@@ -72,9 +72,9 @@ namespace Qwilight.ViewModel
             SetFontFamilyCollection();
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             if (FontFamilyItem.HasValue)
             {
                 Configure.Instance.FontFamilyValues[FontPosition] = FontFamilyItem.Value.FontFamilyValue;

@@ -114,9 +114,9 @@ namespace Qwilight.ViewModel
             IsEdgeViewLoading = isLoading;
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             ViewModels.Instance.MainValue.HandleAutoComputer();
         }
 

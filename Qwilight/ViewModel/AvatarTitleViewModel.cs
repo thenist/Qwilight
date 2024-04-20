@@ -63,9 +63,9 @@ namespace Qwilight.ViewModel
             });
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             var avatarTitleItem = AvatarTitleItemValue;
             if (avatarTitleItem.HasValue)
             {

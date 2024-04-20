@@ -319,9 +319,9 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             Configure.Instance.Save(true);
             Configure.Instance.NotifyInputWantWindowPaint();
             ViewModels.Instance.MainValue.Want();

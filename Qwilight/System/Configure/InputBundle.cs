@@ -31,7 +31,7 @@
 
         public void SetStandardInputs()
         {
-            StandardInputs = new T[typeof(T) != typeof(DefaultInput) ? 10 : 9];
+            StandardInputs = new T[typeof(T) != typeof(DefaultInput) ? 10 : 12];
             for (var i = StandardInputs.Length - 1; i >= 0; --i)
             {
                 StandardInputs[i] = new T();

@@ -14,7 +14,7 @@ namespace Qwilight.ViewModel
 
         public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
-        public Action<Color> OnLazyCollasped { get; set; }
+        public Action<Color> OnLazyCollapsed { get; set; }
 
         public void SetColor(Color value)
         {
@@ -84,10 +84,10 @@ namespace Qwilight.ViewModel
             A = Color3,
         });
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
-            OnLazyCollasped(new Color
+            base.OnCollapsed();
+            OnLazyCollapsed(new Color
             {
                 R = Color0,
                 G = Color1,

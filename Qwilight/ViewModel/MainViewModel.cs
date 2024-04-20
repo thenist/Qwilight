@@ -3094,6 +3094,30 @@ namespace Qwilight.ViewModel
             }
         }
 
+        public void HandleVeilDrawing()
+        {
+            if (HasNotInput())
+            {
+                Computer.HandleVeilDrawing();
+            }
+        }
+
+        public void HandleHalfMultiplier()
+        {
+            if (HasNotInput())
+            {
+                Computer.HandleHalfMultiplier();
+            }
+        }
+
+        public void Handle2XMultiplier()
+        {
+            if (HasNotInput())
+            {
+                Computer.Handle2XMultiplier();
+            }
+        }
+
         public void HandleUndo()
         {
             if (HasNotInput())

@@ -160,6 +160,7 @@ namespace Qwilight.Compute
         bool _isPaused;
         InputFlag _inputFlags;
         int _totalComments;
+        bool _isVeilDrawingCollapsed;
 
         public readonly DrawingComponent DrawingComponentValue = new();
 
@@ -1187,6 +1188,21 @@ namespace Qwilight.Compute
         public void PostItem(int postableItemPosition)
         {
             PostItemQueue.Enqueue(postableItemPosition);
+        }
+
+        public void HandleVeilDrawing()
+        {
+            _isVeilDrawingCollapsed = !_isVeilDrawingCollapsed;
+        }
+
+        public void HandleHalfMultiplier()
+        {
+            MultiplierQueue.Enqueue(ModeComponentValue.MultiplierValue / 2);
+        }
+
+        public void Handle2XMultiplier()
+        {
+            MultiplierQueue.Enqueue(2 * ModeComponentValue.MultiplierValue);
         }
 
         public void Input(int input, InputFlag inputFlag = InputFlag.Not, byte inputPower = byte.MaxValue)
@@ -2879,7 +2895,7 @@ namespace Qwilight.Compute
                         }
                         else
                         {
-                            VeilDrawingHeight.TargetValue = Configure.Instance.VeilDrawingHeight;
+                            VeilDrawingHeight.TargetValue = _isVeilDrawingCollapsed ? 0.0 : Configure.Instance.VeilDrawingHeight;
                         }
                         VeilDrawingHeight.Value += Utility.GetMove(VeilDrawingHeight.TargetValue, VeilDrawingHeight.Value, 500.0 / millisLoopUnit);
 
@@ -3582,6 +3598,7 @@ namespace Qwilight.Compute
                             if (ModeComponentValue.CanModifyMultiplier)
                             {
                                 ModeComponentValue.MultiplierValue = multiplier;
+                                HandleUIAudio("Multiplier");
                             }
                             else
                             {
@@ -4432,6 +4449,7 @@ namespace Qwilight.Compute
             HasFailedJudgment = false;
             _isPaused = false;
             _inputFlags = InputFlag.Not;
+            _isVeilDrawingCollapsed = false;
             AudioSystem.Instance.Stop(this);
             MediaSystem.Instance.Stop(this);
             foreach (var note in Notes)

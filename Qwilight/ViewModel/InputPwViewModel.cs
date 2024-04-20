@@ -53,9 +53,9 @@ namespace Qwilight.ViewModel
             Close();
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             Input = string.Empty;
             StrongReferenceMessenger.Default.Send<InitPwWindowCipher>();
         }

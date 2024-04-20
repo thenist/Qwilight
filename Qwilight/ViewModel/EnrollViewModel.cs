@@ -47,9 +47,9 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _fax, value, nameof(Fax));
         }
 
-        public override void OnCollasped()
+        public override void OnCollapsed()
         {
-            base.OnCollasped();
+            base.OnCollapsed();
             AvatarID = string.Empty;
             StrongReferenceMessenger.Default.Send<InitEnrollCipher>();
             AvatarName = string.Empty;
