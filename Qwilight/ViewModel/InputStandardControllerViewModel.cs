@@ -15,10 +15,18 @@ namespace Qwilight.ViewModel
         public const int HigherNoteFile = 3;
         public const int LevyNoteFile = 4;
         public const int Wait = 5;
-        public const int HandleUndo = 6;
-        public const int LowerMultiplier = 7;
-        public const int HigherMultiplier = 8;
-        public const int MediaMode = 9;
+        public const int LowerMultiplier = 6;
+        public const int HigherMultiplier = 7;
+        public const int HalfMultiplier = 8;
+        public const int _2XMultiplier = 9;
+        public const int LowerAudioMultiplier = 10;
+        public const int HigherAudioMultiplier = 11;
+        public const int MediaMode = 12;
+        public const int VeilDrawing = 13;
+        public const int HandleUndo = 14;
+        public const int ModifyAutoMode = 15;
+        public const int PostItem0 = 16;
+        public const int PostItem1 = 17;
 
         public enum ControllerMode
         {
@@ -29,9 +37,9 @@ namespace Qwilight.ViewModel
 
         public override double TargetHeight => double.NaN;
 
-        public Brush[] InputPaints { get; } = new Brush[11];
+        public Brush[] InputPaints { get; } = new Brush[19];
 
-        public string[] Inputs { get; } = new string[11];
+        public string[] Inputs { get; } = new string[19];
 
         public override VerticalAlignment HeightSystem => VerticalAlignment.Bottom;
 
@@ -63,7 +71,7 @@ namespace Qwilight.ViewModel
                     break;
                 case VirtualKey.Right:
                     SetInputPaint(_inputPosition, false);
-                    if (_inputPosition == 9)
+                    if (_inputPosition == 17)
                     {
                         Close();
                     }
@@ -153,10 +161,18 @@ namespace Qwilight.ViewModel
                 HigherNoteFile => LanguageSystem.Instance.HigherNoteFileContents,
                 LevyNoteFile => LanguageSystem.Instance.LevyNoteFileContents,
                 Wait => LanguageSystem.Instance.WaitContents,
-                HandleUndo => LanguageSystem.Instance.HandleUndoContents,
                 LowerMultiplier => LanguageSystem.Instance.LowerMultiplierContents,
                 HigherMultiplier => LanguageSystem.Instance.HigherMultiplierContents,
+                ModifyAutoMode => LanguageSystem.Instance.ModifyAutoModeContents,
+                HandleUndo => LanguageSystem.Instance.HandleUndoContents,
                 MediaMode => "BGA ({0})",
+                LowerAudioMultiplier => LanguageSystem.Instance.LowerAudioMultiplierContents,
+                HigherAudioMultiplier => LanguageSystem.Instance.HigherAudioMultiplierContents,
+                PostItem0 => LanguageSystem.Instance.PostItem0Contents,
+                PostItem1 => LanguageSystem.Instance.PostItem1Contents,
+                VeilDrawing => LanguageSystem.Instance.VeilDrawingContents,
+                HalfMultiplier => LanguageSystem.Instance.HalfMultiplierContents,
+                _2XMultiplier => LanguageSystem.Instance._2XMultiplierContents,
                 _ => default
             }, input);
             OnPropertyChanged(nameof(Inputs));
@@ -171,26 +187,39 @@ namespace Qwilight.ViewModel
         public override void OnOpened()
         {
             base.OnOpened();
-            for (var i = 9; i >= 0; --i)
+            switch (ControllerModeValue)
             {
-                SetInputPaint(i, false);
-                switch (ControllerModeValue)
-                {
-                    case ControllerMode.DInput:
+                case ControllerMode.DInput:
+                    for (var i = Configure.Instance.DInputBundlesV4.StandardInputs.Length - 1; i >= 0; --i)
+                    {
+                        SetInputPaint(i, false);
                         SetInput(i, Configure.Instance.DInputBundlesV4.StandardInputs[i]);
-                        break;
-                    case ControllerMode.XInput:
+                    }
+                    break;
+                case ControllerMode.XInput:
+                    for (var i = Configure.Instance.XInputBundlesV4.StandardInputs.Length - 1; i >= 0; --i)
+                    {
+                        SetInputPaint(i, false);
                         SetInput(i, Configure.Instance.XInputBundlesV4.StandardInputs[i]);
-                        break;
-                    case ControllerMode.WGI:
+                    }
+                    break;
+                case ControllerMode.WGI:
+                    for (var i = Configure.Instance.WGIBundlesV3.StandardInputs.Length - 1; i >= 0; --i)
+                    {
+                        SetInputPaint(i, false);
                         SetInput(i, Configure.Instance.WGIBundlesV3.StandardInputs[i]);
-                        break;
-                    case ControllerMode.MIDI:
+                    }
+                    break;
+                case ControllerMode.MIDI:
+                    for (var i = Configure.Instance.MIDIBundlesV4.StandardInputs.Length - 1; i >= 0; --i)
+                    {
+                        SetInputPaint(i, false);
                         SetInput(i, Configure.Instance.MIDIBundlesV4.StandardInputs[i]);
-                        break;
-                }
+                    }
+                    break;
             }
-            SetInputPaint(_inputPosition = 0, true);
+            _inputPosition = 0;
+            SetInputPaint(_inputPosition, true);
         }
     }
 }

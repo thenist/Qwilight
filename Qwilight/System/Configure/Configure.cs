@@ -2121,20 +2121,30 @@ namespace Qwilight
 
         public string IsFailModeContents => IsFailMode ? LanguageSystem.Instance.IsFailModeContents : LanguageSystem.Instance.NotIsFailModeContents;
 
+        public Dictionary<string, WantLevelConfigure> LastWantLevelConfigures { get; set; }
+
+        [JsonIgnore]
         public bool WantLevelSystem
         {
-            get => _wantLevelSystem;
+            get => LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new()).WantLevelSystem;
 
             set
             {
-                if (SetProperty(ref _wantLevelSystem, value, nameof(WantLevelSystem)))
+                if (LastWantLevelConfigures.TryGetValue(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, out var wantLevelConfigure))
                 {
-                    OnPropertyChanged(nameof(WantLevelNameText));
+                    wantLevelConfigure.WantLevelSystem = value;
                 }
+                else
+                {
+                    LastWantLevelConfigures[LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty] = new()
+                    {
+                        WantLevelSystem = value
+                    };
+                }
+                OnPropertyChanged(nameof(WantLevelSystem));
+                OnPropertyChanged(nameof(WantLevelNameText));
             }
         }
-
-        public Dictionary<string, WantLevelConfigure> LastWantLevelConfigures { get; set; }
 
         [JsonIgnore]
         public string LastWantLevelName
@@ -2159,7 +2169,7 @@ namespace Qwilight
             }
         }
 
-        public string WantLevelNameText => WantLevelSystem ? LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new()).WantLevelNameText : "🔖";
+        public string WantLevelNameText => LastWantLevelConfigures.GetValueOrDefault(LastDefaultEntryItem?.DefaultEntryPath ?? string.Empty, new()).WantLevelNameText;
 
         [JsonIgnore]
         public string[] LastWantLevelIDs
@@ -2322,6 +2332,7 @@ namespace Qwilight
                 if (SetProperty(ref _lastDefaultEntryItem, value, nameof(LastDefaultEntryItem)))
                 {
                     OnPropertyChanged(nameof(InputWant));
+                    OnPropertyChanged(nameof(WantLevelSystem));
                     OnPropertyChanged(nameof(LastWantLevelName));
                     OnPropertyChanged(nameof(WantLevelNameText));
                     OnSetLastDefaultEntryItem();
@@ -2963,7 +2974,6 @@ namespace Qwilight
             {
                 DInputBundlesV4 = new();
                 DInputBundlesV4.SetInputs();
-                DInputBundlesV4.SetStandardInputs();
                 XInputBundlesV4 = new();
                 XInputBundlesV4.SetInputs();
                 XInputBundlesV4.Inputs[(int)Component.InputMode._4][1][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadLeft };
@@ -2982,13 +2992,6 @@ namespace Qwilight
                 XInputBundlesV4.Inputs[(int)Component.InputMode._6][4][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.X };
                 XInputBundlesV4.Inputs[(int)Component.InputMode._6][5][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Y };
                 XInputBundlesV4.Inputs[(int)Component.InputMode._6][6][0].Data = new() { Buttons = Vortice.XInput.GamepadButtons.B };
-                XInputBundlesV4.SetStandardInputs();
-                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.LowerEntry].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadUp };
-                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.HigherEntry].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadDown };
-                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.LowerNoteFile].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadLeft };
-                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.HigherNoteFile].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadRight };
-                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.LevyNoteFile].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Start };
-                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.Wait].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Back };
                 WGIBundlesV3 = new();
                 WGIBundlesV3.SetInputs();
                 WGIBundlesV3.Inputs[(int)Component.InputMode._4][1][0].Data = new() { Buttons = GamepadButtons.DPadLeft };
@@ -3007,16 +3010,8 @@ namespace Qwilight
                 WGIBundlesV3.Inputs[(int)Component.InputMode._6][4][0].Data = new() { Buttons = GamepadButtons.X };
                 WGIBundlesV3.Inputs[(int)Component.InputMode._6][5][0].Data = new() { Buttons = GamepadButtons.Y };
                 WGIBundlesV3.Inputs[(int)Component.InputMode._6][6][0].Data = new() { Buttons = GamepadButtons.B };
-                WGIBundlesV3.SetStandardInputs();
-                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.LowerEntry].Data = new() { Buttons = GamepadButtons.DPadUp };
-                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.HigherEntry].Data = new() { Buttons = GamepadButtons.DPadDown };
-                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.LowerNoteFile].Data = new() { Buttons = GamepadButtons.DPadLeft };
-                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.HigherNoteFile].Data = new() { Buttons = GamepadButtons.DPadRight };
-                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.LevyNoteFile].Data = new() { Buttons = GamepadButtons.View };
-                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.Wait].Data = new() { Buttons = GamepadButtons.Menu };
                 MIDIBundlesV4 = new();
                 MIDIBundlesV4.SetInputs();
-                MIDIBundlesV4.SetStandardInputs();
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 47))
             {
@@ -3148,10 +3143,6 @@ namespace Qwilight
                 DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][8][0].Data = VirtualKey.K;
                 DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][9][0].Data = VirtualKey.L;
                 DefaultInputBundlesV6.Inputs[(int)Component.InputMode._10][10][0].Data = (VirtualKey)186;
-            }
-            if (isInit || Utility.IsLowerDate(Date, 1, 14, 68))
-            {
-                WantLevelSystem = false;
             }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 69))
             {
@@ -3528,6 +3519,25 @@ namespace Qwilight
                 DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.VeilDrawing].Data = (VirtualKey)192;
                 DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HalfMultiplier].Data = VirtualKey.Number1;
                 DefaultInputBundlesV6.StandardInputs[InputStandardViewModel._2XMultiplier].Data = VirtualKey.Number2;
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 25))
+            {
+                DInputBundlesV4.SetStandardInputs();
+                XInputBundlesV4.SetStandardInputs();
+                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.LowerEntry].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadUp };
+                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.HigherEntry].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadDown };
+                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.LowerNoteFile].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadLeft };
+                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.HigherNoteFile].Data = new() { Buttons = Vortice.XInput.GamepadButtons.DPadRight };
+                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.LevyNoteFile].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Start };
+                XInputBundlesV4.StandardInputs[InputStandardControllerViewModel.Wait].Data = new() { Buttons = Vortice.XInput.GamepadButtons.Back };
+                WGIBundlesV3.SetStandardInputs();
+                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.LowerEntry].Data = new() { Buttons = GamepadButtons.DPadUp };
+                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.HigherEntry].Data = new() { Buttons = GamepadButtons.DPadDown };
+                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.LowerNoteFile].Data = new() { Buttons = GamepadButtons.DPadLeft };
+                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.HigherNoteFile].Data = new() { Buttons = GamepadButtons.DPadRight };
+                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.LevyNoteFile].Data = new() { Buttons = GamepadButtons.View };
+                WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.Wait].Data = new() { Buttons = GamepadButtons.Menu };
+                MIDIBundlesV4.SetStandardInputs();
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

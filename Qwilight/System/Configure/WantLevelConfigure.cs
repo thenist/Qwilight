@@ -4,8 +4,10 @@
     {
         public string WantLevelName { get; set; }
 
-        public string WantLevelNameText => string.IsNullOrEmpty(WantLevelName) ? "🔖" : WantLevelName;
+        public string WantLevelNameText => !WantLevelSystem || string.IsNullOrEmpty(WantLevelName) ? "🔖" : WantLevelName;
 
         public string[] WantLevelIDs { get; set; } = [];
+
+        public bool WantLevelSystem { get; set; }
     }
 }

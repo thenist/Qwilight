@@ -13,6 +13,8 @@ namespace Qwilight
         readonly Action<T> _onStandardInputControllerViewModel;
         readonly TimerCallback _onLowerMultiplier = new(state => ViewModels.Instance.MainValue.LowerMultiplier());
         readonly TimerCallback _onHigherMultiplier = new(state => ViewModels.Instance.MainValue.HigherMultiplier());
+        readonly TimerCallback _onLowerAudioMultiplier = new(state => ViewModels.Instance.MainValue.LowerAudioMultiplier());
+        readonly TimerCallback _onHigherAudioMultiplier = new(state => ViewModels.Instance.MainValue.HigherAudioMultiplier());
         readonly TimerCallback _onLowerEntry = new(state =>
         {
             var mainViewModel = ViewModels.Instance.MainValue;
@@ -50,6 +52,8 @@ namespace Qwilight
         double _atLoopingCounter1000;
         Timer _lowerMultiplierHandler;
         Timer _higherMultiplierHandler;
+        Timer _lowerAudioMultiplierHandler;
+        Timer _higherAudioMultiplierHandler;
         Timer _lowerEntryHandler;
         Timer _higherEntryHandler;
         Timer _lowerSpinningValueHandler;
@@ -105,6 +109,12 @@ namespace Qwilight
                     case InputStandardControllerViewModel.HigherMultiplier when _higherMultiplierHandler == null:
                         _higherMultiplierHandler = new(_onHigherMultiplier, null, 0, (int)QwilightComponent.StandardLoopMillis);
                         break;
+                    case InputStandardControllerViewModel.LowerAudioMultiplier when _lowerAudioMultiplierHandler == null:
+                        _lowerMultiplierHandler = new(_onLowerAudioMultiplier, null, 0, (int)QwilightComponent.StandardLoopMillis);
+                        break;
+                    case InputStandardControllerViewModel.HigherAudioMultiplier when _higherAudioMultiplierHandler == null:
+                        _higherMultiplierHandler = new(_onHigherAudioMultiplier, null, 0, (int)QwilightComponent.StandardLoopMillis);
+                        break;
                     case InputStandardControllerViewModel.MediaMode:
                         mainViewModel.HandleMediaMode();
                         break;
@@ -145,6 +155,14 @@ namespace Qwilight
                         _higherMultiplierHandler = null;
                         mainViewModel.InitMultiplierUnit();
                         break;
+                    case InputStandardControllerViewModel.LowerAudioMultiplier:
+                        _lowerAudioMultiplierHandler?.Dispose();
+                        _lowerAudioMultiplierHandler = null;
+                        break;
+                    case InputStandardControllerViewModel.HigherAudioMultiplier:
+                        _higherAudioMultiplierHandler?.Dispose();
+                        _higherAudioMultiplierHandler = null;
+                        break;
                 }
             }
             var defaultComputer = mainViewModel.Computer;
@@ -176,9 +194,32 @@ namespace Qwilight
                 case MainViewModel.Mode.Computing:
                     if (isInput)
                     {
-                        if (_rawInputs.Add(rawInput))
+                        switch (input)
                         {
-                            mainViewModel.Input(inputConfigure, rawInput, true, _inputFlag, inputPower);
+                            case InputStandardControllerViewModel.HalfMultiplier:
+                                mainViewModel.HandleHalfMultiplier();
+                                break;
+                            case InputStandardControllerViewModel._2XMultiplier:
+                                mainViewModel.Handle2XMultiplier();
+                                break;
+                            case InputStandardControllerViewModel.VeilDrawing:
+                                mainViewModel.HandleVeilDrawing();
+                                break;
+                            case InputStandardControllerViewModel.ModifyAutoMode:
+                                mainViewModel.HandleModifyAutoMode();
+                                break;
+                            case InputStandardControllerViewModel.PostItem0:
+                                mainViewModel.PostItem(0);
+                                break;
+                            case InputStandardControllerViewModel.PostItem1:
+                                mainViewModel.PostItem(1);
+                                break;
+                            default:
+                                if (_rawInputs.Add(rawInput))
+                                {
+                                    mainViewModel.Input(inputConfigure, rawInput, true, _inputFlag, inputPower);
+                                }
+                                break;
                         }
                     }
                     else

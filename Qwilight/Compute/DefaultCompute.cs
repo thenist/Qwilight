@@ -123,7 +123,7 @@ namespace Qwilight.Compute
         readonly ConcurrentQueue<(int, byte)> _rawInputQueue = new();
         readonly List<PaintEvent>[] _paintEventsGAS = new List<PaintEvent>[9];
         readonly object _targetHandlerCSX = new();
-        readonly List<BaseNote> _handlingNotes = new();
+        readonly LinkedList<BaseNote> _handlingNotes = new();
         readonly Queue<double> _eventPositions = new();
         readonly List<string> _ioAvatarIDs = new();
         readonly List<string> _pendingIOAvatarIDs = new();
@@ -190,7 +190,7 @@ namespace Qwilight.Compute
 
         public HandlableAudioHandler TrailerAudioHandler { get; } = new();
 
-        public List<BaseNote> PaintedNotes { get; } = new();
+        public LinkedList<BaseNote> PaintedNotes { get; } = new();
 
         public Comment EventComment { get; set; }
 
@@ -1785,6 +1785,8 @@ namespace Qwilight.Compute
                     }
                 }
 
+                var tmpNotes = new List<BaseNote>();
+
                 var atLoopingCounter1000 = 0.0;
                 var lastLoopingCounter = LoopingCounter;
 
@@ -2087,10 +2089,10 @@ namespace Qwilight.Compute
                                                     ID = -1
                                                 };
                                                 trapNote.InitY(logicalY);
-                                                _handlingNotes.Add(trapNote);
+                                                _handlingNotes.AddLast(trapNote);
                                                 lock (PaintedNotes)
                                                 {
-                                                    PaintedNotes.Add(trapNote);
+                                                    PaintedNotes.AddLast(trapNote);
                                                 }
                                                 postableItemStatus.Elapse(1000.0 / 60);
                                             }
@@ -2190,6 +2192,21 @@ namespace Qwilight.Compute
                             PostedItemFaints[i] += Utility.GetMove(0.0, PostedItemFaints[i], 1000.0 / millisLoopUnit);
                         }
                     }
+
+                    if (ValidatedTotalNotes > 0 && ValidatedTotalNotes == _validJudgedNotes)
+                    {
+                        VeilDrawingHeight.TargetValue = Configure.Instance.FlowVeilDrawing ? DrawingComponentValue.judgmentMainPosition : Configure.Instance.VeilDrawingHeight;
+                        _isEscapable = true;
+                        if (LastStatusValue == LastStatus.Not)
+                        {
+                            _lastStatus = Comment.LowestJudgment > 0 ? LastStatus.Last : Point.TargetValue < 1.0 ? LastStatus.Band1 : LastStatus.Yell1;
+                        }
+                    }
+                    else
+                    {
+                        VeilDrawingHeight.TargetValue = _isVeilDrawingCollapsed ? 0.0 : Configure.Instance.VeilDrawingHeight;
+                    }
+                    VeilDrawingHeight.Value += Utility.GetMove(VeilDrawingHeight.TargetValue, VeilDrawingHeight.Value, 500.0 / millisLoopUnit);
 
                     if (IsPausing)
                     {
@@ -2412,7 +2429,7 @@ namespace Qwilight.Compute
                             if (note.IsClose(LoopingCounter))
                             {
                                 note.InitY(logicalY);
-                                _handlingNotes.Add(note);
+                                _handlingNotes.AddLast(note);
                                 ++handlingNoteID;
                             }
                             else
@@ -2432,7 +2449,7 @@ namespace Qwilight.Compute
                             {
                                 lock (PaintedNotes)
                                 {
-                                    PaintedNotes.Add(note);
+                                    PaintedNotes.AddLast(note);
                                 }
                                 ++paintedNoteID;
                             }
@@ -2461,9 +2478,9 @@ namespace Qwilight.Compute
                             Utility.LoopBefore(waitMediaNoteMap, LoopingCounter, Configure.Instance.MediaWait + Configure.Instance.BanalMediaWait, handleMediaNotesImpl);
                         }
 
-                        for (var j = _handlingNotes.Count - 1; j >= 0; --j)
+                        tmpNotes.AddRange(_handlingNotes);
+                        foreach (var handlingNote in tmpNotes)
                         {
-                            var handlingNote = _handlingNotes[j];
                             handlingNote.Move(distance);
                             handlingNote.MoveInputMillis(millisLoopUnit, this);
                             var targetInput = handlingNote.TargetInput;
@@ -2615,6 +2632,7 @@ namespace Qwilight.Compute
                                 }
                             }
                         }
+                        tmpNotes.Clear();
 
                         HandleComment(ref commentInputID, ref commentMultiplierID, ref commentAudioMultiplierID);
 
@@ -2884,20 +2902,6 @@ namespace Qwilight.Compute
                                 OnGetF();
                             }
                         }
-                        if (ValidatedTotalNotes > 0 && ValidatedTotalNotes == _validJudgedNotes)
-                        {
-                            VeilDrawingHeight.TargetValue = Configure.Instance.FlowVeilDrawing ? DrawingComponentValue.judgmentMainPosition : Configure.Instance.VeilDrawingHeight;
-                            _isEscapable = true;
-                            if (LastStatusValue == LastStatus.Not)
-                            {
-                                _lastStatus = Comment.LowestJudgment > 0 ? LastStatus.Last : Point.TargetValue < 1.0 ? LastStatus.Band1 : LastStatus.Yell1;
-                            }
-                        }
-                        else
-                        {
-                            VeilDrawingHeight.TargetValue = _isVeilDrawingCollapsed ? 0.0 : Configure.Instance.VeilDrawingHeight;
-                        }
-                        VeilDrawingHeight.Value += Utility.GetMove(VeilDrawingHeight.TargetValue, VeilDrawingHeight.Value, 500.0 / millisLoopUnit);
 
                         void HandleJudged(BaseNote judgedNote, JudgedNoteData? judgedNoteData, double loopingCounter)
                         {
