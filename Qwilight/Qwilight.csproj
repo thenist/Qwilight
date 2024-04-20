@@ -235,19 +235,19 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='x64'">
-		<None Update="Assets\x64\avcodec-60.dll">
+		<None Update="Assets\x64\avcodec-61.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\avdevice-60.dll">
+		<None Update="Assets\x64\avdevice-61.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\avfilter-9.dll">
+		<None Update="Assets\x64\avfilter-10.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\avformat-60.dll">
+		<None Update="Assets\x64\avformat-61.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\avutil-58.dll">
+		<None Update="Assets\x64\avutil-59.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\ffmpeg.exe">
@@ -268,7 +268,7 @@
 		<None Update="Assets\x64\NVIDIA.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\postproc-57.dll">
+		<None Update="Assets\x64\postproc-58.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\sl.common.dll">
@@ -283,10 +283,10 @@
 		<None Update="Assets\x64\steam_api64.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\swresample-4.dll">
+		<None Update="Assets\x64\swresample-5.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\swscale-7.dll">
+		<None Update="Assets\x64\swscale-8.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\x64\Xwindow.exe">

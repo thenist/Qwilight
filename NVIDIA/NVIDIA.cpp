@@ -48,7 +48,6 @@ void SetNVLLConfigure(ReflexMode mode, uint32_t frameLimitUs)
 	ReflexOptions options = {};
 	options.mode = mode;
 	options.frameLimitUs = frameLimitUs;
-	options.useMarkersToOptimize = mode == ReflexMode::eLowLatencyWithBoost;
 	if (SL_FAILED(r, slReflexSetOptions(options)))
 	{
 		return;

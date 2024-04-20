@@ -18,10 +18,6 @@ namespace Qwilight
             "25da64204262bc0636baa0622e2aed80", // Can't it be true
             "e82d6a96a58c9a01098fa4a53f95c5ad"
         };
-        static readonly string[] _wrongMedia = new string[]
-        {
-            "ed7f217838d78942898e53d5dbee64ec" // Celestial Axes
-        };
 
         readonly ConcurrentDictionary<IMediaContainer, ConcurrentDictionary<string, HandledMediaItem>> _mediaMap = new();
         readonly ConcurrentDictionary<IMediaHandler, ConcurrentBag<MediaHandlerItem>> _mediaHandlerMap = new();
@@ -114,7 +110,7 @@ namespace Qwilight
                     }
                     else
                     {
-                        var isWrongMedia = Array.IndexOf(_wrongMedia, hash) != -1 || Array.IndexOf(_validMedia, hash) == -1;
+                        var isWrongMedia = QwilightComponent.ModifyMediaFileFormats.Any(format => mediaFilePath.IsTailCaselsss(format)) && Array.IndexOf(_validMedia, hash) == -1;
                         var hasAudio = HasAudio(mediaFilePath);
                         if (isWrongMedia || hasAudio || isCounterWave)
                         {
