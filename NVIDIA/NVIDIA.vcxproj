@@ -157,6 +157,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="sl.h" />
     <ClInclude Include="sl_consts.h" />
+    <ClInclude Include="sl_pcl.h" />
     <ClInclude Include="sl_reflex.h" />
     <ClInclude Include="sl_result.h" />
     <ClInclude Include="sl_struct.h" />

@@ -277,6 +277,9 @@
 		<None Update="Assets\x64\sl.interposer.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\x64\sl.pcl.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\x64\sl.reflex.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

@@ -8,7 +8,7 @@ extern "C"
 	__declspec(dllexport) void SetNVLLConfigure(ReflexMode, uint32_t);
 	__declspec(dllexport) void GetNVLLFrame();
 	__declspec(dllexport) void WaitNVLL();
-	__declspec(dllexport) void SetNVLLFlag(ReflexMarker);
+	__declspec(dllexport) void SetNVLLFlag(PCLMarker);
 	__declspec(dllexport) void NotifyNVLL(uint32_t);
 	__declspec(dllexport) bool IsNVLLAvailable();
 }
@@ -24,9 +24,9 @@ ReflexState state = {};
 void InitNVLL(void* d3dDevice)
 {
 	Preferences pref = {};
-	pref.featuresToLoad = new Feature[1]{ kFeatureReflex };
+	pref.featuresToLoad = new Feature[2]{ kFeatureReflex, kFeaturePCL };
 	pref.numFeaturesToLoad = sizeof(*pref.featuresToLoad) / sizeof(Feature);
-	pref.engineVersion = "1.1.0";
+	pref.engineVersion = "1.2.0";
 	pref.renderAPI = RenderAPI::eD3D11;
 	if (SL_FAILED(r, slInit(pref)))
 	{
@@ -61,16 +61,16 @@ void GetNVLLFrame()
 	slGetNewFrameToken(frame, &frameIndex);
 }
 
-void SetNVLLFlag(ReflexMarker marker)
+void SetNVLLFlag(PCLMarker marker)
 {
-	slReflexSetMarker(marker, *frame);
+	slPCLSetMarker(marker, *frame);
 }
 
 void NotifyNVLL(uint32_t statsWindowMessage)
 {
 	if (state.statsWindowMessage == statsWindowMessage)
 	{
-		slReflexSetMarker(ReflexMarker::ePCLatencyPing, *frame);
+		slPCLSetMarker(PCLMarker::ePCLatencyPing, *frame);
 	}
 }
 
