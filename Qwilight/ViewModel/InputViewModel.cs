@@ -36,7 +36,13 @@ namespace Qwilight.ViewModel
         {
             get => _valueControllerMode;
 
-            set => SetProperty(ref _valueControllerMode, value, nameof(ControllerModeValue));
+            set
+            {
+                if (SetProperty(ref _valueControllerMode, value, nameof(ControllerModeValue)))
+                {
+                    OnPropertyChanged(nameof(IsVisibleAllowEssentialsInput));
+                }
+            }
         }
 
         public bool IsVisibleAllowEssentialsInput => ControllerModeValue == ControllerMode.DefaultInput;

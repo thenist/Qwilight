@@ -263,7 +263,6 @@ namespace Qwilight
         bool _isFailMode;
         bool _levelingInputAudio;
         WantBanned _wantBanned;
-        bool _wantLevelSystem;
         bool _wantLevelTextValue;
         bool _wantBPM;
         bool _wantAverageInputCount;

@@ -87,7 +87,7 @@
                     </Button>
                 </Grid>
                 <Grid Grid.Row="3">
-                    <Border Style="{StaticResource StandardPanel}" HorizontalAlignment="Left">
+                    <Border Style="{StaticResource StandardPanel}" HorizontalAlignment="Left" Visibility="{Binding IsVisibleAllowEssentialsInput, Converter={StaticResource VisibilityModifier}}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding AllowEssentialInputs, Source={StaticResource LanguageSystem}}" />
                             <ToggleButton Style="{StaticResource StandardIOInput}" IsChecked="{Binding AllowEssentialInputs}" />
