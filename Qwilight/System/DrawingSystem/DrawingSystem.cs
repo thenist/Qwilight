@@ -2055,7 +2055,7 @@ namespace Qwilight
                                                     var assistTextPosition1 = drawingComponent.assistTextPosition1;
                                                     if (defaultComputer.CanUndo && defaultComputer.IsPausingWindowOpened)
                                                     {
-                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[3].ToString(), InputAssistFont), 100, FaintClearedPaints, FaintFilledPaints, null, 0, null, null, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.UndoContents, InputAssistFont), 100);
+                                                        assistTextPosition1 += PaintAssistText(assistTextPosition1, PoolSystem.Instance.GetTextItem(Configure.Instance.DefaultInputBundlesV6.StandardInputs[InputStandardViewModel.HandleUndo].ToString(), InputAssistFont), 100, FaintClearedPaints, FaintFilledPaints, null, 0, null, null, PoolSystem.Instance.GetTextItem(LanguageSystem.Instance.UndoContents, InputAssistFont), 100);
                                                     }
                                                     else if (defaultComputer.IsPassable || defaultComputer.IsEscapable)
                                                     {
