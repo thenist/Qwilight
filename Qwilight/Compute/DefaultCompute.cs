@@ -4104,7 +4104,7 @@ namespace Qwilight.Compute
                         _hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher] = Math.Clamp(_hitPointsGAS[(int)ModeComponent.HitPointsMode.Higher], 0.0, 1.0);
                     }
 
-                    if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Yell || ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Failed || ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Highest || ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Default)
+                    if (ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Yell || ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Failed || ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Highest || ModeComponentValue.HandlingHitPointsModeValue == ModeComponent.HitPointsMode.Higher)
                     {
                         _paintEventsGAS[(int)ModeComponent.HitPointsMode.Default].Add(new()
                         {
