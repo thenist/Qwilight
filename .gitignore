@@ -339,27 +339,24 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-!/ChromaSDK/Assets/ARM64
-!/ChromaSDK/Assets/x64
+!/ChromaSDK/Assets/AMD64
 
 !/FMODCoreAPI/Assets/ARM64
-!/FMODCoreAPI/Assets/x64
+!/FMODCoreAPI/Assets/AMD64
 
 /Language/Assets/Client.json
 
-!/LedCSharp/Assets/ARM64
-!/LedCSharp/Assets/x64
+!/LedCSharp/Assets/AMD64
 
 !/Qwilight/Assets/ARM64
 /Qwilight/Assets/ARM64/Flint.exe
 /Qwilight/Assets/ARM64/Igniter.exe
-/Qwilight/Assets/ARM64/NVIDIA.dll
 /Qwilight/Assets/ARM64/Xwindow.exe
-!/Qwilight/Assets/x64
-/Qwilight/Assets/x64/Flint.exe
-/Qwilight/Assets/x64/Igniter.exe
-/Qwilight/Assets/x64/NVIDIA.dll
-/Qwilight/Assets/x64/Xwindow.exe
+!/Qwilight/Assets/AMD64
+/Qwilight/Assets/AMD64/Flint.exe
+/Qwilight/Assets/AMD64/Igniter.exe
+/Qwilight/Assets/AMD64/NVIDIA.dll
+/Qwilight/Assets/AMD64/Xwindow.exe
 
 !/Qwilight/Protobuf/protoc.exe
 !/Qwilight/Protobuf/protoc-gen-js.exe

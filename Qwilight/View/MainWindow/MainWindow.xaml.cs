@@ -88,9 +88,19 @@ namespace Qwilight.View
             PInvoke.SetWindowPos(_handle, HWND.Null, windowPosition0, windowPosition1, windowLength, windowHeight, SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE);
 
 #if DEBUG
-            PInvoke.SetWindowText(_handle, "Qwilight α");
+#if X64
+            PInvoke.SetWindowText(_handle, "Qwilight AMD64 α");
+#endif
+#if ARM64
+            PInvoke.SetWindowText(_handle, "Qwilight ARM64 α");
+#endif
 #else
-            PInvoke.SetWindowText(_handle, QwilightComponent.IsVS ? "Qwilight β" : "Qwilight");
+#if X64
+            PInvoke.SetWindowText(_handle, QwilightComponent.IsVS ? "Qwilight AMD64 β" : "Qwilight AMD64");
+#endif
+#if ARM64
+            PInvoke.SetWindowText(_handle, QwilightComponent.IsVS ? "Qwilight ARM64 β" : "Qwilight ARM64");
+#endif
 #endif
 
             var mainViewModel = ViewModels.Instance.MainValue;

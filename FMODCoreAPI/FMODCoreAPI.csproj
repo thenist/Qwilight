@@ -6,7 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='x64'">
-		<None Update="Assets\x64\fmod.dll">
+		<None Update="Assets\AMD64\fmod.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

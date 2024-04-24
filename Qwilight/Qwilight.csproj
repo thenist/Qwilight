@@ -220,14 +220,44 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='ARM64'">
+		<None Update="Assets\ARM64\avcodec-61.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\avdevice-61.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\avfilter-10.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\avformat-61.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\avutil-59.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\ffmpeg.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\ffprobe.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\ARM64\Flint.exe">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\ARM64\Igniter.exe">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\ARM64\Microsoft.Graphics.Canvas.dll">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\postproc-58.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\swresample-5.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\ARM64\swscale-8.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\ARM64\Xwindow.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -235,64 +265,64 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='x64'">
-		<None Update="Assets\x64\avcodec-61.dll">
+		<None Update="Assets\AMD64\avcodec-61.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\avdevice-61.dll">
+		<None Update="Assets\AMD64\avdevice-61.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\avfilter-10.dll">
+		<None Update="Assets\AMD64\avfilter-10.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\avformat-61.dll">
+		<None Update="Assets\AMD64\avformat-61.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\avutil-59.dll">
+		<None Update="Assets\AMD64\avutil-59.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\ffmpeg.exe">
+		<None Update="Assets\AMD64\ffmpeg.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\ffprobe.exe">
+		<None Update="Assets\AMD64\ffprobe.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\Flint.exe">
+		<None Update="Assets\AMD64\Flint.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\Igniter.exe">
+		<None Update="Assets\AMD64\Igniter.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\Microsoft.Graphics.Canvas.dll">
+		<None Update="Assets\AMD64\Microsoft.Graphics.Canvas.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\NVIDIA.dll">
+		<None Update="Assets\AMD64\NVIDIA.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\postproc-58.dll">
+		<None Update="Assets\AMD64\postproc-58.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\sl.common.dll">
+		<None Update="Assets\AMD64\sl.common.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\sl.interposer.dll">
+		<None Update="Assets\AMD64\sl.interposer.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\sl.pcl.dll">
+		<None Update="Assets\AMD64\sl.pcl.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\sl.reflex.dll">
+		<None Update="Assets\AMD64\sl.reflex.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\steam_api64.dll">
+		<None Update="Assets\AMD64\steam_api64.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\swresample-5.dll">
+		<None Update="Assets\AMD64\swresample-5.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\swscale-8.dll">
+		<None Update="Assets\AMD64\swscale-8.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\x64\Xwindow.exe">
+		<None Update="Assets\AMD64\Xwindow.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

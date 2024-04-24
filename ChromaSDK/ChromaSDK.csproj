@@ -11,7 +11,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='x64'">
-		<None Update="Assets\x64\CChromaEditorLibrary64.dll">
+		<None Update="Assets\AMD64\CChromaEditorLibrary64.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
