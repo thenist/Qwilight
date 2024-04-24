@@ -370,5 +370,3 @@ healthchecksdb
 !/sdk/tools/ContentBuilder/scripts/simple_app_build.vdf
 /sdk/tools/ContentBuilder/builder
 /sdk/tools/ContentBuilder/output
-
-/Qwilight.zip

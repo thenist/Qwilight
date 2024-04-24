@@ -10,6 +10,8 @@ Robocopy Flint\ARM64\Release Qwilight\Assets\ARM64 Flint.exe
 
 "%MSBUILD%" -t:Build -p:Configuration=Release,Platform=x64 Igniter\Igniter.csproj
 Robocopy Igniter\bin\x64\Release Qwilight\Assets\x64 Igniter.exe
+"%MSBUILD%" -t:Build -p:Configuration=Release,Platform=ARM64 Igniter\Igniter.csproj
+Robocopy Igniter\bin\ARM64\Release Qwilight\Assets\ARM64 Igniter.exe
 
 "%MSBUILD%" -t:Build -p:Configuration=Release,Platform=x64 NVIDIA\NVIDIA.vcxproj
 Robocopy NVIDIA\x64\Release Qwilight\Assets\x64 NVIDIA.dll

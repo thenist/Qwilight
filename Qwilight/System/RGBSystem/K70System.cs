@@ -111,15 +111,15 @@ namespace Qwilight
             _ => default,
         };
 
-        readonly CorsairLedId[] _inputs;
-        readonly Dictionary<CorsairLedId, uint> _rgbIDs = new();
+        readonly CorsairLedId[] _rgbIDs;
+        readonly Dictionary<CorsairLedId, uint> _rgbIDMap = new();
         readonly CorsairLedColor[] _rgbColors;
         int _rgbCount;
 
         K70System()
         {
-            _inputs = (Enum.GetValues(typeof(CorsairLedId)) as CorsairLedId[]).Where(input => (CorsairLedId.KeyboardEscape <= input && input <= CorsairLedId.KeyboardFn) || input == CorsairLedId.KeyboardLogo || (CorsairLedId.KeyboardLightPipeZone1 <= input && input <= CorsairLedId.KeyboardLightPipeZone19) || (CorsairLedId.KeyboardLightPipeZone20 <= input && input <= CorsairLedId.KeyboardProfile)).ToArray();
-            _rgbColors = new CorsairLedColor[_inputs.Length];
+            _rgbIDs = (Enum.GetValues(typeof(CorsairLedId)) as CorsairLedId[]).Where(input => (CorsairLedId.KeyboardEscape <= input && input <= CorsairLedId.KeyboardFn) || input == CorsairLedId.KeyboardLogo || (CorsairLedId.KeyboardLightPipeZone1 <= input && input <= CorsairLedId.KeyboardLightPipeZone19) || (CorsairLedId.KeyboardLightPipeZone20 <= input && input <= CorsairLedId.KeyboardProfile)).ToArray();
+            _rgbColors = new CorsairLedColor[_rgbIDs.Length];
         }
 
         public override bool IsAvailable => Configure.Instance.K70;
@@ -135,7 +135,7 @@ namespace Qwilight
             var input = GetInput(rawInput);
             if (input != CorsairLedId.Invalid)
             {
-                _rgbIDs[input] = value;
+                _rgbIDMap[input] = value;
             }
         }
 
@@ -145,29 +145,29 @@ namespace Qwilight
 
         public override void SetEtcColor(uint value)
         {
-            _rgbIDs[CorsairLedId.KeyboardLogo] = value;
+            _rgbIDMap[CorsairLedId.KeyboardLogo] = value;
             for (var i = CorsairLedId.KeyboardLightPipeZone19; i >= CorsairLedId.KeyboardLightPipeZone1; --i)
             {
-                _rgbIDs[i] = value;
+                _rgbIDMap[i] = value;
             }
             for (var i = CorsairLedId.KeyboardProfile; i >= CorsairLedId.KeyboardLightPipeZone20; --i)
             {
-                _rgbIDs[i] = value;
+                _rgbIDMap[i] = value;
             }
         }
 
         public override void OnBeforeHandle()
         {
-            _rgbIDs.Clear();
+            _rgbIDMap.Clear();
             _rgbCount = CorsairLightingSDK.GetDeviceCount();
         }
 
         public override void OnHandled()
         {
-            for (var i = _inputs.Length - 1; i >= 0; --i)
+            for (var i = _rgbIDs.Length - 1; i >= 0; --i)
             {
-                var input = _inputs[i];
-                _rgbColors[i] = _rgbIDs.TryGetValue(input, out var value) ? new()
+                var input = _rgbIDs[i];
+                _rgbColors[i] = _rgbIDMap.TryGetValue(input, out var value) ? new()
                 {
                     LedId = input,
                     R = (int)(value & 255),

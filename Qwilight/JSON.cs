@@ -1,5 +1,6 @@
 ﻿using Qwilight.NoteFile;
 using Qwilight.Utilities;
+using System.Text.Json.Serialization;
 
 namespace Qwilight
 {
@@ -146,7 +147,19 @@ namespace Qwilight
         public struct TaehuiQwilight
         {
             public string date;
+#if X64
+            [JsonPropertyName("hashX64")]
+#endif
+#if ARM64
+            [JsonPropertyName("hashARM64")]
+#endif
             public string hash;
+#if X64
+            [JsonPropertyName("titleX64")]
+#endif
+#if ARM64
+            [JsonPropertyName("titleARM64")]
+#endif
             public string title;
         }
 

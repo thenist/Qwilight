@@ -14,7 +14,9 @@ using System.Buffers;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
+#if X64
 using System.Runtime.InteropServices;
+#endif
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Media.Imaging;
 using Windows.Foundation;
@@ -54,6 +56,7 @@ namespace Qwilight
             ePresentEnd
         }
 
+#if X64
         [LibraryImport("NVIDIA")]
         private static partial void InitNVLL(nint d3dDevice);
 
@@ -69,6 +72,7 @@ namespace Qwilight
 
         [LibraryImport("NVIDIA")]
         private static partial void WaitNVLL();
+#endif
 
         public static readonly DrawingSystem Instance = QwilightComponent.GetBuiltInData<DrawingSystem>(nameof(DrawingSystem));
 
@@ -160,8 +164,11 @@ namespace Qwilight
         public virtual void Init()
         {
             CanvasDevice.GetSharedDevice().As<IDirect3DDxgiInterfaceAccess>().GetInterface(new Guid("6007896C-3244-4AFD-BF18-A6D3BEDA5023"), out var rawSystem);
+#if X64
             InitNVLL(Marshal.GetIUnknownForObject(rawSystem));
-            if (!(CanNVLL = IsNVLLAvailable()))
+            CanNVLL = IsNVLLAvailable();
+#endif
+            if (!CanNVLL)
             {
                 Configure.Instance.NVLLModeValue = Configure.NVLLMode.Not;
                 Configure.Instance.NVLLFramerate = 0;
@@ -2330,18 +2337,24 @@ namespace Qwilight
                                 {
                                     targetSession.DrawImage(_targetSystem);
 
+#if X64
                                     SetNVLLFlagIf(ReflexMarker.eSimulationEnd);
                                     SetNVLLFlagIf(ReflexMarker.eRenderSubmitStart);
+#endif
                                 }
+#if X64
                                 SetNVLLFlagIf(ReflexMarker.eRenderSubmitEnd);
+#endif
                             }
 
+#if X64
                             if (isNVLL)
                             {
                                 WaitNVLL();
                             }
 
                             SetNVLLFlagIf(ReflexMarker.ePresentStart);
+#endif
                             if (Configure.Instance.VESAV2)
                             {
                                 _rawTargetSystem.Present();
@@ -2350,6 +2363,7 @@ namespace Qwilight
                             {
                                 _rawTargetSystem.Present(0, DXGI_PRESENT_ALLOW_TEARING);
                             }
+#if X64
                             SetNVLLFlagIf(ReflexMarker.ePresentEnd);
 
                             if (isNVLL)
@@ -2365,6 +2379,7 @@ namespace Qwilight
                                     SetNVLLFlag(setFlag);
                                 }
                             }
+#endif
                             break;
                         case MainViewModel.Mode.Quit:
                             defaultComputer = mainViewModel.Computer;

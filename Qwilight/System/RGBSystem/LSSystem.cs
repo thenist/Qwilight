@@ -112,8 +112,8 @@ namespace Qwilight
             _ => default
         };
 
-        readonly keyboardNames[] _inputs = (Enum.GetValues(typeof(keyboardNames)) as keyboardNames[]);
-        readonly Dictionary<keyboardNames, uint> _rgbIDs = new();
+        readonly keyboardNames[] _rgbIDs = (Enum.GetValues(typeof(keyboardNames)) as keyboardNames[]);
+        readonly Dictionary<keyboardNames, uint> _rgbIDMap = new();
 
         LSSystem()
         {
@@ -144,7 +144,7 @@ namespace Qwilight
             var input = GetInput(rawInput);
             if (input != default)
             {
-                _rgbIDs[input] = value;
+                _rgbIDMap[input] = value;
             }
         }
 
@@ -163,14 +163,14 @@ namespace Qwilight
 
         public override void OnBeforeHandle()
         {
-            _rgbIDs.Clear();
+            _rgbIDMap.Clear();
         }
 
         public override void OnHandled()
         {
-            foreach (var input in _inputs)
+            foreach (var input in _rgbIDs)
             {
-                var value = _rgbIDs.GetValueOrDefault(input);
+                var value = _rgbIDMap.GetValueOrDefault(input);
                 LogitechGSDK.LogiLedSetLightingForKeyWithKeyName(input, (int)(100 * (value & 255) / 255), (int)(100 * ((value >> 8) & 255) / 255), (int)(100 * ((value >> 16) & 255) / 255));
             }
         }
