@@ -34,7 +34,7 @@ namespace Qwilight
 
         public AudioInputSystem()
         {
-            _zippingData = new byte[2 * _waveFormat.SampleRate * 20];
+            _zippingData = new byte[2 * _waveFormat.SampleRate / 1000 * 20];
             _zipper = new(_waveFormat.SampleRate, _waveFormat.Channels, OpusApplication.OPUS_APPLICATION_VOIP);
             _rawer = new(_waveFormat.SampleRate, _waveFormat.Channels);
             GetWaveInValues();
