@@ -23,7 +23,7 @@ namespace Qwilight
                         Text = LanguageSystem.Instance.MediaModifierContents;
                         _exe = new()
                         {
-                            StartInfo = new(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffmpeg.exe"), $"""
+                            StartInfo = new(Path.Combine(QwilightComponent.AMD64AssetsEntryPath, "ffmpeg.exe"), $"""
                                 -i "{mediaFilePath}" -y -an {(isWrongMedia || isCounterWave ? string.Empty : "-vcodec copy")} {(isCounterWave ? "-vf reverse" : string.Empty)} -preset ultrafast "{hashMediaFilePath}"
                             """)
                             {

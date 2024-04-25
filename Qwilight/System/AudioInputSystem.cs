@@ -1,13 +1,10 @@
-﻿using NAudio.CoreAudioApi;
+﻿using Concentus.Enums;
+using Concentus.Structs;
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
-#if X64
-using OpusDotNet;
-#endif
 using Qwilight.UIComponent;
-#if X64
 using Qwilight.ViewModel;
 using System.Buffers;
-#endif
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Media;
@@ -22,15 +19,13 @@ namespace Qwilight
 
         public static readonly AudioInputSystem Instance = QwilightComponent.GetBuiltInData<AudioInputSystem>(nameof(AudioInputSystem));
 
-        readonly WaveFormat _waveFormat = new(48000, 2);
+        readonly WaveFormat _waveFormat = new(48000, 1);
         readonly Dictionary<string, BufferedWaveProvider> _waveData = new();
-        readonly MixingWaveProvider32 _m = new();
-#if X64
-        readonly OpusEncoder _zipComputer;
-        readonly OpusDecoder _rawComputer;
-        readonly byte[] _zippingData = new byte[11520];
+        readonly MixingWaveProvider32 _mwp32 = new();
+        readonly OpusEncoder _zipper;
+        readonly OpusDecoder _rawer;
+        readonly byte[] _zippingData;
         int _zippingPosition;
-#endif
         WasapiOut _wave;
         WasapiCapture _waveIn;
         bool _loopWaveIn;
@@ -39,10 +34,9 @@ namespace Qwilight
 
         public AudioInputSystem()
         {
-#if X64
-            _zipComputer = new(Application.VoIP, _waveFormat.SampleRate, _waveFormat.Channels);
-            _rawComputer = new(_waveFormat.SampleRate, _waveFormat.Channels);
-#endif
+            _zippingData = new byte[2 * _waveFormat.SampleRate * 20];
+            _zipper = new(_waveFormat.SampleRate, _waveFormat.Channels, OpusApplication.OPUS_APPLICATION_VOIP);
+            _rawer = new(_waveFormat.SampleRate, _waveFormat.Channels);
             GetWaveInValues();
             GetWaveValues();
         }
@@ -143,7 +137,7 @@ namespace Qwilight
                     try
                     {
                         _wave = new(waveSystem, AudioClientShareMode.Shared, true, 200);
-                        _wave.Init(_m);
+                        _wave.Init(_mwp32);
                         _wave.Play();
                     }
                     catch (Exception e)
@@ -235,36 +229,41 @@ namespace Qwilight
             }
             if (AudioInputValue >= Configure.Instance.AudioInputValue)
             {
-#if X64
-                var zippedData = Array.Empty<byte>();
-                var zippedLength = 0;
                 for (var i = 0; i < e.BytesRecorded; ++i)
                 {
                     _zippingData[_zippingPosition++] = rawData[i];
                     if (_zippingPosition == _zippingData.Length)
                     {
-                        zippedData = ArrayPool<byte>.Shared.Rent(_zippingPosition);
-                        zippedLength = _zipComputer.Encode(_zippingData, _zippingPosition, zippedData, zippedData.Length);
                         _zippingPosition = 0;
-                    }
-                }
 
-                try
-                {
-                    if (zippedLength > 0)
-                    {
-                        ViewModels.Instance.SiteContainerValue.AudioInput(zippedData, zippedLength);
-                        if (LoopWaveIn)
+                        var zippingPosition = _zippingData.Length / 2;
+                        var zippingData = ArrayPool<short>.Shared.Rent(zippingPosition);
+                        var zippedData = ArrayPool<byte>.Shared.Rent(8 * zippingData.Length);
+                        try
                         {
-                            Handle(LoopWaveInID, zippedData, zippedLength);
+                            for (var j = 0; j < zippingPosition; ++j)
+                            {
+                                zippingData[j] = (short)_zippingData[j * 2];
+                                zippingData[j] += (short)(((int)_zippingData[(j * 2) + 1]) << 8);
+                            }
+
+                            var zippedLength = _zipper.Encode(zippingData, 0, zippingPosition, zippedData, 0, zippedData.Length);
+                            if (zippedLength > 0)
+                            {
+                                ViewModels.Instance.SiteContainerValue.AudioInput(zippedData, zippedLength);
+                                if (LoopWaveIn)
+                                {
+                                    Handle(LoopWaveInID, zippedData, zippedLength);
+                                }
+                            }
+                        }
+                        finally
+                        {
+                            ArrayPool<byte>.Shared.Return(zippedData);
+                            ArrayPool<short>.Shared.Return(zippingData);
                         }
                     }
                 }
-                finally
-                {
-                    ArrayPool<byte>.Shared.Return(zippedData);
-                }
-#endif
             }
         }
 
@@ -275,9 +274,8 @@ namespace Qwilight
                 if (_wave != null)
                 {
                     AudioSystem.Instance.LastHandledAudioInputMillis = Environment.TickCount64;
-#if X64
-                    var rawData = ArrayPool<byte>.Shared.Rent(8 * zippedLength);
-                    var rawLength = _rawComputer.Decode(zippedData, zippedLength, rawData, rawData.Length);
+                    var rawData16 = ArrayPool<short>.Shared.Rent(16 * zippedLength);
+                    var rawLength16 = _rawer.Decode(zippedData, 0, zippedLength, rawData16, 0, rawData16.Length);
                     try
                     {
                         if (!_waveData.TryGetValue(avatarID, out var waveData))
@@ -286,18 +284,26 @@ namespace Qwilight
                             {
                                 DiscardOnBufferOverflow = true
                             };
-                            _m.AddInputStream(new Wave16ToFloatProvider(waveData));
+                            _mwp32.AddInputStream(new Wave16ToFloatProvider(waveData));
                             CloseWave();
                             SetWave();
                             _waveData[avatarID] = waveData;
                         }
-                        waveData.AddSamples(rawData, 0, rawLength);
+
+                        var rawLength8 = rawLength16 * 2;
+                        var rawData8 = ArrayPool<byte>.Shared.Rent(rawLength8);
+                        for (var i = rawLength16 - 1; i >= 0; --i)
+                        {
+                            rawData8[i * 2] = (byte)(rawData16[i] & 255);
+                            rawData8[i * 2 + 1] = (byte)((rawData16[i] >> 8) & 255);
+                        }
+
+                        waveData.AddSamples(rawData8, 0, rawLength8);
                     }
                     finally
                     {
-                        ArrayPool<byte>.Shared.Return(rawData);
+                        ArrayPool<short>.Shared.Return(rawData16);
                     }
-#endif
                 }
             }
         }

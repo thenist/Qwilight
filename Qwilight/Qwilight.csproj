@@ -39,13 +39,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Assets\UI\%40Default\%40Default.zip.old" />
+		<None Remove="Assets\UI\%40Default\%40Default.zip.old" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AuraServiceLib.NET" Version="1.0.1" />
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Concentus" Version="1.1.7" />
 		<PackageReference Include="CUESDK.NET" Version="3.0.378.1" />
 		<PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
 		<PackageReference Include="DotNetZip" Version="1.16.0" />
@@ -69,16 +70,42 @@
 		<PackageReference Include="Vortice.XInput" Version="3.5.0" />
 		<PackageReference Include="YamlDotNet" Version="15.1.2" />
 	</ItemGroup>
-	
-	<ItemGroup Condition="'$(Platform)'=='x64'">
-		<PackageReference Include="OpusDotNet" Version="1.0.3" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<Resource Include="Assets\Drawing\Loading.png" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="Assets\AMD64\avcodec-61.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\avdevice-61.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\avfilter-10.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\avformat-61.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\avutil-59.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\ffmpeg.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\ffprobe.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\postproc-58.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\swresample-5.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\swscale-8.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\Audio\Postable Item\HigherAudioMultiplier.wav">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -143,7 +170,7 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\Drawing\TV 1.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\Drawing\TV 0.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -185,10 +212,10 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\System 16\Audio\1221.mp3">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\System 16\Audio\1225.mp3">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\UI\%40Default\%40Default.lua">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -212,35 +239,14 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\System 16\Drawing\1221.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\System 16\Drawing\1225.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='ARM64'">
-		<None Update="Assets\ARM64\avcodec-61.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\avdevice-61.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\avfilter-10.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\avformat-61.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\avutil-59.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\ffmpeg.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\ffprobe.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\ARM64\Flint.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -250,42 +256,12 @@
 		<None Update="Assets\ARM64\Microsoft.Graphics.Canvas.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\ARM64\postproc-58.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\swresample-5.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\ARM64\swscale-8.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\ARM64\Xwindow.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='x64'">
-		<None Update="Assets\AMD64\avcodec-61.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\AMD64\avdevice-61.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\AMD64\avfilter-10.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\AMD64\avformat-61.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\AMD64\avutil-59.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\AMD64\ffmpeg.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\AMD64\ffprobe.exe">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\AMD64\Flint.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -296,9 +272,6 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\AMD64\NVIDIA.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\AMD64\postproc-58.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\AMD64\sl.common.dll">
@@ -316,12 +289,6 @@
 		<None Update="Assets\AMD64\steam_api64.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\AMD64\swresample-5.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Assets\AMD64\swscale-8.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\AMD64\Xwindow.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -336,8 +303,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="Microsoft.Graphics.Canvas.Interop">
-	    <HintPath>Microsoft.Graphics.Canvas.Interop.dll</HintPath>
-	  </Reference>
+		<Reference Include="Microsoft.Graphics.Canvas.Interop">
+			<HintPath>Microsoft.Graphics.Canvas.Interop.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 </Project>

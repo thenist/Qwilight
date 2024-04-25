@@ -47,6 +47,7 @@ namespace Qwilight
         public static readonly HwMode DefaultHwMode;
         public static readonly string AssetsEntryPath;
         public static readonly string MSIXAssetsEntryPath;
+        public static readonly string AMD64AssetsEntryPath;
         public static readonly string CPUAssetsEntryPath;
         public static readonly string QwilightEntryPath;
         public static readonly string EdgeEntryPath;
@@ -137,8 +138,9 @@ namespace Qwilight
 #endif
 
             AssetsEntryPath = Path.Combine(AppContext.BaseDirectory, "Assets");
+            AMD64AssetsEntryPath = Path.Combine(AssetsEntryPath, "AMD64");
 #if X64
-            CPUAssetsEntryPath = Path.Combine(AssetsEntryPath, "x64");
+            CPUAssetsEntryPath = AMD64AssetsEntryPath;
 #else
             CPUAssetsEntryPath = Path.Combine(AssetsEntryPath, "ARM64");
 #endif
