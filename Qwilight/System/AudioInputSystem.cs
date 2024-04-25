@@ -238,28 +238,33 @@ namespace Qwilight
 
                         var zippingPosition = _zippingData.Length / 2;
                         var zippingData = ArrayPool<short>.Shared.Rent(zippingPosition);
-                        var zippedData = ArrayPool<byte>.Shared.Rent(8 * zippingData.Length);
                         try
                         {
                             for (var j = 0; j < zippingPosition; ++j)
                             {
-                                zippingData[j] = (short)_zippingData[j * 2];
-                                zippingData[j] += (short)(((int)_zippingData[(j * 2) + 1]) << 8);
+                                zippingData[j] = (short)(_zippingData[j * 2] + (((int)_zippingData[(j * 2) + 1]) << 8));
                             }
 
-                            var zippedLength = _zipper.Encode(zippingData, 0, zippingPosition, zippedData, 0, zippedData.Length);
-                            if (zippedLength > 0)
+                            var zippedData = ArrayPool<byte>.Shared.Rent(zippingPosition);
+                            try
                             {
-                                ViewModels.Instance.SiteContainerValue.AudioInput(zippedData, zippedLength);
-                                if (LoopWaveIn)
+                                var zippedLength = _zipper.Encode(zippingData, 0, zippingPosition, zippedData, 0, zippedData.Length);
+                                if (zippedLength > 0)
                                 {
-                                    Handle(LoopWaveInID, zippedData, zippedLength);
+                                    ViewModels.Instance.SiteContainerValue.AudioInput(zippedData, zippedLength);
+                                    if (LoopWaveIn)
+                                    {
+                                        Handle(LoopWaveInID, zippedData, zippedLength);
+                                    }
                                 }
+                            }
+                            finally
+                            {
+                                ArrayPool<byte>.Shared.Return(zippedData);
                             }
                         }
                         finally
                         {
-                            ArrayPool<byte>.Shared.Return(zippedData);
                             ArrayPool<short>.Shared.Return(zippingData);
                         }
                     }
@@ -292,13 +297,20 @@ namespace Qwilight
 
                         var rawLength8 = rawLength16 * 2;
                         var rawData8 = ArrayPool<byte>.Shared.Rent(rawLength8);
-                        for (var i = rawLength16 - 1; i >= 0; --i)
+                        try
                         {
-                            rawData8[i * 2] = (byte)(rawData16[i] & 255);
-                            rawData8[i * 2 + 1] = (byte)((rawData16[i] >> 8) & 255);
-                        }
+                            for (var i = rawLength16 - 1; i >= 0; --i)
+                            {
+                                rawData8[i * 2] = (byte)(rawData16[i] & 255);
+                                rawData8[i * 2 + 1] = (byte)((rawData16[i] >> 8) & 255);
+                            }
 
-                        waveData.AddSamples(rawData8, 0, rawLength8);
+                            waveData.AddSamples(rawData8, 0, rawLength8);
+                        }
+                        finally
+                        {
+                            ArrayPool<byte>.Shared.Return(rawData8);
+                        }
                     }
                     finally
                     {
