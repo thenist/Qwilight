@@ -7,9 +7,7 @@ using Qwilight.ViewModel;
 using System.Collections.Frozen;
 using System.Globalization;
 using System.IO;
-#if X64
 using System.Runtime.InteropServices;
-#endif
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -89,10 +87,8 @@ namespace Qwilight
             eLowLatencyWithBoost,
         }
 
-#if X64
         [LibraryImport("NVIDIA")]
         private static partial void SetNVLLConfigure(ReflexMode mode, uint frameLimitUs);
-#endif
 
         public enum TutorialID
         {

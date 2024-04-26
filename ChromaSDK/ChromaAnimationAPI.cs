@@ -292,8 +292,8 @@ namespace ChromaSDK
 				_mFrameIndex[(int)Device.Keypad] = 0;
 				_mFrameIndex[(int)Device.Mouse] = 0;
 				_mFrameIndex[(int)Device.Mousepad] = 0;
-                _mFrameIndex[(int)Device.KeyboardExtended] = 0;
-            }
+				_mFrameIndex[(int)Device.KeyboardExtended] = 0;
+			}
 		}
 
 		public enum EChromaSDKSceneBlend

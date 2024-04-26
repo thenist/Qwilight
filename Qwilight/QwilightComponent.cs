@@ -141,7 +141,8 @@ namespace Qwilight
             AMD64AssetsEntryPath = Path.Combine(AssetsEntryPath, "AMD64");
 #if X64
             CPUAssetsEntryPath = AMD64AssetsEntryPath;
-#else
+#endif
+#if ARM64
             CPUAssetsEntryPath = Path.Combine(AssetsEntryPath, "ARM64");
 #endif
             MSIXAssetsEntryPath = Path.Combine(AssetsEntryPath, "MSIX");

@@ -14,9 +14,7 @@ using System.Buffers;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
-#if X64
 using System.Runtime.InteropServices;
-#endif
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Media.Imaging;
 using Windows.Foundation;
@@ -46,7 +44,7 @@ namespace Qwilight
 
         const int DXGI_PRESENT_ALLOW_TEARING = 512;
 
-        enum ReflexMarker
+        enum PCLMarker
         {
             eSimulationStart,
             eSimulationEnd,
@@ -56,7 +54,6 @@ namespace Qwilight
             ePresentEnd
         }
 
-#if X64
         [LibraryImport("NVIDIA")]
         private static partial void InitNVLL(nint d3dDevice);
 
@@ -68,11 +65,10 @@ namespace Qwilight
         private static partial void GetNVLLFrame();
 
         [LibraryImport("NVIDIA")]
-        private static partial void SetNVLLFlag(ReflexMarker marker);
+        private static partial void SetNVLLFlag(PCLMarker marker);
 
         [LibraryImport("NVIDIA")]
         private static partial void WaitNVLL();
-#endif
 
         public static readonly DrawingSystem Instance = QwilightComponent.GetBuiltInData<DrawingSystem>(nameof(DrawingSystem));
 
@@ -2337,24 +2333,20 @@ namespace Qwilight
                                 {
                                     targetSession.DrawImage(_targetSystem);
 
-#if X64
-                                    SetNVLLFlagIf(ReflexMarker.eSimulationEnd);
-                                    SetNVLLFlagIf(ReflexMarker.eRenderSubmitStart);
-#endif
+                                    SetNVLLFlagIf(PCLMarker.eSimulationEnd);
+                                    SetNVLLFlagIf(PCLMarker.eRenderSubmitStart);
                                 }
-#if X64
-                                SetNVLLFlagIf(ReflexMarker.eRenderSubmitEnd);
-#endif
+                                SetNVLLFlagIf(PCLMarker.eRenderSubmitEnd);
                             }
 
-#if X64
                             if (isNVLL)
                             {
+#if X64
                                 WaitNVLL();
+#endif
                             }
 
-                            SetNVLLFlagIf(ReflexMarker.ePresentStart);
-#endif
+                            SetNVLLFlagIf(PCLMarker.ePresentStart);
                             if (Configure.Instance.VESAV2)
                             {
                                 _rawTargetSystem.Present();
@@ -2363,23 +2355,25 @@ namespace Qwilight
                             {
                                 _rawTargetSystem.Present(0, DXGI_PRESENT_ALLOW_TEARING);
                             }
-#if X64
-                            SetNVLLFlagIf(ReflexMarker.ePresentEnd);
+                            SetNVLLFlagIf(PCLMarker.ePresentEnd);
 
                             if (isNVLL)
                             {
+#if X64
                                 GetNVLLFrame();
+#endif
                             }
-                            SetNVLLFlagIf(ReflexMarker.eSimulationStart);
+                            SetNVLLFlagIf(PCLMarker.eSimulationStart);
 
-                            void SetNVLLFlagIf(ReflexMarker setFlag)
+                            void SetNVLLFlagIf(PCLMarker setFlag)
                             {
                                 if (isNVLL)
                                 {
+#if X64
                                     SetNVLLFlag(setFlag);
+#endif
                                 }
                             }
-#endif
                             break;
                         case MainViewModel.Mode.Quit:
                             defaultComputer = mainViewModel.Computer;
