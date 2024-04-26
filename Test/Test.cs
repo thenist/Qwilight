@@ -40,6 +40,7 @@ namespace Test
                 nameof(AudioSystem) => audioSystem.Object,
                 nameof(DrawingSystem) => drawingSystem.Object,
                 nameof(LanguageSystem) => new LanguageSystem(),
+                nameof(LevelSystem) => new LevelSystem(),
                 nameof(Configure) => new Configure(),
                 nameof(ViewModels) => new ViewModels(),
                 nameof(UI) => new UI(),

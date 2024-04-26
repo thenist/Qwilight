@@ -16,14 +16,14 @@ CALL CI
 CHOICE /M TEST
 SET TEST=%ERRORLEVEL%
 IF %TEST% == 1 (
-	IF %PROCESSOR_ARCHITECTURE% == "AMD64" (
+	IF %PROCESSOR_ARCHITECTURE% == AMD64 (
 		RMDIR /S /Q Test\%WINAMD64%
 		Robocopy Test\qpdgo\Bundle Test\%WINAMD64%\qpdgo\Bundle /MIR
 		MKDIR Test\%WINAMD64%\qpdgo\UI
 		"%BANDIZIP%" x -target:auto Test\qpdgo\UI\*.zip Test\%WINAMD64%\qpdgo\UI
 		dotnet test Test\Test.csproj -c Release -p:Platform=x64
 	)
-	IF %PROCESSOR_ARCHITECTURE% == "ARM64" (
+	IF %PROCESSOR_ARCHITECTURE% == ARM64 (
 		RMDIR /S /Q Test\%WINARM64%
 		Robocopy Test\qpdgo\Bundle Test\%WINARM64WINARM64%\qpdgo\Bundle /MIR
 		MKDIR Test\%WINARM64%\qpdgo\UI
