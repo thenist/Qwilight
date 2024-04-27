@@ -1,8 +1,8 @@
 ﻿/** 쓰레기 코드임 */
 
 using Ionic.Zip;
+using Microsoft.Data.Sqlite;
 using System.Data;
-using System.Data.SQLite;
 using System.Text;
 using System.Text.RegularExpressions;
 using YamlDotNet.RepresentationModel;
@@ -31,7 +31,7 @@ namespace Compatible
             }
         }
 
-        public static void DB(SQLiteConnection fastDB)
+        public static void DB(SqliteConnection fastDB)
         {
             if (HasTable("comment"))
             {
@@ -129,7 +129,7 @@ namespace Compatible
                 }
             }
 
-            SQLiteCommand NewDBStatement(string text, SQLiteTransaction t = null)
+            SqliteCommand NewDBStatement(string text, SqliteTransaction t = null)
             {
                 var dbStatement = fastDB.CreateCommand();
                 dbStatement.CommandText = text;

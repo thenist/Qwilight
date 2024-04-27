@@ -1,10 +1,10 @@
-﻿using Qwilight.Compute;
+﻿using Microsoft.Data.Sqlite;
+using Qwilight.Compute;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using Qwilight.ViewModel;
 using System.Data;
-using System.Data.SQLite;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -32,8 +32,8 @@ namespace Qwilight
         public static readonly DB Instance = QwilightComponent.GetBuiltInData<DB>(nameof(DB));
 
         readonly object _setSaveCSX = new();
-        SQLiteConnection _fastDB;
-        SQLiteConnection _fileDB;
+        SqliteConnection _fastDB;
+        SqliteConnection _fileDB;
 
         public string DBFault { get; set; }
 
@@ -41,11 +41,11 @@ namespace Qwilight
         {
             Utility.WipeFile(_tmp0FileName);
             Utility.MoveFile(_tmp1FileName, _fileName);
-            _fastDB = new(new SQLiteConnectionStringBuilder
+            _fastDB = new(new SqliteConnectionStringBuilder
             {
                 DataSource = ":memory:"
             }.ToString());
-            _fileDB = new(new SQLiteConnectionStringBuilder
+            _fileDB = new(new SqliteConnectionStringBuilder
             {
                 DataSource = _fileName
             }.ToString());
@@ -53,7 +53,7 @@ namespace Qwilight
             {
                 LoadImpl();
             }
-            catch (SQLiteException e)
+            catch (SqliteException e)
             {
                 DBFault = $"Failed to Validate DB ({e.Message})";
                 _fastDB.Close();
@@ -66,7 +66,7 @@ namespace Qwilight
             {
                 _fastDB.Open();
                 _fileDB.Open();
-                _fileDB.BackupDatabase(_fastDB, _fastDB.Database, _fileDB.Database, -1, null, -1);
+                _fileDB.BackupDatabase(_fastDB);
 
                 #region COMPATIBLE
                 Compatible.Compatible.DB(_fastDB);
@@ -525,7 +525,7 @@ namespace Qwilight
                     }
                     #endregion
 
-                    bool HasTable(string tableName, SQLiteTransaction t)
+                    bool HasTable(string tableName, SqliteTransaction t)
                     {
                         var dbStatement = NewDBStatement("""
                             SELECT name
@@ -542,7 +542,7 @@ namespace Qwilight
         public ICollection<CommentItem> GetCommentItems(BaseNoteFile noteFile, string eventNoteID, int noteFileCount)
         {
             var commentItems = new List<CommentItem>();
-            using var dbStatement = NewDBStatement($"""
+            var dbStatement = NewDBStatement($"""
                 SELECT Date, Comment, Name, Multiplier, Auto_Mode, Note_Salt_Mode, Audio_Multiplier, Faint_Note_Mode, Judgment_Mode, Hit_Points_Mode, Note_Mobility_Mode, Long_Note_Mode, Input_Favor_Mode, Note_Modify_Mode, BPM_Mode, Wave_Mode, Set_Note_Mode, Lowest_Judgment_Condition_Mode, Stand, Band, Is_Band1, Point, Salt, Highest_Judgment_0, Higher_Judgment_0, High_Judgment_0, Low_Judgment_0, Lower_Judgment_0, Lowest_Judgment_0, Highest_Judgment_1, Higher_Judgment_1, High_Judgment_1, Low_Judgment_1, Lower_Judgment_1, Lowest_Judgment_1, Input_Favor_Labelled_Millis, Lowest_Long_Note_Modify, Highest_Long_Note_Modify, Set_Note_Put, Set_Note_Put_Millis, Highest_Hit_Points_0, Higher_Hit_Points_0, High_Hit_Points_0, Low_Hit_Points_0, Lower_Hit_Points_0, Lowest_Hit_Points_0, Highest_Hit_Points_1, Higher_Hit_Points_1, High_Hit_Points_1, Low_Hit_Points_1, Lower_Hit_Points_1, Lowest_Hit_Points_1, Is_Paused, Input_Flags
                 FROM comment
                 WHERE {(string.IsNullOrEmpty(eventNoteID) ? "Note_ID = @noteID" : "Event_Note_ID = @eventNoteID")}
@@ -644,7 +644,7 @@ namespace Qwilight
                 var noteVariety = (BaseNoteFile.NoteVariety)wwwLevelComputingValue.NoteVarietyValue;
                 if (noteVariety != BaseNoteFile.NoteVariety.EventNote)
                 {
-                    using var dbStatement = NewDBStatement("""
+                    var dbStatement = NewDBStatement("""
                         REPLACE
                         INTO event_note_data
                         VALUES(@noteID, @noteVariety, @title, @artist, @level, @levelText, @genre)
@@ -663,7 +663,7 @@ namespace Qwilight
 
         public void GetEventNoteData(string noteID, NotAvailableNoteFile noteFile)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 SELECT Note_Variety, Title, Artist, Level, Level_Text, Genre
                 FROM event_note_data
                 WHERE Note_ID = @noteID
@@ -704,7 +704,7 @@ namespace Qwilight
         public ICollection<DefaultEntryItem> GetFavoriteEntryItems(BaseNoteFile noteFile)
         {
             var favoriteEntryItems = new List<DefaultEntryItem>();
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 SELECT Favorite_Entry
                 FROM favorite_entry
                 WHERE Note_ID = @noteID
@@ -725,7 +725,7 @@ namespace Qwilight
         public ICollection<(string, string, DateTime, EventNoteVariety)> GetEventNotes()
         {
             var eventNotes = new List<(string, string, DateTime, EventNoteVariety)>();
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 SELECT Event_Note_ID, Name, Date, Variety
                 FROM event_note
             """);
@@ -739,7 +739,7 @@ namespace Qwilight
 
         public BaseNoteFile.Handled GetHandled(BaseNoteFile noteFile)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 SELECT Handled
                 FROM handled
                 WHERE Note_ID = @noteID
@@ -751,7 +751,7 @@ namespace Qwilight
 
         public void SetHandled(BaseNoteFile noteFile)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 REPLACE
                 INTO handled
                 VALUES(@noteID, @handled)
@@ -764,7 +764,7 @@ namespace Qwilight
         public (DateTime?, int) GetDate(BaseNoteFile noteFile, string eventNoteID)
         {
             var date = (null as DateTime?, 0);
-            using var dbStatement = NewDBStatement($"""
+            var dbStatement = NewDBStatement($"""
                 SELECT MAX(Date) AS Latest, COUNT(Date) AS Count
                 FROM date
                 WHERE {(string.IsNullOrEmpty(eventNoteID) ? "Note_ID = @noteID" : "Event_Note_ID = @eventNoteID")}
@@ -794,7 +794,7 @@ namespace Qwilight
 
         public void NewDate(BaseNoteFile noteFile, string eventNoteID, DateTime date)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 INSERT
                 INTO date
                 VALUES(@noteID, @eventNoteID, @date)
@@ -807,7 +807,7 @@ namespace Qwilight
 
         public int GetNotePosition(string entryPath)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 SELECT Note_Position
                 FROM entry
                 WHERE Entry_Path = @entryPath
@@ -820,7 +820,7 @@ namespace Qwilight
         public (double, double, bool?) GetWait(BaseNoteFile noteFile)
         {
             (double, double, bool?) data = (0.0, 0.0, default);
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 SELECT Audio_Wait, Media_Wait, Media
                 FROM wait
                 WHERE Note_ID = @noteID
@@ -844,7 +844,7 @@ namespace Qwilight
 
         public int GetFormat(BaseNoteFile noteFile)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 SELECT Format
                 FROM format
                 WHERE Note_ID = @noteID
@@ -856,7 +856,7 @@ namespace Qwilight
 
         public void SetNotePosition(EntryItem entryItem)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 REPLACE
                 INTO entry
                 VALUES(@entryPath, @notePosition)
@@ -897,7 +897,7 @@ namespace Qwilight
 
         public void SetEventNote(string eventNoteID, string eventNoteName, DateTime date, EventNoteVariety eventNoteVariety)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 INSERT INTO event_note
                 VALUES(@eventNoteID, @eventNoteName, @date, @eventNoteVariety)
             """);
@@ -910,7 +910,7 @@ namespace Qwilight
 
         public void WipeEventNote(string eventNoteID)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 DELETE
                 FROM event_note
                 WHERE Event_Note_ID = @eventNoteID
@@ -921,7 +921,7 @@ namespace Qwilight
 
         public void ModifyEventNoteName(string eventNoteID, string eventNoteName)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 UPDATE event_note
                 SET Name = @eventNoteName
                 WHERE Event_Note_ID = @eventNoteID
@@ -933,7 +933,7 @@ namespace Qwilight
 
         public void SaveComment(DateTime date, BaseNoteFile noteFile, string eventNoteID, string comment, string avatar, double multiplier, double audioMultiplier, ModeComponent modeComponent, int stand, int band, bool isBand1, double point, bool isPaused, DefaultCompute.InputFlag inputFlags)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 INSERT
                 INTO comment
                 VALUES(@date, @eventNoteID, @comment, @avatar, @multiplier, @autoMode, @noteSaltMode, @audioMultiplier, @faintNoteMode, @judgmentMode, @hitPointsMode, @noteMobilityMode, @longNoteMode, @inputFavorMode, @noteModifyMode, @bpmMode, @waveMode, @setNoteMode, @lowestJudgmentConditionMode, @stand, @band, @isBand1, @point, @salt, @highestJudgment0, @higherJudgment0, @highJudgment0, @lowJudgment0, @lowerJudgment0, @lowestJudgment0, @highestJudgment1, @higherJudgment1, @highJudgment1, @lowJudgment1, @lowerJudgment1, @lowestJudgment1, @inputFavorLabelledMillis, @lowestLongNoteModify, @highestLongNoteModify, @setNotePut, @setNotePutMillis, @highestHitPoints0, @higherHitPoints0, @highHitPoints0, @lowHitPoints0, @lowerHitPoints0, @lowestHitPoints0, @highestHitPoints1, @higherHitPoints1, @highHitPoints1, @lowHitPoints1, @lowerHitPoints1, @lowestHitPoints1, @noteID, @isPaused, @inputFlags)
@@ -999,7 +999,7 @@ namespace Qwilight
 
         public void SetWait(BaseNoteFile noteFile, double audioWait, double mediaWait, bool media)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 REPLACE
                 INTO wait
                 VALUES(@noteID, @audioWait, @mediaWait, @media)
@@ -1013,7 +1013,7 @@ namespace Qwilight
 
         public void SetNoteFormat(BaseNoteFile noteFile, int format)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 REPLACE
                 INTO format
                 VALUES(@noteID, @format)
@@ -1025,7 +1025,7 @@ namespace Qwilight
 
         public void WipeFavoriteEntry()
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 DELETE
                 FROM favorite_entry
             """);
@@ -1034,7 +1034,7 @@ namespace Qwilight
 
         public void WipeHandled(BaseNoteFile noteFile)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 DELETE
                 FROM handled
                 WHERE Note_ID = @noteID
@@ -1045,7 +1045,7 @@ namespace Qwilight
 
         public void InitWait()
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 UPDATE wait
                 SET Audio_Wait = NULL, Media_Wait = 0.0
             """);
@@ -1054,7 +1054,7 @@ namespace Qwilight
 
         public void InitMedia()
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 UPDATE wait
                 SET Media = NULL
             """);
@@ -1063,7 +1063,7 @@ namespace Qwilight
 
         public void WipeComment(string comment)
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 DELETE
                 FROM comment
                 WHERE Comment = @comment
@@ -1074,14 +1074,14 @@ namespace Qwilight
 
         public void WipeComment()
         {
-            using var dbStatement = NewDBStatement("""
+            var dbStatement = NewDBStatement("""
                 DELETE
                 FROM comment
             """);
             dbStatement.ExecuteNonQuery();
         }
 
-        void Ta(Action<SQLiteTransaction> onHandle)
+        void Ta(Action<SqliteTransaction> onHandle)
         {
             using var ta = _fastDB.BeginTransaction();
             try
@@ -1096,7 +1096,7 @@ namespace Qwilight
             }
         }
 
-        SQLiteCommand NewDBStatement(string text, SQLiteTransaction ta = null)
+        SqliteCommand NewDBStatement(string text, SqliteTransaction ta = null)
         {
             return new(text, _fastDB, ta);
         }
@@ -1107,7 +1107,7 @@ namespace Qwilight
             {
                 Utility.CopyFile(_fileName, _tmp0FileName);
                 Utility.MoveFile(_tmp0FileName, _tmp1FileName);
-                _fastDB.BackupDatabase(_fileDB, _fileDB.Database, _fastDB.Database, -1, null, -1);
+                _fastDB.BackupDatabase(_fileDB);
                 Utility.WipeFile(_tmp1FileName);
             }
         }

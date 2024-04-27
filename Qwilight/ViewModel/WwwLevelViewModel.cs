@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Data.Sqlite;
 using Qwilight.Compute;
 using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
 using System.Net;
 using System.Security.Cryptography;
 
@@ -99,7 +99,7 @@ namespace Qwilight.ViewModel
                 mainViewModel.Want();
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.OK, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.OpenedEventNotes);
             }
-            catch (SQLiteException)
+            catch (SqliteException)
             {
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.BeforeEventNoteContents);
             }

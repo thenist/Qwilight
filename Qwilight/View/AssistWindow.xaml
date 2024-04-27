@@ -427,14 +427,6 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Style="{StaticResource StandardTextView}" Text="System.Data.SQLite" HorizontalAlignment="Right" />
-                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://system.data.sqlite.org" HorizontalAlignment="Left">System.Data.SQLite</Button>
-                                    </Grid>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="UTF.Unknown" HorizontalAlignment="Right" />
                                         <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/CharsetDetector/UTF-unknown" HorizontalAlignment="Left">GitHub</Button>
                                     </Grid>
