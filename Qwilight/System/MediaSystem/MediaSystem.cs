@@ -334,7 +334,7 @@ namespace Qwilight
             var mediaLength = 0.0;
             using (var exe = new Process
             {
-                StartInfo = new(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffprobe.exe"), $"""
+                StartInfo = new(Path.Combine(QwilightComponent.AMD64AssetsEntryPath, "ffprobe.exe"), $"""
                     -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "{fileName}"
                 """)
                 {
@@ -363,7 +363,7 @@ namespace Qwilight
             var hasAudio = false;
             using (var exe = new Process
             {
-                StartInfo = new(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "ffprobe.exe"), $"""
+                StartInfo = new(Path.Combine(QwilightComponent.AMD64AssetsEntryPath, "ffprobe.exe"), $"""
                     -v error -show_entries stream=codec_type -of default=noprint_wrappers=1:nokey=1 "{fileName}"
                 """)
                 {
