@@ -3473,7 +3473,7 @@
   },
   "VeilDrawingContents": {
     "ko-KR": "레인 커버 ({0})",
-    "en-US": "Lane Cover ({2})"
+    "en-US": "Lane Cover ({0})"
   },
   "VeilDrawingHeightContents": {
     "ko-KR": "레인 커버 높이",

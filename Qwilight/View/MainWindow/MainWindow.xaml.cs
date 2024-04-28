@@ -227,17 +227,11 @@ namespace Qwilight.View
         {
             if (isVisible)
             {
-                UIHandler.Instance.HandleParallel(() =>
-                {
-                    _siteView.Show();
-                });
+                UIHandler.Instance.HandleParallel(_siteView.Show);
             }
             else
             {
-                UIHandler.Instance.HandleParallel(() =>
-                {
-                    _siteView.Hide();
-                });
+                UIHandler.Instance.HandleParallel(_siteView.Hide);
             }
         }
 
