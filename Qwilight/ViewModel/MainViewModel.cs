@@ -3016,7 +3016,7 @@ namespace Qwilight.ViewModel
             }
         }
 
-        public void HandleInitComment()
+        public void HandleUndoComment()
         {
             if (HasNotInput())
             {
@@ -3028,8 +3028,10 @@ namespace Qwilight.ViewModel
                 {
                     IsCommentMode = false;
                     var defaultModeComponentValue = Computer.DefaultModeComponentValue ?? ModeComponentValue.Clone();
+                    var defaultHitPointsMode = defaultModeComponentValue.HitPointsModeValue;
                     var defaultMultiplierValue = defaultModeComponentValue.MultiplierValue;
                     ModeComponentValue.CopyAs(Computer.ModeComponentValue, Computer.MyNoteFiles.First());
+                    ModeComponentValue.HitPointsModeValue = defaultHitPointsMode;
                     ModeComponentValue.CanModifyMultiplier = true;
                     ModeComponentValue.MultiplierValue = defaultMultiplierValue;
                     ModeComponentValue.CanModifyAudioMultiplier = true;
@@ -3131,7 +3133,7 @@ namespace Qwilight.ViewModel
                         }
                         break;
                     case Mode.Quit:
-                        HandleInitComment();
+                        HandleUndoComment();
                         break;
                 }
             }

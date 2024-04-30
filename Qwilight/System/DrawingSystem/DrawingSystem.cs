@@ -369,7 +369,7 @@ namespace Qwilight
                 defaultComputer.SetNoteFileMode();
             });
             var handleViewCommentImpl = new Action(mainViewModel.HandleViewComment);
-            var handleUndoImpl = new Action(mainViewModel.HandleInitComment);
+            var handleUndoImpl = new Action(mainViewModel.HandleUndoComment);
             var handleQuitMove0Impl = new Action(() => defaultComputer.NotifyCompute(-1));
             var handleQuitMove1Impl = new Action(() => defaultComputer.NotifyCompute(1));
             var getAvatarDrawing = new Action<object>(avatarID => _ = AvatarDrawingSystem.Instance.GetAvatarDrawing(avatarID as string));

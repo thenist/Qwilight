@@ -1,5 +1,5 @@
-﻿using Concentus.Enums;
-using Concentus.Structs;
+﻿using Concentus;
+using Concentus.Enums;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using Qwilight.UIComponent;
@@ -22,9 +22,10 @@ namespace Qwilight
         readonly WaveFormat _waveFormat = new(48000, 1);
         readonly Dictionary<string, BufferedWaveProvider> _waveData = new();
         readonly MixingWaveProvider32 _mwp32 = new();
-        readonly OpusEncoder _zipper;
-        readonly OpusDecoder _rawer;
+        readonly IOpusEncoder _zipper;
+        readonly IOpusDecoder _rawer;
         readonly byte[] _zippingData;
+        readonly int _frameLength;
         int _zippingPosition;
         WasapiOut _wave;
         WasapiCapture _waveIn;
@@ -34,9 +35,10 @@ namespace Qwilight
 
         public AudioInputSystem()
         {
-            _zippingData = new byte[2 * _waveFormat.SampleRate / 1000 * 20];
-            _zipper = new(_waveFormat.SampleRate, _waveFormat.Channels, OpusApplication.OPUS_APPLICATION_VOIP);
-            _rawer = new(_waveFormat.SampleRate, _waveFormat.Channels);
+            _frameLength = _waveFormat.SampleRate / 1000 * 20;
+            _zippingData = new byte[2 * _frameLength];
+            _zipper = OpusCodecFactory.CreateEncoder(_waveFormat.SampleRate, _waveFormat.Channels, OpusApplication.OPUS_APPLICATION_VOIP);
+            _rawer = OpusCodecFactory.CreateDecoder(_waveFormat.SampleRate, _waveFormat.Channels);
             GetWaveInValues();
             GetWaveValues();
         }
@@ -248,7 +250,7 @@ namespace Qwilight
                             var zippedData = ArrayPool<byte>.Shared.Rent(zippingPosition);
                             try
                             {
-                                var zippedLength = _zipper.Encode(zippingData, 0, zippingPosition, zippedData, 0, zippedData.Length);
+                                var zippedLength = _zipper.Encode(zippingData.AsSpan(0, zippingPosition), _frameLength, zippedData.AsSpan(0, zippedData.Length), zippedData.Length);
                                 if (zippedLength > 0)
                                 {
                                     ViewModels.Instance.SiteContainerValue.AudioInput(zippedData, zippedLength);
@@ -280,7 +282,7 @@ namespace Qwilight
                 {
                     AudioSystem.Instance.LastHandledAudioInputMillis = Environment.TickCount64;
                     var rawData16 = ArrayPool<short>.Shared.Rent(16 * zippedLength);
-                    var rawLength16 = _rawer.Decode(zippedData, 0, zippedLength, rawData16, 0, rawData16.Length);
+                    var rawLength16 = _rawer.Decode(zippedData.AsSpan(0, zippedLength), rawData16.AsSpan(0, rawData16.Length), _frameLength);
                     try
                     {
                         if (!_waveData.TryGetValue(avatarID, out var waveData))

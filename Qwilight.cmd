@@ -5,7 +5,6 @@ SET /P DATE=v
 SET VS2022=%PROGRAMFILES%\Microsoft Visual Studio\2022\Community
 SET MSBUILD=%VS2022%\Msbuild\Current\Bin\MSBuild.exe
 SET BANDIZIP=%PROGRAMFILES%\Bandizip\bz.exe
-SET DOWNLOADS=%USERPROFILE%\Downloads
 SET WINAMD64=bin\x64\Release\net8.0-windows10.0.22621.0\win-x64
 SET WINARM64=bin\ARM64\Release\net8.0-windows10.0.22621.0\win-arm64
 SET WINAMD64PUBLISH=Qwilight\%WINAMD64%\publish
@@ -39,15 +38,15 @@ IF %TEST% == 1 (
 
 RMDIR /S /Q %WINAMD64PUBLISH%
 dotnet publish Qwilight\Qwilight.csproj -c Release -p:Platform=x64
-"%BANDIZIP%" c -storeroot:no %DOWNLOADS%\Qwilight.AMD64.zip %WINAMD64PUBLISH%
-	
+"%BANDIZIP%" c -storeroot:no Qwilight.AMD64.zip %WINAMD64PUBLISH%
+
 powershell $(CertUtil -hashfile %WINAMD64PUBLISH%\Qwilight.dll SHA512)[1] > Qwilight.dll.sha512sum
 SET /P HASH_AMD64= < Qwilight.dll.sha512sum
 DEL Qwilight.dll.sha512sum
 
 RMDIR /S /Q %WINARM64PUBLISH%
 dotnet publish Qwilight\Qwilight.csproj -c Release -p:Platform=ARM64
-"%BANDIZIP%" c -storeroot:no %DOWNLOADS%\Qwilight.ARM64.zip %WINARM64PUBLISH%
+"%BANDIZIP%" c -storeroot:no Qwilight.ARM64.zip %WINARM64PUBLISH%
 
 powershell $(CertUtil -hashfile %WINARM64PUBLISH%\Qwilight.dll SHA512)[1] > Qwilight.dll.sha512sum
 SET /P HASH_ARM64= < Qwilight.dll.sha512sum
@@ -55,10 +54,13 @@ DEL Qwilight.dll.sha512sum
 
 CHOICE /M PATCH
 IF %ERRORLEVEL% == 1 (
-	curl -X PATCH taehui:8300/date/AMD64 --data-binary "@%DOWNLOADS%\Qwilight.AMD64.zip"
-	curl -X PATCH taehui:8300/date/ARM64 --data-binary "@%DOWNLOADS%\Qwilight.ARM64.zip"
+	curl -X PATCH taehui:8300/date/AMD64 --data-binary "@Qwilight.AMD64.zip"
+	curl -X PATCH taehui:8300/date/ARM64 --data-binary "@Qwilight.ARM64.zip"
 	curl -X PATCH taehui:8300/date -d "%DATE% %HASH_AMD64% %HASH_ARM64%"
 )
+
+DEL Qwilight.AMD64.zip
+DEL Qwilight.ARM64.zip
 
 CHOICE /M VALVE
 SET VALVE=%ERRORLEVEL%
