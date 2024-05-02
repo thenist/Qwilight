@@ -10,6 +10,7 @@ namespace Qwilight
     public sealed class WootingSystem : DefaultRGBSystem
     {
         public static readonly WootingSystem Instance = new();
+
         WootingSystem()
         {
 #if X64
