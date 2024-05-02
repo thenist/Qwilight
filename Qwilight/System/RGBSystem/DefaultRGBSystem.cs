@@ -1,5 +1,4 @@
 ﻿using RGB.NET.Core;
-using RGB.NET.Devices.SteelSeries;
 using System.Collections.Frozen;
 using Windows.System;
 
@@ -114,10 +113,12 @@ namespace Qwilight
         FrozenDictionary<LedId, Led> _rgbs;
         ManualUpdateTrigger _trigger;
 
+        public abstract void Load(RGBSurface rgbSystem);
+
         public override bool Init()
         {
             _rgbSystem = new();
-            _rgbSystem.Load(SteelSeriesDeviceProvider.Instance);
+            Load(_rgbSystem);
             _rgbSystem.AlignDevices();
             _rgbs = _rgbSystem.Leds.ToFrozenDictionary(rgb => rgb.Id, rgb => rgb);
             _trigger = new();
@@ -159,8 +160,8 @@ namespace Qwilight
                 if (IsHandling)
                 {
                     IsHandling = false;
-                    _trigger.Dispose();
                     _rgbSystem.UnregisterUpdateTrigger(_trigger);
+                    _trigger.Dispose();
                     _rgbSystem.Dispose();
                 }
             }
