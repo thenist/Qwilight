@@ -307,14 +307,6 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Style="{StaticResource StandardTextView}" Text="CUESDK.NET" HorizontalAlignment="Right" />
-                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/ChromaControl/CUESDK.NET" HorizontalAlignment="Left">GitHub</Button>
-                                    </Grid>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="DiscordRichPresence" HorizontalAlignment="Right" />
                                         <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/Lachee/discord-rpc-csharp" HorizontalAlignment="Left">GitHub</Button>
                                     </Grid>
@@ -413,6 +405,14 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Style="{StaticResource StandardTextView}" Text="NAudio" HorizontalAlignment="Right" />
                                         <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/naudio/NAudio" HorizontalAlignment="Left">GitHub</Button>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource StandardTextView}" Text="RGB.NET" HorizontalAlignment="Right" />
+                                        <Button Style="{StaticResource StandardInput}" Grid.Column="1" Command="{Binding OpenAsCommand}" CommandParameter="https://github.com/DarthAffe/RGB.NET" HorizontalAlignment="Left">GitHub</Button>
                                     </Grid>
                                     <Grid>
                                         <Grid.ColumnDefinitions>

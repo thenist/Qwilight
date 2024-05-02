@@ -231,6 +231,8 @@ namespace Qwilight
         bool _ls;
         bool _aura;
         bool _valueK70;
+        bool _valueGS;
+        bool _wooting;
         bool _mediaInput;
         bool _loadedMedia;
         bool _media;
@@ -1599,6 +1601,42 @@ namespace Qwilight
         public Brush K70Paint => Paints.PointPaints[K70 ? 1 : 0];
 
         public string K70Text => K70 ? LanguageSystem.Instance.K70Text : LanguageSystem.Instance.NotK70Text;
+
+        public bool GS
+        {
+            get => _valueGS;
+
+            set
+            {
+                if (SetProperty(ref _valueGS, value))
+                {
+                    OnPropertyChanged(nameof(GSPaint));
+                    OnPropertyChanged(nameof(GSText));
+                }
+            }
+        }
+
+        public Brush GSPaint => Paints.PointPaints[GS ? 1 : 0];
+
+        public string GSText => GS ? LanguageSystem.Instance.GSText : LanguageSystem.Instance.NotGSText;
+
+        public bool Wooting
+        {
+            get => _wooting;
+
+            set
+            {
+                if (SetProperty(ref _wooting, value))
+                {
+                    OnPropertyChanged(nameof(WootingPaint));
+                    OnPropertyChanged(nameof(WootingText));
+                }
+            }
+        }
+
+        public Brush WootingPaint => Paints.PointPaints[Wooting ? 1 : 0];
+
+        public string WootingText => Wooting ? LanguageSystem.Instance.WootingText : LanguageSystem.Instance.NotWootingText;
 
         public bool MediaInput
         {
@@ -3539,6 +3577,11 @@ namespace Qwilight
                 WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.LevyNoteFile].Data = new() { Buttons = GamepadButtons.View };
                 WGIBundlesV3.StandardInputs[InputStandardControllerViewModel.Wait].Data = new() { Buttons = GamepadButtons.Menu };
                 MIDIBundlesV4.SetStandardInputs();
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 26))
+            {
+                GS = false;
+                Wooting = false;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

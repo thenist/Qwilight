@@ -1175,6 +1175,14 @@
     "ko-KR": "폴더 단위로 보여줍니다.",
     "en-US": "Displays in folder units."
   },
+  "GSContents": {
+    "ko-KR": "SteelSeries® GameSense™를 사용합니다.",
+    "en-US": "Use SteelSeries® GameSense™."
+  },
+  "GSText": {
+    "ko-KR": "SteelSeries® GameSense™ 활성화",
+    "en-US": "Enable SteelSeries® GameSense™"
+  },
   "GUIConfigureText": {
     "ko-KR": "그래픽 설정",
     "en-US": "Graphic Settings"
@@ -2459,6 +2467,10 @@
     "ko-KR": "레인 커버 슬라이드 비활성화",
     "en-US": "Disable rain cover slide"
   },
+  "NotGSText": {
+    "ko-KR": "SteelSeries® GameSense™ 비활성화",
+    "en-US": "Disable SteelSeries® GameSense™"
+  },
   "NotHandleInputAudioText": {
     "ko-KR": "키음 비활성화",
     "en-US": "Disable Keysounds"
@@ -2686,6 +2698,10 @@
   "NotWMPointerText": {
     "ko-KR": "패닝 비활성화",
     "en-US": "Disable panning"
+  },
+  "NotWootingText": {
+    "ko-KR": "Wooting® RGB 비활성화",
+    "en-US": "Disable Wooting® RGB"
   },
   "NVLLFramerateContents": {
     "ko-KR": "프레임 제한을 설정합니다. 0은 제한하지 않습니다.",
@@ -3722,6 +3738,14 @@
   "WMPointerText": {
     "ko-KR": "패닝 활성화",
     "en-US": "Enable panning"
+  },
+  "WootingContents": {
+    "ko-KR": "Wooting® RGB를 사용합니다.",
+    "en-US": "Use Wooting® RGB."
+  },
+  "WootingText": {
+    "ko-KR": "Wooting® RGB 활성화",
+    "en-US": "Enable Wooting® RGB"
   },
   "WrongLowestJudgmentConditionModeContents": {
     "ko-KR": "간접 미스를 추가합니다.",

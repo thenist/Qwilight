@@ -82,6 +82,22 @@
                 <Button Style="{StaticResource StandardInput}" Foreground="{Binding K70Paint, Source={StaticResource Configure}}" Command="{Binding K70Command}" Content="{Binding K70Text, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
                 <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding K70Contents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
             </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding GSPaint, Source={StaticResource Configure}}" Command="{Binding GSCommand}" Content="{Binding GSText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding GSContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource StandardInput}" Foreground="{Binding WootingPaint, Source={StaticResource Configure}}" Command="{Binding WootingCommand}" Content="{Binding WootingText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding WootingContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+            </Grid>
             <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

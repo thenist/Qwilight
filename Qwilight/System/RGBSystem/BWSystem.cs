@@ -120,7 +120,9 @@ namespace Qwilight
 
         BWSystem()
         {
+#if X64
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "CChromaEditorLibrary64.dll"), Path.Combine(AppContext.BaseDirectory, "CChromaEditorLibrary64.dll"));
+#endif
         }
 
         public override bool IsAvailable => Configure.Instance.BW;

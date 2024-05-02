@@ -16,7 +16,7 @@ namespace Qwilight
 
         readonly BaseRGBSystem[] _targetSystems = new BaseRGBSystem[]
         {
-            BWSystem.Instance, AuraSystem.Instance, K70System.Instance, LSSystem.Instance
+            BWSystem.Instance, AuraSystem.Instance, K70System.Instance, LSSystem.Instance, GSSystem.Instance, WootingSystem.Instance
         };
 
         readonly object _availableCSX = new();

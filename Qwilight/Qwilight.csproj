@@ -10,7 +10,7 @@
 		<ApplicationIcon>Qwilight.ico</ApplicationIcon>
 		<Authors>Taehui</Authors>
 		<Company>불로그</Company>
-		<VersionPrefix>1.16.25</VersionPrefix>
+		<VersionPrefix>1.16.26</VersionPrefix>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableMsixTooling>true</EnableMsixTooling>
@@ -40,7 +40,6 @@
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Concentus" Version="2.0.0" />
-		<PackageReference Include="CUESDK.NET" Version="3.0.378.1" />
 		<PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
 		<PackageReference Include="DotNetZip" Version="1.16.0" />
 		<PackageReference Include="Facepunch.Steamworks" Version="2.3.3" />
@@ -257,6 +256,9 @@
 
 	<ItemGroup Condition="'$(Platform)'=='x64'">
 		<None Update="Assets\AMD64\Flint.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\iCUESDK.x64_2019.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\AMD64\Igniter.exe">

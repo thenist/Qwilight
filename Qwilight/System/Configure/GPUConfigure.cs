@@ -95,7 +95,7 @@ namespace Qwilight
         {
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 2))
             {
-                GPUModeValue = GPUMode.Default;
+                GPUModeValue = QwilightComponent.GPUName.ContainsCaselsss("NVIDIA") ? GPUMode.NVIDIA : GPUMode.Default;
             }
             Date = QwilightComponent.Date;
         }

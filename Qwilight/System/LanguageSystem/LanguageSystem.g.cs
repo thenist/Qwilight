@@ -296,6 +296,8 @@ namespace Qwilight
         public string GPUModeText { get; set; }
         public string GroupEntry0Assist { get; set; }
         public string GroupEntry1Assist { get; set; }
+        public string GSContents { get; set; }
+        public string GSText { get; set; }
         public string GUIConfigureText { get; set; }
         public string HalfInputSaltModeContents { get; set; }
         public string HalfMultiplierContents { get; set; }
@@ -617,6 +619,7 @@ namespace Qwilight
         public string NotFlangeText { get; set; }
         public string NotFlowValuesText { get; set; }
         public string NotFlowVeilDrawingText { get; set; }
+        public string NotGSText { get; set; }
         public string NotHandleInputAudioText { get; set; }
         public string NotHandleMeterText { get; set; }
         public string NotHaveLevelTarget { get; set; }
@@ -674,6 +677,7 @@ namespace Qwilight
         public string NotWindowedModeContents { get; set; }
         public string NotWindowedModeText { get; set; }
         public string NotWMPointerText { get; set; }
+        public string NotWootingText { get; set; }
         public string NVLLFramerateContents { get; set; }
         public string NVLLModeContents { get; set; }
         public string NVLLModeNotText { get; set; }
@@ -933,6 +937,8 @@ namespace Qwilight
         public string WMPointerContents { get; set; }
         public string WMPointerModified { get; set; }
         public string WMPointerText { get; set; }
+        public string WootingContents { get; set; }
+        public string WootingText { get; set; }
         public string WrongLowestJudgmentConditionModeContents { get; set; }
         public string WwwLevelAudioMultiplierContents0 { get; set; }
         public string WwwLevelAudioMultiplierContents1 { get; set; }
