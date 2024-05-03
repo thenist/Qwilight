@@ -14,7 +14,7 @@ namespace Qwilight
         WootingSystem()
         {
 #if X64
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "wooting-rgb-sdk64.dll"), Path.Combine(AppContext.BaseDirectory, "wooting-rgb-sdk64.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "wooting-rgb-sdk64.dll"), Path.Combine(AppContext.BaseDirectory, "x64", "wooting-rgb-sdk64.dll"));
 #endif
         }
 
