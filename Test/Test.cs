@@ -6,6 +6,7 @@ using Qwilight.MSG;
 using Qwilight.ViewModel;
 using System.Text;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Windows.Graphics;
 using Xunit;
 
@@ -24,7 +25,7 @@ namespace Test
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            UIHandler.Instance.Init(e => { });
+            UIHandler.Instance.Init(Dispatcher.CurrentDispatcher);
 
             var audioSystem = new Mock<AudioSystem>();
             audioSystem.Setup(arg => arg.Init());

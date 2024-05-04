@@ -15,8 +15,8 @@ namespace Qwilight
         K70System()
         {
 #if X64
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "iCUESDK.x64_2019.dll"), Path.Combine(AppContext.BaseDirectory, "iCUESDK.dll"));
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "CUESDK.x64_2019.dll"), Path.Combine(AppContext.BaseDirectory, "CUESDK.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "iCUESDK.x64_2019.dll"), Path.Combine(AppContext.BaseDirectory, "x64", "iCUESDK.x64_2019.dll"));
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "CUESDK.x64_2019.dll"), Path.Combine(AppContext.BaseDirectory, "x64", "CUESDK.x64_2019.dll"));
 #endif
         }
 

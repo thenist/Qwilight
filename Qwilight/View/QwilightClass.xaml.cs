@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml;
 using Microsoft.Win32;
 using Qwilight.Utilities;
 using System.Collections.Concurrent;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime;
@@ -74,14 +73,7 @@ namespace Qwilight.View
             Application.Start(p =>
             {
                 SynchronizationContext.SetSynchronizationContext(new DispatcherQueueSynchronizationContext(DispatcherQueue.GetForCurrentThread()));
-                try
-                {
-                    new QwilightClass().Run();
-                }
-                finally
-                {
-                    Application.Current.Exit();
-                }
+                new QwilightClass().Run();
             });
         }
 
@@ -92,7 +84,7 @@ namespace Qwilight.View
             if (_handledFaultMap.TryAdd(e, null))
             {
                 var (logFilePath, faultText) = Utility.SaveFaultFile(QwilightComponent.FaultEntryPath, e);
-                if (!QwilightComponent.IsVS)
+                if (!QwilightComponent.IsVS && !(e is OutOfMemoryException))
                 {
                     _ = TwilightSystem.Instance.PostWwwParallel($"{QwilightComponent.QwilightAPI}/fault", faultText);
                 }
@@ -107,13 +99,14 @@ namespace Qwilight.View
         {
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
-                var fault = e.ExceptionObject as Exception;
-                if (!(fault is Win32Exception && (fault as Win32Exception).NativeErrorCode == 1400))
-                {
-                    OnUnhandledFault(fault);
-                }
+                OnUnhandledFault(e.ExceptionObject as Exception);
             };
-            UIHandler.Instance.Init(OnUnhandledFault);
+            DispatcherUnhandledException += (sender, e) =>
+            {
+                e.Handled = MainWindow?.IsLoaded == true;
+                OnUnhandledFault(e.Exception);
+            };
+            UIHandler.Instance.Init(Dispatcher);
 
             QwilightComponent.OnGetBuiltInData = data => TryFindResource(data);
 

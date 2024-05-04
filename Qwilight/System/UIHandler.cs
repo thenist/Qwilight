@@ -8,14 +8,9 @@ namespace Qwilight
 
         public Dispatcher Handler { get; set; }
 
-        public void Init(Action<Exception> onUnhandledFault)
+        public void Init(Dispatcher handler)
         {
-            Handler = Dispatcher.CurrentDispatcher;
-            Handler.UnhandledException += (sender, e) =>
-            {
-                e.Handled = true;
-                onUnhandledFault(e.Exception);
-            };
+            Handler = handler;
         }
 
         public void HandleParallel(Action onHandle)
