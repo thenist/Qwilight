@@ -130,9 +130,9 @@ namespace Qwilight
         public override void SetInputColor(VirtualKey rawInput, uint value)
         {
             var input = GetInput(rawInput);
-            if (input != LedId.Invalid)
+            if (input != LedId.Invalid && _rgbs.TryGetValue(input, out var rgb))
             {
-                _rgbs[input].Color = GetColor(value);
+                rgb.Color = GetColor(value);
             }
         }
 
