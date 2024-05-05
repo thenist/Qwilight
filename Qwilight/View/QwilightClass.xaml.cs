@@ -72,8 +72,15 @@ namespace Qwilight.View
 
             Application.Start(p =>
             {
-                SynchronizationContext.SetSynchronizationContext(new DispatcherQueueSynchronizationContext(DispatcherQueue.GetForCurrentThread()));
-                new QwilightClass().Run();
+                try
+                {
+                    SynchronizationContext.SetSynchronizationContext(new DispatcherQueueSynchronizationContext(DispatcherQueue.GetForCurrentThread()));
+                    new QwilightClass().Run();
+                }
+                finally
+                {
+                    Application.Current.Exit();
+                }
             });
         }
 
