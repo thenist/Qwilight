@@ -22,8 +22,8 @@ namespace Qwilight
 
         public override void Load(RGBSurface rgbSystem)
         {
-            rgbSystem.Load(CorsairDeviceProvider.Instance);
             rgbSystem.Load(CorsairLegacyDeviceProvider.Instance);
+            rgbSystem.Load(CorsairDeviceProvider.Instance);
         }
 
         public override bool IsAvailable => Configure.Instance.K70;

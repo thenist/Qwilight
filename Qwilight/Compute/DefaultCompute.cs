@@ -3808,7 +3808,10 @@ namespace Qwilight.Compute
             void SetJudgedValue(Component.Judged judged, bool isIn2P, BaseNote note)
             {
                 var isLowestJudgment = judged == Component.Judged.Lowest;
-                _failedDrawingMillis = isLowestJudgment ? Configure.Instance.FailedDrawingMillis : 0.0;
+                if (isLowestJudgment)
+                {
+                    _failedDrawingMillis = Configure.Instance.FailedDrawingMillis;
+                }
                 if (isLowestJudgment)
                 {
                     if (!IsInEvents)

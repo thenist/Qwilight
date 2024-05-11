@@ -4,7 +4,6 @@ using Qwilight.NoteFile;
 using Qwilight.UIComponent;
 using Qwilight.Utilities;
 using Qwilight.ViewModel;
-using System.Collections.Frozen;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -26,60 +25,6 @@ namespace Qwilight
 {
     public sealed partial class Configure : Model
     {
-        static readonly FrozenDictionary<string, AudioConfigure> _audioConfigureValues = new[]
-        {
-            KeyValuePair.Create("Beats Flex", new AudioConfigure
-            {
-                AudioWait = -173.0,
-                HandleInputAudio = false
-            }),
-            KeyValuePair.Create("Buds2 Pro", new AudioConfigure
-            {
-                AudioWait = -250.0,
-                HandleInputAudio = false
-            }),
-            KeyValuePair.Create("Buds2 Stereo", new AudioConfigure
-            {
-                AudioWait = -250.0,
-                HandleInputAudio = false
-            }),
-            KeyValuePair.Create("direm W1", new AudioConfigure
-            {
-                AudioWait = -48.0,
-                HandleInputAudio = false
-            }),
-            KeyValuePair.Create("Galaxy Buds Pro", new AudioConfigure
-            {
-                AudioWait = -337.0,
-                HandleInputAudio = false
-            }),
-            KeyValuePair.Create("MOMENTUM 4", new AudioConfigure
-            {
-                AudioWait = -249.0,
-                HandleInputAudio = false
-            }),
-            KeyValuePair.Create("Razer Hammerhead TWS (2nd Gen)", new AudioConfigure
-            {
-                AudioWait = -275.0,
-                HandleInputAudio = false
-            }),
-            KeyValuePair.Create("Razer Hammerhead TWS Pro", new AudioConfigure
-            {
-                AudioWait = -259.0,
-                HandleInputAudio = false
-            }),
-            KeyValuePair.Create("WF-1000XM5", new AudioConfigure
-            {
-                AudioWait = -216.0,
-                HandleInputAudio = false
-            }),
-            KeyValuePair.Create("WH-1000XM5", new AudioConfigure
-            {
-                AudioWait = -216.0,
-                HandleInputAudio = false
-            })
-        }.ToFrozenDictionary();
-
         enum ReflexMode
         {
             eOff,
@@ -1683,21 +1628,11 @@ namespace Qwilight
         [JsonIgnore]
         public bool HandleInputAudio
         {
-            get => AudioConfigureValues.GetValueOrDefault(AudioSystem.Instance.AudioValue?.Name ?? string.Empty, _audioConfigureValues.FirstOrDefault(audioConfigureValue => AudioSystem.Instance.AudioValue?.Name?.Contains(audioConfigureValue.Key) == true).Value ?? new()).HandleInputAudio;
+            get => AudioConfigureValues[AudioSystem.Instance.AudioValue?.Name ?? string.Empty].HandleInputAudio;
 
             set
             {
-                if (AudioConfigureValues.TryGetValue(AudioSystem.Instance.AudioValue?.Name ?? string.Empty, out var audioConfigure))
-                {
-                    audioConfigure.HandleInputAudio = value;
-                }
-                else
-                {
-                    AudioConfigureValues[AudioSystem.Instance.AudioValue?.Name ?? string.Empty] = new()
-                    {
-                        HandleInputAudio = value
-                    };
-                }
+                AudioConfigureValues[AudioSystem.Instance.AudioValue?.Name ?? string.Empty].HandleInputAudio = value;
                 OnPropertyChanged(nameof(HandleInputAudio));
                 OnPropertyChanged(nameof(HandleInputAudioPaint));
                 OnPropertyChanged(nameof(HandleInputAudioText));
@@ -1729,30 +1664,13 @@ namespace Qwilight
         [JsonIgnore]
         public double BanalAudioWait
         {
-            get => AudioConfigureValues.GetValueOrDefault(AudioSystem.Instance.AudioValue?.Name ?? string.Empty, _audioConfigureValues.FirstOrDefault(audioConfigureValue => AudioSystem.Instance.AudioValue?.Name?.Contains(audioConfigureValue.Key) == true).Value ?? new()).AudioWait;
+            get => AudioConfigureValues[AudioSystem.Instance.AudioValue?.Name ?? string.Empty].AudioWait;
 
             set
             {
-                if (AudioConfigureValues.TryGetValue(AudioSystem.Instance.AudioValue?.Name ?? string.Empty, out var audioConfigure))
-                {
-                    audioConfigure.AudioWait = value;
-                }
-                else
-                {
-                    AudioConfigureValues[AudioSystem.Instance.AudioValue?.Name ?? string.Empty] = new()
-                    {
-                        AudioWait = value
-                    };
-                }
+                AudioConfigureValues[AudioSystem.Instance.AudioValue?.Name ?? string.Empty].AudioWait = value;
+                OnPropertyChanged(nameof(BanalAudioWait));
             }
-        }
-
-        public void NotifyAudioConfigure()
-        {
-            OnPropertyChanged(nameof(HandleInputAudio));
-            OnPropertyChanged(nameof(HandleInputAudioPaint));
-            OnPropertyChanged(nameof(HandleInputAudioText));
-            OnPropertyChanged(nameof(BanalAudioWait));
         }
 
         public bool BanalAudio
@@ -3052,10 +2970,6 @@ namespace Qwilight
                 MIDIBundlesV4 = new();
                 MIDIBundlesV4.SetInputs();
             }
-            if (isInit || Utility.IsLowerDate(Date, 1, 14, 47))
-            {
-                AudioConfigureValues = new();
-            }
             if (isInit || Utility.IsLowerDate(Date, 1, 14, 49))
             {
                 UICommentNote = true;
@@ -3582,6 +3496,13 @@ namespace Qwilight
             {
                 GS = false;
                 Wooting = false;
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 27))
+            {
+                AudioConfigureValues = new()
+                {
+                    { string.Empty, new() }
+                };
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {
