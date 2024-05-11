@@ -3031,7 +3031,10 @@ namespace Qwilight.ViewModel
                     var defaultHitPointsMode = defaultModeComponentValue.HitPointsModeValue;
                     var defaultMultiplierValue = defaultModeComponentValue.MultiplierValue;
                     ModeComponentValue.CopyAs(Computer.ModeComponentValue, Computer.MyNoteFiles.First());
-                    ModeComponentValue.HitPointsModeValue = defaultHitPointsMode;
+                    if (Computer.AvatarID != TwilightSystem.Instance.AvatarID)
+                    {
+                        ModeComponentValue.HitPointsModeValue = defaultHitPointsMode;
+                    }
                     ModeComponentValue.CanModifyMultiplier = true;
                     ModeComponentValue.MultiplierValue = defaultMultiplierValue;
                     ModeComponentValue.CanModifyAudioMultiplier = true;

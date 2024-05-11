@@ -202,9 +202,9 @@ end
 
 function PaintProperty0Etc()
 	if IsNoteFileModeUHD() then
-		return "0UHD.mp4"
+		return "[0UHD0.mp4, 0UHD1.mp4]"
 	else
-		return "0HD.mp4"
+		return "[0HD0.mp4, 0HD1.mp4]"
 	end
 end
 

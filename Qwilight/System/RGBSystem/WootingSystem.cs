@@ -1,4 +1,6 @@
 ﻿using Microsoft.UI;
+using Qwilight.Utilities;
+using System.IO;
 using Windows.System;
 using Windows.UI;
 using Wooting;
@@ -8,6 +10,13 @@ namespace Qwilight
     public sealed class WootingSystem : BaseRGBSystem
     {
         public static readonly WootingSystem Instance = new();
+
+        public WootingSystem()
+        {
+#if X64
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "wooting-rgb-sdk64.dll"), Path.Combine(AppContext.BaseDirectory, "wooting-rgb-sdk.dll"));
+#endif
+        }
 
         static WootingKey.Keys GetInput(VirtualKey input) => input switch
         {
@@ -114,11 +123,11 @@ namespace Qwilight
 
         public override bool Init()
         {
-            if (RGBControl.IsConnected())
+            try
             {
-                return true;
+                return RGBControl.IsConnected();
             }
-            else
+            catch
             {
                 return false;
             }

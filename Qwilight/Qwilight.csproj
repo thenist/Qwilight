@@ -291,6 +291,9 @@
 		<None Update="Assets\AMD64\steam_api64.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\AMD64\wooting-rgb-sdk64.dll">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\AMD64\Xwindow.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
