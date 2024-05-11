@@ -60,9 +60,11 @@ namespace Qwilight
 
         public bool CanPaint => Length > 0.0 && Height > 0.0;
 
-        public static implicit operator Windows.Foundation.Rect(Bound r) => new Windows.Foundation.Rect(r.Position0Margin + r.Position0, r.Position1Margin + r.Position1, r.Length, r.Height);
+        public Rect GetMarginless() => new Rect(Position0, Position1, Length, Height);
 
-        public static implicit operator Bound(Windows.Foundation.Rect r) => new Bound(r.X, r.Y, r.Width, r.Height);
+        public static implicit operator Rect(Bound r) => new Rect(r.Position0Margin + r.Position0, r.Position1Margin + r.Position1, r.Length, r.Height);
+
+        public static implicit operator Bound(Rect r) => new Bound(r.X, r.Y, r.Width, r.Height);
 
         public static implicit operator Vector2(Bound r) => new Vector2((float)(r.Position0Margin + r.Position0), (float)(r.Position1Margin + r.Position1));
 

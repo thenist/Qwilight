@@ -2866,7 +2866,7 @@ namespace Qwilight.Compute
                                         audioChannelMap[AudioSystem.InputAudio][nameof(AudioSystem.Instance.BanalAudio)] = AudioSystem.Instance.Handle(new()
                                         {
                                             AudioItem = banalAudioValue
-                                        }, AudioSystem.InputAudio, AudioMultiplier, IsCounterWave, this, 0.0, inputPower);
+                                        }, AudioSystem.InputAudio, AudioMultiplier, false, this, 0.0, inputPower);
                                     }
                                 }
                             }

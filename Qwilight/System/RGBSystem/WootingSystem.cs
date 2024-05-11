@@ -116,10 +116,6 @@ namespace Qwilight
         {
             if (RGBControl.IsConnected())
             {
-                for (var i = RGBControl.GetDeviceCount(); i >= 0; --i)
-                {
-                    RGBControl.SetControlDevice(i);
-                }
                 return true;
             }
             else
@@ -147,6 +143,10 @@ namespace Qwilight
 
         public override void OnBeforeHandle()
         {
+            for (var i = RGBControl.GetDeviceCount(); i >= 0; --i)
+            {
+                RGBControl.SetControlDevice(i);
+            }
         }
 
         public override void OnHandled()

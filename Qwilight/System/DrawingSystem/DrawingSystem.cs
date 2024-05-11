@@ -1211,15 +1211,15 @@ namespace Qwilight
                                                                                                                 case Event.Types.NetDrawing.Types.Variety.Note:
                                                                                                                     r.Set(drawing.Position0 * valueLength, drawing.Position1 * valueHeight, drawing.Length * valueLength, drawing.Height * valueHeight);
                                                                                                                     var ellipse = (float)Math.Min(r.Length / 2, r.Height / 2);
-                                                                                                                    session.FillRoundedRectangle(r, ellipse, ellipse, valueColor);
+                                                                                                                    session.FillRoundedRectangle(r.GetMarginless(), ellipse, ellipse, valueColor);
                                                                                                                     break;
                                                                                                                 case Event.Types.NetDrawing.Types.Variety.Main:
                                                                                                                     r.Set(drawing.Position0 * valueLength, drawing.Position1 * valueHeight, drawing.Length * valueLength, drawing.Height * valueHeight);
-                                                                                                                    session.FillRectangle(r, valueColor);
+                                                                                                                    session.FillRectangle(r.GetMarginless(), valueColor);
                                                                                                                     break;
                                                                                                                 case Event.Types.NetDrawing.Types.Variety.Meter:
                                                                                                                     r.Set(0F, drawing.Position1 * valueHeight, highestNetHeight, valueHeight);
-                                                                                                                    session.FillRectangle(r, valueColor);
+                                                                                                                    session.FillRectangle(r.GetMarginless(), valueColor);
                                                                                                                     break;
                                                                                                             }
                                                                                                         }
