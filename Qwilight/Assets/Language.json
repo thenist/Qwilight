@@ -3363,6 +3363,10 @@
     "ko-KR": "실시간으로 확인하면서 조절하려면 라이브 컨트롤 버튼을 누르세요",
     "en-US": "Press the Live Control button to adjust while checking in real time"
   },
+  "TutorialID4": {
+    "ko-KR": "SHIFT를 누르고 다시 시작을 하면 랜덤 시드가 다시 설정됩니다.",
+    "en-US": "Press SHIFT and restart to reset the random seed."
+  },
   "TVAssistConfigure": {
     "ko-KR": "방송 시작시 도움말 보여주기",
     "en-US": "Show help when you start broadcasting"

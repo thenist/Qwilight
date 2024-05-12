@@ -40,7 +40,8 @@ namespace Qwilight
             NetQuitMode,
             F1Assist,
             ModifyAutoMode,
-            EnterAutoComputeConfigure
+            EnterAutoComputeConfigure,
+            SetUndoModifySalt
         }
 
         public enum NVLLMode

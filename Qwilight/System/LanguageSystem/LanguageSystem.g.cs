@@ -843,6 +843,7 @@ namespace Qwilight
         public string TutorialID1 { get; set; }
         public string TutorialID2 { get; set; }
         public string TutorialID3 { get; set; }
+        public string TutorialID4 { get; set; }
         public string TVAssistConfigure { get; set; }
         public string TwilightCloseContents { get; set; }
         public string TwilightComment { get; set; }

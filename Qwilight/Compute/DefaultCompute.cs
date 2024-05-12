@@ -583,6 +583,10 @@ namespace Qwilight.Compute
                 {
                     _isPausingWindowOpened = value;
                     Utility.HandleUIAudio(value ? "Window 1" : "Window 0");
+                    if (value)
+                    {
+                        Configure.Instance.NotifyTutorial(Configure.TutorialID.SetUndoModifySalt);
+                    }
                 }
             }
         }
@@ -3729,28 +3733,28 @@ namespace Qwilight.Compute
                         _pendingIOAvatarIDs.AddRange(_sentIOAvatarIDs);
                         _sentIOAvatarIDs.Clear();
                     }
-                    if (SetUndoValue == SetUndo.Pass)
+                    switch (SetUndoValue)
                     {
-                        HandleUIAudio("Pass");
-                        LevyingWait = PassableWait;
-                    }
-                    if (SetUndoValue == SetUndo.Escape)
-                    {
-                        OnHandled();
-                    }
-                    var mainViewModel = ViewModels.Instance.MainValue;
-                    if (mainViewModel.IsComputingMode && SetUndoValue == SetUndo.ModifySalt)
-                    {
-                        Task.Run(() =>
-                        {
-                            var salt = Environment.TickCount;
-                            ModeComponentValue.Salt = salt;
-                            mainViewModel.HandleLevyNoteFileImpl(NoteFile, EventNoteEntryItem ?? NoteFile.EntryItem, UbuntuID, WwwLevelDataValue, DefaultModeComponentValue);
-                        });
-                    }
-                    else
-                    {
-                        _targetHandler = Utility.HandleParallelly(HandleNotes);
+                        case SetUndo.Escape:
+                            OnHandled();
+                            break;
+                        case SetUndo.ModifySalt:
+                            Task.Run(() =>
+                            {
+                                var salt = Environment.TickCount;
+                                ModeComponentValue.Salt = salt;
+                                var mainViewModel = ViewModels.Instance.MainValue;
+                                mainViewModel.HandleLevyNoteFileImpl(NoteFile, EventNoteEntryItem ?? NoteFile.EntryItem, UbuntuID, WwwLevelDataValue, DefaultModeComponentValue);
+                            });
+                            break;
+                        default:
+                            if (SetUndoValue == SetUndo.Pass)
+                            {
+                                HandleUIAudio("Pass");
+                                LevyingWait = PassableWait;
+                            }
+                            _targetHandler = Utility.HandleParallelly(HandleNotes);
+                            break;
                     }
                 }
             }
