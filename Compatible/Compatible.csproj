@@ -9,6 +9,6 @@
 	<ItemGroup>
 		<PackageReference Include="DotNetZip" Version="1.16.0" />
 		<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.4" />
-		<PackageReference Include="YamlDotNet" Version="15.1.2" />
+		<PackageReference Include="YamlDotNet" Version="15.1.4" />
 	</ItemGroup>
 </Project>
