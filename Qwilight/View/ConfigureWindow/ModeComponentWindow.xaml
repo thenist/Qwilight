@@ -82,13 +82,12 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <CheckBox Style="{StaticResource StandardVInput}" Content="{Binding SetSaltText, Source={StaticResource LanguageSystem}}" IsChecked="{Binding SetSalt, Source={StaticResource Configure}}" />
+                        <CheckBox Style="{StaticResource StandardVInput}" Content="{Binding ModifySaltOnUndoText, Source={StaticResource LanguageSystem}}" IsChecked="{Binding ModifySaltOnUndo, Source={StaticResource Configure}}" />
                         <view:BinInput Value="{Binding MainValue.ModeComponentValue.Salt, Source={StaticResource ViewModels}}" IsEnabled="{Binding MainValue.CanModifyModeComponent, Source={StaticResource ViewModels}}" />
                         <Button Style="{StaticResource StandardInput}" Command="{Binding CopySaltCommand}">📋</Button>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding SaltContents, Source={StaticResource LanguageSystem}}" />
-                        <CheckBox Style="{StaticResource StandardVInput}" Content="{Binding SetSaltText, Source={StaticResource LanguageSystem}}" IsChecked="{Binding SetSalt, Source={StaticResource Configure}}" />
-                    </StackPanel>
+                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding SaltContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
                 </Grid>
                 <ContentControl Grid.Row="3" IsEnabled="{Binding MainValue.CanModifyModeComponent, Source={StaticResource ViewModels}}">
                     <Grid>
@@ -268,31 +267,21 @@
                     </Grid>
                 </ContentControl>
                 <ContentControl Grid.Row="4" IsEnabled="{Binding MainValue.CanModifyModeComponent, Source={StaticResource ViewModels}}">
-                    <StackPanel>
-                        <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                    <Grid Visibility="{Binding DetailedConfigure, Source={StaticResource Configure}, Converter={StaticResource VisibilityModifier}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{StaticResource StandardInput}" Command="{Binding PutCopyNotesCommand}" Content="{Binding MainValue.ModeComponentValue.PutCopyNotesText, Source={StaticResource ViewModels}}" HorizontalAlignment="Right" />
+                        <Grid Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding PutCopyNotesCommand}" Content="{Binding MainValue.ModeComponentValue.PutCopyNotesText, Source={StaticResource ViewModels}}" HorizontalAlignment="Right" />
-                            <Grid Grid.Column="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding PutCopyNotesContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
-                                <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="❕" Foreground="Red" Visibility="{Binding MainValue.ModeComponentValue.PutCopyNotesAvailable, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" />
-                            </Grid>
+                            <TextBlock Style="{StaticResource StandardTextView}" Text="{Binding PutCopyNotesContents, Source={StaticResource LanguageSystem}}" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="❕" Foreground="Red" Visibility="{Binding MainValue.ModeComponentValue.PutCopyNotesAvailable, Source={StaticResource ViewModels}, Converter={StaticResource VisibilityModifier}}" />
                         </Grid>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Button Style="{StaticResource StandardInput}" Command="{Binding IsFailModeCommand}" Content="{Binding IsFailModeText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
-                            <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding IsFailModeContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
-                        </Grid>
-                    </StackPanel>
+                    </Grid>
                 </ContentControl>
             </Grid>
         </ScrollViewer>

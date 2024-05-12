@@ -1566,32 +1566,7 @@ namespace Qwilight.ViewModel
 
                         if (entryItem != null)
                         {
-                            if (string.IsNullOrEmpty(entryItem.EventNoteID))
-                            {
-                                Utility.HandleUIAudio("Levy Note File");
-                                IsCommentMode = false;
-                                ModeComponentValue.ComputingValue = noteFile;
-                                ModeComponentValue.CanModifyMultiplier = true;
-                                ModeComponentValue.CanModifyAudioMultiplier = true;
-                                SetComputingMode(new([noteFile], null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), ubuntuID, wwwLevelDataValue, null, null, null));
-                            }
-                            else
-                            {
-                                var noteFiles = entryItem.NoteFiles;
-                                if (noteFiles.Any(noteFile => string.IsNullOrEmpty(noteFile.NoteFilePath)))
-                                {
-                                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotAvailableEventNoteFileFault);
-                                }
-                                else
-                                {
-                                    Utility.HandleUIAudio("Levy Note File");
-                                    IsCommentMode = false;
-                                    ModeComponentValue.ComputingValue = noteFiles.First();
-                                    ModeComponentValue.CanModifyMultiplier = true;
-                                    ModeComponentValue.CanModifyAudioMultiplier = true;
-                                    SetComputingMode(new(noteFiles, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), ubuntuID, wwwLevelDataValue, null, entryItem, null));
-                                }
-                            }
+                            HandleLevyNoteFileImpl(noteFile, entryItem, ubuntuID, wwwLevelDataValue, defaultModeComponentValue);
                         }
 
                         if (isSaltNoteFile)
@@ -1599,6 +1574,36 @@ namespace Qwilight.ViewModel
                             EntryItemPosition = 1;
                         }
                     }
+                }
+            }
+        }
+
+        public void HandleLevyNoteFileImpl(BaseNoteFile noteFile, EntryItem entryItem, string ubuntuID, WwwLevelData wwwLevelDataValue, ModeComponent defaultModeComponentValue)
+        {
+            if (string.IsNullOrEmpty(entryItem.EventNoteID))
+            {
+                Utility.HandleUIAudio("Levy Note File");
+                IsCommentMode = false;
+                ModeComponentValue.ComputingValue = noteFile;
+                ModeComponentValue.CanModifyMultiplier = true;
+                ModeComponentValue.CanModifyAudioMultiplier = true;
+                SetComputingMode(new([noteFile], null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), ubuntuID, wwwLevelDataValue, null, null, null));
+            }
+            else
+            {
+                var noteFiles = entryItem.NoteFiles;
+                if (noteFiles.Any(noteFile => string.IsNullOrEmpty(noteFile.NoteFilePath)))
+                {
+                    NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.NotAvailableEventNoteFileFault);
+                }
+                else
+                {
+                    Utility.HandleUIAudio("Levy Note File");
+                    IsCommentMode = false;
+                    ModeComponentValue.ComputingValue = noteFiles.First();
+                    ModeComponentValue.CanModifyMultiplier = true;
+                    ModeComponentValue.CanModifyAudioMultiplier = true;
+                    SetComputingMode(new(noteFiles, null, defaultModeComponentValue, TwilightSystem.Instance.AvatarID, TwilightSystem.Instance.GetAvatarName(), ubuntuID, wwwLevelDataValue, null, entryItem, null));
                 }
             }
         }
@@ -3132,6 +3137,7 @@ namespace Qwilight.ViewModel
                     case Mode.Computing:
                         if (Computer.CanUndo && Computer.IsPausingWindowOpened)
                         {
+                            DefaultControllerSystem.Instance.
                             Computer.SetUndo = true;
                         }
                         break;

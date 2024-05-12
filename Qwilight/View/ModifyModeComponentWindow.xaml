@@ -11,6 +11,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding ModifyModeComponentText, Source={StaticResource LanguageSystem}}" />
@@ -36,7 +37,15 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <StackPanel Grid.Row="2">
+                <Grid Grid.Row="2" Visibility="{Binding IsHitPointsMode, Converter={StaticResource VisibilityModifier}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource StandardInput}" Command="{Binding IsFailModeCommand}" Content="{Binding IsFailModeText, Source={StaticResource Configure}}" HorizontalAlignment="Right" />
+                    <TextBlock Grid.Column="1" Style="{StaticResource StandardTextView}" Text="{Binding IsFailModeContents, Source={StaticResource Configure}}" HorizontalAlignment="Left" />
+                </Grid>
+                <StackPanel Grid.Row="3">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Style="{StaticResource StandardInputPadding0}" ToolTipService.ToolTip="{Binding AutoModeAssist, Source={StaticResource LanguageSystem}}" Command="{Binding ModifyModeComponentCommand}" CommandParameter="{StaticResource AutoModeVariety}">
                             <Image Style="{StaticResource StandardView}" Height="24" Source="{Binding MainValue.ModeComponentValue.AutoModeValue, Source={StaticResource ViewModels}, Converter={StaticResource ModeComponentDrawingModifier}, ConverterParameter={StaticResource AutoModeVariety}}" />

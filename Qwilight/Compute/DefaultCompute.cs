@@ -556,6 +556,8 @@ namespace Qwilight.Compute
 
         public bool SetUndo { get; set; }
 
+        public bool SetSalt { get; set; }
+
         public double LevyingMultiplier { get; set; }
 
         public double LevyingAudioMultiplier { get; set; }
@@ -3728,7 +3730,21 @@ namespace Qwilight.Compute
                         _pendingIOAvatarIDs.AddRange(_sentIOAvatarIDs);
                         _sentIOAvatarIDs.Clear();
                     }
-                    _targetHandler = Utility.HandleParallelly(HandleNotes);
+                    var mainViewModel = ViewModels.Instance.MainValue;
+                    if (mainViewModel.IsComputingMode && !SetPass && Configure.Instance.ModifySaltOnUndo)
+                    {
+                        Task.Run(() =>
+                        {
+                            var salt = Environment.TickCount;
+                            ModeComponentValue.Salt = salt;
+                            DefaultModeComponentValue.Salt = salt;
+                            mainViewModel.HandleLevyNoteFileImpl(NoteFile, EventNoteEntryItem ?? NoteFile.EntryItem, UbuntuID, WwwLevelDataValue, DefaultModeComponentValue);
+                        });
+                    }
+                    else
+                    {
+                        _targetHandler = Utility.HandleParallelly(HandleNotes);
+                    }
                 }
                 else
                 {

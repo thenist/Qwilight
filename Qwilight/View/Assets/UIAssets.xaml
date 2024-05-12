@@ -15,7 +15,7 @@
     <Thickness x:Key="StandardInputEdge">0 0 1.0 1.0</Thickness>
 
     <system:Double x:Key="FontLevel0">12.0</system:Double>
-    <system:Double x:Key="FontLevel1">16.0</system:Double>
+    <system:Double x:Key="FontLevel1">20.0</system:Double>
 
     <Color x:Key="NotPointedColor">DeepPink</Color>
     <Color x:Key="PointedColor">DeepSkyBlue</Color>

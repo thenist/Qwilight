@@ -549,6 +549,7 @@ namespace Qwilight
         public string ModifyFrontEntry { get; set; }
         public string ModifyModeComponentText { get; set; }
         public string ModifyPositionAssist { get; set; }
+        public string ModifySaltOnUndoText { get; set; }
         public string MultiplierContents { get; set; }
         public string NegativePostedItemText { get; set; }
         public string NegativeStopFault { get; set; }

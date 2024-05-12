@@ -420,9 +420,6 @@ namespace Qwilight.ViewModel
         static void OnFlowValues() => Configure.Instance.FlowValues = !Configure.Instance.FlowValues;
 
         [RelayCommand]
-        static void OnIsFailMode() => Configure.Instance.IsFailMode = !Configure.Instance.IsFailMode;
-
-        [RelayCommand]
         static void OnPutCopyNotes() => ViewModels.Instance.MainValue.ModeComponentValue.PutCopyNotesValueV2 = (ModeComponent.PutCopyNotes)(((int)ViewModels.Instance.MainValue.ModeComponentValue.PutCopyNotesValueV2 + 1) % 4);
 
         [RelayCommand]

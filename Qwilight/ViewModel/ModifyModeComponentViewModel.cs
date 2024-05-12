@@ -39,32 +39,37 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _modeComponentItems, value, nameof(ModeComponentItems));
         }
 
+        public bool IsHitPointsMode => ModeComponentVariety == HitPointsModeVariety;
+
         public int ModeComponentVariety
         {
             get => _modeComponentVariety;
 
             set
             {
-                _modeComponentVariety = value;
-                ModeComponentItems = ModifyModeComponentItems[value];
-                var targetModeValue = value switch
+                if (SetProperty(ref _modeComponentVariety, value))
                 {
-                    AutoModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.AutoModeValue,
-                    NoteSaltModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.NoteSaltModeValue,
-                    FaintNoteModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.FaintNoteModeValue,
-                    JudgmentModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.JudgmentModeValue,
-                    HitPointsModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.HitPointsModeValue,
-                    NoteMobilityModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.NoteMobilityModeValue,
-                    LongNoteModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.LongNoteModeValue,
-                    InputFavorModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.InputFavorModeValue,
-                    NoteModifyModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.NoteModifyModeValue,
-                    BPMModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.BPMModeValue,
-                    WaveModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.WaveModeValue,
-                    SetNoteModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.SetNoteModeValue,
-                    LowestJudgmentConditionModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.LowestJudgmentConditionModeValue,
-                    _ => default
-                };
-                ModeComponentItem = ModeComponentItems.Single(modeComponentItem => modeComponentItem.Value == targetModeValue);
+                    OnPropertyChanged(nameof(IsHitPointsMode));
+                    ModeComponentItems = ModifyModeComponentItems[value];
+                    var targetModeValue = value switch
+                    {
+                        AutoModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.AutoModeValue,
+                        NoteSaltModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.NoteSaltModeValue,
+                        FaintNoteModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.FaintNoteModeValue,
+                        JudgmentModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.JudgmentModeValue,
+                        HitPointsModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.HitPointsModeValue,
+                        NoteMobilityModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.NoteMobilityModeValue,
+                        LongNoteModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.LongNoteModeValue,
+                        InputFavorModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.InputFavorModeValue,
+                        NoteModifyModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.NoteModifyModeValue,
+                        BPMModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.BPMModeValue,
+                        WaveModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.WaveModeValue,
+                        SetNoteModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.SetNoteModeValue,
+                        LowestJudgmentConditionModeVariety => (int)ViewModels.Instance.MainValue.ModeComponentValue.LowestJudgmentConditionModeValue,
+                        _ => default
+                    };
+                    ModeComponentItem = ModeComponentItems.Single(modeComponentItem => modeComponentItem.Value == targetModeValue);
+                }
             }
         }
 
@@ -74,7 +79,7 @@ namespace Qwilight.ViewModel
 
             set
             {
-                if (SetProperty(ref _modeComponentItem, value, nameof(ModeComponentItem)))
+                if (SetProperty(ref _modeComponentItem, value, nameof(ModeComponentItem)) && value != null)
                 {
                     var modeComponent = ViewModels.Instance.MainValue.ModeComponentValue;
                     switch (ModeComponentVariety)
@@ -194,6 +199,9 @@ namespace Qwilight.ViewModel
                 ModeComponentVariety = e.Value;
             }
         }
+
+        [RelayCommand]
+        static void OnIsFailMode() => Configure.Instance.IsFailMode = !Configure.Instance.IsFailMode;
 
         public void SetModeComponentItems()
         {
