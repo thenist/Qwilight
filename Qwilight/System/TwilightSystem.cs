@@ -1217,7 +1217,7 @@ namespace Qwilight
                                         defaultComputer.EventComment = comment;
                                         if (defaultComputer.IsHandling)
                                         {
-                                            defaultComputer.SetUndo = true;
+                                            defaultComputer.SetUndoValue = DefaultCompute.SetUndo.Just;
                                         }
                                         else
                                         {
@@ -1313,7 +1313,7 @@ namespace Qwilight
                                                 defaultComputer.SetPause = true;
                                             });
                                             defaultComputer.LevyingWait = double.NaN;
-                                            defaultComputer.SetUndo = true;
+                                            defaultComputer.SetUndoValue = DefaultCompute.SetUndo.Just;
                                             defaultComputer.WaitingTwilightLevel = DefaultCompute.WaitingTwilight.CallIO;
                                         }
                                     }

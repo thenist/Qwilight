@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using Windows.Foundation;
 using Windows.Graphics.DirectX;
 using Windows.Storage.Streams;
+using Windows.System;
 using Windows.UI;
 using Windows.Win32;
 using Windows.Win32.System.WinRT.Direct3D11;
@@ -359,7 +360,7 @@ namespace Qwilight
                 Configure.Instance.DefaultSpinningModeValue = Configure.DefaultSpinningMode.Undo;
                 if (defaultComputer.CanUndo)
                 {
-                    defaultComputer.SetUndo = true;
+                    defaultComputer.SetUndoValue = Utility.HasInput(VirtualKey.LeftShift) ? DefaultCompute.SetUndo.ModifySalt : DefaultCompute.SetUndo.Just;
                 }
             });
             var setDefaultSpinningModeStop = new Action(() =>
@@ -2717,7 +2718,7 @@ namespace Qwilight
                                                         3 => defaultComputer.Length * (lastPointedPositionX - position0 - distance) / length,
                                                         _ => default,
                                                     };
-                                                    defaultComputer.SetUndo = true;
+                                                    defaultComputer.SetUndoValue = DefaultCompute.SetUndo.Just;
                                                     return true;
                                                 }
                                             }

@@ -33,6 +33,11 @@ namespace Qwilight.Compute
             SPlus, S, APlus, A, B, C, D, F
         }
 
+        public enum SetUndo
+        {
+            Not, Pass, Just, ModifySalt, Escape
+        }
+
         [Flags]
         public enum InputFlag
         {
@@ -538,10 +543,6 @@ namespace Qwilight.Compute
             }
         }
 
-        public bool SetPass { get; set; }
-
-        public bool SetEscape { get; set; }
-
         public bool IsSilent { get; set; }
 
         public int NoteFrame { get; set; }
@@ -554,9 +555,7 @@ namespace Qwilight.Compute
 
         public int PauseCount => (int)Math.Ceiling(_pauseMillis / 1000.0);
 
-        public bool SetUndo { get; set; }
-
-        public bool SetSalt { get; set; }
+        public SetUndo SetUndoValue { get; set; }
 
         public double LevyingMultiplier { get; set; }
 
@@ -1798,7 +1797,7 @@ namespace Qwilight.Compute
                 var postedSaltNotesMillis = 1.0;
 
                 var ioMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - IOMillis;
-                while (!SetStop && !SetUndo)
+                while (!SetStop && SetUndoValue == SetUndo.Not)
                 {
                     if (LoopingCounter > HandledLength + Component.QuitWait && isValidLoopingCounter)
                     {
@@ -2410,19 +2409,6 @@ namespace Qwilight.Compute
                         if (LoopingCounter > LengthLayered + Component.QuitWait)
                         {
                             FaintLayered += Utility.GetMove(1.0, FaintLayered, 1000.0 / millisLoopUnit);
-                        }
-
-                        if (SetPass)
-                        {
-                            HandleUIAudio("Pass");
-                            LevyingWait = PassableWait;
-                            SetUndo = true;
-                            continue;
-                        }
-                        else if (SetEscape)
-                        {
-                            OnHandled();
-                            continue;
                         }
 
                         while (endNoteID >= handlingNoteID)
@@ -3723,30 +3709,7 @@ namespace Qwilight.Compute
             }
             finally
             {
-                if (SetUndo)
-                {
-                    if (_sentIOAvatarIDs.Count > 0)
-                    {
-                        _pendingIOAvatarIDs.AddRange(_sentIOAvatarIDs);
-                        _sentIOAvatarIDs.Clear();
-                    }
-                    var mainViewModel = ViewModels.Instance.MainValue;
-                    if (mainViewModel.IsComputingMode && !SetPass && Configure.Instance.ModifySaltOnUndo)
-                    {
-                        Task.Run(() =>
-                        {
-                            var salt = Environment.TickCount;
-                            ModeComponentValue.Salt = salt;
-                            DefaultModeComponentValue.Salt = salt;
-                            mainViewModel.HandleLevyNoteFileImpl(NoteFile, EventNoteEntryItem ?? NoteFile.EntryItem, UbuntuID, WwwLevelDataValue, DefaultModeComponentValue);
-                        });
-                    }
-                    else
-                    {
-                        _targetHandler = Utility.HandleParallelly(HandleNotes);
-                    }
-                }
-                else
+                if (SetUndoValue == SetUndo.Not)
                 {
                     if (_ioAvatarIDs.Count > 0)
                     {
@@ -3758,6 +3721,37 @@ namespace Qwilight.Compute
                         });
                     }
                     IsHandling = false;
+                }
+                else
+                {
+                    if (_sentIOAvatarIDs.Count > 0)
+                    {
+                        _pendingIOAvatarIDs.AddRange(_sentIOAvatarIDs);
+                        _sentIOAvatarIDs.Clear();
+                    }
+                    if (SetUndoValue == SetUndo.Pass)
+                    {
+                        HandleUIAudio("Pass");
+                        LevyingWait = PassableWait;
+                    }
+                    if (SetUndoValue == SetUndo.Escape)
+                    {
+                        OnHandled();
+                    }
+                    var mainViewModel = ViewModels.Instance.MainValue;
+                    if (mainViewModel.IsComputingMode && SetUndoValue == SetUndo.ModifySalt)
+                    {
+                        Task.Run(() =>
+                        {
+                            var salt = Environment.TickCount;
+                            ModeComponentValue.Salt = salt;
+                            mainViewModel.HandleLevyNoteFileImpl(NoteFile, EventNoteEntryItem ?? NoteFile.EntryItem, UbuntuID, WwwLevelDataValue, DefaultModeComponentValue);
+                        });
+                    }
+                    else
+                    {
+                        _targetHandler = Utility.HandleParallelly(HandleNotes);
+                    }
                 }
             }
 
@@ -4490,11 +4484,7 @@ namespace Qwilight.Compute
             {
                 paintEventsGAS.Clear();
             }
-            if (SetPass)
-            {
-                SetPass = false;
-            }
-            else
+            if (SetUndoValue == SetUndo.Pass)
             {
                 Comment.HighestJudgment = 0;
                 Comment.HigherJudgment = 0;
@@ -4510,9 +4500,9 @@ namespace Qwilight.Compute
                 InitPassable();
             }
             IsPausing = false;
-            if (SetUndo)
+            if (SetUndoValue != SetUndo.Not)
             {
-                SetUndo = false;
+                SetUndoValue = SetUndo.Not;
                 IsPausingWindowOpened = false;
                 SetPause = false;
             }

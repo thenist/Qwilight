@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Qwilight.Compute;
 using Qwilight.ViewModel;
 using System.IO;
 using System.IO.Pipes;
@@ -38,7 +39,7 @@ namespace Qwilight
                             if (defaultComputer?.IsHandling == true && noteFile?.NoteFilePath == noteFilePath && noteFile.IsValid())
                             {
                                 defaultComputer.LevyingMeter = m;
-                                defaultComputer.SetUndo = true;
+                                defaultComputer.SetUndoValue = DefaultCompute.SetUndo.Just;
                             }
                             else
                             {

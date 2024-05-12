@@ -852,8 +852,6 @@ namespace Qwilight
 
         public bool SetSalt { get; set; }
 
-        public bool ModifySaltOnUndo { get; set; }
-
         public int LoopUnit { get; set; }
 
         public Component.InputMapping InputMappingValue { get; set; }
@@ -3505,10 +3503,6 @@ namespace Qwilight
                 {
                     { string.Empty, new() }
                 };
-            }
-            if (isInit || Utility.IsLowerDate(Date, 1, 16, 28))
-            {
-                ModifySaltOnUndo = false;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

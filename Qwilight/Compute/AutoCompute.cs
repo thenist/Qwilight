@@ -57,7 +57,7 @@ namespace Qwilight.Compute
                 }
                 else
                 {
-                    SetUndo = true;
+                    SetUndoValue = DefaultCompute.SetUndo.Just;
                 }
             });
         }

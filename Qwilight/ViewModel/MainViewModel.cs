@@ -1803,7 +1803,7 @@ namespace Qwilight.ViewModel
             if (!_autoComputerHandler.IsEnabled && AutoComputer?.IsHandling == true)
             {
                 AutoComputer.LevyingWait = AutoComputer.Length * status;
-                AutoComputer.SetUndo = true;
+                AutoComputer.SetUndoValue = DefaultCompute.SetUndo.Just;
                 if (isEnter)
                 {
                     EnterAutoComputingMode();
@@ -2994,7 +2994,7 @@ namespace Qwilight.ViewModel
                                     ViewModels.Instance.ConfigureValue.Open();
                                     break;
                                 case Configure.DefaultSpinningMode.Undo when Computer.CanUndo:
-                                    Computer.SetUndo = true;
+                                    Computer.SetUndoValue = Utility.HasInput(VirtualKey.LeftShift) ? DefaultCompute.SetUndo.ModifySalt : DefaultCompute.SetUndo.Just;
                                     break;
                                 case Configure.DefaultSpinningMode.Stop:
                                     Computer.Unpause();
@@ -3006,11 +3006,11 @@ namespace Qwilight.ViewModel
                         {
                             if (Computer.IsPassable)
                             {
-                                Computer.SetPass = true;
+                                Computer.SetUndoValue = DefaultCompute.SetUndo.Pass;
                             }
                             else if (Computer.IsEscapable)
                             {
-                                Computer.SetEscape = true;
+                                Computer.SetUndoValue = DefaultCompute.SetUndo.Escape;
                             }
                         }
                         break;
@@ -3137,8 +3137,7 @@ namespace Qwilight.ViewModel
                     case Mode.Computing:
                         if (Computer.CanUndo && Computer.IsPausingWindowOpened)
                         {
-                            DefaultControllerSystem.Instance.
-                            Computer.SetUndo = true;
+                            Computer.SetUndoValue = Utility.HasInput(VirtualKey.LeftShift) ? DefaultCompute.SetUndo.ModifySalt : DefaultCompute.SetUndo.Just;
                         }
                         break;
                     case Mode.Quit:

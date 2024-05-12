@@ -83,7 +83,6 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <CheckBox Style="{StaticResource StandardVInput}" Content="{Binding SetSaltText, Source={StaticResource LanguageSystem}}" IsChecked="{Binding SetSalt, Source={StaticResource Configure}}" />
-                        <CheckBox Style="{StaticResource StandardVInput}" Content="{Binding ModifySaltOnUndoText, Source={StaticResource LanguageSystem}}" IsChecked="{Binding ModifySaltOnUndo, Source={StaticResource Configure}}" />
                         <view:BinInput Value="{Binding MainValue.ModeComponentValue.Salt, Source={StaticResource ViewModels}}" IsEnabled="{Binding MainValue.CanModifyModeComponent, Source={StaticResource ViewModels}}" />
                         <Button Style="{StaticResource StandardInput}" Command="{Binding CopySaltCommand}">📋</Button>
                     </StackPanel>
