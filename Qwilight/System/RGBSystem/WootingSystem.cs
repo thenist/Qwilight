@@ -125,7 +125,9 @@ namespace Qwilight
         {
             try
             {
-                return RGBControl.IsConnected();
+                var isConnected = RGBControl.IsConnected();
+                Console.WriteLine("isConnected: " + isConnected);
+                return isConnected;
             }
             catch
             {
@@ -135,10 +137,17 @@ namespace Qwilight
 
         public override void SetInputColor(VirtualKey rawInput, uint value)
         {
-            var input = GetInput(rawInput);
-            if (input != WootingKey.Keys.None)
+            var deviceCount = RGBControl.GetDeviceCount();
+            Console.WriteLine("deviceCount: " + deviceCount);
+            for (var i = (byte)(deviceCount - 1); i >= 0; --i)
             {
-                RGBControl.SetKey(input, (byte)(value & 255), (byte)((value & 65280) >> 8), (byte)((value & 16711680) >> 16));
+                RGBControl.SetControlDevice(i);
+                var input = GetInput(rawInput);
+                if (input != WootingKey.Keys.None)
+                {
+                    var result = RGBControl.SetKey(input, (byte)(value & 255), (byte)((value & 65280) >> 8), (byte)((value & 16711680) >> 16));
+                    Console.WriteLine("SetKey: " + result);
+                }
             }
         }
 
@@ -152,15 +161,12 @@ namespace Qwilight
 
         public override void OnBeforeHandle()
         {
-            for (var i = RGBControl.GetDeviceCount(); i >= 0; --i)
-            {
-                RGBControl.SetControlDevice(i);
-            }
         }
 
         public override void OnHandled()
         {
-            RGBControl.UpdateKeyboard();
+            var result = RGBControl.UpdateKeyboard();
+            Console.WriteLine("UpdateKeyboard: " + result);
         }
 
         public override Color GetMeterColor() => Colors.Yellow;
