@@ -4391,16 +4391,6 @@ namespace Qwilight.Compute
             IsNewStand = Stand.TargetValue > _netItems.Where(netItem => !netItem.IsMyNetItem && netItem.AvatarID == AvatarID).DefaultIfEmpty().Max(netItem => netItem?.StandValue ?? 0);
         }
 
-        public override void InitCompiled()
-        {
-            Notes.Clear();
-            WaitAudioNoteMap.Clear();
-            WaitInputAudioMap.Clear();
-            WaitMediaNoteMap.Clear();
-            WaitBPMMap.Clear();
-            Comment.Inputs.Clear();
-        }
-
         public void HandleCompiler()
         {
             try

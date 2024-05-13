@@ -197,7 +197,12 @@ namespace Qwilight.Compiler
                 if (NoteFile.IsValid())
                 {
                     defaultComputer.NoteFileContents = NoteFile.GetContents();
-                    defaultComputer.InitCompiled();
+                    defaultComputer.Notes.Clear();
+                    defaultComputer.WaitAudioNoteMap.Clear();
+                    defaultComputer.WaitInputAudioMap.Clear();
+                    defaultComputer.WaitMediaNoteMap.Clear();
+                    defaultComputer.WaitBPMMap.Clear();
+                    defaultComputer.Comment.Inputs.Clear();
                     HandleCompile(defaultComputer, defaultComputer.NoteFileContents, defaultComputer.ModeComponentValue.Salt);
                     HandleCompile(defaultComputer, defaultComputer.NoteFileContents, loadParallelItems);
                     OnCompiled(defaultComputer);
