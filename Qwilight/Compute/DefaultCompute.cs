@@ -4489,7 +4489,7 @@ namespace Qwilight.Compute
             {
                 paintEventsGAS.Clear();
             }
-            if (SetUndoValue == SetUndo.Pass)
+            if (SetUndoValue != SetUndo.Pass)
             {
                 Comment.HighestJudgment = 0;
                 Comment.HigherJudgment = 0;
