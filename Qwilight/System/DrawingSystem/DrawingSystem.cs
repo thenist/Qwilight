@@ -360,7 +360,17 @@ namespace Qwilight
                 Configure.Instance.DefaultSpinningModeValue = Configure.DefaultSpinningMode.Undo;
                 if (defaultComputer.CanUndo)
                 {
-                    defaultComputer.SetUndoValue = Utility.HasInput(VirtualKey.LeftShift) ? DefaultCompute.SetUndo.ModifySalt : DefaultCompute.SetUndo.Just;
+                    if (Utility.HasInput(VirtualKey.LeftShift))
+                    {
+                        if (defaultComputer.CanModifySalt)
+                        {
+                            defaultComputer.SetUndoValue = DefaultCompute.SetUndo.ModifySalt;
+                        }
+                    }
+                    else
+                    {
+                        defaultComputer.SetUndoValue = DefaultCompute.SetUndo.Just;
+                    }
                 }
             });
             var setDefaultSpinningModeStop = new Action(() =>

@@ -3132,7 +3132,17 @@ namespace Qwilight.ViewModel
                     case Mode.Computing:
                         if (Computer.CanUndo && Computer.IsPausingWindowOpened)
                         {
-                            Computer.SetUndoValue = Utility.HasInput(VirtualKey.LeftShift) ? DefaultCompute.SetUndo.ModifySalt : DefaultCompute.SetUndo.Just;
+                            if (Utility.HasInput(VirtualKey.LeftShift))
+                            {
+                                if (Computer.CanModifySalt)
+                                {
+                                    Computer.SetUndoValue = DefaultCompute.SetUndo.ModifySalt;
+                                }
+                            }
+                            else
+                            {
+                                Computer.SetUndoValue = DefaultCompute.SetUndo.Just;
+                            }
                         }
                         break;
                     case Mode.Quit:

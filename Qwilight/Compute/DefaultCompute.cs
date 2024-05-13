@@ -414,6 +414,8 @@ namespace Qwilight.Compute
 
         public virtual bool CanUndo => WwwLevelDataValue?.AllowPause != false;
 
+        public bool CanModifySalt => string.IsNullOrEmpty(EventNoteEntryItem?.EventNoteID);
+
         public int FadingViewLayer { get; set; } = 1;
 
         public bool LoadedMedia { get; } = Configure.Instance.LoadedMedia;
@@ -584,7 +586,7 @@ namespace Qwilight.Compute
                 {
                     _isPausingWindowOpened = value;
                     Utility.HandleUIAudio(value ? "Window 1" : "Window 0");
-                    if (value)
+                    if (CanModifySalt && value)
                     {
                         Configure.Instance.NotifyTutorial(Configure.TutorialID.SetUndoModifySalt);
                     }
