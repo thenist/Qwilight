@@ -177,6 +177,8 @@ namespace Qwilight
             }
         }
 
+        public Computing() => InitCompiled();
+
         public virtual void InitCompiled()
         {
             LongNoteModeDate = Component.LatestLongNoteModeDate;
