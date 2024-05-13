@@ -106,9 +106,7 @@ namespace Qwilight.Compute
         readonly int[] _targetMainFrames = new int[53];
         readonly int[] _targetInputFrames = new int[53];
         readonly bool _isLevyingComputer;
-        readonly BaseCompiler _targetCompiler;
-        readonly Thread _targetCompilerHandler;
-        readonly CancellationTokenSource _setCancelCompiler = new();
+        readonly object _targetCompilerCSX = new();
         readonly Component.HitPointsModeDate _hitPointsModeDate;
         readonly Component.HitPointsMapDate _hitPointsMapDate;
         readonly Component.PointMapDate _pointMapDate;
@@ -135,6 +133,9 @@ namespace Qwilight.Compute
         readonly List<string> _sentIOAvatarIDs = new();
         readonly List<double> _noteWaits = new();
         readonly XORFloat64[] _hitPointsGAS = new XORFloat64[9];
+        BaseCompiler _targetCompiler;
+        Thread _targetCompilerHandler;
+        CancellationTokenSource _setCancelCompiler;
         Component _valueComponent;
         bool _isPausing;
         bool _isPausingWindowOpened;
@@ -979,29 +980,26 @@ namespace Qwilight.Compute
             IsSilent = true;
             SetStop = true;
             SendNotCompiled();
-            lock (_targetHandlerCSX)
-            {
-                if (IsHandling)
-                {
-                    _targetHandler.Interrupt();
-                    _targetHandler.Join();
-                }
-            }
             TrailerAudioHandler.Stop();
             Task.Run(() =>
             {
-                if (_targetCompiler != null)
+                lock (_targetHandlerCSX)
                 {
-                    lock (_targetCompiler)
+                    if (IsHandling)
                     {
-                        if (_targetCompilerStatus == CompilerStatus.Compiling)
-                        {
-                            _setCancelCompiler.Cancel();
-                            _setCancelCompiler.Dispose();
-                            MediaModifierValue.StopModifyMedia();
-                            _targetCompilerHandler.Join();
-                            _targetCompilerStatus = CompilerStatus.Close;
-                        }
+                        _targetHandler.Interrupt();
+                        _targetHandler.Join();
+                    }
+                }
+                lock (_targetCompilerCSX)
+                {
+                    if (_targetCompilerStatus == CompilerStatus.Compiling)
+                    {
+                        _setCancelCompiler.Cancel();
+                        _setCancelCompiler.Dispose();
+                        MediaModifierValue.StopModifyMedia();
+                        _targetCompilerHandler.Join();
+                        _targetCompilerStatus = CompilerStatus.Close;
                     }
                 }
                 lock (LoadedCSX)
@@ -1576,8 +1574,6 @@ namespace Qwilight.Compute
             _standMapDate = Utility.GetDate<Component.StandMapDate>(date, "1.14.118");
             _standModeDate = Utility.GetDate<Component.StandModeDate>(date, "1.6.7", "1.14.118");
             _tooLongLongNoteDate = Utility.GetDate<Component.TooLongLongNoteDate>(date, "1.13.107", "1.14.20", "1.14.29");
-            _targetCompiler = BaseCompiler.GetCompiler(NoteFile, _setCancelCompiler);
-            _targetCompilerHandler = Utility.GetParallelHandler(() => _targetCompiler.Compile(this, true));
             CommentWaitDate = Utility.GetDate<Component.CommentWaitDate>(date, "1.3.11", "1.6.4");
             NoteSaltModeDate = Utility.GetDate<Component.NoteSaltModeDate>(date, "1.14.27", "1.16.11");
             Title = NoteFile.Title;
@@ -3739,13 +3735,8 @@ namespace Qwilight.Compute
                             OnHandled();
                             break;
                         case SetUndo.ModifySalt:
-                            Task.Run(() =>
-                            {
-                                var salt = Environment.TickCount;
-                                ModeComponentValue.Salt = salt;
-                                var mainViewModel = ViewModels.Instance.MainValue;
-                                mainViewModel.HandleLevyNoteFileImpl(NoteFile, EventNoteEntryItem ?? NoteFile.EntryItem, UbuntuID, WwwLevelDataValue, DefaultModeComponentValue);
-                            });
+                            ModeComponentValue.Salt = Environment.TickCount;
+                            HandleCompiler();
                             break;
                         default:
                             if (SetUndoValue == SetUndo.Pass)
@@ -4398,6 +4389,17 @@ namespace Qwilight.Compute
             IsNewStand = Stand.TargetValue > _netItems.Where(netItem => !netItem.IsMyNetItem && netItem.AvatarID == AvatarID).DefaultIfEmpty().Max(netItem => netItem?.StandValue ?? 0);
         }
 
+        public override void InitCompiled()
+        {
+            base.InitCompiled();
+            Notes.Clear();
+            WaitAudioNoteMap.Clear();
+            WaitInputAudioMap.Clear();
+            WaitMediaNoteMap.Clear();
+            WaitBPMMap.Clear();
+            Comment.Inputs.Clear();
+        }
+
         public void HandleCompiler()
         {
             try
@@ -4407,13 +4409,13 @@ namespace Qwilight.Compute
             catch
             {
             }
-            if (_targetCompiler != null)
+            lock (_targetCompilerCSX)
             {
-                lock (_targetCompiler)
-                {
-                    _targetCompilerStatus = CompilerStatus.Compiling;
-                    _targetCompilerHandler.Start();
-                }
+                _setCancelCompiler = new();
+                _targetCompiler = BaseCompiler.GetCompiler(NoteFile, _setCancelCompiler);
+                _targetCompilerHandler = Utility.GetParallelHandler(() => _targetCompiler.Compile(this, true));
+                _targetCompilerStatus = CompilerStatus.Compiling;
+                _targetCompilerHandler.Start();
             }
         }
 

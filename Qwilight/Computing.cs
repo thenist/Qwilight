@@ -163,8 +163,6 @@ namespace Qwilight
 
         public Brush LevelPaint => BaseUI.Instance.LevelPaints[(int)LevelValue];
 
-        public Computing() => InitCompiled();
-
         void SetAutoLongNote()
         {
             switch (LongNoteModeDate)
@@ -179,7 +177,7 @@ namespace Qwilight
             }
         }
 
-        public void InitCompiled()
+        public virtual void InitCompiled()
         {
             LongNoteModeDate = Component.LatestLongNoteModeDate;
             IsBanned = false;

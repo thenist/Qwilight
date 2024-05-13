@@ -65,6 +65,7 @@ namespace Qwilight.Compiler
         {
             try
             {
+                targetComputing.InitCompiled();
                 HandleCompile(targetComputing, noteFileContents, salt);
                 OnCompiled(targetComputing);
                 targetComputing.OnCompiled();
@@ -196,6 +197,7 @@ namespace Qwilight.Compiler
                 if (NoteFile.IsValid())
                 {
                     defaultComputer.NoteFileContents = NoteFile.GetContents();
+                    defaultComputer.InitCompiled();
                     HandleCompile(defaultComputer, defaultComputer.NoteFileContents, defaultComputer.ModeComponentValue.Salt);
                     HandleCompile(defaultComputer, defaultComputer.NoteFileContents, loadParallelItems);
                     OnCompiled(defaultComputer);
@@ -1129,9 +1131,7 @@ namespace Qwilight.Compiler
             {
                 var wait = Utility.SetCommentWait(defaultComputer.CommentWaitDate, defaultComputer.AudioMultiplier, inputEvent.Wait);
                 wait = Math.Floor(wait);
-                var input = inputEvent.Input;
-                input = input & 255;
-                Notes.Add(new CommentNote(defaultComputer.WaitLogicalYMap[wait], wait, input));
+                Notes.Add(new CommentNote(defaultComputer.WaitLogicalYMap[wait], wait, inputEvent.Input));
             }
 
             foreach (var note in Notes)

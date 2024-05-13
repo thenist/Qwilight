@@ -332,7 +332,6 @@ namespace Qwilight.NoteFile
                 GetNoteID128(data);
                 GetNoteID256(data);
                 GetNoteID512(data);
-                InitCompiled();
                 BaseCompiler.GetCompiler(this, setCancelCompiler).Compile(this, data, salt);
             }
         }
