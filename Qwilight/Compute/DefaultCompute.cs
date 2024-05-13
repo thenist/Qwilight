@@ -4391,7 +4391,6 @@ namespace Qwilight.Compute
 
         public override void InitCompiled()
         {
-            base.InitCompiled();
             Notes.Clear();
             WaitAudioNoteMap.Clear();
             WaitInputAudioMap.Clear();
