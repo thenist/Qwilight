@@ -112,7 +112,7 @@ namespace Qwilight
             _ => WootingKey.Keys.None
         };
 
-        KeyColour[][,] _defaultColors;
+        RGBDeviceInfo[] _rgbSystems;
 
         public WootingSystem()
         {
@@ -129,14 +129,11 @@ namespace Qwilight
             {
                 if (RGBControl.IsConnected())
                 {
-                    var rgbCount = RGBControl.GetDeviceCount();
-                    _defaultColors = new KeyColour[rgbCount][,];
-                    for (byte i = 0; i < rgbCount; ++i)
+                    _rgbSystems = Enumerable.Range(0, RGBControl.GetDeviceCount()).Select(i =>
                     {
-                        RGBControl.SetControlDevice(i);
-                        var data = RGBControl.GetDeviceInfo();
-                        _defaultColors[i] = new KeyColour[data.MaxRows, data.MaxColumns];
-                    }
+                        RGBControl.SetControlDevice((byte)i);
+                        return RGBControl.GetDeviceInfo();
+                    }).ToArray();
                     return true;
                 }
                 else
@@ -152,7 +149,7 @@ namespace Qwilight
 
         public override void SetInputColor(VirtualKey rawInput, uint value)
         {
-            for (var i = _defaultColors.Length - 1; i >= 0; --i)
+            for (var i = _rgbSystems.Length - 1; i >= 0; --i)
             {
                 RGBControl.SetControlDevice((byte)i);
                 var input = GetInput(rawInput);
@@ -173,16 +170,23 @@ namespace Qwilight
 
         public override void OnBeforeHandle()
         {
-            for (var i = _defaultColors.Length - 1; i >= 0; --i)
+            for (var i = _rgbSystems.Length - 1; i >= 0; --i)
             {
                 RGBControl.SetControlDevice((byte)i);
-                RGBControl.SetFull(_defaultColors[i]);
+                var rgbData = _rgbSystems[i];
+                for (var j = rgbData.MaxRows - 1; j >= 0; --j)
+                {
+                    for (var m = rgbData.MaxColumns - 1; m >= 0; --m)
+                    {
+                        RGBControl.SetKey((byte)j, (byte)m, 0, 0, 0);
+                    }
+                }
             }
         }
 
         public override void OnHandled()
         {
-            for (var i = _defaultColors.Length - 1; i >= 0; --i)
+            for (var i = _rgbSystems.Length - 1; i >= 0; --i)
             {
                 RGBControl.SetControlDevice((byte)i);
                 RGBControl.UpdateKeyboard();
@@ -198,6 +202,11 @@ namespace Qwilight
                 if (IsHandling)
                 {
                     IsHandling = false;
+                    for (var i = _rgbSystems.Length - 1; i >= 0; --i)
+                    {
+                        RGBControl.SetControlDevice((byte)i);
+                        RGBControl.ResetRGB();
+                    }
                     RGBControl.Close();
                 }
             }
