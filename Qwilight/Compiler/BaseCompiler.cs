@@ -202,7 +202,6 @@ namespace Qwilight.Compiler
                     defaultComputer.WaitInputAudioMap.Clear();
                     defaultComputer.WaitMediaNoteMap.Clear();
                     defaultComputer.WaitBPMMap.Clear();
-                    defaultComputer.Comment.Inputs.Clear();
                     HandleCompile(defaultComputer, defaultComputer.NoteFileContents, defaultComputer.ModeComponentValue.Salt);
                     HandleCompile(defaultComputer, defaultComputer.NoteFileContents, loadParallelItems);
                     OnCompiled(defaultComputer);
@@ -1132,7 +1131,7 @@ namespace Qwilight.Compiler
             }
 
             // 리플레이 노트
-            foreach (var inputEvent in defaultComputer.Comment.Inputs.Where(inputEvent => inputEvent.Input > 0))
+            foreach (var inputEvent in defaultComputer.EventComment?.Inputs?.Where(inputEvent => inputEvent.Input > 0) ?? Enumerable.Empty<InputEvent>())
             {
                 var wait = Utility.SetCommentWait(defaultComputer.CommentWaitDate, defaultComputer.AudioMultiplier, inputEvent.Wait);
                 wait = Math.Floor(wait);

@@ -414,7 +414,7 @@ namespace Qwilight.Compute
 
         public virtual bool CanUndo => WwwLevelDataValue?.AllowPause != false;
 
-        public bool CanModifySalt => string.IsNullOrEmpty(EventNoteEntryItem?.EventNoteID);
+        public bool CanModifySalt => (IsSalt || ModeComponentValue.CanModifySalt) && string.IsNullOrEmpty(EventNoteEntryItem?.EventNoteID);
 
         public int FadingViewLayer { get; set; } = 1;
 

@@ -195,6 +195,11 @@ namespace Qwilight
             SetNoteModeValue == SetNoteMode.Default &&
             PutCopyNotesValueV2 == PutCopyNotes.Default;
 
+        public bool CanModifySalt => (NoteSaltModeValue == NoteSaltMode.Salt || NoteSaltModeValue == NoteSaltMode.InputSalt || NoteSaltModeValue == NoteSaltMode.MeterSalt || NoteSaltModeValue == NoteSaltMode.HalfInputSalt) ||
+            (NoteMobilityModeValue == NoteMobilityMode._4D || NoteMobilityModeValue == NoteMobilityMode._4DHD) ||
+            NoteModifyModeValue == NoteModifyMode.LongNote ||
+            (SetNoteModeValue == SetNoteMode.Put || SetNoteModeValue == SetNoteMode.VoidPut);
+
         public string CanBeTwilightCommentContents => CanBeTwilightComment ? LanguageSystem.Instance.CanBeTwilightCommentContents : LanguageSystem.Instance.CannotBeTwilightCommentContents;
 
         public bool IsLowerStand => AutoModeValue != AutoMode.Default ||

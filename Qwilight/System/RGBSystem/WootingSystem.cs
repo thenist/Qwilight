@@ -11,13 +11,6 @@ namespace Qwilight
     {
         public static readonly WootingSystem Instance = new();
 
-        public WootingSystem()
-        {
-#if X64
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "wooting-rgb-sdk64.dll"), Path.Combine(AppContext.BaseDirectory, "wooting-rgb-sdk.dll"));
-#endif
-        }
-
         static WootingKey.Keys GetInput(VirtualKey input) => input switch
         {
             VirtualKey.Escape => WootingKey.Keys.Esc,
@@ -119,13 +112,37 @@ namespace Qwilight
             _ => WootingKey.Keys.None
         };
 
+        KeyColour[][,] _defaultColors;
+
+        public WootingSystem()
+        {
+#if X64
+            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "wooting-rgb-sdk64.dll"), Path.Combine(AppContext.BaseDirectory, "wooting-rgb-sdk.dll"));
+#endif
+        }
+
         public override bool IsAvailable => Configure.Instance.Wooting;
 
         public override bool Init()
         {
             try
             {
-                return RGBControl.IsConnected();
+                if (RGBControl.IsConnected())
+                {
+                    var rgbCount = RGBControl.GetDeviceCount();
+                    _defaultColors = new KeyColour[rgbCount][,];
+                    for (byte i = 0; i < rgbCount; ++i)
+                    {
+                        RGBControl.SetControlDevice(i);
+                        var data = RGBControl.GetDeviceInfo();
+                        _defaultColors[i] = new KeyColour[data.MaxRows, data.MaxColumns];
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch
             {
@@ -135,10 +152,9 @@ namespace Qwilight
 
         public override void SetInputColor(VirtualKey rawInput, uint value)
         {
-            var rgbCount = RGBControl.GetDeviceCount();
-            for (byte i = 0; i < rgbCount; ++i)
+            for (var i = _defaultColors.Length - 1; i >= 0; --i)
             {
-                RGBControl.SetControlDevice(i);
+                RGBControl.SetControlDevice((byte)i);
                 var input = GetInput(rawInput);
                 if (input != WootingKey.Keys.None)
                 {
@@ -157,11 +173,20 @@ namespace Qwilight
 
         public override void OnBeforeHandle()
         {
+            for (var i = _defaultColors.Length - 1; i >= 0; --i)
+            {
+                RGBControl.SetControlDevice((byte)i);
+                RGBControl.SetFull(_defaultColors[i]);
+            }
         }
 
         public override void OnHandled()
         {
-            RGBControl.UpdateKeyboard();
+            for (var i = _defaultColors.Length - 1; i >= 0; --i)
+            {
+                RGBControl.SetControlDevice((byte)i);
+                RGBControl.UpdateKeyboard();
+            }
         }
 
         public override Color GetMeterColor() => Colors.Yellow;
