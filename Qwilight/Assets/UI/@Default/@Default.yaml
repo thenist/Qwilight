@@ -245,18 +245,18 @@ point:
     paintProperty29: PaintProperty23Position0(586), AutoModeQuitPosition1(0), 121, 24, 1, 0, 0, 0, null, 1
     paintProperty30: PaintProperty23Position0(586), AutoModeQuitPosition1(0), 121, 24, 1, 0, 0, 107, null, 1
 
-    fadingProperty00: 40, 60, 0.5
-    fadingProperty01: 100, 60, 0.2
-    fadingProperty02: 40, 60, 0.5
-    fadingProperty03: 40, 60, 0.5
+    fadingProperty00: 50, 60, 0.5
+    fadingProperty01: 100, 60, 0.25
+    fadingProperty02: 50, 60, 0.5
+    fadingProperty03: 50, 60, 0.5
 
     fadingProperty20: 40, 60, 0.5
     fadingProperty21: 40, 60, 0.5
     fadingProperty22: 40, 60, 0.5
     fadingProperty23: 40, 60, 0.5
 
-    fadingProperty30: 40, 60, 0.5
-    fadingProperty31: 40, 60, 0.5
+    fadingProperty30: 50, 60, 0.5
+    fadingProperty31: 50, 60, 0.5
 
     status: 13, InputNoteCountViewPosition1(1), CommentViewLength(-36), 66, 3
     statusDefaultEntry: 13, InputNoteCountViewPosition1(1), CommentViewLength(-36), 66, 3

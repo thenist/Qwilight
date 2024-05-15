@@ -173,10 +173,10 @@ namespace Qwilight
             for (var i = _rgbSystems.Length - 1; i >= 0; --i)
             {
                 RGBControl.SetControlDevice((byte)i);
-                var rgbData = _rgbSystems[i];
-                for (var j = rgbData.MaxRows - 1; j >= 0; --j)
+                var rgbSystem = _rgbSystems[i];
+                for (var j = rgbSystem.MaxRows - 1; j >= 0; --j)
                 {
-                    for (var m = rgbData.MaxColumns - 1; m >= 0; --m)
+                    for (var m = rgbSystem.MaxColumns - 1; m >= 0; --m)
                     {
                         RGBControl.SetKey((byte)j, (byte)m, 0, 0, 0);
                     }
