@@ -202,9 +202,9 @@ end
 
 function PaintProperty0Etc()
 	if IsNoteFileModeUHD() then
-		return "[0UHD0.mp4, 0UHD1.mp4]"
+		return "[UHD0.mp4, UHD1.mp4, UHD2.mp4, UHD3.mp4, UHD4.mp4, UHD5.mp4, UHD6.mp4, UHD7.mp4, UHD8.mp4, UHD9.mp4]"
 	else
-		return "[0HD0.mp4, 0HD1.mp4]"
+		return "[HD0.mp4, HD1.mp4, HD2.mp4, HD3.mp4, HD4.mp4, HD5.mp4, HD6.mp4, HD7.mp4, HD8.mp4, HD9.mp4]"
 	end
 end
 
@@ -213,14 +213,6 @@ function PaintProperty3Variety()
 		return 2
 	else
 		return 11
-	end
-end
-
-function PaintProperty3Etc()
-	if IsQuitModeUHD() then
-		return "1UHD.mp4"
-	else
-		return "1HD.mp4"
 	end
 end
 

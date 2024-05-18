@@ -179,7 +179,7 @@ point:
     paintProperty2: 12, 12, CommentViewLength(0), CommentViewHeight(0), 1, 0, 0, 0, null, 0
 
     # 리절트의 전체 화면 백그라운드 애니메이션
-    paintProperty3: 0, 0, DefaultLength(), DefaultHeight(), 1, 0, 0, PaintProperty3Variety(), PaintProperty3Etc(), 1
+    paintProperty3: 0, 0, DefaultLength(), DefaultHeight(), 1, 0, 0, PaintProperty3Variety(), PaintProperty0Etc(), 1
 
     # 선곡의 오디오 비주얼라이저
     paintProperty4: 12, 12, CommentViewLength(0), CommentViewHeight(0), 0, 0, 0, 10, null, 0
