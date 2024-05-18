@@ -46,7 +46,7 @@
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
 		<PackageReference Include="ini-parser-new" Version="2.6.2" />
 		<PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.4" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.5" />
 		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="3.0.0" />
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2478.35" />
 		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.106">
@@ -56,7 +56,6 @@
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
 		<PackageReference Include="RGB.NET.Devices.Corsair" Version="2.1.0" />
-		<PackageReference Include="RGB.NET.Devices.CorsairLegacy" Version="2.1.0" />
 		<PackageReference Include="RGB.NET.Devices.SteelSeries" Version="2.1.0" />
 		<PackageReference Include="SharpCompress" Version="0.37.2" />
 		<PackageReference Include="System.Management" Version="8.0.0" />
@@ -258,9 +257,6 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Platform)'=='x64'">
-		<None Update="Assets\AMD64\CUESDK.x64_2019.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Assets\AMD64\Flint.exe">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

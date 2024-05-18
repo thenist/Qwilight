@@ -20,7 +20,7 @@ namespace Qwilight.ViewModel
         public const int SetNoteModeVariety = 11;
         public const int LowestJudgmentConditionModeVariety = 12;
 
-        int _modeComponentVariety;
+        int _modeComponentVariety = -1;
         ModifyModeComponentItem _modeComponentItem;
         List<ModifyModeComponentItem> _modeComponentItems;
 

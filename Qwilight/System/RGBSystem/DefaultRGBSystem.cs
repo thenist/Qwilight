@@ -1,4 +1,5 @@
-﻿using RGB.NET.Core;
+﻿using Qwilight.Utilities;
+using RGB.NET.Core;
 using System.Collections.Frozen;
 using Windows.System;
 
@@ -106,25 +107,33 @@ namespace Qwilight
             VirtualKey.PageDown => LedId.Keyboard_PageDown,
             _ => LedId.Invalid,
         };
+        static readonly Color _defaultColor = GetColor(Utility.GetColor(0, 0, 0, 255));
 
-        static RGB.NET.Core.Color GetColor(uint valueColor) => new((byte)(valueColor & 255), (byte)((valueColor & 65280) >> 8), (byte)((valueColor & 16711680) >> 16), (byte)((valueColor & 4278190080) >> 24));
+        static RGB.NET.Core.Color GetColor(uint valueColor) => new((byte)((valueColor & 4278190080) >> 24), (byte)(valueColor & 255), (byte)((valueColor & 65280) >> 8), (byte)((valueColor & 16711680) >> 16));
 
         RGBSurface _rgbSystem;
         FrozenDictionary<LedId, Led> _rgbs;
-        ManualUpdateTrigger _trigger;
+        TimerUpdateTrigger _trigger;
 
         public abstract void Load(RGBSurface rgbSystem);
 
         public override bool Init()
         {
-            _rgbSystem = new();
-            Load(_rgbSystem);
-            _rgbSystem.AlignDevices();
-            _rgbs = _rgbSystem.Leds.ToFrozenDictionary(rgb => rgb.Id, rgb => rgb);
-            _trigger = new();
-            _trigger.Start();
-            _rgbSystem.RegisterUpdateTrigger(_trigger);
-            return true;
+            try
+            {
+                _rgbSystem = new();
+                Load(_rgbSystem);
+                _rgbSystem.AlignDevices();
+                _rgbs = _rgbSystem.Leds.ToFrozenDictionary(rgb => rgb.Id, rgb => rgb);
+                _trigger = new();
+                _trigger.Start();
+                _rgbSystem.RegisterUpdateTrigger(_trigger);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public override void SetInputColor(VirtualKey rawInput, uint value)
@@ -146,11 +155,15 @@ namespace Qwilight
 
         public override void OnBeforeHandle()
         {
+            foreach (var rgb in _rgbs.Values)
+            {
+                rgb.Color = _defaultColor;
+            }
         }
 
         public override void OnHandled()
         {
-            _trigger.TriggerUpdate();
+            _rgbSystem.Update();
         }
 
         public override void Dispose()

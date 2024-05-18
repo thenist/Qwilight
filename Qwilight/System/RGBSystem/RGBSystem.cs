@@ -1,4 +1,5 @@
 ﻿using Qwilight.Compute;
+using Qwilight.Note;
 using Qwilight.Utilities;
 using Qwilight.ViewModel;
 using System.Diagnostics;
@@ -238,7 +239,6 @@ namespace Qwilight
             var handlingColor = GetHandlingColor(1.0);
             var inputStandardColor = GetInputStandardColor(1.0);
             var defaultColor = GetDefaultColor(1.0);
-            var inputColor = GetInputColor(0.0);
 
             var loopingCounter = 0.0;
             var loopingHandler = Stopwatch.StartNew();
@@ -360,7 +360,7 @@ namespace Qwilight
                                         {
                                             foreach (var defaultInput in inputs[i])
                                             {
-                                                SetInputColor(defaultInput.Data, failedValue > 0.0 ? GetFailedColor(failedValue) : GetInputColor(InputValues[i]));
+                                                SetInputColor(defaultInput.Data, failedValue > 0.0 ? GetFailedColor(failedValue) : GetInputColor(InputValues[i], defaultComputer.InputMode, defaultComputer.NoteFrame, i));
                                             }
                                         }
                                     }
@@ -412,17 +412,15 @@ namespace Qwilight
 
                         if (isDefaultInputWindowOpened)
                         {
-                            var inputControllerInputs = Configure.Instance.DefaultInputBundlesV6.Inputs[(int)inputViewModel.InputMode];
-                            if (inputControllerInputs != null)
+                            var inputMode = inputViewModel.InputMode;
+                            var defaultInputs = Configure.Instance.DefaultInputBundlesV6.Inputs[(int)inputMode];
+                            if (defaultInputs != null)
                             {
-                                foreach (var inputControllerInput in inputControllerInputs)
+                                for (var i = defaultInputs.Length - 1; i > 0; --i)
                                 {
-                                    if (inputControllerInput != null)
+                                    foreach (var defaultInput in defaultInputs[i])
                                     {
-                                        foreach (var defaultInput in inputControllerInput)
-                                        {
-                                            SetInputColor(defaultInput.Data, inputColor);
-                                        }
+                                        SetInputColor(defaultInput.Data, GetInputColor(1.0, inputMode, 0, i));
                                     }
                                 }
                             }
@@ -589,19 +587,36 @@ namespace Qwilight
             }
         }
 
-        uint GetDefaultColor(double status) => Utility.GetColor((uint)(0 * status), (uint)(127 * status), (uint)(255 * status), 255);
+        uint GetDefaultColor(double status) => Utility.GetColor((uint)(0 * status), (uint)(127 * status), (uint)(255 * status), (uint)(255 * status));
 
-        uint GetHandlingColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(127 * status), (uint)(0 * status), 255);
+        uint GetHandlingColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(127 * status), (uint)(0 * status), (uint)(255 * status));
 
-        uint GetInputColor(double status) => Utility.GetColor((uint)(0 * status), (uint)(255 * (1.0 - status)), (uint)(255 * status), 255);
+        uint GetInputStandardColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(255 * status), (uint)(0 * status), (uint)(255 * status));
 
-        uint GetInputStandardColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(255 * status), (uint)(0 * status), 255);
+        uint GetInputColor(double status, Component.InputMode inputMode, int noteFrame, int i)
+        {
+            var inputNoteDrawings = UI.Instance.NoteDrawings[(int)inputMode][i][noteFrame];
+            var inputNoteDrawing = inputNoteDrawings[InputNote.InputNoteContents][LongNote.LongNoteBefore];
+            if (inputNoteDrawing.HasValue)
+            {
+                var averageColor = inputNoteDrawing.Value.AverageColor;
+                var value0 = (averageColor & 4278190080) >> 24;
+                var value1 = (averageColor & 16711680) >> 16;
+                var value2 = (averageColor & 65280) >> 8;
+                var value3 = averageColor & 255;
+                return Utility.GetColor((uint)(value0 * (0.5 + status / 2)), (uint)(value1 * (0.5 + status / 2)), (uint)(value2 * (0.5 + status / 2)), (uint)(value3 * (0.5 + status / 2)));
+            }
+            else
+            {
+                return 0U;
+            }
+        }
 
-        uint GetFailedColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(0 * status), (uint)(0 * status), 255);
+        uint GetFailedColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(0 * status), (uint)(0 * status), (uint)(255 * status));
 
-        uint GetStatusColor(double status) => Utility.GetColor((uint)(0 * status), (uint)(255 * status), (uint)(255 * status), 255);
+        uint GetStatusColor(double status) => Utility.GetColor((uint)(0 * status), (uint)(255 * status), (uint)(255 * status), (uint)(255 * status));
 
-        uint GetValueColor(Color value, double status) => Utility.GetColor((uint)(value.R * status), (uint)(value.G * status), (uint)(value.B * status), 255);
+        uint GetValueColor(Color value, double status) => Utility.GetColor((uint)(value.R * status), (uint)(value.G * status), (uint)(value.B * status), (uint)(255 * status));
 
         public void Dispose()
         {

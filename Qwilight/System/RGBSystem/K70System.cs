@@ -2,7 +2,6 @@
 using Qwilight.Utilities;
 using RGB.NET.Core;
 using RGB.NET.Devices.Corsair;
-using RGB.NET.Devices.CorsairLegacy;
 using System.IO;
 using Color = Windows.UI.Color;
 
@@ -16,13 +15,11 @@ namespace Qwilight
         {
 #if X64
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "iCUESDK.x64_2019.dll"), Path.Combine(AppContext.BaseDirectory, "x64", "iCUESDK.x64_2019.dll"));
-            Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "CUESDK.x64_2019.dll"), Path.Combine(AppContext.BaseDirectory, "x64", "CUESDK.x64_2019.dll"));
 #endif
         }
 
         public override void Load(RGBSurface rgbSystem)
         {
-            rgbSystem.Load(CorsairLegacyDeviceProvider.Instance);
             rgbSystem.Load(CorsairDeviceProvider.Instance);
         }
 
