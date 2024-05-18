@@ -261,11 +261,8 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Style="{StaticResource StandardTextView}" Text="KOTDARI" HorizontalAlignment="Right" />
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/kot-dari">SoundCloud</Button>
-                                        <Button Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://twitter.com/kotdari_forward">X</Button>
-                                    </StackPanel>
+                                    <TextBlock Style="{StaticResource StandardTextView}" Text="Malang" HorizontalAlignment="Right" />
+                                    <Button Grid.Column="1" Style="{StaticResource StandardInput}" Command="{Binding OpenAsCommand}" CommandParameter="https://soundcloud.com/malangkr" HorizontalAlignment="Left">SoundCloud</Button>
                                 </Grid>
                                 <Separator Style="{StaticResource StandardHr}" />
                                 <TextBlock Style="{StaticResource StandardTextView}" FontSize="{StaticResource FontLevel1}" Text="{Binding Library, Source={StaticResource LanguageSystem}}" />
