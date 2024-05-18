@@ -9,7 +9,7 @@ using Color = Windows.UI.Color;
 
 namespace Qwilight
 {
-    public sealed class CMSystem : DefaultRGBSystem
+    public sealed class CMSystem : DefaultRGBSystem<CoolerMasterDeviceProvider>
     {
         public static readonly CMSystem Instance = new();
 
@@ -18,11 +18,6 @@ namespace Qwilight
 #if X64
             Utility.CopyFile(Path.Combine(QwilightComponent.CPUAssetsEntryPath, "SDKDLL.dll"), Path.Combine(AppContext.BaseDirectory, "x64", "CMSDK.dll"));
 #endif
-        }
-
-        public override void Load(RGBSurface rgbSystem)
-        {
-            rgbSystem.Load(CoolerMasterDeviceProvider.Instance);
         }
 
         public override bool IsAvailable => Configure.Instance.CM;

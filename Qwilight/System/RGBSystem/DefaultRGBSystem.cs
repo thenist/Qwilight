@@ -1,11 +1,12 @@
 ﻿using Qwilight.Utilities;
 using RGB.NET.Core;
+using RGB.NET.Devices.Corsair;
 using System.Collections.Frozen;
 using Windows.System;
 
 namespace Qwilight
 {
-    public abstract class DefaultRGBSystem : BaseRGBSystem
+    public abstract class DefaultRGBSystem<T> : BaseRGBSystem where T : IRGBDeviceProvider, new()
     {
         static LedId GetInput(VirtualKey rawInput) => rawInput switch
         {
@@ -111,20 +112,20 @@ namespace Qwilight
 
         static RGB.NET.Core.Color GetColor(uint valueColor) => new((byte)((valueColor & 4278190080) >> 24), (byte)(valueColor & 255), (byte)((valueColor & 65280) >> 8), (byte)((valueColor & 16711680) >> 16));
 
-        RGBSurface _rgbSystem;
+        RGBSurface _rgbPanel;
+        T _rgbSystem;
         FrozenDictionary<LedId, Led> _rgbs;
         FrozenDictionary<LedId, Led> _rgbEtcs;
-
-        public abstract void Load(RGBSurface rgbSystem);
 
         public override bool Init()
         {
             try
             {
-                _rgbSystem = new();
-                Load(_rgbSystem);
-                _rgbSystem.AlignDevices();
-                _rgbs = _rgbSystem.Leds.ToFrozenDictionary(rgb => rgb.Id, rgb => rgb);
+                _rgbPanel = new();
+                _rgbSystem = new T();
+                _rgbPanel.Load(_rgbSystem);
+                _rgbPanel.AlignDevices();
+                _rgbs = _rgbPanel.Leds.ToFrozenDictionary(rgb => rgb.Id, rgb => rgb);
                 _rgbEtcs = _rgbs.Where(rgb =>
                 {
                     var rgbID = rgb.Key;
@@ -228,7 +229,7 @@ namespace Qwilight
                     }
                     return false;
                 }).ToFrozenDictionary();
-                return _rgbSystem.Devices.Count > 0;
+                return _rgbPanel.Devices.Count > 0;
             }
             catch
             {
@@ -267,7 +268,7 @@ namespace Qwilight
 
         public override void OnHandled()
         {
-            _rgbSystem.Update();
+            _rgbPanel.Update();
         }
 
         public override void Dispose()
@@ -278,6 +279,7 @@ namespace Qwilight
                 {
                     IsHandling = false;
                     _rgbSystem.Dispose();
+                    _rgbPanel.Dispose();
                 }
             }
         }

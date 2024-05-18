@@ -1,18 +1,15 @@
 ﻿using Microsoft.UI;
 using RGB.NET.Core;
+using RGB.NET.Devices.CoolerMaster;
+using RGB.NET.Devices.Corsair;
 using RGB.NET.Devices.SteelSeries;
 using Color = Windows.UI.Color;
 
 namespace Qwilight
 {
-    public sealed class GSSystem : DefaultRGBSystem
+    public sealed class GSSystem : DefaultRGBSystem<SteelSeriesDeviceProvider>
     {
         public static readonly GSSystem Instance = new();
-
-        public override void Load(RGBSurface rgbSystem)
-        {
-            rgbSystem.Load(SteelSeriesDeviceProvider.Instance);
-        }
 
         public override bool IsAvailable => Configure.Instance.GS;
 
