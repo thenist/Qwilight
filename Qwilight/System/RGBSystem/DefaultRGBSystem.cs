@@ -6,7 +6,7 @@ using Windows.System;
 
 namespace Qwilight
 {
-    public abstract class DefaultRGBSystem<T> : BaseRGBSystem where T : IRGBDeviceProvider, new()
+    public abstract class DefaultRGBSystem: BaseRGBSystem
     {
         static LedId GetInput(VirtualKey rawInput) => rawInput switch
         {
@@ -113,17 +113,17 @@ namespace Qwilight
         static RGB.NET.Core.Color GetColor(uint valueColor) => new((byte)((valueColor & 4278190080) >> 24), (byte)(valueColor & 255), (byte)((valueColor & 65280) >> 8), (byte)((valueColor & 16711680) >> 16));
 
         RGBSurface _rgbPanel;
-        T _rgbSystem;
         FrozenDictionary<LedId, Led> _rgbs;
         FrozenDictionary<LedId, Led> _rgbEtcs;
+
+        public abstract IRGBDeviceProvider System { get; }
 
         public override bool Init()
         {
             try
             {
                 _rgbPanel = new();
-                _rgbSystem = new T();
-                _rgbPanel.Load(_rgbSystem);
+                _rgbPanel.Load(System);
                 _rgbPanel.AlignDevices();
                 _rgbs = _rgbPanel.Leds.ToFrozenDictionary(rgb => rgb.Id, rgb => rgb);
                 _rgbEtcs = _rgbs.Where(rgb =>
@@ -278,7 +278,6 @@ namespace Qwilight
                 if (IsHandling)
                 {
                     IsHandling = false;
-                    _rgbSystem.Dispose();
                     _rgbPanel.Dispose();
                 }
             }

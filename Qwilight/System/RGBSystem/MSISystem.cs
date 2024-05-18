@@ -9,9 +9,11 @@ using Color = Windows.UI.Color;
 
 namespace Qwilight
 {
-    public sealed class MSISystem : DefaultRGBSystem<MsiDeviceProvider>
+    public sealed class MSISystem : DefaultRGBSystem
     {
         public static readonly MSISystem Instance = new();
+
+        public override IRGBDeviceProvider System { get; } = MsiDeviceProvider.Instance;
 
         MSISystem()
         {

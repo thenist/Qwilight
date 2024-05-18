@@ -9,9 +9,11 @@ using Color = Windows.UI.Color;
 
 namespace Qwilight
 {
-    public sealed class CMSystem : DefaultRGBSystem<CoolerMasterDeviceProvider>
+    public sealed class CMSystem : DefaultRGBSystem
     {
         public static readonly CMSystem Instance = new();
+
+        public override IRGBDeviceProvider System { get; } = CoolerMasterDeviceProvider.Instance;
 
         CMSystem()
         {

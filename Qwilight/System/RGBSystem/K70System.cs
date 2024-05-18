@@ -3,14 +3,17 @@ using Qwilight.Utilities;
 using RGB.NET.Core;
 using RGB.NET.Devices.CoolerMaster;
 using RGB.NET.Devices.Corsair;
+using RGB.NET.Devices.SteelSeries;
 using System.IO;
 using Color = Windows.UI.Color;
 
 namespace Qwilight
 {
-    public sealed class K70System : DefaultRGBSystem<CorsairDeviceProvider>
+    public sealed class K70System : DefaultRGBSystem
     {
         public static readonly K70System Instance = new();
+
+        public override IRGBDeviceProvider System { get; } = CorsairDeviceProvider.Instance;
 
         K70System()
         {

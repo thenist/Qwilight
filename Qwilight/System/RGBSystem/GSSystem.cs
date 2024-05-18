@@ -7,9 +7,11 @@ using Color = Windows.UI.Color;
 
 namespace Qwilight
 {
-    public sealed class GSSystem : DefaultRGBSystem<SteelSeriesDeviceProvider>
+    public sealed class GSSystem : DefaultRGBSystem
     {
         public static readonly GSSystem Instance = new();
+
+        public override IRGBDeviceProvider System { get; } = SteelSeriesDeviceProvider.Instance;
 
         public override bool IsAvailable => Configure.Instance.GS;
 
