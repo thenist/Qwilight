@@ -1311,9 +1311,9 @@ namespace Qwilight.Compute
 
         public int ValidatedTotalNotes { get; set; }
 
-        public IHandledItem LoopingBanalMedia { get; set; }
+        public IHandrgbItem LoopingBanalMedia { get; set; }
 
-        public IHandledItem LoopingBanalFailedMedia { get; set; }
+        public IHandrgbItem LoopingBanalFailedMedia { get; set; }
 
         void SendPostItem(PostableItem postableItem)
         {

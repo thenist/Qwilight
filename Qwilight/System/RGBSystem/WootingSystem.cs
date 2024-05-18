@@ -193,7 +193,7 @@ namespace Qwilight
             }
         }
 
-        public override Color GetMeterColor() => Colors.Yellow;
+        public override Color GetGroupColor() => Colors.Yellow;
 
         public override void Dispose()
         {

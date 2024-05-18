@@ -17,7 +17,7 @@ namespace Qwilight
 
         readonly BaseRGBSystem[] _targetSystems = new BaseRGBSystem[]
         {
-            BWSystem.Instance, AuraSystem.Instance, K70System.Instance, LSSystem.Instance, GSSystem.Instance, WootingSystem.Instance
+            BWSystem.Instance, AuraSystem.Instance, K70System.Instance, LSSystem.Instance, GSSystem.Instance, WootingSystem.Instance, MSISystem.Instance, CMSystem.Instance
         };
 
         readonly object _availableCSX = new();
@@ -78,7 +78,7 @@ namespace Qwilight
                     }
                     else if (meterValue > 0.0)
                     {
-                        targetSystem.SetEtcColor(GetValueColor(targetSystem.GetMeterColor(), meterValue));
+                        targetSystem.SetEtcColor(GetValueColor(targetSystem.GetGroupColor(), meterValue));
                     }
                 }
             }

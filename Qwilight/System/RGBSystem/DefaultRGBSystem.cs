@@ -113,7 +113,7 @@ namespace Qwilight
 
         RGBSurface _rgbSystem;
         FrozenDictionary<LedId, Led> _rgbs;
-        TimerUpdateTrigger _trigger;
+        FrozenDictionary<LedId, Led> _rgbEtcs;
 
         public abstract void Load(RGBSurface rgbSystem);
 
@@ -125,10 +125,110 @@ namespace Qwilight
                 Load(_rgbSystem);
                 _rgbSystem.AlignDevices();
                 _rgbs = _rgbSystem.Leds.ToFrozenDictionary(rgb => rgb.Id, rgb => rgb);
-                _trigger = new();
-                _trigger.Start();
-                _rgbSystem.RegisterUpdateTrigger(_trigger);
-                return true;
+                _rgbEtcs = _rgbs.Where(rgb =>
+                {
+                    var rgbID = rgb.Key;
+                    for (var i = LedId.Keyboard_Custom1; i <= LedId.Keyboard_Custom128; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.Mouse1; i <= LedId.Mouse128; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.Headset1; i <= LedId.Headset128; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.Mousepad1; i <= LedId.Mousepad128; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.LedStripe1; i <= LedId.LedStripe2048; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.LedMatrix1; i <= LedId.LedMatrix2048; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.Mainboard1; i <= LedId.Mainboard512; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.GraphicsCard1; i <= LedId.GraphicsCard128; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.DRAM1; i <= LedId.DRAM128; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.HeadsetStand1; i <= LedId.HeadsetStand128; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.Fan1; i <= LedId.Fan128; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.Speaker1; i <= LedId.Speaker128; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.Cooler1; i <= LedId.Cooler128; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    for (var i = LedId.Custom1; i <= LedId.Custom1024; ++i)
+                    {
+                        if (i == rgbID)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }).ToFrozenDictionary();
+                return _rgbSystem.Devices.Count > 0;
             }
             catch
             {
@@ -151,6 +251,10 @@ namespace Qwilight
 
         public override void SetEtcColor(uint value)
         {
+            foreach (var rgbEtc in _rgbEtcs.Values)
+            {
+                rgbEtc.Color = GetColor(value);
+            }
         }
 
         public override void OnBeforeHandle()
@@ -173,8 +277,6 @@ namespace Qwilight
                 if (IsHandling)
                 {
                     IsHandling = false;
-                    _rgbSystem.UnregisterUpdateTrigger(_trigger);
-                    _trigger.Dispose();
                     _rgbSystem.Dispose();
                 }
             }

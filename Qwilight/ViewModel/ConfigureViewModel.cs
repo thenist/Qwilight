@@ -764,6 +764,12 @@ namespace Qwilight.ViewModel
         static void OnWooting() => WootingSystem.Instance.Toggle();
 
         [RelayCommand]
+        static void OnMSI() => MSISystem.Instance.Toggle();
+
+        [RelayCommand]
+        static void OnCM() => CMSystem.Instance.Toggle();
+
+        [RelayCommand]
         static async Task OnLoadBanalAudio()
         {
             var filePath = await StrongReferenceMessenger.Default.Send(new ViewFileWindow

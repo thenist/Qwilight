@@ -843,9 +843,9 @@ namespace Qwilight
             public int handledClearCount;
             public int handledAssistClearCount;
             public int noteIDCount;
-            public Dictionary<BaseNoteFile.Handled, List<HandledItem>> avatarHandledItems;
+            public Dictionary<BaseNoteFile.Handled, List<HandrgbItem>> avatarHandrgbItems;
 
-            public sealed class HandledItem : Computing
+            public sealed class HandrgbItem : Computing
             {
                 public int stand;
             }

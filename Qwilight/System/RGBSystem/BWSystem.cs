@@ -211,7 +211,7 @@ namespace Qwilight
             ChromaAnimationAPI.SetEffectCustom1D((int)ChromaAnimationAPI.Device1D.Mousepad, _dataPanel);
         }
 
-        public override Color GetMeterColor() => Colors.Green;
+        public override Color GetGroupColor() => Colors.Green;
 
         public override void Dispose()
         {

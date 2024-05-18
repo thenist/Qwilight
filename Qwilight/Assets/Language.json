@@ -591,6 +591,14 @@
     "ko-KR": "클리어 정보",
     "en-US": "Clear Information"
   },
+  "CMContents": {
+    "ko-KR": "Cooler Master® RGB를 사용합니다.",
+    "en-US": "Use Cooler Master® RGB"
+  },
+  "CMText": {
+    "ko-KR": "Cooler Master® RGB 활성화",
+    "en-US": "Enable Cooler Master® RGB"
+  },
   "ColorText": {
     "ko-KR": "색상 선택",
     "en-US": "Select Color"
@@ -2187,6 +2195,14 @@
     "ko-KR": "▲, ▼ 키와 DEL 키로 순서를 설정하거나 삭제하세요",
     "en-US": "▲, Set or delete the order with the ▼ and DEL keys"
   },
+  "MSIContents": {
+    "ko-KR": "MSI® Mystic Light™를 사용합니다.",
+    "en-US": "Use MSI® Mystic Light™"
+  },
+  "MSIText": {
+    "ko-KR": "MSI® Mystic Light™ 활성화",
+    "en-US": "Enable MSI® Mystic Light™"
+  },
   "MultiplierContents": {
     "ko-KR": "스크롤 속도",
     "en-US": "Scroll Speed"
@@ -2370,6 +2386,10 @@
   "NotBWText": {
     "ko-KR": "RAZER® Chroma™ 비활성화",
     "en-US": "Disable RAZER® Chroma™"
+  },
+  "NotCMText": {
+    "ko-KR": "Cooler Master® RGB 비활성화",
+    "en-US": "Disable Cooler Master® RGB"
   },
   "NotDataCount3Text": {
     "ko-KR": "삼중 버퍼링 비활성화",
@@ -2610,6 +2630,10 @@
   "NotMediaText": {
     "ko-KR": "BGA 비활성화",
     "en-US": "Disable BGA"
+  },
+  "NotMSIText": {
+    "ko-KR": "MSI® Mythic Light™ 비활성화",
+    "en-US": "Disable MSI® Mythic Light™"
   },
   "NotNotifyUbuntuContents": {
     "ko-KR": "친구 접속시 알림을 받지 않음",

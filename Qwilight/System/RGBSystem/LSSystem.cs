@@ -175,7 +175,7 @@ namespace Qwilight
             }
         }
 
-        public override Color GetMeterColor() => Colors.Cyan;
+        public override Color GetGroupColor() => Colors.Cyan;
 
         public override void Dispose()
         {

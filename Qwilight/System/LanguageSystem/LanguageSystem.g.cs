@@ -150,6 +150,8 @@ namespace Qwilight
         public string CannotIOContents { get; set; }
         public string CenterLimiterVariety { get; set; }
         public string ClearedTabText { get; set; }
+        public string CMContents { get; set; }
+        public string CMText { get; set; }
         public string ColorText { get; set; }
         public string CommentAssist { get; set; }
         public string CommentComputingSituationContents { get; set; }
@@ -549,6 +551,8 @@ namespace Qwilight
         public string ModifyFrontEntry { get; set; }
         public string ModifyModeComponentText { get; set; }
         public string ModifyPositionAssist { get; set; }
+        public string MSIContents { get; set; }
+        public string MSIText { get; set; }
         public string MultiplierContents { get; set; }
         public string NegativePostedItemText { get; set; }
         public string NegativeStopFault { get; set; }
@@ -595,6 +599,7 @@ namespace Qwilight
         public string NotBanalMediaText { get; set; }
         public string NotBPMModeContents { get; set; }
         public string NotBWText { get; set; }
+        public string NotCMText { get; set; }
         public string NotDataCount3Text { get; set; }
         public string NotDefaultAudioVarietyText { get; set; }
         public string NoteDrawingCountText { get; set; }
@@ -655,6 +660,7 @@ namespace Qwilight
         public string NotMediaFillContents { get; set; }
         public string NotMediaFillText { get; set; }
         public string NotMediaText { get; set; }
+        public string NotMSIText { get; set; }
         public string NotNotifyUbuntuContents { get; set; }
         public string NotQwilightFillContents { get; set; }
         public string NotQwilightFillText { get; set; }

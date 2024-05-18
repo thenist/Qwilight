@@ -179,6 +179,8 @@ namespace Qwilight
         bool _valueK70;
         bool _valueGS;
         bool _wooting;
+        bool _valueMSI;
+        bool _valueCM;
         bool _mediaInput;
         bool _loadedMedia;
         bool _media;
@@ -1490,7 +1492,7 @@ namespace Qwilight
             }
         }
 
-        public Brush BWPaint => Paints.PointPaints[BW ? 1 : 0];
+        public Brush BWPaint => BW ? BWSystem.Instance.GroupPaint.Value : Paints.PointPaints[0];
 
         public string BWText => BW ? LanguageSystem.Instance.BWText : LanguageSystem.Instance.NotBWText;
 
@@ -1508,7 +1510,7 @@ namespace Qwilight
             }
         }
 
-        public Brush LSPaint => Paints.PointPaints[LS ? 1 : 0];
+        public Brush LSPaint => LS ? LSSystem.Instance.GroupPaint.Value : Paints.PointPaints[0];
 
         public string LSText => LS ? LanguageSystem.Instance.LSText : LanguageSystem.Instance.NotLSText;
 
@@ -1526,7 +1528,7 @@ namespace Qwilight
             }
         }
 
-        public Brush AuraPaint => Paints.PointPaints[Aura ? 1 : 0];
+        public Brush AuraPaint => Aura ? AuraSystem.Instance.GroupPaint.Value : Paints.PointPaints[0];
 
         public string AuraText => Aura ? LanguageSystem.Instance.AuraText : LanguageSystem.Instance.NotAuraText;
 
@@ -1544,7 +1546,7 @@ namespace Qwilight
             }
         }
 
-        public Brush K70Paint => Paints.PointPaints[K70 ? 1 : 0];
+        public Brush K70Paint => K70 ? K70System.Instance.GroupPaint.Value : Paints.PointPaints[0];
 
         public string K70Text => K70 ? LanguageSystem.Instance.K70Text : LanguageSystem.Instance.NotK70Text;
 
@@ -1562,7 +1564,7 @@ namespace Qwilight
             }
         }
 
-        public Brush GSPaint => Paints.PointPaints[GS ? 1 : 0];
+        public Brush GSPaint => GS ? GSSystem.Instance.GroupPaint.Value : Paints.PointPaints[0];
 
         public string GSText => GS ? LanguageSystem.Instance.GSText : LanguageSystem.Instance.NotGSText;
 
@@ -1580,9 +1582,45 @@ namespace Qwilight
             }
         }
 
-        public Brush WootingPaint => Paints.PointPaints[Wooting ? 1 : 0];
+        public Brush WootingPaint => Wooting ? WootingSystem.Instance.GroupPaint.Value : Paints.PointPaints[0];
 
         public string WootingText => Wooting ? LanguageSystem.Instance.WootingText : LanguageSystem.Instance.NotWootingText;
+
+        public bool MSI
+        {
+            get => _valueMSI;
+
+            set
+            {
+                if (SetProperty(ref _valueMSI, value))
+                {
+                    OnPropertyChanged(nameof(MSIPaint));
+                    OnPropertyChanged(nameof(MSIText));
+                }
+            }
+        }
+
+        public Brush MSIPaint => MSI ? MSISystem.Instance.GroupPaint.Value : Paints.PointPaints[0];
+
+        public string MSIText => MSI ? LanguageSystem.Instance.MSIText : LanguageSystem.Instance.NotMSIText;
+
+        public bool CM
+        {
+            get => _valueCM;
+
+            set
+            {
+                if (SetProperty(ref _valueCM, value))
+                {
+                    OnPropertyChanged(nameof(CMPaint));
+                    OnPropertyChanged(nameof(CMText));
+                }
+            }
+        }
+
+        public Brush CMPaint => CM ? CMSystem.Instance.GroupPaint.Value : Paints.PointPaints[0];
+
+        public string CMText => CM ? LanguageSystem.Instance.CMText : LanguageSystem.Instance.NotCMText;
 
         public bool MediaInput
         {
@@ -3504,6 +3542,11 @@ namespace Qwilight
                 {
                     { string.Empty, new() }
                 };
+            }
+            if (isInit || Utility.IsLowerDate(Date, 1, 16, 29))
+            {
+                MSI = false;
+                CM = false;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

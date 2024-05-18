@@ -25,7 +25,7 @@ namespace Qwilight
 
         public override bool IsAvailable => Configure.Instance.K70;
 
-        public override Color GetMeterColor() => Colors.Red;
+        public override Color GetGroupColor() => Colors.Red;
 
         public override void Toggle()
         {

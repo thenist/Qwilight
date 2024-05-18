@@ -142,18 +142,18 @@ namespace Qwilight
                     _rgbItems.Clear();
                     foreach (IAuraSyncDevice auraItem in _auraItems)
                     {
-                        foreach (IAuraRgbLight ledItem in auraItem.Lights)
+                        foreach (IAuraRgbLight rgbItem in auraItem.Lights)
                         {
-                            _rgbItems.Add(ledItem);
+                            _rgbItems.Add(rgbItem);
                         }
                         if (auraItem is IAuraSyncKeyboard auraInput)
                         {
-                            foreach (IAuraRgbKey ledItem in auraInput.Keys)
+                            foreach (IAuraRgbKey rgbItem in auraInput.Keys)
                             {
-                                var input = GetInput(ledItem.Code);
+                                var input = GetInput(rgbItem.Code);
                                 if (input != VirtualKey.None)
                                 {
-                                    Utility.NewValue(_inputItems, input, auraInput.Key[ledItem.Code]);
+                                    Utility.NewValue(_inputItems, input, auraInput.Key[rgbItem.Code]);
                                 }
                             }
                         }
@@ -168,9 +168,9 @@ namespace Qwilight
                             }
                             else
                             {
-                                foreach (IAuraRgbLight ledItem in auraItem.Lights)
+                                foreach (IAuraRgbLight rgbItem in auraItem.Lights)
                                 {
-                                    _etcItems.Add(ledItem);
+                                    _etcItems.Add(rgbItem);
                                 }
                             }
                         }
@@ -233,9 +233,9 @@ namespace Qwilight
 
         public override void OnBeforeHandle()
         {
-            foreach (IAuraRgbLight ledItem in _rgbItems)
+            foreach (IAuraRgbLight rgbItem in _rgbItems)
             {
-                ledItem.Color = 0;
+                rgbItem.Color = 0;
             }
         }
 
@@ -247,7 +247,7 @@ namespace Qwilight
             }
         }
 
-        public override Color GetMeterColor() => Colors.Red;
+        public override Color GetGroupColor() => Colors.Red;
 
         public override void Dispose()
         {

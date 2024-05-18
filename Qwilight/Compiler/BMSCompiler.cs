@@ -730,7 +730,7 @@ namespace Qwilight.Compiler
         public override void CompileImpl(DefaultCompute defaultComputer, byte[] noteFileContents, bool loadParallelItems)
         {
             var bmsIDAudioItemMap = new ConcurrentDictionary<string, AudioItem?>();
-            var bmsIDHandledItemMap = new ConcurrentDictionary<string, IHandledItem>();
+            var bmsIDHandrgbItemMap = new ConcurrentDictionary<string, IHandrgbItem>();
             var parallelItems = new ConcurrentBag<Action>();
             try
             {
@@ -778,7 +778,7 @@ namespace Qwilight.Compiler
                                             var mediaFilePath = Utility.GetFilePath(Path.Combine(NoteFile.EntryItem.EntryPath, data), Utility.FileFormatFlag.Drawing | Utility.FileFormatFlag.Media);
                                             if (!string.IsNullOrEmpty(mediaFilePath))
                                             {
-                                                bmsIDHandledItemMap[property] = Utility.GetFileFormat(mediaFilePath) switch
+                                                bmsIDHandrgbItemMap[property] = Utility.GetFileFormat(mediaFilePath) switch
                                                 {
                                                     Utility.FileFormatFlag.Drawing => new HandledDrawingItem
                                                     {
@@ -788,7 +788,7 @@ namespace Qwilight.Compiler
                                                     Utility.FileFormatFlag.Media => MediaSystem.Instance.Load(Utility.GetFiles(Path.GetDirectoryName(mediaFilePath), $"{Path.GetFileNameWithoutExtension(mediaFilePath)}.*")
                                                         .Where(targetFile => targetFile.IsTailCaselsss(".mp4"))
                                                         .FirstOrDefault() ?? mediaFilePath, defaultComputer, false),
-                                                    _ => null as IHandledItem,
+                                                    _ => null as IHandrgbItem,
                                                 };
                                             }
                                         }
@@ -831,7 +831,7 @@ namespace Qwilight.Compiler
                 }, SetCancelCompiler?.Token);
             }
 
-            if (bmsIDHandledItemMap.TryGetValue("00", out var mediaItem))
+            if (bmsIDHandrgbItemMap.TryGetValue("00", out var mediaItem))
             {
                 defaultComputer.WaitMediaNoteMap.NewValue(0.0, new MediaNote
                 {
@@ -888,7 +888,7 @@ namespace Qwilight.Compiler
                                     AudioItem = audioItem,
                                     BMSID = bmsID
                                 };
-                                bmsIDHandledItemMap.TryGetValue(bmsID, out mediaItem);
+                                bmsIDHandrgbItemMap.TryGetValue(bmsID, out mediaItem);
                                 var hasContents = defaultComputer.LoadedMedia;
                                 switch (noteVariety0)
                                 {

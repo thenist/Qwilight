@@ -282,9 +282,9 @@ namespace Qwilight.ViewModel
                     {
                         var avatarHandledMap = _twilightWwwAvatarHandledMap[value.LevelID];
                         var noteIDCount = avatarHandledMap.noteIDCount;
-                        var avatarHandledItems = avatarHandledMap.avatarHandledItems;
+                        var avatarHandrgbItems = avatarHandledMap.avatarHandrgbItems;
 
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Yell1, out var handledYell1Items))
+                        if (avatarHandrgbItems.TryGetValue(BaseNoteFile.Handled.Yell1, out var handledYell1Items))
                         {
                             foreach (var data in handledYell1Items)
                             {
@@ -296,7 +296,7 @@ namespace Qwilight.ViewModel
                         }
                         HandledYell1Text = string.Format(LanguageSystem.Instance.AvatarHandledYell1Text, (100.0 * avatarHandledMap.handledYell1Count / noteIDCount).ToString("0.##％"));
 
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Band1, out var handledBand1Items))
+                        if (avatarHandrgbItems.TryGetValue(BaseNoteFile.Handled.Band1, out var handledBand1Items))
                         {
                             foreach (var data in handledBand1Items)
                             {
@@ -308,7 +308,7 @@ namespace Qwilight.ViewModel
                         }
                         HandledBand1Text = string.Format(LanguageSystem.Instance.AvatarHandledBand1Text, (100.0 * avatarHandledMap.handledBand1Count / noteIDCount).ToString("0.##％"));
 
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.HighestClear, out var handledHighestClearItems))
+                        if (avatarHandrgbItems.TryGetValue(BaseNoteFile.Handled.HighestClear, out var handledHighestClearItems))
                         {
                             foreach (var data in handledHighestClearItems)
                             {
@@ -320,7 +320,7 @@ namespace Qwilight.ViewModel
                         }
                         HandledHighestClearText = string.Format(LanguageSystem.Instance.AvatarHandledHighestClearText, (100.0 * avatarHandledMap.handledHighestClearCount / noteIDCount).ToString("0.##％"));
 
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.HigherClear, out var handledHigherClearItems))
+                        if (avatarHandrgbItems.TryGetValue(BaseNoteFile.Handled.HigherClear, out var handledHigherClearItems))
                         {
                             foreach (var data in handledHigherClearItems)
                             {
@@ -332,7 +332,7 @@ namespace Qwilight.ViewModel
                         }
                         HandledHigherClearText = string.Format(LanguageSystem.Instance.AvatarHandledHigherClearText, (100.0 * avatarHandledMap.handledHigherClearCount / noteIDCount).ToString("0.##％"));
 
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.Clear, out var handledClearItems))
+                        if (avatarHandrgbItems.TryGetValue(BaseNoteFile.Handled.Clear, out var handledClearItems))
                         {
                             foreach (var data in handledClearItems)
                             {
@@ -344,7 +344,7 @@ namespace Qwilight.ViewModel
                         }
                         HandledClearText = string.Format(LanguageSystem.Instance.AvatarHandledClearText, (100.0 * avatarHandledMap.handledClearCount / noteIDCount).ToString("0.##％"));
 
-                        if (avatarHandledItems.TryGetValue(BaseNoteFile.Handled.AssistClear, out var handledAssistClearItems))
+                        if (avatarHandrgbItems.TryGetValue(BaseNoteFile.Handled.AssistClear, out var handledAssistClearItems))
                         {
                             foreach (var data in handledAssistClearItems)
                             {

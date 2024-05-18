@@ -10,7 +10,7 @@
 		<ApplicationIcon>Qwilight.ico</ApplicationIcon>
 		<Authors>Taehui</Authors>
 		<Company>불로그</Company>
-		<VersionPrefix>1.16.28</VersionPrefix>
+		<VersionPrefix>1.16.29</VersionPrefix>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
@@ -55,7 +55,9 @@
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240404000" />
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
+		<PackageReference Include="RGB.NET.Devices.CoolerMaster" Version="2.1.0" />
 		<PackageReference Include="RGB.NET.Devices.Corsair" Version="2.1.0" />
+		<PackageReference Include="RGB.NET.Devices.Msi" Version="2.1.0" />
 		<PackageReference Include="RGB.NET.Devices.SteelSeries" Version="2.1.0" />
 		<PackageReference Include="SharpCompress" Version="0.37.2" />
 		<PackageReference Include="System.Management" Version="8.0.0" />
@@ -269,7 +271,13 @@
 		<None Update="Assets\AMD64\Microsoft.Graphics.Canvas.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\AMD64\MysticLight_SDK_x64.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\AMD64\NVIDIA.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\AMD64\SDKDLL.dll">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\AMD64\sl.common.dll">

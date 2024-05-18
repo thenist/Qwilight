@@ -2,7 +2,7 @@
 
 namespace Qwilight
 {
-    public struct HandledDrawingItem : IHandledItem, IDisposable
+    public struct HandledDrawingItem : IHandrgbItem, IDisposable
     {
         public double Length => double.PositiveInfinity;
 

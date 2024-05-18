@@ -16,7 +16,7 @@ namespace Qwilight
 
         public override bool IsAvailable => Configure.Instance.GS;
 
-        public override Color GetMeterColor() => Colors.White;
+        public override Color GetGroupColor() => Colors.White;
 
         public override void Toggle()
         {
