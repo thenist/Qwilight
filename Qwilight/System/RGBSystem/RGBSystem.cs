@@ -587,24 +587,24 @@ namespace Qwilight
             }
         }
 
-        uint GetDefaultColor(double status) => Utility.GetColor((uint)(0 * status), (uint)(127 * status), (uint)(255 * status), (uint)(255 * status));
+        static uint GetDefaultColor(double status) => Utility.GetColor((uint)(0 * status), (uint)(127 * status), (uint)(255 * status), 255);
 
-        uint GetHandlingColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(127 * status), (uint)(0 * status), (uint)(255 * status));
+        static uint GetHandlingColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(127 * status), (uint)(0 * status), 255);
 
-        uint GetInputStandardColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(255 * status), (uint)(0 * status), (uint)(255 * status));
+        static uint GetInputStandardColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(255 * status), (uint)(0 * status), 255);
 
-        uint GetInputColor(double status, Component.InputMode inputMode, int noteFrame, int i)
+        static uint GetInputColor(double status, Component.InputMode inputMode, int noteFrame, int i)
         {
             var inputNoteDrawings = UI.Instance.NoteDrawings[(int)inputMode][i][noteFrame];
             var inputNoteDrawing = inputNoteDrawings[InputNote.InputNoteContents][LongNote.LongNoteBefore];
             if (inputNoteDrawing.HasValue)
             {
                 var averageColor = inputNoteDrawing.Value.AverageColor;
-                var value0 = (averageColor & 4278190080) >> 24;
-                var value1 = (averageColor & 16711680) >> 16;
-                var value2 = (averageColor & 65280) >> 8;
-                var value3 = averageColor & 255;
-                return Utility.GetColor((uint)(value0 * (0.5 + status / 2)), (uint)(value1 * (0.5 + status / 2)), (uint)(value2 * (0.5 + status / 2)), (uint)(value3 * (0.5 + status / 2)));
+                var value0 = averageColor & 255;
+                var value1 = (averageColor & 65280) >> 8;
+                var value2 = (averageColor & 16711680) >> 16;
+                var value3 = (averageColor & 4278190080) >> 24;
+                return Utility.GetColor((uint)(value1 * (0.5 + status / 2)), (uint)(value2 * (0.5 + status / 2)), (uint)(value3 * (0.5 + status / 2)), value0);
             }
             else
             {
@@ -612,11 +612,11 @@ namespace Qwilight
             }
         }
 
-        uint GetFailedColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(0 * status), (uint)(0 * status), (uint)(255 * status));
+        static uint GetFailedColor(double status) => Utility.GetColor((uint)(255 * status), (uint)(0 * status), (uint)(0 * status), 255);
 
-        uint GetStatusColor(double status) => Utility.GetColor((uint)(0 * status), (uint)(255 * status), (uint)(255 * status), (uint)(255 * status));
+        static uint GetStatusColor(double status) => Utility.GetColor((uint)(0 * status), (uint)(255 * status), (uint)(255 * status), 255);
 
-        uint GetValueColor(Color value, double status) => Utility.GetColor((uint)(value.R * status), (uint)(value.G * status), (uint)(value.B * status), (uint)(255 * status));
+        static uint GetValueColor(Color value, double status) => Utility.GetColor((uint)(value.R * status), (uint)(value.G * status), (uint)(value.B * status), 255);
 
         public void Dispose()
         {
