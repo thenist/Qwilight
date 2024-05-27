@@ -90,7 +90,7 @@ namespace Qwilight.Compiler
         public override void CompileImpl(Computing targetComputing, byte[] noteFileContents, int salt)
         {
             var bmsPositionStopMap = new SortedDictionary<double, double>();
-            var meterMeterMultiplierMap = new SortedDictionary<int, double>
+            var meterMultiplierMap = new SortedDictionary<int, double>
             {
                 { -1, 1.0 }
             };
@@ -160,7 +160,7 @@ namespace Qwilight.Compiler
                     _highestMeter = Math.Max(meter, _highestMeter);
                     if (property[3] == '0' && property[4] == '2')
                     {
-                        meterMeterMultiplierMap[meter] = Utility.ToFloat64(delimited.Length > 1 ? delimited[1] : delimited[0][5..]);
+                        meterMultiplierMap[meter] = Utility.ToFloat64(delimited.Length > 1 ? delimited[1] : delimited[0][5..]);
                     }
                 }
                 else
@@ -704,7 +704,7 @@ namespace Qwilight.Compiler
             var lastMultiplier = 1.0;
             foreach (var bmsPosition in bmsPositionSet)
             {
-                var meterMultiplier = meterMeterMultiplierMap.GetValueOrDefault((int)lastBMSPosition, 1.0);
+                var meterMultiplier = meterMultiplierMap.GetValueOrDefault((int)lastBMSPosition, 1.0);
                 lastLogicalY -= (bmsPosition - lastBMSPosition) * lastMultiplier * meterMultiplier * ComponentValue.LogicalYMeter;
                 _bmsPositionLogicalYMap[bmsPosition] = lastLogicalY;
                 lastWait += ComponentValue.MillisMeter * meterMultiplier * (bmsPosition - lastBMSPosition);

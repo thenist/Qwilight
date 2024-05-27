@@ -34,7 +34,7 @@ end
 
 function _GetVeil()
 	if configures[5] == 0 then
-		return "Veil 0"
+		return "[Veil 0, Veil 1, Veil 2]"
 	elseif configures[5] == 1 then
 		return "Veil 1"
 	elseif configures[5] == 2 then

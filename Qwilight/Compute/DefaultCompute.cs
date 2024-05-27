@@ -342,6 +342,8 @@ namespace Qwilight.Compute
 
         public Comment[] Comments { get; set; }
 
+        public int Salt { get; } = Environment.TickCount;
+
         public string HandlerID { get; }
 
         public ConcurrentQueue<double> MultiplierQueue { get; } = new();

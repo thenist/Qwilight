@@ -220,7 +220,7 @@ namespace Qwilight
             };
 
             DefaultDrawing = ClearedDrawing;
-            VeilDrawing = ClearedDrawing;
+            VeilDrawings = [ClearedDrawing];
         }
 
         public ConcurrentQueue<(Point, bool)> LastPointedQueue { get; } = new();
@@ -239,7 +239,7 @@ namespace Qwilight
 
         public HandledDrawingItem DefaultDrawing { get; set; }
 
-        public HandledDrawingItem VeilDrawing { get; set; }
+        public HandledDrawingItem[] VeilDrawings { get; set; }
 
         public CanvasTextFormat MeterFont { get; }
 
@@ -302,22 +302,22 @@ namespace Qwilight
                 var filePath = Configure.Instance.VeilDrawingFilePath;
                 if (File.Exists(filePath))
                 {
-                    VeilDrawing = new()
+                    VeilDrawings = [new HandledDrawingItem
                     {
                         Drawing = Load(filePath, _veilDrawingContainer),
                         DefaultDrawing = LoadDefault(filePath, _veilDrawingContainer)
-                    };
+                    }];
                 }
                 else
                 {
-                    VeilDrawing = UI.Instance.VeilDrawing ?? ClearedDrawing;
+                    VeilDrawings = UI.Instance.VeilDrawings.Count > 0 ? UI.Instance.VeilDrawings.ToArray() : [ClearedDrawing];
                 }
             }
             catch
             {
-                VeilDrawing = ClearedDrawing;
+                VeilDrawings = [ClearedDrawing];
             }
-            OnPropertyChanged(nameof(VeilDrawing));
+            OnPropertyChanged(nameof(VeilDrawings));
         }
 
         public void HandleSystem()
@@ -1765,7 +1765,7 @@ namespace Qwilight
                                                                         }
                                                                         break;
                                                                     case PaintPipelineID.VeilDrawing:
-                                                                        var veilDrawing = VeilDrawing.Drawing;
+                                                                        var veilDrawing = VeilDrawings.ElementAtOrDefault(defaultComputer.Salt % VeilDrawings.Length).Drawing;
                                                                         if (veilDrawing.HasValue)
                                                                         {
                                                                             var veilDrawingValue = veilDrawing.Value;

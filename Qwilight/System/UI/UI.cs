@@ -13,17 +13,21 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using Windows.UI;
 using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
 
 namespace Qwilight
 {
-    public sealed class UI : Model, IDrawingContainer, IAudioContainer
+    public sealed partial class UI : Model, IDrawingContainer, IAudioContainer
     {
         public const int MaxUIConfigure = 16;
         public const int MaxNoteID = 64;
         public const int MaxPaintPropertyID = 256;
+
+        [GeneratedRegex(@"^\[.*\]$")]
+        private static partial Regex GetMultipleVeilFilePathsComputer();
 
         public static readonly UI Instance = QwilightComponent.GetBuiltInData<UI>(nameof(UI));
 
@@ -230,7 +234,7 @@ namespace Qwilight
 
         public DrawingItem?[] HitPointsDrawings { get; } = new DrawingItem?[9];
 
-        public HandledDrawingItem? VeilDrawing { get; set; }
+        public List<HandledDrawingItem> VeilDrawings { get; } = new();
 
         public DrawingItem? StatusDrawing { get; set; }
 
@@ -1508,7 +1512,9 @@ namespace Qwilight
                         NewDrawing(s, true);
                         break;
                     case "Drawing":
-                        if (justFileName == getVeil([]))
+                        var veilFilePath = getVeil([]);
+                        var veilFilePaths = GetMultipleVeilFilePathsComputer().IsMatch(veilFilePath) ? veilFilePath.Substring(veilFilePath.IndexOf('[') + 1, veilFilePath.LastIndexOf(']') - 1).Split(',').Select(text => text.Trim()) : [veilFilePath];
+                        if (veilFilePaths.Contains(justFileName))
                         {
                             NewHandledDrawing(s);
                         }
@@ -1971,9 +1977,11 @@ namespace Qwilight
                 switch (Path.GetDirectoryName(fileName))
                 {
                     case "Drawing":
-                        if (justFileName == getVeil([]))
+                        var veilFilePath = getVeil([]);
+                        var veilFilePaths = GetMultipleVeilFilePathsComputer().IsMatch(veilFilePath) ? veilFilePath.Substring(veilFilePath.IndexOf('[') + 1, veilFilePath.LastIndexOf(']') - 1).Split(',').Select(text => text.Trim()) : [veilFilePath];
+                        if (veilFilePaths.Contains(justFileName))
                         {
-                            VeilDrawing = handledDrawingItem;
+                            VeilDrawings.Add(handledDrawingItem);
                         }
                         break;
                 }
@@ -2267,6 +2275,7 @@ namespace Qwilight
             AltMap.Clear();
             PaintPipelineValues.Clear();
             DrawingPipeline.Clear();
+            VeilDrawings.Clear();
             DrawingSystem.Instance.SetFontLevel(TitleFont, Levels.FontLevel0Float32);
             DrawingSystem.Instance.SetFontLevel(ArtistFont, Levels.FontLevel0Float32);
             DrawingSystem.Instance.SetFontLevel(GenreFont, Levels.FontLevel0Float32);
