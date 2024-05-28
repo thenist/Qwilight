@@ -54,12 +54,12 @@ namespace Qwilight.View
             {
                 Child = _d2DView
             };
-            _d2DView.PointerPressed += OnD2DPointLower;
-            _d2DView.PointerMoved += OnD2DPointMove;
-            _d2DView.PointerReleased += OnD2DPointHigher;
-            _d2DView.PointerEntered += OnD2DPointEnter;
-            _d2DView.PointerExited += OnD2DPointExit;
-            _d2DView.PointerWheelChanged += OnD2DPointSpin;
+            _mainView.PointerPressed += OnD2DPointLower;
+            _mainView.PointerMoved += OnD2DPointMove;
+            _mainView.PointerReleased += OnD2DPointHigher;
+            _mainView.PointerEntered += OnD2DPointEnter;
+            _mainView.PointerExited += OnD2DPointExit;
+            _mainView.PointerWheelChanged += OnD2DPointSpin;
             _windowXamlView.Content = _mainView;
             _siteView = _windowXamlView.SiteBridge;
             SetD2DViewVisibility(false);
