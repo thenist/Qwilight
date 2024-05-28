@@ -760,7 +760,7 @@ namespace Qwilight
                 VALUES(@noteID, @handled)
             """);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
-            dbStatement.Parameters.AddWithValue("handled", noteFile.HandledValue);
+            dbStatement.Parameters.AddWithValue("handled", noteFile.HandledValue.IDValue);
             dbStatement.ExecuteNonQuery();
         }
 
