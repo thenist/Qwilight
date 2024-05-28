@@ -83,7 +83,7 @@ namespace Qwilight.UIComponent
 
         public bool HasPointerFlag => (_inputFlags & DefaultCompute.InputFlag.Pointer) == DefaultCompute.InputFlag.Pointer;
 
-        public ImageSource HandledWallCommentDrawing => HandledValue.HasValue ? BaseUI.Instance.HandledWallCommentDrawings[(int)HandledValue.Value] : null;
+        public ImageSource HandledWallCommentDrawing => HandledValue.HasValue ? BaseUI.Instance.HandledWallCommentDrawings[(int)HandledValue.Value.IDValue] : null;
 
         public AvatarWww AvatarWwwValue { get; }
 

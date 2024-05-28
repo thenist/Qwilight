@@ -505,7 +505,7 @@ namespace Qwilight.Compiler
         public override void CompileImpl(DefaultCompute defaultComputer, byte[] noteFileContents, bool loadParallelItems)
         {
             var audioFileNameAudioItemMap = new ConcurrentDictionary<string, AudioItem?>();
-            var mediaIDHandrgbItemMap = new ConcurrentDictionary<long, IHandrgbItem>();
+            var mediaIDHandledItemMap = new ConcurrentDictionary<long, IHandledItem>();
             var parallelItems = new ConcurrentBag<Action>();
             try
             {
@@ -552,7 +552,7 @@ namespace Qwilight.Compiler
                             var mediaFilePath = Path.IsPathFullyQualified(paint.name) ? paint.name : Utility.GetFilePath(Path.Combine(NoteFile.EntryItem.EntryPath, paint.name), Utility.FileFormatFlag.Drawing | Utility.FileFormatFlag.Media);
                             if (!string.IsNullOrEmpty(mediaFilePath))
                             {
-                                mediaIDHandrgbItemMap[Utility.ToInt64(paint.id.ToString())] = (Utility.GetFileFormat(mediaFilePath)) switch
+                                mediaIDHandledItemMap[Utility.ToInt64(paint.id.ToString())] = (Utility.GetFileFormat(mediaFilePath)) switch
                                 {
                                     Utility.FileFormatFlag.Drawing => new HandledDrawingItem
                                     {
@@ -566,7 +566,7 @@ namespace Qwilight.Compiler
                         }
                         catch
                         {
-                            mediaIDHandrgbItemMap[Utility.ToInt64(paint.id.ToString())] = null;
+                            mediaIDHandledItemMap[Utility.ToInt64(paint.id.ToString())] = null;
                         }
                     });
                 }
@@ -592,7 +592,7 @@ namespace Qwilight.Compiler
                     defaultComputer.WaitMediaNoteMap.NewValue(_bmsonPositionWaitMap[bmsonPosition], new MediaNote
                     {
                         MediaMode = MediaNote.Mode.Default,
-                        MediaItem = mediaIDHandrgbItemMap.GetValueOrDefault(Utility.ToInt64(mediaEvent.id.ToString())),
+                        MediaItem = mediaIDHandledItemMap.GetValueOrDefault(Utility.ToInt64(mediaEvent.id.ToString())),
                         HasContents = hasContents
                     });
                 }
@@ -602,7 +602,7 @@ namespace Qwilight.Compiler
                     defaultComputer.WaitMediaNoteMap.NewValue(_bmsonPositionWaitMap[bmsonPosition], new MediaNote
                     {
                         MediaMode = MediaNote.Mode.Layer,
-                        MediaItem = mediaIDHandrgbItemMap.GetValueOrDefault(Utility.ToInt64(mediaEvent.id.ToString())),
+                        MediaItem = mediaIDHandledItemMap.GetValueOrDefault(Utility.ToInt64(mediaEvent.id.ToString())),
                         HasContents = hasContents
                     });
                 }
@@ -612,7 +612,7 @@ namespace Qwilight.Compiler
                     defaultComputer.WaitMediaNoteMap.NewValue(_bmsonPositionWaitMap[bmsonPosition], new MediaNote
                     {
                         MediaMode = MediaNote.Mode.Failed,
-                        MediaItem = mediaIDHandrgbItemMap.GetValueOrDefault(Utility.ToInt64(mediaEvent.id.ToString())),
+                        MediaItem = mediaIDHandledItemMap.GetValueOrDefault(Utility.ToInt64(mediaEvent.id.ToString())),
                         HasContents = hasContents
                     });
                 }

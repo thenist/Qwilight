@@ -15,7 +15,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level2,
                     LevelText = "LV. 4",
                     Genre = "Pop",
-                    HandledValue = BaseNoteFile.Handled.HighestClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HighestClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
@@ -24,7 +27,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level3,
                     LevelText = "LV. 7",
                     Genre = "Pop",
-                    HandledValue = BaseNoteFile.Handled.HigherClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HigherClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
@@ -33,7 +39,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level4,
                     LevelText = "LV. 10",
                     Genre = "Pop",
-                    HandledValue = BaseNoteFile.Handled.Clear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.Clear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
@@ -42,7 +51,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level5,
                     LevelText = "LV. 8",
                     Genre = "Pop",
-                    HandledValue = BaseNoteFile.Handled.AssistClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.AssistClear
+                    }
                 }
             },
             new[]
@@ -54,7 +66,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level2,
                     LevelText = "LV. 5",
                     Genre = "J-Rock",
-                    HandledValue = BaseNoteFile.Handled.HighestClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HighestClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
@@ -63,7 +78,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level3,
                     LevelText = "LV. 9",
                     Genre = "J-Rock",
-                    HandledValue = BaseNoteFile.Handled.HigherClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HigherClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
@@ -72,7 +90,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level4,
                     LevelText = "LV. 11",
                     Genre = "J-Rock",
-                    HandledValue = BaseNoteFile.Handled.Clear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.Clear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
@@ -81,7 +102,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level5,
                     LevelText = "LV. 7",
                     Genre = "J-Rock",
-                    HandledValue = BaseNoteFile.Handled.AssistClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.AssistClear
+                    }
                 }
             },
             new[]
@@ -93,7 +117,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level2,
                     LevelText = "LV. 6",
                     Genre = "Rock",
-                    HandledValue = BaseNoteFile.Handled.HighestClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HighestClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
@@ -102,7 +129,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level3,
                     LevelText = "LV. 9",
                     Genre = "Rock",
-                    HandledValue = BaseNoteFile.Handled.HigherClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HigherClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
@@ -111,7 +141,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level4,
                     LevelText = "LV. 13",
                     Genre = "Rock",
-                    HandledValue = BaseNoteFile.Handled.Clear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.Clear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2681820")
                 {
@@ -120,7 +153,10 @@ namespace Qwilight.NoteFile
                     LevelValue = BaseNoteFile.Level.Level5,
                     LevelText = "LV. 10",
                     Genre = "Rock",
-                    HandledValue = BaseNoteFile.Handled.AssistClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.AssistClear
+                    }
                 }
             },
             new[]
@@ -131,7 +167,10 @@ namespace Qwilight.NoteFile
                     Artist = "NieN",
                     LevelValue = BaseNoteFile.Level.Level2,
                     LevelText = "LV. 4",
-                    HandledValue = BaseNoteFile.Handled.HighestClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HighestClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/960170")
                 {
@@ -139,7 +178,10 @@ namespace Qwilight.NoteFile
                     Artist = "NieN",
                     LevelValue = BaseNoteFile.Level.Level3,
                     LevelText = "LV. 7",
-                    HandledValue = BaseNoteFile.Handled.HigherClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HigherClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/960170")
                 {
@@ -147,7 +189,10 @@ namespace Qwilight.NoteFile
                     Artist = "NieN",
                     LevelValue = BaseNoteFile.Level.Level4,
                     LevelText = "LV. 11",
-                    HandledValue = BaseNoteFile.Handled.Clear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.Clear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/960170")
                 {
@@ -155,7 +200,10 @@ namespace Qwilight.NoteFile
                     Artist = "NieN",
                     LevelValue = BaseNoteFile.Level.Level5,
                     LevelText = "LV. 3",
-                    HandledValue = BaseNoteFile.Handled.AssistClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.AssistClear
+                    }
                 }
             },
             new[]
@@ -166,7 +214,10 @@ namespace Qwilight.NoteFile
                     Artist = "t+pazolite",
                     LevelValue = BaseNoteFile.Level.Level1,
                     LevelText = "LV. 7",
-                    HandledValue = BaseNoteFile.Handled.Band1
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.Band1
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/1926210")
                 {
@@ -174,7 +225,10 @@ namespace Qwilight.NoteFile
                     Artist = "t+pazolite",
                     LevelValue = BaseNoteFile.Level.Level2,
                     LevelText = "LV. 11",
-                    HandledValue = BaseNoteFile.Handled.HighestClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HighestClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/1926210")
                 {
@@ -182,7 +236,10 @@ namespace Qwilight.NoteFile
                     Artist = "t+pazolite",
                     LevelValue = BaseNoteFile.Level.Level3,
                     LevelText = "LV. 15",
-                    HandledValue = BaseNoteFile.Handled.HigherClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HigherClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/1926210")
                 {
@@ -190,7 +247,10 @@ namespace Qwilight.NoteFile
                     Artist = "t+pazolite",
                     LevelValue = BaseNoteFile.Level.Level4,
                     LevelText = "LV. 19",
-                    HandledValue = BaseNoteFile.Handled.Clear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.Clear
+                    }
                 }
             },
             new[]
@@ -201,7 +261,10 @@ namespace Qwilight.NoteFile
                     Artist = "Dr.ReB",
                     LevelValue = BaseNoteFile.Level.Level1,
                     LevelText = "LV. 5",
-                    HandledValue = BaseNoteFile.Handled.Band1
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.Band1
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2325460")
                 {
@@ -209,7 +272,10 @@ namespace Qwilight.NoteFile
                     Artist = "Dr.ReB",
                     LevelValue = BaseNoteFile.Level.Level2,
                     LevelText = "LV. 12",
-                    HandledValue = BaseNoteFile.Handled.HighestClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HighestClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2325460")
                 {
@@ -217,7 +283,10 @@ namespace Qwilight.NoteFile
                     Artist = "Dr.ReB",
                     LevelValue = BaseNoteFile.Level.Level3,
                     LevelText = "LV. 15",
-                    HandledValue = BaseNoteFile.Handled.HigherClear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.HigherClear
+                    }
                 },
                 new EZ2DJMAXNoteFile("https://store.steampowered.com/app/2325460")
                 {
@@ -225,7 +294,10 @@ namespace Qwilight.NoteFile
                     Artist = "Dr.ReB",
                     LevelValue = BaseNoteFile.Level.Level4,
                     LevelText = "LV. 18",
-                    HandledValue = BaseNoteFile.Handled.Clear
+                    HandledValue = new()
+                    {
+                        IDValue=BaseNoteFile.Handled.ID.Clear
+                    }
                 }
             }
         };

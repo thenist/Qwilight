@@ -1,6 +1,6 @@
 ﻿namespace Qwilight
 {
-    public interface IHandrgbItem
+    public interface IHandledItem
     {
         double Length { get; }
 

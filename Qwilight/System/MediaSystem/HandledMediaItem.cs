@@ -2,7 +2,7 @@
 
 namespace Qwilight
 {
-    public sealed class HandledMediaItem : IHandrgbItem, IDisposable
+    public sealed class HandledMediaItem : IHandledItem, IDisposable
     {
         public MediaPlayer Media { get; init; }
 

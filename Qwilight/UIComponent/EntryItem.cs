@@ -98,6 +98,8 @@ namespace Qwilight.UIComponent
 
         public double HitPointsValue { get; set; }
 
+        public BaseNoteFile.Handled HandledValue { get; set; }
+
         public int TotalNotes { get; set; }
 
         public double LevelTextValue { get; set; }

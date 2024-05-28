@@ -8,9 +8,36 @@ namespace Qwilight.NoteFile
 {
     public abstract class BaseNoteFile : Computing
     {
-        public enum Handled
+        public struct Handled : IComparable<Handled>, IEquatable<Handled>
         {
-            Not, Clear, Band1, F = 4, HigherClear, HighestClear, AssistClear, Yell1
+            static readonly ID[] _handledIDs = new ID[] { ID.Not, ID.F, ID.AssistClear, ID.Clear, ID.HigherClear, ID.HighestClear, ID.Band1, ID.Yell1 };
+
+            public enum ID
+            {
+                Not, Clear, Band1, F = 4, HigherClear, HighestClear, AssistClear, Yell1
+            }
+
+            public ID IDValue { get; init; }
+
+            public int CompareTo(Handled other) => Array.IndexOf(_handledIDs, IDValue).CompareTo(Array.IndexOf(_handledIDs, other.IDValue));
+
+            public override bool Equals(object obj) => obj is Handled handled && Equals(handled);
+
+            public override int GetHashCode() => IDValue.GetHashCode();
+
+            public bool Equals(Handled other) => other.IDValue == IDValue;
+
+            public static bool operator ==(Handled left, Handled right) => left.Equals(right);
+
+            public static bool operator !=(Handled left, Handled right) => !(left == right);
+
+            public static bool operator <(Handled left, Handled right) => left.CompareTo(right) < 0;
+
+            public static bool operator <=(Handled left, Handled right) => left.CompareTo(right) <= 0;
+
+            public static bool operator >(Handled left, Handled right) => left.CompareTo(right) > 0;
+
+            public static bool operator >=(Handled left, Handled right) => left.CompareTo(right) >= 0;
         }
 
         public enum NoteVariety
@@ -71,7 +98,7 @@ namespace Qwilight.NoteFile
 
         public Color LevelColor => BaseUI.Instance.LevelColors[(int)LevelValue];
 
-        public virtual ImageSource HandledWallDrawing => BaseUI.Instance.HandledWallDrawings[(int)HandledValue];
+        public virtual ImageSource HandledWallDrawing => BaseUI.Instance.HandledWallDrawings[(int)HandledValue.IDValue];
 
         public ImageSource NoteDrawing
         {

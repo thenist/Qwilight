@@ -11,7 +11,7 @@
 
         public Mode MediaMode { get; set; }
 
-        public IHandrgbItem MediaItem { get; set; }
+        public IHandledItem MediaItem { get; set; }
 
         public bool HasContents { get; set; }
 

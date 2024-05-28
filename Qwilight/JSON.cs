@@ -188,7 +188,7 @@ namespace Qwilight
                 public ModeComponent.InputFavorMode inputFavorMode;
                 public ModeComponent.NoteModifyMode noteModifyMode;
                 public ModeComponent.LowestJudgmentConditionMode lowestJudgmentConditionMode;
-                public BaseNoteFile.Handled handled;
+                public BaseNoteFile.Handled.ID handled;
                 public int stand;
                 public int band;
                 public bool isBand1;
@@ -751,7 +751,7 @@ namespace Qwilight
             public string genre;
             public BaseNoteFile.Level level;
             public string levelText;
-            public BaseNoteFile.Handled handled;
+            public BaseNoteFile.Handled.ID handled;
         }
 
         public struct TwilightWwwLevel
@@ -843,9 +843,9 @@ namespace Qwilight
             public int handledClearCount;
             public int handledAssistClearCount;
             public int noteIDCount;
-            public Dictionary<BaseNoteFile.Handled, List<HandrgbItem>> avatarHandrgbItems;
+            public Dictionary<BaseNoteFile.Handled.ID, List<HandledItem>> avatarHandledItems;
 
-            public sealed class HandrgbItem : Computing
+            public sealed class HandledItem : Computing
             {
                 public int stand;
             }

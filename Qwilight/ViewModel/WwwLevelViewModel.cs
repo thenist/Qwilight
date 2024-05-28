@@ -60,7 +60,10 @@ namespace Qwilight.ViewModel
                         LevelText = data.levelText;
                     }
                 }
-                HandledValue = data.handled;
+                HandledValue = new()
+                {
+                    IDValue = data.handled
+                };
             }
         }
 

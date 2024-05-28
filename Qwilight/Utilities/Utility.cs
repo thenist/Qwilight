@@ -385,7 +385,10 @@ namespace Qwilight.Utilities
                     },
                     Stand = data.stand,
                     Band = data.band,
-                    HandledValue = data.handled,
+                    HandledValue = new()
+                    {
+                        IDValue = data.handled
+                    },
                     IsBand1 = data.isBand1,
                     Point = data.point,
                     TwilightCommentary = string.IsNullOrEmpty(data.commentary) ? string.Empty : $"💬 {data.commentary}",

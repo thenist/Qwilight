@@ -266,13 +266,19 @@ Qwilight
             {
                 case 0:
                     DB.Instance.WipeHandled(NoteFile);
-                    NoteFile.HandledValue = BaseNoteFile.Handled.Not;
+                    NoteFile.HandledValue = new()
+                    {
+                        IDValue = BaseNoteFile.Handled.ID.Not
+                    };
                     break;
                 case 1:
                     foreach (var noteFile in EntryItemValue.NoteFiles)
                     {
                         DB.Instance.WipeHandled(noteFile);
-                        noteFile.HandledValue = BaseNoteFile.Handled.Not;
+                        noteFile.HandledValue = new()
+                        {
+                            IDValue = BaseNoteFile.Handled.ID.Not
+                        };
                     }
                     break;
             }

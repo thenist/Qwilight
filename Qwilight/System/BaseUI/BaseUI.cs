@@ -193,6 +193,8 @@ namespace Qwilight
 
         public ImageSource HitPointsValueFitDrawing { get; set; }
 
+        public ImageSource HandledFitDrawing { get; set; }
+
         public ImageSource LengthNetSiteDrawing { get; set; }
 
         public ImageSource BPMFitDrawing { get; set; }
@@ -1852,6 +1854,9 @@ namespace Qwilight
                             case "Hit Points Value":
                                 HitPointsValueFitDrawing = defaultDrawing;
                                 break;
+                            case "Handled":
+                                HandledFitDrawing = defaultDrawing;
+                                break;
                         }
                         break;
                     case "":
@@ -2055,13 +2060,13 @@ namespace Qwilight
                 QuitDrawings[i][1] ??= QuitDrawings[i][0];
             }
 
-            HandledWallDrawings[(int)BaseNoteFile.Handled.Yell1] ??= HandledWallDrawings[(int)BaseNoteFile.Handled.Band1];
+            HandledWallDrawings[(int)BaseNoteFile.Handled.ID.Yell1] ??= HandledWallDrawings[(int)BaseNoteFile.Handled.ID.Band1];
 
-            for (var i = (int)BaseNoteFile.Handled.Yell1; i >= (int)BaseNoteFile.Handled.Not; --i)
+            for (var i = (int)BaseNoteFile.Handled.ID.Yell1; i >= (int)BaseNoteFile.Handled.ID.Not; --i)
             {
                 HandledWallCommentDrawings[i] ??= HandledWallDrawings[i];
             }
-            HandledWallCommentDrawings[(int)BaseNoteFile.Handled.Yell1] ??= HandledWallCommentDrawings[(int)BaseNoteFile.Handled.Band1];
+            HandledWallCommentDrawings[(int)BaseNoteFile.Handled.ID.Yell1] ??= HandledWallCommentDrawings[(int)BaseNoteFile.Handled.ID.Band1];
 
             for (var i = PaintProperties.Length - 1; i >= 0; --i)
             {

@@ -220,30 +220,30 @@ namespace Qwilight.ViewModel
             Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.BMSON] ||
             Configure.Instance.InputWantNoteVariety[(int)BaseNoteFile.NoteVariety.EventNote];
 
-        public Brush HandledNot => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Not] ? 1 : 0];
+        public Brush HandledNot => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.Not] ? 1 : 0];
 
-        public Brush HandledAssistClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.AssistClear] ? 1 : 0];
+        public Brush HandledAssistClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.AssistClear] ? 1 : 0];
 
-        public Brush HandledClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Clear] ? 1 : 0];
+        public Brush HandledClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.Clear] ? 1 : 0];
 
-        public Brush HandledBand1 => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Band1] ? 1 : 0];
+        public Brush HandledBand1 => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.Band1] ? 1 : 0];
 
-        public Brush HandledYell1 => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Yell1] ? 1 : 0];
+        public Brush HandledYell1 => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.Yell1] ? 1 : 0];
 
-        public Brush HandledF => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.F] ? 1 : 0];
+        public Brush HandledF => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.F] ? 1 : 0];
 
-        public Brush HandledHigherClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HigherClear] ? 1 : 0];
+        public Brush HandledHigherClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.HigherClear] ? 1 : 0];
 
-        public Brush HandledHighestClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear] ? 1 : 0];
+        public Brush HandledHighestClear => Paints.PointPaints[Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.HighestClear] ? 1 : 0];
 
-        public bool IsTotalWantHandled => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Not] ||
-            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.AssistClear] ||
-            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Clear] ||
-            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Band1] ||
-            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.F] ||
-            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HigherClear] ||
-            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.HighestClear]||
-            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.Yell1];
+        public bool IsTotalWantHandled => Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.Not] ||
+            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.AssistClear] ||
+            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.Clear] ||
+            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.Band1] ||
+            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.F] ||
+            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.HigherClear] ||
+            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.HighestClear]||
+            Configure.Instance.InputWantHandled[(int)BaseNoteFile.Handled.ID.Yell1];
 
         public Brush Level0 => Paints.PointPaints[Configure.Instance.InputWantLevel[(int)BaseNoteFile.Level.Level0] ? 1 : 0];
 

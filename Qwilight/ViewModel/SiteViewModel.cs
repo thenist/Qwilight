@@ -33,7 +33,7 @@ namespace Qwilight.ViewModel
 
             public BaseNoteFile.Handled HandledValue { get; set; }
 
-            public ImageSource HandledWallDrawing => BaseUI.Instance.HandledWallDrawings[(int)HandledValue];
+            public ImageSource HandledWallDrawing => BaseUI.Instance.HandledWallDrawings[(int)HandledValue.IDValue];
 
             public bool NotHaveIt { get; set; }
 
@@ -733,7 +733,10 @@ namespace Qwilight.ViewModel
                         HighestBPM = twilightCallSiteNet.highestBPM,
                         InputMode = twilightCallSiteNet.inputMode,
                         WantLevelID = twilightCallSiteNet.wantLevelID,
-                        HandledValue = mainViewModel.NoteID512s.TryGetValue(noteID, out var netSiteNoteFile) ? netSiteNoteFile.HandledValue : BaseNoteFile.Handled.Not,
+                        HandledValue = mainViewModel.NoteID512s.TryGetValue(noteID, out var netSiteNoteFile) ? netSiteNoteFile.HandledValue : new()
+                        {
+                            IDValue = BaseNoteFile.Handled.ID.Not
+                        },
                         IsAutoLongNote = twilightCallSiteNet.isAutoLongNote
                     };
                     _netSiteNoteID = twilightCallSiteNet.noteIDs;

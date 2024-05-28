@@ -19,6 +19,7 @@ namespace Qwilight.UIComponent
         public const int AverageInputCount = 10;
         public const int EntryPath = 11;
         public const int HitPointsValue = 12;
+        public const int Handled = 13;
 
         public ImageSource Drawing => Mode switch
         {
@@ -35,6 +36,7 @@ namespace Qwilight.UIComponent
             AverageInputCount => BaseUI.Instance.AverageInputCountFitDrawing,
             EntryPath => BaseUI.Instance.EntryPathFitDrawing,
             HitPointsValue => BaseUI.Instance.HitPointsValueFitDrawing,
+            Handled => BaseUI.Instance.HandledFitDrawing,
             _ => default,
         };
 
@@ -86,6 +88,9 @@ namespace Qwilight.UIComponent
                     break;
                 case HitPointsValue:
                     FitImpl(entryItem => entryItem.HitPointsValue, null, false);
+                    break;
+                case Handled:
+                    FitImpl(entryItem => entryItem.HandledValue, (entryItem, noteFile) => entryItem.HandledValue == noteFile.HandledValue, false);
                     break;
             }
 
@@ -156,6 +161,7 @@ namespace Qwilight.UIComponent
                 case Artist:
                 case Title:
                 case EntryPath:
+                case Handled:
                     foreach (var noteFile in entryItem.WellNoteFiles)
                     {
                         noteFile.FittedText = null;

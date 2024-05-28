@@ -1478,8 +1478,11 @@ namespace Qwilight.ViewModel
                                 var commentsMe = twilightWwwCommentValue.comments.Where(comment => comment.avatarID == avatarID).ToArray();
                                 if (commentsMe.Length == 1)
                                 {
-                                    var handled = commentsMe.Single().handled;
-                                    if (noteFile.HandledValue != handled && !(noteFile.HandledValue == BaseNoteFile.Handled.F && handled == BaseNoteFile.Handled.Not))
+                                    var handled = new BaseNoteFile.Handled
+                                    {
+                                        IDValue = commentsMe.Single().handled
+                                    };
+                                    if (noteFile.HandledValue != handled && !(noteFile.HandledValue.IDValue == BaseNoteFile.Handled.ID.F && handled.IDValue == BaseNoteFile.Handled.ID.Not))
                                     {
                                         noteFile.HandledValue = handled;
                                         DB.Instance.SetHandled(noteFile);
@@ -2247,6 +2250,10 @@ namespace Qwilight.ViewModel
                                 DateTime? latestDate = null;
                                 var handledCount = 0;
                                 var hitPointsValue = 0.0;
+                                var handled = new BaseNoteFile.Handled
+                                {
+                                    IDValue = BaseNoteFile.Handled.ID.Not
+                                };
                                 titles.Clear();
                                 bpms.Clear();
                                 lengths.Clear();
@@ -2262,6 +2269,10 @@ namespace Qwilight.ViewModel
                                     totalNotes = Math.Max(totalNotes, wellNoteFile.TotalNotes);
                                     highestInputCount = Math.Max(highestInputCount, wellNoteFile.HighestInputCount);
                                     hitPointsValue = Math.Max(hitPointsValue, wellNoteFile.HitPointsValue);
+                                    if (handled < wellNoteFile.HandledValue)
+                                    {
+                                        handled = wellNoteFile.HandledValue;
+                                    }
                                     if (!double.IsNaN(wellNoteFile.LevelTextValue))
                                     {
                                         levelTextValue = Math.Max(levelTextValue, wellNoteFile.LevelTextValue);
@@ -2286,6 +2297,7 @@ namespace Qwilight.ViewModel
                                 entryItem.LevelTextValue = levelTextValue;
                                 entryItem.HighestInputCount = highestInputCount;
                                 entryItem.HitPointsValue = hitPointsValue;
+                                entryItem.HandledValue = handled;
                                 if (!isEntryItemEventNote)
                                 {
                                     entryItem.Title = Utility.GetFavoriteItem(titles);
@@ -2357,7 +2369,7 @@ namespace Qwilight.ViewModel
                             (isTotalWantBanned || !noteFile.IsBanned) &&
                             inputWantInputMode[(int)noteFile.InputMode] &&
                             inputWantLevel[(int)noteFile.LevelValue] &&
-                            inputWantHandled[(int)noteFile.HandledValue] &&
+                            inputWantHandled[(int)noteFile.HandledValue.IDValue] &&
                             (IsNotWantLevel || double.IsNaN(levelTextValue) || (lowestWantLevelTextValue <= levelTextValue && levelTextValue <= highestWantLevelTextValue)) &&
                             (isNotWantBPM || (lowestWantBPM <= bpm && bpm <= highestWantBPM)) &&
                             (isNotWantAverageInputCount || (lowestWantAverageInputCount <= averageInputCount && averageInputCount <= highestWantAverageInputCount)) &&

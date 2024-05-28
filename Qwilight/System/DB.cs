@@ -746,7 +746,10 @@ namespace Qwilight
             """);
             dbStatement.Parameters.AddWithValue("noteID", noteFile.GetNoteID512());
             using var rows = dbStatement.ExecuteReader();
-            return rows.Read() ? (BaseNoteFile.Handled)rows.GetInt32("Handled") : BaseNoteFile.Handled.Not;
+            return new BaseNoteFile.Handled
+            {
+                IDValue = rows.Read() ? (BaseNoteFile.Handled.ID)rows.GetInt32("Handled") : BaseNoteFile.Handled.ID.Not
+            };
         }
 
         public void SetHandled(BaseNoteFile noteFile)

@@ -1313,9 +1313,9 @@ namespace Qwilight.Compute
 
         public int ValidatedTotalNotes { get; set; }
 
-        public IHandrgbItem LoopingBanalMedia { get; set; }
+        public IHandledItem LoopingBanalMedia { get; set; }
 
-        public IHandrgbItem LoopingBanalFailedMedia { get; set; }
+        public IHandledItem LoopingBanalFailedMedia { get; set; }
 
         void SendPostItem(PostableItem postableItem)
         {
@@ -4207,27 +4207,36 @@ namespace Qwilight.Compute
                     var lowestAudioMultiplier = new[] { TotallyLevyingAudioMultiplier }.Concat(Comment.AudioMultipliers.Select(audioMultiplier => audioMultiplier.AudioMultiplier)).Min();
                     if (lowestAudioMultiplier >= 1.0 && ModeComponentValue.IsDefaultHandled)
                     {
-                        if (NoteFile.HandledValue != BaseNoteFile.Handled.Yell1)
+                        if (NoteFile.HandledValue.IDValue != BaseNoteFile.Handled.ID.Yell1)
                         {
                             if (IsYell1)
                             {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.Yell1;
+                                NoteFile.HandledValue = new()
+                                {
+                                    IDValue = BaseNoteFile.Handled.ID.Yell1
+                                };
                             }
                             else
                             {
-                                if (NoteFile.HandledValue != BaseNoteFile.Handled.Band1)
+                                if (NoteFile.HandledValue.IDValue != BaseNoteFile.Handled.ID.Band1)
                                 {
                                     if (IsBand1)
                                     {
-                                        NoteFile.HandledValue = BaseNoteFile.Handled.Band1;
+                                        NoteFile.HandledValue = new()
+                                        {
+                                            IDValue = BaseNoteFile.Handled.ID.Band1
+                                        };
                                     }
                                     else
                                     {
                                         if (IsF)
                                         {
-                                            if (NoteFile.HandledValue == BaseNoteFile.Handled.Not)
+                                            if (NoteFile.HandledValue.IDValue == BaseNoteFile.Handled.ID.Not)
                                             {
-                                                NoteFile.HandledValue = BaseNoteFile.Handled.F;
+                                                NoteFile.HandledValue = new()
+                                                {
+                                                    IDValue = BaseNoteFile.Handled.ID.F
+                                                };
                                             }
                                         }
                                         else
@@ -4235,13 +4244,22 @@ namespace Qwilight.Compute
                                             switch (ModeComponentValue.HandlingHitPointsModeValue)
                                             {
                                                 case ModeComponent.HitPointsMode.Highest:
-                                                    NoteFile.HandledValue = BaseNoteFile.Handled.HighestClear;
+                                                    NoteFile.HandledValue = new()
+                                                    {
+                                                        IDValue = BaseNoteFile.Handled.ID.HighestClear
+                                                    };
                                                     break;
-                                                case ModeComponent.HitPointsMode.Higher when NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear:
-                                                    NoteFile.HandledValue = BaseNoteFile.Handled.HigherClear;
+                                                case ModeComponent.HitPointsMode.Higher when NoteFile.HandledValue.IDValue != BaseNoteFile.Handled.ID.HighestClear:
+                                                    NoteFile.HandledValue = new()
+                                                    {
+                                                        IDValue = BaseNoteFile.Handled.ID.HigherClear
+                                                    };
                                                     break;
-                                                case ModeComponent.HitPointsMode.Default when NoteFile.HandledValue != BaseNoteFile.Handled.HigherClear && NoteFile.HandledValue != BaseNoteFile.Handled.HighestClear:
-                                                    NoteFile.HandledValue = BaseNoteFile.Handled.Clear;
+                                                case ModeComponent.HitPointsMode.Default when NoteFile.HandledValue.IDValue != BaseNoteFile.Handled.ID.HigherClear && NoteFile.HandledValue.IDValue != BaseNoteFile.Handled.ID.HighestClear:
+                                                    NoteFile.HandledValue = new()
+                                                    {
+                                                        IDValue = BaseNoteFile.Handled.ID.Clear
+                                                    };
                                                     break;
                                             }
                                         }
@@ -4252,15 +4270,21 @@ namespace Qwilight.Compute
                     }
                     else
                     {
-                        if (NoteFile.HandledValue == BaseNoteFile.Handled.Not || NoteFile.HandledValue == BaseNoteFile.Handled.F)
+                        if (NoteFile.HandledValue.IDValue == BaseNoteFile.Handled.ID.Not || NoteFile.HandledValue.IDValue == BaseNoteFile.Handled.ID.F)
                         {
                             if (IsF)
                             {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.F;
+                                NoteFile.HandledValue = new()
+                                {
+                                    IDValue = BaseNoteFile.Handled.ID.F
+                                };
                             }
                             else
                             {
-                                NoteFile.HandledValue = BaseNoteFile.Handled.AssistClear;
+                                NoteFile.HandledValue = new()
+                                {
+                                    IDValue = BaseNoteFile.Handled.ID.AssistClear
+                                };
                             }
                         }
                     }
