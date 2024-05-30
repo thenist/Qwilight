@@ -113,7 +113,6 @@ namespace Qwilight.ViewModel
         bool _isHallAbility9KLoading;
         bool _isHallLevelLoading;
         string _twilightCommentary = string.Empty;
-        bool _isLazyGCMode;
         bool _isWPFViewVisible = true;
         bool _isLoaded;
         double _windowDPI;
@@ -238,43 +237,40 @@ namespace Qwilight.ViewModel
                     {
                         IsVisible = !value
                     });
-                    IsLazyGCMode = IsComputingMode && !value;
                     ViewModels.Instance.NotifyWindowViewModels();
                     TVSystem.Instance.HandleSystemIfAvailable();
+                    SetPragmatic();
                 }
             }
         }
 
-        public bool IsLazyGCMode
-        {
-            get => _isLazyGCMode;
+        public bool IsPragmatic { get; set; }
 
-            set
+        void SetPragmatic()
+        {
+            IsPragmatic = !IsWPFViewVisible && IsComputingMode && !Computer.IsPausing;
+            if (IsPragmatic)
             {
-                _isLazyGCMode = value;
-                if (value)
-                {
-                    var lazyGC = Configure.Instance.LazyGCV2 * 1000L * 1000L;
-                    if (lazyGC > 0L)
-                    {
-                        try
-                        {
-                            GC.TryStartNoGCRegion(lazyGC);
-                        }
-                        catch (InvalidOperationException)
-                        {
-                        }
-                    }
-                }
-                else
+                var lazyGC = Configure.Instance.LazyGCV2 * 1000L * 1000L;
+                if (lazyGC > 0L)
                 {
                     try
                     {
-                        GC.EndNoGCRegion();
+                        GC.TryStartNoGCRegion(lazyGC);
                     }
                     catch (InvalidOperationException)
                     {
                     }
+                }
+            }
+            else
+            {
+                try
+                {
+                    GC.EndNoGCRegion();
+                }
+                catch (InvalidOperationException)
+                {
                 }
             }
         }
@@ -448,7 +444,11 @@ namespace Qwilight.ViewModel
             set => SetProperty(ref _isHallLevelLoading, value, nameof(IsHallLevelLoading));
         }
 
-        public void NotifyIsPausing() => OnPropertyChanged(nameof(IsPausing));
+        public void NotifyIsPausing()
+        {
+            OnPropertyChanged(nameof(IsPausing));
+            SetPragmatic();
+        }
 
         public Fading FadingValue { get; } = new();
 

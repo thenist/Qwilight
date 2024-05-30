@@ -7,6 +7,8 @@ namespace Qwilight.Compute
 {
     public class AutoCompute : DefaultCompute
     {
+        public override bool IsPointVisible => true;
+
         public override bool CanPause => false;
 
         public override bool IsPassable => false;

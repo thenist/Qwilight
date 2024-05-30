@@ -3,6 +3,7 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.UI;
 using Microsoft.UI.Content;
 using Microsoft.UI.Input;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
@@ -229,17 +230,13 @@ namespace Qwilight.View
             {
                 UIHandler.Instance.HandleParallel(() =>
                 {
-                    _siteView.Enable();
                     _siteView.Show();
+                    _mainView.Focus(FocusState.Pointer);
                 });
             }
             else
             {
-                UIHandler.Instance.HandleParallel(() =>
-                {
-                    _siteView.Hide();
-                    _siteView.Disable();
-                });
+                UIHandler.Instance.HandleParallel(_siteView.Hide);
             }
         }
 

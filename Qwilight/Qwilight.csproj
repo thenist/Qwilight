@@ -10,7 +10,7 @@
 		<ApplicationIcon>Qwilight.ico</ApplicationIcon>
 		<Authors>Taehui</Authors>
 		<Company>불로그</Company>
-		<VersionPrefix>1.16.29</VersionPrefix>
+		<VersionPrefix>1.16.30</VersionPrefix>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
@@ -46,9 +46,9 @@
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
 		<PackageReference Include="ini-parser-new" Version="2.6.2" />
 		<PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.5" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.6" />
 		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="3.0.0" />
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2478.35" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2535.41" />
 		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.106">
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
@@ -65,7 +65,7 @@
 		<PackageReference Include="Vortice.DirectInput" Version="3.5.0" />
 		<PackageReference Include="Vortice.XInput" Version="3.5.0" />
 		<PackageReference Include="Wooting.NET" Version="1.6.3" />
-		<PackageReference Include="YamlDotNet" Version="15.1.4" />
+		<PackageReference Include="YamlDotNet" Version="15.1.6" />
 	</ItemGroup>
 
 	<ItemGroup>

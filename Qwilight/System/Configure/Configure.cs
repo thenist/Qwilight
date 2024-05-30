@@ -3463,10 +3463,6 @@ namespace Qwilight
             {
                 FlowValues = true;
             }
-            if (isInit || Utility.IsLowerDate(Date, 1, 16, 16))
-            {
-                LazyGCV2 = 0L;
-            }
             if (isInit || Utility.IsLowerDate(Date, 1, 16, 17))
             {
                 AutoInputFavorLabelledMillis = false;
@@ -3547,6 +3543,7 @@ namespace Qwilight
             {
                 MSI = false;
                 CM = false;
+                LazyGCV2 = 4096L;
             }
             if (!UIConfigureValuesV2.ContainsKey(UIItemValue.Title))
             {

@@ -7,6 +7,8 @@ namespace Qwilight.Compute
 {
     public sealed class IOCompute : DefaultCompute
     {
+        public override bool IsPointVisible => true;
+
         public override bool IsPowered => false;
 
         public override bool CanPause => false;

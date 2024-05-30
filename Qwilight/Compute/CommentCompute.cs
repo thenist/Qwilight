@@ -7,6 +7,8 @@ namespace Qwilight.Compute
 {
     public sealed class CommentCompute : DefaultCompute
     {
+        public override bool IsPointVisible => true;
+
         public override bool IsPassable => false;
 
         public override bool IsEscapable => false;

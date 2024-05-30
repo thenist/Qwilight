@@ -1591,7 +1591,7 @@ namespace Qwilight
         public async Task GetDefaultUIDate(long defaultUIDate, bool isSilent)
         {
             var twilightWwwDefaultDate = await GetWwwParallel<JSON.TwilightWwwDefaultDate?>($"{QwilightComponent.QwilightAPI}/defaultUIDate?date={defaultUIDate}").ConfigureAwait(false);
-            if (twilightWwwDefaultDate.HasValue && !ViewModels.Instance.MainValue.IsLazyGCMode)
+            if (twilightWwwDefaultDate.HasValue && !ViewModels.Instance.MainValue.IsPragmatic)
             {
                 var date = twilightWwwDefaultDate.Value.date;
                 Configure.Instance.DefaultUIDate = date;

@@ -412,6 +412,8 @@ namespace Qwilight.Compute
 
         public Event.Types.DrawingComponent NetDrawingComponentValue { get; set; }
 
+        public virtual bool IsPointVisible => false;
+
         public virtual bool CanPause => WwwLevelDataValue?.AllowPause != false;
 
         public virtual bool CanUndo => WwwLevelDataValue?.AllowPause != false;
@@ -1104,6 +1106,7 @@ namespace Qwilight.Compute
                 {
                     throw new ScriptRuntimeException(e);
                 }
+                HandleWarning();
                 HandleComputer();
             }
         }
@@ -1447,7 +1450,7 @@ namespace Qwilight.Compute
             {
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, string.Format(LanguageSystem.Instance.AudioMultiplierWarning, ModeComponentValue.AudioMultiplier.ToString("×0.00")));
             }
-            if (!Configure.Instance.AllowTwilightComment && !IsBanned && !IsPostableItemMode && ModeComponentValue.CanBeTwilightComment && TwilightSystem.Instance.IsLoggedIn)
+            if (!Configure.Instance.AllowTwilightComment && !IsBanned && string.IsNullOrEmpty(EventNoteEntryItem?.EventNoteID) && !IsPostableItemMode && ModeComponentValue.CanBeTwilightComment && TwilightSystem.Instance.IsLoggedIn)
             {
                 NotifySystem.Instance.Notify(NotifySystem.NotifyVariety.Warning, NotifySystem.NotifyConfigure.Default, LanguageSystem.Instance.TwilightCommentWarning);
             }
@@ -1586,7 +1589,6 @@ namespace Qwilight.Compute
             LevelValue = NoteFile.LevelValue;
             LevelText = NoteFile.LevelText;
             InputMode = NoteFile.InputMode;
-            HandleWarning();
         }
 
         void SetIIDXInputAudioVariety(BaseNote note)
@@ -4825,7 +4827,16 @@ namespace Qwilight.Compute
                                     }
                                     else
                                     {
-                                        if (EventNoteEntryItem != null)
+                                        if (string.IsNullOrEmpty(EventNoteEntryItem?.EventNoteID))
+                                        {
+                                            var commentFilePath = Path.Combine(QwilightComponent.CommentEntryPath, commentID);
+                                            if (File.Exists(commentFilePath))
+                                            {
+                                                using var fs = File.OpenRead(commentFilePath);
+                                                netItem.Comment = Comment.Parser.ParseFrom(fs);
+                                            }
+                                        }
+                                        else
                                         {
                                             var commentFilePath = Path.Combine(QwilightComponent.CommentEntryPath, Path.ChangeExtension(commentID, ".zip"));
                                             if (File.Exists(commentFilePath))
@@ -4838,15 +4849,6 @@ namespace Qwilight.Compute
                                                     rms.Position = 0;
                                                     netItem.Comment = Comment.Parser.ParseFrom(rms);
                                                 }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            var commentFilePath = Path.Combine(QwilightComponent.CommentEntryPath, commentID);
-                                            if (File.Exists(commentFilePath))
-                                            {
-                                                using var fs = File.OpenRead(commentFilePath);
-                                                netItem.Comment = Comment.Parser.ParseFrom(fs);
                                             }
                                         }
                                     }
